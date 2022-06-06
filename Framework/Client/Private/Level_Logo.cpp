@@ -33,7 +33,7 @@ void CLevel_Logo::Tick(_float fTimeDelta)
 		if (FAILED(pGameInstance->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pGraphic_Device, LEVEL_GAMEPLAY))))
 			return;
 
-		Safe_Release(pGameInstance);
+		//Safe_Release(pGameInstance);
 	}
 
 
@@ -60,7 +60,7 @@ HRESULT CLevel_Logo::Ready_Layer_BackGround(const _tchar * pLayerTag)
 
 
 
-	Safe_Release(pGameInstance);
+	//Safe_Release(pGameInstance);
 
 	return S_OK;
 }
@@ -82,7 +82,7 @@ void CLevel_Logo::Free()
 {
 	__super::Free();
 
-
+	delete this;
 
 }
 

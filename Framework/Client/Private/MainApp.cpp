@@ -50,10 +50,7 @@ HRESULT CMainApp::Render()
 	
 	m_pRenderer->Draw_RenderGroup();
 
-	int j = 11;
-
 	m_pGameInstance->Render_Engine();
-	int i = 0;
 
 	m_pGameInstance->Render_End(g_hWnd);
 
@@ -105,11 +102,11 @@ CMainApp * CMainApp::Create()
 
 void CMainApp::Free()
 {
-	Safe_Release(m_pRenderer);
+	//Safe_Release(m_pRenderer);
 	//Safe_Release(m_pGraphic_Device);
-	Safe_Release(m_pGameInstance);		
+	//Safe_Release(m_pGameInstance);		
 
 	CGameInstance::Release_Engine();
 
-	//delete this;
+	delete this;
 }

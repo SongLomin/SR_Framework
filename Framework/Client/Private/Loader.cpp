@@ -74,7 +74,7 @@ HRESULT CLoader::Loading_ForLogoLevel()
 
 	m_isFinished = true;
 
-	Safe_Release(pGameInstance);
+	//Safe_Release(pGameInstance);
 
 	return S_OK;
 }
@@ -83,13 +83,13 @@ HRESULT CLoader::Loading_ForGamePlayLevel()
 {
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중이비낟. "));
 
-	for (_uint i = 0; i < 999999999; ++i)
+	for (_uint i = 0; i < 9999; ++i)
 		int a = 10;
 
 
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중이비낟. "));
 
-	for (_uint i = 0; i < 999999999; ++i)
+	for (_uint i = 0; i < 9999; ++i)
 		int a = 10;
 
 
@@ -101,7 +101,7 @@ HRESULT CLoader::Loading_ForGamePlayLevel()
 	return S_OK;
 }
 
-CLoader * CLoader::Create(LPDIRECT3DDEVICE9 pGraphic_Device, LEVEL eNextLevel)
+CLoader* CLoader::Create(LPDIRECT3DDEVICE9 pGraphic_Device, LEVEL eNextLevel)
 {
 	CLoader*		pInstance = new CLoader(pGraphic_Device);
 

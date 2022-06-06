@@ -49,5 +49,6 @@ void CLevel_GamePlay::Free()
 {
 	__super::Free();
 
+	delete this;
 }
 

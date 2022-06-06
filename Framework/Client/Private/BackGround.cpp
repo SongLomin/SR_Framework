@@ -61,7 +61,7 @@ HRESULT CBackGround::SetUp_Components()
 
 
 
-	Safe_Release(pGameInstance);
+	//Safe_Release(pGameInstance);
 	return S_OK;
 }
 
@@ -95,6 +95,6 @@ void CBackGround::Free()
 {
 	__super::Free();
 
-	Safe_Release(m_pRendererCom);
+	//Safe_Release(m_pRendererCom);
 	delete this;
 }
