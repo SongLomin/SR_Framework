@@ -3,13 +3,13 @@
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: m_pGraphic_Device(pGraphic_Device)
 {
-	Safe_AddRef(m_pGraphic_Device);
+	//Safe_AddRef(m_pGraphic_Device);
 }
 
 CGameObject::CGameObject(const CGameObject & Prototype)
 	: m_pGraphic_Device(Prototype.m_pGraphic_Device)
 {
-	Safe_AddRef(m_pGraphic_Device);
+	//Safe_AddRef(m_pGraphic_Device);
 }
 
 HRESULT CGameObject::Initialize_Prototype()
@@ -37,5 +37,5 @@ HRESULT CGameObject::Render()
 
 void CGameObject::Free()
 {
-	Safe_Release(m_pGraphic_Device);
+	//Safe_Release(m_pGraphic_Device);
 }

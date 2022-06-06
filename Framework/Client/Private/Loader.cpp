@@ -6,7 +6,7 @@
 CLoader::CLoader(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: m_pGraphic_Device(pGraphic_Device)
 {
-	Safe_AddRef(m_pGraphic_Device);
+	//Safe_AddRef(m_pGraphic_Device);
 }
 
 unsigned int APIENTRY LoadingMain(void* pArg)
@@ -51,7 +51,7 @@ HRESULT CLoader::Initialize(LEVEL eNextLevel)
 HRESULT CLoader::Loading_ForLogoLevel()
 {
 	CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
-	Safe_AddRef(pGameInstance);
+	//Safe_AddRef(pGameInstance);
 	
 #pragma region PROTOTYPE_GAMEOBJECT
 
@@ -118,8 +118,10 @@ void CLoader::Free()
 {
 	WaitForSingleObject(m_hThread, INFINITE);
 
-	Safe_Release(m_pGraphic_Device);
+	//Safe_Release(m_pGraphic_Device);
 
 	DeleteCriticalSection(&m_CriticalSection);
 	CloseHandle(m_hThread);
+
+	delete this;
 }

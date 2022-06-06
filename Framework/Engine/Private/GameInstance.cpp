@@ -9,10 +9,10 @@ CGameInstance::CGameInstance()
 	, m_pObject_Manager(CObject_Manager::Get_Instance())
 	, m_pComponent_Manager(CComponent_Manager::Get_Instance())
 {
-	Safe_AddRef(m_pComponent_Manager);
-	Safe_AddRef(m_pObject_Manager);
-	Safe_AddRef(m_pLevel_Manager);
-	Safe_AddRef(m_pGraphic_Device);
+	//Safe_AddRef(m_pComponent_Manager);
+	//Safe_AddRef(m_pObject_Manager);
+	//Safe_AddRef(m_pLevel_Manager);
+	//Safe_AddRef(m_pGraphic_Device);
 }
 
 HRESULT CGameInstance::Initialize_Engine(_uint iNumLevels, const GRAPHICDESC& GraphicDesc, LPDIRECT3DDEVICE9* ppOut)
@@ -133,13 +133,13 @@ CComponent * CGameInstance::Clone_Component(_uint iLevelIndex, const _tchar * pP
 
 void CGameInstance::Release_Engine()
 {
-	CGameInstance::Get_Instance()->Destroy_Instance();		
+	CGameInstance::Get_Instance()->Destroy_Instance();
 
 	CObject_Manager::Get_Instance()->Destroy_Instance();
 
 	CComponent_Manager::Get_Instance()->Destroy_Instance();
 
-	CLevel_Manager::Get_Instance()->Destroy_Instance();	
+	CLevel_Manager::Get_Instance()->Destroy_Instance();
 
 	CGraphic_Device::Get_Instance()->Destroy_Instance();
 
@@ -147,8 +147,10 @@ void CGameInstance::Release_Engine()
 
 void CGameInstance::Free()
 {
-	Safe_Release(m_pComponent_Manager);
-	Safe_Release(m_pObject_Manager);
-	Safe_Release(m_pLevel_Manager);
-	Safe_Release(m_pGraphic_Device);
+	//Safe_Release(m_pComponent_Manager);
+	//Safe_Release(m_pObject_Manager);
+	//Safe_Release(m_pLevel_Manager);
+	//Safe_Release(m_pGraphic_Device);
+
+	delete this;
 }

@@ -49,7 +49,7 @@ void CLevel_Loading::Tick(_float fTimeDelta)
 				return;
 
 			CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
-			Safe_AddRef(pGameInstance);
+			//Safe_AddRef(pGameInstance);
 
 			if (FAILED(pGameInstance->Open_Level(m_eNextLevel, pLevel)))
 				return;
@@ -87,5 +87,7 @@ void CLevel_Loading::Free()
 	__super::Free();
 
 	Safe_Release(m_pLoader);
+
+	delete this;
 }
 

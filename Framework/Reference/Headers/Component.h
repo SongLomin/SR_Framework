@@ -15,7 +15,7 @@ public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);
 
-private:
+protected:
 	LPDIRECT3DDEVICE9			m_pGraphic_Device = nullptr;
 	
 public:

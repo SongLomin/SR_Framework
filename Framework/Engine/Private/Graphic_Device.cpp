@@ -75,7 +75,7 @@ HRESULT CGraphic_Device::InitDevice(const GRAPHICDESC& GraphicDesc, LPDIRECT3DDE
 
 	*ppOut = m_pDevice;
 
-	Safe_AddRef(m_pDevice);
+	//Safe_AddRef(m_pDevice);
 
 	return S_OK;
 }
@@ -161,15 +161,23 @@ void CGraphic_Device::Render_End(HWND hWnd)
 
 void CGraphic_Device::Free()
 {
-	if (0 != Safe_Release(m_pFont))
-		MSG_BOX("Failed To Release : Font");
-
-	if (0 != Safe_Release(m_pSprite))
-		MSG_BOX("Failed To Release : Sprite");
 	
-	if (0 != Safe_Release(m_pDevice))
-		MSG_BOX("Failed To Release : Device");
+	m_pFont->Release();
+	m_pSprite->Release();
+	m_pDevice->Release();
+	m_p3D->Release();
 
-	if (0 != Safe_Release(m_p3D))
-		MSG_BOX("Failed To Release : SDK");
+	//if (0 != Safe_Release(m_pFont))
+	//	MSG_BOX("Failed To Release : Font");
+
+	//if (0 != Safe_Release(m_pSprite))
+	//	MSG_BOX("Failed To Release : Sprite");
+	//
+	//if (0 != Safe_Release(m_pDevice))
+	//	MSG_BOX("Failed To Release : Device");
+
+	//if (0 != Safe_Release(m_p3D))
+	//	MSG_BOX("Failed To Release : SDK");
+
+	delete this;
 }

@@ -69,4 +69,5 @@ void CComponent_Manager::Free()
 
 	Safe_Delete_Array(m_pPrototypes);
 	
+	delete this;
 }

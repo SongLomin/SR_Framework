@@ -51,7 +51,7 @@ HRESULT CBackGround::Render()
 HRESULT CBackGround::SetUp_Components()
 {
 	CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
-	Safe_AddRef(pGameInstance);
+	//Safe_AddRef(pGameInstance);
 
 	/* For.Com_Renderer */ 
 	m_pRendererCom = (CRenderer*)pGameInstance->Clone_Component(LEVEL_STATIC, TEXT("Prototype_Component_Renderer"));
@@ -96,4 +96,5 @@ void CBackGround::Free()
 	__super::Free();
 
 	Safe_Release(m_pRendererCom);
+	delete this;
 }

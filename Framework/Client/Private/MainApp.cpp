@@ -7,7 +7,7 @@
 CMainApp::CMainApp()
 	: m_pGameInstance(CGameInstance::Get_Instance())
 {
-	Safe_AddRef(m_pGameInstance);
+	//Safe_AddRef(m_pGameInstance);
 }
 
 HRESULT CMainApp::Initialize()
@@ -50,7 +50,10 @@ HRESULT CMainApp::Render()
 	
 	m_pRenderer->Draw_RenderGroup();
 
+	int j = 11;
+
 	m_pGameInstance->Render_Engine();
+	int i = 0;
 
 	m_pGameInstance->Render_End(g_hWnd);
 
@@ -82,7 +85,7 @@ HRESULT CMainApp::Ready_Prototype_Component()
 		m_pRenderer = CRenderer::Create(m_pGraphic_Device))))
 		return E_FAIL;
 
-	Safe_AddRef(m_pRenderer);
+	//Safe_AddRef(m_pRenderer);
 
 	return S_OK;
 }
@@ -103,8 +106,10 @@ CMainApp * CMainApp::Create()
 void CMainApp::Free()
 {
 	Safe_Release(m_pRenderer);
-	Safe_Release(m_pGraphic_Device);
+	//Safe_Release(m_pGraphic_Device);
 	Safe_Release(m_pGameInstance);		
 
-	CGameInstance::Release_Engine();	
+	CGameInstance::Release_Engine();
+
+	//delete this;
 }

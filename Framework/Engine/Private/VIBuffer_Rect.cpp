@@ -26,8 +26,8 @@ HRESULT CVIBuffer_Rect::Initialize_Prototype()
 
 	m_pVB->Lock(0, m_iStride * m_iNumVertices, (void**)&pVertices, 0);
 
-	pVertices[0].vPosition = ;
-	pVertices[0].vTexUV = ;
+	//pVertices[0].vPosition = ;
+	//pVertices[0].vTexUV = ;
 	
 	m_pVB->Unlock();
 

@@ -14,16 +14,16 @@ HRESULT CLevel_Manager::Open_Level(_uint iLevelID, CLevel * pLevel)
 	if(nullptr != m_pCurrentLevel)
 	{
 		CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
-		Safe_AddRef(pGameInstance);
+		//Safe_AddRef(pGameInstance);
 
 		if (FAILED(pGameInstance->Clear(m_iCurrentLevelID)))
 			return E_FAIL;
 
-		Safe_Release(pGameInstance);
+		//Safe_Release(pGameInstance);
 	}
 
 
-	Safe_Release(m_pCurrentLevel);
+	//Safe_Release(m_pCurrentLevel);
 
 	m_pCurrentLevel = pLevel;
 
@@ -51,4 +51,6 @@ HRESULT CLevel_Manager::Render()
 void CLevel_Manager::Free()
 {
 	Safe_Release(m_pCurrentLevel);
+
+	delete this;
 }
