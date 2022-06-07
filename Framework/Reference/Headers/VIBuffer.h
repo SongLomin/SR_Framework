@@ -18,12 +18,14 @@ protected:
 public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);
+	virtual HRESULT Render();
 
 protected:
 	LPDIRECT3DVERTEXBUFFER9			m_pVB = nullptr;
 	_uint							m_iStride = 0; /* 정점하나의 바이트 크기 .*/
 	_uint							m_iNumVertices = 0; /* 정점의 갯수 */
 	_ulong							m_dwFVF = 0;
+	_uint							m_iNumPrimitive = 0;
 
 protected:
 	HRESULT Create_VertexBuffer();

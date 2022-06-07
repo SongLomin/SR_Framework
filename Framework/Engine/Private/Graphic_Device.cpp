@@ -3,7 +3,7 @@
 IMPLEMENT_SINGLETON(CGraphic_Device)
 
 CGraphic_Device::CGraphic_Device()
-	: m_p3D(nullptr) , m_pDevice(nullptr), m_pSprite(nullptr), m_pFont(nullptr)
+	: m_p3D(nullptr) , m_pDevice(nullptr)
 {
 
 }
@@ -49,27 +49,6 @@ HRESULT CGraphic_Device::InitDevice(const GRAPHICDESC& GraphicDesc, LPDIRECT3DDE
 	if (FAILED(m_p3D->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GraphicDesc.hWnd, vp, &d3dpp, &m_pDevice)))
 	{
 		MSG_BOX("CreateDevice Failed"); // mfc에서만 사용가능한 메세지 박스 함수
-		return E_FAIL;
-	}
-
-	if (FAILED(D3DXCreateSprite(m_pDevice, &m_pSprite)))
-	{
-		MSG_BOX("m_pSprite Failed");
-		return E_FAIL;
-	}
-
-	D3DXFONT_DESCW	tFontInfo;
-	ZeroMemory(&tFontInfo, sizeof(D3DXFONT_DESCW));
-
-	tFontInfo.Height = 20;
-	tFontInfo.Width = 10;
-	tFontInfo.Weight = FW_HEAVY;
-	tFontInfo.CharSet = HANGEUL_CHARSET;
-	lstrcpy(tFontInfo.FaceName, L"궁서");
-	
-	if (FAILED(D3DXCreateFontIndirect(m_pDevice, &tFontInfo, &m_pFont)))
-	{
-		MSG_BOX("m_pFont Failed");
 		return E_FAIL;
 	}
 
@@ -140,15 +119,10 @@ void CGraphic_Device::Render_Begin(void)
 	//여기서부터 후면버퍼에 그리기 시점을 알린다.
 	m_pDevice->BeginScene();
 
-	// 2D 이미지를 그릴 수 있도록 장치에게 알림, 현재 렌더링 옵션은 매개변수로 넣어줌
-	// 알파테스트가 유효한 상태에서 알파블렌딩을 사용하겠다는 옵션
-	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND);
-
 }
 
 void CGraphic_Device::Render_End(HWND hWnd)
 {
-	m_pSprite->End();
 	m_pDevice->EndScene();
 
 	// 후면버퍼에 연결되어 있는 서피스와 전면 버퍼에 연결된 서피스를 교환하는 과정
@@ -161,9 +135,6 @@ void CGraphic_Device::Render_End(HWND hWnd)
 
 void CGraphic_Device::Free()
 {
-	
-	m_pFont->Release();
-	m_pSprite->Release();
 	m_pDevice->Release();
 	m_p3D->Release();
 

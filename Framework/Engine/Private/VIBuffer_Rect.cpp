@@ -14,6 +14,7 @@ HRESULT CVIBuffer_Rect::Initialize_Prototype()
 {
 	m_iStride = sizeof(VTXTEX);
 	m_iNumVertices = 6;
+	m_iNumPrimitive = 2;
 	m_dwFVF = D3DFVF_XYZ | D3DFVF_TEX1; /* | D3DFVF_TEXCOORDSIZE2(0) */
 	
 	/* 정점배열이 할당된다. */
@@ -26,8 +27,24 @@ HRESULT CVIBuffer_Rect::Initialize_Prototype()
 
 	m_pVB->Lock(0, m_iStride * m_iNumVertices, (void**)&pVertices, 0);
 
-	//pVertices[0].vPosition = ;
-	//pVertices[0].vTexUV = ;
+	pVertices[0].vPosition = _float3(-0.5f, 0.5f, 0.0f);
+	pVertices[0].vTexUV = _float2(0.f, 0.f);
+
+	pVertices[1].vPosition = _float3(0.5f, 0.5f, 0.0f);
+	pVertices[1].vTexUV = _float2(1.f, 0.f);
+
+	pVertices[2].vPosition = _float3(0.5f, -0.5f, 0.0f);
+	pVertices[2].vTexUV = _float2(1.f, 1.f);
+
+	pVertices[3].vPosition = _float3(0.5f, -0.5f, 0.0f);
+	pVertices[3].vTexUV = _float2(1.f, 1.f);
+
+	pVertices[4].vPosition = _float3(-0.5f, -0.5f, 0.0f);
+	pVertices[4].vTexUV = _float2(0.f, 1.f);
+
+	pVertices[5].vPosition = _float3(-0.5f, 0.5f, 0.0f);
+	pVertices[5].vTexUV = _float2(0.f, 0.f);
+	
 	
 	m_pVB->Unlock();
 
