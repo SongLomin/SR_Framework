@@ -7,7 +7,7 @@ BEGIN(Engine)
 class ENGINE_DLL CGameObject abstract : public CBase
 {
 protected:
-	CGameObject(LPDIRECT3DDEVICE9 pGraphic_Device);	
+	CGameObject();	
 	CGameObject(const CGameObject& Prototype);
 	virtual ~CGameObject() = default;
 
@@ -19,7 +19,8 @@ public:
 	virtual HRESULT Render();
 
 protected:
-	LPDIRECT3DDEVICE9			m_pGraphic_Device = nullptr;
+	list<class CComponent> m_Coms;
+
 
 public:
 	virtual CGameObject* Clone(void* pArg) = 0;
