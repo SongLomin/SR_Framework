@@ -1,13 +1,11 @@
 #include "..\Public\Component.h"
 
-CComponent::CComponent(LPDIRECT3DDEVICE9 pGraphic_Device)
-	: m_pGraphic_Device(pGraphic_Device)
+CComponent::CComponent()
 {
 	//Safe_AddRef(m_pGraphic_Device);
 }
 
 CComponent::CComponent(const CComponent & Prototype)
-	: m_pGraphic_Device(Prototype.m_pGraphic_Device)
 {
 	//Safe_AddRef(m_pGraphic_Device);
 }

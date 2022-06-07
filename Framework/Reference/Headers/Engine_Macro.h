@@ -37,3 +37,6 @@ void ClassName::Destroy_Instance()						\
 {														\
 	return Safe_Release(m_pInstance);					\
 }
+
+#define LPDEVICE (CGameInstance::Get_Instance()->Get_Device())
+#define DEVICE (*(LPDEVICE))

@@ -5,6 +5,7 @@
 
 BEGIN(Engine)
 class CRenderer;
+class CVIBuffer_Rect;
 END
 
 BEGIN(Client)
@@ -25,7 +26,7 @@ public:
 
 private:
 	CRenderer*				m_pRendererCom = nullptr;
-
+	CVIBuffer_Rect*			m_pVIBufferCom = nullptr;
 
 private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 	HRESULT SetUp_Components();

@@ -14,7 +14,7 @@ private:
 	// com 객체 : 언어와의 통신 규약을 갖고 하드웨어를 통제하여 각종 기능을 제공하는 객체
 
 public:
-	LPDIRECT3DDEVICE9			Get_Device(void) { return m_pDevice; }
+	LPDIRECT3DDEVICE9*			Get_Device(void) { return &m_pDevice; }
 public:
 	HRESULT		InitDevice(const GRAPHICDESC& GraphicDesc, LPDIRECT3DDEVICE9* ppOut);	
 	void		Render_Begin(void);

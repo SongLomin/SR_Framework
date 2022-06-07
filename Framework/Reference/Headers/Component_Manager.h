@@ -4,7 +4,7 @@
 
 /* 컴포넌트들의 원형을 가지고 있는다. */
 #include "Renderer.h"
-
+#include "VIBuffer_Rect.h"
 
 BEGIN(Engine)
 

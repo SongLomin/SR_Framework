@@ -1,7 +1,6 @@
 #include "..\Public\VIBuffer_Rect.h"
 
-CVIBuffer_Rect::CVIBuffer_Rect(LPDIRECT3DDEVICE9 pGraphic_Device)
-	: CVIBuffer(pGraphic_Device)
+CVIBuffer_Rect::CVIBuffer_Rect()
 {
 }
 
@@ -27,23 +26,23 @@ HRESULT CVIBuffer_Rect::Initialize_Prototype()
 
 	m_pVB->Lock(0, m_iStride * m_iNumVertices, (void**)&pVertices, 0);
 
-	pVertices[0].vPosition = _float3(-0.5f, 0.5f, 0.0f);
-	pVertices[0].vTexUV = _float2(0.f, 0.f);
+	pVertices[0].vPosition = _float3(-0.5f, 0.5f, 0.f);
+	pVertices[0].vTexUV = _float2(0.0f, 0.f);
 
-	pVertices[1].vPosition = _float3(0.5f, 0.5f, 0.0f);
+	pVertices[1].vPosition = _float3(0.5f, 0.5f, 0.f);
 	pVertices[1].vTexUV = _float2(1.f, 0.f);
 
-	pVertices[2].vPosition = _float3(0.5f, -0.5f, 0.0f);
+	pVertices[2].vPosition = _float3(0.5f, -0.5f, 0.f);
 	pVertices[2].vTexUV = _float2(1.f, 1.f);
 
-	pVertices[3].vPosition = _float3(0.5f, -0.5f, 0.0f);
-	pVertices[3].vTexUV = _float2(1.f, 1.f);
+	pVertices[3].vPosition = _float3(-0.5f, 0.5f, 0.f);
+	pVertices[3].vTexUV = _float2(0.f, 0.f);
 
-	pVertices[4].vPosition = _float3(-0.5f, -0.5f, 0.0f);
-	pVertices[4].vTexUV = _float2(0.f, 1.f);
+	pVertices[4].vPosition = _float3(0.5f, -0.5f, 0.f);
+	pVertices[4].vTexUV = _float2(1.f, 1.f);
 
-	pVertices[5].vPosition = _float3(-0.5f, 0.5f, 0.0f);
-	pVertices[5].vTexUV = _float2(0.f, 0.f);
+	pVertices[5].vPosition = _float3(-0.5f, -0.5f, 0.f);
+	pVertices[5].vTexUV = _float2(0.f, 1.f);
 	
 	
 	m_pVB->Unlock();
@@ -56,9 +55,9 @@ HRESULT CVIBuffer_Rect::Initialize(void * pArg)
 	return S_OK;
 }
 
-CVIBuffer_Rect * CVIBuffer_Rect::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
+CVIBuffer_Rect * CVIBuffer_Rect::Create()
 {
-	CVIBuffer_Rect*		pInstance = new CVIBuffer_Rect(pGraphic_Device);
+	CVIBuffer_Rect*		pInstance = new CVIBuffer_Rect();
 
 	if (FAILED(pInstance->Initialize_Prototype()))
 	{
@@ -71,11 +70,20 @@ CVIBuffer_Rect * CVIBuffer_Rect::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
 
 CComponent * CVIBuffer_Rect::Clone(void * pArg)
 {
-	return nullptr;
+	CVIBuffer_Rect* pInstance = new CVIBuffer_Rect(*this);
+
+	if (FAILED(pInstance->Initialize(pArg)))
+	{
+		MSG_BOX("Failed to Cloned : CVIBuffer_Rect");
+		Safe_Release(pInstance);
+	}
+
+	return pInstance;
 }
 
 void CVIBuffer_Rect::Free()
 {
 	__super::Free();
 
+	delete this;
 }

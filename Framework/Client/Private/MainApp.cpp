@@ -42,13 +42,12 @@ void CMainApp::Tick(float fTimeDelta)
 
 HRESULT CMainApp::Render()
 {
-	if (nullptr == m_pGameInstance || 
-		nullptr == m_pRenderer)
+	if (nullptr == m_pGameInstance)
 		return E_FAIL;
 
 	m_pGameInstance->Render_Begin();
 	
-	m_pRenderer->Draw_RenderGroup();
+	m_pGameInstance->Draw_RenderGroup();
 
 	m_pGameInstance->Render_Engine();
 
@@ -69,6 +68,11 @@ HRESULT CMainApp::Open_Level(LEVEL eLevelID)
 	if (FAILED(m_pGameInstance->Open_Level(LEVEL_LOADING, pLevel_Loading)))
 		return E_FAIL;
 
+	/* For.Prototype_Component_VIBuffer_Rect*/
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Rect"),
+		CVIBuffer_Rect::Create())))
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -79,7 +83,7 @@ HRESULT CMainApp::Ready_Prototype_Component()
 
 	/* For.Prototype_Component_Renderer */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Renderer"),
-		m_pRenderer = CRenderer::Create(m_pGraphic_Device))))
+		CRenderer::Create())))
 		return E_FAIL;
 
 	//Safe_AddRef(m_pRenderer);

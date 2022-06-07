@@ -11,7 +11,7 @@ BEGIN(Engine)
 class ENGINE_DLL CVIBuffer abstract : public CComponent
 {
 protected:
-	CVIBuffer(LPDIRECT3DDEVICE9 pGraphic_Device);
+	CVIBuffer();
 	CVIBuffer(const CVIBuffer& Prototype);
 	virtual ~CVIBuffer() = default;
 

@@ -70,7 +70,7 @@ void CObject_Manager::Tick(_float fTimeDelta)
 }
 
 void CObject_Manager::LateTick(_float fTimeDelta)
-{
+{	
 	for (_uint i = 0; i < m_iNumLevels; ++i)
 	{
 		for (auto& Pair : m_pLayers[i])

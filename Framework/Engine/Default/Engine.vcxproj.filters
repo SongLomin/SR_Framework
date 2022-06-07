@@ -64,6 +64,9 @@
     <Filter Include="01.Utility\03.Components\Model\Rect">
       <UniqueIdentifier>{9bbfb4c2-f50e-4feb-b393-a311f3b0b406}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\Renderer\Manager">
+      <UniqueIdentifier>{4641f8f5-e445-449e-bd39-fd459d8db911}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -123,6 +126,9 @@
     <ClInclude Include="..\Public\VIBuffer_Rect.h">
       <Filter>01.Utility\03.Components\Model\Rect</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Render_Manager.h">
+      <Filter>01.Utility\03.Components\Renderer\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -163,6 +169,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\VIBuffer_Rect.cpp">
       <Filter>01.Utility\03.Components\Model\Rect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Render_Manager.cpp">
+      <Filter>01.Utility\03.Components\Renderer\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

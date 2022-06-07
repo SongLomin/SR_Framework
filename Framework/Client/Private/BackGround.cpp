@@ -40,11 +40,13 @@ void CBackGround::LateTick(_float fTimeDelta)
 		return;
 
 	
-	m_pRendererCom->Add_RenderGroup(CRenderer::RENDER_PRIORITY, this);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_PRIORITY, this);
 }
 
 HRESULT CBackGround::Render()
 {
+	m_pVIBufferCom->Render();
+
 	return S_OK;
 }
 
@@ -58,7 +60,9 @@ HRESULT CBackGround::SetUp_Components()
 	if (nullptr == m_pRendererCom)
 		return E_FAIL;
 
-
+	m_pVIBufferCom = (CVIBuffer_Rect*)pGameInstance->Clone_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Rect"));
+	if (nullptr == m_pVIBufferCom)
+		return E_FAIL;
 
 
 	//Safe_Release(pGameInstance);
@@ -96,5 +100,6 @@ void CBackGround::Free()
 	__super::Free();
 
 	//Safe_Release(m_pRendererCom);
+	Safe_Release(m_pVIBufferCom);
 	delete this;
 }

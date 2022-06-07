@@ -1,19 +1,18 @@
 #include "..\Public\Renderer.h"
 #include "GameObject.h"
+#include "GameInstance.h"
 
-
-CRenderer::CRenderer(LPDIRECT3DDEVICE9 pGraphic_Device)
-	: CComponent(pGraphic_Device)
+CRenderer::CRenderer()
 {
 }
 
-HRESULT CRenderer::Add_RenderGroup(RENDERGROUP eGroup, CGameObject * pGameObject)
+HRESULT CRenderer::Add_RenderGroup(RENDERGROUP eGroup, CGameObject* pGameObject)
 {
-	if (eGroup >= RENDER_END ||
+	if ((_uint)eGroup >= (_uint)RENDERGROUP::RENDER_END ||
 		nullptr == pGameObject)
 		return E_FAIL;
 
-	m_RenderObjects[eGroup].push_back(pGameObject);
+	CGameInstance::Get_Instance()->Add_RenderGroup(eGroup, pGameObject);
 
 	//Safe_AddRef(pGameObject);
 
@@ -30,26 +29,9 @@ HRESULT CRenderer::Initialize(void * pArg)
 	return S_OK;
 }
 
-HRESULT CRenderer::Draw_RenderGroup()
+CRenderer * CRenderer::Create()
 {
-	for (_uint i = 0; i < RENDER_END; ++i)
-	{
-		for (auto& pGameObject : m_RenderObjects[i])
-		{
-			if (nullptr != pGameObject)
-				pGameObject->Render();
-
-			//Safe_Release(pGameObject);
-		}
-		m_RenderObjects[i].clear();
-	}
-
-	return S_OK;
-}
-
-CRenderer * CRenderer::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
-{
-	CRenderer*		pInstance = new CRenderer(pGraphic_Device);
+	CRenderer*		pInstance = new CRenderer();
 
 	if (FAILED(pInstance->Initialize_Prototype()))
 	{
@@ -62,7 +44,6 @@ CRenderer * CRenderer::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
 
 CComponent * CRenderer::Clone(void * pArg)
 {
-	
 
 	return this;	
 }
@@ -70,14 +51,6 @@ CComponent * CRenderer::Clone(void * pArg)
 void CRenderer::Free()
 {
 	__super::Free();
-
-	for (_uint i = 0; i < RENDER_END; ++i)
-	{
-		for (auto& pGameObject : m_RenderObjects[i])
-			//Safe_Release(pGameObject);
-
-		m_RenderObjects[i].clear();		
-	}
 
 	delete this;
 }

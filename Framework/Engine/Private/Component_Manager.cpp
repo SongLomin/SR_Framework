@@ -59,6 +59,8 @@ CComponent * CComponent_Manager::Find_Components(_uint iLevelIndex, const _tchar
 
 void CComponent_Manager::Free()
 {
+	__super::Free();
+
 	for (_uint i = 0; i < m_iNumLevels; ++i)
 	{
 		for (auto& Pair : m_pPrototypes[i])

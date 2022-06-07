@@ -1,13 +1,11 @@
 #include "..\Public\GameObject.h"
 
-CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphic_Device)
-	: m_pGraphic_Device(pGraphic_Device)
+CGameObject::CGameObject()
 {
 	//Safe_AddRef(m_pGraphic_Device);
 }
 
 CGameObject::CGameObject(const CGameObject & Prototype)
-	: m_pGraphic_Device(Prototype.m_pGraphic_Device)
 {
 	//Safe_AddRef(m_pGraphic_Device);
 }

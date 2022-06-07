@@ -8,6 +8,7 @@ CGameInstance::CGameInstance()
 	, m_pLevel_Manager(CLevel_Manager::Get_Instance())
 	, m_pObject_Manager(CObject_Manager::Get_Instance())
 	, m_pComponent_Manager(CComponent_Manager::Get_Instance())
+	, m_pRender_Manager(CRender_Manager::Get_Instance())
 {
 	//Safe_AddRef(m_pComponent_Manager);
 	//Safe_AddRef(m_pObject_Manager);
@@ -90,6 +91,14 @@ void CGameInstance::Render_End(HWND hWnd)
 	return m_pGraphic_Device->Render_End(hWnd);
 }
 
+LPDIRECT3DDEVICE9* CGameInstance::Get_Device(void)
+{
+	if (nullptr == m_pGraphic_Device)
+		return nullptr;
+
+	return m_pGraphic_Device->Get_Device();
+}
+
 HRESULT CGameInstance::Open_Level(_uint iLevelID, CLevel * pLevel)
 {
 	if (nullptr == m_pLevel_Manager)
@@ -131,6 +140,26 @@ CComponent * CGameInstance::Clone_Component(_uint iLevelIndex, const _tchar * pP
 	return m_pComponent_Manager->Clone_Component(iLevelIndex, pPrototypeTag, pArg);
 }
 
+HRESULT CGameInstance::Add_RenderGroup(RENDERGROUP eGroup, CGameObject* pGameObject)
+{
+	if (nullptr == m_pRender_Manager)
+	{
+		return E_FAIL;
+	}
+
+	return m_pRender_Manager->Add_RenderGroup(eGroup, pGameObject);
+}
+
+HRESULT CGameInstance::Draw_RenderGroup()
+{
+	if (nullptr == m_pRender_Manager)
+	{
+		return E_FAIL;
+	}
+
+	return m_pRender_Manager->Draw_RenderGroup();
+}
+
 void CGameInstance::Release_Engine()
 {
 	CGameInstance::Get_Instance()->Destroy_Instance();
@@ -142,6 +171,8 @@ void CGameInstance::Release_Engine()
 	CLevel_Manager::Get_Instance()->Destroy_Instance();
 
 	CGraphic_Device::Get_Instance()->Destroy_Instance();
+
+	CRender_Manager::Get_Instance()->Destroy_Instance();
 
 }
 
