@@ -32,8 +32,8 @@ HRESULT CGameInstance::Initialize_Engine(_uint iNumLevels, const GRAPHICDESC& Gr
 		return E_FAIL;
 
 	/* 컴포넌트 매니져의 예약. */
-	if (FAILED(m_pComponent_Manager->Reserve_Container(iNumLevels)))
-		return E_FAIL;
+	//if (FAILED(m_pComponent_Manager->Reserve_Container(iNumLevels)))
+	//	return E_FAIL;
 
 	return S_OK;	
 }
@@ -123,21 +123,21 @@ HRESULT CGameInstance::Add_GameObject(_uint iLevelIndex, const _tchar * pLayerTa
 	return m_pObject_Manager->Add_GameObject(iLevelIndex, pLayerTag, pPrototypeTag, pArg);
 }
 
-HRESULT CGameInstance::Add_Prototype(_uint iLevelIndex, const _tchar * pPrototypeTag, CComponent * pPrototype)
+HRESULT CGameInstance::Add_Prototype(const _char * pPrototypeTag, CComponent * pPrototype)
 {
 	if (nullptr == m_pComponent_Manager)
 		return E_FAIL;
 
-	return m_pComponent_Manager->Add_Prototype(iLevelIndex, pPrototypeTag, pPrototype);
+	return m_pComponent_Manager->Add_Prototype(pPrototypeTag, pPrototype);
 	
 }
 
-CComponent * CGameInstance::Clone_Component(_uint iLevelIndex, const _tchar * pPrototypeTag, void * pArg)
+CComponent * CGameInstance::Clone_Component(const _char * pPrototypeTag, void * pArg)
 {
 	if (nullptr == m_pComponent_Manager)
 		return nullptr;
 
-	return m_pComponent_Manager->Clone_Component(iLevelIndex, pPrototypeTag, pArg);
+	return m_pComponent_Manager->Clone_Component(pPrototypeTag, pArg);
 }
 
 HRESULT CGameInstance::Add_RenderGroup(RENDERGROUP eGroup, CGameObject* pGameObject)

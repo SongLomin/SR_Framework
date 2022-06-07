@@ -1,15 +1,14 @@
 #include "stdafx.h"
 #include "..\Public\BackGround.h"
 #include "GameInstance.h"
+#include <iostream>
 
-CBackGround::CBackGround(LPDIRECT3DDEVICE9 pGraphic_Device)
-	: CGameObject(pGraphic_Device)
+CBackGround::CBackGround()
 {
 
 }
 
 CBackGround::CBackGround(const CBackGround & Prototype)
-	: CGameObject(Prototype)
 {
 }
 
@@ -56,11 +55,11 @@ HRESULT CBackGround::SetUp_Components()
 	//Safe_AddRef(pGameInstance);
 
 	/* For.Com_Renderer */ 
-	m_pRendererCom = (CRenderer*)pGameInstance->Clone_Component(LEVEL_STATIC, TEXT("Prototype_Component_Renderer"));
+	m_pRendererCom = (CRenderer*)pGameInstance->Clone_Component(typeid(CRenderer).name());
 	if (nullptr == m_pRendererCom)
 		return E_FAIL;
 
-	m_pVIBufferCom = (CVIBuffer_Rect*)pGameInstance->Clone_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Rect"));
+	m_pVIBufferCom = (CVIBuffer_Rect*)pGameInstance->Clone_Component(typeid(CVIBuffer_Rect).name());
 	if (nullptr == m_pVIBufferCom)
 		return E_FAIL;
 
@@ -69,9 +68,9 @@ HRESULT CBackGround::SetUp_Components()
 	return S_OK;
 }
 
-CBackGround * CBackGround::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
+CBackGround * CBackGround::Create()
 {
-	CBackGround*		pInstance = new CBackGround(pGraphic_Device);
+	CBackGround*		pInstance = new CBackGround();
 
 	if (FAILED(pInstance->Initialize_Prototype()))
 	{

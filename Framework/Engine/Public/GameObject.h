@@ -17,14 +17,24 @@ public:
 	virtual void Tick(_float fTimeDelta);
 	virtual void LateTick(_float fTimeDelta);
 	virtual HRESULT Render();
+	
 
 protected:
-	list<class CComponent> m_Coms;
-
+	list<class CComponent*> m_pComs;
+	list<CGameObject*> m_pChilds;
 
 public:
 	virtual CGameObject* Clone(void* pArg) = 0;
 	virtual void Free() override;
+
+public: /* Template Function*/
+	template <typename T>
+	T* Add_Component()
+	{
+
+	}
 };
+
+
 
 END

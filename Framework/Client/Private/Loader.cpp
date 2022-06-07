@@ -58,7 +58,7 @@ HRESULT CLoader::Loading_ForLogoLevel()
 	lstrcpy(m_szLoadingText, TEXT("객체를 생성중입니다."));
 	/* For.Prototype_GameObject_BackGround */
 	if (FAILED(pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_BackGround"),
-		CBackGround::Create(m_pGraphic_Device))))
+		CBackGround::Create())))
 		return E_FAIL;
 
 #pragma endregion

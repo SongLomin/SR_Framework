@@ -16,19 +16,19 @@ public:
 	virtual ~CComponent_Manager() = default;
 
 public:
-	HRESULT Reserve_Container(_uint iNumLevels);
-	HRESULT Add_Prototype(_uint iLevelIndex, const _tchar* pPrototypeTag, class CComponent* pPrototype);
-	class CComponent* Clone_Component(_uint iLevelIndex, const _tchar* pPrototypeTag, void* pArg);
+	//HRESULT Reserve_Container(_uint iNumLevels);
+	HRESULT Add_Prototype(const _char* pPrototypeTag, class CComponent* pPrototype);
+	class CComponent* Clone_Component(const _char* pPrototypeTag, void* pArg);
 
 
 private:
 	_uint			m_iNumLevels = 0;
 
-	map<const _tchar*, class CComponent*>*				m_pPrototypes = nullptr;
-	typedef map<const _tchar*, class CComponent*>		PROTOTYPES;
+	map<const _char*, class CComponent*>				m_pPrototypes;
+	typedef map<const _char*, class CComponent*>		PROTOTYPES;
 
 private:
-	class CComponent* Find_Components(_uint iLevelIndex, const _tchar* pPrototypeTag);
+	class CComponent* Find_Components(const _char* pPrototypeTag);
 
 public:
 	virtual void Free() override;

@@ -13,7 +13,7 @@ BEGIN(Client)
 class CBackGround final : public CGameObject
 {
 private:
-	CBackGround(LPDIRECT3DDEVICE9 pGraphic_Device);
+	CBackGround();
 	CBackGround(const CBackGround& Prototype);
 	virtual ~CBackGround() = default;
 
@@ -33,7 +33,7 @@ private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 
 
 public:
-	static CBackGround* Create(LPDIRECT3DDEVICE9 pGraphic_Device);
+	static CBackGround* Create();
 	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
 };

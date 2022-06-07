@@ -2,6 +2,7 @@
 #include "..\Public\MainApp.h"
 #include "GameInstance.h"
 #include "Level_Loading.h"
+#include <iostream>
 
 
 CMainApp::CMainApp()
@@ -46,11 +47,8 @@ HRESULT CMainApp::Render()
 		return E_FAIL;
 
 	m_pGameInstance->Render_Begin();
-	
 	m_pGameInstance->Draw_RenderGroup();
-
 	m_pGameInstance->Render_Engine();
-
 	m_pGameInstance->Render_End(g_hWnd);
 
 	return S_OK;
@@ -69,7 +67,7 @@ HRESULT CMainApp::Open_Level(LEVEL eLevelID)
 		return E_FAIL;
 
 	/* For.Prototype_Component_VIBuffer_Rect*/
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Rect"),
+	if (FAILED(m_pGameInstance->Add_Prototype(typeid(CVIBuffer_Rect).name(),
 		CVIBuffer_Rect::Create())))
 		return E_FAIL;
 
@@ -82,10 +80,12 @@ HRESULT CMainApp::Ready_Prototype_Component()
 		return E_FAIL;
 
 	/* For.Prototype_Component_Renderer */
-	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Renderer"),
-		CRenderer::Create())))
-		return E_FAIL;
+	//if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, typeid(CRenderer).name(),
+	//	CRenderer::Create())))
+	//	return E_FAIL;
 
+	m_pGameInstance->Add_Prototype(typeid(CRenderer).name(),
+		CRenderer::Create());
 	//Safe_AddRef(m_pRenderer);
 
 	return S_OK;

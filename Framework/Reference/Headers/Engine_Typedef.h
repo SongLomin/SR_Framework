@@ -20,6 +20,7 @@ namespace Engine
 	typedef bool						_bool;
 
 	typedef wchar_t						_tchar;
+	typedef char						_char;
 
 	typedef D3DXVECTOR2					_float2;
 	typedef D3DXVECTOR3					_float3;
