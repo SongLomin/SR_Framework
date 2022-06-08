@@ -53,6 +53,11 @@ HRESULT CVIBuffer::Create_VertexBuffer()
 	return S_OK;
 }
 
+HRESULT CVIBuffer::Create_IndexBuffer()
+{
+	return E_NOTIMPL;
+}
+
 void CVIBuffer::Free()
 {
 	__super::Free();

@@ -28,7 +28,12 @@ protected:
 	_uint							m_iNumPrimitive = 0;
 
 protected:
+	_uint							m_iIndicesSizePerPrimitive = 0;
+	D3DFORMAT						m_eFormat;
+
+protected:
 	HRESULT Create_VertexBuffer();
+	HRESULT Create_IndexBuffer();
 	
 
 public:	

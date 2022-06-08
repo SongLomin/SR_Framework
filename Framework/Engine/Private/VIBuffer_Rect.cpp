@@ -44,8 +44,11 @@ HRESULT CVIBuffer_Rect::Initialize_Prototype()
 	pVertices[5].vPosition = _float3(-0.5f, -0.5f, 0.f);
 	pVertices[5].vTexUV = _float2(0.f, 1.f);
 	
-	
 	m_pVB->Unlock();
+
+	m_iIndicesSizePerPrimitive = sizeof(FACEINDICES16);
+	//m_eFormat = D3DFORMAT
+
 
 	return S_OK;
 }
