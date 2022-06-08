@@ -44,6 +44,8 @@ void CBackGround::LateTick(_float fTimeDelta)
 
 HRESULT CBackGround::Render()
 {
+
+	m_pRendererCom->Update_Textures(0);
 	m_pVIBufferCom->Render();
 
 	return S_OK;
@@ -58,6 +60,8 @@ HRESULT CBackGround::SetUp_Components()
 	m_pRendererCom = (CRenderer*)pGameInstance->Clone_Component(typeid(CRenderer).name());
 	if (nullptr == m_pRendererCom)
 		return E_FAIL;
+
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
 
 	m_pVIBufferCom = (CVIBuffer_Rect*)pGameInstance->Clone_Component(typeid(CVIBuffer_Rect).name());
 	if (nullptr == m_pVIBufferCom)
@@ -98,7 +102,7 @@ void CBackGround::Free()
 {
 	__super::Free();
 
-	//Safe_Release(m_pRendererCom);
+	Safe_Release(m_pRendererCom);
 	Safe_Release(m_pVIBufferCom);
 	delete this;
 }

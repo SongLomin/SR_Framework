@@ -24,6 +24,9 @@ HRESULT CMainApp::Initialize()
 	if (FAILED(m_pGameInstance->Initialize_Engine(LEVEL_END, GraphicDesc, &m_pGraphic_Device)))
 		return E_FAIL;
 
+	if (FAILED(SetUp_RenderState()))
+		return E_FAIL;
+
 	if (FAILED(Ready_Prototype_Component()))
 		return E_FAIL;
 
@@ -50,6 +53,15 @@ HRESULT CMainApp::Render()
 	m_pGameInstance->Draw_RenderGroup();
 	m_pGameInstance->Render_Engine();
 	m_pGameInstance->Render_End(g_hWnd);
+
+	return S_OK;
+}
+
+HRESULT CMainApp::SetUp_RenderState()
+{
+	m_pGraphic_Device->SetRenderState(D3DRS_LIGHTING, FALSE);
+	// m_pGraphic_Device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);	
+	m_pGraphic_Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	return S_OK;
 }

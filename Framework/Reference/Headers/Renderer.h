@@ -11,10 +11,13 @@ class ENGINE_DLL CRenderer final : public CComponent
 {
 private:
 	CRenderer();
+	CRenderer(const CRenderer& Prototype);
 	virtual ~CRenderer() = default;
 	 
 public:
 	HRESULT Add_RenderGroup(RENDERGROUP	eGroup, class CGameObject* pGameObject);
+	HRESULT Set_Textures_From_Key(const _tchar* _Str_Key, MEMORY_TYPE _eType = MEMORY_TYPE::MEMORY_END);
+	HRESULT Update_Textures(_uint _iIndex);
 
 public:
 	virtual HRESULT Initialize_Prototype() override;
@@ -23,7 +26,7 @@ public:
 public:
 
 private:
-	
+	vector<LPDIRECT3DBASETEXTURE9>* m_ppTextures = nullptr;
 
 public:
 	static CRenderer* Create();

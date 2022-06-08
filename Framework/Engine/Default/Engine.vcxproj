@@ -168,6 +168,7 @@
     <ClCompile Include="..\private\Object_Manager.cpp" />
     <ClCompile Include="..\private\Renderer.cpp" />
     <ClCompile Include="..\Private\Render_Manager.cpp" />
+    <ClCompile Include="..\Private\Resource_Manager.cpp" />
     <ClCompile Include="..\private\VIBuffer.cpp" />
     <ClCompile Include="..\Private\VIBuffer_Rect.cpp" />
   </ItemGroup>
@@ -190,6 +191,7 @@
     <ClInclude Include="..\public\Object_Manager.h" />
     <ClInclude Include="..\public\Renderer.h" />
     <ClInclude Include="..\Public\Render_Manager.h" />
+    <ClInclude Include="..\Public\Resource_Manager.h" />
     <ClInclude Include="..\public\VIBuffer.h" />
     <ClInclude Include="..\Public\VIBuffer_Rect.h" />
   </ItemGroup>

@@ -65,7 +65,9 @@ HRESULT CLoader::Loading_ForLogoLevel()
 
 
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중이비낟. "));
-
+	if (FAILED(pGameInstance->Add_Textures(TEXT("Test"), TEXT("../Bin/Resources/Textures/Default%d.jpg"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
+		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중이비낟. "));
 

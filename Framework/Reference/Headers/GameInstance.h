@@ -5,6 +5,7 @@
 #include "Object_Manager.h"
 #include "Component_Manager.h"
 #include "Render_Manager.h"
+#include "Resource_Manager.h"
 
 /* 1. 게임내에 필요한 객체(매니져등)들을 모아서 보관한다. */
 /* 2. 클라이언트 개발자가 접근하기좋은 루트를 제공해준다. 나. */
@@ -47,12 +48,18 @@ public: /* For.Render_Mananger */
 	HRESULT Add_RenderGroup(RENDERGROUP eGroup, class CGameObject* pGameObject);
 	HRESULT Draw_RenderGroup();
 
+public: /* For.Resource_Mananger */
+	HRESULT Add_Textures(const _tchar * _strKey, const _tchar * pTextureFilePath, TEXTURE_TYPE eType = TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE eMemType = MEMORY_TYPE::MEMORY_STATIC);
+	HRESULT Remove_Textures_By_MemoryType(MEMORY_TYPE _eMemType);
+	vector<LPDIRECT3DBASETEXTURE9>* Get_Textures_From_Key(const _tchar * _Str_Key, MEMORY_TYPE _eType = MEMORY_TYPE::MEMORY_END);
+
 private:
 	CGraphic_Device*				m_pGraphic_Device = nullptr;
 	CLevel_Manager*					m_pLevel_Manager = nullptr;
 	CObject_Manager*				m_pObject_Manager = nullptr;
 	CComponent_Manager*				m_pComponent_Manager = nullptr;
 	CRender_Manager*				m_pRender_Manager = nullptr;
+	CResource_Manager*				m_pResource_Manager = nullptr;
 
 public:
 	static void Release_Engine();

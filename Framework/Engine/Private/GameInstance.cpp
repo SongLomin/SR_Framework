@@ -9,6 +9,7 @@ CGameInstance::CGameInstance()
 	, m_pObject_Manager(CObject_Manager::Get_Instance())
 	, m_pComponent_Manager(CComponent_Manager::Get_Instance())
 	, m_pRender_Manager(CRender_Manager::Get_Instance())
+	, m_pResource_Manager(CResource_Manager::Get_Instance())
 {
 	//Safe_AddRef(m_pComponent_Manager);
 	//Safe_AddRef(m_pObject_Manager);
@@ -160,6 +161,21 @@ HRESULT CGameInstance::Draw_RenderGroup()
 	return m_pRender_Manager->Draw_RenderGroup();
 }
 
+HRESULT CGameInstance::Add_Textures(const _tchar* _strKey, const _tchar* pTextureFilePath, TEXTURE_TYPE eType, MEMORY_TYPE eMemType)
+{
+	return m_pResource_Manager->Add_Texture(_strKey, pTextureFilePath, eType, eMemType);
+}
+
+HRESULT CGameInstance::Remove_Textures_By_MemoryType(MEMORY_TYPE _eMemType)
+{
+	return m_pResource_Manager->Remove_By_MemoryType(_eMemType);
+}
+
+vector<LPDIRECT3DBASETEXTURE9>* CGameInstance::Get_Textures_From_Key(const _tchar* _Str_Key, MEMORY_TYPE _eType)
+{
+	return CResource_Manager::Get_Instance()->Get_Textures_From_Key(_Str_Key, _eType);
+}
+
 void CGameInstance::Release_Engine()
 {
 	CGameInstance::Get_Instance()->Destroy_Instance();
@@ -173,6 +189,8 @@ void CGameInstance::Release_Engine()
 	CGraphic_Device::Get_Instance()->Destroy_Instance();
 
 	CRender_Manager::Get_Instance()->Destroy_Instance();
+
+	CResource_Manager::Get_Instance()->Destroy_Instance();
 
 }
 
