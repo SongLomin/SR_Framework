@@ -124,22 +124,24 @@ HRESULT CGameInstance::Add_GameObject(_uint iLevelIndex, const _tchar * pLayerTa
 	return m_pObject_Manager->Add_GameObject(iLevelIndex, pLayerTag, pPrototypeTag, pArg);
 }
 
-HRESULT CGameInstance::Add_Prototype(const _char * pPrototypeTag, CComponent * pPrototype)
+HRESULT CGameInstance::Add_Prototype_Component(const _char * pPrototypeTag, CComponent * pPrototype)
 {
 	if (nullptr == m_pComponent_Manager)
 		return E_FAIL;
 
-	return m_pComponent_Manager->Add_Prototype(pPrototypeTag, pPrototype);
-	
+	if (m_pComponent_Manager->Add_Prototype(pPrototypeTag, pPrototype) == nullptr)
+		return E_FAIL;
+
+	return S_OK;
 }
 
-CComponent * CGameInstance::Clone_Component(const _char * pPrototypeTag, void * pArg)
-{
-	if (nullptr == m_pComponent_Manager)
-		return nullptr;
-
-	return m_pComponent_Manager->Clone_Component(pPrototypeTag, pArg);
-}
+//CComponent* CGameInstance::Clone_Component(const _char * pPrototypeTag, void * pArg)
+//{
+//	if (nullptr == m_pComponent_Manager)
+//		return nullptr;
+//
+//	return m_pComponent_Manager->Clone_Component(pPrototypeTag, pArg);
+//}
 
 HRESULT CGameInstance::Add_RenderGroup(RENDERGROUP eGroup, CGameObject* pGameObject)
 {

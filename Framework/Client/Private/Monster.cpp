@@ -1,0 +1,110 @@
+#include "stdafx.h"
+#include "..\Public\Monster.h"
+#include "GameInstance.h"
+
+
+CMonster::CMonster(const CMonster& Prototype)
+{
+	*this = Prototype;
+}
+
+HRESULT CMonster::Initialize_Prototype()
+{
+    return S_OK;
+}
+
+HRESULT CMonster::Initialize(void* pArg)
+{
+	SetUp_Components();
+
+    return S_OK;
+}
+
+void CMonster::Tick(_float fTimeDelta)
+{
+}
+
+void CMonster::LateTick(_float fTimeDelta)
+{
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_PRIORITY, this);
+}
+
+HRESULT CMonster::Render()
+{
+	m_pTransformCom->Bind_WorldMatrix();
+
+	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+
+	m_pRendererCom->Update_Textures(1);
+	m_pVIBufferCom->Render();
+
+	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+
+    return S_OK;
+}
+
+HRESULT CMonster::SetUp_Components()
+{
+	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
+	//Safe_AddRef(pGameInstance);
+
+	/* For.Com_Renderer */
+	//약포인터: 해당 객체가 삭제되면 약포인터로 선언된 포인터 객체들도 nullptr를 가르킨다.
+	//댕글링 포인터를 방지하기 위해 사용한다.
+	m_pRendererCom = Add_Component<CRenderer>();
+	if (nullptr == m_pRendererCom)
+		return E_FAIL;
+
+	m_pRendererCom->Set_WeakPtr((void**)&m_pRendererCom);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
+
+	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
+	if (nullptr == m_pVIBufferCom)
+		return E_FAIL;
+	m_pVIBufferCom->Set_WeakPtr((void**)&m_pVIBufferCom);
+
+	CTransform::TRANSFORMDESC		TransformDesc;
+	TransformDesc.fSpeedPerSec = 5.0f;
+	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f);
+
+	m_pTransformCom = Add_Component<CTransform>(&TransformDesc);
+	if (nullptr == m_pTransformCom)
+		return E_FAIL;
+	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
+
+	//Safe_Release(pGameInstance);
+	return S_OK;
+}
+
+CMonster* CMonster::Create()
+{
+    CMonster* pInstance = new CMonster();
+
+    if (FAILED(pInstance->Initialize_Prototype()))
+    {
+        MSG_BOX("Failed to Created : CBackGround");
+        Safe_Release(pInstance);
+    }
+
+    return pInstance;
+}
+
+CGameObject* CMonster::Clone(void* pArg)
+{
+    CMonster* pInstance = new CMonster(*this);
+
+    if (FAILED(pInstance->Initialize(pArg)))
+    {
+        MSG_BOX("Failed to Created : CMonster");
+        Safe_Release(pInstance);
+    }
+
+    return pInstance;
+}
+
+void CMonster::Free()
+{
+    __super::Free();
+
+    delete this;
+}

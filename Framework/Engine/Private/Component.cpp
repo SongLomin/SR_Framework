@@ -28,5 +28,8 @@ HRESULT CComponent::Set_Owner(CGameObject* _pOwner)
 
 void CComponent::Free()
 {
+	__super::Free();
+
+
 	//Safe_Release(m_pGraphic_Device);
 }

@@ -55,6 +55,13 @@ HRESULT CObject_Manager::Add_GameObject(_uint iLevelIndex, const _tchar * pLayer
 	return S_OK;
 }
 
+CGameObject* CObject_Manager::Get_Player()
+{
+	const _tchar* tag = TEXT("Player");
+
+	//return m_pLayers[0][tag];
+}
+
 void CObject_Manager::Tick(_float fTimeDelta)
 {
 	for (_uint i = 0; i < m_iNumLevels; ++i)

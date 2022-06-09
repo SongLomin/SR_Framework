@@ -20,7 +20,7 @@ public:
 	
 
 protected:
-	list<class CComponent*> m_pComs;
+	map<const _char*, class CComponent*> m_pComs;
 	list<CGameObject*> m_pChilds;
 
 public:
@@ -29,9 +29,31 @@ public:
 
 public: /* Template Function*/
 	template <typename T>
-	T* Add_Component()
+	T* Add_Component(void* pArg = nullptr)
 	{
+		T* temp = CGameInstance::Get_Instance()->Clone_Component<T>(pArg);
 
+		if (nullptr == temp)
+		{
+			return nullptr;
+		}
+
+		m_pComs.emplace(typeid(T).name(), temp);
+
+		return temp;
+	}
+
+	template <typename T>
+	T* Get_Component()
+	{
+		auto iter = find_if(m_pComs.begin(), m_pComs.end(), CTag_Finder_c_str(typeid(T).name()));
+
+		if (m_pComs.end() == iter)
+		{
+			return nullptr;
+		}
+
+		return static_cast<T*>(iter->second);
 	}
 };
 

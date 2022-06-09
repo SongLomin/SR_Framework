@@ -2,6 +2,7 @@
 #include "..\Public\Loader.h"
 #include "GameInstance.h"
 #include "BackGround.h"
+#include "Monster.h"
 
 CLoader::CLoader(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: m_pGraphic_Device(pGraphic_Device)
@@ -59,6 +60,10 @@ HRESULT CLoader::Loading_ForLogoLevel()
 	/* For.Prototype_GameObject_BackGround */
 	if (FAILED(pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_BackGround"),
 		CBackGround::Create())))
+		return E_FAIL;
+
+	if (FAILED(pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Monster"),
+		CMonster::Create())))
 		return E_FAIL;
 
 #pragma endregion

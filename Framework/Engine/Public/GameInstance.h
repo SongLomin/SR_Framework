@@ -41,8 +41,15 @@ public: /* For.Object_Manager */
 	HRESULT Add_GameObject(_uint iLevelIndex, const _tchar* pLayerTag, const _tchar* pPrototypeTag, void* pArg = nullptr);
 
 public: /* For.Component_Mananger */
-	HRESULT Add_Prototype(const _char* pPrototypeTag, class CComponent* pPrototype);
-	class CComponent* Clone_Component(const _char* pPrototypeTag, void* pArg = nullptr);
+	HRESULT Add_Prototype_Component(const _char* pPrototypeTag, class CComponent* pPrototype);
+	template <typename T>
+	T* Clone_Component(void* pArg = nullptr)
+	{
+		if (nullptr == m_pComponent_Manager)
+			return nullptr;
+
+		return m_pComponent_Manager->Clone_Component<T>(pArg);
+	}
 
 public: /* For.Render_Mananger */
 	HRESULT Add_RenderGroup(RENDERGROUP eGroup, class CGameObject* pGameObject);

@@ -21,36 +21,36 @@ CComponent_Manager::CComponent_Manager()
 //	return S_OK;
 //}
 
-HRESULT CComponent_Manager::Add_Prototype(const _char * pPrototypeTag, CComponent * pPrototype)
+CComponent** CComponent_Manager::Add_Prototype(const _char * pPrototypeTag, CComponent * pPrototype)
 {
 	if (nullptr != Find_Components(pPrototypeTag))
-		return E_FAIL;
+		return nullptr;
 
 	m_pPrototypes.emplace(pPrototypeTag, pPrototype);
 	
-	return S_OK;
+	return &pPrototype;
 }
 
-CComponent * CComponent_Manager::Clone_Component(const _char * pPrototypeTag, void * pArg)
-{
-	CComponent*		pPrototype = Find_Components(pPrototypeTag);
+//CComponent * CComponent_Manager::Clone_Component(const _char * pPrototypeTag, void * pArg)
+//{
+//	CComponent*		pPrototype = Find_Components(pPrototypeTag);
+//
+//	if (nullptr == pPrototype)
+//	{
+//		return nullptr;
+//	}
+//
+//	return pPrototype->Clone(pArg);
+//}
 
-	if (nullptr == pPrototype)
-	{
-		return nullptr;
-	}
-
-	return pPrototype->Clone(pArg);
-}
-
-CComponent * CComponent_Manager::Find_Components(const _char * pPrototypeTag)
+CComponent** CComponent_Manager::Find_Components(const _char * pPrototypeTag)
 {
 	auto	iter = find_if(m_pPrototypes.begin(), m_pPrototypes.end(), CTag_Finder_c_str(pPrototypeTag));
 
 	if (iter == m_pPrototypes.end())
 		return nullptr;
 
-	return iter->second;
+	return &iter->second;
 }
 
 void CComponent_Manager::Free()

@@ -1,5 +1,10 @@
 #include "..\Public\Base.h"
 
+void CBase::Set_WeakPtr(void** WeakPtr)
+{
+	m_WeakList.push_back(WeakPtr);
+}
+
 //CBase::CBase()
 //{
 //	int a = 10;
@@ -31,5 +36,10 @@
 //
 void CBase::Free()
 {
+	for (auto& elem : m_WeakList)
+	{
+		(*elem) = nullptr;
+	}
 
+	m_WeakList.clear();
 }

@@ -3,6 +3,8 @@
 #include "GameInstance.h"
 #include "Level_Loading.h"
 #include <iostream>
+#include <cassert>
+
 
 
 CMainApp::CMainApp()
@@ -79,9 +81,9 @@ HRESULT CMainApp::Open_Level(LEVEL eLevelID)
 		return E_FAIL;
 
 	/* For.Prototype_Component_VIBuffer_Rect*/
-	if (FAILED(m_pGameInstance->Add_Prototype(typeid(CVIBuffer_Rect).name(),
-		CVIBuffer_Rect::Create())))
-		return E_FAIL;
+	/*if (FAILED(m_pGameInstance->Add_Prototype_Component(typeid(CVIBuffer_Rect).name(),
+		CVIBuffer_Rect::Create())))*/
+		//return E_FAIL;
 
 	return S_OK;
 }
@@ -96,8 +98,8 @@ HRESULT CMainApp::Ready_Prototype_Component()
 	//	CRenderer::Create())))
 	//	return E_FAIL;
 
-	m_pGameInstance->Add_Prototype(typeid(CRenderer).name(),
-		CRenderer::Create());
+	/*m_pGameInstance->Add_Prototype_Component(typeid(CRenderer).name(),
+		CRenderer::Create());*/
 	//Safe_AddRef(m_pRenderer);
 
 	return S_OK;

@@ -28,8 +28,11 @@
     <Filter Include="02.GameObject">
       <UniqueIdentifier>{d82d045d-f3df-48ca-85c6-d375684d5662}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\BackGround">
+    <Filter Include="02.GameObject\01. BackGround">
       <UniqueIdentifier>{5bbc74ac-51d4-4b0f-9cbf-b4c01ecfd969}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\02. Monster">
+      <UniqueIdentifier>{724bfe03-e6b2-4318-8ef5-193550918ccf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,7 +67,10 @@
       <Filter>01.Levels\99.Loading\Loader</Filter>
     </ClInclude>
     <ClInclude Include="..\public\BackGround.h">
-      <Filter>02.GameObject\BackGround</Filter>
+      <Filter>02.GameObject\01. BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Monster.h">
+      <Filter>02.GameObject\02. Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -90,7 +96,10 @@
       <Filter>01.Levels\99.Loading\Loader</Filter>
     </ClCompile>
     <ClCompile Include="..\private\BackGround.cpp">
-      <Filter>02.GameObject\BackGround</Filter>
+      <Filter>02.GameObject\01. BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Monster.cpp">
+      <Filter>02.GameObject\02. Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

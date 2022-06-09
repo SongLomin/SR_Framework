@@ -41,3 +41,4 @@ void ClassName::Destroy_Instance()						\
 #define LPDEVICE (CGameInstance::Get_Instance()->Get_Device())
 #define DEVICE (*(LPDEVICE))
 #define GAMEINSTANCE CGameInstance::Get_Instance()
+#define ISVALID(instance, return_type) if(instance == nullptr) return return_type;

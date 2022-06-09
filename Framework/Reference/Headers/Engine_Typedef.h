@@ -25,6 +25,8 @@ namespace Engine
 	typedef D3DXVECTOR2					_float2;
 	typedef D3DXVECTOR3					_float3;
 	typedef D3DXVECTOR4					_float4;
+
+	typedef D3DXMATRIX					_float4x4;
 	/*typedef struct D3DXVECTOR4_DERIVED : public D3DXVECTOR4
 	{
 		_float  Get_Length() {

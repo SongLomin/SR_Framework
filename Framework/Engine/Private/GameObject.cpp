@@ -1,5 +1,6 @@
 #include "..\Public\GameObject.h"
 #include "GameInstance.h"
+#include <iostream>
 
 CGameObject::CGameObject()
 {
@@ -31,10 +32,21 @@ void CGameObject::LateTick(_float fTimeDelta)
 
 HRESULT CGameObject::Render()
 {
+
 	return S_OK;
 }
 
 void CGameObject::Free()
 {
 	//Safe_Release(m_pGraphic_Device);
+	__super::Free();
+
+	for (auto& elem : m_pComs)
+	{
+		Safe_Release(elem.second);
+	}
+
+	m_pComs.clear();
+
+	//delete this;
 }

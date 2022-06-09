@@ -17,7 +17,11 @@ class ENGINE_DLL CBase abstract
 //	unsigned long		m_dwRefCnt = 0;
 //
 public:
+	void	Set_WeakPtr(void** WeakPtr);
 	virtual void Free();
+
+private:
+	list<void**> m_WeakList;
 };
 
 END
