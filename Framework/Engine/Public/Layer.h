@@ -13,6 +13,7 @@ private:
 public:
 	HRESULT Initialize();
 	HRESULT Add_GameObject(class CGameObject* pGameObject);
+	list<CGameObject*>* Get_GameObjects();
 	void Tick(_float fTimeDelta);
 	void LateTick(_float fTimeDelta);
 

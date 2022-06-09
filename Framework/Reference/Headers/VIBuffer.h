@@ -26,8 +26,10 @@ protected:
 	_uint							m_iNumVertices = 0; /* Á¤Á¡ÀÇ °¹¼ö */
 	_ulong							m_dwFVF = 0;
 	_uint							m_iNumPrimitive = 0;
+	D3DPRIMITIVETYPE				m_ePrimitiveType;
 
 protected:
+	LPDIRECT3DINDEXBUFFER9			m_pIB = nullptr;
 	_uint							m_iIndicesSizePerPrimitive = 0;
 	D3DFORMAT						m_eFormat;
 

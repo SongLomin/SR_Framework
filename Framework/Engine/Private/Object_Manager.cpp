@@ -57,9 +57,12 @@ HRESULT CObject_Manager::Add_GameObject(_uint iLevelIndex, const _tchar * pLayer
 
 CGameObject* CObject_Manager::Get_Player()
 {
-	const _tchar* tag = TEXT("Player");
+	//const _tchar* tag = TEXT("Prototype_GameObject_Monster");
+	CLayer* pLayer = Find_Layer(2, TEXT("Layer_BackGround"));
 
-	//return m_pLayers[0][tag];
+	ISVALID(pLayer, nullptr);
+
+	return (*pLayer->Get_GameObjects()->begin());
 }
 
 void CObject_Manager::Tick(_float fTimeDelta)

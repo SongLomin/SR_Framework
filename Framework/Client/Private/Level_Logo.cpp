@@ -36,7 +36,13 @@ void CLevel_Logo::Tick(_float fTimeDelta)
 		//Safe_Release(pGameInstance);
 	}
 
+	if (GetKeyState('1') & 0x8000)
+	{
+		CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 
+		if (pGameInstance->Add_GameObject(LEVEL_LOGO, TEXT("Monster"), TEXT("Prototype_GameObject_Monster")))
+			return;
+	}
 }
 
 HRESULT CLevel_Logo::Render()

@@ -16,12 +16,18 @@ HRESULT CMonster::Initialize_Prototype()
 HRESULT CMonster::Initialize(void* pArg)
 {
 	SetUp_Components();
-
+	m_pPlayerTransformCom = CGameInstance::Get_Instance()->Get_Player_GameObject()->Get_Component<CTransform>();
+	m_pPlayerTransformCom->Set_WeakPtr((void**)&m_pPlayerTransformCom);
     return S_OK;
 }
 
 void CMonster::Tick(_float fTimeDelta)
 {
+	ISVALID(m_pPlayerTransformCom);
+	ISVALID(m_pTransformCom);
+
+	m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
+
 }
 
 void CMonster::LateTick(_float fTimeDelta)
@@ -64,13 +70,15 @@ HRESULT CMonster::SetUp_Components()
 	m_pVIBufferCom->Set_WeakPtr((void**)&m_pVIBufferCom);
 
 	CTransform::TRANSFORMDESC		TransformDesc;
-	TransformDesc.fSpeedPerSec = 5.0f;
+	TransformDesc.fSpeedPerSec = 2.5f;
 	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f);
 
 	m_pTransformCom = Add_Component<CTransform>(&TransformDesc);
 	if (nullptr == m_pTransformCom)
 		return E_FAIL;
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
+	
+	
 
 	//Safe_Release(pGameInstance);
 	return S_OK;

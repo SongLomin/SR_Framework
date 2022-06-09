@@ -21,6 +21,7 @@ public:
 
 protected:
 	map<const _char*, class CComponent*> m_pComs;
+	CGameObject* m_pParent = nullptr;
 	list<CGameObject*> m_pChilds;
 
 public:

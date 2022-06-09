@@ -36,8 +36,9 @@ HRESULT CVIBuffer::Render()
 	//장치에 바인드하는데 여러 버텍스 버퍼를 장치에 바인드할 수 있다.
 	//즉, 동일한 파이프라인을 통과하는 버텍스 버퍼들을 묶어서 처리할 수 있다.
 	DEVICE->SetStreamSource(0, m_pVB, 0, m_iStride);
+	DEVICE->SetIndices(m_pIB);
 	DEVICE->SetFVF(m_dwFVF);
-	DEVICE->DrawPrimitive(D3DPT_TRIANGLELIST, 0, m_iNumPrimitive);
+	DEVICE->DrawIndexedPrimitive(m_ePrimitiveType, 0, 0, m_iNumVertices, 0, m_iNumPrimitive);
 
 	return S_OK;
 }
@@ -55,7 +56,11 @@ HRESULT CVIBuffer::Create_VertexBuffer()
 
 HRESULT CVIBuffer::Create_IndexBuffer()
 {
-	return E_NOTIMPL;
+
+	if (FAILED(DEVICE->CreateIndexBuffer(m_iIndicesSizePerPrimitive * m_iNumPrimitive, 0, m_eFormat, D3DPOOL_MANAGED, &m_pIB, nullptr)))
+		return E_FAIL;
+
+	return S_OK;
 }
 
 void CVIBuffer::Free()

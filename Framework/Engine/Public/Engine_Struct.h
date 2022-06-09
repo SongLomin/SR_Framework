@@ -31,6 +31,14 @@ namespace Engine
 	{
 		D3DXVECTOR3		vPosition;
 		D3DXVECTOR2		vTexUV;
+
+		tagVertex_Texture(const D3DXVECTOR3& _Pos, const D3DXVECTOR2& _Tex)
+		{
+			vPosition = _Pos;
+			vTexUV = _Tex;
+		}
+
+		static const DWORD FVF = D3DFVF_XYZ | D3DFVF_TEX1;
 	}VTXTEX;
 
 

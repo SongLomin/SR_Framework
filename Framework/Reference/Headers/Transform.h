@@ -42,6 +42,7 @@ public:
 	void Go_Left(_float fTimeDelta);
 	void Go_Right(_float fTimeDelta);
 	void Go_Backward(_float fTimeDelta);
+	void Go_Target(CTransform* _Trans, _float fTimeDelta);
 
 	void Rotation(const _float3 & vAxis, _float fRadian);
 	void Turn(const _float3 & vAxis, _float fTimeDelta);

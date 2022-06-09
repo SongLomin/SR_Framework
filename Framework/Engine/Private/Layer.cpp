@@ -18,6 +18,11 @@ HRESULT CLayer::Add_GameObject(CGameObject * pGameObject)
 	return S_OK;
 }
 
+list<CGameObject*>* CLayer::Get_GameObjects()
+{
+	return &m_GameObjects;
+}
+
 void CLayer::Tick(_float fTimeDelta)
 {
 	for (auto& pGameObject : m_GameObjects)
