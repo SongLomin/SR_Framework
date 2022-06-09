@@ -58,19 +58,22 @@
     <Filter Include="01.Utility\04.Manager">
       <UniqueIdentifier>{07265974-cf0d-47b3-9b3e-1dfceb36ed0e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Utility\04.Manager\Level_Manager">
-      <UniqueIdentifier>{0a363008-4209-4529-b7f7-6497bae3ebdf}</UniqueIdentifier>
+    <Filter Include="01.Utility\03.Components\Transform">
+      <UniqueIdentifier>{4c554e52-c1e9-426c-b771-3aa800919186}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Utility\04.Manager\Object_Manager">
-      <UniqueIdentifier>{23b03772-4343-4197-8c60-694c91e836f0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01.Utility\04.Manager\Object_Manager\Layer">
-      <UniqueIdentifier>{8a3a2b5f-200c-40a0-b1e7-cd3c3400dd0e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01.Utility\04.Manager\Component_Manager">
+    <Filter Include="01.Utility\04.Manager\01. Component_Manager">
       <UniqueIdentifier>{6b2c4878-0377-41fa-aa3d-e41e67577b24}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Utility\04.Manager\Resource_Manager">
+    <Filter Include="01.Utility\04.Manager\02. Level_Manager">
+      <UniqueIdentifier>{0a363008-4209-4529-b7f7-6497bae3ebdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\04.Manager\03. Object_Manager">
+      <UniqueIdentifier>{23b03772-4343-4197-8c60-694c91e836f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\04.Manager\03. Object_Manager\Layer">
+      <UniqueIdentifier>{8a3a2b5f-200c-40a0-b1e7-cd3c3400dd0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\04.Manager\04. Resource_Manager">
       <UniqueIdentifier>{50056cdc-6bc5-4c1b-b2cd-b0ea1d9ed239}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -100,7 +103,7 @@
       <Filter>01.Utility\00.GameInstance</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Level_Manager.h">
-      <Filter>01.Utility\04.Manager\Level_Manager</Filter>
+      <Filter>01.Utility\04.Manager\02. Level_Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Level.h">
       <Filter>01.Utility\01.Levels</Filter>
@@ -112,16 +115,16 @@
       <Filter>01.Utility\02.GameObject</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Object_Manager.h">
-      <Filter>01.Utility\04.Manager\Object_Manager</Filter>
+      <Filter>01.Utility\04.Manager\03. Object_Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Layer.h">
-      <Filter>01.Utility\04.Manager\Object_Manager\Layer</Filter>
+      <Filter>01.Utility\04.Manager\03. Object_Manager\Layer</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Component.h">
       <Filter>01.Utility\03.Components</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Component_Manager.h">
-      <Filter>01.Utility\04.Manager\Component_Manager</Filter>
+      <Filter>01.Utility\04.Manager\01. Component_Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Renderer.h">
       <Filter>01.Utility\03.Components\Renderer</Filter>
@@ -136,7 +139,10 @@
       <Filter>01.Utility\03.Components\Renderer\Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Resource_Manager.h">
-      <Filter>01.Utility\04.Manager\Resource_Manager</Filter>
+      <Filter>01.Utility\04.Manager\04. Resource_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Transform.h">
+      <Filter>01.Utility\03.Components\Transform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -150,7 +156,7 @@
       <Filter>01.Utility\00.GameInstance</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Level_Manager.cpp">
-      <Filter>01.Utility\04.Manager\Level_Manager</Filter>
+      <Filter>01.Utility\04.Manager\02. Level_Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Level.cpp">
       <Filter>01.Utility\01.Levels</Filter>
@@ -159,16 +165,16 @@
       <Filter>01.Utility\02.GameObject</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Object_Manager.cpp">
-      <Filter>01.Utility\04.Manager\Object_Manager</Filter>
+      <Filter>01.Utility\04.Manager\03. Object_Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\PRIVATE\Layer.cpp">
-      <Filter>01.Utility\04.Manager\Object_Manager\Layer</Filter>
+      <Filter>01.Utility\04.Manager\03. Object_Manager\Layer</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Component.cpp">
       <Filter>01.Utility\03.Components</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Component_Manager.cpp">
-      <Filter>01.Utility\04.Manager\Component_Manager</Filter>
+      <Filter>01.Utility\04.Manager\01. Component_Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Renderer.cpp">
       <Filter>01.Utility\03.Components\Renderer</Filter>
@@ -183,7 +189,10 @@
       <Filter>01.Utility\03.Components\Renderer\Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Resource_Manager.cpp">
-      <Filter>01.Utility\04.Manager\Resource_Manager</Filter>
+      <Filter>01.Utility\04.Manager\04. Resource_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Transform.cpp">
+      <Filter>01.Utility\03.Components\Transform</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

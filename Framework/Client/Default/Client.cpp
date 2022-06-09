@@ -71,7 +71,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 		
 		/* 게임의 업데이트 */
-		pMainApp->Tick(0.0f);
+		pMainApp->Tick(0.00005f);
 		/* 게임의 드로우. */
 		if (FAILED(pMainApp->Render()))
 			break;

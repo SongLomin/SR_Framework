@@ -453,16 +453,22 @@ LPDIRECT3DBASETEXTURE9: 위 두 클래스의 부모다. 따라서 해당 타입�
 -Background.h-
 1. Get_Component 같은 함수 만듦.
 2. Add_Component 같은 함수 만듦.
-
-
-
+3. 월드 행렬의 위치 벡터에 월드 행렬의 방향 벡터를 더한다? 스케일의 영향을 받게 된다.
+4. 따라서 항상 사용하기 전에 정규화한다.
+5. 회전 행렬은 어차피 4행이 0,0,0,1이므로 Coord나 Nom이나 같다. 하지만 명시적으로 Nom을 쓰자.
 
 숙제:
+-GameObject.h-
 1. Get_Component 만들기
 2. Add_Component 만들기
-
-
-
+-Transform.h-
+3. Transform 채워오기 (과제)
+-Background.h-
+4. Background에 Transform 붙여주기
+5. 카메라 세팅
+6. 몬스터가 플레이어 처다보면서 따라오게 만들어라 (과제)
+7. 쳐다보는 기능: Look을 구함. Up(0,1,0)과 Look을 외적 Right를 구함. Look과 Right를 외적 진짜 Up을 구함
+그걸 Transform에 세팅. 끝
 
 
 
