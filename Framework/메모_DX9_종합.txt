@@ -470,8 +470,8 @@ LPDIRECT3DBASETEXTURE9: 위 두 클래스의 부모다. 따라서 해당 타입�
 7. 쳐다보는 기능: Look을 구함. Up(0,1,0)과 Look을 외적 Right를 구함. Look과 Right를 외적 진짜 Up을 구함
 그걸 Transform에 세팅. 끝
 
-
-
+오후 4:14 6/10/2022 14일차
+1. 
 
 
 
