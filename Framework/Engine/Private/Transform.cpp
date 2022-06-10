@@ -37,6 +37,20 @@ HRESULT CTransform::Bind_WorldMatrix()
 	return S_OK;
 }
 
+_float4x4 CTransform::Get_WorldMatrix() const
+{
+	_float4x4 _matParent;
+	D3DXMatrixIdentity(&_matParent);
+
+
+	if (m_pParent)
+	{
+		_matParent = m_pParent->Get_WorldMatrix();
+	}
+
+	return m_WorldMatrix * _matParent;
+}
+
 void CTransform::Go_Straight(_float fTimeDelta)
 {
 	_float3		vPosition = Get_State(CTransform::STATE_POSITION);
@@ -132,6 +146,18 @@ void CTransform::Turn(const _float3& vAxis, _float fTimeDelta)
 	Set_State(CTransform::STATE_RIGHT, vRight);
 	Set_State(CTransform::STATE_UP, vUp);
 	Set_State(CTransform::STATE_LOOK, vLook);
+}
+
+void CTransform::Set_Parent(CTransform* _pParent)
+{
+	m_pParent = _pParent;
+	m_pParent->Set_WeakPtr(&m_pParent);
+}
+
+void CTransform::Add_Child(CTransform* _pChild)
+{
+	m_pChildren.push_back(_pChild);
+	m_pChildren.back()->Set_WeakPtr(&m_pChildren.back());
 }
 
 CTransform* CTransform::Create()

@@ -19,11 +19,7 @@ public:
 
 public:
 	/* 원형객체를 추가한다. */
-	HRESULT Add_Prototype(const _tchar* pPrototypeTag, class CGameObject* pPrototype);
-
-	/* 원형객체르ㅏㅣㄹ 복사하여 사본객체를 추가한다. */
-	HRESULT Add_GameObject(_uint iLevelIndex, const _tchar* pLayerTag, const _tchar* pPrototypeTag, void* pArg = nullptr);
-	CGameObject* Get_Player();
+	class CGameObject* Get_Player();
 
 
 	void Tick(_float fTimeDelta);
@@ -34,27 +30,73 @@ public:
 
 
 private:
-
-	map<const _tchar*, class CGameObject*>			m_Prototypes;
-	typedef map<const _tchar*, class CGameObject*>	PROTOTYPES;
+	map<const _char*, class CGameObject*>			m_Prototypes;
+	typedef map<const _char*, class CGameObject*>	PROTOTYPES;
 
 private:
 
-	map<const _tchar*, class CLayer*>*				m_pLayers = nullptr;
-	typedef map<const _tchar*, class CLayer*>		LAYERS;
-
+	map<const _tchar*, list<CGameObject*>>*				m_pLayers = nullptr;
+	typedef map<const _tchar*, list<CGameObject*>>	LAYERS;
 	_uint					m_iNumLevels = 0;
 
 
 private:
-	class CGameObject* Find_Prototype(const _tchar* pPrototypeTag);
-	class CLayer* Find_Layer(_uint iLevelIndex, const _tchar* pLayerTag);
-
-
-
+	class CGameObject* Find_Prototype(const _char* pPrototypeTag);
+	list<CGameObject*>* Find_Layer(_uint iLevelIndex, const _tchar* pLayerTag);
 
 public:
 	virtual void Free() override;
+
+public: /* Template Function */
+	template <typename T>
+	T* Add_Prototype()
+	{
+		static_assert(is_base_of<CGameObject, T>::value, "T Isn't base of CGameObject");
+
+		T* pInstance = T::Create();
+
+		m_Prototypes.emplace(typeid(T).name(), pInstance);
+
+		return pInstance;
+	}
+	
+	template <typename T>
+	T* Add_GameObject(_uint iLevelIndex, const _tchar* pLayerTag, void* pArg = nullptr)
+	{
+		static_assert(is_base_of<CGameObject, T>::value, "T Isn't base of CGameObject");
+
+		if (m_iNumLevels <= iLevelIndex - 1)
+		{
+			//잘못된 레벨 인덱스
+#ifdef _DEBUG
+			assert(false);
+#endif
+			return nullptr;
+		}
+
+		CGameObject* pPrototype = nullptr;
+
+		auto iter = find_if(m_Prototypes.begin(), m_Prototypes.end(), CTag_Finder_c_str(typeid(T).name()));
+
+		if (iter != m_Prototypes.end())
+		{
+			pPrototype = (*iter).second;
+		}
+
+		if (nullptr == pPrototype)
+		{
+			pPrototype = Add_Prototype<T>();
+		}
+
+		CGameObject* pCloneObject = pPrototype->Clone(pArg);
+
+		if (nullptr == pCloneObject)
+			return nullptr;
+
+		m_pLayers[iLevelIndex][pLayerTag].push_back(pCloneObject);
+
+		return static_cast<T*>(pCloneObject);
+	}
 };
 
 END

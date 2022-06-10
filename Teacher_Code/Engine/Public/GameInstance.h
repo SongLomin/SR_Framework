@@ -1,0 +1,62 @@
+#pragma once
+
+#include "Graphic_Device.h"
+#include "Level_Manager.h"
+#include "Object_Manager.h"
+#include "Component_Manager.h"
+#include "Timer_Manager.h"
+
+/* 1. 게임내에 필요한 객체(매니져등)들을 모아서 보관한다. */
+/* 2. 클라이언트 개발자가 접근하기좋은 루트를 제공해준다. 나. */
+/* 3. 진짜 필요한 함수만 클라잉언트개발자에게 ㅇ오픈해주낟. */
+
+BEGIN(Engine)
+
+class ENGINE_DLL CGameInstance final : public CBase
+{
+	DECLARE_SINGLETON(CGameInstance)
+public:
+	CGameInstance();
+	virtual ~CGameInstance() = default;
+
+public: /* 엔진 라이브럴를 사용할때 필요한 초기화 과정으르 거칠거야. */
+	HRESULT Initialize_Engine(_uint iNumLevels, const GRAPHICDESC& GraphicDesc, LPDIRECT3DDEVICE9* ppOut);
+	HRESULT Tick_Engine(_float fTimeDelta);
+	HRESULT Render_Engine();
+	HRESULT Clear(_uint iLevelID);
+
+public: /* For.Graphic_Device */	
+	void		Render_Begin(void);
+	void		Render_End(HWND hWnd = NULL);
+
+public: /* For.Level_Manager */
+	HRESULT Open_Level(_uint iLevelID, class CLevel* pLevel);
+
+public: /* For.Object_Manager */
+	HRESULT Add_Prototype(const _tchar* pPrototypeTag, class CGameObject* pPrototype);
+	HRESULT Add_GameObject(_uint iLevelIndex, const _tchar* pLayerTag, const _tchar* pPrototypeTag, void* pArg = nullptr);
+	class CComponent* Get_Component(_uint iLevelIndex, const _tchar* pLayerTag, const _tchar* pComponentTag, _uint iIndex = 0);
+
+public: /* For.Component_Mananger */
+	HRESULT Add_Prototype(_uint iLevelIndex, const _tchar* pPrototypeTag, class CComponent* pPrototype);
+	class CComponent* Clone_Component(_uint iLevelIndex, const _tchar* pPrototypeTag, void* pArg = nullptr);
+
+	
+public: /* For.Timer_Manager */
+	HRESULT Add_Timer(const _tchar* pTimerTag);
+	_float Compute_Timer(const _tchar* pTimerTag);
+
+
+private:
+	CGraphic_Device*				m_pGraphic_Device = nullptr;
+	CLevel_Manager*					m_pLevel_Manager = nullptr;
+	CObject_Manager*				m_pObject_Manager = nullptr;
+	CComponent_Manager*				m_pComponent_Manager = nullptr;
+	CTimer_Manager*					m_pTimer_Manager = nullptr;
+
+public:
+	static void Release_Engine();
+	virtual void Free() override;
+};
+
+END

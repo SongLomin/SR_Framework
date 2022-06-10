@@ -84,32 +84,27 @@ HRESULT CBackGround::SetUp_Components()
 	CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
 	//Safe_AddRef(pGameInstance);
 
-	/* For.Com_Renderer */ 
-	//약포인터: 해당 객체가 삭제되면 약포인터로 선언된 포인터 객체들도 nullptr를 가르킨다.
+	//약포인터: 원본 객체가 삭제되면 약포인터로 등록된 포인터들도 nullptr로 바뀐다.
 	//댕글링 포인터를 방지하기 위해 사용한다.
-	//참조 포인터는 Safe_Release 안해도 됨!!!!!!
-	m_pRendererCom = Add_Component<CRenderer>();
-	if (nullptr == m_pRendererCom)
-		return E_FAIL;
 
-	m_pRendererCom->Set_WeakPtr((void**)&m_pRendererCom);
+	m_pRendererCom = Add_Component<CRenderer>();
+	ISVALID(m_pRendererCom, E_FAIL);
+
+	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
-	if (nullptr == m_pVIBufferCom)
-		return E_FAIL;
-	m_pVIBufferCom->Set_WeakPtr((void**)&m_pVIBufferCom);
+	ISVALID(m_pVIBufferCom, E_FAIL);
+	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 	
 	CTransform::TRANSFORMDESC		TransformDesc;
 	TransformDesc.fSpeedPerSec = 5.0f;
 	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f);
 
 	m_pTransformCom = Add_Component<CTransform>(&TransformDesc);
-	if (nullptr == m_pTransformCom)
-		return E_FAIL;
-	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
+	ISVALID(m_pTransformCom, E_FAIL);
+	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
-	//Safe_Release(pGameInstance);
 	return S_OK;
 }
 

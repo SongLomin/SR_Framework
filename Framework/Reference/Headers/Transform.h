@@ -36,6 +36,7 @@ public:
 
 public:
 	HRESULT Bind_WorldMatrix();
+	_float4x4 Get_WorldMatrix() const;
 
 public:
 	void Go_Straight(_float fTimeDelta);
@@ -50,6 +51,14 @@ public:
 private:
 	_float4x4			m_WorldMatrix;
 	TRANSFORMDESC		m_TransformDesc;
+
+public:
+	void Set_Parent(CTransform* _pParent);
+	void Add_Child(CTransform* _pChild);
+
+private:
+	CTransform*		m_pParent = nullptr;
+	list<CTransform*>	m_pChildren;
 
 public:
 	static CTransform* Create();

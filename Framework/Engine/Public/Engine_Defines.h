@@ -12,6 +12,8 @@
 #include <map>
 #include <unordered_map>
 #include <algorithm>
+#include <typeinfo>
+#include <functional>
 
 #include "Engine_Typedef.h"
 #include "Engine_Function.h"

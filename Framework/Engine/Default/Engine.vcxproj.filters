@@ -76,6 +76,15 @@
     <Filter Include="01.Utility\04.Manager\04. Resource_Manager">
       <UniqueIdentifier>{50056cdc-6bc5-4c1b-b2cd-b0ea1d9ed239}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\04.Manager\05. Time_Manager">
+      <UniqueIdentifier>{236b14f9-740d-4228-ae13-7b38012d3ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Module">
+      <UniqueIdentifier>{2a2a36c4-af0a-4c1a-8e80-0593d902b974}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Module\00. Interface">
+      <UniqueIdentifier>{c23d2a9d-589e-44e1-b1ef-1e5665c36844}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -144,6 +153,12 @@
     <ClInclude Include="..\Public\Transform.h">
       <Filter>01.Utility\03.Components\Transform</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\TimeManager.h">
+      <Filter>01.Utility\04.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\ITimerEvent.h">
+      <Filter>02. Module\00. Interface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -193,6 +208,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Transform.cpp">
       <Filter>01.Utility\03.Components\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\TimeManager.cpp">
+      <Filter>01.Utility\04.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ITimerEvent.cpp">
+      <Filter>02. Module\00. Interface</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

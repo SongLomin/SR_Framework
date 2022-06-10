@@ -37,8 +37,22 @@ public: /* For.Level_Manager */
 	HRESULT Open_Level(_uint iLevelID, class CLevel* pLevel);
 
 public: /* For.Object_Manager */
-	HRESULT Add_Prototype(const _tchar* pPrototypeTag, class CGameObject* pPrototype);
-	HRESULT Add_GameObject(_uint iLevelIndex, const _tchar* pLayerTag, const _tchar* pPrototypeTag, void* pArg = nullptr);
+	template <typename T>
+	HRESULT Add_Prototype_GameObject()
+	{
+		if (nullptr == m_pObject_Manager)
+			return E_FAIL;
+
+		if (!m_pObject_Manager->Add_Prototype<T>())
+			return E_FAIL;
+
+		return S_OK;
+	}
+	template <typename T>
+	CGameObject* Add_GameObject(_uint iLevelIndex, const _tchar* pLayerTag, void* pArg = nullptr)
+	{
+		return m_pObject_Manager->Add_GameObject<T>(iLevelIndex, pLayerTag, pArg);
+	}
 	CGameObject* Get_Player_GameObject();
 
 

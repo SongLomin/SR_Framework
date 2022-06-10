@@ -2,6 +2,8 @@
 #include "..\Public\Level_Logo.h"
 #include "GameInstance.h"
 #include "LEvel_Loading.h"
+#include "BackGround.h"
+#include "Monster.h"
 
 
 CLevel_Logo::CLevel_Logo(LPDIRECT3DDEVICE9 pGraphic_Device)
@@ -40,7 +42,7 @@ void CLevel_Logo::Tick(_float fTimeDelta)
 	{
 		CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 
-		if (pGameInstance->Add_GameObject(LEVEL_LOGO, TEXT("Monster"), TEXT("Prototype_GameObject_Monster")))
+		if (pGameInstance->Add_GameObject<CMonster>(LEVEL_LOGO, TEXT("Monster")))
 			return;
 	}
 }
@@ -61,10 +63,10 @@ HRESULT CLevel_Logo::Ready_Layer_BackGround(const _tchar * pLayerTag)
 	//Safe_AddRef(pGameInstance);
 
 	/* For.BackGround */
-	if (FAILED(pGameInstance->Add_GameObject(LEVEL_LOGO, pLayerTag, TEXT("Prototype_GameObject_BackGround"))))
+	if (!pGameInstance->Add_GameObject<CBackGround>(LEVEL_LOGO, pLayerTag))
 		return E_FAIL;
 
-	if (FAILED(pGameInstance->Add_GameObject(LEVEL_LOGO, pLayerTag, TEXT("Prototype_GameObject_Monster"))))
+	if (!pGameInstance->Add_GameObject<CMonster>(LEVEL_LOGO, pLayerTag))
 		return E_FAIL;
 
 	//Safe_Release(pGameInstance);

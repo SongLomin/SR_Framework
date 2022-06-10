@@ -1,9 +1,6 @@
 #include "..\Public\Base.h"
 
-void CBase::Set_WeakPtr(void** WeakPtr)
-{
-	m_WeakList.push_back(WeakPtr);
-}
+
 
 //CBase::CBase()
 //{
