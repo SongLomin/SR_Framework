@@ -17,6 +17,7 @@ public:
 
 public:
 	HRESULT Open_Level(_uint iLevelID, class CLevel* pLevel);
+	_uint Get_CurrentLevelIndex();
 	void Tick(_float fTimeDelta);
 	HRESULT Render();
 

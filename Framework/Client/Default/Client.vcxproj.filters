@@ -34,6 +34,9 @@
     <Filter Include="02.GameObject\02. Monster">
       <UniqueIdentifier>{724bfe03-e6b2-4318-8ef5-193550918ccf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\03. Dummy">
+      <UniqueIdentifier>{48afe763-4d05-4659-9db7-becf15def9ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -72,6 +75,9 @@
     <ClInclude Include="..\Public\Monster.h">
       <Filter>02.GameObject\02. Monster</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Dummy.h">
+      <Filter>02.GameObject\03. Dummy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -100,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Monster.cpp">
       <Filter>02.GameObject\02. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Dummy.cpp">
+      <Filter>02.GameObject\03. Dummy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

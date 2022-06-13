@@ -35,6 +35,7 @@ public: /* For.Graphic_Device */
 
 public: /* For.Level_Manager */
 	HRESULT Open_Level(_uint iLevelID, class CLevel* pLevel);
+	_uint	Get_CurrentLevelIndex();
 
 public: /* For.Object_Manager */
 	template <typename T>

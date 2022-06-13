@@ -32,7 +32,7 @@ HRESULT CTransform::Initialize(void* pArg)
 HRESULT CTransform::Bind_WorldMatrix()
 {
 
-	DEVICE->SetTransform(D3DTS_WORLD, &m_WorldMatrix);
+	DEVICE->SetTransform(D3DTS_WORLD, &Get_WorldMatrix());
 
 	return S_OK;
 }

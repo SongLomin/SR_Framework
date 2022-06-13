@@ -30,6 +30,11 @@ HRESULT CLevel_Manager::Open_Level(_uint iLevelID, CLevel * pLevel)
 	return S_OK;
 }
 
+_uint CLevel_Manager::Get_CurrentLevelIndex()
+{
+	return m_iCurrentLevelID;
+}
+
 void CLevel_Manager::Tick(_float fTimeDelta)
 {
 	if (nullptr == m_pCurrentLevel)

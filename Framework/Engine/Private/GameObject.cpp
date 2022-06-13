@@ -12,30 +12,6 @@ CGameObject::CGameObject(const CGameObject & Prototype)
 	//Safe_AddRef(m_pGraphic_Device);
 }
 
-HRESULT CGameObject::Initialize_Prototype()
-{
-	return S_OK;
-}
-
-HRESULT CGameObject::Initialize(void* pArg)
-{
-	return S_OK;
-}
-
-void CGameObject::Tick(_float fTimeDelta)
-{
-}
-
-void CGameObject::LateTick(_float fTimeDelta)
-{
-}
-
-HRESULT CGameObject::Render()
-{
-
-	return S_OK;
-}
-
 void CGameObject::Free()
 {
 	//Safe_Release(m_pGraphic_Device);

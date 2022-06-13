@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "..\Public\BackGround.h"
 #include "GameInstance.h"
+#include "Dummy.h"
 
 CBackGround::CBackGround()
 {
@@ -62,7 +63,7 @@ HRESULT CBackGround::Render()
 {
 	_float4x4		ViewMatrix, ProjMatrix;
 
-	D3DXMatrixLookAtLH(&ViewMatrix, &_float3(0.f, 70.f, -20.f), &_float3(0.f, 0.f, 0.f), &_float3(0.f, 1.f, 0.f));
+	D3DXMatrixLookAtLH(&ViewMatrix, &_float3(0.f, 35.f, -10.f), &_float3(0.f, 0.f, 0.f), &_float3(0.f, 1.f, 0.f));
 	D3DXMatrixPerspectiveFovLH(&ProjMatrix, D3DXToRadian(60.0f), (_float)g_iWinCX / g_iWinCY, 02.f, 300.f);
 
 	m_pTransformCom->Bind_WorldMatrix();
@@ -81,20 +82,15 @@ HRESULT CBackGround::Render()
 
 HRESULT CBackGround::SetUp_Components()
 {
-	CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
-	//Safe_AddRef(pGameInstance);
 
 	//약포인터: 원본 객체가 삭제되면 약포인터로 등록된 포인터들도 nullptr로 바뀐다.
 	//댕글링 포인터를 방지하기 위해 사용한다.
 
 	m_pRendererCom = Add_Component<CRenderer>();
-	ISVALID(m_pRendererCom, E_FAIL);
-
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
-	ISVALID(m_pVIBufferCom, E_FAIL);
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 	
 	CTransform::TRANSFORMDESC		TransformDesc;
@@ -102,8 +98,11 @@ HRESULT CBackGround::SetUp_Components()
 	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f);
 
 	m_pTransformCom = Add_Component<CTransform>(&TransformDesc);
-	ISVALID(m_pTransformCom, E_FAIL);
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
+
+	CGameObject* MyChild = GAMEINSTANCE->Add_GameObject<CDummy>(2, TEXT("Dummy"));
+	MyChild->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
+	
 
 	return S_OK;
 }

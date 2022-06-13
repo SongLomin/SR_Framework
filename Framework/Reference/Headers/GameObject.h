@@ -12,11 +12,11 @@ protected:
 	virtual ~CGameObject() = default;
 
 public:
-	virtual HRESULT Initialize_Prototype();
-	virtual HRESULT Initialize(void* pArg);
-	virtual void Tick(_float fTimeDelta);
-	virtual void LateTick(_float fTimeDelta);
-	virtual HRESULT Render();
+	virtual HRESULT Initialize_Prototype() PURE;
+	virtual HRESULT Initialize(void* pArg) PURE;
+	virtual void Tick(_float fTimeDelta) PURE;
+	virtual void LateTick(_float fTimeDelta) PURE;
+	virtual HRESULT Render() PURE;
 	
 
 protected:
