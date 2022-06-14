@@ -10,6 +10,7 @@ CGameInstance::CGameInstance()
 	, m_pComponent_Manager(CComponent_Manager::Get_Instance())
 	, m_pRender_Manager(CRender_Manager::Get_Instance())
 	, m_pResource_Manager(CResource_Manager::Get_Instance())
+	, m_pTime_Manager(CTime_Manager::Get_Instance())
 {
 	//Safe_AddRef(m_pComponent_Manager);
 	//Safe_AddRef(m_pObject_Manager);
@@ -108,6 +109,11 @@ HRESULT CGameInstance::Open_Level(_uint iLevelID, CLevel * pLevel)
 	return m_pLevel_Manager->Open_Level(iLevelID, pLevel);
 }
 
+void CGameInstance::Set_CurrentLevelIndex(_uint iLevelID)
+{
+	m_pLevel_Manager->Set_CurrentLevelIndex(iLevelID);
+}
+
 _uint CGameInstance::Get_CurrentLevelIndex()
 {
 	return m_pLevel_Manager->Get_CurrentLevelIndex();
@@ -189,6 +195,22 @@ vector<LPDIRECT3DBASETEXTURE9>* CGameInstance::Get_Textures_From_Key(const _tcha
 	return CResource_Manager::Get_Instance()->Get_Textures_From_Key(_Str_Key, _eType);
 }
 
+HRESULT CGameInstance::Add_Timer(_uint eTimer)
+{
+	if (nullptr == m_pTime_Manager)
+		return E_FAIL;
+
+	return m_pTime_Manager->Add_Timer(eTimer);
+}
+
+_float CGameInstance::Compute_Timer(_uint eTimer)
+{
+	if (nullptr == m_pTime_Manager)
+		return 0.0f;
+
+	return m_pTime_Manager->Compute_Timer(eTimer);
+}
+
 void CGameInstance::Release_Engine()
 {
 	CGameInstance::Get_Instance()->Destroy_Instance();
@@ -205,6 +227,7 @@ void CGameInstance::Release_Engine()
 
 	CResource_Manager::Get_Instance()->Destroy_Instance();
 
+	CTime_Manager::Get_Instance()->Destroy_Instance();
 }
 
 void CGameInstance::Free()

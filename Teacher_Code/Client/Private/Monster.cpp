@@ -51,14 +51,7 @@ HRESULT CMonster::Render()
 	if (FAILED(m_pTextureCom->Bind_Texture(0)))
 		return E_FAIL;
 
-	_float4x4		ViewMatrix, ProjMatrix;
-	
-	D3DXMatrixLookAtLH(&ViewMatrix, &_float3(0.f, 3.f, -3.f), &_float3(0.f, 0.f, 0.f), &_float3(0.f, 1.f, 0.f));
-	D3DXMatrixPerspectiveFovLH(&ProjMatrix, D3DXToRadian(60.0f), (_float)g_iWinCX / g_iWinCY, 02.f, 300.f);
-
-	m_pTransformCom->Bind_WorldMatrix();
-	m_pGraphic_Device->SetTransform(D3DTS_VIEW, &ViewMatrix);
-	m_pGraphic_Device->SetTransform(D3DTS_PROJECTION, &ProjMatrix);
+	m_pTransformCom->Bind_WorldMatrix();	
 
 	m_pGraphic_Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 

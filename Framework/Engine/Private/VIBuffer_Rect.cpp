@@ -5,8 +5,8 @@ CVIBuffer_Rect::CVIBuffer_Rect()
 }
 
 CVIBuffer_Rect::CVIBuffer_Rect(const CVIBuffer_Rect & Prototype)
-	: CVIBuffer(Prototype)
 {
+	*this = Prototype;
 }
 
 HRESULT CVIBuffer_Rect::Initialize_Prototype()

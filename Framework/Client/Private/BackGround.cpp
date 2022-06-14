@@ -30,8 +30,7 @@ HRESULT CBackGround::Initialize(void* pArg)
 
 void CBackGround::Tick(_float fTimeDelta)
 {
-	ISVALID(m_pTransformCom, );
-	
+	ISVALID(m_pTransformCom);
 
 	if (GetKeyState(VK_UP) & 0x8000)
 		m_pTransformCom->Go_Straight(fTimeDelta);
@@ -100,7 +99,7 @@ HRESULT CBackGround::SetUp_Components()
 	m_pTransformCom = Add_Component<CTransform>(&TransformDesc);
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
-	CGameObject* MyChild = GAMEINSTANCE->Add_GameObject<CDummy>(2, TEXT("Dummy"));
+	CGameObject* MyChild = GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"));
 	MyChild->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
 	
 

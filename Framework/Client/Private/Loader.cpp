@@ -21,9 +21,11 @@ unsigned int APIENTRY LoadingMain(void* pArg)
 	switch (pLoader->Get_NextLevelID())
 	{
 	case LEVEL_LOGO:
+		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
 		hr = pLoader->Loading_ForLogoLevel();
 		break;
 	case LEVEL_GAMEPLAY:
+		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
 		hr = pLoader->Loading_ForGamePlayLevel();
 		break;
 	}	

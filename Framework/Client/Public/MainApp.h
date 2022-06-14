@@ -26,6 +26,7 @@ private:
 
 private:
 	HRESULT SetUp_RenderState();
+	HRESULT SetUp_SamplerState();
 	HRESULT Open_Level(LEVEL eLevelID);
 	HRESULT Ready_Prototype_Component();
 

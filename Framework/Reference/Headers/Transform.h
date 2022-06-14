@@ -30,6 +30,12 @@ public:
 		memcpy(&m_WorldMatrix.m[eState][0], &vState, sizeof(_float3));
 	}
 
+	_float3 Get_Scaled() {
+		return _float3(D3DXVec3Length(&Get_State(STATE_RIGHT)),
+			D3DXVec3Length(&Get_State(STATE_UP)),
+			D3DXVec3Length(&Get_State(STATE_LOOK)));
+	}
+
 public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);
@@ -47,6 +53,8 @@ public:
 
 	void Rotation(const _float3 & vAxis, _float fRadian);
 	void Turn(const _float3 & vAxis, _float fTimeDelta);
+
+	void LookAt(const _float3& vAt);
 
 private:
 	_float4x4			m_WorldMatrix;

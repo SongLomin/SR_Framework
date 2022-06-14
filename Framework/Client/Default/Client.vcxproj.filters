@@ -37,6 +37,12 @@
     <Filter Include="02.GameObject\03. Dummy">
       <UniqueIdentifier>{48afe763-4d05-4659-9db7-becf15def9ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\04. Terrain">
+      <UniqueIdentifier>{3e4f3c86-6ff2-4698-aa04-79444a09b1a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\05. CameraObject">
+      <UniqueIdentifier>{067dc810-ebff-4191-b51d-b8b86ea6e380}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -78,6 +84,12 @@
     <ClInclude Include="..\Public\Dummy.h">
       <Filter>02.GameObject\03. Dummy</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Terrain.h">
+      <Filter>02.GameObject\04. Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\CameraObject.h">
+      <Filter>02.GameObject\05. CameraObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -109,6 +121,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Dummy.cpp">
       <Filter>02.GameObject\03. Dummy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Terrain.cpp">
+      <Filter>02.GameObject\04. Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\CameraObject.cpp">
+      <Filter>02.GameObject\05. CameraObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

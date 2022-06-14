@@ -36,6 +36,10 @@ public:
 			D3DXVec3Length(&Get_State(STATE_LOOK)));
 	}
 
+	_float4x4 Get_WorldMatrix() {
+		return m_WorldMatrix;
+	}
+
 public:
 
 	void Set_State(STATE eState, const _float3& vState) {
@@ -60,6 +64,7 @@ public:
 
 	void Chase(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit = 1.f);
 	void LookAt(CTransform* pTargetTransform);
+	void LookAt(const _float3& vAt);
 
 private:
 	_float4x4			m_WorldMatrix;

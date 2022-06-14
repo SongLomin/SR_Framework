@@ -36,6 +36,10 @@ public:
 			D3DXVec3Length(&Get_State(STATE_LOOK)));
 	}
 
+	_float4x4 Get_WorldMatrix() {
+		return m_WorldMatrix;
+	}
+
 public:
 
 	void Set_State(STATE eState, const _float3& vState) {

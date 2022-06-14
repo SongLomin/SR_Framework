@@ -1,5 +1,4 @@
 #include "..\Public\Camera.h"
-#include "Transform.h"
 #include "GameInstance.h"
 
 const _tchar*			CCamera::m_pTransformComTag = TEXT("Com_Transform");
@@ -50,8 +49,30 @@ HRESULT CCamera::Render()
 	return S_OK;
 }
 
+HRESULT CCamera::Bind_PipeLine()
+{
+	if (nullptr == m_pGraphic_Device)
+		return E_FAIL;
+
+	_float4x4		WorldMatrix = m_pTransformCom->Get_WorldMatrix();
+	_float4x4		ViewMatrix;
+
+	D3DXMatrixInverse(&ViewMatrix, nullptr, &WorldMatrix);
+	
+	m_pGraphic_Device->SetTransform(D3DTS_VIEW, &ViewMatrix);
+
+	_float4x4		ProjMatrix;
+
+	D3DXMatrixPerspectiveFovLH(&ProjMatrix, m_CameraDesc.fFovy, m_CameraDesc.fAspect, m_CameraDesc.fNear, m_CameraDesc.fFar);
+
+	m_pGraphic_Device->SetTransform(D3DTS_PROJECTION, &ProjMatrix);
+
+	return S_OK;
+}
+
 void CCamera::Free()
 {
 	__super::Free();
 
+	Safe_Release(m_pTransformCom);
 }

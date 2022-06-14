@@ -22,7 +22,7 @@ HRESULT CObject_Manager::Reserve_Container(_uint iNumLevels)
 
 CGameObject* CObject_Manager::Get_Player()
 {
-	list<CGameObject*>* pLayer = Find_Layer(2, TEXT("Layer_BackGround"));
+	list<CGameObject*>* pLayer = Find_Layer(2, TEXT("Background"));
 
 	ISVALID(pLayer, nullptr);
 
@@ -35,7 +35,7 @@ void CObject_Manager::Tick(_float fTimeDelta)
 	{
 		for (auto& Pair : m_pLayers[i])
 		{
-			for(auto& elem_GameObject : Pair.second)
+			for(auto& elem_GameObject : Pair.second) 
 			{
 				elem_GameObject->Tick(fTimeDelta);		
 			}

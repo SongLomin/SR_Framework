@@ -22,6 +22,15 @@ public:
 	{
 		m_WeakList.push_back((void**)WeakPtr);
 	}
+
+	//참조 포인터의 인스턴스가 원본보다 먼저 삭제되는 경우 사용 해제를 해줘야 합니다.
+	//예) 몬스터가 플레이어를 참조한다. 몬스터가 먼저 삭제된 경우엔 플레이어 참조 포인터를 사용 해제함.
+	template<typename T>
+	void	Return_WeakPtr(T** WeakPtr)
+	{
+		m_WeakList.remove((void**)WeakPtr);
+	}
+
 	virtual void Free();
 
 private:

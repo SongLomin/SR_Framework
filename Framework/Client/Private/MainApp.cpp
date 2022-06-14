@@ -29,6 +29,9 @@ HRESULT CMainApp::Initialize()
 	if (FAILED(SetUp_RenderState()))
 		return E_FAIL;
 
+	if (FAILED(SetUp_SamplerState()))
+		return E_FAIL;
+
 	if (FAILED(Ready_Prototype_Component()))
 		return E_FAIL;
 
@@ -64,6 +67,22 @@ HRESULT CMainApp::SetUp_RenderState()
 	m_pGraphic_Device->SetRenderState(D3DRS_LIGHTING, FALSE);
 	// m_pGraphic_Device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);	
 	m_pGraphic_Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+
+	return S_OK;
+}
+
+HRESULT CMainApp::SetUp_SamplerState()
+{
+	ISVALID(m_pGraphic_Device, E_FAIL);
+
+	//작게 그려지는 경우, 픽셀 선형 보간
+	m_pGraphic_Device->SetSamplerState(0, D3DSAMPLERSTATETYPE::D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+	//자글자글해지는 것을 보간
+	m_pGraphic_Device->SetSamplerState(0, D3DSAMPLERSTATETYPE::D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
+	//크게 그려지는 경우, 픽셀 선형 보간
+	m_pGraphic_Device->SetSamplerState(0, D3DSAMPLERSTATETYPE::D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+
+	//보간의 경우 프레임 드랍을 유발한다.
 
 	return S_OK;
 }

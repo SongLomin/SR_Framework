@@ -6,6 +6,7 @@
 #include "Component_Manager.h"
 #include "Render_Manager.h"
 #include "Resource_Manager.h"
+#include "Time_Manager.h"
 
 /* 1. 게임내에 필요한 객체(매니져등)들을 모아서 보관한다. */
 /* 2. 클라이언트 개발자가 접근하기좋은 루트를 제공해준다. 나. */
@@ -35,6 +36,7 @@ public: /* For.Graphic_Device */
 
 public: /* For.Level_Manager */
 	HRESULT Open_Level(_uint iLevelID, class CLevel* pLevel);
+	void	Set_CurrentLevelIndex(_uint iLevelID);
 	_uint	Get_CurrentLevelIndex();
 
 public: /* For.Object_Manager */
@@ -77,6 +79,11 @@ public: /* For.Resource_Mananger */
 	HRESULT Remove_Textures_By_MemoryType(MEMORY_TYPE _eMemType);
 	vector<LPDIRECT3DBASETEXTURE9>* Get_Textures_From_Key(const _tchar * _Str_Key, MEMORY_TYPE _eType = MEMORY_TYPE::MEMORY_END);
 
+public: /* For.Time_Manager */
+	HRESULT Add_Timer(_uint eTimer);
+	_float Compute_Timer(_uint eTimer);
+
+
 private:
 	CGraphic_Device*				m_pGraphic_Device = nullptr;
 	CLevel_Manager*					m_pLevel_Manager = nullptr;
@@ -84,6 +91,7 @@ private:
 	CComponent_Manager*				m_pComponent_Manager = nullptr;
 	CRender_Manager*				m_pRender_Manager = nullptr;
 	CResource_Manager*				m_pResource_Manager = nullptr;
+	CTime_Manager*					m_pTime_Manager = nullptr;
 
 public:
 	static void Release_Engine();

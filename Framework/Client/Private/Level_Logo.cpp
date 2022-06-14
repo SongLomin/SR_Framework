@@ -4,6 +4,7 @@
 #include "LEvel_Loading.h"
 #include "BackGround.h"
 #include "Monster.h"
+#include "Terrain.h"
 
 
 CLevel_Logo::CLevel_Logo(LPDIRECT3DDEVICE9 pGraphic_Device)
@@ -17,7 +18,13 @@ HRESULT CLevel_Logo::Initialize()
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
 
-	if (FAILED(Ready_Layer_BackGround(TEXT("Layer_BackGround"))))
+	if (!GAMEINSTANCE->Add_GameObject<CBackGround>(LEVEL_LOGO, TEXT("Background")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CMonster>(LEVEL_LOGO, TEXT("Monster")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_LOGO, TEXT("Terrain")))
 		return E_FAIL;
 
 	return S_OK;
@@ -60,16 +67,6 @@ HRESULT CLevel_Logo::Render()
 HRESULT CLevel_Logo::Ready_Layer_BackGround(const _tchar * pLayerTag)
 {
 	CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
-	//Safe_AddRef(pGameInstance);
-
-	/* For.BackGround */
-	if (!pGameInstance->Add_GameObject<CBackGround>(LEVEL_LOGO, pLayerTag))
-		return E_FAIL;
-
-	if (!pGameInstance->Add_GameObject<CMonster>(LEVEL_LOGO, pLayerTag))
-		return E_FAIL;
-
-	//Safe_Release(pGameInstance);
 
 	return S_OK;
 }

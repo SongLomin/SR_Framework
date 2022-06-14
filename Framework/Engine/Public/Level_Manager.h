@@ -17,6 +17,7 @@ public:
 
 public:
 	HRESULT Open_Level(_uint iLevelID, class CLevel* pLevel);
+	void Set_CurrentLevelIndex(_uint iLevelID);
 	_uint Get_CurrentLevelIndex();
 	void Tick(_float fTimeDelta);
 	HRESULT Render();
@@ -24,6 +25,8 @@ public:
 private:
 	class CLevel*			m_pCurrentLevel = nullptr;
 	_uint					m_iCurrentLevelID = 0;
+	//인덱스용도만 쓴다.
+	_uint					m_iCurrentLevelIndex = 0;
 
 public:
 	virtual void Free() override;

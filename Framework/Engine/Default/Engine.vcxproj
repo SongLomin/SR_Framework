@@ -157,6 +157,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp" />
+    <ClCompile Include="..\Private\Camera.cpp" />
     <ClCompile Include="..\private\Component.cpp" />
     <ClCompile Include="..\private\Component_Manager.cpp" />
     <ClCompile Include="..\private\GameInstance.cpp" />
@@ -170,13 +171,16 @@
     <ClCompile Include="..\private\Renderer.cpp" />
     <ClCompile Include="..\Private\Render_Manager.cpp" />
     <ClCompile Include="..\Private\Resource_Manager.cpp" />
-    <ClCompile Include="..\Private\TimeManager.cpp" />
+    <ClCompile Include="..\Private\Time_Manager.cpp" />
+    <ClCompile Include="..\Private\Timer.cpp" />
     <ClCompile Include="..\Private\Transform.cpp" />
     <ClCompile Include="..\private\VIBuffer.cpp" />
     <ClCompile Include="..\Private\VIBuffer_Rect.cpp" />
+    <ClCompile Include="..\Private\VIBuffer_Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h" />
+    <ClInclude Include="..\Public\Camera.h" />
     <ClInclude Include="..\public\Component.h" />
     <ClInclude Include="..\public\Component_Manager.h" />
     <ClInclude Include="..\Public\Engine_Defines.h" />
@@ -196,10 +200,12 @@
     <ClInclude Include="..\public\Renderer.h" />
     <ClInclude Include="..\Public\Render_Manager.h" />
     <ClInclude Include="..\Public\Resource_Manager.h" />
-    <ClInclude Include="..\Public\TimeManager.h" />
+    <ClInclude Include="..\Public\Time_Manager.h" />
+    <ClInclude Include="..\Public\Timer.h" />
     <ClInclude Include="..\Public\Transform.h" />
     <ClInclude Include="..\public\VIBuffer.h" />
     <ClInclude Include="..\Public\VIBuffer_Rect.h" />
+    <ClInclude Include="..\Public\VIBuffer_Terrain.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

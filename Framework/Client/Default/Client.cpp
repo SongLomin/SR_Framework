@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "Client.h"
 #include "MainApp.h"
+#include "GameInstance.h"
 
 #define MAX_LOADSTRING 100
 
@@ -56,6 +57,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // 기본 메시지 루프입니다.
 
+    if (FAILED(GAMEINSTANCE->Add_Timer((_uint)TIMER::TIMER_DEFAULT)))
+        return FALSE;
+    if (FAILED(GAMEINSTANCE->Add_Timer((_uint)TIMER::TIMER_FRAME)))
+        return FALSE;
+
+    _float		fTimerAcc = 0.f;
+
 	while (true)
 	{		
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
@@ -69,12 +77,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 				DispatchMessage(&msg);
 			}			
 		}
-		
-		/* 게임의 업데이트 */
-		pMainApp->Tick(0.0005f);
-		/* 게임의 드로우. */
-		if (FAILED(pMainApp->Render()))
-			break;
+
+        fTimerAcc += GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_DEFAULT);
+
+        if (fTimerAcc > 0.00694f) //144Hz
+        {
+            fTimerAcc = 0.f;
+
+            pMainApp->Tick(GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_FRAME));
+
+            if (FAILED(pMainApp->Render()))
+                break;
+        }
 	}
 
 	Safe_Release(pMainApp);    
