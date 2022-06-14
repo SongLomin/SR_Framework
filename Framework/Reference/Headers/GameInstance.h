@@ -28,6 +28,9 @@ public: /* 엔진 라이브럴를 사용할때 필요한 초기화 과정으르 거칠거야. */
 	HRESULT Render_Engine();
 	HRESULT Clear(_uint iLevelID);
 
+	HWND	Get_Window_Handle() const { return  m_Graphic_Desc.hWnd; } 
+	GRAPHICDESC Get_Graphic_Desc() const { return m_Graphic_Desc; }
+
 public: /* For.Graphic_Device */	
 	void		Render_Begin(void);
 	void		Render_End(HWND hWnd = NULL);
@@ -92,6 +95,9 @@ private:
 	CRender_Manager*				m_pRender_Manager = nullptr;
 	CResource_Manager*				m_pResource_Manager = nullptr;
 	CTime_Manager*					m_pTime_Manager = nullptr;
+
+private:
+	GRAPHICDESC						m_Graphic_Desc;
 
 public:
 	static void Release_Engine();

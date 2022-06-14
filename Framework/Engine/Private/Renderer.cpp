@@ -58,29 +58,12 @@ HRESULT CRenderer::Initialize(void * pArg)
 
 CRenderer * CRenderer::Create()
 {
-	CRenderer*		pInstance = new CRenderer();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CRenderer");
-		//Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CREATE_PIPELINE(CRenderer);
 }
 
 CComponent * CRenderer::Clone(void * pArg)
 {
-
-	CRenderer* pInstance = new CRenderer();
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Cloned : CRenderer");
-		//Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CRenderer);
 }
 
 void CRenderer::Free()

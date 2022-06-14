@@ -31,28 +31,12 @@ HRESULT CVIBuffer_Terrain::Initialize(void* pArg)
 
 CVIBuffer_Terrain* CVIBuffer_Terrain::Create()
 {
-	CVIBuffer_Terrain* pInstance = new CVIBuffer_Terrain();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CVIBuffer_Rect");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CREATE_PIPELINE(CVIBuffer_Terrain);
 }
 
 CComponent* CVIBuffer_Terrain::Clone(void* pArg)
 {
-	CVIBuffer_Terrain* pInstance = new CVIBuffer_Terrain(*this);
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Cloned : CVIBuffer_Rect");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CVIBuffer_Terrain);
 }
 
 void CVIBuffer_Terrain::Free()

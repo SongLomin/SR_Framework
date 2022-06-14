@@ -8,7 +8,7 @@ BEGIN(Client)
 class CLevel_GamePlay final : public CLevel
 {
 public:
-	CLevel_GamePlay(LPDIRECT3DDEVICE9 pGraphic_Device);
+	CLevel_GamePlay();
 	virtual ~CLevel_GamePlay() = default;
 
 public:
@@ -17,7 +17,7 @@ public:
 	virtual HRESULT Render();
 
 public:
-	static CLevel_GamePlay* Create(LPDIRECT3DDEVICE9 pGraphic_Device);
+	static CLevel_GamePlay* Create();
 	virtual void Free() override;
 };
 

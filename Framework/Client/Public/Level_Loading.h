@@ -12,7 +12,7 @@ BEGIN(Client)
 class CLevel_Loading final : public CLevel
 {
 public:
-	CLevel_Loading(LPDIRECT3DDEVICE9 pGraphic_Device);
+	CLevel_Loading();
 	virtual ~CLevel_Loading() = default;
 
 public:
@@ -25,7 +25,7 @@ private:
 	class CLoader*	m_pLoader = nullptr;
 
 public:
-	static CLevel_Loading* Create(LPDIRECT3DDEVICE9 pGraphic_Device, LEVEL eNextLevel);
+	static CLevel_Loading* Create(LEVEL eNextLevel);
 	virtual void Free() override;
 };
 

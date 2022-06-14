@@ -1,7 +1,6 @@
 #include "..\Public\Level.h"
 
-CLevel::CLevel(LPDIRECT3DDEVICE9 pGraphic_Device)
-	: m_pGraphic_Device(pGraphic_Device)
+CLevel::CLevel()
 {
 	//Safe_AddRef(m_pGraphic_Device);
 }

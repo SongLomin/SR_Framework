@@ -2,6 +2,11 @@
 #include "Terrain.h"
 #include "GameInstance.h"
 
+CTerrain::CTerrain(const CTerrain& Prototype)
+{
+	*this = Prototype;
+}
+
 HRESULT CTerrain::Initialize_Prototype()
 {
 	return S_OK;
@@ -51,28 +56,12 @@ HRESULT CTerrain::Render()
 
 CTerrain* CTerrain::Create()
 {
-	CTerrain* pInstance = new CTerrain();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CBackGround");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CREATE_PIPELINE(CTerrain);
 }
 
 CGameObject* CTerrain::Clone(void* pArg)
 {
-	CTerrain* pInstance = new CTerrain();
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Created : CBackGround");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CTerrain);
 }
 
 void CTerrain::Free()

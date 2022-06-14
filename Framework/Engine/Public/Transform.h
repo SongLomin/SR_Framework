@@ -53,6 +53,7 @@ public:
 
 	void Rotation(const _float3 & vAxis, _float fRadian);
 	void Turn(const _float3 & vAxis, _float fTimeDelta);
+	void Turn_Look(const _float3& vAxis, _float fTimeDelta);
 
 	void LookAt(const _float3& vAt);
 

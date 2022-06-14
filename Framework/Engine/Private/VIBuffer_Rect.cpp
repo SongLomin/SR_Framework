@@ -142,28 +142,12 @@ HRESULT CVIBuffer_Rect::Initialize(void * pArg)
 
 CVIBuffer_Rect * CVIBuffer_Rect::Create()
 {
-	CVIBuffer_Rect*		pInstance = new CVIBuffer_Rect();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CVIBuffer_Rect");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CREATE_PIPELINE(CVIBuffer_Rect);
 }
 
 CComponent * CVIBuffer_Rect::Clone(void * pArg)
 {
-	CVIBuffer_Rect* pInstance = new CVIBuffer_Rect(*this);
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Cloned : CVIBuffer_Rect");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CVIBuffer_Rect);
 }
 
 void CVIBuffer_Rect::Free()

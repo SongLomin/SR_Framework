@@ -55,7 +55,7 @@ void CCamera_Free::Tick(_float fTimeDelta)
 	}
 
 	if (FAILED(Bind_PipeLine()))
-		return ;
+		return;
 
 }
 
@@ -98,4 +98,6 @@ CGameObject * CCamera_Free::Clone(void * pArg)
 void CCamera_Free::Free()
 {
 	__super::Free();
+
+	delete this;
 }

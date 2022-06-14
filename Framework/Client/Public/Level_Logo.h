@@ -8,7 +8,7 @@ BEGIN(Client)
 class CLevel_Logo final : public CLevel
 {
 public:
-	CLevel_Logo(LPDIRECT3DDEVICE9 pGraphic_Device);
+	CLevel_Logo();
 	virtual ~CLevel_Logo() = default;
 
 public:
@@ -20,7 +20,7 @@ private:
 	HRESULT Ready_Layer_BackGround(const _tchar* pLayerTag);
 
 public:
-	static CLevel_Logo* Create(LPDIRECT3DDEVICE9 pGraphic_Device);
+	static CLevel_Logo* Create();
 	virtual void Free() override;
 };
 

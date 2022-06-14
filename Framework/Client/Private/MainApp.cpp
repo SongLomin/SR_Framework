@@ -92,7 +92,7 @@ HRESULT CMainApp::Open_Level(LEVEL eLevelID)
 	if (nullptr == m_pGameInstance)
 		return E_FAIL;
 
-	CLevel_Loading*		pLevel_Loading = CLevel_Loading::Create(m_pGraphic_Device, eLevelID);
+	CLevel_Loading*		pLevel_Loading = CLevel_Loading::Create(eLevelID);
 	if (nullptr == pLevel_Loading)
 		return E_FAIL;
 

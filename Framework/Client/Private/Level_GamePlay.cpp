@@ -1,9 +1,13 @@
 #include "stdafx.h"
 #include "..\Public\Level_GamePlay.h"
+#include "GameInstance.h"
+#include "LEvel_Loading.h"
+#include "BackGround.h"
+#include "Monster.h"
+#include "Terrain.h"
+#include "Cam_Free.h"
 
-
-CLevel_GamePlay::CLevel_GamePlay(LPDIRECT3DDEVICE9 pGraphic_Device)
-	: CLevel(pGraphic_Device)
+CLevel_GamePlay::CLevel_GamePlay()
 {
 
 }
@@ -11,6 +15,15 @@ CLevel_GamePlay::CLevel_GamePlay(LPDIRECT3DDEVICE9 pGraphic_Device)
 HRESULT CLevel_GamePlay::Initialize()
 {
 	if (FAILED(__super::Initialize()))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CBackGround>(LEVEL_LOGO, TEXT("Background")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CMonster>(LEVEL_LOGO, TEXT("Monster")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_LOGO, TEXT("Terrain")))
 		return E_FAIL;
 
 	return S_OK;
@@ -32,9 +45,9 @@ HRESULT CLevel_GamePlay::Render()
 	return S_OK;
 }
 
-CLevel_GamePlay * CLevel_GamePlay::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
+CLevel_GamePlay * CLevel_GamePlay::Create()
 {
-	CLevel_GamePlay*		pInstance = new CLevel_GamePlay(pGraphic_Device);
+	CLevel_GamePlay*		pInstance = new CLevel_GamePlay();
 
 	if (FAILED(pInstance->Initialize()))
 	{

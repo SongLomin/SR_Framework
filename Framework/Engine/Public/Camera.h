@@ -7,6 +7,15 @@ class CTransform;
 class ENGINE_DLL CCamera final :
     public CComponent
 {
+protected:
+    typedef struct Desc
+    {
+        _float fFovy = 0.f;
+        _float fAspect = 0.f;
+        _float fNear = 0.f;
+        _float fFar = 0.f;
+    };
+
 private:
     CCamera() = default;
     CCamera(const CCamera & Prototype);
@@ -17,10 +26,14 @@ public:
     virtual HRESULT Initialize(void* pArg) override;
 
 public:
-    void Set_Transform(CTransform* _pTransform);
+    void Link_TransformCom(CTransform* _pTransform);
+    void Set_Param(_float _fFovy, _float _fAspect, _float _fNear, _float _fFar);
+    HRESULT Bind_PipeLine();
 
 private:
     CTransform* m_pTransfrom = nullptr;
+    Desc m_CamDesc;
+
 public:
     static CCamera* Create();
     virtual CComponent* Clone(void* pArg) override;

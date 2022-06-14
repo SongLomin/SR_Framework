@@ -40,8 +40,14 @@
     <Filter Include="02.GameObject\04. Terrain">
       <UniqueIdentifier>{3e4f3c86-6ff2-4698-aa04-79444a09b1a0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\05. CameraObject">
+    <Filter Include="02.GameObject\05. Camera_Object">
       <UniqueIdentifier>{067dc810-ebff-4191-b51d-b8b86ea6e380}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\05. Camera_Object\01. Cam_TPS">
+      <UniqueIdentifier>{e5f649ba-57d5-448e-b5d4-61bc67672bda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\05. Camera_Object\00. Cam_Free">
+      <UniqueIdentifier>{2fcd89fe-11d7-404c-9723-bcba1e528273}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -87,8 +93,11 @@
     <ClInclude Include="..\Public\Terrain.h">
       <Filter>02.GameObject\04. Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\CameraObject.h">
-      <Filter>02.GameObject\05. CameraObject</Filter>
+    <ClInclude Include="..\Public\Cam_Free.h">
+      <Filter>02.GameObject\05. Camera_Object\00. Cam_Free</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Cam_TPS.h">
+      <Filter>02.GameObject\05. Camera_Object\01. Cam_TPS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -125,8 +134,11 @@
     <ClCompile Include="..\Private\Terrain.cpp">
       <Filter>02.GameObject\04. Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\CameraObject.cpp">
-      <Filter>02.GameObject\05. CameraObject</Filter>
+    <ClCompile Include="..\Private\Cam_Free.cpp">
+      <Filter>02.GameObject\05. Camera_Object\00. Cam_Free</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Cam_TPS.cpp">
+      <Filter>02.GameObject\05. Camera_Object\01. Cam_TPS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -4,31 +4,13 @@
 
 CDummy* CDummy::Create()
 {
-	CDummy* pInstance = new CDummy();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CBackGround");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CREATE_PIPELINE(CDummy);
 }
 
 CGameObject* CDummy::Clone(void* pArg)
 {
-	CDummy* pInstance = new CDummy();
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Created : CBackGround");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CDummy);
 }
-
-
 
 CDummy::CDummy(const CDummy& Prototype)
 {

@@ -148,6 +148,25 @@ void CTransform::Turn(const _float3& vAxis, _float fTimeDelta)
 	Set_State(CTransform::STATE_LOOK, vLook);
 }
 
+void CTransform::Turn_Look(const _float3& vAxis, _float fTimeDelta)
+{
+	_float3		vLook = Get_State(CTransform::STATE_LOOK);
+
+	_float4x4	RotationMatrix;
+	D3DXMatrixRotationAxis(&RotationMatrix, &vAxis, m_TransformDesc.fRotationPerSec * fTimeDelta);
+	D3DXVec3TransformNormal(&vLook, &vLook, &RotationMatrix);
+
+	_float3 vRight;
+	D3DXVec3Cross(&vRight, &_float3(0.f, 1.f, 0.f), &vLook);
+
+	_float3 vUp;
+	D3DXVec3Cross(&vUp, &vLook, &vRight);
+
+	Set_State(CTransform::STATE_RIGHT, vRight);
+	Set_State(CTransform::STATE_UP, vUp);
+	Set_State(CTransform::STATE_LOOK, vLook);
+}
+
 void CTransform::LookAt(const _float3& vAt)
 {
 	_float3		vScale = Get_Scaled();
@@ -182,28 +201,12 @@ void CTransform::Add_Child(CTransform* _pChild)
 
 CTransform* CTransform::Create()
 {
-	CTransform* pInstance = new CTransform();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CRenderer");
-		//Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CREATE_PIPELINE(CTransform);
 }
 
 CComponent* CTransform::Clone(void* pArg)
 {
-	CTransform* pInstance = new CTransform(*this);
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Cloned : CTransform");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CTransform);
 }
 
 void CTransform::Free()

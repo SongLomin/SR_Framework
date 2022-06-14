@@ -80,28 +80,12 @@ HRESULT CMonster::SetUp_Components()
 
 CMonster* CMonster::Create()
 {
-    CMonster* pInstance = new CMonster();
-
-    if (FAILED(pInstance->Initialize_Prototype()))
-    {
-        MSG_BOX("Failed to Created : CBackGround");
-        Safe_Release(pInstance);
-    }
-
-    return pInstance;
+	CREATE_PIPELINE(CMonster);
 }
 
 CGameObject* CMonster::Clone(void* pArg)
 {
-    CMonster* pInstance = new CMonster(*this);
-
-    if (FAILED(pInstance->Initialize(pArg)))
-    {
-        MSG_BOX("Failed to Created : CMonster");
-        Safe_Release(pInstance);
-    }
-
-    return pInstance;
+	CLONE_PIPELINE(CMonster);
 }
 
 void CMonster::Free()

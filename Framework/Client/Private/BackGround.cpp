@@ -2,6 +2,8 @@
 #include "..\Public\BackGround.h"
 #include "GameInstance.h"
 #include "Dummy.h"
+#include "Cam_Free.h"
+#include "Cam_TPS.h"
 
 CBackGround::CBackGround()
 {
@@ -60,14 +62,14 @@ void CBackGround::LateTick(_float fTimeDelta)
 
 HRESULT CBackGround::Render()
 {
-	_float4x4		ViewMatrix, ProjMatrix;
+	//_float4x4		ViewMatrix, ProjMatrix;
 
-	D3DXMatrixLookAtLH(&ViewMatrix, &_float3(0.f, 35.f, -10.f), &_float3(0.f, 0.f, 0.f), &_float3(0.f, 1.f, 0.f));
-	D3DXMatrixPerspectiveFovLH(&ProjMatrix, D3DXToRadian(60.0f), (_float)g_iWinCX / g_iWinCY, 02.f, 300.f);
+	//D3DXMatrixLookAtLH(&ViewMatrix, &_float3(0.f, 35.f, -10.f), &_float3(0.f, 0.f, 0.f), &_float3(0.f, 1.f, 0.f));
+	//D3DXMatrixPerspectiveFovLH(&ProjMatrix, D3DXToRadian(60.0f), (_float)g_iWinCX / g_iWinCY, 02.f, 300.f);
 
 	m_pTransformCom->Bind_WorldMatrix();
-	DEVICE->SetTransform(D3DTS_VIEW, &ViewMatrix);
-	DEVICE->SetTransform(D3DTS_PROJECTION, &ProjMatrix);
+	//DEVICE->SetTransform(D3DTS_VIEW, &ViewMatrix);
+	//DEVICE->SetTransform(D3DTS_PROJECTION, &ProjMatrix);
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
@@ -98,38 +100,29 @@ HRESULT CBackGround::SetUp_Components()
 
 	m_pTransformCom = Add_Component<CTransform>(&TransformDesc);
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
+	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
 
 	CGameObject* MyChild = GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"));
 	MyChild->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
-	
+	m_pTransformCom->Add_Child(MyChild->Get_Component<CTransform>());
+
+	CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera"));
+	Free_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	Free_Cam->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
+	m_pTransformCom->Add_Child(Free_Cam->Get_Component<CTransform>());
+
 
 	return S_OK;
 }
 
 CBackGround * CBackGround::Create()
 {
-	CBackGround*		pInstance = new CBackGround();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CBackGround");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CREATE_PIPELINE(CBackGround);
 }
 
 CGameObject * CBackGround::Clone(void* pArg)
 {
-	CBackGround*		pInstance = new CBackGround(*this);
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Created : CBackGround");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CBackGround);
 }
 
 void CBackGround::Free()
