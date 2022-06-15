@@ -104,6 +104,14 @@ LPDIRECT3DDEVICE9* CGameInstance::Get_Device(void)
 	return m_pGraphic_Device->Get_Device();
 }
 
+HRESULT CGameInstance::Add_Text(TEXTINFO* TextInfo, _float CountTime)
+{
+	if (nullptr == m_pGraphic_Device)
+		return E_FAIL;
+
+	return m_pGraphic_Device->Add_Text(TextInfo, CountTime);
+}
+
 HRESULT CGameInstance::Open_Level(_uint iLevelID, CLevel * pLevel)
 {
 	if (nullptr == m_pLevel_Manager)

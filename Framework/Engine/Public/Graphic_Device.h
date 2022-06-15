@@ -4,6 +4,7 @@
 
 BEGIN(Engine)
 
+
 class CGraphic_Device final : public CBase
 {
 	DECLARE_SINGLETON(CGraphic_Device)
@@ -20,12 +21,18 @@ public:
 	void		Render_Begin(void);
 	void		Render_End(HWND hWnd = NULL);
 
+public:
+	HRESULT		Add_Text(TEXTINFO* TextInfo, _float CountTime);
+	
+
 private:
 	LPDIRECT3D9				m_p3D;
 	LPDIRECT3DDEVICE9		m_pDevice;
 
 	LPD3DXFONT				m_pFont = nullptr;
-	//list<CFONT*>			m_pFonts;
+
+	list<class CFont*>			m_Text;
+
 	ID3DXSprite*			m_pSprite = nullptr;
 private:
 	void		SetParameters(const GRAPHICDESC& GraphicDesc, D3DPRESENT_PARAMETERS& d3dpp);

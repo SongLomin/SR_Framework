@@ -20,6 +20,7 @@ HRESULT CBackGround::Initialize_Prototype()
 {
 	/* 백엔드로부터 값ㅇ를 어덩오낟. */
 
+
 	return S_OK;
 }
 
@@ -67,6 +68,18 @@ void CBackGround::Tick(_float fTimeDelta)
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
 	}
 
+
+	TEXTINFO Info;
+	Info.color = D3DCOLOR_ARGB(255, 0, 255, 0);
+	Info.rcTemp = { 600, 300, 10000, 10000 };
+	
+	_uint hp = (_uint)m_pStatusCom->Get_Status().fHp;
+	_tchar szText[MAX_PATH] = L"HP : %d";
+ 
+	wsprintf(Info.szBuff, szText, hp);
+
+	GAMEINSTANCE->Add_Text(&Info);
+
 }
 
 void CBackGround::LateTick(_float fTimeDelta)
@@ -89,8 +102,8 @@ HRESULT CBackGround::Render()
 	//DEVICE->SetTransform(D3DTS_VIEW, &ViewMatrix);
 	//DEVICE->SetTransform(D3DTS_PROJECTION, &ProjMatrix);
 
-
-	/*GAMEINSTANCE->Add_Text("HP: %d", 내  HP, 위치, 컬러);*/
+	
+	//GAMEINSTANCE->Add_Text("HP: %d", 내  HP, 위치, 컬러);
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(0);
@@ -108,6 +121,7 @@ HRESULT CBackGround::SetUp_Components()
 
 	//약포인터: 원본 객체가 삭제되면 약포인터로 등록된 포인터들도 nullptr로 바뀐다.
 	//댕글링 포인터를 방지하기 위해 사용한다.
+
 	
 	CStatus::STATUS		Status;
 	Status.fHp = 10.f;
