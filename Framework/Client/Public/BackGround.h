@@ -7,6 +7,8 @@ BEGIN(Engine)
 class CRenderer;
 class CVIBuffer_Rect;
 class CTransform;
+class CStatus;
+class CMesh_Cube;
 END
 
 BEGIN(Client)
@@ -28,8 +30,10 @@ public:
 private:
 	CTransform*				m_pTransformCom = nullptr;
 	CRenderer*				m_pRendererCom = nullptr;
-	CVIBuffer_Rect*			m_pVIBufferCom = nullptr;
-	
+	CMesh_Cube*				m_pMeshCubeCom = nullptr;
+	CStatus*				m_pStatusCom = nullptr;
+
+
 
 private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 	HRESULT SetUp_Components();

@@ -2,6 +2,10 @@
 #include "..\Public\BackGround.h"
 #include "GameInstance.h"
 #include "Dummy.h"
+#include <tchar.h>
+#include "Posin.h"
+#include "Cam_Free.h"
+#include "Cam_TPS.h"
 
 CBackGround::CBackGround()
 {
@@ -32,20 +36,36 @@ void CBackGround::Tick(_float fTimeDelta)
 {
 	ISVALID(m_pTransformCom);
 
-	if (GetKeyState(VK_UP) & 0x8000)
+	if (GetKeyState('W') & 0x8000)
 		m_pTransformCom->Go_Straight(fTimeDelta);
 
-	if (GetKeyState(VK_DOWN) & 0x8000)
+	if (GetKeyState('S') & 0x8000)
 		m_pTransformCom->Go_Backward(fTimeDelta);
 
-	if (GetKeyState(VK_RIGHT) & 0x8000)
+	if (GetKeyState('D') & 0x8000)
 		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta);
 
-	if (GetKeyState(VK_LEFT) & 0x8000)
+	if (GetKeyState('A') & 0x8000)
 		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * -1.f);
+
+	if (GetKeyState(VK_SPACE) & 0x8000)
+	{
+		m_pTransformCom->Go_Straight(fTimeDelta);
+		m_pTransformCom->Go_Up(fTimeDelta * 0.3f);
+	}
+
+	if (GetKeyState(VK_CONTROL) & 0x8000)
+	{
+		m_pTransformCom->Go_Up(-(fTimeDelta * 0.3f));
+	}
 
 	if (GetKeyState(VK_TAB) & 0x8000)
 		m_pTransformCom->Rotation(_float3(0.f, 1.f, 0.f), D3DXToRadian(120.0f));
+
+	if (GetKeyState('Z') & 0x8000)
+	{
+		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+	}
 
 }
 
@@ -60,20 +80,24 @@ void CBackGround::LateTick(_float fTimeDelta)
 
 HRESULT CBackGround::Render()
 {
-	_float4x4		ViewMatrix, ProjMatrix;
+	//_float4x4		ViewMatrix, ProjMatrix;
 
-	D3DXMatrixLookAtLH(&ViewMatrix, &_float3(0.f, 35.f, -10.f), &_float3(0.f, 0.f, 0.f), &_float3(0.f, 1.f, 0.f));
-	D3DXMatrixPerspectiveFovLH(&ProjMatrix, D3DXToRadian(60.0f), (_float)g_iWinCX / g_iWinCY, 02.f, 300.f);
+	//D3DXMatrixLookAtLH(&ViewMatrix, &_float3(0.f, 35.f, -10.f), &_float3(0.f, 0.f, 0.f), &_float3(0.f, 1.f, 0.f));
+	//D3DXMatrixPerspectiveFovLH(&ProjMatrix, D3DXToRadian(60.0f), (_float)g_iWinCX / g_iWinCY, 02.f, 300.f);
 
 	m_pTransformCom->Bind_WorldMatrix();
-	DEVICE->SetTransform(D3DTS_VIEW, &ViewMatrix);
-	DEVICE->SetTransform(D3DTS_PROJECTION, &ProjMatrix);
+	//DEVICE->SetTransform(D3DTS_VIEW, &ViewMatrix);
+	//DEVICE->SetTransform(D3DTS_PROJECTION, &ProjMatrix);
 
+
+	/*GAMEINSTANCE->Add_Text("HP: %d", 내  HP, 위치, 컬러);*/
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-	m_pRendererCom->Update_Textures(0);
-	m_pVIBufferCom->Render();
+	m_pRendererCom->Bind_Texture(0);
+	m_pMeshCubeCom->Render();
+	m_pRendererCom->UnBind_Texture();
 
+	
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	return S_OK;
@@ -84,13 +108,24 @@ HRESULT CBackGround::SetUp_Components()
 
 	//약포인터: 원본 객체가 삭제되면 약포인터로 등록된 포인터들도 nullptr로 바뀐다.
 	//댕글링 포인터를 방지하기 위해 사용한다.
+	
+	CStatus::STATUS		Status;
+	Status.fHp = 10.f;
+	Status.fAttack = 7.f;
+	Status.fArmor = 5.f;
+
+	m_pStatusCom = Add_Component<CStatus>(&Status);
+	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
 
-	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
-	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
+	/*m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
+	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);*/
+
+	m_pMeshCubeCom = Add_Component<CMesh_Cube>();
+	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);
 	
 	CTransform::TRANSFORMDESC		TransformDesc;
 	TransformDesc.fSpeedPerSec = 5.0f;
@@ -98,43 +133,38 @@ HRESULT CBackGround::SetUp_Components()
 
 	m_pTransformCom = Add_Component<CTransform>(&TransformDesc);
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
+	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
 
 	CGameObject* MyChild = GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"));
 	MyChild->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
+
+	MyChild = GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"));
+	MyChild->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
 	
+	m_pTransformCom->Add_Child(MyChild->Get_Component<CTransform>());
+
+	CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera"));
+	Free_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	Free_Cam->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
+	m_pTransformCom->Add_Child(Free_Cam->Get_Component<CTransform>());
+
 
 	return S_OK;
 }
 
 CBackGround * CBackGround::Create()
 {
-	CBackGround*		pInstance = new CBackGround();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CBackGround");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CREATE_PIPELINE(CBackGround);
 }
 
 CGameObject * CBackGround::Clone(void* pArg)
 {
-	CBackGround*		pInstance = new CBackGround(*this);
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Created : CBackGround");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CBackGround);
 }
 
 void CBackGround::Free()
 {
 	__super::Free();
-
+	
 	delete this;
 }

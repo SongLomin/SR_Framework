@@ -7,12 +7,14 @@ HRESULT CResource_Manager::Add_Texture(const _tchar* _strKey, const _tchar* pTex
 {
 	_tchar		szTextureFullPath[MAX_PATH] = TEXT("");
 
+
+
 	for (_uint i = 0; i < 512; ++i)
 	{
 		LPDIRECT3DBASETEXTURE9		pTexture = nullptr;
 
 		wsprintf(szTextureFullPath, pTextureFilePath, i);
-
+			
 		HRESULT		hr = 0;
 
 		switch (eType)
@@ -39,6 +41,8 @@ HRESULT CResource_Manager::Add_Texture(const _tchar* _strKey, const _tchar* pTex
 		}
 
 		m_pTextures[(_uint)eMemType][_strKey].push_back(pTexture);
+		if (0==_tcscmp(szTextureFullPath, pTextureFilePath))
+			break;
 	}
 
 	return S_OK;

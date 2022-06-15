@@ -4,31 +4,13 @@
 
 CDummy* CDummy::Create()
 {
-	CDummy* pInstance = new CDummy();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CBackGround");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CREATE_PIPELINE(CDummy);
 }
 
 CGameObject* CDummy::Clone(void* pArg)
 {
-	CDummy* pInstance = new CDummy();
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Created : CBackGround");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CDummy);
 }
-
-
 
 CDummy::CDummy(const CDummy& Prototype)
 {
@@ -45,6 +27,8 @@ HRESULT CDummy::Initialize(void* pArg)
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"),MEMORY_TYPE::MEMORY_DYNAMIC);
+
 	m_pTransformCom = Add_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
@@ -52,6 +36,8 @@ HRESULT CDummy::Initialize(void* pArg)
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 0.f, 0.f));
+
+	
 
 	return S_OK;
 }
@@ -72,8 +58,9 @@ HRESULT CDummy::Render()
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-	m_pRendererCom->Update_Textures(1);
+	m_pRendererCom->Bind_Texture(1);
 	m_pVIBufferCom->Render();
+	m_pRendererCom->UnBind_Texture();
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 

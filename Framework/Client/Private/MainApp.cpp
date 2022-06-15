@@ -92,7 +92,7 @@ HRESULT CMainApp::Open_Level(LEVEL eLevelID)
 	if (nullptr == m_pGameInstance)
 		return E_FAIL;
 
-	CLevel_Loading*		pLevel_Loading = CLevel_Loading::Create(m_pGraphic_Device, eLevelID);
+	CLevel_Loading*		pLevel_Loading = CLevel_Loading::Create(eLevelID);
 	if (nullptr == pLevel_Loading)
 		return E_FAIL;
 
@@ -117,8 +117,8 @@ HRESULT CMainApp::Ready_Prototype_Component()
 	//	CRenderer::Create())))
 	//	return E_FAIL;
 
-	/*m_pGameInstance->Add_Prototype_Component(typeid(CRenderer).name(),
-		CRenderer::Create());*/
+	m_pGameInstance->Add_Prototype_Component(typeid(CRenderer).name(),
+		CRenderer::Create());
 	//Safe_AddRef(m_pRenderer);
 
 	return S_OK;

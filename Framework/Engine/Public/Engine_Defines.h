@@ -5,6 +5,9 @@
 #include <d3d9.h>
 #include <d3dx9.h>
 
+#define DIRECTINPUT_VERSION 0x0800
+#include <dinput.h>
+
 #include <process.h>
 
 #include <vector>
@@ -14,6 +17,7 @@
 #include <algorithm>
 #include <typeinfo>
 #include <functional>
+#include <tchar.h>
 
 #include "Engine_Typedef.h"
 #include "Engine_Function.h"

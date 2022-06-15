@@ -94,6 +94,18 @@
     <Filter Include="01.Utility\03.Components\03. Camera">
       <UniqueIdentifier>{5ce719a6-4b20-41e2-841c-3d9764845d40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\04. Status">
+      <UniqueIdentifier>{f547740d-ddc5-4402-979c-2e4a0ede3a70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\05. Font">
+      <UniqueIdentifier>{d2ef3aa8-8655-4c52-9cda-c6cd5e7dde3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\Mesh">
+      <UniqueIdentifier>{5dcfe90f-c1ce-40b1-ace7-176812048b65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\Mesh_Cube">
+      <UniqueIdentifier>{5a1452ed-fd54-415b-82d3-7a432f420cfc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -177,6 +189,18 @@
     <ClInclude Include="..\Public\Camera.h">
       <Filter>01.Utility\03.Components\03. Camera</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Status.h">
+      <Filter>01.Utility\03.Components\04. Status</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Font.h">
+      <Filter>01.Utility\03.Components\05. Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Mesh_Cube.h">
+      <Filter>01.Utility\03.Components\00. Model\Mesh_Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Mesh.h">
+      <Filter>01.Utility\03.Components\00. Model\Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -241,6 +265,18 @@
     </ClCompile>
     <ClCompile Include="..\Private\Camera.cpp">
       <Filter>01.Utility\03.Components\03. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Status.cpp">
+      <Filter>01.Utility\03.Components\04. Status</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Font.cpp">
+      <Filter>01.Utility\03.Components\05. Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Mesh_Cube.cpp">
+      <Filter>01.Utility\03.Components\00. Model\Mesh_Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Mesh.cpp">
+      <Filter>01.Utility\03.Components\00. Model\Mesh</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

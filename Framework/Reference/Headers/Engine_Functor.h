@@ -49,5 +49,15 @@ namespace Engine
 		}
 	};
 
+	static D3DXVECTOR3	Get_MousePos(HWND _hWnd)
+	{
+		POINT pt{};
+
+		GetCursorPos(&pt);
+		ScreenToClient(_hWnd, &pt);
+
+		return D3DXVECTOR3(float(pt.x), float(pt.y), 0.f);
+	}
+
 }
 

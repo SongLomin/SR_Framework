@@ -58,9 +58,6 @@
     <Filter Include="01.Utility\03.Components\Manager">
       <UniqueIdentifier>{6b2c4878-0377-41fa-aa3d-e41e67577b24}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Utility\03.Components\Model\VIBuffer">
-      <UniqueIdentifier>{14e1e29b-5f0f-45a6-b390-0732db21f5cd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Utility\03.Components\Model\Rect">
       <UniqueIdentifier>{9bbfb4c2-f50e-4feb-b393-a311f3b0b406}</UniqueIdentifier>
     </Filter>
@@ -78,6 +75,9 @@
     </Filter>
     <Filter Include="01.Utility\02.GameObject\Camera">
       <UniqueIdentifier>{7e62f473-a7ff-45e1-b10b-96d870177ca3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\Model\Terrain">
+      <UniqueIdentifier>{f815cdc9-2c7d-4dd6-acee-4561f726bb55}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -132,9 +132,6 @@
     <ClInclude Include="..\public\Renderer.h">
       <Filter>01.Utility\03.Components\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\VIBuffer.h">
-      <Filter>01.Utility\03.Components\Model\VIBuffer</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\VIBuffer_Rect.h">
       <Filter>01.Utility\03.Components\Model\Rect</Filter>
     </ClInclude>
@@ -152,6 +149,12 @@
     </ClInclude>
     <ClInclude Include="..\public\Camera.h">
       <Filter>01.Utility\02.GameObject\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\VIBuffer.h">
+      <Filter>01.Utility\03.Components\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\VIBuffer_Terrain.h">
+      <Filter>01.Utility\03.Components\Model\Terrain</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -188,9 +191,6 @@
     <ClCompile Include="..\private\Renderer.cpp">
       <Filter>01.Utility\03.Components\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="..\private\VIBuffer.cpp">
-      <Filter>01.Utility\03.Components\Model\VIBuffer</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\VIBuffer_Rect.cpp">
       <Filter>01.Utility\03.Components\Model\Rect</Filter>
     </ClCompile>
@@ -208,6 +208,12 @@
     </ClCompile>
     <ClCompile Include="..\private\Camera.cpp">
       <Filter>01.Utility\02.GameObject\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\VIBuffer.cpp">
+      <Filter>01.Utility\03.Components\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\VIBuffer_Terrain.cpp">
+      <Filter>01.Utility\03.Components\Model\Terrain</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

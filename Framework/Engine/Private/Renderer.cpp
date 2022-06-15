@@ -34,16 +34,19 @@ HRESULT CRenderer::Set_Textures_From_Key(const _tchar* _Str_Key, MEMORY_TYPE _eT
 	return S_OK;
 }
 
-HRESULT CRenderer::Update_Textures(_uint _iIndex)
+HRESULT CRenderer::Bind_Texture(_uint _iIndex)
 {
 	if (nullptr == m_ppTextures)
 	{
 		return E_FAIL;
 	}
 
-	DEVICE->SetTexture(0, (*m_ppTextures)[_iIndex]);
+	return DEVICE->SetTexture(0, (*m_ppTextures)[_iIndex]);
+}
 
-	return S_OK;
+HRESULT CRenderer::UnBind_Texture()
+{
+	return DEVICE->SetTexture(0, 0);
 }
 
 HRESULT CRenderer::Initialize_Prototype()
@@ -58,29 +61,12 @@ HRESULT CRenderer::Initialize(void * pArg)
 
 CRenderer * CRenderer::Create()
 {
-	CRenderer*		pInstance = new CRenderer();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CRenderer");
-		//Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CREATE_PIPELINE(CRenderer);
 }
 
 CComponent * CRenderer::Clone(void * pArg)
 {
-
-	CRenderer* pInstance = new CRenderer();
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Cloned : CRenderer");
-		//Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CRenderer);
 }
 
 void CRenderer::Free()

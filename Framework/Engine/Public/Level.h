@@ -7,7 +7,7 @@ BEGIN(Engine)
 class ENGINE_DLL CLevel abstract : public CBase
 {
 protected:
-	CLevel(LPDIRECT3DDEVICE9 pGraphic_Device);
+	CLevel();
 	virtual ~CLevel() = default;
 
 public:
@@ -16,7 +16,6 @@ public:
 	virtual HRESULT Render();
 
 protected:
-	LPDIRECT3DDEVICE9			m_pGraphic_Device = nullptr;
 
 public:
 	virtual void Free() override;

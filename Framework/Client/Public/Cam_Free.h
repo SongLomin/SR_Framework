@@ -8,13 +8,13 @@ class CCamera;
 END
 
 BEGIN(Client)
-class CCameraObject :
+class CCam_Free :
     public CGameObject
 {
 private:
-    explicit CCameraObject() = default;
-    CCameraObject(const CCameraObject& Prototype);
-    virtual ~CCameraObject() = default;
+    explicit CCam_Free() = default;
+    CCam_Free(const CCam_Free& Prototype);
+    virtual ~CCam_Free() = default;
 
 public:
     // CGameObject을(를) 통해 상속됨
@@ -23,14 +23,13 @@ public:
     virtual void Tick(_float fTimeDelta) override;
     virtual void LateTick(_float fTimeDelta) override;
     virtual HRESULT Render() override;
-    virtual CGameObject* Clone(void* pArg) override;
 
 private:
     CTransform* m_pTransformCom = nullptr;
     CCamera* m_pCameraCom = nullptr;
 
 public:
-    static CCameraObject* Create();
+    static CCam_Free* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 

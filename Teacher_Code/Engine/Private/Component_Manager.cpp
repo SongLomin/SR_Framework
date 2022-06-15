@@ -47,6 +47,19 @@ CComponent * CComponent_Manager::Clone_Component(_uint iLevelIndex, const _tchar
 	return pPrototype->Clone(pArg);
 }
 
+void CComponent_Manager::Clear(_uint iLevelIndex)
+{
+	if (iLevelIndex >= m_iNumLevels)
+		return;
+
+	for (auto& Pair : m_pPrototypes[iLevelIndex])
+	{
+		Safe_Release(Pair.second);
+	}
+
+	m_pPrototypes[iLevelIndex].clear();
+}
+
 CComponent * CComponent_Manager::Find_Components(_uint iLevelIndex, const _tchar * pPrototypeTag)
 {
 	auto	iter = find_if(m_pPrototypes[iLevelIndex].begin(), m_pPrototypes[iLevelIndex].end(), CTag_Finder(pPrototypeTag));

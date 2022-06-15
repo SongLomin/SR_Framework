@@ -7,6 +7,7 @@
 #include "Renderer.h"
 #include "Transform.h"
 #include "VIBuffer_Rect.h"
+#include "VIBuffer_Terrain.h"
 
 
 BEGIN(Engine)
@@ -22,7 +23,8 @@ public:
 	HRESULT Reserve_Container(_uint iNumLevels);
 	HRESULT Add_Prototype(_uint iLevelIndex, const _tchar* pPrototypeTag, class CComponent* pPrototype);
 	class CComponent* Clone_Component(_uint iLevelIndex, const _tchar* pPrototypeTag, void* pArg);
-
+public:
+	void Clear(_uint iLevelIndex);
 
 private:
 	_uint			m_iNumLevels = 0;

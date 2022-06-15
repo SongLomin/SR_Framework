@@ -5,8 +5,7 @@
 #include "Level_GamePlay.h"
 #include "GameInstance.h"
 
-CLevel_Loading::CLevel_Loading(LPDIRECT3DDEVICE9 pGraphic_Device)
-	: CLevel(pGraphic_Device)
+CLevel_Loading::CLevel_Loading()
 {
 
 }
@@ -18,7 +17,7 @@ HRESULT CLevel_Loading::Initialize(LEVEL eNextLevel)
 
 	m_eNextLevel = eNextLevel;
 
-	m_pLoader = CLoader::Create(m_pGraphic_Device, eNextLevel);
+	m_pLoader = CLoader::Create(DEVICE, eNextLevel);
 	if (nullptr == m_pLoader)
 		return E_FAIL;
 
@@ -38,10 +37,10 @@ void CLevel_Loading::Tick(_float fTimeDelta)
 			switch (m_eNextLevel)
 			{
 			case LEVEL_LOGO:
-				pLevel = CLevel_Logo::Create(m_pGraphic_Device);
+				pLevel = CLevel_Logo::Create();
 				break;
 			case LEVEL_GAMEPLAY:
-				pLevel = CLevel_GamePlay::Create(m_pGraphic_Device);
+				pLevel = CLevel_GamePlay::Create();
 				break;
 			}
 
@@ -70,9 +69,9 @@ HRESULT CLevel_Loading::Render()
 	return S_OK;
 }
 
-CLevel_Loading * CLevel_Loading::Create(LPDIRECT3DDEVICE9 pGraphic_Device, LEVEL eNextLevel)
+CLevel_Loading * CLevel_Loading::Create(LEVEL eNextLevel)
 {
-	CLevel_Loading*		pInstance = new CLevel_Loading(pGraphic_Device);
+	CLevel_Loading*		pInstance = new CLevel_Loading();
 
 	if (FAILED(pInstance->Initialize(eNextLevel)))
 	{

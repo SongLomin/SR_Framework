@@ -7,7 +7,10 @@
 #include "VIBuffer_Rect.h"
 #include "VIBuffer_Terrain.h"
 #include "Transform.h"
+#include "Mesh_Cube.h"
 #include "Camera.h"
+#include "Status.h"
+#include "Font.h"
 
 BEGIN(Engine)
 

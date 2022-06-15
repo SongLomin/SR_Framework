@@ -48,11 +48,14 @@ public:
 	void Go_Straight(_float fTimeDelta);
 	void Go_Left(_float fTimeDelta);
 	void Go_Right(_float fTimeDelta);
+	void Go_Up(_float fTimeDelta);
 	void Go_Backward(_float fTimeDelta);
 	void Go_Target(CTransform* _Trans, _float fTimeDelta);
+	void Scaling(_float3 vScale);
 
 	void Rotation(const _float3 & vAxis, _float fRadian);
 	void Turn(const _float3 & vAxis, _float fTimeDelta);
+	void Turn_Look(const _float3& vAxis, _float fTimeDelta);
 
 	void LookAt(const _float3& vAt);
 

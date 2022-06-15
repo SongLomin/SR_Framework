@@ -31,28 +31,12 @@ HRESULT CVIBuffer_Terrain::Initialize(void* pArg)
 
 CVIBuffer_Terrain* CVIBuffer_Terrain::Create()
 {
-	CVIBuffer_Terrain* pInstance = new CVIBuffer_Terrain();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CVIBuffer_Rect");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CREATE_PIPELINE(CVIBuffer_Terrain);
 }
 
 CComponent* CVIBuffer_Terrain::Clone(void* pArg)
 {
-	CVIBuffer_Terrain* pInstance = new CVIBuffer_Terrain(*this);
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Cloned : CVIBuffer_Rect");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CVIBuffer_Terrain);
 }
 
 void CVIBuffer_Terrain::Free()
@@ -84,12 +68,10 @@ void CVIBuffer_Terrain::Bake_Terrain_Mesh()
 
 	for (int i = 0; i < m_Terrain_Count.x; i++)
 	{
-		
-
 		for (int j = 0; j < m_Terrain_Count.y; j++)
 		{
 			pVertices[index].vPosition = _float3(2.f * i, 0.f, 2.f * j);
-			pVertices[index].vTexUV = _float2((1 - (i / m_Terrain_Count.x)) * 20.f , j / m_Terrain_Count.y * 20.f);
+			pVertices[index].vTexUV = _float2(i / (m_Terrain_Count.x - 1.f) * 20.f, j / (m_Terrain_Count.y - 1.f) * 20.f);
 
 			index++;
 		}

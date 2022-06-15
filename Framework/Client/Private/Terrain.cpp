@@ -2,6 +2,11 @@
 #include "Terrain.h"
 #include "GameInstance.h"
 
+CTerrain::CTerrain(const CTerrain& Prototype)
+{
+	*this = Prototype;
+}
+
 HRESULT CTerrain::Initialize_Prototype()
 {
 	return S_OK;
@@ -11,6 +16,8 @@ HRESULT CTerrain::Initialize(void* pArg)
 {
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
+
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 	m_pTransformCom = Add_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
@@ -40,39 +47,23 @@ HRESULT CTerrain::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
-	DEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-
+	m_pRendererCom->Bind_Texture(5);
+	
 	m_pVIBufferCom->Render();
 
-	DEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	m_pRendererCom->UnBind_Texture();
 
 	return S_OK;
 }
 
 CTerrain* CTerrain::Create()
 {
-	CTerrain* pInstance = new CTerrain();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CBackGround");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CREATE_PIPELINE(CTerrain);
 }
 
 CGameObject* CTerrain::Clone(void* pArg)
 {
-	CTerrain* pInstance = new CTerrain();
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Created : CBackGround");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CTerrain);
 }
 
 void CTerrain::Free()

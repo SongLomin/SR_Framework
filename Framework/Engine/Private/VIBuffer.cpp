@@ -67,5 +67,9 @@ void CVIBuffer::Free()
 {
 	__super::Free();
 
+	if (m_pVB)
+		m_pVB->Release();
 
+	if (m_pIB)
+		m_pIB->Release();
 }

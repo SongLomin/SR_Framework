@@ -56,6 +56,13 @@ HRESULT CGraphic_Device::InitDevice(const GRAPHICDESC& GraphicDesc, LPDIRECT3DDE
 
 	//Safe_AddRef(m_pDevice);
 
+	D3DXCreateSprite(m_pDevice, &m_pSprite);
+	D3DXCreateFont(m_pDevice, 20, 0, FW_BOLD, 0,
+		FALSE, DEFAULT_CHARSET,
+		OUT_DEFAULT_PRECIS, DEFAULT_QUALITY,
+		DEFAULT_PITCH | FF_DONTCARE, TEXT("돋움"),
+		&m_pFont);
+
 	return S_OK;
 }
 
@@ -119,6 +126,36 @@ void CGraphic_Device::Render_Begin(void)
 	//여기서부터 후면버퍼에 그리기 시점을 알린다.
 	m_pDevice->BeginScene();
 
+
+	//D3DXMATRIX world;
+	//
+	//D3DXMatrixTranslation(&world, 100, 100, 0);
+	//
+	//m_pSprite->SetTransform(&world);
+
+	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);//2D
+
+	RECT rectTemp = { 300, 300, 300 + 200, 300 + 30 };
+	_tchar* szBuff = L"HP : %d";
+	_tchar szText[MAX_PATH] = L"";
+	wsprintf(szText, szBuff, 5);
+	m_pFont->DrawText(m_pSprite, szText, -1, &rectTemp, 0,
+		D3DCOLOR_COLORVALUE(1, 0, 0, 1));//0xFFFF0000);
+
+	//for (auto& elem : m_pFonts)
+	//{
+	//	m_pFont->DrawText(m_pSprite, elem.Text, -1, &elem.rectTemp, 0,
+	//		elem.Color);//0xFFFF0000);
+
+	//	Safe_Release(elem);
+	//}
+	//m_pFonts.clear();
+
+	rectTemp = { 500, 300, 500 + 200, 300 + 30 };
+	m_pFont->DrawText(m_pSprite, szText, -1, &rectTemp, 0,
+		D3DCOLOR_COLORVALUE(1, 0, 0, 1));//0xFFFF0000);
+	
+	m_pSprite->End();
 }
 
 void CGraphic_Device::Render_End(HWND hWnd)
@@ -135,6 +172,8 @@ void CGraphic_Device::Render_End(HWND hWnd)
 
 void CGraphic_Device::Free()
 {
+	m_pFont->Release();
+	m_pSprite->Release();
 	m_pDevice->Release();
 	m_p3D->Release();
 

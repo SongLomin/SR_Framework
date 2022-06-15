@@ -41,8 +41,9 @@ HRESULT CMonster::Render()
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-	m_pRendererCom->Update_Textures(1);
+	m_pRendererCom->Bind_Texture(1);
 	m_pVIBufferCom->Render();
+	m_pRendererCom->UnBind_Texture();
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
@@ -80,28 +81,12 @@ HRESULT CMonster::SetUp_Components()
 
 CMonster* CMonster::Create()
 {
-    CMonster* pInstance = new CMonster();
-
-    if (FAILED(pInstance->Initialize_Prototype()))
-    {
-        MSG_BOX("Failed to Created : CBackGround");
-        Safe_Release(pInstance);
-    }
-
-    return pInstance;
+	CREATE_PIPELINE(CMonster);
 }
 
 CGameObject* CMonster::Clone(void* pArg)
 {
-    CMonster* pInstance = new CMonster(*this);
-
-    if (FAILED(pInstance->Initialize(pArg)))
-    {
-        MSG_BOX("Failed to Created : CMonster");
-        Safe_Release(pInstance);
-    }
-
-    return pInstance;
+	CLONE_PIPELINE(CMonster);
 }
 
 void CMonster::Free()

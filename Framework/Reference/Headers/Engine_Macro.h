@@ -44,3 +44,20 @@ void ClassName::Destroy_Instance()						\
 
 #define ISVALID(instance, return_type) if(instance == nullptr) return return_type;
 #define CURRENT_LEVEL GAMEINSTANCE->Get_CurrentLevelIndex()
+
+#define CREATE_PIPELINE(ClassName)						\
+	ClassName* pInstance = new ClassName();				\
+	if (FAILED(pInstance->Initialize_Prototype()))		\
+	{													\
+		MSG_BOX("Failed to Create.");					\
+	}													\
+	return pInstance;									
+
+#define CLONE_PIPELINE(ClassName)						\
+	ClassName* pInstance = new ClassName(*this);		\
+	if (FAILED(pInstance->Initialize(pArg)))			\
+	{													\
+		MSG_BOX("Failed to Cloned.");		\
+		Safe_Release(pInstance);						\
+	}													\
+	return pInstance;		
