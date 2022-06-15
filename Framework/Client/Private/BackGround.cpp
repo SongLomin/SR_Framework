@@ -47,10 +47,10 @@ void CBackGround::Tick(_float fTimeDelta)
 		m_pRigidBodyCom->Add_DirZ(-0.1f);
 
 	if (GetKeyState('D') & 0x8000)
-		m_pRigidBodyCom->Add_RotationY( 0.5f);
+		m_pRigidBodyCom->Add_RotationY( 0.3f);
 
 	if (GetKeyState('A') & 0x8000)
-		m_pRigidBodyCom->Add_RotationY(-0.5f);
+		m_pRigidBodyCom->Add_RotationY(-0.3f);
 
 	if (GetKeyState(VK_SPACE) & 0x8000)
 	{

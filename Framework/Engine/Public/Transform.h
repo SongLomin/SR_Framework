@@ -70,6 +70,7 @@ public:
 	void Turn(const _float3 & vAxis, _float fRadSpeed,_float fTimeDelta);
 	void Turn_Look(const _float3& vAxis, _float fTimeDelta);
 
+
 	void LookAt(const _float3& vAt);
 
 private:

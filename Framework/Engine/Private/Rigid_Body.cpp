@@ -49,6 +49,7 @@ void CRigid_Body::Add_DirX(_float vAccel)
 
 void CRigid_Body::Add_RotationY(_float fRadAccel)
 {
+
 	m_fRadAccelY = fRadAccel;
 }
 
@@ -142,16 +143,16 @@ void CRigid_Body::Compute_Rotation()
 	{
 		float _fAccel;
 		if (DBL_EPSILON < fabs(m_fSpeedX))
-			_fAccel = 0.1f;
+			_fAccel = 0.2f;
 		else
-			_fAccel = 0.05f;
+			_fAccel = 0.03f;
 
 		if (0.f < m_fRadSpeedY)
 			m_fRadSpeedY -= _fAccel;
 		else if (0.f > m_fRadSpeedY)
 			m_fRadSpeedY += _fAccel;
 	}
-	if (0.05f > fabs(m_fRadSpeedY))
+	if (0.01f > fabs(m_fRadSpeedY))
 		m_fRadSpeedY = 0.f;
 
 
@@ -170,7 +171,7 @@ void CRigid_Body::Compute_Jump()
 
 	if (m_bJump)
 	{
-		m_fJump -= 0.098f;
+		m_fJump -=0.098f;
 	}
 }
 
@@ -179,7 +180,7 @@ void CRigid_Body::Update_Transform(_float fTimeDelta)
 {
 	Compute_Force();
 	if (m_bJump)
-		m_pTransform->Go_UpAndDown(m_bJump, fTimeDelta);
+		m_pTransform->Go_UpAndDown(m_fJump, fTimeDelta);
 	if(DBL_EPSILON < fabs(m_fSpeedZ))
 		m_pTransform->Go_BackAndForth(m_fSpeedZ, fTimeDelta);
 	if (DBL_EPSILON < fabs(m_fSpeedY))
