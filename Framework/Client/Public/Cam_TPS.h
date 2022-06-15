@@ -5,6 +5,7 @@
 BEGIN(Engine)
 class CTransform;
 class CCamera;
+class CRigid_Body;
 END
 
 BEGIN(Client)
@@ -27,9 +28,10 @@ public:
 private:
     CTransform* m_pTransformCom = nullptr;
     CCamera* m_pCameraCom = nullptr;
+	CRigid_Body*	m_pRigidBodyCom = nullptr;
 
     _float3 m_CurCursorPosition;
-    _float3 m_PreCursorPosition;
+    POINT m_PreCursorPosition;
     _float3 m_MouseRealPosition;
 
 public:

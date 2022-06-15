@@ -9,6 +9,7 @@ class CVIBuffer_Rect;
 class CTransform;
 class CStatus;
 class CMesh_Cube;
+class CRigid_Body;
 END
 
 BEGIN(Client)
@@ -32,6 +33,7 @@ private:
 	CRenderer*				m_pRendererCom = nullptr;
 	CMesh_Cube*				m_pMeshCubeCom = nullptr;
 	CStatus*				m_pStatusCom = nullptr;
+	CRigid_Body*			m_pRigidBodyCom = nullptr;
 
 
 

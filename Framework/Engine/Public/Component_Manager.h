@@ -11,6 +11,7 @@
 #include "Camera.h"
 #include "Status.h"
 #include "Font.h"
+#include "Rigid_Body.h"
 
 BEGIN(Engine)
 

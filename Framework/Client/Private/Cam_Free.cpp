@@ -33,7 +33,7 @@ HRESULT CCam_Free::Initialize(void* pArg)
 
 void CCam_Free::Tick(_float fTimeDelta)
 {
-	if (GetKeyState('W') & 0x8000)
+	/*if (GetKeyState('W') & 0x8000)
 	{
 		m_pTransformCom->Go_Straight(fTimeDelta);
 	}
@@ -51,7 +51,7 @@ void CCam_Free::Tick(_float fTimeDelta)
 	if (GetKeyState('D') & 0x8000)
 	{
 		m_pTransformCom->Go_Right(fTimeDelta);
-	}
+	}*/
 
 	if (FAILED(m_pCameraCom->Bind_PipeLine()))
 		return;

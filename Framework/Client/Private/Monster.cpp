@@ -26,7 +26,7 @@ void CMonster::Tick(_float fTimeDelta)
 	ISVALID(m_pPlayerTransformCom);
 	ISVALID(m_pTransformCom);
 
-	m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
+//	m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
 
 }
 

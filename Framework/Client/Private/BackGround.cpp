@@ -36,36 +36,35 @@ void CBackGround::Tick(_float fTimeDelta)
 {
 	ISVALID(m_pTransformCom);
 
+	m_pRigidBodyCom->Add_DirZ(0.f);
+	//m_pRigidBodyCom->Add_DirY(0.f);
+	m_pRigidBodyCom->Add_RotationY(0.f);
+
 	if (GetKeyState('W') & 0x8000)
-		m_pTransformCom->Go_Straight(fTimeDelta);
+		m_pRigidBodyCom->Add_DirZ(0.1f);
 
 	if (GetKeyState('S') & 0x8000)
-		m_pTransformCom->Go_Backward(fTimeDelta);
+		m_pRigidBodyCom->Add_DirZ(-0.1f);
 
 	if (GetKeyState('D') & 0x8000)
-		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta);
+		m_pRigidBodyCom->Add_RotationY( 0.5f);
 
 	if (GetKeyState('A') & 0x8000)
-		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * -1.f);
+		m_pRigidBodyCom->Add_RotationY(-0.5f);
 
 	if (GetKeyState(VK_SPACE) & 0x8000)
 	{
-		m_pTransformCom->Go_Straight(fTimeDelta);
-		m_pTransformCom->Go_Up(fTimeDelta * 0.3f);
+		m_pRigidBodyCom->Add_Jump();
 	}
-
-	if (GetKeyState(VK_CONTROL) & 0x8000)
-	{
-		m_pTransformCom->Go_Up(-(fTimeDelta * 0.3f));
-	}
-
-	if (GetKeyState(VK_TAB) & 0x8000)
-		m_pTransformCom->Rotation(_float3(0.f, 1.f, 0.f), D3DXToRadian(120.0f));
 
 	if (GetKeyState('Z') & 0x8000)
 	{
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
 	}
+
+	m_pRigidBodyCom->Update_Transform(fTimeDelta);
+
+	
 
 }
 
@@ -134,6 +133,10 @@ HRESULT CBackGround::SetUp_Components()
 	m_pTransformCom = Add_Component<CTransform>(&TransformDesc);
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
+
+	m_pRigidBodyCom = Add_Component<CRigid_Body>();
+	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
+	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
 	CGameObject* MyChild = GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"));
 	MyChild->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
