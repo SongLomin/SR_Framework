@@ -8,7 +8,7 @@ class ENGINE_DLL CCamera final :
     public CComponent
 {
 protected:
-    typedef struct Desc
+    struct Desc
     {
         _float fFovy = 0.f;
         _float fAspect = 0.f;

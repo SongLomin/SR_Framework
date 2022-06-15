@@ -26,7 +26,7 @@ HRESULT CMesh::Render()
 	if (nullptr == LPDEVICE)
 		return E_FAIL;
 
-	for (int i = 0; i < m_dwNumSubsets; ++i)
+	for (_ulong i = 0; i < m_dwNumSubsets; ++i)
 	{
 		DEVICE->SetTexture(0, (*m_vTextures)[i]);
 		//DEVICE->SetMaterial(m_vMtrl[i]);

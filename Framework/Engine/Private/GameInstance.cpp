@@ -11,6 +11,7 @@ CGameInstance::CGameInstance()
 	, m_pRender_Manager(CRender_Manager::Get_Instance())
 	, m_pResource_Manager(CResource_Manager::Get_Instance())
 	, m_pTime_Manager(CTime_Manager::Get_Instance())
+	, m_pInput_Manager(CInput_Manager::Get_Instance())
 {
 	//Safe_AddRef(m_pComponent_Manager);
 	//Safe_AddRef(m_pObject_Manager);
@@ -18,7 +19,7 @@ CGameInstance::CGameInstance()
 	//Safe_AddRef(m_pGraphic_Device);
 }
 
-HRESULT CGameInstance::Initialize_Engine(_uint iNumLevels, const GRAPHICDESC& GraphicDesc, LPDIRECT3DDEVICE9* ppOut)
+HRESULT CGameInstance::Initialize_Engine(HINSTANCE hInst, _uint iNumLevels, const GRAPHICDESC& GraphicDesc, LPDIRECT3DDEVICE9* ppOut)
 {
 	m_Graphic_Desc = GraphicDesc;
 
@@ -31,6 +32,8 @@ HRESULT CGameInstance::Initialize_Engine(_uint iNumLevels, const GRAPHICDESC& Gr
 		return E_FAIL;
 
 	/* 인풋 디바이스. */
+	if (FAILED(m_pInput_Manager->Initialize(hInst, GraphicDesc.hWnd)))
+		return E_FAIL;
 
 	/* 오브젝트 매니져의 예약. */
 	if (FAILED(m_pObject_Manager->Reserve_Container(iNumLevels)))
@@ -45,15 +48,16 @@ HRESULT CGameInstance::Initialize_Engine(_uint iNumLevels, const GRAPHICDESC& Gr
 
 HRESULT CGameInstance::Tick_Engine(_float fTimeDelta)
 {
-	if (nullptr == m_pLevel_Manager)	
-		return E_FAIL;
+
+	m_pInput_Manager->SetUp_DeviceState();
 
 	m_pLevel_Manager->Tick(fTimeDelta);	
 
 	m_pObject_Manager->Tick(fTimeDelta);
 
-
 	m_pObject_Manager->LateTick(fTimeDelta);
+
+	m_pInput_Manager->Tick(fTimeDelta);
 
 	return S_OK;
 }
@@ -214,6 +218,30 @@ _float CGameInstance::Compute_Timer(_uint eTimer)
 	return m_pTime_Manager->Compute_Timer(eTimer);
 }
 
+bool CGameInstance::Is_KeyState(KEY _Key, KEY_STATE _KeyState)
+{
+	if (nullptr == m_pInput_Manager)
+		return false;
+
+	return m_pInput_Manager->Get_KeyState(_Key) == _KeyState;
+}
+
+_byte CGameInstance::Get_DIMouseKeyState(MOUSEBUTTON eMouseButtonID)
+{
+	if (nullptr == m_pInput_Manager)
+		return 0;
+
+	return m_pInput_Manager->Get_DIMouseKeyState(eMouseButtonID);
+}
+
+_long CGameInstance::Get_DIMouseMoveState(MOUSEMOVE eMouseMove)
+{
+	if (nullptr == m_pInput_Manager)
+		return 0;
+
+	return m_pInput_Manager->Get_DIMouseMoveState(eMouseMove);
+}
+
 void CGameInstance::Release_Engine()
 {
 	CGameInstance::Get_Instance()->Destroy_Instance();
@@ -231,6 +259,8 @@ void CGameInstance::Release_Engine()
 	CResource_Manager::Get_Instance()->Destroy_Instance();
 
 	CTime_Manager::Get_Instance()->Destroy_Instance();
+
+	CInput_Manager::Get_Instance()->Destroy_Instance();
 }
 
 void CGameInstance::Free()

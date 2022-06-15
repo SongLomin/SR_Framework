@@ -20,7 +20,7 @@ HRESULT CMainApp::Initialize()
 	GraphicDesc.iWinCY = g_iWinCY;
 	GraphicDesc.isWindowMode = true;
 
-	if (FAILED(m_pGameInstance->Initialize_Engine(LEVEL_END, GraphicDesc, &m_pGraphic_Device)))
+	if (FAILED(m_pGameInstance->Initialize_Engine(g_hInst, LEVEL_END, GraphicDesc, &m_pGraphic_Device)))
 		return E_FAIL;
 
 	if (FAILED(SetUp_SamplerState()))

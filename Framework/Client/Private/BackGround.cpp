@@ -36,16 +36,16 @@ void CBackGround::Tick(_float fTimeDelta)
 {
 	ISVALID(m_pTransformCom);
 
-	if (GetKeyState('W') & 0x8000)
+	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
 		m_pTransformCom->Go_Straight(fTimeDelta);
 
-	if (GetKeyState('S') & 0x8000)
+	if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
 		m_pTransformCom->Go_Backward(fTimeDelta);
 
-	if (GetKeyState('D') & 0x8000)
+	if (KEY_INPUT(KEY::D, KEY_STATE::HOLD))
 		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta);
 
-	if (GetKeyState('A') & 0x8000)
+	if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
 		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * -1.f);
 
 	if (GetKeyState(VK_SPACE) & 0x8000)

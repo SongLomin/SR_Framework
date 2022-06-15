@@ -23,7 +23,7 @@ public:
 
 public:
 	//HRESULT Reserve_Container(_uint iNumLevels);
-	CComponent** Add_Prototype(const _char* pPrototypeTag, class CComponent* pPrototype);
+	CComponent* Add_Prototype(const _char* pPrototypeTag, class CComponent* pPrototype);
 
 
 private:
@@ -33,7 +33,7 @@ private:
 	typedef map<const _char*, class CComponent*>		PROTOTYPES;
 
 private:
-	class CComponent** Find_Components(const _char* pPrototypeTag);
+	class CComponent* Find_Components(const _char* pPrototypeTag);
 
 public:
 	virtual void Free() override;

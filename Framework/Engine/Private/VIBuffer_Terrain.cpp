@@ -97,13 +97,13 @@ void CVIBuffer_Terrain::Bake_Terrain_Mesh()
 
 		for (int j = 0; j < m_Terrain_Count.y - 1; j++)
 		{
-			pIndices[index * 2]._1 = j + (m_Terrain_Count.y * i);
-			pIndices[index * 2]._2 = j + 1 + (m_Terrain_Count.y * i);
-			pIndices[index * 2]._3 = j + 1 + (m_Terrain_Count.y * (i + 1));
+			pIndices[index * 2]._1 = j + ((_ushort)m_Terrain_Count.y * i);
+			pIndices[index * 2]._2 = j + 1 + ((_ushort)m_Terrain_Count.y * i);
+			pIndices[index * 2]._3 = j + 1 + ((_ushort)m_Terrain_Count.y * (i + 1));
 
-			pIndices[index * 2 + 1]._1 = j + 1 + (m_Terrain_Count.y * (i + 1));
-			pIndices[index * 2 + 1]._2 = j + (m_Terrain_Count.y * (i + 1));
-			pIndices[index * 2 + 1]._3 = j + (m_Terrain_Count.y * i);
+			pIndices[index * 2 + 1]._1 = j + 1 + ((_ushort)m_Terrain_Count.y * (i + 1));
+			pIndices[index * 2 + 1]._2 = j + ((_ushort)m_Terrain_Count.y * (i + 1));
+			pIndices[index * 2 + 1]._3 = j + ((_ushort)m_Terrain_Count.y * i);
 
 			index++;
 		}

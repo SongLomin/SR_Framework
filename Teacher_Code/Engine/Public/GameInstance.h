@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Graphic_Device.h"
+#include "Input_Device.h"
 #include "Level_Manager.h"
 #include "Object_Manager.h"
 #include "Component_Manager.h"
@@ -20,7 +21,7 @@ public:
 	virtual ~CGameInstance() = default;
 
 public: /* 엔진 라이브럴를 사용할때 필요한 초기화 과정으르 거칠거야. */
-	HRESULT Initialize_Engine(_uint iNumLevels, const GRAPHICDESC& GraphicDesc, LPDIRECT3DDEVICE9* ppOut);
+	HRESULT Initialize_Engine(HINSTANCE hInst, _uint iNumLevels, const GRAPHICDESC& GraphicDesc, LPDIRECT3DDEVICE9* ppOut);
 	HRESULT Tick_Engine(_float fTimeDelta);
 	HRESULT Render_Engine();
 	HRESULT Clear(_uint iLevelID);
@@ -28,6 +29,11 @@ public: /* 엔진 라이브럴를 사용할때 필요한 초기화 과정으르 거칠거야. */
 public: /* For.Graphic_Device */	
 	void		Render_Begin(void);
 	void		Render_End(HWND hWnd = NULL);
+
+public: /* For.Input_Device */
+	_byte Get_DIKeyState(_ubyte byKeyID);
+	_byte Get_DIMouseKeyState(MOUSEBUTTON eMouseButtonID);
+	_long Get_DIMouseMoveState(MOUSEMOVE eMouseMove);
 
 public: /* For.Level_Manager */
 	HRESULT Open_Level(_uint iLevelID, class CLevel* pLevel);
@@ -49,6 +55,7 @@ public: /* For.Timer_Manager */
 
 private:
 	CGraphic_Device*				m_pGraphic_Device = nullptr;
+	CInput_Device*					m_pInput_Device = nullptr;
 	CLevel_Manager*					m_pLevel_Manager = nullptr;
 	CObject_Manager*				m_pObject_Manager = nullptr;
 	CComponent_Manager*				m_pComponent_Manager = nullptr;

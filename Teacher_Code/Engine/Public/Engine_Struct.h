@@ -2,6 +2,9 @@
 
 namespace Engine
 {
+	enum MOUSEBUTTON { MBS_LBUTTON, MBS_RBUTTON, MBS_WHEEL, MBS_X, MBS_END };
+	enum MOUSEMOVE { MMS_X, MMS_Y, MMS_WHEEL, MMS_END };
+
 	typedef struct tagLineIndices32
 	{
 		unsigned long _1, _2;

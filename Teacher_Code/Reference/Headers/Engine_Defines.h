@@ -3,8 +3,22 @@
 #pragma warning (disable : 4005)
 #pragma warning (disable : 4251)
 
+//	1010 0110 0011 1100
+//&	1000 0000 0000 0000
+//    1000 0000 0000 0000
+	
+
+
+//if (GetKeyState() & 0x8000)
+//{
+//
+//}
+
 #include <d3d9.h>
 #include <d3dx9.h>
+
+#define DIRECTINPUT_VERSION  0x0800
+#include <dinput.h>
 
 #include <process.h>
 

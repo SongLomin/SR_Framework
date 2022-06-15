@@ -106,6 +106,9 @@
     <Filter Include="01.Utility\03.Components\00. Model\Mesh_Cube">
       <UniqueIdentifier>{5a1452ed-fd54-415b-82d3-7a432f420cfc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\04.Manager\06. Input_Manager">
+      <UniqueIdentifier>{6054f646-e3eb-4fae-98ed-b8fb372e4815}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -201,6 +204,9 @@
     <ClInclude Include="..\public\Mesh.h">
       <Filter>01.Utility\03.Components\00. Model\Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Input_Manager.h">
+      <Filter>01.Utility\04.Manager\06. Input_Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -277,6 +283,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Mesh.cpp">
       <Filter>01.Utility\03.Components\00. Model\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Input_Manager.cpp">
+      <Filter>01.Utility\04.Manager\06. Input_Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
