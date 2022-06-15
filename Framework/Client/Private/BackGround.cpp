@@ -4,6 +4,7 @@
 #include "Dummy.h"
 #include <tchar.h>
 #include "Posin.h"
+#include "CameraPosin.h"
 #include "Cam_Free.h"
 #include "Cam_TPS.h"
 
@@ -140,13 +141,17 @@ HRESULT CBackGround::SetUp_Components()
 
 	MyChild = GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"));
 	MyChild->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
-	
 	m_pTransformCom->Add_Child(MyChild->Get_Component<CTransform>());
+
+	MyChild = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"));
+	MyChild->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
 
 	CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera"));
 	Free_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	Free_Cam->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
 	m_pTransformCom->Add_Child(Free_Cam->Get_Component<CTransform>());
+
+	((CCameraPosin*)MyChild)->Link_CameraTransfrom(Free_Cam->Get_Component<CTransform>());
 
 
 	return S_OK;

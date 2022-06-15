@@ -58,6 +58,7 @@ public:
 	void Turn_Look(const _float3& vAxis, _float fTimeDelta);
 
 	void LookAt(const _float3& vAt);
+	void LookAt(CTransform* pTargetTransform);
 
 private:
 	_float4x4			m_WorldMatrix;

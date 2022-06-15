@@ -52,6 +52,9 @@
     <Filter Include="02.GameObject\05. Camera_Object\00. Cam_Free">
       <UniqueIdentifier>{2fcd89fe-11d7-404c-9723-bcba1e528273}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\06. Posin\CameraPosin">
+      <UniqueIdentifier>{73d82d72-e735-40ad-9641-61d20540df8f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -105,6 +108,9 @@
     <ClInclude Include="..\Public\Posin.h">
       <Filter>02.GameObject\06. Posin</Filter>
     </ClInclude>
+    <ClInclude Include="CameraPosin.h">
+      <Filter>02.GameObject\06. Posin\CameraPosin</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -148,6 +154,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Posin.cpp">
       <Filter>02.GameObject\06. Posin</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraPosin.cpp">
+      <Filter>02.GameObject\06. Posin\CameraPosin</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

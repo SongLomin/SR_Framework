@@ -10,12 +10,12 @@ END
 
 BEGIN(Client)
 
-class CPosin final : public CGameObject
+class CCameraPosin final : public CGameObject
 {
 private:
-    explicit CPosin();
-    explicit CPosin(const CPosin& Prototype);
-    virtual ~CPosin() = default;
+    explicit CCameraPosin();
+    explicit CCameraPosin(const CCameraPosin& Prototype);
+    virtual ~CCameraPosin() = default;
 
 public:
     // CGameObject을(를) 통해 상속됨
@@ -30,15 +30,20 @@ private:
     CRenderer* m_pRendererCom = nullptr;
     CVIBuffer_Rect* m_pVIBufferCom = nullptr;
 
+    CTransform* m_pCameraTransformCom = nullptr;
+
+public:
+    void Link_CameraTransfrom(CTransform* pTransform);
+
 private:
     HRESULT SetUp_Components();
     void    LookAt_CamTPS();
 
 public:
-    static CPosin* Create();
+    // CGameObject을(를) 통해 상속됨
+    static CCameraPosin* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 };
 
 END
-
