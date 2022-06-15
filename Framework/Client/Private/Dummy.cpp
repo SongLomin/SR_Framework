@@ -27,6 +27,8 @@ HRESULT CDummy::Initialize(void* pArg)
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"),MEMORY_TYPE::MEMORY_DYNAMIC);
+
 	m_pTransformCom = Add_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
@@ -54,8 +56,9 @@ HRESULT CDummy::Render()
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-	m_pRendererCom->Update_Textures(1);
+	m_pRendererCom->Bind_Texture(1);
 	m_pVIBufferCom->Render();
+	m_pRendererCom->UnBind_Texture();
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 

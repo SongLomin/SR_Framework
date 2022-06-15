@@ -17,6 +17,8 @@ HRESULT CTerrain::Initialize(void* pArg)
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
+
 	m_pTransformCom = Add_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
@@ -45,11 +47,11 @@ HRESULT CTerrain::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
-	DEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-
+	m_pRendererCom->Bind_Texture(1);
+	
 	m_pVIBufferCom->Render();
 
-	DEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+	m_pRendererCom->UnBind_Texture();
 
 	return S_OK;
 }

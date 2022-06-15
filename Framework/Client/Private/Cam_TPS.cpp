@@ -42,25 +42,26 @@ void CCam_TPS::Tick(_float fTimeDelta)
 
 	POINT ptMouse{ 0, 0 };
 
-	//if (GetFocus() == g_hWnd)
-	//{
-	//	ptMouse.x = GAMEINSTANCE->Get_Graphic_Desc().iWinCX * 0.5f; // 윈도우 기준으로 (400, 300)으로 설정
-	//	ptMouse.y = GAMEINSTANCE->Get_Graphic_Desc().iWinCY * 0.5f;
+	if (GetFocus() == g_hWnd)
+	{
+		ptMouse.x = GAMEINSTANCE->Get_Graphic_Desc().iWinCX * 0.5f; // 윈도우 기준으로 (400, 300)으로 설정
+		ptMouse.y = GAMEINSTANCE->Get_Graphic_Desc().iWinCY * 0.5f;
 
-	//	m_MouseRealPosition.x += m_CurCursorPosition.x - ptMouse.x;
-	//	m_MouseRealPosition.y += m_CurCursorPosition.y - ptMouse.y;
+		m_MouseRealPosition.x += m_CurCursorPosition.x - ptMouse.x;
+		m_MouseRealPosition.y += m_CurCursorPosition.y - ptMouse.y;
 
-	//	ClientToScreen(g_hWnd, &ptMouse); // 클라이언트 기준 좌표를 바탕화면 기준으로 변환한다
+		ClientToScreen(g_hWnd, &ptMouse); // 클라이언트 기준 좌표를 바탕화면 기준으로 변환한다
 
-	//	SetCursorPos(ptMouse.x, ptMouse.y); // 커서를 윈도우 기준으로 (400, 300)에 위치시킨다
-	//}
+		SetCursorPos(ptMouse.x, ptMouse.y); // 커서를 윈도우 기준으로 (400, 300)에 위치시킨다
+	}
 
-	_float3 Cursor_Weight = m_CurCursorPosition - m_PreCursorPosition;
+	_float3 Cursor_Weight = m_MouseRealPosition - m_PreCursorPosition;
 
-	m_pTransformCom->Turn_Look(_float3(0.f, 1.f, 0.f), Cursor_Weight.x * fTimeDelta);
-	m_pTransformCom->Turn_Look(_float3(1.f, 0.f, 0.f), Cursor_Weight.y * fTimeDelta);
+	m_pTransformCom->Go_Right(-Cursor_Weight.x * 0.001f);
+	m_pTransformCom->Go_Up(Cursor_Weight.y * 0.001f);
+	m_pTransformCom->LookAt(_float3(0.f, 0.f, 0.f));
 	
-	m_PreCursorPosition = m_CurCursorPosition;
+	m_PreCursorPosition = m_MouseRealPosition;
 
 	if (FAILED(m_pCameraCom->Bind_PipeLine()))
 		return;

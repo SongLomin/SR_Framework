@@ -68,10 +68,12 @@ HRESULT CGameInstance::Render_Engine()
 
 HRESULT CGameInstance::Clear(_uint iLevelID)
 {
-	if (nullptr == m_pObject_Manager)
+	if (nullptr == m_pObject_Manager || 
+		nullptr == m_pComponent_Manager)
 		return E_FAIL;
 
 	m_pObject_Manager->Clear(iLevelID);
+	m_pComponent_Manager->Clear(iLevelID);
 
 	return S_OK;
 }

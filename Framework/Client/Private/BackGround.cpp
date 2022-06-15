@@ -34,17 +34,28 @@ void CBackGround::Tick(_float fTimeDelta)
 {
 	ISVALID(m_pTransformCom);
 
-	if (GetKeyState(VK_UP) & 0x8000)
+	if (GetKeyState('W') & 0x8000)
 		m_pTransformCom->Go_Straight(fTimeDelta);
 
-	if (GetKeyState(VK_DOWN) & 0x8000)
+	if (GetKeyState('S') & 0x8000)
 		m_pTransformCom->Go_Backward(fTimeDelta);
 
-	if (GetKeyState(VK_RIGHT) & 0x8000)
+	if (GetKeyState('D') & 0x8000)
 		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta);
 
-	if (GetKeyState(VK_LEFT) & 0x8000)
+	if (GetKeyState('A') & 0x8000)
 		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * -1.f);
+
+	if (GetKeyState(VK_SPACE) & 0x8000)
+	{
+		m_pTransformCom->Go_Straight(fTimeDelta);
+		m_pTransformCom->Go_Up(fTimeDelta * 0.3f);
+	}
+
+	if (GetKeyState(VK_CONTROL) & 0x8000)
+	{
+		m_pTransformCom->Go_Up(-(fTimeDelta * 0.3f));
+	}
 
 	if (GetKeyState(VK_TAB) & 0x8000)
 		m_pTransformCom->Rotation(_float3(0.f, 1.f, 0.f), D3DXToRadian(120.0f));
@@ -73,8 +84,9 @@ HRESULT CBackGround::Render()
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-	m_pRendererCom->Update_Textures(0);
+	m_pRendererCom->Bind_Texture(0);
 	m_pVIBufferCom->Render();
+	m_pRendererCom->UnBind_Texture();
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 

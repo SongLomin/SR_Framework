@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "..\Public\Level_GamePlay.h"
+#include "GameInstance.h"
+#include "Camera_Free.h"
 
 
 CLevel_GamePlay::CLevel_GamePlay(LPDIRECT3DDEVICE9 pGraphic_Device)
@@ -11,6 +13,12 @@ CLevel_GamePlay::CLevel_GamePlay(LPDIRECT3DDEVICE9 pGraphic_Device)
 HRESULT CLevel_GamePlay::Initialize()
 {
 	if (FAILED(__super::Initialize()))
+		return E_FAIL;
+
+	if (FAILED(Ready_Layer_Camera(TEXT("Layer_Camera"))))
+		return E_FAIL;
+
+	if (FAILED(Ready_Layer_BackGround(TEXT("Layer_BackGround"))))
 		return E_FAIL;
 
 	return S_OK;
@@ -28,6 +36,51 @@ HRESULT CLevel_GamePlay::Render()
 
 
 	SetWindowText(g_hWnd, TEXT("게임프렐이레벨임. "));
+
+	return S_OK;
+}
+
+
+HRESULT CLevel_GamePlay::Ready_Layer_Camera(const _tchar * pLayerTag)
+{
+	CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
+	Safe_AddRef(pGameInstance);
+
+	/* For.Camera_Free */
+	CCamera::CAMERADESC			CameraDesc;
+	ZeroMemory(&CameraDesc, sizeof(CCamera::CAMERADESC));
+
+	CameraDesc.iLevelIndex = LEVEL_STATIC;
+	CameraDesc.pTransformPrototypeTag = TEXT("Prototype_Component_Transform");
+	CameraDesc.vEye = _float3(5.0f, 5.f, -3.f);
+	CameraDesc.vAt = _float3(5.f, 0.f, 20.f);
+	CameraDesc.TransformDesc.fSpeedPerSec = 5.f;
+	CameraDesc.TransformDesc.fRotationPerSec = D3DXToRadian(90.0f);
+
+	CameraDesc.fFovy = D3DXToRadian(65.0f);
+	CameraDesc.fAspect = (_float)g_iWinCX / g_iWinCY;
+	CameraDesc.fNear = 0.2f;
+	CameraDesc.fFar = 300.f;
+
+	if (FAILED(pGameInstance->Add_GameObject(LEVEL_LOGO, pLayerTag, TEXT("Prototype_GameObject_Camera_Free"), &CameraDesc)))
+		return E_FAIL;
+
+	Safe_Release(pGameInstance);
+
+	return S_OK;
+}
+
+
+HRESULT CLevel_GamePlay::Ready_Layer_BackGround(const _tchar * pLayerTag)
+{
+	CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
+	Safe_AddRef(pGameInstance);
+
+	/* For.Terrain */
+	if (FAILED(pGameInstance->Add_GameObject(LEVEL_GAMEPLAY, pLayerTag, TEXT("Prototype_GameObject_Terrain"))))
+		return E_FAIL;
+
+	Safe_Release(pGameInstance);
 
 	return S_OK;
 }

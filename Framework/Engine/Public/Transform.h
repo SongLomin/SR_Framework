@@ -48,6 +48,7 @@ public:
 	void Go_Straight(_float fTimeDelta);
 	void Go_Left(_float fTimeDelta);
 	void Go_Right(_float fTimeDelta);
+	void Go_Up(_float fTimeDelta);
 	void Go_Backward(_float fTimeDelta);
 	void Go_Target(CTransform* _Trans, _float fTimeDelta);
 

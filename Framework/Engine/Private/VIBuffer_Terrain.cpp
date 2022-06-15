@@ -68,12 +68,10 @@ void CVIBuffer_Terrain::Bake_Terrain_Mesh()
 
 	for (int i = 0; i < m_Terrain_Count.x; i++)
 	{
-		
-
 		for (int j = 0; j < m_Terrain_Count.y; j++)
 		{
 			pVertices[index].vPosition = _float3(2.f * i, 0.f, 2.f * j);
-			pVertices[index].vTexUV = _float2((1 - (i / m_Terrain_Count.x)) * 20.f , j / m_Terrain_Count.y * 20.f);
+			pVertices[index].vTexUV = _float2(i / (m_Terrain_Count.x - 1.f) * 20.f, j / (m_Terrain_Count.y - 1.f) * 20.f);
 
 			index++;
 		}

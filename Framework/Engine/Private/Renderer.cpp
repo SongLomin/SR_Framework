@@ -34,16 +34,19 @@ HRESULT CRenderer::Set_Textures_From_Key(const _tchar* _Str_Key, MEMORY_TYPE _eT
 	return S_OK;
 }
 
-HRESULT CRenderer::Update_Textures(_uint _iIndex)
+HRESULT CRenderer::Bind_Texture(_uint _iIndex)
 {
 	if (nullptr == m_ppTextures)
 	{
 		return E_FAIL;
 	}
 
-	DEVICE->SetTexture(0, (*m_ppTextures)[_iIndex]);
+	return DEVICE->SetTexture(0, (*m_ppTextures)[_iIndex]);
+}
 
-	return S_OK;
+HRESULT CRenderer::UnBind_Texture()
+{
+	return DEVICE->SetTexture(0, 0);
 }
 
 HRESULT CRenderer::Initialize_Prototype()

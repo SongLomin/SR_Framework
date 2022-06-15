@@ -493,7 +493,14 @@ LPDIRECT3DBASETEXTURE9: 위 두 클래스의 부모다. 따라서 해당 타입�
 이 경우엔 픽셀 사이를 생성하거나 탈락시킨다. 따라서 DX9은 텍스쳐를 사이즈별로 미리 만들어둔다.
 DX11은 안해준다..........
 
+오후 5:29 6/15/2022 17일차
+1. GameInstance의 EngineInit에 HINSTANCE 매개변수 추가됨.
+2. Client.cpp의 HINSTANCE의 이름을 g_hInst로 변경.
+3. Client_Defines에서 extern 붙여주기
+4. 높이맵
 
+숙제:
+1. 인풋 디바이스 추가
 
 
 

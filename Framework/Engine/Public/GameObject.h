@@ -36,7 +36,7 @@ public: /* Template Function*/
 		{
 			return nullptr;
 		}
-
+		temp->Set_Owner(this);
 		m_pComs.emplace(typeid(T).name(), temp);
 
 		return temp;

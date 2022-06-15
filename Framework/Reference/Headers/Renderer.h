@@ -17,7 +17,8 @@ private:
 public:
 	HRESULT Add_RenderGroup(RENDERGROUP	eGroup, class CGameObject* pGameObject);
 	HRESULT Set_Textures_From_Key(const _tchar* _Str_Key, MEMORY_TYPE _eType = MEMORY_TYPE::MEMORY_END);
-	HRESULT Update_Textures(_uint _iIndex);
+	HRESULT Bind_Texture(_uint _iIndex);
+	HRESULT UnBind_Texture();
 
 public:
 	virtual HRESULT Initialize_Prototype() override;

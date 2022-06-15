@@ -23,6 +23,9 @@ HRESULT CMainApp::Initialize()
 	if (FAILED(m_pGameInstance->Initialize_Engine(LEVEL_END, GraphicDesc, &m_pGraphic_Device)))
 		return E_FAIL;
 
+	if (FAILED(SetUp_SamplerState()))
+		return E_FAIL;
+
 	if (FAILED(SetUp_RenderState()))
 		return E_FAIL;
 
@@ -70,6 +73,18 @@ HRESULT CMainApp::SetUp_RenderState()
 	m_pGraphic_Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	
+
+	return S_OK;
+}
+
+HRESULT CMainApp::SetUp_SamplerState()
+{
+	if (nullptr == m_pGraphic_Device)
+		return E_FAIL;
+
+	m_pGraphic_Device->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+	m_pGraphic_Device->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+	m_pGraphic_Device->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
 
 	return S_OK;
 }
