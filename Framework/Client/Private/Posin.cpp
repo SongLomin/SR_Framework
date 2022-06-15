@@ -29,7 +29,7 @@ HRESULT CPosin::Initialize(void* pArg)
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 2.f, 0.f));
+	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
 	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f));
 	
 
@@ -43,11 +43,13 @@ void CPosin::Tick(_float fTimeDelta)
     
 	if (GetKeyState('D') & 0x8000)
 		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * -1);
+
+	
 }
 
 void CPosin::LateTick(_float fTimeDelta)
 {
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_PRIORITY, this);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CPosin::Render()

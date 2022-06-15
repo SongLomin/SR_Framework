@@ -1,23 +1,24 @@
 #include "stdafx.h"
-#include "CameraPosin.h"
+#include "Ring.h"
 #include "GameInstance.h"
 
-CCameraPosin::CCameraPosin()
+CRing::CRing()
 {
 }
 
-CCameraPosin::CCameraPosin(const CCameraPosin& Prototype)
+CRing::CRing(const CRing& Prototype)
 {
 	*this = Prototype;
 }
 
-HRESULT CCameraPosin::Initialize_Prototype()
+HRESULT CRing::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CCameraPosin::Initialize(void* pArg)
+HRESULT CRing::Initialize(void* pArg)
 {
+
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
@@ -28,24 +29,25 @@ HRESULT CCameraPosin::Initialize(void* pArg)
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
+	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(4.f, 2.0f, 0.f));
 	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f));
+
+
 	return S_OK;
-
 }
 
-void CCameraPosin::Tick(_float fTimeDelta)
+void CRing::Tick(_float fTimeDelta)
 {
-	LookAt_CamTPS();
+	m_pTransformCom->Go_Straight(fTimeDelta * 5);
+	m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * -1.f);
 }
 
-void CCameraPosin::LateTick(_float fTimeDelta)
+void CRing::LateTick(_float fTimeDelta)
 {
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
-
 }
 
-HRESULT CCameraPosin::Render()
+HRESULT CRing::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -60,25 +62,15 @@ HRESULT CCameraPosin::Render()
 	return S_OK;
 }
 
-void CCameraPosin::Link_CameraTransfrom(CTransform* pTransform)
-{
-	m_pCameraTransformCom = pTransform;
 
-	m_pCameraTransformCom->Set_WeakPtr(&m_pTransformCom);
-}
 
-CGameObject* CCameraPosin::Create_Bullet()
-{
-	return nullptr;
-}
-
-HRESULT CCameraPosin::SetUp_Components()
+inline HRESULT CRing::SetUp_Components()
 {
 	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 
 	CTransform::TRANSFORMDESC		TransformDesc;
-	TransformDesc.fSpeedPerSec = 100.f;
-	TransformDesc.fRotationPerSec = D3DXToRadian(250.0f);
+	TransformDesc.fSpeedPerSec = 8.f;
+	TransformDesc.fRotationPerSec = D3DXToRadian(600.f);
 
 	m_pTransformCom = Add_Component<CTransform>(&TransformDesc);
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
@@ -86,37 +78,34 @@ HRESULT CCameraPosin::SetUp_Components()
 	return S_OK;
 }
 
-void CCameraPosin::LookAt_CamTPS()
-{
-	m_pTransformCom->LookAt(m_pCameraTransformCom);
-}
 
-CCameraPosin* CCameraPosin::Create()
+
+CRing* CRing::Create()
 {
-	CCameraPosin* pInstance = new CCameraPosin();
+	CRing* pInstance = new CRing();
 
 	if (FAILED(pInstance->Initialize_Prototype()))
 	{
-		MSG_BOX("Failed to Created : CCameraPosin");
+		MSG_BOX("Failed to Created : CRing");
 		Safe_Release(pInstance);
 	}
 	return pInstance;
 }
 
-CGameObject* CCameraPosin::Clone(void* pArg)
+CGameObject* CRing::Clone(void* pArg)
 {
-	CCameraPosin* pInstance = new CCameraPosin();
+	CRing* pInstance = new CRing();
 
 	if (FAILED(pInstance->Initialize(pArg)))
 	{
-		MSG_BOX("Failed to Cloned : CCameraPosin");
+		MSG_BOX("Failed to Cloned : CRing");
 		Safe_Release(pInstance);
 	}
 
 	return pInstance;
 }
 
-void CCameraPosin::Free()
+void CRing::Free()
 {
 	__super::Free();
 

@@ -32,7 +32,7 @@ void CMonster::Tick(_float fTimeDelta)
 
 void CMonster::LateTick(_float fTimeDelta)
 {
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_PRIORITY, this);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CMonster::Render()

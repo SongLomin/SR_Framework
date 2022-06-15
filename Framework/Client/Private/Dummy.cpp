@@ -49,7 +49,7 @@ void CDummy::Tick(_float fTimeDelta)
 
 void CDummy::LateTick(_float fTimeDelta)
 {
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_PRIORITY, this);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CDummy::Render()

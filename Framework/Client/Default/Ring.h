@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Client_Defines.h"
 #include "GameObject.h"
 
@@ -10,12 +11,12 @@ END
 
 BEGIN(Client)
 
-class CCameraPosin final : public CGameObject
+class CRing final : public CGameObject
 {
 private:
-    explicit CCameraPosin();
-    explicit CCameraPosin(const CCameraPosin& Prototype);
-    virtual ~CCameraPosin() = default;
+    explicit CRing();
+    explicit CRing(const CRing& Prototype);
+    virtual ~CRing() = default;
 
 public:
     // CGameObject을(를) 통해 상속됨
@@ -30,21 +31,14 @@ private:
     CRenderer* m_pRendererCom = nullptr;
     CVIBuffer_Rect* m_pVIBufferCom = nullptr;
 
-    CTransform* m_pCameraTransformCom = nullptr;
-
-public:
-    void Link_CameraTransfrom(CTransform* pTransform);
-    CGameObject* Create_Bullet();
-
 private:
     HRESULT SetUp_Components();
-    void    LookAt_CamTPS();
 
 public:
-    // CGameObject을(를) 통해 상속됨
-    static CCameraPosin* Create();
+    static CRing* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 };
 
 END
+
