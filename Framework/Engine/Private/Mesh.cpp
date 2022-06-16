@@ -58,6 +58,8 @@ void CMesh::Free()
 {
 	__super::Free();
 
+	
 	m_pMesh->Release();
+
 }
 

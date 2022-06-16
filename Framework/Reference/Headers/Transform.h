@@ -36,6 +36,15 @@ public:
 			D3DXVec3Length(&Get_State(STATE_LOOK)));
 	}
 
+	void Set_Desc(_float fSpeed, _float fRadSpeed)
+	{
+		m_TransformDesc.fSpeedPerSec = fSpeed;
+		m_TransformDesc.fRotationPerSec = fRadSpeed;
+	}
+
+	_float Get_Speed() {	return m_TransformDesc.fSpeedPerSec;}
+	_float Get_RotationSpeed() { return m_TransformDesc.fRotationPerSec; }
+
 public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);
@@ -45,17 +54,22 @@ public:
 	_float4x4 Get_WorldMatrix() const;
 
 public:
-	void Go_Straight(_float fTimeDelta);
+	/*void Go_Straight(_float fTimeDelta);
 	void Go_Left(_float fTimeDelta);
 	void Go_Right(_float fTimeDelta);
-	void Go_Up(_float fTimeDelta);
-	void Go_Backward(_float fTimeDelta);
+	void Go_Up(_float fJump,_float fTimeDelta);
+	void Go_Backward(_float fTimeDelta);*/
 	void Go_Target(CTransform* _Trans, _float fTimeDelta);
 	void Scaling(_float3 vScale);
 
+	void Go_BackAndForth(_float fSpeed, _float ftimeDelta);
+	void Go_SideToSide(_float fSpeed, _float ftimeDelta);
+	void Go_UpAndDown(_float fSpeed, _float ftimeDelta);
+
 	void Rotation(const _float3 & vAxis, _float fRadian);
-	void Turn(const _float3 & vAxis, _float fTimeDelta);
+	void Turn(const _float3 & vAxis, _float fRadSpeed,_float fTimeDelta);
 	void Turn_Look(const _float3& vAxis, _float fTimeDelta);
+
 
 	void LookAt(const _float3& vAt);
 	void LookAt(CTransform* pTargetTransform);

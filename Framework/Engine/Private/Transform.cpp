@@ -51,56 +51,56 @@ _float4x4 CTransform::Get_WorldMatrix() const
 	return m_WorldMatrix * _matParent;
 }
 
-void CTransform::Go_Straight(_float fTimeDelta)
-{
-	_float3		vPosition = Get_State(CTransform::STATE_POSITION);
-	_float3		vLook = Get_State(CTransform::STATE_LOOK);
-
-	vPosition += *D3DXVec3Normalize(&vLook, &vLook) * m_TransformDesc.fSpeedPerSec * fTimeDelta;
-
-	Set_State(CTransform::STATE_POSITION, vPosition);
-}
-
-void CTransform::Go_Left(_float fTimeDelta)
-{
-	_float3		vPosition = Get_State(CTransform::STATE_POSITION);
-	_float3		vRight = Get_State(CTransform::STATE_RIGHT);
-
-	vPosition -= *D3DXVec3Normalize(&vRight, &vRight) * m_TransformDesc.fSpeedPerSec * fTimeDelta;
-
-	Set_State(CTransform::STATE_POSITION, vPosition);
-}
-
-void CTransform::Go_Right(_float fTimeDelta)
-{
-	_float3		vPosition = Get_State(CTransform::STATE_POSITION);
-	_float3		vRight = Get_State(CTransform::STATE_RIGHT);
-
-	vPosition += *D3DXVec3Normalize(&vRight, &vRight) * m_TransformDesc.fSpeedPerSec * fTimeDelta;
-
-	Set_State(CTransform::STATE_POSITION, vPosition);
-}
-
-void CTransform::Go_Up(_float fTimeDelta)
-{
-	_float3		vPosition = Get_State(CTransform::STATE_POSITION);
-	_float3		vUp = Get_State(CTransform::STATE_UP);
-
-	vPosition += *D3DXVec3Normalize(&vUp, &vUp) * m_TransformDesc.fSpeedPerSec * fTimeDelta;
-
-	Set_State(CTransform::STATE_POSITION, vPosition);
-}
-
-void CTransform::Go_Backward(_float fTimeDelta)
-{
-	_float3		vPosition = Get_State(CTransform::STATE_POSITION);
-	_float3		vLook = Get_State(CTransform::STATE_LOOK);
-
-	vPosition -= *D3DXVec3Normalize(&vLook, &vLook) * m_TransformDesc.fSpeedPerSec * fTimeDelta;
-
-	Set_State(CTransform::STATE_POSITION, vPosition);
-}
-
+//void CTransform::Go_Straight(_float fTimeDelta)
+//{
+//	_float3		vPosition = Get_State(CTransform::STATE_POSITION);
+//	_float3		vLook = Get_State(CTransform::STATE_LOOK);
+//
+//	vPosition += *D3DXVec3Normalize(&vLook, &vLook) * m_TransformDesc.fSpeedPerSec * fTimeDelta;
+//
+//	Set_State(CTransform::STATE_POSITION, vPosition);
+//}
+//
+//void CTransform::Go_Left(_float fTimeDelta)
+//{
+//	_float3		vPosition = Get_State(CTransform::STATE_POSITION);
+//	_float3		vRight = Get_State(CTransform::STATE_RIGHT);
+//
+//	vPosition -= *D3DXVec3Normalize(&vRight, &vRight) * m_TransformDesc.fSpeedPerSec * fTimeDelta;
+//
+//	Set_State(CTransform::STATE_POSITION, vPosition);
+//}
+//
+//void CTransform::Go_Right(_float fTimeDelta)
+//{
+//	_float3		vPosition = Get_State(CTransform::STATE_POSITION);
+//	_float3		vRight = Get_State(CTransform::STATE_RIGHT);
+//
+//	vPosition += *D3DXVec3Normalize(&vRight, &vRight) * m_TransformDesc.fSpeedPerSec * fTimeDelta;
+//
+//	Set_State(CTransform::STATE_POSITION, vPosition);
+//}
+//
+//void CTransform::Go_Up(_float fJump,_float fTimeDelta)
+//{
+//	_float3		vPosition = Get_State(CTransform::STATE_POSITION);
+//	_float3		vUp = Get_State(CTransform::STATE_UP);
+//
+//	vPosition += *D3DXVec3Normalize(&vUp, &vUp) * fJump * fTimeDelta;
+//
+//	Set_State(CTransform::STATE_POSITION, vPosition);
+//}
+//
+//void CTransform::Go_Backward(_float fTimeDelta)
+//{
+//	_float3		vPosition = Get_State(CTransform::STATE_POSITION);
+//	_float3		vLook = Get_State(CTransform::STATE_LOOK);
+//
+//	vPosition -= *D3DXVec3Normalize(&vLook, &vLook) * m_TransformDesc.fSpeedPerSec * fTimeDelta;
+//
+//	Set_State(CTransform::STATE_POSITION, vPosition);
+//}
+//
 void CTransform::Go_Target(CTransform* _Trans, _float fTimeDelta)
 {
 	_float3 vPlayerPos = _Trans->Get_State(CTransform::STATE_POSITION);
@@ -117,7 +117,7 @@ void CTransform::Go_Target(CTransform* _Trans, _float fTimeDelta)
 	Set_State(CTransform::STATE_UP, vUp);
 	Set_State(CTransform::STATE_LOOK, vLook);
 
-	Go_Straight(fTimeDelta);
+	
 }
 
 void CTransform::Scaling(_float3 vScale)
@@ -134,11 +134,43 @@ void CTransform::Scaling(_float3 vScale)
 	Set_State(CTransform::STATE_LOOK, *D3DXVec3Normalize(&vLook, &vLook) * vScale.z);
 }
 
+void CTransform::Go_BackAndForth(_float fSpeed, _float ftimeDelta)
+{
+	_float3		vPosition = Get_State(CTransform::STATE_POSITION);
+	_float3		vLook = Get_State(CTransform::STATE_LOOK);
+
+	vPosition += *D3DXVec3Normalize(&vLook, &vLook) * fSpeed * ftimeDelta;
+
+	Set_State(CTransform::STATE_POSITION, vPosition);
+}
+
+void CTransform::Go_SideToSide(_float fSpeed, _float ftimeDelta)
+{
+	_float3		vPosition = Get_State(CTransform::STATE_POSITION);
+	_float3		vRight = Get_State(CTransform::STATE_RIGHT);
+
+	vPosition += *D3DXVec3Normalize(&vRight, &vRight) * fSpeed * ftimeDelta;
+
+	Set_State(CTransform::STATE_POSITION, vPosition);
+}
+
+void CTransform::Go_UpAndDown(_float fSpeed, _float ftimeDelta)
+{
+	_float3		vPosition = Get_State(CTransform::STATE_POSITION);
+	_float3		vUp = Get_State(CTransform::STATE_UP);
+
+	vPosition += *D3DXVec3Normalize(&vUp, &vUp) * fSpeed * ftimeDelta;
+
+	Set_State(CTransform::STATE_POSITION, vPosition);
+}
+
+
 void CTransform::Rotation(const _float3& vAxis, _float fRadian)
 {
 	_float3		vRight = _float3(1.f, 0.f, 0.f);
 	_float3		vUp = _float3(0.f, 1.f, 0.f);
 	_float3		vLook = _float3(0.f, 0.f, 1.f);
+
 
 	_float4x4	RotationMatrix;
 	D3DXMatrixRotationAxis(&RotationMatrix, &vAxis, fRadian);
@@ -147,6 +179,7 @@ void CTransform::Rotation(const _float3& vAxis, _float fRadian)
 	D3DXVec3TransformNormal(&vUp, &vUp, &RotationMatrix);
 	D3DXVec3TransformNormal(&vLook, &vLook, &RotationMatrix);
 
+
 	Set_State(CTransform::STATE_RIGHT, vRight);
 	Set_State(CTransform::STATE_UP, vUp);
 	Set_State(CTransform::STATE_LOOK, vLook);
@@ -154,14 +187,14 @@ void CTransform::Rotation(const _float3& vAxis, _float fRadian)
 
 }
 
-void CTransform::Turn(const _float3& vAxis, _float fTimeDelta)
+void CTransform::Turn(const _float3& vAxis, _float fRadSpeed,_float fTimeDelta)
 {
 	_float3		vRight = Get_State(CTransform::STATE_RIGHT);
 	_float3		vUp = Get_State(CTransform::STATE_UP);
 	_float3		vLook = Get_State(CTransform::STATE_LOOK);
 
 	_float4x4	RotationMatrix;
-	D3DXMatrixRotationAxis(&RotationMatrix, &vAxis, m_TransformDesc.fRotationPerSec * fTimeDelta);
+	D3DXMatrixRotationAxis(&RotationMatrix, &vAxis, fRadSpeed * fTimeDelta);
 
 	D3DXVec3TransformNormal(&vRight, &vRight, &RotationMatrix);
 	D3DXVec3TransformNormal(&vUp, &vUp, &RotationMatrix);

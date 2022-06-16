@@ -30,7 +30,6 @@ HRESULT CBackGround::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
-
 	
 	return S_OK;
 }
@@ -39,36 +38,35 @@ void CBackGround::Tick(_float fTimeDelta)
 {
 	ISVALID(m_pTransformCom);
 
-	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
-		m_pTransformCom->Go_Straight(fTimeDelta);
+	m_pRigidBodyCom->Add_DirZ(0.f);
+	//m_pRigidBodyCom->Add_DirY(0.f);
+	m_pRigidBodyCom->Add_RotationY(0.f);
 
-	if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
-		m_pTransformCom->Go_Backward(fTimeDelta);
+	if (GetKeyState('W') & 0x8000)
+		m_pRigidBodyCom->Add_DirZ(0.1f);
 
-	if (KEY_INPUT(KEY::D, KEY_STATE::HOLD))
-		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta);
+	if (GetKeyState('S') & 0x8000)
+		m_pRigidBodyCom->Add_DirZ(-0.1f);
 
-	if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
-		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * -1.f);
+	if (GetKeyState('D') & 0x8000)
+		m_pRigidBodyCom->Add_RotationY( 0.3f);
+
+	if (GetKeyState('A') & 0x8000)
+		m_pRigidBodyCom->Add_RotationY(-0.3f);
 
 	if (GetKeyState(VK_SPACE) & 0x8000)
 	{
-		m_pTransformCom->Go_Straight(fTimeDelta);
-		m_pTransformCom->Go_Up(fTimeDelta * 0.3f);
+		m_pRigidBodyCom->Add_Jump();
 	}
-
-	if (GetKeyState(VK_CONTROL) & 0x8000)
-	{
-		m_pTransformCom->Go_Up(-(fTimeDelta * 0.3f));
-	}
-
-	if (GetKeyState(VK_TAB) & 0x8000)
-		m_pTransformCom->Rotation(_float3(0.f, 1.f, 0.f), D3DXToRadian(120.0f));
 
 	if (GetKeyState('Z') & 0x8000)
 	{
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
 	}
+
+	m_pRigidBodyCom->Update_Transform(fTimeDelta);
+
+	
 
 
 	TEXTINFO Info;
@@ -150,6 +148,17 @@ HRESULT CBackGround::SetUp_Components()
 	m_pTransformCom = Add_Component<CTransform>(&TransformDesc);
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
+
+	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
+	RigidBodyDesc.m_fOwnerSpeed = 5.f;
+	RigidBodyDesc.m_fOwnerRadSpeed= D3DXToRadian(90.0f);
+
+	RigidBodyDesc.m_fFrictional = 0.05f;
+	RigidBodyDesc.m_fRadFrictional =0.03f;
+
+	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
+	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
+	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
 	CGameObject* MyChild = GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"));
 	MyChild->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
