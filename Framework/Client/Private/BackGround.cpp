@@ -94,17 +94,7 @@ void CBackGround::LateTick(_float fTimeDelta)
 
 HRESULT CBackGround::Render()
 {
-	//_float4x4		ViewMatrix, ProjMatrix;
-
-	//D3DXMatrixLookAtLH(&ViewMatrix, &_float3(0.f, 35.f, -10.f), &_float3(0.f, 0.f, 0.f), &_float3(0.f, 1.f, 0.f));
-	//D3DXMatrixPerspectiveFovLH(&ProjMatrix, D3DXToRadian(60.0f), (_float)g_iWinCX / g_iWinCY, 02.f, 300.f);
-
 	m_pTransformCom->Bind_WorldMatrix();
-	//DEVICE->SetTransform(D3DTS_VIEW, &ViewMatrix);
-	//DEVICE->SetTransform(D3DTS_PROJECTION, &ProjMatrix);
-
-	
-	//GAMEINSTANCE->Add_Text("HP: %d", 내  HP, 위치, 컬러);
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(0);
