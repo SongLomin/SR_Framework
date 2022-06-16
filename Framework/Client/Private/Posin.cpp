@@ -54,13 +54,13 @@ HRESULT CPosin::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
 	m_pVIBufferCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	return S_OK;
 }
@@ -69,7 +69,7 @@ HRESULT CPosin::Render()
 
 inline HRESULT CPosin::SetUp_Components()
 {
-	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
+	//CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 
 	/*CTransform::TRANSFORMDESC		TransformDesc;
 	TransformDesc.fSpeedPerSec = 100.f;
@@ -87,27 +87,12 @@ void CPosin::LookAt_CamTPS()
 
 CPosin* CPosin::Create()
 {
-	CPosin* pInstance = new CPosin();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CPosin");
-		Safe_Release(pInstance);
-	}
-	return pInstance;
+	CREATE_PIPELINE(CPosin);
 }
 
 CGameObject* CPosin::Clone(void* pArg)
 {
-	CPosin* pInstance = new CPosin();
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Cloned : CPosin");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CPosin);
 }
 
 void CPosin::Free()

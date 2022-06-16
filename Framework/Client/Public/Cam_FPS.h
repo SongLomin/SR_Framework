@@ -26,6 +26,8 @@ public:
     virtual HRESULT Render() override;
 
 
+
+
 private:
     CTransform* m_pTransformCom = nullptr;
     CCamera* m_pCameraCom = nullptr;

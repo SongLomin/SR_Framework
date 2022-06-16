@@ -3,7 +3,9 @@
 #include "Client_Defines.h"
 
 BEGIN(Engine)
-
+class CTransform;
+class CCamera;
+class CRigid_Body;
 END
 
 BEGIN(Client)
@@ -22,7 +24,12 @@ public:
 	virtual void LateTick(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
+private:
+	CTransform* m_pTransformCom = nullptr;
+	CCamera* m_pCameraCom = nullptr;
+	CRigid_Body* m_pRogidBodyCom = nullptr;
 
+	_float m_fAngle = 65.f;
 
 public:
 	static CCam_Shoulder* Create();

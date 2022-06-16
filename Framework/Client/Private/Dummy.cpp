@@ -56,13 +56,13 @@ HRESULT CDummy::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
 	m_pVIBufferCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	return S_OK;
 }
@@ -70,5 +70,6 @@ HRESULT CDummy::Render()
 void CDummy::Free()
 {
 	__super::Free();
+
 	delete this;
 }

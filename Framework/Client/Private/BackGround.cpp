@@ -8,6 +8,7 @@
 #include "Cam_Free.h"
 #include "Cam_TPS.h"
 #include "Cam_FPS.h"
+#include "Cam_Shoulder.h"
 #include "Ring.h"
 
 CBackGround::CBackGround()
@@ -38,7 +39,7 @@ HRESULT CBackGround::Initialize(void* pArg)
 
 void CBackGround::Tick(_float fTimeDelta)
 {
-	ISVALID(m_pTransformCom);
+	ISVALID(m_pTransformCom,);
 
 	m_pRigidBodyCom->Add_DirZ(0.f);
 	//m_pRigidBodyCom->Add_DirY(0.f);
@@ -66,6 +67,15 @@ void CBackGround::Tick(_float fTimeDelta)
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
 	}
 
+	if (KEY_INPUT(KEY::V, KEY_STATE::TAP))
+	{
+		if (g_bCamera)
+			g_bCamera = false;
+		else
+			g_bCamera = true;
+	}
+
+
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 
 	
@@ -86,8 +96,7 @@ void CBackGround::Tick(_float fTimeDelta)
 
 void CBackGround::LateTick(_float fTimeDelta)
 {
-	if (nullptr == m_pRendererCom)
-		return;
+	ISVALID(m_pRendererCom, );
 
 	
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_PRIORITY, this);
@@ -96,14 +105,14 @@ void CBackGround::LateTick(_float fTimeDelta)
 HRESULT CBackGround::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(0);
 	m_pMeshCubeCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
 	
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	return S_OK;
 }
@@ -148,20 +157,25 @@ HRESULT CBackGround::SetUp_Components()
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
-	CGameObject* MyChild = GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
+	GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
 
-	MyChild = GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
-	MyChild = GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
-	MyChild = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
+	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
+	GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
+	CGameObject* CameraPosin = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
 
-	//CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera"), m_pTransformCom);
-	//Free_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	//CGameObject* TPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera_TPS"), m_pTransformCom);
+	//TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 
-	CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(CURRENT_LEVEL, TEXT("Camera"), m_pTransformCom);
-	Free_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(CURRENT_LEVEL, TEXT("Camera_FPS"), m_pTransformCom);
+	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 
-	((CCameraPosin*)MyChild)->Link_CameraTransfrom(Free_Cam->Get_Component<CTransform>());
+	//((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(TPS_Cam->Get_Component<CTransform>());
+	((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(FPS_Cam->Get_Component<CTransform>());
 
+	CGameObject* Shoulder_Cam = GAMEINSTANCE->Add_GameObject<CCam_Shoulder>(CURRENT_LEVEL, TEXT("Camera_Shoulder"), m_pTransformCom);
+	Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+
+	((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(Shoulder_Cam->Get_Component<CTransform>());
 	return S_OK;
 }
 

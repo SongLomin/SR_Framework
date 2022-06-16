@@ -49,13 +49,13 @@ HRESULT CCameraPosin::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
 	m_pVIBufferCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	return S_OK;
 }
@@ -93,27 +93,12 @@ void CCameraPosin::LookAt_CamTPS()
 
 CCameraPosin* CCameraPosin::Create()
 {
-	CCameraPosin* pInstance = new CCameraPosin();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CCameraPosin");
-		Safe_Release(pInstance);
-	}
-	return pInstance;
+	CREATE_PIPELINE(CCameraPosin);
 }
 
 CGameObject* CCameraPosin::Clone(void* pArg)
 {
-	CCameraPosin* pInstance = new CCameraPosin();
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Cloned : CCameraPosin");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CCameraPosin);
 }
 
 void CCameraPosin::Free()

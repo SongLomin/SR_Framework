@@ -49,34 +49,38 @@ HRESULT CCam_TPS::Initialize(void* pArg)
 
 void CCam_TPS::Tick(_float fTimeDelta)
 {
-	m_CurCursorPosition = Get_MousePos(GAMEINSTANCE->Get_Window_Handle());
-
-	POINT ptMouse{ 0, 0 };
-
-	if (GetFocus() == g_hWnd)
+	if (!g_bCamera)
 	{
-		ptMouse.x = GAMEINSTANCE->Get_Graphic_Desc().iWinCX * 0.5f; // 윈도우 기준으로 (400, 300)으로 설정
-		ptMouse.y = GAMEINSTANCE->Get_Graphic_Desc().iWinCY * 0.5f;
+		m_CurCursorPosition = Get_MousePos(GAMEINSTANCE->Get_Window_Handle());
 
-		m_MouseRealPosition.x += m_CurCursorPosition.x - ptMouse.x;
-		m_MouseRealPosition.y += m_CurCursorPosition.y - ptMouse.y;
+		POINT ptMouse{ 0, 0 };
 
-		ClientToScreen(g_hWnd, &ptMouse); // 클라이언트 기준 좌표를 바탕화면 기준으로 변환한다
+		if (GetFocus() == g_hWnd)
+		{
+			ptMouse.x = GAMEINSTANCE->Get_Graphic_Desc().iWinCX * 0.5f; // 윈도우 기준으로 (400, 300)으로 설정
+			ptMouse.y = GAMEINSTANCE->Get_Graphic_Desc().iWinCY * 0.5f;
 
-		SetCursorPos(ptMouse.x, ptMouse.y); // 커서를 윈도우 기준으로 (400, 300)에 위치시킨다
+			m_MouseRealPosition.x += m_CurCursorPosition.x - ptMouse.x;
+			m_MouseRealPosition.y += m_CurCursorPosition.y - ptMouse.y;
+
+			ClientToScreen(g_hWnd, &ptMouse); // 클라이언트 기준 좌표를 바탕화면 기준으로 변환한다
+
+			SetCursorPos(ptMouse.x, ptMouse.y); // 커서를 윈도우 기준으로 (400, 300)에 위치시킨다
+		}
+
+		_float3 Cursor_Weight = m_MouseRealPosition - m_PreCursorPosition;
+
+		m_pRigidBodyCom->Add_DirX(-Cursor_Weight.x * 0.01f);
+		m_pRigidBodyCom->Add_DirY(Cursor_Weight.y * 0.01f);
+		m_pRigidBodyCom->Update_Transform(fTimeDelta);
+
+		m_pTransformCom->LookAt(_float3(0.f, 0.f, 0.f));
+		m_PreCursorPosition = m_MouseRealPosition;
+
+
+		if (FAILED(m_pCameraCom->Bind_PipeLine()))
+			return;
 	}
-
-	_float3 Cursor_Weight = m_MouseRealPosition - m_PreCursorPosition;
-
-	m_pRigidBodyCom->Add_DirX(-Cursor_Weight.x*0.01f);
-	m_pRigidBodyCom->Add_DirY(Cursor_Weight.y*0.01f);
-	m_pRigidBodyCom->Update_Transform(fTimeDelta);
-
-	m_pTransformCom->LookAt(_float3(0.f, 0.f, 0.f));
-	m_PreCursorPosition = m_MouseRealPosition;
-
-	if (FAILED(m_pCameraCom->Bind_PipeLine()))
-		return;
 }
 
 void CCam_TPS::LateTick(_float fTimeDelta)

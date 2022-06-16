@@ -23,8 +23,8 @@ HRESULT CMonster::Initialize(void* pArg)
 
 void CMonster::Tick(_float fTimeDelta)
 {
-	ISVALID(m_pPlayerTransformCom);
-	ISVALID(m_pTransformCom);
+	ISVALID(m_pPlayerTransformCom,);
+	ISVALID(m_pTransformCom,);
 
 	m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
 	m_pTransformCom->Go_BackAndForth(2.5, fTimeDelta);
@@ -40,20 +40,20 @@ HRESULT CMonster::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
 	m_pVIBufferCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
     return S_OK;
 }
 
 HRESULT CMonster::SetUp_Components()
 {
-	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
+	//CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 	//Safe_AddRef(pGameInstance);
 
 	/* For.Com_Renderer */
