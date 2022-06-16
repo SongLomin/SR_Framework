@@ -25,6 +25,7 @@ public:
 
 	void		Add_RotationY(_float fRadAccel);
 	void		Add_RotationX(_float fRadAccel);
+	void		Add_RotationZ(_float fRadAccel);
 
 	void		Add_Jump();
 	void		Update_Transform(_float fTimeDelta);
@@ -58,6 +59,9 @@ private:
 
 	_float		m_fRadAccelX= 0;
 	_float		m_fRadSpeedX= 0;
+
+	_float		m_fRadAccelZ = 0;
+	_float		m_fRadSpeedZ = 0;
 
 	_float		m_fJump = 0;
 	bool		m_bJump = 0;

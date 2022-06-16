@@ -57,15 +57,18 @@ void CCam_TPS::Tick(_float fTimeDelta)
 		ClientToScreen(g_hWnd, &ptMouse); // 클라이언트 기준 좌표를 바탕화면 기준으로 변환한다
 
 		SetCursorPos(ptMouse.x, ptMouse.y); // 커서를 윈도우 기준으로 (400, 300)에 위치시킨다
-		
 	}
 
 	_float3 Cursor_Weight = m_MouseRealPosition - m_PreCursorPosition;
 
-	m_pTransformCom->Rotation(_float3(1.f,0.f,0.f),Cursor_Weight.x* 0.001f);
-	m_pTransformCom->Rotation(_float3(0.f, 1.f, 0.f),Cursor_Weight.y* 0.001f);
+	/*m_pTransformCom->Go_SideToSide(-Cursor_Weight.x , 0.001f);
+	m_pTransformCom->Go_UpAndDown(Cursor_Weight.y , 0.001f);*/
+
+	m_pRigidBodyCom->Add_DirX(-Cursor_Weight.x*0.01f);
+	m_pRigidBodyCom->Add_DirY(Cursor_Weight.y*0.01f);
+	m_pRigidBodyCom->Update_Transform(fTimeDelta);
+
 	m_pTransformCom->LookAt(_float3(0.f, 0.f, 0.f));
-	
 	m_PreCursorPosition = m_MouseRealPosition;
 
 	if (FAILED(m_pCameraCom->Bind_PipeLine()))

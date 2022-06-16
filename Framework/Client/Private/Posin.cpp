@@ -42,7 +42,7 @@ void CPosin::Tick(_float fTimeDelta)
 	    m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 10.f,fTimeDelta*-1);
     
 	if (GetKeyState('D') & 0x8000) 
-			m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 10.f,fTimeDelta);
+		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 10.f,fTimeDelta);
 }
 
 void CPosin::LateTick(_float fTimeDelta)
