@@ -8,6 +8,7 @@
 #include "Cam_Free.h"
 #include "Cam_TPS.h"
 #include "Ring.h"
+#include "Bullet.h"
 
 CBackGround::CBackGround()
 {
@@ -63,6 +64,13 @@ void CBackGround::Tick(_float fTimeDelta)
 	if (KEY_INPUT(KEY::Z, KEY_STATE::TAP))
 	{
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+	}
+
+	if (KEY_INPUT(KEY::CTRL, KEY_STATE::TAP))
+	{
+		CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CBullet>(CURRENT_LEVEL, TEXT("Bullet"));
+		
+		((CBullet*)Bullet)->Link_CameraPosinTransform(m_pCameraPosin->Get_Component<CTransform>());
 	}
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
@@ -140,8 +148,8 @@ HRESULT CBackGround::SetUp_Components()
 	RigidBodyDesc.m_fOwnerSpeed = 5.f;
 	RigidBodyDesc.m_fOwnerRadSpeed= D3DXToRadian(90.0f);
 
-	RigidBodyDesc.m_fFrictional = 0.05f;
-	RigidBodyDesc.m_fRadFrictional =0.03f;
+	RigidBodyDesc.m_fFrictional = 0.05f;      // ¸¶Âû·Â
+	RigidBodyDesc.m_fRadFrictional = 0.03f;    // Rad¸¶Âû·Â
 
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
@@ -149,14 +157,23 @@ HRESULT CBackGround::SetUp_Components()
 
 	CGameObject* MyChild = GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
 
-	MyChild = GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
-	MyChild = GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
-	MyChild = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
+	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
+	GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
+
+	m_pCameraPosin = (CCameraPosin*)GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
+	
+	
 
 	CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera"), m_pTransformCom);
 	Free_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 
-	((CCameraPosin*)MyChild)->Link_CameraTransfrom(Free_Cam->Get_Component<CTransform>());
+	m_pCameraPosin->Link_CameraTransfrom(Free_Cam->Get_Component<CTransform>());
+
+
+
+	
+
+       
 
 	return S_OK;
 }

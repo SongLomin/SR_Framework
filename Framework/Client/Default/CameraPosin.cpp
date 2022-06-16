@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CameraPosin.h"
 #include "GameInstance.h"
+#include "Bullet.h"
 
 CCameraPosin::CCameraPosin()
 {
@@ -28,7 +29,7 @@ HRESULT CCameraPosin::Initialize(void* pArg)
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.0f, 1.5f, 0.f));
 	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f));
 	return S_OK;
 
@@ -36,6 +37,8 @@ HRESULT CCameraPosin::Initialize(void* pArg)
 
 void CCameraPosin::Tick(_float fTimeDelta)
 {
+	
+
 	LookAt_CamTPS();
 }
 
@@ -67,21 +70,17 @@ void CCameraPosin::Link_CameraTransfrom(CTransform* pTransform)
 	m_pCameraTransformCom->Set_WeakPtr(&m_pTransformCom);
 }
 
-CGameObject* CCameraPosin::Create_Bullet()
-{
-	return nullptr;
-}
 
 HRESULT CCameraPosin::SetUp_Components()
 {
 	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 
-	/*CTransform::TRANSFORMDESC		TransformDesc;
-	TransformDesc.fSpeedPerSec = 100.f;
-	TransformDesc.fRotationPerSec = D3DXToRadian(250.0f);*/
 
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
+
+	
+	
 
 	return S_OK;
 }

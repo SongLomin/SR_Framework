@@ -261,7 +261,7 @@ void CTransform::LookAt(CTransform* pTargetTransform)
 
 	Set_State(CTransform::STATE_RIGHT, vRight);
 	Set_State(CTransform::STATE_UP, vUp);
-	Set_State(CTransform::STATE_LOOK, vLook);
+	Set_State(CTransform::STATE_LOOK, -vLook);
 
 }
 
