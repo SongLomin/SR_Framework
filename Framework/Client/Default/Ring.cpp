@@ -1,22 +1,22 @@
 #include "stdafx.h"
-#include "Posin.h"
+#include "Ring.h"
 #include "GameInstance.h"
 
-CPosin::CPosin()
+CRing::CRing()
 {
 }
 
-CPosin::CPosin(const CPosin& Prototype)
+CRing::CRing(const CRing& Prototype)
 {
 	*this = Prototype;
 }
 
-HRESULT CPosin::Initialize_Prototype()
+HRESULT CRing::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CPosin::Initialize(void* pArg)
+HRESULT CRing::Initialize(void* pArg)
 {
 
 	if (FAILED(SetUp_Components()))
@@ -29,30 +29,25 @@ HRESULT CPosin::Initialize(void* pArg)
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
+	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(4.f, 2.0f, 0.f));
 	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f));
-	
+
 
 	return S_OK;
 }
 
-void CPosin::Tick(_float fTimeDelta)
+void CRing::Tick(_float fTimeDelta)
 {
-    if (GetKeyState('A') & 0x8000)
-	    m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta);
-    
-	if (GetKeyState('D') & 0x8000)
-		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * -1);
-
-	
+	m_pTransformCom->Go_Straight(fTimeDelta * 5);
+	m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * -1.f);
 }
 
-void CPosin::LateTick(_float fTimeDelta)
+void CRing::LateTick(_float fTimeDelta)
 {
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
-HRESULT CPosin::Render()
+HRESULT CRing::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -69,13 +64,13 @@ HRESULT CPosin::Render()
 
 
 
-inline HRESULT CPosin::SetUp_Components()
+inline HRESULT CRing::SetUp_Components()
 {
 	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 
 	CTransform::TRANSFORMDESC		TransformDesc;
-	TransformDesc.fSpeedPerSec = 100.f;
-	TransformDesc.fRotationPerSec = D3DXToRadian(250.0f);
+	TransformDesc.fSpeedPerSec = 8.f;
+	TransformDesc.fRotationPerSec = D3DXToRadian(600.f);
 
 	m_pTransformCom = Add_Component<CTransform>(&TransformDesc);
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
@@ -83,36 +78,34 @@ inline HRESULT CPosin::SetUp_Components()
 	return S_OK;
 }
 
-void CPosin::LookAt_CamTPS()
-{
-}
 
-CPosin* CPosin::Create()
+
+CRing* CRing::Create()
 {
-	CPosin* pInstance = new CPosin();
+	CRing* pInstance = new CRing();
 
 	if (FAILED(pInstance->Initialize_Prototype()))
 	{
-		MSG_BOX("Failed to Created : CPosin");
+		MSG_BOX("Failed to Created : CRing");
 		Safe_Release(pInstance);
 	}
 	return pInstance;
 }
 
-CGameObject* CPosin::Clone(void* pArg)
+CGameObject* CRing::Clone(void* pArg)
 {
-	CPosin* pInstance = new CPosin();
+	CRing* pInstance = new CRing();
 
 	if (FAILED(pInstance->Initialize(pArg)))
 	{
-		MSG_BOX("Failed to Cloned : CPosin");
+		MSG_BOX("Failed to Cloned : CRing");
 		Safe_Release(pInstance);
 	}
 
 	return pInstance;
 }
 
-void CPosin::Free()
+void CRing::Free()
 {
 	__super::Free();
 

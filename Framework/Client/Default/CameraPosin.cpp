@@ -1,24 +1,23 @@
 #include "stdafx.h"
-#include "Posin.h"
+#include "CameraPosin.h"
 #include "GameInstance.h"
 
-CPosin::CPosin()
+CCameraPosin::CCameraPosin()
 {
 }
 
-CPosin::CPosin(const CPosin& Prototype)
+CCameraPosin::CCameraPosin(const CCameraPosin& Prototype)
 {
 	*this = Prototype;
 }
 
-HRESULT CPosin::Initialize_Prototype()
+HRESULT CCameraPosin::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CPosin::Initialize(void* pArg)
+HRESULT CCameraPosin::Initialize(void* pArg)
 {
-
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
@@ -29,30 +28,24 @@ HRESULT CPosin::Initialize(void* pArg)
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
+	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
 	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f));
-	
-
 	return S_OK;
+
 }
 
-void CPosin::Tick(_float fTimeDelta)
+void CCameraPosin::Tick(_float fTimeDelta)
 {
-    if (GetKeyState('A') & 0x8000)
-	    m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta);
-    
-	if (GetKeyState('D') & 0x8000)
-		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * -1);
-
-	
+	LookAt_CamTPS();
 }
 
-void CPosin::LateTick(_float fTimeDelta)
+void CCameraPosin::LateTick(_float fTimeDelta)
 {
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+
 }
 
-HRESULT CPosin::Render()
+HRESULT CCameraPosin::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -67,9 +60,19 @@ HRESULT CPosin::Render()
 	return S_OK;
 }
 
+void CCameraPosin::Link_CameraTransfrom(CTransform* pTransform)
+{
+	m_pCameraTransformCom = pTransform;
 
+	m_pCameraTransformCom->Set_WeakPtr(&m_pTransformCom);
+}
 
-inline HRESULT CPosin::SetUp_Components()
+CGameObject* CCameraPosin::Create_Bullet()
+{
+	return nullptr;
+}
+
+HRESULT CCameraPosin::SetUp_Components()
 {
 	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 
@@ -83,36 +86,37 @@ inline HRESULT CPosin::SetUp_Components()
 	return S_OK;
 }
 
-void CPosin::LookAt_CamTPS()
+void CCameraPosin::LookAt_CamTPS()
 {
+	m_pTransformCom->LookAt(m_pCameraTransformCom);
 }
 
-CPosin* CPosin::Create()
+CCameraPosin* CCameraPosin::Create()
 {
-	CPosin* pInstance = new CPosin();
+	CCameraPosin* pInstance = new CCameraPosin();
 
 	if (FAILED(pInstance->Initialize_Prototype()))
 	{
-		MSG_BOX("Failed to Created : CPosin");
+		MSG_BOX("Failed to Created : CCameraPosin");
 		Safe_Release(pInstance);
 	}
 	return pInstance;
 }
 
-CGameObject* CPosin::Clone(void* pArg)
+CGameObject* CCameraPosin::Clone(void* pArg)
 {
-	CPosin* pInstance = new CPosin();
+	CCameraPosin* pInstance = new CCameraPosin();
 
 	if (FAILED(pInstance->Initialize(pArg)))
 	{
-		MSG_BOX("Failed to Cloned : CPosin");
+		MSG_BOX("Failed to Cloned : CCameraPosin");
 		Safe_Release(pInstance);
 	}
 
 	return pInstance;
 }
 
-void CPosin::Free()
+void CCameraPosin::Free()
 {
 	__super::Free();
 

@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Client_Defines.h"
 #include "GameObject.h"
 
@@ -10,12 +11,12 @@ END
 
 BEGIN(Client)
 
-class CPosin final : public CGameObject
+class CRing final : public CGameObject
 {
 private:
-    explicit CPosin();
-    explicit CPosin(const CPosin& Prototype);
-    virtual ~CPosin() = default;
+    explicit CRing();
+    explicit CRing(const CRing& Prototype);
+    virtual ~CRing() = default;
 
 public:
     // CGameObject을(를) 통해 상속됨
@@ -32,10 +33,9 @@ private:
 
 private:
     HRESULT SetUp_Components();
-    void    LookAt_CamTPS();
 
 public:
-    static CPosin* Create();
+    static CRing* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 };
