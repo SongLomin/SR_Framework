@@ -73,6 +73,14 @@ void CBackGround::Tick(_float fTimeDelta)
 		((CBullet*)Bullet)->Link_CameraPosinTransform(m_pCameraPosin->Get_Component<CTransform>());
 	}
 
+
+	if (KEY_INPUT(KEY::Q, KEY_STATE::TAP))
+	{
+		GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
+	}
+
+	
+
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 
 	
@@ -158,7 +166,7 @@ HRESULT CBackGround::SetUp_Components()
 	CGameObject* MyChild = GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
 
 	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
-	GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
+	
 
 	m_pCameraPosin = (CCameraPosin*)GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
 	

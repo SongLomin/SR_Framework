@@ -59,6 +59,7 @@ HRESULT CMonster::SetUp_Components()
 	/* For.Com_Renderer */
 	//약포인터: 해당 객체가 삭제되면 약포인터로 선언된 포인터 객체들도 nullptr를 가르킨다.
 	//댕글링 포인터를 방지하기 위해 사용한다.
+
 	m_pRendererCom = Add_Component<CRenderer>();
 
 	m_pRendererCom->Set_WeakPtr((void**)&m_pRendererCom);

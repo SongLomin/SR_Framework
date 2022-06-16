@@ -20,7 +20,6 @@ HRESULT CBullet::Initialize_Prototype()
 
 HRESULT CBullet::Initialize(void* pArg)
 {
-
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
@@ -31,14 +30,12 @@ HRESULT CBullet::Initialize(void* pArg)
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
-
-
 	return S_OK;
 }
 
 void CBullet::Tick(_float fTimeDelta)
 {
-	m_pTransformCom->Go_BackAndForth(50.f, fTimeDelta);
+	m_pTransformCom->Go_BackAndForth(80.f, fTimeDelta);
 	m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK), 10.f,fTimeDelta);
 }
 
@@ -85,10 +82,7 @@ inline HRESULT CBullet::SetUp_Components()
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
 
-	
-
-
-	m_pTransformCom->Scaling(_float3(0.2f, 0.2f, 0.2f));
+	m_pTransformCom->Scaling(_float3(0.2f, 10.0f, 0.2f));
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 10.f;
@@ -100,11 +94,6 @@ inline HRESULT CBullet::SetUp_Components()
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
-
-	
-	
-
-
 
 	return S_OK;
 }
