@@ -1,9 +1,11 @@
 #include "Graphic_Device.h"
+#include "Font.h"
+#include "GameInstance.h"
 
 IMPLEMENT_SINGLETON(CGraphic_Device)
 
 CGraphic_Device::CGraphic_Device()
-	: m_p3D(nullptr) , m_pDevice(nullptr)
+	: m_p3D(nullptr), m_pDevice(nullptr)
 {
 
 }
@@ -63,17 +65,19 @@ HRESULT CGraphic_Device::InitDevice(const GRAPHICDESC& GraphicDesc, LPDIRECT3DDE
 		DEFAULT_PITCH | FF_DONTCARE, TEXT("돋움"),
 		&m_pFont);
 
+	GAMEINSTANCE->Add_Timer(99);
+
 	return S_OK;
 }
 
-void CGraphic_Device::SetParameters(const GRAPHICDESC& GraphicDesc, D3DPRESENT_PARAMETERS & d3dpp)
+void CGraphic_Device::SetParameters(const GRAPHICDESC& GraphicDesc, D3DPRESENT_PARAMETERS& d3dpp)
 {
 	d3dpp.BackBufferWidth = GraphicDesc.iWinCX;
 	d3dpp.BackBufferHeight = GraphicDesc.iWinCY;
 
 	// 후면 버퍼의 픽셀 포맷 , 32비트 포맷 사용
 	d3dpp.BackBufferFormat = D3DFMT_A8R8G8B8;
-	
+
 	// 후면 버퍼의 개수
 	d3dpp.BackBufferCount = 1;
 
@@ -83,14 +87,14 @@ void CGraphic_Device::SetParameters(const GRAPHICDESC& GraphicDesc, D3DPRESENT_P
 	d3dpp.MultiSampleQuality = 0;
 
 	// 복사가 아닌 교체 방식을 통해 그리기와 지우기를 하게끔 만들어준다.
-	
+
 	// D3DSWAPEFFECT_DISCARD : 스왑 체인 방식
 	// D3DSWAPEFFECT_FLIP : 버퍼 하나를 뒤집으면서 사용하는 방식
 	// D3DSWAPEFFECT_COPY : 더블 버퍼링과 유사하게 복사하여 사용하는 방식
 
 	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	d3dpp.hDeviceWindow = GraphicDesc.hWnd;	// 장치를 사용할 윈도우 핸들 설정
-	
+
 	d3dpp.Windowed = GraphicDesc.isWindowMode; // TRUE인 경우 창모드, FALSE 전체 화면 모드
 
 	// 스텐실 버퍼 : 반사와 같은 물체를 표현하는 버퍼
@@ -102,7 +106,7 @@ void CGraphic_Device::SetParameters(const GRAPHICDESC& GraphicDesc, D3DPRESENT_P
 	// 창 모드 일 경우 장치가 아닌 운영체제가 재생률을 관리함
 	// 전체 화면으로 변경 시 모니터 재생율에 대한 설정
 	d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;
-	
+
 	// 재생율과 시연의 간격 설정
 	// D3DPRESENT_INTERVAL_IMMEDIATE : 즉시 시연
 	// D3DPRESENT_INTERVAL_DEFAULT : 적절한 간격을 DIRECTX 알아서 결정, 보통 모니터 재생율을 따라감
@@ -135,26 +139,26 @@ void CGraphic_Device::Render_Begin(void)
 
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);//2D
 
-	RECT rectTemp = { 300, 300, 300 + 200, 300 + 30 };
-	_tchar* szBuff = L"HP : %d";
-	_tchar szText[MAX_PATH] = L"";
-	wsprintf(szText, szBuff, 5);
-	m_pFont->DrawText(m_pSprite, szText, -1, &rectTemp, 0,
-		D3DCOLOR_COLORVALUE(1, 0, 0, 1));//0xFFFF0000);
+	if (!m_Text.empty())
+	{
+		for (auto& iter : m_Text)
+		{
+			if (iter->Get_CountTime() < 0.f) // 시간만큼 돌았단 소리
+			{
+				int i = 0;
+			}
+			else
+			{
+				m_pFont->DrawText(m_pSprite, iter->Get_Font().szBuff, -1, &iter->Get_Font().rcTemp, 0,
+					iter->Get_Font().color);//0xFFFF0000);
+				iter->Minus_CountTime(GAMEINSTANCE->Compute_Timer(99));
+			}
 
-	//for (auto& elem : m_pFonts)
-	//{
-	//	m_pFont->DrawText(m_pSprite, elem.Text, -1, &elem.rectTemp, 0,
-	//		elem.Color);//0xFFFF0000);
+		}
+	}
 
-	//	Safe_Release(elem);
-	//}
-	//m_pFonts.clear();
 
-	rectTemp = { 500, 300, 500 + 200, 300 + 30 };
-	m_pFont->DrawText(m_pSprite, szText, -1, &rectTemp, 0,
-		D3DCOLOR_COLORVALUE(1, 0, 0, 1));//0xFFFF0000);
-	
+
 	m_pSprite->End();
 }
 
@@ -170,8 +174,39 @@ void CGraphic_Device::Render_End(HWND hWnd)
 
 }
 
+HRESULT CGraphic_Device::Add_Text(TEXTINFO* TextInfo, _float CountTime)
+{
+	// m_Text 를 순회하면서 시간이 0보다 작은 애들 찾기
+	// 찾으면 TextInfo,CountTime 대입
+	// 못찾으면 푸쉬
+
+	for (auto& elem : m_Text)
+	{
+		if (elem->Get_CountTime() < 0.f)
+		{
+			elem->Set_Param(TextInfo, CountTime);
+			return S_OK;
+		}
+	}
+
+	CFont* Font = CFont::Create(TextInfo, CountTime);
+
+	if (nullptr != Font)
+		m_Text.push_back(Font);
+
+	return S_OK;
+}
+
+
+
 void CGraphic_Device::Free()
 {
+	for (auto& iter : m_Text)
+	{
+		Safe_Release(iter);
+	}
+	m_Text.clear();
+
 	m_pFont->Release();
 	m_pSprite->Release();
 	m_pDevice->Release();

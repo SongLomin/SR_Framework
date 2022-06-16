@@ -34,7 +34,6 @@ private:
 	CStatus*				m_pStatusCom = nullptr;
 
 
-
 private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 	HRESULT SetUp_Components();
 

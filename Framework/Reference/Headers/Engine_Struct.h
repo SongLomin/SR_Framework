@@ -49,7 +49,12 @@ namespace Engine
 		bool	isWindowMode;
 	}GRAPHICDESC;
 
-
+	typedef struct tagTextInfo
+	{
+		RECT rcTemp;
+		_tchar szBuff[MAX_PATH] = L"";
+		D3DXCOLOR color;
+	}TEXTINFO;
 
 	enum class RENDERGROUP { RENDER_PRIORITY = 0, RENDER_NONALPHABLEND, RENDER_ALPHABLEND, RENDER_UI, RENDER_END };
 	enum class TEXTURE_TYPE { TYPE_DEFAULT = 0, TYPE_CUBE, TYPE_END };

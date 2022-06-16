@@ -36,7 +36,7 @@ public: /* For.Graphic_Device */
 	void		Render_Begin(void);
 	void		Render_End(HWND hWnd = NULL);
 	LPDIRECT3DDEVICE9* Get_Device(void);
-
+	HRESULT		Add_Text(TEXTINFO* TextInfo, _float CountTime = 0);
 
 public: /* For.Level_Manager */
 	HRESULT Open_Level(_uint iLevelID, class CLevel* pLevel);

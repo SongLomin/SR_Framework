@@ -26,6 +26,13 @@ HRESULT CLevel_GamePlay::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_LOGO, TEXT("Terrain")))
 		return E_FAIL;
 
+	TEXTINFO Info;
+	Info.color = D3DCOLOR_ARGB(255, 0, 255, 0);
+	Info.rcTemp = { 600, 300, 600 + 200, 300 + 300 };
+	wsprintf(Info.szBuff, L"¹» ÃÄ´ÙºÁ ¾¾¹ß");
+	if (FAILED(GAMEINSTANCE->Add_Text(&Info, 10.f)))
+		return E_FAIL;
+
 	return S_OK;
 }
 
