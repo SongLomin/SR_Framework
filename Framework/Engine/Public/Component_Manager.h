@@ -47,11 +47,7 @@ public: /* Template Function*/
 		T가 컴포넌트를 상속 받는지 검사합니다.
 		왜? T에 컴포넌트가 아닌 다른 클래스가 들어오는 것을 사전에 방지합니다.
 		*/
-		if (!is_base_of<CComponent, T>::value)
-		{
-			MessageBox(g_hWnd, TEXT("T isn't base of CComponent : CComponent_Manager"), TEXT("System Error"), MB_OK);
-			return nullptr;
-		}
+		static_assert(is_base_of<CComponent, T>::value, "T isn't base of CComponent : CComponent_Manager");
 		
 		CComponent** pPrototype = nullptr;
 		/*Find_Components*/

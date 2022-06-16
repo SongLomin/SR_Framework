@@ -27,21 +27,7 @@ public:
 	virtual void Free() override;
 
 public: /* Template Function*/
-	template <typename T>
-	T* Add_Component(void* pArg = nullptr)
-	{
-		T* temp = CGameInstance::Get_Instance()->Clone_Component<T>(pArg);
-
-		if (nullptr == temp)
-		{
-			return nullptr;
-		}
-		temp->Set_Owner(this);
-		m_pComs.emplace(typeid(T).name(), temp);
-
-		return temp;
-	}
-
+	
 	template <typename T>
 	T* Get_Component()
 	{
@@ -53,6 +39,24 @@ public: /* Template Function*/
 		}
 
 		return static_cast<T*>(iter->second);
+	}
+
+	template <typename T>
+	T* Add_Component(void* pArg = nullptr)
+	{
+		if (Get_Component<T>() != nullptr)
+			assert(false);
+
+		T* temp = CGameInstance::Get_Instance()->Clone_Component<T>(pArg);
+
+		if (nullptr == temp)
+		{
+			return nullptr;
+		}
+		temp->Set_Owner(this);
+		m_pComs.emplace(typeid(T).name(), temp);
+
+		return temp;
 	}
 };
 

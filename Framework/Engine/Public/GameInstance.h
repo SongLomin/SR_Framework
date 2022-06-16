@@ -56,9 +56,9 @@ public: /* For.Object_Manager */
 		return S_OK;
 	}
 	template <typename T>
-	CGameObject* Add_GameObject(_uint iLevelIndex, const _tchar* pLayerTag, void* pArg = nullptr)
+	CGameObject* Add_GameObject(_uint iLevelIndex, const _tchar* pLayerTag, CTransform* pParent = nullptr, void* pArg = nullptr)
 	{
-		return m_pObject_Manager->Add_GameObject<T>(iLevelIndex, pLayerTag, pArg);
+		return m_pObject_Manager->Add_GameObject<T>(iLevelIndex, pLayerTag, pParent, pArg);
 	}
 	CGameObject* Get_Player_GameObject();
 

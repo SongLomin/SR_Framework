@@ -38,8 +38,8 @@ HRESULT CRing::Initialize(void* pArg)
 
 void CRing::Tick(_float fTimeDelta)
 {
-	m_pTransformCom->Go_Straight(fTimeDelta * 5);
-	m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * -1.f);
+	m_pTransformCom->Go_BackAndForth(5.f, fTimeDelta);
+	m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), -1.f,fTimeDelta);
 }
 
 void CRing::LateTick(_float fTimeDelta)
@@ -68,11 +68,11 @@ inline HRESULT CRing::SetUp_Components()
 {
 	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 
-	CTransform::TRANSFORMDESC		TransformDesc;
+	/*CTransform::TRANSFORMDESC		TransformDesc;
 	TransformDesc.fSpeedPerSec = 8.f;
-	TransformDesc.fRotationPerSec = D3DXToRadian(600.f);
+	TransformDesc.fRotationPerSec = D3DXToRadian(600.f);*/
 
-	m_pTransformCom = Add_Component<CTransform>(&TransformDesc);
+	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
 
 	return S_OK;

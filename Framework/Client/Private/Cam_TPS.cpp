@@ -14,11 +14,11 @@ HRESULT CCam_TPS::Initialize_Prototype()
 
 HRESULT CCam_TPS::Initialize(void* pArg)
 {
-	CTransform::TRANSFORMDESC		TransformDesc;
+	/*CTransform::TRANSFORMDESC		TransformDesc;
 	TransformDesc.fSpeedPerSec = 5.0f;
-	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f);
+	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f)*/;
 
-	m_pTransformCom = Add_Component<CTransform>(&TransformDesc);
+	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
 	m_pCameraCom = Add_Component<CCamera>();
@@ -67,9 +67,6 @@ void CCam_TPS::Tick(_float fTimeDelta)
 	}
 
 	_float3 Cursor_Weight = m_MouseRealPosition - m_PreCursorPosition;
-
-	/*m_pTransformCom->Go_SideToSide(-Cursor_Weight.x , 0.001f);
-	m_pTransformCom->Go_UpAndDown(Cursor_Weight.y , 0.001f);*/
 
 	m_pRigidBodyCom->Add_DirX(-Cursor_Weight.x*0.01f);
 	m_pRigidBodyCom->Add_DirY(Cursor_Weight.y*0.01f);

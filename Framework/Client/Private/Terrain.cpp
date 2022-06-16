@@ -19,7 +19,7 @@ HRESULT CTerrain::Initialize(void* pArg)
 
 	m_pRendererCom->Set_Textures_From_Key(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
-	m_pTransformCom = Add_Component<CTransform>();
+	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
 	_point TerrainCnt;

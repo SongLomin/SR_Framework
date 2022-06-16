@@ -19,6 +19,7 @@
 #include <typeinfo>
 #include <functional>
 #include <tchar.h>
+#include <assert.h>
 
 #include "Engine_Typedef.h"
 #include "Engine_Function.h"

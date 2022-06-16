@@ -16,6 +16,7 @@ CBackGround::CBackGround()
 
 CBackGround::CBackGround(const CBackGround & Prototype)
 {
+	*this = Prototype;
 }
 
 HRESULT CBackGround::Initialize_Prototype()
@@ -140,12 +141,8 @@ HRESULT CBackGround::SetUp_Components()
 
 	m_pMeshCubeCom = Add_Component<CMesh_Cube>();
 	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);
-	
-	CTransform::TRANSFORMDESC		TransformDesc;
-	TransformDesc.fSpeedPerSec = 5.0f;
-	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f);
 
-	m_pTransformCom = Add_Component<CTransform>(&TransformDesc);
+	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
 
@@ -160,29 +157,16 @@ HRESULT CBackGround::SetUp_Components()
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
-	CGameObject* MyChild = GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"));
-	MyChild->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
+	CGameObject* MyChild = GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
 
-	MyChild = GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"));
-	MyChild->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
-	m_pTransformCom->Add_Child(MyChild->Get_Component<CTransform>());
+	MyChild = GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
+	MyChild = GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
+	MyChild = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
 
-	MyChild = GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"));
-	MyChild->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
-	m_pTransformCom->Add_Child(MyChild->Get_Component<CTransform>());
-
-	MyChild = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"));
-	MyChild->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
-
-	
-
-	CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera"));
+	CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera"), m_pTransformCom);
 	Free_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
-	Free_Cam->Get_Component<CTransform>()->Set_Parent(m_pTransformCom);
-	m_pTransformCom->Add_Child(Free_Cam->Get_Component<CTransform>());
 
 	((CCameraPosin*)MyChild)->Link_CameraTransfrom(Free_Cam->Get_Component<CTransform>());
-
 
 	return S_OK;
 }

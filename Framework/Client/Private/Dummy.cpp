@@ -29,7 +29,7 @@ HRESULT CDummy::Initialize(void* pArg)
 
 	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"),MEMORY_TYPE::MEMORY_DYNAMIC);
 
-	m_pTransformCom = Add_Component<CTransform>();
+	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();

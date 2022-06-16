@@ -12,8 +12,8 @@ public:
 public:
 	typedef struct tagTransformDesc
 	{
-		_float		fSpeedPerSec;
-		_float		fRotationPerSec;
+		_float		fSpeedPerSec = 5.f;
+		_float		fRotationPerSec = D3DXToRadian(90.0f);;
 	}TRANSFORMDESC;
 
 private:

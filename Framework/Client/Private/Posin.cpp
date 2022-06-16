@@ -71,11 +71,11 @@ inline HRESULT CPosin::SetUp_Components()
 {
 	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 
-	CTransform::TRANSFORMDESC		TransformDesc;
+	/*CTransform::TRANSFORMDESC		TransformDesc;
 	TransformDesc.fSpeedPerSec = 100.f;
-	TransformDesc.fRotationPerSec = D3DXToRadian(250.0f);
+	TransformDesc.fRotationPerSec = D3DXToRadian(250.0f);*/
 
-	m_pTransformCom = Add_Component<CTransform>(&TransformDesc);
+	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
 
 	return S_OK;

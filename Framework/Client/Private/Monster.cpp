@@ -67,11 +67,11 @@ HRESULT CMonster::SetUp_Components()
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr((void**)&m_pVIBufferCom);
 
-	CTransform::TRANSFORMDESC		TransformDesc;
+	/*CTransform::TRANSFORMDESC		TransformDesc;
 	TransformDesc.fSpeedPerSec = 2.5f;
-	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f);
+	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f);*/
 
-	m_pTransformCom = Add_Component<CTransform>(&TransformDesc);
+	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
 	
 	

@@ -7,6 +7,8 @@
 
 BEGIN(Engine)
 
+class CTransform;
+
 class CObject_Manager final : public CBase
 {
 	DECLARE_SINGLETON(CObject_Manager)
@@ -61,7 +63,7 @@ public: /* Template Function */
 	}
 	
 	template <typename T>
-	T* Add_GameObject(_uint iLevelIndex, const _tchar* pLayerTag, void* pArg = nullptr)
+	T* Add_GameObject(_uint iLevelIndex, const _tchar* pLayerTag, CTransform* pParent = nullptr ,void* pArg = nullptr)
 	{
 		static_assert(is_base_of<CGameObject, T>::value, "T Isn't base of CGameObject");
 
@@ -94,6 +96,13 @@ public: /* Template Function */
 			return nullptr;
 
 		m_pLayers[iLevelIndex][pLayerTag].push_back(pCloneObject);
+
+		if (pParent)
+		{
+			CTransform* pTransfromCom = pCloneObject->Get_Component<CTransform>();
+			pTransfromCom->Set_Parent(pParent);
+			pParent->Add_Child(pTransfromCom);
+		}
 
 		return static_cast<T*>(pCloneObject);
 	}
