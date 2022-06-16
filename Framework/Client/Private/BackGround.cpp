@@ -43,24 +43,24 @@ void CBackGround::Tick(_float fTimeDelta)
 	//m_pRigidBodyCom->Add_DirY(0.f);
 	m_pRigidBodyCom->Add_RotationY(0.f);
 
-	if (GetKeyState('W') & 0x8000)
+	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_DirZ(0.1f);
 
-	if (GetKeyState('S') & 0x8000)
+	if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_DirZ(-0.1f);
 
-	if (GetKeyState('D') & 0x8000)
+	if (KEY_INPUT(KEY::D, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_RotationY( 0.3f);
 
-	if (GetKeyState('A') & 0x8000)
+	if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_RotationY(-0.3f);
 
-	if (GetKeyState(VK_SPACE) & 0x8000)
+	if (KEY_INPUT(KEY::SPACE, KEY_STATE::HOLD))
 	{
 		m_pRigidBodyCom->Add_Jump();
 	}
 
-	if (GetKeyState('Z') & 0x8000)
+	if (KEY_INPUT(KEY::Z, KEY_STATE::TAP))
 	{
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
 	}
@@ -72,7 +72,7 @@ void CBackGround::Tick(_float fTimeDelta)
 
 	TEXTINFO Info;
 	Info.color = D3DCOLOR_ARGB(255, 0, 255, 0);
-	Info.rcTemp = { 600, 300, 10000, 10000 };
+	Info.rcTemp = { 100, g_iWinCY - 100, 10000, 10000 };
 	
 	_uint hp = (_uint)m_pStatusCom->Get_Status().fHp;
 	_tchar szText[MAX_PATH] = L"HP : %d";

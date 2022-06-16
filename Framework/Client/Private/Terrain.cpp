@@ -17,7 +17,7 @@ HRESULT CTerrain::Initialize(void* pArg)
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Tex_Terrain"), MEMORY_TYPE::MEMORY_DYNAMIC);
 
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
@@ -47,7 +47,7 @@ HRESULT CTerrain::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
-	m_pRendererCom->Bind_Texture(5);
+	m_pRendererCom->Bind_Texture(0);
 	
 	m_pVIBufferCom->Render();
 

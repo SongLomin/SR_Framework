@@ -27,7 +27,7 @@ HRESULT CDummy::Initialize(void* pArg)
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"),MEMORY_TYPE::MEMORY_DYNAMIC);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
 
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
