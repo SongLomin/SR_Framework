@@ -58,8 +58,8 @@ public:
 	void Go_Left(_float fTimeDelta);
 	void Go_Right(_float fTimeDelta);
 	void Go_Up(_float fJump,_float fTimeDelta);
-	void Go_Backward(_float fTimeDelta);
-	void Go_Target(CTransform* _Trans, _float fTimeDelta);*/
+	void Go_Backward(_float fTimeDelta);*/
+	void Go_Target(CTransform* _Trans, _float fTimeDelta);
 	void Scaling(_float3 vScale);
 
 	void Go_BackAndForth(_float fSpeed, _float ftimeDelta);

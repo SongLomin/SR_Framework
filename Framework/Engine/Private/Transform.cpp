@@ -101,25 +101,25 @@ _float4x4 CTransform::Get_WorldMatrix() const
 //	Set_State(CTransform::STATE_POSITION, vPosition);
 //}
 //
-//void CTransform::Go_Target(CTransform* _Trans, _float fTimeDelta)
-//{
-//	_float3 vPlayerPos = _Trans->Get_State(CTransform::STATE_POSITION);
-//	_float3 vLook = vPlayerPos - Get_State(CTransform::STATE_POSITION);
-//	D3DXVec3Normalize(&vLook, &vLook);
-//
-//	_float3 vRight;
-//	D3DXVec3Cross(&vRight, &_float3(0.f, 1.f, 0.f), &vLook);
-//
-//	_float3 vUp;
-//	D3DXVec3Cross(&vUp, &vLook, &vRight);
-//	
-//	Set_State(CTransform::STATE_RIGHT, vRight);
-//	Set_State(CTransform::STATE_UP, vUp);
-//	Set_State(CTransform::STATE_LOOK, vLook);
-//
-//	Go_Straight(fTimeDelta);
-//}
-//
+void CTransform::Go_Target(CTransform* _Trans, _float fTimeDelta)
+{
+	_float3 vPlayerPos = _Trans->Get_State(CTransform::STATE_POSITION);
+	_float3 vLook = vPlayerPos - Get_State(CTransform::STATE_POSITION);
+	D3DXVec3Normalize(&vLook, &vLook);
+
+	_float3 vRight;
+	D3DXVec3Cross(&vRight, &_float3(0.f, 1.f, 0.f), &vLook);
+
+	_float3 vUp;
+	D3DXVec3Cross(&vUp, &vLook, &vRight);
+	
+	Set_State(CTransform::STATE_RIGHT, vRight);
+	Set_State(CTransform::STATE_UP, vUp);
+	Set_State(CTransform::STATE_LOOK, vLook);
+
+	
+}
+
 void CTransform::Scaling(_float3 vScale)
 {
 	//Get_Scaled();
