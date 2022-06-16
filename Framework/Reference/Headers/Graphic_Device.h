@@ -22,7 +22,7 @@ public:
 	void		Render_End(HWND hWnd = NULL);
 
 public:
-	HRESULT		Add_Text(TEXTINFO* TextInfo, _float CountTime);
+	HRESULT		Add_Text(TEXTINFO Info, float CountTime);
 	
 
 private:

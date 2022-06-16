@@ -15,6 +15,7 @@ CGameObject* CDummy::Clone(void* pArg)
 CDummy::CDummy(const CDummy& Prototype)
 {
 	*this = Prototype;
+	Add_Component<CTransform>();
 }
 
 HRESULT CDummy::Initialize_Prototype()

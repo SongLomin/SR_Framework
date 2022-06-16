@@ -9,6 +9,7 @@ CPosin::CPosin()
 CPosin::CPosin(const CPosin& Prototype)
 {
 	*this = Prototype;
+	Add_Component<CTransform>();
 }
 
 HRESULT CPosin::Initialize_Prototype()
@@ -87,27 +88,12 @@ void CPosin::LookAt_CamTPS()
 
 CPosin* CPosin::Create()
 {
-	CPosin* pInstance = new CPosin();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CPosin");
-		Safe_Release(pInstance);
-	}
-	return pInstance;
+	CREATE_PIPELINE(CPosin);
 }
 
 CGameObject* CPosin::Clone(void* pArg)
 {
-	CPosin* pInstance = new CPosin();
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Cloned : CPosin");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CPosin);
 }
 
 void CPosin::Free()

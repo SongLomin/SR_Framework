@@ -17,6 +17,7 @@ CBackGround::CBackGround()
 CBackGround::CBackGround(const CBackGround & Prototype)
 {
 	*this = Prototype;
+	Add_Component<CTransform>();
 }
 
 HRESULT CBackGround::Initialize_Prototype()
@@ -70,7 +71,7 @@ void CBackGround::Tick(_float fTimeDelta)
 	
 
 
-	TEXTINFO Info;
+	/*TEXTINFO Info;
 	Info.color = D3DCOLOR_ARGB(255, 0, 255, 0);
 	Info.rcTemp = { 100, g_iWinCY - 100, 10000, 10000 };
 	
@@ -79,7 +80,21 @@ void CBackGround::Tick(_float fTimeDelta)
  
 	wsprintf(Info.szBuff, szText, hp);
 
-	GAMEINSTANCE->Add_Text(&Info);
+	GAMEINSTANCE->Add_Text();*/
+
+	GAMEINSTANCE->Add_Text(
+		_point{ 100, g_iWinCY - 100 },
+		D3DCOLOR_ARGB(255, 130, 255, 0), 
+		0.0f, 
+		L"HP : %d", 
+		1, 
+		(_int)m_pStatusCom->Get_Status().fHp);
+
+	GAMEINSTANCE->Add_Text(
+		_point{ g_iWinCX - 300, g_iWinCY - 100 },
+		L"³²Àº ÃÑ¾Ë : %d / %d",
+		2,
+		14, 300);
 
 }
 

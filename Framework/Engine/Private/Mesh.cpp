@@ -59,7 +59,7 @@ void CMesh::Free()
 	__super::Free();
 
 	
-	m_pMesh->Release();
+	//m_pMesh->Release();
 
 }
 

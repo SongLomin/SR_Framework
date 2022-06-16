@@ -36,7 +36,8 @@ public: /* For.Graphic_Device */
 	void		Render_Begin(void);
 	void		Render_End(HWND hWnd = NULL);
 	LPDIRECT3DDEVICE9* Get_Device(void);
-	HRESULT		Add_Text(TEXTINFO* TextInfo, _float CountTime = 0);
+	HRESULT		Add_Text(_point _Pos, D3DXCOLOR _Color, _float _CountTime, _tchar* _tString, int _iParamCnt, ...);
+	HRESULT		Add_Text(_point _Pos, _tchar* _tString, int _iParamCnt, ...);
 
 public: /* For.Level_Manager */
 	HRESULT Open_Level(_uint iLevelID, class CLevel* pLevel);

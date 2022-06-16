@@ -5,6 +5,7 @@
 CCam_TPS::CCam_TPS(const CCam_TPS& Prototype)
 {
 	*this = Prototype;
+	Add_Component<CTransform>();
 }
 
 HRESULT CCam_TPS::Initialize_Prototype()
@@ -53,7 +54,7 @@ void CCam_TPS::Tick(_float fTimeDelta)
 
 	POINT ptMouse{ 0, 0 };
 
-	if (GetFocus() == g_hWnd)
+	if (GetFocus() != g_hWnd)
 	{
 		ptMouse.x = GAMEINSTANCE->Get_Graphic_Desc().iWinCX * 0.5f; // 윈도우 기준으로 (400, 300)으로 설정
 		ptMouse.y = GAMEINSTANCE->Get_Graphic_Desc().iWinCY * 0.5f;

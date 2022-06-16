@@ -108,13 +108,51 @@ LPDIRECT3DDEVICE9* CGameInstance::Get_Device(void)
 	return m_pGraphic_Device->Get_Device();
 }
 
-HRESULT CGameInstance::Add_Text(TEXTINFO* TextInfo, _float CountTime)
+HRESULT CGameInstance::Add_Text(_point _Pos, D3DXCOLOR _Color, _float _CountTime, _tchar* _tString, int _iParamCnt, ...)
+{
+	if (nullptr == m_pGraphic_Device)
+				return E_FAIL;
+	
+	TEXTINFO Info;
+	Info.rcTemp = { _Pos.x, _Pos.y, _Pos.x + 3000, _Pos.y + 3000 };
+	Info.color = _Color;
+
+	va_list args;
+	va_start(args, _iParamCnt);
+
+	vswprintf(Info.szBuff, MAX_PATH, _tString, args);
+
+	va_end(args);
+
+	return m_pGraphic_Device->Add_Text(Info, _CountTime);
+}
+
+HRESULT CGameInstance::Add_Text(_point _Pos, _tchar* _tString, int _iParamCnt, ...)
 {
 	if (nullptr == m_pGraphic_Device)
 		return E_FAIL;
 
-	return m_pGraphic_Device->Add_Text(TextInfo, CountTime);
+	TEXTINFO Info;
+	Info.rcTemp = { _Pos.x, _Pos.y, _Pos.x + 3000, _Pos.y + 3000 };
+	Info.color = D3DCOLOR_ARGB(255, 110, 255, 40);
+
+	va_list args;
+	va_start(args, _iParamCnt);
+
+	vswprintf(Info.szBuff, MAX_PATH, _tString, args);
+
+	va_end(args);
+
+	return m_pGraphic_Device->Add_Text(Info, 0.0f);
 }
+
+//HRESULT CGameInstance::Add_Text(TEXTINFO* TextInfo, _float CountTime)
+//{
+//	if (nullptr == m_pGraphic_Device)
+//		return E_FAIL;
+//
+//	return m_pGraphic_Device->Add_Text(TextInfo, CountTime);
+//}
 
 HRESULT CGameInstance::Open_Level(_uint iLevelID, CLevel * pLevel)
 {
@@ -133,23 +171,6 @@ _uint CGameInstance::Get_CurrentLevelIndex()
 {
 	return m_pLevel_Manager->Get_CurrentLevelIndex();
 }
-
-
-//HRESULT CGameInstance::Add_Prototype_GameObject(const _tchar * pPrototypeTag, CGameObject * pPrototype)
-//{
-//	if (nullptr == m_pObject_Manager)
-//		return E_FAIL;
-//
-//	return m_pObject_Manager->Add_Prototype(pPrototypeTag, pPrototype);	
-//}
-//
-//HRESULT CGameInstance::Add_GameObject(_uint iLevelIndex, const _tchar * pLayerTag, const _tchar * pPrototypeTag, void * pArg)
-//{
-//	if (nullptr == m_pObject_Manager)
-//		return E_FAIL;
-//
-//	return m_pObject_Manager->Add_GameObject(iLevelIndex, pLayerTag, pPrototypeTag, pArg);
-//}
 
 CGameObject* CGameInstance::Get_Player_GameObject()
 {

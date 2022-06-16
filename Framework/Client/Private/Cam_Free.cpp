@@ -4,6 +4,8 @@
 
 CCam_Free::CCam_Free(const CCam_Free& Prototype)
 {
+	*this = Prototype;
+	Add_Component<CTransform>();
 }
 
 HRESULT CCam_Free::Initialize_Prototype()

@@ -4,7 +4,6 @@
 
 CGameObject::CGameObject()
 {
-	Add_Component<CTransform>();
 	//Safe_AddRef(m_pGraphic_Device);
 }
 

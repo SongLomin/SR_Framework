@@ -174,28 +174,27 @@ void CGraphic_Device::Render_End(HWND hWnd)
 
 }
 
-HRESULT CGraphic_Device::Add_Text(TEXTINFO* TextInfo, _float CountTime)
+HRESULT CGraphic_Device::Add_Text(TEXTINFO Info, float CountTime)
 {
-	// m_Text 를 순회하면서 시간이 0보다 작은 애들 찾기
-	// 찾으면 TextInfo,CountTime 대입
-	// 못찾으면 푸쉬
+	
 
 	for (auto& elem : m_Text)
 	{
 		if (elem->Get_CountTime() < 0.f)
 		{
-			elem->Set_Param(TextInfo, CountTime);
+			elem->Set_Param(&Info, CountTime);
 			return S_OK;
 		}
 	}
 
-	CFont* Font = CFont::Create(TextInfo, CountTime);
+	CFont* Font = CFont::Create(&Info, CountTime);
 
 	if (nullptr != Font)
 		m_Text.push_back(Font);
 
 	return S_OK;
 }
+
 
 
 

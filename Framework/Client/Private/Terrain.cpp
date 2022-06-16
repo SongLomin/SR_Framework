@@ -5,6 +5,7 @@
 CTerrain::CTerrain(const CTerrain& Prototype)
 {
 	*this = Prototype;
+	Add_Component<CTransform>();
 }
 
 HRESULT CTerrain::Initialize_Prototype()

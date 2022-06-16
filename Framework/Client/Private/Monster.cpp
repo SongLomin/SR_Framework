@@ -6,6 +6,7 @@
 CMonster::CMonster(const CMonster& Prototype)
 {
 	*this = Prototype;
+	Add_Component<CTransform>();
 }
 
 HRESULT CMonster::Initialize_Prototype()

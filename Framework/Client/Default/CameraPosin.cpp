@@ -9,6 +9,7 @@ CCameraPosin::CCameraPosin()
 CCameraPosin::CCameraPosin(const CCameraPosin& Prototype)
 {
 	*this = Prototype;
+	Add_Component<CTransform>();
 }
 
 HRESULT CCameraPosin::Initialize_Prototype()
@@ -93,27 +94,12 @@ void CCameraPosin::LookAt_CamTPS()
 
 CCameraPosin* CCameraPosin::Create()
 {
-	CCameraPosin* pInstance = new CCameraPosin();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CCameraPosin");
-		Safe_Release(pInstance);
-	}
-	return pInstance;
+	CREATE_PIPELINE(CCameraPosin);
 }
 
 CGameObject* CCameraPosin::Clone(void* pArg)
 {
-	CCameraPosin* pInstance = new CCameraPosin();
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Cloned : CCameraPosin");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CCameraPosin);
 }
 
 void CCameraPosin::Free()

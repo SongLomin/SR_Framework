@@ -9,6 +9,7 @@ CRing::CRing()
 CRing::CRing(const CRing& Prototype)
 {
 	*this = Prototype;
+	Add_Component<CTransform>();
 }
 
 HRESULT CRing::Initialize_Prototype()
@@ -82,27 +83,12 @@ inline HRESULT CRing::SetUp_Components()
 
 CRing* CRing::Create()
 {
-	CRing* pInstance = new CRing();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CRing");
-		Safe_Release(pInstance);
-	}
-	return pInstance;
+	CREATE_PIPELINE(CRing);
 }
 
 CGameObject* CRing::Clone(void* pArg)
 {
-	CRing* pInstance = new CRing();
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Cloned : CRing");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CRing);
 }
 
 void CRing::Free()
