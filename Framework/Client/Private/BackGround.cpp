@@ -138,7 +138,7 @@ HRESULT CBackGround::SetUp_Components()
 	RigidBodyDesc.m_fOwnerRadSpeed= D3DXToRadian(90.0f);
 
 	RigidBodyDesc.m_fFrictional = 0.05f;
-	RigidBodyDesc.m_fRadFrictional =0.05f;
+	RigidBodyDesc.m_fRadFrictional =0.03f;
 
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);

@@ -151,8 +151,8 @@ void CRigid_Body::Compute_Rotation()
 	if (DBL_EPSILON < fabs(m_fRadSpeedY))
 	{
 		float _fAccel;
-		if (DBL_EPSILON < fabs(m_fSpeedX))
-			_fAccel = m_RigidbodyDesc.m_fRadFrictional*5.f;
+		if (DBL_EPSILON < fabs(m_fSpeedZ))
+			_fAccel = m_RigidbodyDesc.m_fRadFrictional*2.f;
 		else
 			_fAccel = m_RigidbodyDesc.m_fRadFrictional;
 
@@ -173,8 +173,8 @@ void CRigid_Body::Compute_Rotation()
 	if (DBL_EPSILON < fabs(m_fRadSpeedX))
 	{
 		float _fAccel;
-		if (DBL_EPSILON < fabs(m_fSpeedX))
-			_fAccel = m_RigidbodyDesc.m_fRadFrictional*5.f;
+		if (DBL_EPSILON < fabs(m_fSpeedZ))
+			_fAccel = m_RigidbodyDesc.m_fRadFrictional*2.f;
 		else
 			_fAccel = m_RigidbodyDesc.m_fRadFrictional;
 
@@ -195,8 +195,8 @@ void CRigid_Body::Compute_Rotation()
 	if (DBL_EPSILON < fabs(m_fRadSpeedZ))
 	{
 		float _fAccel;
-		if (DBL_EPSILON < fabs(m_fSpeedX))
-			_fAccel = m_RigidbodyDesc.m_fRadFrictional*5.f;
+		if (DBL_EPSILON < fabs(m_fSpeedZ))
+			_fAccel = m_RigidbodyDesc.m_fRadFrictional*2.f;
 		else
 			_fAccel = m_RigidbodyDesc.m_fRadFrictional;
 
