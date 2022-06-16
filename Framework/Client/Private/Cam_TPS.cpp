@@ -26,7 +26,14 @@ HRESULT CCam_TPS::Initialize(void* pArg)
 
 	m_pCameraCom->Link_TransformCom(m_pTransformCom);
 
-	m_pRigidBodyCom = Add_Component<CRigid_Body>();
+	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
+	RigidBodyDesc.m_fOwnerSpeed = 5.f;
+	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
+
+	RigidBodyDesc.m_fFrictional = 0.1f;
+	RigidBodyDesc.m_fRadFrictional = 0.1f;
+
+	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 

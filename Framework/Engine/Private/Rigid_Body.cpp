@@ -19,6 +19,12 @@ HRESULT CRigid_Body::Initialize_Prototype()
 
 HRESULT CRigid_Body::Initialize(void * pArg)
 {
+	if (FAILED(__super::Initialize(pArg)))
+		return E_FAIL;
+
+	if (nullptr != pArg)
+		memcpy(&m_RigidbodyDesc, pArg, sizeof(RIGIDBODYDESC));
+
 	return S_OK;
 }
 
@@ -27,8 +33,6 @@ void CRigid_Body::Link_TransformCom(CTransform * _pTransform)
 	m_pTransform = _pTransform;
 	m_pTransform->Set_WeakPtr(&m_pTransform);
 
-	m_fOwnerRadSpeed = m_pTransform->Get_RotationSpeed();
-	m_fOwnerSpeed = m_pTransform->Get_Speed();
 }
 
 
@@ -82,7 +86,7 @@ void CRigid_Body::Compute_Dir()
 {
 
 	/*앞뒤 움직임*/
-	if (m_fOwnerSpeed > fabs(m_fSpeedZ))
+	if (m_RigidbodyDesc.m_fOwnerSpeed > fabs(m_fSpeedZ))
 	{
 		m_fSpeedZ += m_fAccelZ;
 	}
@@ -91,17 +95,17 @@ void CRigid_Body::Compute_Dir()
 	{
 
 		if (0.f < m_fSpeedZ)
-			m_fSpeedZ -= 0.05f;
+			m_fSpeedZ -= m_RigidbodyDesc.m_fFrictional;
 		else if (0.f > m_fSpeedZ)
-			m_fSpeedZ += 0.05f;
+			m_fSpeedZ += m_RigidbodyDesc.m_fFrictional;
 	}
-	if (0.01f > fabs(m_fSpeedZ))
+	if (m_RigidbodyDesc.m_fFrictional > fabs(m_fSpeedZ))
 		m_fSpeedZ = 0.f;
 
 	
 
 	/*Y방향*/
-	if (m_fOwnerSpeed > fabs(m_fSpeedY))
+	if (m_RigidbodyDesc.m_fOwnerSpeed > fabs(m_fSpeedY))
 	{
 		m_fSpeedY += m_fAccelY;
 	}
@@ -110,15 +114,15 @@ void CRigid_Body::Compute_Dir()
 	{
 
 		if (0.f < m_fSpeedY)
-			m_fSpeedY -= 0.05f;
+			m_fSpeedY -= m_RigidbodyDesc.m_fFrictional;
 		else if (0.f > m_fSpeedY)
-			m_fSpeedY += 0.05f;
+			m_fSpeedY += m_RigidbodyDesc.m_fFrictional;
 	}
-	if (0.01f > fabs(m_fSpeedY))
+	if (m_RigidbodyDesc.m_fFrictional > fabs(m_fSpeedY))
 		m_fSpeedY = 0.f;
 
 	/*X*/
-	if (m_fOwnerSpeed > fabs(m_fSpeedX))
+	if (m_RigidbodyDesc.m_fOwnerSpeed > fabs(m_fSpeedX))
 	{
 		m_fSpeedX += m_fAccelX;
 	}
@@ -126,12 +130,12 @@ void CRigid_Body::Compute_Dir()
 	if (DBL_EPSILON < fabs(m_fSpeedX))
 	{
 		if (0.f < m_fSpeedX)
-			m_fSpeedX -= 0.05f;
+			m_fSpeedX -= m_RigidbodyDesc.m_fFrictional;
 		else if (0.f > m_fSpeedX)
-			m_fSpeedX += 0.05f;
+			m_fSpeedX += m_RigidbodyDesc.m_fFrictional;
 	
 	}
-	if (0.01f > fabs(m_fSpeedX))
+	if (m_RigidbodyDesc.m_fFrictional > fabs(m_fSpeedX))
 		m_fSpeedX = 0.f;
 
 }
@@ -139,7 +143,7 @@ void CRigid_Body::Compute_Dir()
 void CRigid_Body::Compute_Rotation()
 {
 	/*각속도(Y축회전)*/
-	if (m_fOwnerRadSpeed > fabs(m_fRadSpeedY))
+	if (m_RigidbodyDesc.m_fOwnerRadSpeed > fabs(m_fRadSpeedY))
 	{
 		m_fRadSpeedY += m_fRadAccelY;
 	}
@@ -148,20 +152,20 @@ void CRigid_Body::Compute_Rotation()
 	{
 		float _fAccel;
 		if (DBL_EPSILON < fabs(m_fSpeedX))
-			_fAccel = 0.2f;
+			_fAccel = m_RigidbodyDesc.m_fRadFrictional*5.f;
 		else
-			_fAccel = 0.03f;
+			_fAccel = m_RigidbodyDesc.m_fRadFrictional;
 
 		if (0.f < m_fRadSpeedY)
 			m_fRadSpeedY -= _fAccel;
 		else if (0.f > m_fRadSpeedY)
 			m_fRadSpeedY += _fAccel;
 	}
-	if (0.01f > fabs(m_fRadSpeedY))
+	if (m_RigidbodyDesc.m_fRadFrictional > fabs(m_fRadSpeedY))
 		m_fRadSpeedY = 0.f;
 
 	/*각속도(X축회전)*/
-	if (m_fOwnerRadSpeed > fabs(m_fRadSpeedX))
+	if (m_RigidbodyDesc.m_fOwnerRadSpeed > fabs(m_fRadSpeedX))
 	{
 		m_fRadSpeedX += m_fRadAccelX;
 	}
@@ -170,20 +174,20 @@ void CRigid_Body::Compute_Rotation()
 	{
 		float _fAccel;
 		if (DBL_EPSILON < fabs(m_fSpeedX))
-			_fAccel = 0.2f;
+			_fAccel = m_RigidbodyDesc.m_fRadFrictional*5.f;
 		else
-			_fAccel = 0.03f;
+			_fAccel = m_RigidbodyDesc.m_fRadFrictional;
 
 		if (0.f < m_fRadSpeedX)
 			m_fRadSpeedX -= _fAccel;
 		else if (0.f > m_fRadSpeedX)
 			m_fRadSpeedX += _fAccel;
 	}
-	if (0.01f > fabs(m_fRadSpeedX))
+	if (m_RigidbodyDesc.m_fRadFrictional > fabs(m_fRadSpeedX))
 		m_fRadSpeedX = 0.f;
 
 	/*각속도(Z축회전)*/
-	if (m_fOwnerRadSpeed > fabs(m_fRadSpeedZ))
+	if (m_RigidbodyDesc.m_fOwnerRadSpeed > fabs(m_fRadSpeedZ))
 	{
 		m_fRadSpeedZ += m_fRadAccelZ;
 	}
@@ -192,16 +196,16 @@ void CRigid_Body::Compute_Rotation()
 	{
 		float _fAccel;
 		if (DBL_EPSILON < fabs(m_fSpeedX))
-			_fAccel = 0.2f;
+			_fAccel = m_RigidbodyDesc.m_fRadFrictional*5.f;
 		else
-			_fAccel = 0.03f;
+			_fAccel = m_RigidbodyDesc.m_fRadFrictional;
 
 		if (0.f < m_fRadSpeedZ)
 			m_fRadSpeedZ -= _fAccel;
 		else if (0.f > m_fRadSpeedZ)
 			m_fRadSpeedZ += _fAccel;
 	}
-	if (0.01f > fabs(m_fRadSpeedZ))
+	if (m_RigidbodyDesc.m_fRadFrictional > fabs(m_fRadSpeedZ))
 		m_fRadSpeedZ = 0.f;
 
 

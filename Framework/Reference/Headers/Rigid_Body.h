@@ -8,6 +8,16 @@ class CTransform;
 
 class ENGINE_DLL CRigid_Body final: public CComponent
 {
+public:
+	typedef struct tagRigidbodyDesc
+	{
+		_float		m_fOwnerSpeed;
+		_float		m_fOwnerRadSpeed;
+
+		_float		m_fFrictional;
+		_float		m_fRadFrictional;
+	}RIGIDBODYDESC;
+
 private:
 	CRigid_Body();
 	CRigid_Body(const CRigid_Body& Prototype);
@@ -42,9 +52,15 @@ private:
 	CTransform*		m_pTransform;
 
 private:
-	_float		m_fOwnerSpeed=0;
+	//외부 요소
+	/*_float		m_fOwnerSpeed=0;
 	_float		m_fOwnerRadSpeed = 0;
 
+	_float		m_fFrictional = 0;
+	_float		m_fRadFrictional = 0;*/
+	RIGIDBODYDESC	m_RigidbodyDesc;
+
+	//내부 계산
 	_float		m_fSpeedZ=0;
 	_float		m_fAccelZ=0;
 
