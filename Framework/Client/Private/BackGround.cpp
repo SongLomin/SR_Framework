@@ -7,6 +7,7 @@
 #include "CameraPosin.h"
 #include "Cam_Free.h"
 #include "Cam_TPS.h"
+#include "Cam_FPS.h"
 #include "Ring.h"
 
 CBackGround::CBackGround()
@@ -153,7 +154,10 @@ HRESULT CBackGround::SetUp_Components()
 	MyChild = GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
 	MyChild = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
 
-	CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera"), m_pTransformCom);
+	//CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera"), m_pTransformCom);
+	//Free_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+
+	CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(CURRENT_LEVEL, TEXT("Camera"), m_pTransformCom);
 	Free_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 
 	((CCameraPosin*)MyChild)->Link_CameraTransfrom(Free_Cam->Get_Component<CTransform>());

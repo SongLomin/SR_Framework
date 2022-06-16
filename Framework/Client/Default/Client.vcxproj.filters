@@ -58,6 +58,12 @@
     <Filter Include="02.GameObject\07. Ring">
       <UniqueIdentifier>{8b965e61-719b-4661-9446-1318934fee81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\05. Camera_Object\02. Cam_FPS">
+      <UniqueIdentifier>{167eb6c4-7b0c-43bb-b4cf-9aa37d87ece8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\05. Camera_Object\03. Cam_Shoulder">
+      <UniqueIdentifier>{98c37a5e-4eb2-4e48-a70f-f658331b4355}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -117,6 +123,12 @@
     <ClInclude Include="Ring.h">
       <Filter>02.GameObject\07. Ring</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Cam_FPS.h">
+      <Filter>02.GameObject\05. Camera_Object\02. Cam_FPS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Cam_Shoulder.h">
+      <Filter>02.GameObject\05. Camera_Object\03. Cam_Shoulder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -166,6 +178,12 @@
     </ClCompile>
     <ClCompile Include="Ring.cpp">
       <Filter>02.GameObject\07. Ring</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Cam_FPS.cpp">
+      <Filter>02.GameObject\05. Camera_Object\02. Cam_FPS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Cam_Shoulder.cpp">
+      <Filter>02.GameObject\05. Camera_Object\03. Cam_Shoulder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
