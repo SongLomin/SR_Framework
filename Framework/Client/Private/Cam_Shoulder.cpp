@@ -5,6 +5,7 @@
 CCam_Shoulder::CCam_Shoulder(const CCam_Shoulder& Prototype)
 {
 	*this = Prototype;
+	Add_Component<CTransform>();
 }
 
 HRESULT CCam_Shoulder::Initialize_Prototype()

@@ -11,6 +11,7 @@ CBullet::CBullet()
 CBullet::CBullet(const CBullet& Prototype)
 {
 	*this = Prototype;
+	Add_Component<CTransform>();
 }
 
 HRESULT CBullet::Initialize_Prototype()
@@ -102,27 +103,12 @@ inline HRESULT CBullet::SetUp_Components()
 
 CBullet* CBullet::Create()
 {
-	CBullet* pInstance = new CBullet();
-
-	if (FAILED(pInstance->Initialize_Prototype()))
-	{
-		MSG_BOX("Failed to Created : CBullet");
-		Safe_Release(pInstance);
-	}
-	return pInstance;
+	CREATE_PIPELINE(CBullet);
 }
 
 CGameObject* CBullet::Clone(void* pArg)
 {
-	CBullet* pInstance = new CBullet();
-
-	if (FAILED(pInstance->Initialize(pArg)))
-	{
-		MSG_BOX("Failed to Cloned : CBullet");
-		Safe_Release(pInstance);
-	}
-
-	return pInstance;
+	CLONE_PIPELINE(CBullet);
 }
 
 void CBullet::Free()

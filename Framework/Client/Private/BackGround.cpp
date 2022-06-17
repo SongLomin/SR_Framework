@@ -52,28 +52,9 @@ void CBackGround::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::D, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_RotationY(0.3f);
-	
-	//if (KEY_INPUT(KEY::D, KEY_STATE::TAP))
-	//{
-	//	m_pRigidBodyCom->Add_RotationZ(-1.f);
-	//}
-
-	//if (KEY_INPUT(KEY::D, KEY_STATE::AWAY))
-	//{
-	//	m_pRigidBodyCom->Add_RotationZ(1.f);
-	//}
 
 	if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_RotationY(-0.3f);
-	//if (KEY_INPUT(KEY::A, KEY_STATE::TAP))
-	//{
-	//	m_pRigidBodyCom->Add_RotationZ(1.f);
-	//}
-
-	//if (KEY_INPUT(KEY::A, KEY_STATE::AWAY))
-	//{
-	//	m_pRigidBodyCom->Add_RotationZ(-1.f);
-	//}
 
 	if (KEY_INPUT(KEY::SPACE, KEY_STATE::HOLD))
 	{
@@ -233,7 +214,7 @@ HRESULT CBackGround::SetUp_Components()
 	//((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(TPS_Cam->Get_Component<CTransform>());
 	((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(FPS_Cam->Get_Component<CTransform>());
 
-	m_pCameraPosin->Link_CameraTransfrom(Free_Cam->Get_Component<CTransform>());
+	m_pCameraPosin->Link_CameraTransfrom(FPS_Cam->Get_Component<CTransform>());
 
 
 

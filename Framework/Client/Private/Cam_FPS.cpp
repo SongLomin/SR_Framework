@@ -5,6 +5,7 @@
 CCam_FPS::CCam_FPS(const CCam_FPS& Prototype)
 {
 	*this = Prototype;
+	Add_Component<CTransform>();
 }
 
 HRESULT CCam_FPS::Initialize_Prototype()
