@@ -32,7 +32,7 @@ private:
 
 private:
     HRESULT SetUp_Components();
-    void    LookAt_CamTPS();
+
 
 public:
     static CPosin* Create();

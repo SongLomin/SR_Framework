@@ -64,6 +64,9 @@
     <Filter Include="02.GameObject\05. Camera_Object\03. Cam_Shoulder">
       <UniqueIdentifier>{98c37a5e-4eb2-4e48-a70f-f658331b4355}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\08. Bullet">
+      <UniqueIdentifier>{26b96253-5e95-455b-89fc-fc1a7be41a8f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -129,6 +132,9 @@
     <ClInclude Include="..\Public\Cam_Shoulder.h">
       <Filter>02.GameObject\05. Camera_Object\03. Cam_Shoulder</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Bullet.h">
+      <Filter>02.GameObject\08. Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -184,6 +190,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Cam_Shoulder.cpp">
       <Filter>02.GameObject\05. Camera_Object\03. Cam_Shoulder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Bullet.cpp">
+      <Filter>02.GameObject\08. Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

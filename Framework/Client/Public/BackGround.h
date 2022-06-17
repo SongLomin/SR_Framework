@@ -13,7 +13,7 @@ class CRigid_Body;
 END
 
 BEGIN(Client)
-
+class CCameraPosin;
 class CBackGround final : public CGameObject
 {
 private:
@@ -34,6 +34,9 @@ private:
 	CMesh_Cube*				m_pMeshCubeCom = nullptr;
 	CStatus*				m_pStatusCom = nullptr;
 	CRigid_Body*			m_pRigidBodyCom = nullptr;
+
+private:
+	CCameraPosin*           m_pCameraPosin = nullptr;
 
 
 private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */

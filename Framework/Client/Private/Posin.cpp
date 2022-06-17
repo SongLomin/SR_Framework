@@ -2,6 +2,7 @@
 #include "Posin.h"
 #include "GameInstance.h"
 
+
 CPosin::CPosin()
 {
 }
@@ -82,9 +83,7 @@ inline HRESULT CPosin::SetUp_Components()
 	return S_OK;
 }
 
-void CPosin::LookAt_CamTPS()
-{
-}
+
 
 CPosin* CPosin::Create()
 {

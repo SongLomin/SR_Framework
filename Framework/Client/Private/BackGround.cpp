@@ -10,6 +10,7 @@
 #include "Cam_FPS.h"
 #include "Cam_Shoulder.h"
 #include "Ring.h"
+#include "Bullet.h"
 
 CBackGround::CBackGround()
 {
@@ -98,6 +99,20 @@ void CBackGround::Tick(_float fTimeDelta)
 			g_bCamera = true;
 	}
 
+	if (KEY_INPUT(KEY::CTRL, KEY_STATE::TAP))
+	{
+		CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CBullet>(CURRENT_LEVEL, TEXT("Bullet"));
+		
+		((CBullet*)Bullet)->Link_CameraPosinTransform(m_pCameraPosin->Get_Component<CTransform>());
+	}
+
+
+	if (KEY_INPUT(KEY::Q, KEY_STATE::TAP))
+	{
+		GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
+	}
+
+	
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 
@@ -187,8 +202,8 @@ HRESULT CBackGround::SetUp_Components()
 	RigidBodyDesc.m_fOwnerSpeed = 10.f;
 	RigidBodyDesc.m_fOwnerRadSpeed= D3DXToRadian(90.0f);
 
-	RigidBodyDesc.m_fFrictional = 0.05f;
-	RigidBodyDesc.m_fRadFrictional =0.02f;
+	RigidBodyDesc.m_fFrictional = 0.05f;      // ¸¶Âû·Â
+	RigidBodyDesc.m_fRadFrictional = 0.03f;    // Rad¸¶Âû·Â
 
 	RigidBodyDesc.m_fOwnerLiftSpeed = 3.f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
@@ -206,12 +221,25 @@ HRESULT CBackGround::SetUp_Components()
 	//CGameObject* TPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera_TPS"), m_pTransformCom);
 	//TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 
+	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
+	
+
+	m_pCameraPosin = (CCameraPosin*)GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
+	
+	
 	CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(CURRENT_LEVEL, TEXT("Camera_FPS"), m_pTransformCom);
 	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 
 	//((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(TPS_Cam->Get_Component<CTransform>());
 	((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(FPS_Cam->Get_Component<CTransform>());
 
+	m_pCameraPosin->Link_CameraTransfrom(Free_Cam->Get_Component<CTransform>());
+
+
+
+	
+
+       
 	CGameObject* Shoulder_Cam = GAMEINSTANCE->Add_GameObject<CCam_Shoulder>(CURRENT_LEVEL, TEXT("Camera_Shoulder"), m_pTransformCom);
 	Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 
