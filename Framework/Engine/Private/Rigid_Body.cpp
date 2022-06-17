@@ -55,6 +55,7 @@ void CRigid_Body::Add_RotationY(_float fRadAccel)
 {
 
 	m_fRadAccelY = fRadAccel;
+	
 }
 
 void CRigid_Body::Add_RotationX(_float fRadAccel)
@@ -65,6 +66,15 @@ void CRigid_Body::Add_RotationX(_float fRadAccel)
 void CRigid_Body::Add_RotationZ(_float fRadAccel)
 {
 	m_fRadAccelZ = fRadAccel;
+}
+
+void CRigid_Body::Add_Lift(_float fLiftAccel)
+{
+	if (m_RigidbodyDesc.m_fOwnerSpeed * 0.7f < m_fSpeedZ || m_bLift)
+	{
+		m_fLiftAccel = fLiftAccel;
+		m_bLift = true;
+	}
 }
 
 void CRigid_Body::Add_Jump()
@@ -78,6 +88,7 @@ void CRigid_Body::Compute_Force()
 	
 	Compute_Dir();
 	Compute_Rotation();
+	Compute_Lift();
 	Compute_Jump();
 
 }
@@ -95,12 +106,13 @@ void CRigid_Body::Compute_Dir()
 	{
 
 		if (0.f < m_fSpeedZ)
-			m_fSpeedZ -= m_RigidbodyDesc.m_fFrictional;
+			m_fSpeedZ = m_fSpeedZ - m_RigidbodyDesc.m_fFrictional + (m_bLift ? m_RigidbodyDesc.m_fDirDrag : 0);
 		else if (0.f > m_fSpeedZ)
 			m_fSpeedZ += m_RigidbodyDesc.m_fFrictional;
+	
+		if (m_RigidbodyDesc.m_fFrictional > fabs(m_fSpeedZ))
+			m_fSpeedZ = 0.f;
 	}
-	if (m_RigidbodyDesc.m_fFrictional > fabs(m_fSpeedZ))
-		m_fSpeedZ = 0.f;
 
 	
 
@@ -117,10 +129,11 @@ void CRigid_Body::Compute_Dir()
 			m_fSpeedY -= m_RigidbodyDesc.m_fFrictional;
 		else if (0.f > m_fSpeedY)
 			m_fSpeedY += m_RigidbodyDesc.m_fFrictional;
-	}
-	if (m_RigidbodyDesc.m_fFrictional > fabs(m_fSpeedY))
+	
+		if (m_RigidbodyDesc.m_fFrictional > fabs(m_fSpeedY))
 		m_fSpeedY = 0.f;
 
+	}
 	/*X*/
 	if (m_RigidbodyDesc.m_fOwnerSpeed > fabs(m_fSpeedX))
 	{
@@ -134,16 +147,17 @@ void CRigid_Body::Compute_Dir()
 		else if (0.f > m_fSpeedX)
 			m_fSpeedX += m_RigidbodyDesc.m_fFrictional;
 	
+		if (m_RigidbodyDesc.m_fFrictional > fabs(m_fSpeedX))
+			m_fSpeedX = 0.f;
 	}
-	if (m_RigidbodyDesc.m_fFrictional > fabs(m_fSpeedX))
-		m_fSpeedX = 0.f;
+	
 
 }
 //일단 좌우 회전
 void CRigid_Body::Compute_Rotation()
 {
 	/*각속도(Y축회전)*/
-	if (m_RigidbodyDesc.m_fOwnerRadSpeed > fabs(m_fRadSpeedY))
+	if (m_RigidbodyDesc.m_fOwnerRadSpeed - (m_bLift? m_RigidbodyDesc.m_fRadDrag : 0) > fabs(m_fRadSpeedY))
 	{
 		m_fRadSpeedY += m_fRadAccelY;
 	}
@@ -158,11 +172,16 @@ void CRigid_Body::Compute_Rotation()
 
 		if (0.f < m_fRadSpeedY)
 			m_fRadSpeedY -= _fAccel;
+		
 		else if (0.f > m_fRadSpeedY)
 			m_fRadSpeedY += _fAccel;
+
+
+
+		if (m_RigidbodyDesc.m_fRadFrictional > fabs(m_fRadSpeedY))
+			m_fRadSpeedY = 0.f;
 	}
-	if (m_RigidbodyDesc.m_fRadFrictional > fabs(m_fRadSpeedY))
-		m_fRadSpeedY = 0.f;
+	
 
 	/*각속도(X축회전)*/
 	if (m_RigidbodyDesc.m_fOwnerRadSpeed > fabs(m_fRadSpeedX))
@@ -182,9 +201,11 @@ void CRigid_Body::Compute_Rotation()
 			m_fRadSpeedX -= _fAccel;
 		else if (0.f > m_fRadSpeedX)
 			m_fRadSpeedX += _fAccel;
+	
+		if (m_RigidbodyDesc.m_fRadFrictional > fabs(m_fRadSpeedX))
+			m_fRadSpeedX = 0.f;
 	}
-	if (m_RigidbodyDesc.m_fRadFrictional > fabs(m_fRadSpeedX))
-		m_fRadSpeedX = 0.f;
+	
 
 	/*각속도(Z축회전)*/
 	if (m_RigidbodyDesc.m_fOwnerRadSpeed > fabs(m_fRadSpeedZ))
@@ -204,9 +225,11 @@ void CRigid_Body::Compute_Rotation()
 			m_fRadSpeedZ -= _fAccel;
 		else if (0.f > m_fRadSpeedZ)
 			m_fRadSpeedZ += _fAccel;
+	
+		if (m_RigidbodyDesc.m_fRadFrictional > fabs(m_fRadSpeedZ))
+			m_fRadSpeedZ = 0.f;
 	}
-	if (m_RigidbodyDesc.m_fRadFrictional > fabs(m_fRadSpeedZ))
-		m_fRadSpeedZ = 0.f;
+
 
 
 }
@@ -217,7 +240,9 @@ void CRigid_Body::Compute_Jump()
 	_float3 fOwnerPos = m_pTransform->Get_State(CTransform::STATE_POSITION);
 	if (1.f > fOwnerPos.y)
 	{
+		m_fLiftSpeed = 0.f;
 		m_bJump = false;
+		m_bLift = false;
 		fOwnerPos.y += 1.f - fOwnerPos.y;//(지형의 높이 넣어줌)
 		m_pTransform->Set_State(CTransform::STATE_POSITION, fOwnerPos);
 	}
@@ -228,20 +253,44 @@ void CRigid_Body::Compute_Jump()
 	}
 }
 
+void CRigid_Body::Compute_Lift()//수직방향
+{
+	if (!m_bLift) return;
+
+	if (m_RigidbodyDesc.m_fOwnerLiftSpeed > m_fLiftSpeed)
+	{
+		m_fLiftSpeed += m_fLiftAccel;
+	}
+
+	if (DBL_EPSILON < m_fLiftSpeed)
+	{
+		m_fLiftSpeed -= 0.098f;//중력을 받음
+	
+		if (0.098f > fabs(m_fLiftSpeed))
+			m_fLiftSpeed = 0.f;
+	}
+	else if (DBL_EPSILON < m_fAccelZ)
+	{
+		if(0.f> m_fLiftSpeed)
+			m_fLiftSpeed += 0.01f;
+
+		if (0.01f > fabs(m_fLiftSpeed))
+			m_fLiftSpeed = 0.f;
+	}
+	else
+	{
+		if(-2.f < m_fLiftSpeed)
+			m_fLiftSpeed -= 0.098f;
+	}
+	
+
+
+}
+
 
 void CRigid_Body::Update_Transform(_float fTimeDelta)
 {
 	Compute_Force();
-	if (m_bJump)
-		m_pTransform->Go_UpAndDown(m_fJump, fTimeDelta);
-
-	if (DBL_EPSILON < fabs(m_fSpeedZ))
-		m_pTransform->Go_BackAndForth(m_fSpeedZ, fTimeDelta);
-	if (DBL_EPSILON < fabs(m_fSpeedY))
-		m_pTransform->Go_UpAndDown(m_fSpeedY, fTimeDelta);
-	if (DBL_EPSILON < fabs(m_fSpeedX))
-		m_pTransform->Go_SideToSide(m_fSpeedX, fTimeDelta);
-
 
 	if (DBL_EPSILON < fabs(m_fRadSpeedY))
 		m_pTransform->Turn(m_pTransform->Get_State(CTransform::STATE_UP), m_fRadSpeedY, fTimeDelta);
@@ -249,6 +298,22 @@ void CRigid_Body::Update_Transform(_float fTimeDelta)
 		m_pTransform->Turn(m_pTransform->Get_State(CTransform::STATE_RIGHT), m_fRadSpeedX, fTimeDelta);
 	if (DBL_EPSILON < fabs(m_fRadSpeedZ))
 		m_pTransform->Turn(m_pTransform->Get_State(CTransform::STATE_LOOK), m_fRadSpeedZ, fTimeDelta);
+
+	if (m_bJump)
+		m_pTransform->Go_UpAndDown(m_fJump, fTimeDelta);
+	if (DBL_EPSILON < fabs(m_fSpeedZ))
+		m_pTransform->Go_BackAndForth(m_fSpeedZ, fTimeDelta);
+	if (DBL_EPSILON < fabs(m_fSpeedY))
+		m_pTransform->Go_UpAndDown(m_fSpeedY, fTimeDelta);
+	if (DBL_EPSILON < fabs(m_fSpeedX))
+		m_pTransform->Go_SideToSide(m_fSpeedX, fTimeDelta);
+
+	if(DBL_EPSILON < fabs(m_fLiftSpeed))
+		m_pTransform->Go_UpAndDown(m_fLiftSpeed, fTimeDelta);
+
+	m_fAccelX = m_fAccelY = m_fAccelZ = 0.f;
+	m_fRadAccelX = m_fRadAccelY = m_fRadAccelZ = 0.f;
+	m_fLiftAccel = 0;
 
 }
 

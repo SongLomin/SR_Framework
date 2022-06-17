@@ -13,9 +13,13 @@ public:
 	{
 		_float		m_fOwnerSpeed;
 		_float		m_fOwnerRadSpeed;
+		_float		m_fOwnerLiftSpeed;
 
 		_float		m_fFrictional;
 		_float		m_fRadFrictional;
+
+		_float		m_fRadDrag;
+		_float		m_fDirDrag;
 	}RIGIDBODYDESC;
 
 private:
@@ -37,6 +41,8 @@ public:
 	void		Add_RotationX(_float fRadAccel);
 	void		Add_RotationZ(_float fRadAccel);
 
+	void		Add_Lift(_float fLiftAccel);
+
 	void		Add_Jump();
 	void		Update_Transform(_float fTimeDelta);
 
@@ -46,18 +52,13 @@ private:
 	void		Compute_Dir();
 	void		Compute_Rotation();
 	void		Compute_Jump();
+	void		Compute_Lift(); 
 
 
 private:
 	CTransform*		m_pTransform;
 
 private:
-	//외부 요소
-	/*_float		m_fOwnerSpeed=0;
-	_float		m_fOwnerRadSpeed = 0;
-
-	_float		m_fFrictional = 0;
-	_float		m_fRadFrictional = 0;*/
 	RIGIDBODYDESC	m_RigidbodyDesc;
 
 	//내부 계산
@@ -79,8 +80,12 @@ private:
 	_float		m_fRadAccelZ = 0;
 	_float		m_fRadSpeedZ = 0;
 
+	_float		m_fLiftAccel = 0;
+	_float		m_fLiftSpeed = 0;
+
 	_float		m_fJump = 0;
-	bool		m_bJump = 0;
+	bool		m_bJump = false;
+	bool		m_bLift = false;
 	
 public:
 	static CRigid_Body*		Create();
