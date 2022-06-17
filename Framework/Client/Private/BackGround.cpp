@@ -12,6 +12,8 @@
 #include "Ring.h"
 #include "Bullet.h"
 
+const _tchar* CBackGround::m_pTag = L"Body";
+
 CBackGround::CBackGround()
 {
 
@@ -97,6 +99,7 @@ void CBackGround::Tick(_float fTimeDelta)
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 
+	//Find_Child_With_Tag()
 	
 
 
@@ -180,8 +183,8 @@ HRESULT CBackGround::SetUp_Components()
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 10.f;
-	RigidBodyDesc.m_fOwnerRadSpeed= D3DXToRadian(90.0f);
+	RigidBodyDesc.m_fOwnerSpeed = 25.f;
+	RigidBodyDesc.m_fOwnerRadSpeed= D3DXToRadian(180.0f);
 	RigidBodyDesc.m_fFrictional = 0.05f;      // ¸¶Âû·Â
 	RigidBodyDesc.m_fRadFrictional = 0.03f;    // Rad¸¶Âû·Â
 	RigidBodyDesc.m_fOwnerLiftSpeed = 3.f;

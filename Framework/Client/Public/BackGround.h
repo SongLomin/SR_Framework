@@ -37,7 +37,7 @@ private:
 
 private:
 	CCameraPosin*           m_pCameraPosin = nullptr;
-
+	static const _tchar*	m_pTag;
 
 private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 	HRESULT SetUp_Components();

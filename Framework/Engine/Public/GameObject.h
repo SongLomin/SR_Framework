@@ -21,6 +21,7 @@ public:
 
 protected:
 	map<const _char*, class CComponent*> m_pComs;
+	_bool								m_IsAI = true;
 
 public:
 	virtual CGameObject* Clone(void* pArg) = 0;
