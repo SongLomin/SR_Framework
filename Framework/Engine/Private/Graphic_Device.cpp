@@ -16,7 +16,7 @@ HRESULT CGraphic_Device::InitDevice(const GRAPHICDESC& GraphicDesc, LPDIRECT3DDE
 	// 문제가 있는 상태로 종료될 경우 음수값을 반환시키기 위한 자료형
 
 	// (그리기)장치 초기화 : 장치를 조사할 객체 생성(m_p3D) -> 장치 조사 -> 장치 제어 객체 생성(m_pDevice)
-
+	
 	// Direct3DCreate9 : LPDIRECT3D9 객체를 SDK 버전에 맞게 생성하는 함수
 	m_p3D = Direct3DCreate9(D3D_SDK_VERSION);
 
@@ -62,7 +62,7 @@ HRESULT CGraphic_Device::InitDevice(const GRAPHICDESC& GraphicDesc, LPDIRECT3DDE
 	D3DXCreateFont(m_pDevice, 20, 0, FW_BOLD, 0,
 		FALSE, DEFAULT_CHARSET,
 		OUT_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH | FF_DONTCARE, TEXT("돋움"),
+		DEFAULT_PITCH | FF_DONTCARE, TEXT("고딕"),
 		&m_pFont);
 
 	GAMEINSTANCE->Add_Timer(99);
