@@ -11,6 +11,7 @@ CBullet::CBullet()
 CBullet::CBullet(const CBullet& Prototype)
 {
 	*this = Prototype;
+	//m_szName = L"Bullet";
 	Add_Component<CTransform>();
 }
 

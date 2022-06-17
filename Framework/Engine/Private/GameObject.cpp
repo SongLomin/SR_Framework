@@ -21,7 +21,7 @@ void CGameObject::Free()
 	{
 		Safe_Release(elem.second);
 	}
-
+	
 	m_pComs.clear();
 
 	//delete this;

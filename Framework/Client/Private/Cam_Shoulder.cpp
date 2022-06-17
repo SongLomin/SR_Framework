@@ -5,6 +5,7 @@
 CCam_Shoulder::CCam_Shoulder(const CCam_Shoulder& Prototype)
 {
 	*this = Prototype;
+	//m_szName = L"Cam_Shoulder";
 	Add_Component<CTransform>();
 }
 
