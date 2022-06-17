@@ -273,8 +273,6 @@ _long CGameInstance::Get_DIMouseMoveState(MOUSEMOVE eMouseMove)
 
 void CGameInstance::Release_Engine()
 {
-	CGameInstance::Get_Instance()->Destroy_Instance();
-
 	CObject_Manager::Get_Instance()->Destroy_Instance();
 
 	CComponent_Manager::Get_Instance()->Destroy_Instance();
@@ -290,6 +288,8 @@ void CGameInstance::Release_Engine()
 	CTime_Manager::Get_Instance()->Destroy_Instance();
 
 	CInput_Manager::Get_Instance()->Destroy_Instance();
+
+	CGameInstance::Get_Instance()->Destroy_Instance();
 }
 
 void CGameInstance::Free()

@@ -52,13 +52,13 @@ HRESULT CRing::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
 	m_pVIBufferCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	return S_OK;
 }
@@ -67,7 +67,7 @@ HRESULT CRing::Render()
 
 inline HRESULT CRing::SetUp_Components()
 {
-	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
+	//CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 
 	/*CTransform::TRANSFORMDESC		TransformDesc;
 	TransformDesc.fSpeedPerSec = 8.f;

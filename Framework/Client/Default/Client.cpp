@@ -9,6 +9,7 @@
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
+bool   g_bCamera = false;
 HWND	g_hWnd;
 HINSTANCE g_hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.

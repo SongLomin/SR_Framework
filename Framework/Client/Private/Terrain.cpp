@@ -70,5 +70,6 @@ CGameObject* CTerrain::Clone(void* pArg)
 void CTerrain::Free()
 {
 	__super::Free();
+
 	delete this;
 }
