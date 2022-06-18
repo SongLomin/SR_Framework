@@ -141,7 +141,7 @@ void CBackGround::LateTick(_float fTimeDelta)
 	ISVALID(m_pRendererCom, );
 
 	
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_PRIORITY, this);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_PRIORITY, this); //5번도 호출될 수 있음.
 }
 
 HRESULT CBackGround::Render()
