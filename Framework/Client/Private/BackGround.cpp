@@ -207,17 +207,17 @@ HRESULT CBackGround::SetUp_Components()
 	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
 	GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
 	
-	//CGameObject* CameraPosin = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
-	//m_pChildren.push_back(CameraPosin);
+
+	m_pCameraPosin = (CCameraPosin*)GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
+
 	
 	
 	//CGameObject* TPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera_TPS"), m_pTransformCom);
 	//TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
-	//m_pChildren.push_back(TPS_Cam);
+	
 	
 	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
 
-	//m_pCameraPosin = (CCameraPosin*)GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
 	
 	
 	CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(CURRENT_LEVEL, TEXT("Camera_FPS"), m_pTransformCom);
@@ -228,10 +228,12 @@ HRESULT CBackGround::SetUp_Components()
 	Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 
 	//((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(TPS_Cam->Get_Component<CTransform>());
-	//((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(FPS_Cam->Get_Component<CTransform>());
 
+	
 	//m_pCameraPosin->Link_CameraTransfrom(TPS_Cam->Get_Component<CTransform>());
-	//m_pCameraPosin->Link_CameraTransfrom(FPS_Cam->Get_Component<CTransform>());
+	
+	m_pCameraPosin->Link_CameraTransfrom(FPS_Cam->Get_Component<CTransform>());
+	//((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(FPS_Cam->Get_Component<CTransform>());
 
 
 	
