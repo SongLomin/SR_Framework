@@ -23,7 +23,7 @@ private:
 
 public:
 	_float3 Get_State(STATE eState) const {
-		return *(_float3*)&m_WorldMatrix.m[eState][0];
+ 		return *(_float3*)&m_WorldMatrix.m[eState][0];
 	}
 
 	void Set_State(STATE eState, const _float3 & vState) {
@@ -44,6 +44,9 @@ public:
 
 	_float Get_Speed() {	return m_TransformDesc.fSpeedPerSec;}
 	_float Get_RotationSpeed() { return m_TransformDesc.fRotationPerSec; }
+
+public:
+	list<CTransform*>* Get_Children();
 
 public:
 	virtual HRESULT Initialize_Prototype();

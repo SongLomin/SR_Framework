@@ -25,6 +25,7 @@ HRESULT CDummy::Initialize_Prototype()
 
 HRESULT CDummy::Initialize(void* pArg)
 {
+	//m_szName = L"Dummy";
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
@@ -60,7 +61,8 @@ HRESULT CDummy::Render()
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
-	//m_pVIBufferCom->Render();
+	if (m_IsAI)
+		m_pVIBufferCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);

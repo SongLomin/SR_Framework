@@ -15,6 +15,7 @@ HRESULT CCam_FPS::Initialize_Prototype()
 
 HRESULT CCam_FPS::Initialize(void* pArg)
 {
+	//m_szName = L"Cam_FPS";
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 

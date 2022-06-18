@@ -10,6 +10,7 @@ CCameraPosin::CCameraPosin()
 CCameraPosin::CCameraPosin(const CCameraPosin& Prototype)
 {
 	*this = Prototype;
+	//m_szName = L"Posin_Dir";
 	Add_Component<CTransform>();
 }
 

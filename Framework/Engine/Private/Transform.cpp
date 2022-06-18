@@ -8,6 +8,11 @@ CTransform::CTransform(const CTransform& Prototype)
 
 }
 
+list<CTransform*>* CTransform::Get_Children()
+{
+	return &m_pChildren;
+}
+
 HRESULT CTransform::Initialize_Prototype()
 {
 	if (FAILED(__super::Initialize_Prototype()))

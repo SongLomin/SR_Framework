@@ -44,7 +44,8 @@
 #endif // _DEBUG
 
 
-
+#define AI_MODE 0
+#define PLAYER_MODE 1
 
 using namespace Engine;
 using namespace std;

@@ -15,6 +15,7 @@ HRESULT CCam_TPS::Initialize_Prototype()
 
 HRESULT CCam_TPS::Initialize(void* pArg)
 {
+	//m_szName = L"Cam_TPS";
 	/*CTransform::TRANSFORMDESC		TransformDesc;
 	TransformDesc.fSpeedPerSec = 5.0f;
 	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f)*/;

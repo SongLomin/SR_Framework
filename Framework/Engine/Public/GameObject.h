@@ -7,7 +7,7 @@ BEGIN(Engine)
 class ENGINE_DLL CGameObject abstract : public CBase
 {
 protected:
-	CGameObject();	
+	CGameObject();
 	CGameObject(const CGameObject& Prototype);
 	virtual ~CGameObject() = default;
 
@@ -17,18 +17,20 @@ public:
 	virtual void Tick(_float fTimeDelta) PURE;
 	virtual void LateTick(_float fTimeDelta) PURE;
 	virtual HRESULT Render() PURE;
-	
+
+
+	void Set_Controller(const bool& _IsAI);
 
 protected:
 	map<const _char*, class CComponent*> m_pComs;
-	_bool								m_IsAI = true;
+	_bool	m_IsAI = true;
 
 public:
 	virtual CGameObject* Clone(void* pArg) = 0;
 	virtual void Free() override;
 
 public: /* Template Function*/
-	
+
 	template <typename T>
 	T* Get_Component()
 	{

@@ -115,6 +115,9 @@
     <Filter Include="01.Utility\03.Components\00. Model\Cube">
       <UniqueIdentifier>{e75f994b-3174-4fe1-986a-ec875abbc036}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\04.Manager\07. Camera_Manager">
+      <UniqueIdentifier>{6daeb880-eedd-419f-bd71-e44b47ad773a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -216,6 +219,9 @@
     <ClInclude Include="..\Public\Input_Manager.h">
       <Filter>01.Utility\04.Manager\06. Input_Manager</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Camera_Manager.h">
+      <Filter>01.Utility\04.Manager\07. Camera_Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -298,6 +304,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Input_Manager.cpp">
       <Filter>01.Utility\04.Manager\06. Input_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Camera_Manager.cpp">
+      <Filter>01.Utility\04.Manager\07. Camera_Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
