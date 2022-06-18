@@ -27,9 +27,10 @@ void CGameObject::Free()
 	//delete this;
 }
 
-void CGameObject::Set_Controller(const bool& _IsAI)
+void CGameObject::Set_Controller(const CONTROLLER& _eController)
 {
-	m_IsAI = _IsAI;
+	m_eController = _eController;
+	On_Change_Controller(_eController);
 
 	//내 트랜스폼 받기
 	CTransform* myTransform = Get_Component<CTransform>();
@@ -43,7 +44,13 @@ void CGameObject::Set_Controller(const bool& _IsAI)
 	for (auto& elem : *Children)
 	{
 		//소유자(GameObject) -> Set_Controller
-		elem->Get_Owner()->Set_Controller(_IsAI);
+		elem->Get_Owner()->Set_Controller(_eController);
 	}
 
+}
+
+//컨트롤러가 변경될 때 호출된다.
+void CGameObject::On_Change_Controller(const CONTROLLER& _IsAI)
+{
+	//do nothing.
 }

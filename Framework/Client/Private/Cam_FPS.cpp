@@ -44,14 +44,8 @@ HRESULT CCam_FPS::Initialize(void* pArg)
 
 void CCam_FPS::Tick(_float fTimeDelta)
 {
-	if (!g_bCamera)
-	{
-		m_pTransformCom->LookAt(_float3(0.f, 1.f, 1.f));
+	m_pTransformCom->LookAt(_float3(0.f, 1.f, 1.f));
 
-
-		if (FAILED(m_pCameraCom->Bind_PipeLine()))
-			return;
-	}
 }
 
 void CCam_FPS::LateTick(_float fTimeDelta)

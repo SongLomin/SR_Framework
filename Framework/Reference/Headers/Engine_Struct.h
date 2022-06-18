@@ -96,4 +96,5 @@ namespace Engine
 	enum class MOUSEBUTTON { MBS_LBUTTON = 0, MBS_RBUTTON, MBS_WHEEL, MBS_X, MBS_END };
 	enum class MOUSEMOVE { MMS_X = 0, MMS_Y, MMS_WHEEL, MMS_END };
 
+	enum class CONTROLLER {PLAYER = 0, AI, CONTROLLER_END};
 }

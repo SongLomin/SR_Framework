@@ -23,7 +23,12 @@ CBackGround::CBackGround(const CBackGround & Prototype)
 {
 	*this = Prototype;
 	//m_szName = L"Body";
-	Add_Component<CTransform>();
+	m_pTransformCom = Add_Component<CTransform>();
+	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
+	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
+	Set_Controller(CONTROLLER::PLAYER);
+
+	GAMEINSTANCE->Set_Current_Camera(TEXT("FPS"));
 }
 
 HRESULT CBackGround::Initialize_Prototype()
@@ -44,7 +49,7 @@ HRESULT CBackGround::Initialize(void* pArg)
 
 void CBackGround::Tick(_float fTimeDelta)
 {
-	ISVALID(m_pTransformCom,);
+	
 
 	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_DirZ(0.1f);
@@ -77,15 +82,32 @@ void CBackGround::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::V, KEY_STATE::TAP))
 	{
-		if (g_bCamera)
-			g_bCamera = false;
-		else
-			g_bCamera = true;
+		switch (m_iCurrentCam)
+		{
+		case 0:
+			GAMEINSTANCE->Set_Current_Camera(TEXT("Shoulder"));
+			break;
+
+		case 1:
+			GAMEINSTANCE->Set_Current_Camera(TEXT("FPS"));
+			break;
+
+		case 2:
+			GAMEINSTANCE->Set_Current_Camera(TEXT("TPS"));
+			break;
+		}
+		
+		m_iCurrentCam = (m_iCurrentCam + 1) % 3;
 	}
 
 	if (KEY_INPUT(KEY::L, KEY_STATE::TAP))
 	{
-		Set_Controller(!m_IsAI);
+		CONTROLLER Next_Controller = 
+			Get_Controller() == CONTROLLER::PLAYER ? 
+			CONTROLLER::AI : 
+			CONTROLLER::PLAYER;
+
+		Set_Controller(Next_Controller);
 	}
 
 	if (KEY_INPUT(KEY::CTRL, KEY_STATE::TAP))
@@ -104,21 +126,6 @@ void CBackGround::Tick(_float fTimeDelta)
 	
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
-
-	//Find_Child_With_Tag()
-	
-
-
-	/*TEXTINFO Info;
-	Info.color = D3DCOLOR_ARGB(255, 0, 255, 0);
-	Info.rcTemp = { 100, g_iWinCY - 100, 10000, 10000 };
-	
-	_uint hp = (_uint)m_pStatusCom->Get_Status().fHp;
-	_tchar szText[MAX_PATH] = L"HP : %d";
- 
-	wsprintf(Info.szBuff, szText, hp);
-
-	GAMEINSTANCE->Add_Text();*/
 
 	GAMEINSTANCE->Add_Text(
 		_point{ 100, g_iWinCY - 100 },
@@ -141,7 +148,7 @@ void CBackGround::LateTick(_float fTimeDelta)
 	ISVALID(m_pRendererCom, );
 
 	
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_PRIORITY, this); //5번도 호출될 수 있음.
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_PRIORITY, this);
 }
 
 HRESULT CBackGround::Render()
@@ -150,7 +157,7 @@ HRESULT CBackGround::Render()
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(0);
-	if(m_IsAI)
+	if(Get_Controller() == CONTROLLER::PLAYER)
 		m_pMeshCubeCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
@@ -185,10 +192,6 @@ HRESULT CBackGround::SetUp_Components()
 	m_pMeshCubeCom = Add_Component<CMesh_Cube>();
 	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);
 
-	m_pTransformCom = Get_Component<CTransform>();
-	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
-
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 25.f;
 	RigidBodyDesc.m_fOwnerRadSpeed= D3DXToRadian(180.0f);
@@ -206,42 +209,31 @@ HRESULT CBackGround::SetUp_Components()
 	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
 	GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
 	
-	//CGameObject* CameraPosin = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
-	//m_pChildren.push_back(CameraPosin);
-	
-	
-	//CGameObject* TPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera_TPS"), m_pTransformCom);
-	//TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
-	//m_pChildren.push_back(TPS_Cam);
 	
 	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
 
 	//m_pCameraPosin = (CCameraPosin*)GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
 	
+	//GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
 	
-	CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(CURRENT_LEVEL, TEXT("Camera_FPS"), m_pTransformCom);
-	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	//GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
+
+	//GAMEINSTANCE->Set_Current_Camera(TEXT("FPS"));
 
 
-	CGameObject* Shoulder_Cam = GAMEINSTANCE->Add_GameObject<CCam_Shoulder>(CURRENT_LEVEL, TEXT("Camera_FPS"), m_pTransformCom);
-	Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
-
-	//((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(TPS_Cam->Get_Component<CTransform>());
-	//((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(FPS_Cam->Get_Component<CTransform>());
-
-	//m_pCameraPosin->Link_CameraTransfrom(TPS_Cam->Get_Component<CTransform>());
-	//m_pCameraPosin->Link_CameraTransfrom(FPS_Cam->Get_Component<CTransform>());
-
-
-	
-
-       
-	//CGameObject* Shoulder_Cam = GAMEINSTANCE->Add_GameObject<CCam_Shoulder>(CURRENT_LEVEL, TEXT("Camera_Shoulder"), m_pTransformCom);
-	//Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
-	//
-	//((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(Shoulder_Cam->Get_Component<CTransform>());
 	return S_OK;
 }
+
+void CBackGround::On_Change_Controller(const CONTROLLER& _IsAI)
+{
+	if (_IsAI == CONTROLLER::PLAYER)
+	{
+		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
+		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
+		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
+	}
+}
+
 
 CBackGround * CBackGround::Create()
 {

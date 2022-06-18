@@ -7,6 +7,7 @@ CMonster::CMonster(const CMonster& Prototype)
 {
 	*this = Prototype;
 	Add_Component<CTransform>();
+	Set_Controller(CONTROLLER::AI);
 }
 
 HRESULT CMonster::Initialize_Prototype()

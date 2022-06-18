@@ -60,7 +60,7 @@ HRESULT CPosin::Render()
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
-	if (m_IsAI)
+	if (Get_Controller() == CONTROLLER::PLAYER)
 		m_pVIBufferCom->Render();
 	m_pRendererCom->UnBind_Texture();
 

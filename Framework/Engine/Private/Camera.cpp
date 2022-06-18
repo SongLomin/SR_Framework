@@ -27,15 +27,29 @@ void CCamera::Set_Param(_float _fFovy, _float _fAspect, _float _fNear, _float _f
 
 void CCamera::Link_TransformCom(CTransform* _pTransform)
 {
-	m_pTransfrom = _pTransform;
-	m_pTransfrom->Set_WeakPtr(&m_pTransfrom);
+	m_pTransform = _pTransform;
+	m_pTransform->Set_WeakPtr(&m_pTransform);
+}
+
+void CCamera::Set_Target(CTransform* _pTransform)
+{
+	m_pTarget_Transform = _pTransform;
+
+	if(m_pTarget_Transform)
+		m_pTarget_Transform->Set_WeakPtr(&m_pTarget_Transform);
 }
 
 HRESULT CCamera::Bind_PipeLine()
 {
-	ISVALID(m_pTransfrom, E_FAIL);
+	ISVALID(m_pTransform, E_FAIL);
 
-	_float4x4		WorldMatrix = m_pTransfrom->Get_WorldMatrix();
+	_float4x4		TargetMatrix = m_pTarget_Transform ? 
+		m_pTarget_Transform->Get_WorldMatrix() 
+		: *D3DXMatrixIdentity(&TargetMatrix);
+	
+
+
+	_float4x4		WorldMatrix = m_pTransform->Get_WorldMatrix() * TargetMatrix;
 	_float4x4		ViewMatrix;
 
 	D3DXMatrixInverse(&ViewMatrix, nullptr, &WorldMatrix);
@@ -63,8 +77,8 @@ void CCamera::Free()
 {
 	__super::Free();
 
-	if(m_pTransfrom)
-		m_pTransfrom->Return_WeakPtr(&m_pTransfrom);
+	if(m_pTransform)
+		m_pTransform->Return_WeakPtr(&m_pTransform);
 
 	delete this;
 }

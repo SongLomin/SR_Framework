@@ -51,7 +51,7 @@ HRESULT CCam_TPS::Initialize(void* pArg)
 
 void CCam_TPS::Tick(_float fTimeDelta)
 {
-	if (!g_bCamera)
+	if (GAMEINSTANCE->Get_Camera(CURRENT_CAMERA) == m_pCameraCom)
 	{
 		m_CurCursorPosition = Get_MousePos(GAMEINSTANCE->Get_Window_Handle());
 
@@ -72,16 +72,12 @@ void CCam_TPS::Tick(_float fTimeDelta)
 
 		_float3 Cursor_Weight = m_MouseRealPosition - m_PreCursorPosition;
 
-	m_pRigidBodyCom->Add_DirX(-Cursor_Weight.x*0.1f);
-	m_pRigidBodyCom->Add_DirY(Cursor_Weight.y*0.1f);
-	m_pRigidBodyCom->Update_Transform(fTimeDelta);
+		m_pRigidBodyCom->Add_DirX(-Cursor_Weight.x*0.1f);
+		m_pRigidBodyCom->Add_DirY(Cursor_Weight.y*0.1f);
+		m_pRigidBodyCom->Update_Transform(fTimeDelta);
 
 		m_pTransformCom->LookAt(_float3(0.f, 0.f, 0.f));
 		m_PreCursorPosition = m_MouseRealPosition;
-
-
-		if (FAILED(m_pCameraCom->Bind_PipeLine()))
-			return;
 	}
 }
 

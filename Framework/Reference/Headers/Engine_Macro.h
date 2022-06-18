@@ -45,6 +45,8 @@ void ClassName::Destroy_Instance()						\
 #define ISVALID(instance, return_type) if(instance == nullptr) return return_type;
 #define CURRENT_LEVEL GAMEINSTANCE->Get_CurrentLevelIndex()
 
+#define CURRENT_CAMERA TEXT("")
+
 #define KEY_INPUT GAMEINSTANCE->Is_KeyState
 
 #define CREATE_PIPELINE(ClassName)						\

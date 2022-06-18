@@ -46,7 +46,7 @@ HRESULT CCam_Shoulder::Initialize(void* pArg)
 
 void CCam_Shoulder::Tick(_float fTimeDelta)
 {
-	if (g_bCamera)
+	if (GAMEINSTANCE->Get_Camera(CURRENT_CAMERA) == m_pCameraCom)
 	{
 		_float3 pos = m_pTransformCom->Get_State(CTransform::STATE_POSITION);
 
@@ -64,8 +64,8 @@ void CCam_Shoulder::Tick(_float fTimeDelta)
 			m_pCameraCom->Set_Param(D3DXToRadian(m_fAngle), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 			m_pTransformCom->Set_State(CTransform::STATE_POSITION, pos);
 		}
-		if (FAILED(m_pCameraCom->Bind_PipeLine()))
-			return;
+		/*if (FAILED(m_pCameraCom->Bind_PipeLine()))
+			return;*/
 	}
 	else
 	{

@@ -19,11 +19,17 @@ public:
 	virtual HRESULT Render() PURE;
 
 
-	void Set_Controller(const bool& _IsAI);
+	void Set_Controller(const CONTROLLER& _eController);
+	CONTROLLER Get_Controller() { return m_eController; };
+
+protected:
+	virtual void On_Change_Controller(const CONTROLLER& _eController);
 
 protected:
 	map<const _char*, class CComponent*> m_pComs;
-	_bool	m_IsAI = true;
+
+private:
+	CONTROLLER	m_eController = CONTROLLER::CONTROLLER_END;
 
 public:
 	virtual CGameObject* Clone(void* pArg) = 0;
