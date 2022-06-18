@@ -55,6 +55,10 @@ void CRigid_Body::Add_RotationY(_float fRadAccel)
 {
 
 	m_fRadAccelY = fRadAccel;
+	if (m_bLift)
+	{
+		Add_RotationZ(0.005f);
+	}
 	
 }
 
@@ -208,29 +212,43 @@ void CRigid_Body::Compute_Rotation()
 	
 
 	/*각속도(Z축회전)*/
-	if (m_RigidbodyDesc.m_fOwnerRadSpeed > fabs(m_fRadSpeedZ))
+	//if (D3DXToRadian(45.f) > fabs(m_fRadSpeedZ))
+	//{
+	//	m_fRadSpeedZ += m_fRadAccelZ;
+	//}
+
+	//if (DBL_EPSILON < fabs(m_fRadSpeedZ))
+	//{
+	//	float _fAccel;
+	//	if (DBL_EPSILON < fabs(m_fSpeedZ))
+	//		_fAccel = m_RigidbodyDesc.m_fRadFrictional*2.f;
+	//	else
+	//		_fAccel = m_RigidbodyDesc.m_fRadFrictional;
+
+	//	if (0.f < m_fRadSpeedZ)
+	//		m_fRadSpeedZ -= _fAccel;
+	//	else if (0.f > m_fRadSpeedZ)
+	//		m_fRadSpeedZ += _fAccel;
+	//
+	//	if (m_RigidbodyDesc.m_fRadFrictional > fabs(m_fRadSpeedZ))
+	//		m_fRadSpeedZ = 0.f;
+	//}
+	if (DBL_EPSILON < fabs(m_fRadAccelZ))
 	{
-		m_fRadSpeedZ += m_fRadAccelZ;
+		if (30 > m_iRotZ)
+		{				
+			m_fRadSpeedZ += m_fRadAccelZ;
+			++m_iRotZ;
+		}
 	}
-
-	if (DBL_EPSILON < fabs(m_fRadSpeedZ))
+	else
 	{
-		float _fAccel;
-		if (DBL_EPSILON < fabs(m_fSpeedZ))
-			_fAccel = m_RigidbodyDesc.m_fRadFrictional*2.f;
-		else
-			_fAccel = m_RigidbodyDesc.m_fRadFrictional;
-
-		if (0.f < m_fRadSpeedZ)
-			m_fRadSpeedZ -= _fAccel;
-		else if (0.f > m_fRadSpeedZ)
-			m_fRadSpeedZ += _fAccel;
-	
-		if (m_RigidbodyDesc.m_fRadFrictional > fabs(m_fRadSpeedZ))
-			m_fRadSpeedZ = 0.f;
+		if (0 < m_iRotZ)
+		{
+			m_fRadSpeedZ -= 0.005f;
+			--m_iRotZ;
+		}
 	}
-
-
 
 }
 
@@ -292,15 +310,10 @@ void CRigid_Body::Update_Transform(_float fTimeDelta)
 {
 	Compute_Force();
 
-	if (DBL_EPSILON < fabs(m_fRadSpeedY))
-		m_pTransform->Turn(m_pTransform->Get_State(CTransform::STATE_UP), m_fRadSpeedY, fTimeDelta);
-	if (DBL_EPSILON < fabs(m_fRadSpeedX))
-		m_pTransform->Turn(m_pTransform->Get_State(CTransform::STATE_RIGHT), m_fRadSpeedX, fTimeDelta);
-	if (DBL_EPSILON < fabs(m_fRadSpeedZ))
-		m_pTransform->Turn(m_pTransform->Get_State(CTransform::STATE_LOOK), m_fRadSpeedZ, fTimeDelta);
 
 	if (m_bJump)
 		m_pTransform->Go_UpAndDown(m_fJump, fTimeDelta);
+
 	if (DBL_EPSILON < fabs(m_fSpeedZ))
 		m_pTransform->Go_BackAndForth(m_fSpeedZ, fTimeDelta);
 	if (DBL_EPSILON < fabs(m_fSpeedY))
@@ -310,6 +323,24 @@ void CRigid_Body::Update_Transform(_float fTimeDelta)
 
 	if(DBL_EPSILON < fabs(m_fLiftSpeed))
 		m_pTransform->Go_UpAndDown(m_fLiftSpeed, fTimeDelta);
+
+	if (m_bLift)
+	{
+		if (DBL_EPSILON < fabs(m_fRadSpeedY))
+			m_pTransform->Turn_AxisY(m_fRadSpeedY, fTimeDelta);
+
+		if (DBL_EPSILON < fabs(m_fRadSpeedZ))
+			m_pTransform->Turn_AxisZ(m_fRadSpeedZ);
+	}
+	else
+	{
+		if (DBL_EPSILON < fabs(m_fRadSpeedY))
+			m_pTransform->Turn(m_pTransform->Get_State(CTransform::STATE_UP), m_fRadSpeedY, fTimeDelta);
+		if (DBL_EPSILON < fabs(m_fRadSpeedX))
+			m_pTransform->Turn(m_pTransform->Get_State(CTransform::STATE_RIGHT), m_fRadSpeedX, fTimeDelta);
+		if (DBL_EPSILON < fabs(m_fRadSpeedZ))
+			m_pTransform->Turn(m_pTransform->Get_State(CTransform::STATE_LOOK), m_fRadSpeedZ, fTimeDelta);
+	}
 
 	m_fAccelX = m_fAccelY = m_fAccelZ = 0.f;
 	m_fRadAccelX = m_fRadAccelY = m_fRadAccelZ = 0.f;

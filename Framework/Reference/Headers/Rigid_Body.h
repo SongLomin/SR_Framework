@@ -20,6 +20,8 @@ public:
 
 		_float		m_fRadDrag;
 		_float		m_fDirDrag;
+		
+		//_float		m_
 	}RIGIDBODYDESC;
 
 private:
@@ -84,8 +86,10 @@ private:
 	_float		m_fLiftSpeed = 0;
 
 	_float		m_fJump = 0;
-	bool		m_bJump = false;
-	bool		m_bLift = false;
+	_bool		m_bJump = false;
+	_bool		m_bLift = false;
+
+	_int		m_iRotZ = 0;
 	
 public:
 	static CRigid_Body*		Create();

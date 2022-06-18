@@ -164,6 +164,38 @@ void CTransform::Go_UpAndDown(_float fSpeed, _float ftimeDelta)
 	Set_State(CTransform::STATE_POSITION, vPosition);
 }
 
+void CTransform::Turn_AxisY(_float fRadSpeed, _float fTimedelta)
+{//무조건 y축(0,1,0)으로 회전
+	_float3		vLook = Get_State(CTransform::STATE_LOOK);
+	_float3		vRight;
+	_float4x4	matRotation;
+	D3DXMatrixRotationY(&matRotation, fRadSpeed*fTimedelta);
+
+	D3DXVec3TransformNormal(&vLook, &vLook, &matRotation);
+	D3DXVec3Cross(&vRight, &_float3(0.f, 1.f, 0.f), &vLook);
+
+	Set_State(CTransform::STATE_LOOK, vLook);
+	Set_State(CTransform::STATE_RIGHT, vRight);
+}
+
+void CTransform::Turn_AxisZ(_float fRadian)
+{
+	_float3 vUp = _float3(0.f, 1.f, 0.f);
+	_float3 vLook = Get_State(CTransform::STATE_LOOK);
+	_float3 vRight;
+
+	_float4x4	matRotation;
+	D3DXMatrixRotationAxis(&matRotation, &vLook, fRadian);
+
+	D3DXVec3TransformNormal(&vUp, &vUp, &matRotation);
+	
+	D3DXVec3Cross(&vRight, &vUp, &vLook);
+
+	Set_State(CTransform::STATE_UP, vUp);
+	Set_State(CTransform::STATE_RIGHT, vRight);
+
+}
+
 
 void CTransform::Rotation(const _float3& vAxis, _float fRadian)
 {

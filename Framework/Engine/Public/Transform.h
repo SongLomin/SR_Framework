@@ -61,10 +61,14 @@ public:
 	void Go_Backward(_float fTimeDelta);*/
 	void Go_Target(CTransform* _Trans, _float fTimeDelta);
 	void Scaling(_float3 vScale);
-
+	/*일반 이동*/
 	void Go_BackAndForth(_float fSpeed, _float ftimeDelta);
 	void Go_SideToSide(_float fSpeed, _float ftimeDelta);
 	void Go_UpAndDown(_float fSpeed, _float ftimeDelta);
+	/*비행시 이동*/
+	void Turn_AxisY(_float fRadSpeed, _float fTimedelta);//비행시 좌우 회전은 y축이 up벡터로 고정된 상태에서
+	void Turn_AxisZ(_float fRadian); // 비행 회전시 선체가 Look축으로 회전하는데 사용할 함수. 시작은 up벡터가y축(0,1,0)에서 시작하고 해당 각도만큼 고정
+
 
 	void Rotation(const _float3 & vAxis, _float fRadian);
 	void Turn(const _float3 & vAxis, _float fRadSpeed,_float fTimeDelta);

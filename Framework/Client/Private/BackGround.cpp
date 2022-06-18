@@ -187,7 +187,7 @@ HRESULT CBackGround::SetUp_Components()
 	RigidBodyDesc.m_fRadFrictional = 0.03f;    // Rad¸¶Âû·Â
 
 	RigidBodyDesc.m_fOwnerLiftSpeed = 3.f;
-	RigidBodyDesc.m_fRadDrag = 1.f;
+	RigidBodyDesc.m_fRadDrag = 0.5f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
