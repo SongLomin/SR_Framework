@@ -225,7 +225,7 @@
     <ClInclude Include="..\Public\Camera_Manager.h">
       <Filter>01.Utility\04.Manager\07. Camera_Manager</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Math.h">
+    <ClInclude Include="..\Public\Math_Utillity.h">
       <Filter>01.Utility\99.SuperClass\Math</Filter>
     </ClInclude>
   </ItemGroup>
@@ -314,7 +314,7 @@
     <ClCompile Include="..\Private\Camera_Manager.cpp">
       <Filter>01.Utility\04.Manager\07. Camera_Manager</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Math.cpp">
+    <ClCompile Include="..\Private\Math_Utillity.cpp">
       <Filter>01.Utility\99.SuperClass\Math</Filter>
     </ClCompile>
   </ItemGroup>

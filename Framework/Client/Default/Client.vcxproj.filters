@@ -67,6 +67,15 @@
     <Filter Include="02.GameObject\08. Bullet">
       <UniqueIdentifier>{26b96253-5e95-455b-89fc-fc1a7be41a8f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\09. Aim">
+      <UniqueIdentifier>{c289b9d4-7661-4bb5-bb41-8a8e05b1072f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\09. Aim\Auto_Aim">
+      <UniqueIdentifier>{9eae39b9-843d-4682-9159-98169a48aea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\09. Aim\FPS_Aim">
+      <UniqueIdentifier>{f0f15b68-20f9-4884-af0d-3ee69e1f4d1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -135,6 +144,9 @@
     <ClInclude Include="..\Public\Bullet.h">
       <Filter>02.GameObject\08. Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Auto_Aim.h">
+      <Filter>02.GameObject\09. Aim\Auto_Aim</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -193,6 +205,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Bullet.cpp">
       <Filter>02.GameObject\08. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Auto_Aim.cpp">
+      <Filter>02.GameObject\09. Aim\Auto_Aim</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,23 +1,23 @@
-#include "Math.h"
+#include "Math_Utillity.h"
+#include "GameInstance.h"
 
 
-
-CMath::CMath()
+CMath_Utillity::CMath_Utillity()
 {
 }
 
-CMath::~CMath()
+CMath_Utillity::~CMath_Utillity()
 {
 }
 
-HRESULT CMath::WorldToScreen(LPDIRECT3DDEVICE9 pDevice, D3DXVECTOR3* pos, D3DXVECTOR3* out)
+HRESULT CMath_Utillity::WorldToScreen(D3DXVECTOR3* pos, D3DXVECTOR3* out)
 {
     D3DVIEWPORT9 viewPort;
     D3DXMATRIX view, projection, world;
 
-    pDevice->GetViewport(&viewPort);
-    pDevice->GetTransform(D3DTS_VIEW, &view);
-    pDevice->GetTransform(D3DTS_PROJECTION, &projection);
+    DEVICE->GetViewport(&viewPort);
+    DEVICE->GetTransform(D3DTS_VIEW, &view);
+    DEVICE->GetTransform(D3DTS_PROJECTION, &projection);
     D3DXMatrixIdentity(&world);
 
     D3DXVec3Project(out, pos, &viewPort, &projection, &view, &world);
@@ -28,27 +28,27 @@ HRESULT CMath::WorldToScreen(LPDIRECT3DDEVICE9 pDevice, D3DXVECTOR3* pos, D3DXVE
 	return E_FAIL;
 }
 
-HRESULT CMath::ScreenToWorld(LPDIRECT3DDEVICE9 pDevice, D3DXVECTOR3* pos, D3DXVECTOR3* out)
+HRESULT CMath_Utillity::ScreenToWorld(D3DXVECTOR3* pos, D3DXVECTOR3* out)
 {
     D3DVIEWPORT9 viewPort;
     D3DXMATRIX view, projection;
 
 
-    pDevice->GetViewport(&viewPort);
-    pDevice->GetTransform(D3DTS_VIEW, &view);
-    pDevice->GetTransform(D3DTS_PROJECTION, &projection);
+    DEVICE->GetViewport(&viewPort);
+    DEVICE->GetTransform(D3DTS_VIEW, &view);
+    DEVICE->GetTransform(D3DTS_PROJECTION, &projection);
 
     _float3 vProjPos = *pos;
 
     _float3     vViewPos;
     _float4x4	ProjMatrixInv;
 
-    pDevice->GetTransform(D3DTS_PROJECTION, &ProjMatrixInv);
+    DEVICE->GetTransform(D3DTS_PROJECTION, &ProjMatrixInv);
     D3DXMatrixInverse(&ProjMatrixInv, nullptr, &ProjMatrixInv);
     D3DXVec3TransformCoord(&vViewPos, &vProjPos, &ProjMatrixInv);
    
     _float4x4	ViewMatrixInv;
-    pDevice->GetTransform(D3DTS_VIEW, &ViewMatrixInv);
+    DEVICE->GetTransform(D3DTS_VIEW, &ViewMatrixInv);
     D3DXMatrixInverse(&ViewMatrixInv, nullptr, &ViewMatrixInv);
 
     D3DXVec3TransformCoord(out, pos, &ViewMatrixInv);

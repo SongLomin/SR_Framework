@@ -6,6 +6,7 @@
 #include "Monster.h"
 #include "Terrain.h"
 #include "Cam_Free.h"
+#include "Auto_Aim.h"
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -24,6 +25,9 @@ HRESULT CLevel_GamePlay::Initialize()
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_LOGO, TEXT("Terrain")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CAuto_Aim>(LEVEL_LOGO, TEXT("Auto_Aim")))
 		return E_FAIL;
 
 	/*TEXTINFO Info;
