@@ -46,6 +46,9 @@ public:
 	_float Get_RotationSpeed() { return m_TransformDesc.fRotationPerSec; }
 
 public:
+	list<CTransform*>* Get_Children();
+
+public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);
 

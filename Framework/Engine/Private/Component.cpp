@@ -26,6 +26,11 @@ HRESULT CComponent::Set_Owner(CGameObject* _pOwner)
 	return S_OK;
 }
 
+CGameObject* CComponent::Get_Owner()
+{
+	return m_pOwner;
+}
+
 void CComponent::Free()
 {
 	__super::Free();

@@ -19,22 +19,10 @@ public:
 	virtual HRESULT Render() PURE;
 
 
-	void Set_Controller() {
-		if (m_IsAI)
-			m_IsAI = false;
-		else
-			m_IsAI = true;
-		for (auto& iter : m_pChildren)
-		{
-
-			iter->Set_Controller();
-		}
-	}
-
+	void Set_Controller(const bool& _IsAI);
 
 protected:
 	map<const _char*, class CComponent*> m_pComs;
-	list<CGameObject*> m_pChildren;
 	_bool	m_IsAI = true;
 
 public:

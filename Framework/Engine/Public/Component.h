@@ -17,6 +17,7 @@ public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);
 	HRESULT	Set_Owner(CGameObject* _pOwner);
+	CGameObject* Get_Owner();
 
 protected:
 	CGameObject* m_pOwner = nullptr;
