@@ -67,6 +67,9 @@
     <Filter Include="02.GameObject\08. Bullet">
       <UniqueIdentifier>{26b96253-5e95-455b-89fc-fc1a7be41a8f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="97. UITest">
+      <UniqueIdentifier>{08e536b4-07ed-4d26-85cc-d3c404e48da1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -135,6 +138,9 @@
     <ClInclude Include="..\Public\Bullet.h">
       <Filter>02.GameObject\08. Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\UITest.h">
+      <Filter>97. UITest</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -193,6 +199,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Bullet.cpp">
       <Filter>02.GameObject\08. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UITest.cpp">
+      <Filter>97. UITest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
