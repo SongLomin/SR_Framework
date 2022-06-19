@@ -156,7 +156,7 @@ HRESULT CBackGround::SetUp_Components()
 	//약포인터: 원본 객체가 삭제되면 약포인터로 등록된 포인터들도 nullptr로 바뀐다.
 	//댕글링 포인터를 방지하기 위해 사용한다.
 
-	
+
 	CStatus::STATUS		Status;
 	Status.fHp = 10.f;
 	Status.fAttack = 7.f;
@@ -181,7 +181,7 @@ HRESULT CBackGround::SetUp_Components()
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 10.f;
-	RigidBodyDesc.m_fOwnerRadSpeed= D3DXToRadian(90.0f);
+	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 
 	RigidBodyDesc.m_fFrictional = 0.05f;      // 마찰력
 	RigidBodyDesc.m_fRadFrictional = 0.03f;    // Rad마찰력
@@ -199,28 +199,28 @@ HRESULT CBackGround::SetUp_Components()
 	GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
 	CGameObject* CameraPosin = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
 
-	//CGameObject* TPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera_TPS"), m_pTransformCom);
-	//TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	CGameObject* TPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera_TPS"), m_pTransformCom);
+	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 
 	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
-	
+
 
 	m_pCameraPosin = (CCameraPosin*)GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
-	
-	
-	CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(CURRENT_LEVEL, TEXT("Camera_FPS"), m_pTransformCom);
-	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
-
-	//((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(TPS_Cam->Get_Component<CTransform>());
-	((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(FPS_Cam->Get_Component<CTransform>());
-
-	m_pCameraPosin->Link_CameraTransfrom(FPS_Cam->Get_Component<CTransform>());
 
 
+	//CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(CURRENT_LEVEL, TEXT("Camera_FPS"), m_pTransformCom);
+	//FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 
-	
+	((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(TPS_Cam->Get_Component<CTransform>());
+	//((CCameraPosin*)CameraPosin)->Link_CameraTransfrom(FPS_Cam->Get_Component<CTransform>());
 
-       
+	//m_pCameraPosin->Link_CameraTransfrom(FPS_Cam->Get_Component<CTransform>());
+	m_pCameraPosin->Link_CameraTransfrom(TPS_Cam->Get_Component<CTransform>());
+
+
+
+
+
 	CGameObject* Shoulder_Cam = GAMEINSTANCE->Add_GameObject<CCam_Shoulder>(CURRENT_LEVEL, TEXT("Camera_Shoulder"), m_pTransformCom);
 	Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 
