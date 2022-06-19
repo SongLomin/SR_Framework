@@ -47,6 +47,11 @@ public: /* Template Function*/
 			return nullptr;
 		}
 
+		if (!iter->second->Get_Enable())
+		{
+			return nullptr;
+		}
+
 		return static_cast<T*>(iter->second);
 	}
 
