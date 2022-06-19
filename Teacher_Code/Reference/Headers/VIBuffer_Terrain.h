@@ -12,7 +12,15 @@ private:
 	virtual ~CVIBuffer_Terrain() = default;
 
 public:
+	virtual _uint3 Get_Indices(_uint iIndex) const {
+		return _uint3(((FACEINDICES32*)m_pIndices)[iIndex]._1,
+			((FACEINDICES32*)m_pIndices)[iIndex]._2,
+			((FACEINDICES32*)m_pIndices)[iIndex]._3);
+	}
+
+public:
 	virtual HRESULT Initialize_Prototype(_uint iNumVerticesX, _uint iNumVerticesZ);
+	virtual HRESULT Initialize_Prototype(const _tchar* pHeightMapFilePath);
 	virtual HRESULT Initialize(void* pArg) override;
 
 private:
@@ -21,6 +29,7 @@ private:
 
 public:	
 	static CVIBuffer_Terrain* Create(LPDIRECT3DDEVICE9 pGraphic_Device, _uint iNumVerticesX, _uint iNumVerticesZ);
+	static CVIBuffer_Terrain* Create(LPDIRECT3DDEVICE9 pGraphic_Device, const _tchar* pHeightMapFilePath);
 	virtual CComponent* Clone(void* pArg) override;
 	virtual void Free() override;
 

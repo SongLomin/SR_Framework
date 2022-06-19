@@ -37,6 +37,8 @@ private:
 
 	POINT m_pt = {};
 
+	bool m_bUse = false;
+
 public:
 	static CAuto_Aim* Create();
 	virtual CGameObject* Clone(void* pArg) override;

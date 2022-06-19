@@ -32,7 +32,16 @@ HRESULT CTerrain::Initialize(void* pArg)
 
 void CTerrain::Tick(_float fTimeDelta)
 {
+	CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
 
+	Safe_AddRef(pGameInstance);
+
+	_float3		vPickedPos;
+
+
+
+
+	Safe_Release(pGameInstance);
 }
 
 void CTerrain::LateTick(_float fTimeDelta)
@@ -51,11 +60,11 @@ HRESULT CTerrain::Render()
 
 	m_pTransformCom->Bind_WorldMatrix();
 
-	m_pGraphic_Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	m_pGraphic_Device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
 	m_pVIBufferCom->Render();
 
-	m_pGraphic_Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	m_pGraphic_Device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 
 	return S_OK;
 }

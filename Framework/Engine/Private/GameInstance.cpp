@@ -182,6 +182,11 @@ CGameObject* CGameInstance::Get_Player_GameObject()
 	return m_pObject_Manager->Get_Player();
 }
 
+list<CGameObject*>* CGameInstance::Find_Layer(_uint iLevelIndex, const _tchar* pLayerTag)
+{
+	return m_pObject_Manager->Find_Layer(iLevelIndex, pLayerTag);
+}
+
 HRESULT CGameInstance::Add_Prototype_Component(const _char * pPrototypeTag, CComponent * pPrototype)
 {
 	if (nullptr == m_pComponent_Manager)

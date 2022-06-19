@@ -62,7 +62,9 @@ public: /* For.Object_Manager */
 	{
 		return m_pObject_Manager->Add_GameObject<T>(iLevelIndex, pLayerTag, pParent, pArg);
 	}
+
 	CGameObject* Get_Player_GameObject();
+	list<CGameObject*>* Find_Layer(_uint iLevelIndex, const _tchar* pLayerTag);
 
 
 public: /* For.Component_Mananger */

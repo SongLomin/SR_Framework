@@ -21,20 +21,22 @@ HRESULT CVIBuffer_Rect::Initialize_Prototype()
 	if (FAILED(__super::Create_VertexBuffer()))
 		return E_FAIL;
 
+	m_pVerticesPos = new _float3[m_iNumVertices];
+
 	VTXTEX*			pVertices = nullptr;
 
 	m_pVB->Lock(0, m_iStride * m_iNumVertices, (void**)&pVertices, 0);
 
-	pVertices[0].vPosition = _float3(-0.5f, 0.5f, 0.f);
+	pVertices[0].vPosition = m_pVerticesPos[0] = _float3(-0.5f, 0.5f, 0.f);
 	pVertices[0].vTexUV = _float2(0.0f, 0.f);
 
-	pVertices[1].vPosition = _float3(0.5f, 0.5f, 0.f);
+	pVertices[1].vPosition = m_pVerticesPos[1] = _float3(0.5f, 0.5f, 0.f);
 	pVertices[1].vTexUV = _float2(2.f, 0.f);
 
-	pVertices[2].vPosition = _float3(0.5f, -0.5f, 0.f);
+	pVertices[2].vPosition = m_pVerticesPos[2] = _float3(0.5f, -0.5f, 0.f);
 	pVertices[2].vTexUV = _float2(2.f, 2.f);
 
-	pVertices[3].vPosition = _float3(-0.5f, -0.5f, 0.f);
+	pVertices[3].vPosition = m_pVerticesPos[3] = _float3(-0.5f, -0.5f, 0.f);
 	pVertices[3].vTexUV = _float2(0.f, 2.f);
 	
 	m_pVB->Unlock();
@@ -46,6 +48,7 @@ HRESULT CVIBuffer_Rect::Initialize_Prototype()
 	if (FAILED(__super::Create_IndexBuffer()))
 		return E_FAIL;
 
+	m_pIndices = new FACEINDICES16[m_iNumPrimitive];
 	FACEINDICES16*		pIndices = nullptr;
 
 	m_pIB->Lock(0, 0, (void**)&pIndices, 0);
@@ -58,7 +61,10 @@ HRESULT CVIBuffer_Rect::Initialize_Prototype()
 	pIndices[1]._2 = 2;
 	pIndices[1]._3 = 3;
 
+	memcpy(m_pIndices, pIndices, sizeof(FACEINDICES16) * m_iNumPrimitive);
+
 	m_pIB->Unlock();
+
 
 	return S_OK;
 }

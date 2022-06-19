@@ -11,6 +11,7 @@
 #include "Cam_Shoulder.h"
 #include "Ring.h"
 #include "Bullet.h"
+#include "Math_Utillity.h"
 
 
 
@@ -123,6 +124,8 @@ void CBackGround::Tick(_float fTimeDelta)
 	{
 		GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
 	}
+
+	
 
 	
 

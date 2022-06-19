@@ -47,6 +47,16 @@ void CMainApp::Tick(float fTimeDelta)
 		return;
 
 	m_pGameInstance->Tick_Engine(fTimeDelta);
+
+	if (GetFocus())
+	{
+		_point WinSize{ g_iWinCX , g_iWinCY };
+		ClientToScreen(g_hWnd, &WinSize);
+		RECT ClientRect = { WinSize.x - g_iWinCX, WinSize.y - g_iWinCY, WinSize.x, WinSize.y };
+		ClipCursor(&ClientRect);
+	}
+
+	
 }
 
 HRESULT CMainApp::Render()

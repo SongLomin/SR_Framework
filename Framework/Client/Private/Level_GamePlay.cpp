@@ -34,16 +34,16 @@ HRESULT CLevel_GamePlay::Initialize()
 	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
 
 
-	if (!GAMEINSTANCE->Add_GameObject<CBackGround>(LEVEL_LOGO, TEXT("Background")))
+	if (!GAMEINSTANCE->Add_GameObject<CBackGround>(LEVEL_GAMEPLAY, TEXT("Background")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CMonster>(LEVEL_LOGO, TEXT("Monster")))
+	if (!GAMEINSTANCE->Add_GameObject<CMonster>(LEVEL_GAMEPLAY, TEXT("Monster")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_LOGO, TEXT("Terrain")))
+	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_GAMEPLAY, TEXT("Terrain")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CAuto_Aim>(LEVEL_LOGO, TEXT("Auto_Aim")))
+	if (!GAMEINSTANCE->Add_GameObject<CAuto_Aim>(LEVEL_GAMEPLAY, TEXT("Auto_Aim")))
 		return E_FAIL;
 
 	/*TEXTINFO Info;

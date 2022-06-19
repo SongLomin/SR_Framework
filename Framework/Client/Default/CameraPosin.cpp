@@ -2,6 +2,7 @@
 #include "CameraPosin.h"
 #include "GameInstance.h"
 #include "Bullet.h"
+#include <Math_Utillity.h>
 
 CCameraPosin::CCameraPosin()
 {
@@ -39,7 +40,23 @@ HRESULT CCameraPosin::Initialize(void* pArg)
 
 void CCameraPosin::Tick(_float fTimeDelta)
 {
-	
+	//if (KEY_INPUT(KEY::R, KEY_STATE::HOLD))
+	//{
+	//	_float4x4 MyWorldMat = m_pTransformCom->Get_WorldMatrix();
+	//	_float3 MyPos{ MyWorldMat._41, MyWorldMat._42, MyWorldMat._43};
+
+	//	/*_float4x4 CamWorldMat = GAMEINSTANCE->Get_Camera()->Get_CameraWorldMat();
+
+	//	_float3 CamPos{ CamWorldMat._41, CamWorldMat._42, CamWorldMat._43 };*/
+	//	_float3 MyScreenPos;
+
+	//	CMath_Utillity::WorldToScreen(&MyPos, &MyScreenPos);
+
+	//	GAMEINSTANCE->Add_Text(
+	//		_point{ (long)MyScreenPos.x, (long)MyScreenPos.y },
+	//		L"º´¼öÇü",
+	//		0);
+	//}
 
 	LookAt_CamTPS();
 }
@@ -89,7 +106,8 @@ HRESULT CCameraPosin::SetUp_Components()
 
 void CCameraPosin::LookAt_CamTPS()
 {
-	//m_pTransformCom->LookAt(m_pCameraTransformCom);
+	if(m_pCameraTransformCom)
+		m_pTransformCom->LookAt(m_pCameraTransformCom);
 }
 
 CCameraPosin* CCameraPosin::Create()

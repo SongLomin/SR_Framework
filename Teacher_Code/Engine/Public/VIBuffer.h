@@ -16,6 +16,21 @@ protected:
 	virtual ~CVIBuffer() = default;
 
 public:
+	_uint Get_NumPrimitive() const {
+		return m_iNumPrimitive;
+	}
+
+	const _float3* Get_VerticesPos() const {
+		return m_pVerticesPos;
+	}
+
+	virtual _uint3 Get_Indices(_uint iIndex) const = 0;
+
+	_uint Get_IndexSize() {
+		return m_eFormat == D3DFMT_INDEX16 ? 2 : 4;
+	}
+
+public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);
 	virtual HRESULT Render();
@@ -27,12 +42,14 @@ protected:
 	_ulong							m_dwFVF = 0;
 	_uint							m_iNumPrimitive = 0;
 	D3DPRIMITIVETYPE				m_ePrimitiveType;
+	_float3*						m_pVerticesPos = nullptr;
 
 protected:
 	LPDIRECT3DINDEXBUFFER9			m_pIB = nullptr;
 	/* 도형하나를 그리기위해 사용되는 인덱스들의 크기. */
 	_uint							m_iIndicesSizePerPrimitive = 0;
 	D3DFORMAT						m_eFormat;
+	void*							m_pIndices = nullptr;
 
 protected:
 	HRESULT Create_VertexBuffer();

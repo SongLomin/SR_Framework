@@ -1,6 +1,7 @@
 #include "..\Public\Object_Manager.h"
 #include "Layer.h"
 #include "GameObject.h"
+#include "GameInstance.h"
 
 IMPLEMENT_SINGLETON(CObject_Manager)
 
@@ -22,7 +23,7 @@ HRESULT CObject_Manager::Reserve_Container(_uint iNumLevels)
 
 CGameObject* CObject_Manager::Get_Player()
 {
-	list<CGameObject*>* pLayer = Find_Layer(2, TEXT("Background"));
+	list<CGameObject*>* pLayer = Find_Layer(CURRENT_LEVEL, TEXT("Background"));
 
 	ISVALID(pLayer, nullptr);
 

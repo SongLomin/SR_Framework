@@ -45,6 +45,27 @@ void CBackGround::Tick(_float fTimeDelta)
 	if (GetKeyState(VK_LEFT) & 0x8000)
 		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * -1.f);
 
+	CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
+
+	Safe_AddRef(pGameInstance);
+
+	_float3		vPickedPos;
+
+
+	if (GetKeyState(VK_LBUTTON) < 0)
+	{
+		if (true == pGameInstance->Picking(m_pVIBufferCom, m_pTransformCom, &vPickedPos))
+		{
+			int a = 10;
+		}
+	}
+
+
+	Safe_Release(pGameInstance);
+
+	
+
+	
 }
 
 void CBackGround::LateTick(_float fTimeDelta)
