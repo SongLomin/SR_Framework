@@ -171,6 +171,7 @@
     <ClCompile Include="..\private\Level_Manager.cpp" />
     <ClCompile Include="..\private\Mesh.cpp" />
     <ClCompile Include="..\private\Mesh_Cube.cpp" />
+    <ClCompile Include="..\Private\Mesh_Terrain.cpp" />
     <ClCompile Include="..\private\Object_Manager.cpp" />
     <ClCompile Include="..\Private\Picking.cpp" />
     <ClCompile Include="..\private\Renderer.cpp" />
@@ -182,6 +183,7 @@
     <ClCompile Include="..\Private\Timer.cpp" />
     <ClCompile Include="..\Private\Transform.cpp" />
     <ClCompile Include="..\private\VIBuffer.cpp" />
+    <ClCompile Include="..\Private\VIBuffer_Cube.cpp" />
     <ClCompile Include="..\Private\VIBuffer_Rect.cpp" />
     <ClCompile Include="..\Private\VIBuffer_Terrain.cpp" />
   </ItemGroup>
@@ -207,6 +209,7 @@
     <ClInclude Include="..\Public\Level_Manager.h" />
     <ClInclude Include="..\public\Mesh.h" />
     <ClInclude Include="..\public\Mesh_Cube.h" />
+    <ClInclude Include="..\Public\Mesh_Terrain.h" />
     <ClInclude Include="..\public\Object_Manager.h" />
     <ClInclude Include="..\Public\Picking.h" />
     <ClInclude Include="..\public\Renderer.h" />
@@ -218,6 +221,7 @@
     <ClInclude Include="..\Public\Timer.h" />
     <ClInclude Include="..\Public\Transform.h" />
     <ClInclude Include="..\public\VIBuffer.h" />
+    <ClInclude Include="..\Public\VIBuffer_Cube.h" />
     <ClInclude Include="..\Public\VIBuffer_Rect.h" />
     <ClInclude Include="..\Public\VIBuffer_Terrain.h" />
   </ItemGroup>

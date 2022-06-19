@@ -33,12 +33,13 @@ HRESULT CDummy::Initialize(void* pArg)
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
-	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
-	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
+
+	m_pMeshCom = Add_Component<CMesh_Cube>();
+	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 0.f, 0.f));
 
-	
+
 
 	return S_OK;
 }
@@ -60,7 +61,7 @@ HRESULT CDummy::Render()
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
-	m_pVIBufferCom->Render();
+	m_pMeshCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);

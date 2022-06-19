@@ -13,7 +13,7 @@ CVIBuffer::CVIBuffer(const CVIBuffer & Prototype)
 	//, m_dwFVF(Prototype.m_dwFVF)
 	//, m_iNumPrimitive(Prototype.m_iNumPrimitive)
 {
-	*this = Prototype;wwwww
+	*this = Prototype;
 	//m_pVB
 }
 

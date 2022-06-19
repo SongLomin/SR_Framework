@@ -28,23 +28,23 @@ HRESULT CPosin::Initialize(void* pArg)
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
 
-	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
-	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
+	m_pMeshCom = Add_Component<CMesh_Cube>();
+	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
 	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f));
-	
+
 
 	return S_OK;
 }
 
 void CPosin::Tick(_float fTimeDelta)
 {
-	if (GetKeyState('A') & 0x8000) 
-	    m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 10.f,fTimeDelta*-1);
-    
-	if (GetKeyState('D') & 0x8000) 
-		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 10.f,fTimeDelta);
+	if (GetKeyState('A') & 0x8000)
+		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 10.f, fTimeDelta * -1);
+
+	if (GetKeyState('D') & 0x8000)
+		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 10.f, fTimeDelta);
 }
 
 void CPosin::LateTick(_float fTimeDelta)
@@ -59,7 +59,7 @@ HRESULT CPosin::Render()
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
-	m_pVIBufferCom->Render();
+	m_pMeshCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
@@ -101,3 +101,4 @@ void CPosin::Free()
 
 	delete this;
 }
+

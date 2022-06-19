@@ -61,19 +61,7 @@ void CPicking::Compute_RayInWorldSpace()
 
 }
 
-_bool CPicking::Picking(CVIBuffer* pVIBuffer, CTransform* pTransform, _float3* pOut)
-{
-	_float4x4		WorldMatrix = pTransform->Get_WorldMatrix();
-	D3DXMatrixInverse(&WorldMatrix, nullptr, &WorldMatrix);
 
-	_float3			vRayPos, vRayDir;
-
-	D3DXVec3TransformCoord(&vRayPos, &m_vRayPos, &WorldMatrix);
-	D3DXVec3TransformNormal(&vRayDir, &m_vRayDir, &WorldMatrix);
-	D3DXVec3Normalize(&vRayDir, &vRayDir);
-
-	
-}
 
 void CPicking::Free()
 {

@@ -27,8 +27,8 @@ HRESULT CCameraPosin::Initialize(void* pArg)
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
 
-	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
-	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
+	m_pMeshCom = Add_Component<CMesh_Cube>();
+	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.0f, 1.5f, 0.f));
 	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f));
@@ -56,7 +56,7 @@ HRESULT CCameraPosin::Render()
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
-	m_pVIBufferCom->Render();
+	m_pMeshCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);

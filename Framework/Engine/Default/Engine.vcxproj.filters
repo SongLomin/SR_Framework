@@ -118,6 +118,9 @@
     <Filter Include="05.Picking">
       <UniqueIdentifier>{89700394-3094-4d7d-9623-87ccf4bd784d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\Mesh_Terrain">
+      <UniqueIdentifier>{af6912cf-7f5b-4f81-97fb-129bd74978b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -222,6 +225,12 @@
     <ClInclude Include="..\Public\Picking.h">
       <Filter>05.Picking</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\VIBuffer_Cube.h">
+      <Filter>01.Utility\03.Components\00. Model\Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Mesh_Terrain.h">
+      <Filter>01.Utility\03.Components\00. Model\Mesh_Terrain</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -307,6 +316,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Picking.cpp">
       <Filter>05.Picking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\VIBuffer_Cube.cpp">
+      <Filter>01.Utility\03.Components\00. Model\Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Mesh_Terrain.cpp">
+      <Filter>01.Utility\03.Components\00. Model\Mesh_Terrain</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
