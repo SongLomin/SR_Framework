@@ -34,13 +34,11 @@ HRESULT CUITest::Initialize(void* pArg)
 
 void CUITest::Tick(_float fTimeDelta)
 {
-	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
-
 	_float3 vPickedPos;
 
 	if (GetKeyState(VK_LBUTTON) < 0)
 	{
-		if (true == pGameInstance->Picking(m_pVIBufferCom, m_pTransformCom, &vPickedPos))
+		if (true == GAMEINSTANCE->Get_Instance()->Picking(m_pVIBufferCom, m_pTransformCom, &vPickedPos))
 		{
 			int a = 1;
 		}
