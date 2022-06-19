@@ -38,6 +38,16 @@ void CUITest::Tick(_float fTimeDelta)
 
 	_float3 vPickedPos;
 
+	if (GetKeyState(VK_LBUTTON) < 0)
+	{
+		if (true == pGameInstance->Picking(m_pVIBufferCom, m_pTransformCom, &vPickedPos))
+		{
+			int a = 1;
+		}
+	}
+
+	
+
 
 }
 
