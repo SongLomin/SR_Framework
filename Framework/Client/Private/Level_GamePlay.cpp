@@ -6,6 +6,7 @@
 #include "Monster.h"
 #include "Terrain.h"
 #include "Cam_Free.h"
+#include "Auto_Aim.h"
 #include "Cam_FPS.h"
 #include "Cam_Shoulder.h"
 #include "Cam_TPS.h"
@@ -42,8 +43,8 @@ HRESULT CLevel_GamePlay::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_LOGO, TEXT("Terrain")))
 		return E_FAIL;
 
-
-	
+	if (!GAMEINSTANCE->Add_GameObject<CAuto_Aim>(LEVEL_LOGO, TEXT("Auto_Aim")))
+		return E_FAIL;
 
 	/*TEXTINFO Info;
 	Info.color = D3DCOLOR_ARGB(255, 0, 255, 0);

@@ -170,6 +170,7 @@
     <ClCompile Include="..\PRIVATE\Layer.cpp" />
     <ClCompile Include="..\private\Level.cpp" />
     <ClCompile Include="..\private\Level_Manager.cpp" />
+    <ClCompile Include="..\Private\Math_Utillity.cpp" />
     <ClCompile Include="..\private\Mesh.cpp" />
     <ClCompile Include="..\private\Mesh_Cube.cpp" />
     <ClCompile Include="..\private\Object_Manager.cpp" />
@@ -206,6 +207,7 @@
     <ClInclude Include="..\public\Layer.h" />
     <ClInclude Include="..\public\Level.h" />
     <ClInclude Include="..\Public\Level_Manager.h" />
+    <ClInclude Include="..\Public\Math_Utillity.h" />
     <ClInclude Include="..\public\Mesh.h" />
     <ClInclude Include="..\public\Mesh_Cube.h" />
     <ClInclude Include="..\public\Object_Manager.h" />

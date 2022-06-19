@@ -118,6 +118,9 @@
     <Filter Include="01.Utility\04.Manager\07. Camera_Manager">
       <UniqueIdentifier>{6daeb880-eedd-419f-bd71-e44b47ad773a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\99.SuperClass\Math">
+      <UniqueIdentifier>{12755471-33af-4004-bbfc-2772372c8872}</UniqueIdentifier>
+    </Filter>
     <Filter Include="00.System\IMGUI">
       <UniqueIdentifier>{f4dace36-5adb-4a1c-9caf-44ab4558f1d2}</UniqueIdentifier>
     </Filter>
@@ -225,6 +228,9 @@
     <ClInclude Include="..\Public\Camera_Manager.h">
       <Filter>01.Utility\04.Manager\07. Camera_Manager</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Math_Utillity.h">
+      <Filter>01.Utility\99.SuperClass\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -310,6 +316,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Camera_Manager.cpp">
       <Filter>01.Utility\04.Manager\07. Camera_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Math_Utillity.cpp">
+      <Filter>01.Utility\99.SuperClass\Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
