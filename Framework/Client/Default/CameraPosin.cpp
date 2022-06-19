@@ -89,7 +89,7 @@ HRESULT CCameraPosin::SetUp_Components()
 
 void CCameraPosin::LookAt_CamTPS()
 {
-	m_pTransformCom->LookAt(m_pCameraTransformCom);
+	//m_pTransformCom->LookAt(m_pCameraTransformCom);
 }
 
 CCameraPosin* CCameraPosin::Create()

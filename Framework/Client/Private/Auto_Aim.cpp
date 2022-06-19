@@ -33,28 +33,40 @@ HRESULT CAuto_Aim::Initialize(void* pArg)
 
 void CAuto_Aim::Tick(_float fTimeDelta)
 {
-	if (GAMEINSTANCE->Get_DIMouseMoveState(MOUSEMOVE::MMS_X))
+	if (KEY_INPUT(KEY::M,KEY_STATE::HOLD))
 	{
 		_float3 Mousept;
 		GetCursorPos(&m_pt);
 		ScreenToClient(g_hWnd, &m_pt);
 		Mousept.x = m_pt.x;
 		Mousept.y = m_pt.y;
-		Mousept.z = 1.f;
+		Mousept.z = 0.f;
 
 		_float3 WorldMouse;
 		CMath_Utillity::ScreenToWorld(&Mousept, &WorldMouse);
+		D3DVIEWPORT9 view;
+		DEVICE->GetViewport(&view);
+		WorldMouse.x -= view.X * 0.5f;
+		WorldMouse.y -= view.Y * 0.5f;
 		// Auto_Aim 적용 코드 삽입
 		//if (만약에 가까운적이 있으면)
 		//{
 		//	 에임을 고정시킨다.
 		//}
-		WorldMouse;
-		int i = 0;
-		CMath_Utillity::WorldToScreen(&WorldMouse, &WorldMouse);
+		
+		//_float3 CameraPos = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform()->Get_State(CTransform::STATE_POSITION);
 
-		SetCursorPos((int)WorldMouse.x, (int)WorldMouse.y);
+		_float4x4 CameraWorld = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_CameraWorldMat();
 
+		_float3 CameraPos = { CameraWorld._41, CameraWorld._42, CameraWorld._43 };
+
+		int i = 10;
+
+		_float3 vecPos;
+		
+		CMath_Utillity::WorldToScreen(&CameraPos, &vecPos);
+
+		SetCursorPos((int)vecPos.x + WorldMouse.x, (int)vecPos.y + WorldMouse.y);
 	}
 	
 

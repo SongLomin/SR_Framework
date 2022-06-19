@@ -26,6 +26,10 @@ public:
     virtual HRESULT Initialize(void* pArg) override;
 
 public:
+    CTransform* Get_Transform() { return m_pTransform; }
+    _float4x4 Get_CameraWorldMat();
+
+public:
     void Link_TransformCom(CTransform* _pTransform);
     void Set_Target(CTransform* _pTransform);
 
