@@ -8,6 +8,7 @@
 #include "Resource_Manager.h"
 #include "Time_Manager.h"
 #include "Input_Manager.h"
+#include "Picking.h"
 
 /* 1. 게임내에 필요한 객체(매니져등)들을 모아서 보관한다. */
 /* 2. 클라이언트 개발자가 접근하기좋은 루트를 제공해준다. 나. */
@@ -93,6 +94,10 @@ public: /* For.Input_Manager */
 	_byte Get_DIMouseKeyState(MOUSEBUTTON eMouseButtonID);
 	_long Get_DIMouseMoveState(MOUSEMOVE eMouseMove);
 
+public: /* For. Picking */
+	_bool Picking(class CVIBuffer* pVIBuffer, class CTransform* pTransform, _float3* pOut);
+
+
 
 private:
 	CGraphic_Device*				m_pGraphic_Device = nullptr;
@@ -103,7 +108,7 @@ private:
 	CResource_Manager*				m_pResource_Manager = nullptr;
 	CTime_Manager*					m_pTime_Manager = nullptr;
 	CInput_Manager*					m_pInput_Manager = nullptr;
-
+	CPicking*                       m_pPicking = nullptr;
 private:
 	GRAPHICDESC						m_Graphic_Desc;
 

@@ -12,6 +12,7 @@ CGameInstance::CGameInstance()
 	, m_pResource_Manager(CResource_Manager::Get_Instance())
 	, m_pTime_Manager(CTime_Manager::Get_Instance())
 	, m_pInput_Manager(CInput_Manager::Get_Instance())
+	, m_pPicking(CPicking::Get_Instance())
 {
 	//Safe_AddRef(m_pComponent_Manager);
 	//Safe_AddRef(m_pObject_Manager);
@@ -35,6 +36,10 @@ HRESULT CGameInstance::Initialize_Engine(HINSTANCE hInst, _uint iNumLevels, cons
 	if (FAILED(m_pInput_Manager->Initialize(hInst, GraphicDesc.hWnd)))
 		return E_FAIL;
 
+	/* 피킹 */
+	if (FAILED(m_pPicking->Initialize(GraphicDesc.hWnd)))
+		return E_FAIL;
+
 	/* 오브젝트 매니져의 예약. */
 	if (FAILED(m_pObject_Manager->Reserve_Container(iNumLevels)))
 		return E_FAIL;
@@ -54,6 +59,8 @@ HRESULT CGameInstance::Tick_Engine(_float fTimeDelta)
 	m_pLevel_Manager->Tick(fTimeDelta);	
 
 	m_pObject_Manager->Tick(fTimeDelta);
+
+	m_pPicking->Compute_RayInWorldSpace();
 
 	m_pObject_Manager->LateTick(fTimeDelta);
 
@@ -271,6 +278,14 @@ _long CGameInstance::Get_DIMouseMoveState(MOUSEMOVE eMouseMove)
 	return m_pInput_Manager->Get_DIMouseMoveState(eMouseMove);
 }
 
+_bool CGameInstance::Picking(CVIBuffer* pVIBuffer, CTransform* pTransform, _float3* pOut)
+{
+	if (nullptr == m_pPicking)
+		return 0;
+
+	return m_pPicking->Picking(pVIBuffer, pTransform, pOut);;
+}
+
 void CGameInstance::Release_Engine()
 {
 	CObject_Manager::Get_Instance()->Destroy_Instance();
@@ -288,6 +303,8 @@ void CGameInstance::Release_Engine()
 	CTime_Manager::Get_Instance()->Destroy_Instance();
 
 	CInput_Manager::Get_Instance()->Destroy_Instance();
+
+	CPicking::Get_Instance()->Destroy_Instance();
 
 	CGameInstance::Get_Instance()->Destroy_Instance();
 }
