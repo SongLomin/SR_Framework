@@ -18,6 +18,8 @@ public:
 		_float		m_fFrictional;
 		_float		m_fRadFrictional;
 
+		_float		m_fRadZ;
+
 		_float		m_fRadDrag;
 		_float		m_fDirDrag;
 	}RIGIDBODYDESC;
@@ -51,6 +53,7 @@ private:
 
 	void		Compute_Dir();
 	void		Compute_Rotation();
+	void		Compute_RotDirection();//비행기 회전용
 	void		Compute_Jump();
 	void		Compute_Lift(); 
 

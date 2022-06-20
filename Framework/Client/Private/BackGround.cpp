@@ -188,10 +188,14 @@ HRESULT CBackGround::SetUp_Components()
 	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 25.f;
-	RigidBodyDesc.m_fOwnerRadSpeed= D3DXToRadian(180.0f);
-	RigidBodyDesc.m_fFrictional = 0.05f;      // ¸¶Âû·Â
-	RigidBodyDesc.m_fRadFrictional = 0.03f;    // Rad¸¶Âû·Â
+	RigidBodyDesc.m_fOwnerSpeed = 10.f;
+	RigidBodyDesc.m_fOwnerRadSpeed= D3DXToRadian(90.0f);
+
+	RigidBodyDesc.m_fFrictional = 0.05f;
+	RigidBodyDesc.m_fRadFrictional =0.02f;
+	RigidBodyDesc.m_fRadZ = 0.01f;
+
+
 	RigidBodyDesc.m_fOwnerLiftSpeed = 3.f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;
