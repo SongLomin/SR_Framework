@@ -10,6 +10,7 @@
 #include "Input_Manager.h"
 #include "Camera_Manager.h"
 #include "Picking.h"
+#include "ImguiMgr.h"
 
 /* 1. 게임내에 필요한 객체(매니져등)들을 모아서 보관한다. */
 /* 2. 클라이언트 개발자가 접근하기좋은 루트를 제공해준다. 나. */
@@ -103,6 +104,9 @@ public: /* For.Input_Manager */
 	CCamera* Get_Camera(const _tchar* _CameraTag = TEXT(""));
 	void Set_Current_Camera(const _tchar* _CameraTag = TEXT(""));
 
+public: /* For.IMGUI_Manager */
+	HRESULT ImGuiImplHandle(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 
 private:
 	CGraphic_Device*				m_pGraphic_Device = nullptr;
@@ -114,6 +118,7 @@ private:
 	CTime_Manager*					m_pTime_Manager = nullptr;
 	CInput_Manager*					m_pInput_Manager = nullptr;
 	CCamera_Manager*				m_pCamera_Manager = nullptr;
+	CImguiMgr*						m_pIMGUI_Manager = nullptr;
 
 private:
 	GRAPHICDESC						m_Graphic_Desc;

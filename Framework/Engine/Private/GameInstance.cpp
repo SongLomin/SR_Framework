@@ -13,6 +13,7 @@ CGameInstance::CGameInstance()
 	, m_pTime_Manager(CTime_Manager::Get_Instance())
 	, m_pInput_Manager(CInput_Manager::Get_Instance())
 	, m_pCamera_Manager(CCamera_Manager::Get_Instance())
+	, m_pIMGUI_Manager(CImguiMgr::Get_Instance())
 {
 	//Safe_AddRef(m_pComponent_Manager);
 	//Safe_AddRef(m_pObject_Manager);
@@ -44,6 +45,9 @@ HRESULT CGameInstance::Initialize_Engine(HINSTANCE hInst, _uint iNumLevels, cons
 	//if (FAILED(m_pComponent_Manager->Reserve_Container(iNumLevels)))
 	//	return E_FAIL;
 
+	/* IMGUI 이니셜라이즈 */
+	m_pIMGUI_Manager->Initialize();
+
 	return S_OK;	
 }
 
@@ -51,6 +55,10 @@ HRESULT CGameInstance::Tick_Engine(_float fTimeDelta)
 {
 
 	m_pInput_Manager->SetUp_DeviceState();
+
+	//
+	m_pIMGUI_Manager->Tick(fTimeDelta);
+	//
 
 	m_pLevel_Manager->Tick(fTimeDelta);	
 
@@ -69,11 +77,13 @@ HRESULT CGameInstance::Tick_Engine(_float fTimeDelta)
 HRESULT CGameInstance::Render_Engine()
 {
 	
-	if (nullptr == m_pLevel_Manager)
+	if (nullptr == m_pLevel_Manager ||
+		nullptr == m_pIMGUI_Manager)
 		return E_FAIL;
 
 	m_pLevel_Manager->Render();
 
+	m_pIMGUI_Manager->Render();
 
 	return S_OK;
 }
@@ -300,6 +310,15 @@ void CGameInstance::Set_Current_Camera(const _tchar* _CameraTag)
 	m_pCamera_Manager->Set_Current_Camera(_CameraTag);
 }
 
+HRESULT CGameInstance::ImGuiImplHandle(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+
+	if (FAILED(m_pIMGUI_Manager->ImGuiImplHandle(hWnd, msg, wParam, lParam)))
+		return E_FAIL;
+
+	return S_OK;
+}
+
 void CGameInstance::Release_Engine()
 {
 	CObject_Manager::Get_Instance()->Destroy_Instance();
@@ -319,6 +338,8 @@ void CGameInstance::Release_Engine()
 	CInput_Manager::Get_Instance()->Destroy_Instance();
 
 	CGameInstance::Get_Instance()->Destroy_Instance();
+
+	CImguiMgr::Get_Instance()->Destroy_Instance();
 
 	CCamera_Manager::Get_Instance()->Destroy_Instance();
 }
