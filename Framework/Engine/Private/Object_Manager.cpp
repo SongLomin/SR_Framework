@@ -1,6 +1,7 @@
 #include "..\Public\Object_Manager.h"
 #include "Layer.h"
 #include "GameObject.h"
+#include "GameInstance.h"
 
 IMPLEMENT_SINGLETON(CObject_Manager)
 
@@ -22,7 +23,7 @@ HRESULT CObject_Manager::Reserve_Container(_uint iNumLevels)
 
 CGameObject* CObject_Manager::Get_Player()
 {
-	list<CGameObject*>* pLayer = Find_Layer(2, TEXT("Background"));
+	list<CGameObject*>* pLayer = Find_Layer(CURRENT_LEVEL, TEXT("Background"));
 
 	ISVALID(pLayer, nullptr);
 
@@ -37,7 +38,9 @@ void CObject_Manager::Tick(_float fTimeDelta)
 		{
 			for(auto& elem_GameObject : Pair.second) 
 			{
-				elem_GameObject->Tick(fTimeDelta);		
+				//게임오브젝트가 활성화 상태면 Tick을 돌린다.
+				if(elem_GameObject->Get_Enable())
+					elem_GameObject->Tick(fTimeDelta);		
 			}
 		}
 	}
@@ -51,7 +54,9 @@ void CObject_Manager::LateTick(_float fTimeDelta)
 		{
 			for (auto& elem_GameObject : Pair.second)
 			{
-				elem_GameObject->LateTick(fTimeDelta);
+				//게임오브젝트가 활성화 상태면 LateTick을 돌린다.
+				if(elem_GameObject->Get_Enable())
+					elem_GameObject->LateTick(fTimeDelta);
 			}
 		}
 	}

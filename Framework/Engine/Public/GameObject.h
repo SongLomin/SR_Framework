@@ -7,7 +7,7 @@ BEGIN(Engine)
 class ENGINE_DLL CGameObject abstract : public CBase
 {
 protected:
-	CGameObject();	
+	CGameObject();
 	CGameObject(const CGameObject& Prototype);
 	virtual ~CGameObject() = default;
 
@@ -17,23 +17,37 @@ public:
 	virtual void Tick(_float fTimeDelta) PURE;
 	virtual void LateTick(_float fTimeDelta) PURE;
 	virtual HRESULT Render() PURE;
-	
+
+
+	void Set_Controller(const CONTROLLER& _eController);
+	CONTROLLER Get_Controller() { return m_eController; };
+
+protected:
+	virtual void On_Change_Controller(const CONTROLLER& _eController);
 
 protected:
 	map<const _char*, class CComponent*> m_pComs;
+
+private:
+	CONTROLLER	m_eController = CONTROLLER::CONTROLLER_END;
 
 public:
 	virtual CGameObject* Clone(void* pArg) = 0;
 	virtual void Free() override;
 
 public: /* Template Function*/
-	
+
 	template <typename T>
 	T* Get_Component()
 	{
 		auto iter = find_if(m_pComs.begin(), m_pComs.end(), CTag_Finder_c_str(typeid(T).name()));
 
 		if (m_pComs.end() == iter)
+		{
+			return nullptr;
+		}
+
+		if (!iter->second->Get_Enable())
 		{
 			return nullptr;
 		}

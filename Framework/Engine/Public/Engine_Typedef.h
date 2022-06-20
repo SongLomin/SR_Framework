@@ -30,18 +30,15 @@ namespace Engine
 
 	typedef POINT						_point;
 
-	/*typedef struct D3DXVECTOR4_DERIVED : public D3DXVECTOR4
+	typedef struct tagInt32
 	{
-		_float  Get_Length() {
-			return D3DXVec4Length(this);
-		}
+		tagInt32(unsigned int _ix, unsigned int _iy, unsigned int _iz)
+			: ix(_ix)
+			, iy(_iy)
+			, iz(_iz) {	}
 
-	}_float4;*/
-
-
-	
-
-	/*typedef D3DXVECTOR4					_float4;*/
+		unsigned int ix, iy, iz;
+	} _uint3;
 
 
 	

@@ -2,6 +2,7 @@
 #include "CameraPosin.h"
 #include "GameInstance.h"
 #include "Bullet.h"
+#include <Math_Utillity.h>
 
 CCameraPosin::CCameraPosin()
 {
@@ -10,6 +11,7 @@ CCameraPosin::CCameraPosin()
 CCameraPosin::CCameraPosin(const CCameraPosin& Prototype)
 {
 	*this = Prototype;
+	//m_szName = L"Posin_Dir";
 	Add_Component<CTransform>();
 }
 
@@ -27,8 +29,8 @@ HRESULT CCameraPosin::Initialize(void* pArg)
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
 
-	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
-	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
+	m_pMeshCom = Add_Component<CMesh_Cube>();
+	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.0f, 1.5f, 0.f));
 	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f));
@@ -38,7 +40,23 @@ HRESULT CCameraPosin::Initialize(void* pArg)
 
 void CCameraPosin::Tick(_float fTimeDelta)
 {
-	
+	//if (KEY_INPUT(KEY::R, KEY_STATE::HOLD))
+	//{
+	//	_float4x4 MyWorldMat = m_pTransformCom->Get_WorldMatrix();
+	//	_float3 MyPos{ MyWorldMat._41, MyWorldMat._42, MyWorldMat._43};
+
+	//	/*_float4x4 CamWorldMat = GAMEINSTANCE->Get_Camera()->Get_CameraWorldMat();
+
+	//	_float3 CamPos{ CamWorldMat._41, CamWorldMat._42, CamWorldMat._43 };*/
+	//	_float3 MyScreenPos;
+
+	//	CMath_Utillity::WorldToScreen(&MyPos, &MyScreenPos);
+
+	//	GAMEINSTANCE->Add_Text(
+	//		_point{ (long)MyScreenPos.x, (long)MyScreenPos.y },
+	//		L"º´¼öÇü",
+	//		0);
+	//}
 
 	LookAt_CamTPS();
 }
@@ -56,7 +74,7 @@ HRESULT CCameraPosin::Render()
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
-	m_pVIBufferCom->Render();
+	m_pMeshCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
@@ -88,7 +106,10 @@ HRESULT CCameraPosin::SetUp_Components()
 
 void CCameraPosin::LookAt_CamTPS()
 {
-	m_pTransformCom->LookAt(m_pCameraTransformCom);
+	if(m_pCameraTransformCom)
+		m_pTransformCom->LookAt(m_pCameraTransformCom);
+
+	
 }
 
 CCameraPosin* CCameraPosin::Create()

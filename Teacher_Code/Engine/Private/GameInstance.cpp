@@ -10,7 +10,9 @@ CGameInstance::CGameInstance()
 	, m_pObject_Manager(CObject_Manager::Get_Instance())
 	, m_pComponent_Manager(CComponent_Manager::Get_Instance())
 	, m_pTimer_Manager(CTimer_Manager::Get_Instance())
+	, m_pPicking(CPicking::Get_Instance())
 {	
+	Safe_AddRef(m_pPicking);
 	Safe_AddRef(m_pTimer_Manager);
 	Safe_AddRef(m_pComponent_Manager);
 	Safe_AddRef(m_pObject_Manager);
@@ -30,6 +32,9 @@ HRESULT CGameInstance::Initialize_Engine(HINSTANCE hInst, _uint iNumLevels, cons
 
 	/* 인풋 디바이스. */
 	if (FAILED(m_pInput_Device->Initialize(hInst, GraphicDesc.hWnd)))
+		return E_FAIL;
+
+	if (FAILED(m_pPicking->Initialize(GraphicDesc.hWnd, *ppOut)))
 		return E_FAIL;
 
 	/* 오브젝트 매니져의 예약. */
@@ -54,6 +59,8 @@ HRESULT CGameInstance::Tick_Engine(_float fTimeDelta)
 	m_pLevel_Manager->Tick(fTimeDelta);	
 
 	m_pObject_Manager->Tick(fTimeDelta);
+
+	m_pPicking->Compute_RayInWorldSpace();
 
 	m_pObject_Manager->LateTick(fTimeDelta);
 
@@ -189,6 +196,14 @@ _float CGameInstance::Compute_Timer(const _tchar * pTimerTag)
 	return m_pTimer_Manager->Compute_Timer(pTimerTag);
 }
 
+_bool CGameInstance::Picking(CVIBuffer * pVIBuffer, CTransform * pTransform, _float3 * pOut)
+{
+	if (nullptr == m_pPicking)
+		return false;
+
+	return m_pPicking->Picking(pVIBuffer, pTransform, pOut);	
+}
+
 void CGameInstance::Release_Engine()
 {
 	CGameInstance::Get_Instance()->Destroy_Instance();		
@@ -203,12 +218,15 @@ void CGameInstance::Release_Engine()
 
 	CInput_Device::Get_Instance()->Destroy_Instance();
 
+	CPicking::Get_Instance()->Destroy_Instance();
+
 	CGraphic_Device::Get_Instance()->Destroy_Instance();
 
 }
 
 void CGameInstance::Free()
 {
+	Safe_Release(m_pPicking);
 	Safe_Release(m_pTimer_Manager);
 	Safe_Release(m_pComponent_Manager);
 	Safe_Release(m_pObject_Manager);

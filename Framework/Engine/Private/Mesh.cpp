@@ -32,9 +32,14 @@ HRESULT CMesh::Render()
 		//DEVICE->SetMaterial(m_vMtrl[i]);
 		m_pMesh->DrawSubset(i);
 	}
-		DEVICE->SetTexture(0, 0);
+	DEVICE->SetTexture(0, 0);
 
 	return S_OK;
+}
+
+ID3DXMesh* CMesh::Get_Mesh()
+{
+	return m_pMesh;
 }
 
 HRESULT CMesh::Create_EmptyMesh()

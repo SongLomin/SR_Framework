@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Bullet.h"
+#include "stdafx.h"
+#include "Bullet.h"
 #include "GameInstance.h"
 #include "CameraPosin.h"
 
@@ -11,6 +13,7 @@ CBullet::CBullet()
 CBullet::CBullet(const CBullet& Prototype)
 {
 	*this = Prototype;
+	//m_szName = L"Bullet";
 	Add_Component<CTransform>();
 }
 
@@ -28,16 +31,18 @@ HRESULT CBullet::Initialize(void* pArg)
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
 
-	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
-	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
+	m_pMeshCom = Add_Component<CMesh_Cube>();
+	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 
 	return S_OK;
 }
 
 void CBullet::Tick(_float fTimeDelta)
 {
+	m_pTransformCom->Update_WorldMatrix();
+
 	m_pTransformCom->Go_BackAndForth(80.f, fTimeDelta);
-	m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK), 10.f,fTimeDelta);
+	m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK), 10.f, fTimeDelta);
 }
 
 void CBullet::LateTick(_float fTimeDelta)
@@ -52,7 +57,7 @@ HRESULT CBullet::Render()
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
-	m_pVIBufferCom->Render();
+	m_pMeshCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
@@ -62,18 +67,16 @@ HRESULT CBullet::Render()
 
 
 
-void CBullet::Link_CameraPosinTransform(CTransform* pTransform)
+void CBullet::Link_PosinTransform(CTransform* pTransform)
 {
-	m_pCameraPosinTransformCom = pTransform;
+	m_pPosinTransformCom = pTransform;
 
-	m_pCameraPosinTransformCom->Set_WeakPtr(&m_pTransformCom);
+	m_pPosinTransformCom->Set_WeakPtr(&m_pTransformCom);
 
-	_float4x4 PosinMatrix = m_pCameraPosinTransformCom->Get_WorldMatrix();
-
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_RIGHT, _float3(PosinMatrix.m[0][0], PosinMatrix.m[0][1], PosinMatrix.m[0][2]));
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_UP, _float3(PosinMatrix.m[1][0], PosinMatrix.m[1][1], PosinMatrix.m[1][2]));
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_LOOK, _float3(PosinMatrix.m[2][0], PosinMatrix.m[2][1], PosinMatrix.m[2][2]));
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(PosinMatrix.m[3][0], PosinMatrix.m[3][1], PosinMatrix.m[3][2]));
+	m_pTransformCom->Set_State(CTransform::STATE::STATE_RIGHT, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_RIGHT, true));
+	m_pTransformCom->Set_State(CTransform::STATE::STATE_UP, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_UP, true));
+	m_pTransformCom->Set_State(CTransform::STATE::STATE_LOOK, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_LOOK, true));
+	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_POSITION, true));
 }
 
 inline HRESULT CBullet::SetUp_Components()

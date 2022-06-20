@@ -16,6 +16,9 @@ public:
 	virtual HRESULT Initialize(void* pArg);
 	virtual HRESULT Render();
 
+public:
+	ID3DXMesh* Get_Mesh();
+
 protected:
 	/*¸Þ½¬ ·»´õ*/
 	ID3DXMesh*		m_pMesh = nullptr;

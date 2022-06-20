@@ -9,6 +9,7 @@ CRing::CRing()
 CRing::CRing(const CRing& Prototype)
 {
 	*this = Prototype;
+	//m_szName = L"Ring";
 	Add_Component<CTransform>();
 }
 
@@ -26,19 +27,18 @@ HRESULT CRing::Initialize(void* pArg)
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
+	m_pMeshCom = Add_Component<CMesh_Cube>();
+	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 
-	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
-	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
-
-	
-	
 	return S_OK;
 }
 
 void CRing::Tick(_float fTimeDelta)
 {
+	m_pTransformCom->Update_WorldMatrix();
+
 	m_pTransformCom->Go_BackAndForth(8.f, fTimeDelta);
-	m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 3.f,fTimeDelta);
+	m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 3.f, fTimeDelta);
 }
 
 void CRing::LateTick(_float fTimeDelta)
@@ -53,7 +53,8 @@ HRESULT CRing::Render()
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
-	m_pVIBufferCom->Render();
+	if (Get_Controller() == CONTROLLER::PLAYER)
+		m_pMeshCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
@@ -70,7 +71,7 @@ inline HRESULT CRing::SetUp_Components()
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
 
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(-1.5f, 1.0f, 0.f));
+	//m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(-1.5f, 1.0f, 0.f));
 	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f));
 
 
@@ -85,7 +86,7 @@ inline HRESULT CRing::SetUp_Components()
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
-	
+
 
 	return S_OK;
 }

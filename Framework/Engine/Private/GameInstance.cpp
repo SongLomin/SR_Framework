@@ -12,6 +12,7 @@ CGameInstance::CGameInstance()
 	, m_pResource_Manager(CResource_Manager::Get_Instance())
 	, m_pTime_Manager(CTime_Manager::Get_Instance())
 	, m_pInput_Manager(CInput_Manager::Get_Instance())
+	, m_pCamera_Manager(CCamera_Manager::Get_Instance())
 {
 	//Safe_AddRef(m_pComponent_Manager);
 	//Safe_AddRef(m_pObject_Manager);
@@ -55,8 +56,11 @@ HRESULT CGameInstance::Tick_Engine(_float fTimeDelta)
 
 	m_pObject_Manager->Tick(fTimeDelta);
 
+
 	m_pObject_Manager->LateTick(fTimeDelta);
 
+	m_pCamera_Manager->LateTick(fTimeDelta);
+	
 	m_pInput_Manager->Tick(fTimeDelta);
 
 	return S_OK;
@@ -177,6 +181,11 @@ CGameObject* CGameInstance::Get_Player_GameObject()
 	return m_pObject_Manager->Get_Player();
 }
 
+list<CGameObject*>* CGameInstance::Find_Layer(_uint iLevelIndex, const _tchar* pLayerTag)
+{
+	return m_pObject_Manager->Find_Layer(iLevelIndex, pLayerTag);
+}
+
 HRESULT CGameInstance::Add_Prototype_Component(const _char * pPrototypeTag, CComponent * pPrototype)
 {
 	if (nullptr == m_pComponent_Manager)
@@ -271,6 +280,26 @@ _long CGameInstance::Get_DIMouseMoveState(MOUSEMOVE eMouseMove)
 	return m_pInput_Manager->Get_DIMouseMoveState(eMouseMove);
 }
 
+void CGameInstance::Register_Camera(const _tchar* _CameraTag, CCamera* _CameraCom)
+{
+	m_pCamera_Manager->Register_Camera(_CameraTag, _CameraCom);
+}
+
+void CGameInstance::Set_Camera_Target(CTransform* _Target, const _tchar* _CameraTag)
+{
+	m_pCamera_Manager->Set_Target(_Target, _CameraTag);
+}
+
+CCamera* CGameInstance::Get_Camera(const _tchar* _CameraTag)
+{
+	return m_pCamera_Manager->Get_Camera(_CameraTag);
+}
+
+void CGameInstance::Set_Current_Camera(const _tchar* _CameraTag)
+{
+	m_pCamera_Manager->Set_Current_Camera(_CameraTag);
+}
+
 void CGameInstance::Release_Engine()
 {
 	CObject_Manager::Get_Instance()->Destroy_Instance();
@@ -290,6 +319,8 @@ void CGameInstance::Release_Engine()
 	CInput_Manager::Get_Instance()->Destroy_Instance();
 
 	CGameInstance::Get_Instance()->Destroy_Instance();
+
+	CCamera_Manager::Get_Instance()->Destroy_Instance();
 }
 
 void CGameInstance::Free()

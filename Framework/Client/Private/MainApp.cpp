@@ -47,6 +47,16 @@ void CMainApp::Tick(float fTimeDelta)
 		return;
 
 	m_pGameInstance->Tick_Engine(fTimeDelta);
+
+	if (GetFocus())
+	{
+		_point WinSize{ g_iWinCX , g_iWinCY };
+		ClientToScreen(g_hWnd, &WinSize);
+		RECT ClientRect = { (_long)WinSize.x - g_iWinCX, (_long)WinSize.y - g_iWinCY, (_long)WinSize.x, (_long)WinSize.y };
+		ClipCursor(&ClientRect);
+	}
+
+	
 }
 
 HRESULT CMainApp::Render()
@@ -138,11 +148,7 @@ CMainApp * CMainApp::Create()
 }
 
 void CMainApp::Free()
-{
-	//Safe_Release(m_pRenderer);
-	//Safe_Release(m_pGraphic_Device);
-	//Safe_Release(m_pGameInstance);		
-
+{		
 	CGameInstance::Release_Engine();
 
 	delete this;

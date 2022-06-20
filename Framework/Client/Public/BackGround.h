@@ -37,11 +37,16 @@ private:
 
 private:
 	CCameraPosin*           m_pCameraPosin = nullptr;
+	static const _tchar*	m_pTag;
+
+	_uint					m_iCurrentCam = 0;
+
+protected: /* 이벤트 함수들 정의 */
+	virtual void On_Change_Controller(const CONTROLLER& _IsAI) override;
 
 
 private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 	HRESULT SetUp_Components();
-
 
 public:
 	static CBackGround* Create();

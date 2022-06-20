@@ -69,15 +69,10 @@ void CCamera_Free::Tick(_float fTimeDelta)
 		m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_RIGHT), fTimeDelta * MouseMove * 0.1f);
 	}
 
-
-
 	Safe_Release(pGameInstance);
 
 	if (FAILED(Bind_PipeLine()))
 		return ;
-
-
-
 }
 
 void CCamera_Free::LateTick(_float fTimeDelta)

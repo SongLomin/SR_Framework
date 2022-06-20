@@ -15,6 +15,7 @@ HRESULT CCam_FPS::Initialize_Prototype()
 
 HRESULT CCam_FPS::Initialize(void* pArg)
 {
+	//m_szName = L"Cam_FPS";
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
@@ -43,14 +44,10 @@ HRESULT CCam_FPS::Initialize(void* pArg)
 
 void CCam_FPS::Tick(_float fTimeDelta)
 {
-	if (!g_bCamera)
-	{
-		m_pTransformCom->LookAt(_float3(0.f, 1.f, 1.f));
+	m_pTransformCom->Update_WorldMatrix();
 
+	m_pTransformCom->LookAt(_float3(0.f, 1.f, 1.f));
 
-		if (FAILED(m_pCameraCom->Bind_PipeLine()))
-			return;
-	}
 }
 
 void CCam_FPS::LateTick(_float fTimeDelta)

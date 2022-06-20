@@ -6,6 +6,10 @@
 #include "Monster.h"
 #include "Terrain.h"
 #include "Cam_Free.h"
+#include "Auto_Aim.h"
+#include "Cam_FPS.h"
+#include "Cam_Shoulder.h"
+#include "Cam_TPS.h"
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -17,13 +21,29 @@ HRESULT CLevel_GamePlay::Initialize()
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBackGround>(LEVEL_LOGO, TEXT("Background")))
+	CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(CURRENT_LEVEL, TEXT("Camera"));
+	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	GAMEINSTANCE->Register_Camera(TEXT("FPS"), FPS_Cam->Get_Component<CCamera>());
+
+	CGameObject* Shoulder_Cam = GAMEINSTANCE->Add_GameObject<CCam_Shoulder>(CURRENT_LEVEL, TEXT("Camera"));
+	Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	GAMEINSTANCE->Register_Camera(TEXT("Shoulder"), Shoulder_Cam->Get_Component<CCamera>());
+
+	CGameObject* TPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera"));
+	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
+
+
+	if (!GAMEINSTANCE->Add_GameObject<CBackGround>(LEVEL_GAMEPLAY, TEXT("Background")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CMonster>(LEVEL_LOGO, TEXT("Monster")))
+	if (!GAMEINSTANCE->Add_GameObject<CMonster>(LEVEL_GAMEPLAY, TEXT("Monster")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_LOGO, TEXT("Terrain")))
+	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_GAMEPLAY, TEXT("Terrain")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CAuto_Aim>(LEVEL_GAMEPLAY, TEXT("Auto_Aim")))
 		return E_FAIL;
 
 	/*TEXTINFO Info;

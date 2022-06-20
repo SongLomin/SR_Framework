@@ -26,12 +26,20 @@ public:
     virtual HRESULT Initialize(void* pArg) override;
 
 public:
+    CTransform* Get_Transform() { return m_pTransform; }
+    _float4x4 Get_CameraWorldMat();
+
+public:
     void Link_TransformCom(CTransform* _pTransform);
+    void Set_Target(CTransform* _pTransform);
+
     void Set_Param(_float _fFovy, _float _fAspect, _float _fNear, _float _fFar);
+    
     HRESULT Bind_PipeLine();
 
 private:
-    CTransform* m_pTransfrom = nullptr;
+    CTransform* m_pTransform = nullptr;
+    CTransform* m_pTarget_Transform = nullptr;
     Desc m_CamDesc;
 
 public:

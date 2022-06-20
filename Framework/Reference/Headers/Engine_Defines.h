@@ -5,6 +5,7 @@
 
 #include <d3d9.h>
 #include <d3dx9.h>
+#include <d3dx9math.h>
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
@@ -43,8 +44,10 @@
 
 #endif // _DEBUG
 
-
-
+#define D3D_SCALE				0x001
+#define D3D_ROTATE				0x002
+#define D3D_TRANS			    0x004
+#define D3D_ALL					0x007
 
 using namespace Engine;
 using namespace std;

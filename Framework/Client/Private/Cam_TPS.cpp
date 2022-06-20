@@ -15,6 +15,7 @@ HRESULT CCam_TPS::Initialize_Prototype()
 
 HRESULT CCam_TPS::Initialize(void* pArg)
 {
+	//m_szName = L"Cam_TPS";
 	/*CTransform::TRANSFORMDESC		TransformDesc;
 	TransformDesc.fSpeedPerSec = 5.0f;
 	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f)*/;
@@ -38,7 +39,7 @@ HRESULT CCam_TPS::Initialize(void* pArg)
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.0, 6.f, -6.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.0, 6.f, -10.f));
 	m_pTransformCom->LookAt(_float3(0.f, 0.f, 0.f));
 
 	m_CurCursorPosition = _float3(0.f, 0.f, 0.f);
@@ -50,7 +51,9 @@ HRESULT CCam_TPS::Initialize(void* pArg)
 
 void CCam_TPS::Tick(_float fTimeDelta)
 {
-	if (!g_bCamera)
+	m_pTransformCom->Update_WorldMatrix();
+
+	if (GAMEINSTANCE->Get_Camera(CURRENT_CAMERA) == m_pCameraCom)
 	{
 		m_CurCursorPosition = Get_MousePos(GAMEINSTANCE->Get_Window_Handle());
 
@@ -71,16 +74,12 @@ void CCam_TPS::Tick(_float fTimeDelta)
 
 		_float3 Cursor_Weight = m_MouseRealPosition - m_PreCursorPosition;
 
-	m_pRigidBodyCom->Add_DirX(-Cursor_Weight.x*0.1f);
-	m_pRigidBodyCom->Add_DirY(Cursor_Weight.y*0.1f);
-	m_pRigidBodyCom->Update_Transform(fTimeDelta);
+		m_pRigidBodyCom->Add_DirX(-Cursor_Weight.x*0.1f);
+		m_pRigidBodyCom->Add_DirY(Cursor_Weight.y*0.1f);
+		m_pRigidBodyCom->Update_Transform(fTimeDelta);
 
 		m_pTransformCom->LookAt(_float3(0.f, 0.f, 0.f));
 		m_PreCursorPosition = m_MouseRealPosition;
-
-
-		if (FAILED(m_pCameraCom->Bind_PipeLine()))
-			return;
 	}
 }
 

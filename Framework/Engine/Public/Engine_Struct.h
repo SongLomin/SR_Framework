@@ -56,9 +56,21 @@ namespace Engine
 		D3DXCOLOR color;
 	}TEXTINFO;
 
+	typedef struct tagRay
+	{
+		D3DXVECTOR3 Dir;
+		D3DXVECTOR3 Pos;
+		float		fLength;
+
+	}RAY;
+
+
 	enum class RENDERGROUP { RENDER_PRIORITY = 0, RENDER_NONALPHABLEND, RENDER_ALPHABLEND, RENDER_UI, RENDER_END };
+
 	enum class TEXTURE_TYPE { TYPE_DEFAULT = 0, TYPE_CUBE, TYPE_END };
 	enum class MEMORY_TYPE { MEMORY_STATIC = 0, MEMORY_DYNAMIC, MEMORY_END };
+
+
 	enum class KEY_STATE {
 		TAP, // 막 누른 시점
 		HOLD,// 꾹 누르고 있음
@@ -93,4 +105,7 @@ namespace Engine
 	enum class MOUSEBUTTON { MBS_LBUTTON = 0, MBS_RBUTTON, MBS_WHEEL, MBS_X, MBS_END };
 	enum class MOUSEMOVE { MMS_X = 0, MMS_Y, MMS_WHEEL, MMS_END };
 
+	enum class CONTROLLER {PLAYER = 0, AI, CONTROLLER_END};
+
+	enum class MATRIX_STATE { RIGHT, UP, LOOK, POSITION, STATE_END };
 }

@@ -52,9 +52,6 @@
     <Filter Include="02.GameObject\05. Camera_Object\00. Cam_Free">
       <UniqueIdentifier>{2fcd89fe-11d7-404c-9723-bcba1e528273}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\06. Posin\CameraPosin">
-      <UniqueIdentifier>{73d82d72-e735-40ad-9641-61d20540df8f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\07. Ring">
       <UniqueIdentifier>{8b965e61-719b-4661-9446-1318934fee81}</UniqueIdentifier>
     </Filter>
@@ -66,6 +63,18 @@
     </Filter>
     <Filter Include="02.GameObject\08. Bullet">
       <UniqueIdentifier>{26b96253-5e95-455b-89fc-fc1a7be41a8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97. UITest">
+      <UniqueIdentifier>{08e536b4-07ed-4d26-85cc-d3c404e48da1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\09. Aim">
+      <UniqueIdentifier>{c289b9d4-7661-4bb5-bb41-8a8e05b1072f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\09. Aim\Auto_Aim">
+      <UniqueIdentifier>{9eae39b9-843d-4682-9159-98169a48aea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\09. Aim\FPS_Aim">
+      <UniqueIdentifier>{f0f15b68-20f9-4884-af0d-3ee69e1f4d1c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -120,9 +129,6 @@
     <ClInclude Include="..\Public\Posin.h">
       <Filter>02.GameObject\06. Posin</Filter>
     </ClInclude>
-    <ClInclude Include="CameraPosin.h">
-      <Filter>02.GameObject\06. Posin\CameraPosin</Filter>
-    </ClInclude>
     <ClInclude Include="Ring.h">
       <Filter>02.GameObject\07. Ring</Filter>
     </ClInclude>
@@ -134,6 +140,12 @@
     </ClInclude>
     <ClInclude Include="..\Public\Bullet.h">
       <Filter>02.GameObject\08. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UITest.h">
+      <Filter>97. UITest</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Auto_Aim.h">
+      <Filter>02.GameObject\09. Aim\Auto_Aim</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -179,9 +191,6 @@
     <ClCompile Include="..\Private\Posin.cpp">
       <Filter>02.GameObject\06. Posin</Filter>
     </ClCompile>
-    <ClCompile Include="CameraPosin.cpp">
-      <Filter>02.GameObject\06. Posin\CameraPosin</Filter>
-    </ClCompile>
     <ClCompile Include="Ring.cpp">
       <Filter>02.GameObject\07. Ring</Filter>
     </ClCompile>
@@ -193,6 +202,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Bullet.cpp">
       <Filter>02.GameObject\08. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UITest.cpp">
+      <Filter>97. UITest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Auto_Aim.cpp">
+      <Filter>02.GameObject\09. Aim\Auto_Aim</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
