@@ -28,8 +28,6 @@ CBackGround::CBackGround(const CBackGround & Prototype)
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
 
-	Set_Controller(CONTROLLER::PLAYER);
-
 	GAMEINSTANCE->Set_Current_Camera(TEXT("FPS"));
 }
 
@@ -110,13 +108,6 @@ void CBackGround::Tick(_float fTimeDelta)
 			CONTROLLER::PLAYER;
 
 		Set_Controller(Next_Controller);
-	}
-
-	if (KEY_INPUT(KEY::CTRL, KEY_STATE::TAP))
-	{
-		CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CBullet>(CURRENT_LEVEL, TEXT("Bullet"));
-		
-		((CBullet*)Bullet)->Link_CameraPosinTransform(m_pCameraPosin->Get_Component<CTransform>());
 	}
 
 
@@ -209,26 +200,20 @@ HRESULT CBackGround::SetUp_Components()
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
 	GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
-	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
+
+	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
+		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
+
+	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
+		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
+
 	GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
-	CGameObject* CameraPosin = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
+	//CGameObject* CameraPosin = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);	
+	//m_pCameraPosin = (CCameraPosin*)GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
+	
+	//GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
 
-	m_pCameraPosin = (CCameraPosin*)GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
-
-	
-	
-	//CGameObject* TPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera_TPS"), m_pTransformCom);
-	//TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
-	
-	
-	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
-
-	
-	//GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
-	
-	//GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
-
-	//GAMEINSTANCE->Set_Current_Camera(TEXT("FPS"));
+	Set_Controller(CONTROLLER::PLAYER);
 
 
 	return S_OK;
@@ -241,7 +226,8 @@ void CBackGround::On_Change_Controller(const CONTROLLER& _IsAI)
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
-		m_pCameraPosin->Link_CameraTransfrom(TPS_Cam->Get_Component<CTransform>());
+		//if(m_pCameraPosin)
+		//	m_pCameraPosin->Link_CameraTransfrom(GAMEINSTANCE->Get_Camera(TEXT("TPS"))->Get_Owner()->Get_Component<CTransform>());
 	}
 }
 

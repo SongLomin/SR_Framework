@@ -56,6 +56,15 @@ namespace Engine
 		D3DXCOLOR color;
 	}TEXTINFO;
 
+	typedef struct tagRay
+	{
+		D3DXVECTOR3 Dir;
+		D3DXVECTOR3 Pos;
+		float		fLength;
+
+	}RAY;
+
+
 	enum class RENDERGROUP { RENDER_PRIORITY = 0, RENDER_NONALPHABLEND, RENDER_ALPHABLEND, RENDER_UI, RENDER_END };
 
 	enum class TEXTURE_TYPE { TYPE_DEFAULT = 0, TYPE_CUBE, TYPE_END };
@@ -97,4 +106,6 @@ namespace Engine
 	enum class MOUSEMOVE { MMS_X = 0, MMS_Y, MMS_WHEEL, MMS_END };
 
 	enum class CONTROLLER {PLAYER = 0, AI, CONTROLLER_END};
+
+	enum class MATRIX_STATE { RIGHT, UP, LOOK, POSITION, STATE_END };
 }

@@ -1,6 +1,7 @@
 #include "Transform.h"
 #include "GameInstance.h"
 #include "GameObject.h"
+#include "Math_Utillity.h"
 
 CTransform::CTransform(const CTransform& Prototype)
 {
@@ -34,26 +35,45 @@ HRESULT CTransform::Initialize(void* pArg)
 	return S_OK;
 }
 
-HRESULT CTransform::Bind_WorldMatrix()
+HRESULT CTransform::Bind_WorldMatrix(BYTE MyFlags, BYTE ParentFlags)
 {
 
-	DEVICE->SetTransform(D3DTS_WORLD, &Get_WorldMatrix());
+	DEVICE->SetTransform(D3DTS_WORLD, &Get_WorldMatrix(MyFlags, ParentFlags));
 
 	return S_OK;
 }
 
-_float4x4 CTransform::Get_WorldMatrix() const
+_float4x4 CTransform::Get_WorldMatrix(BYTE MyFlags, BYTE ParentFlags) const
 {
+	_float4x4 _matMySelected;
+	D3DXMatrixIdentity(&_matMySelected);
+
+	if (MyFlags & D3D_SCALE)
+	{
+		_matMySelected *= CMath_Utillity::Get_Scale_Matrix(m_WorldMatrix);
+	}
+
+	if (MyFlags & D3D_ROTATE)
+	{
+		_matMySelected *= CMath_Utillity::Get_Rotation_Matrix(m_WorldMatrix);
+	}
+
+	if (MyFlags & D3D_TRANS)
+	{
+		_matMySelected *= CMath_Utillity::Get_Position_Matrix(m_WorldMatrix);
+	}
+
+
+
 	_float4x4 _matParent;
 	D3DXMatrixIdentity(&_matParent);
 
-
 	if (m_pParent)
 	{
-		_matParent = m_pParent->Get_WorldMatrix();
+		_matParent = m_pParent->Get_WorldMatrix(ParentFlags, ParentFlags);
 	}
 
-	return m_WorldMatrix * _matParent;
+	return _matMySelected * _matParent;
 }
 
 //void CTransform::Go_Straight(_float fTimeDelta)

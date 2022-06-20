@@ -108,6 +108,8 @@ void CCameraPosin::LookAt_CamTPS()
 {
 	if(m_pCameraTransformCom)
 		m_pTransformCom->LookAt(m_pCameraTransformCom);
+
+	
 }
 
 CCameraPosin* CCameraPosin::Create()

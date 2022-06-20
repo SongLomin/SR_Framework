@@ -175,7 +175,6 @@
     <ClInclude Include="..\Public\Posin.h" />
     <ClInclude Include="..\Public\Terrain.h" />
     <ClInclude Include="..\Public\UITest.h" />
-    <ClInclude Include="CameraPosin.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Ring.h" />
@@ -200,7 +199,6 @@
     <ClCompile Include="..\Private\Posin.cpp" />
     <ClCompile Include="..\Private\Terrain.cpp" />
     <ClCompile Include="..\Private\UITest.cpp" />
-    <ClCompile Include="CameraPosin.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="Ring.cpp" />
     <ClCompile Include="stdafx.cpp">

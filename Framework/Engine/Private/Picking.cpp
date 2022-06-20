@@ -16,7 +16,7 @@ HRESULT CPicking::Initialize(HWND hWnd)
 	return S_OK;
 }
 
-void CPicking::Compute_RayInWorldSpace()
+HRESULT CPicking::Compute_RayInWorldSpace(RAY* _Out)
 {
 	/* 로컬스페이스 -> 월드스페이스 -> 뷰스페이스 -> 투영스페이스 -> 뷰포트 */
 
@@ -61,7 +61,7 @@ void CPicking::Compute_RayInWorldSpace()
 
 }
 
-_bool CPicking::Picking(CVIBuffer* pVIBuffer, CTransform* pTransform, _float3* pOut)
+_bool CPicking::Picking_VIBuffer(CVIBuffer* pVIBuffer, CTransform* pTransform, _float3* pOut)
 {
 
 	_float4x4		WorldMatrix = pTransform->Get_WorldMatrix();                 // 월드 메트릭스 가져옴

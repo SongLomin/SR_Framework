@@ -52,7 +52,7 @@ void CMainApp::Tick(float fTimeDelta)
 	{
 		_point WinSize{ g_iWinCX , g_iWinCY };
 		ClientToScreen(g_hWnd, &WinSize);
-		RECT ClientRect = { WinSize.x - g_iWinCX, WinSize.y - g_iWinCY, WinSize.x, WinSize.y };
+		RECT ClientRect = { (_long)WinSize.x - g_iWinCX, (_long)WinSize.y - g_iWinCY, (_long)WinSize.x, (_long)WinSize.y };
 		ClipCursor(&ClientRect);
 	}
 

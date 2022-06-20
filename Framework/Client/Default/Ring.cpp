@@ -52,7 +52,7 @@ HRESULT CRing::Render()
 
 	m_pRendererCom->Bind_Texture(1);
 	if (Get_Controller() == CONTROLLER::PLAYER)
-		m_pVIBufferCom->Render();
+		m_pMeshCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);

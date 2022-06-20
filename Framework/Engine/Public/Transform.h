@@ -53,8 +53,8 @@ public:
 	virtual HRESULT Initialize(void* pArg);
 
 public:
-	HRESULT Bind_WorldMatrix();
-	_float4x4 Get_WorldMatrix() const;
+	HRESULT Bind_WorldMatrix(BYTE MyFlags = D3D_ALL, BYTE ParentFlags = D3D_ALL);
+	_float4x4 Get_WorldMatrix(BYTE MyFlags = D3D_ALL, BYTE ParentFlags = D3D_ALL) const;
 
 public:
 	/*void Go_Straight(_float fTimeDelta);

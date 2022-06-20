@@ -13,15 +13,11 @@ public:
 
 public:
 	HRESULT Initialize(HWND hWnd);
-	void Compute_RayInWorldSpace();
+	HRESULT Compute_RayInWorldSpace(RAY* _Out);
 
-	_bool Picking(class CVIBuffer* pVIBuffer, class CTransform* pTransform, _float3* pOut);
-
-private:
-	HWND    m_hWnd;
+	_bool Picking_VIBuffer(class CVIBuffer* pVIBuffer, class CTransform* pTransform, _float3* pOut);
 	
 private:
-	_float3   m_vRayDir, m_vRayPos;
 
 public:
 	virtual void Free() override;

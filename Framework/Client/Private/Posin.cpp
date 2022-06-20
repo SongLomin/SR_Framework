@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Posin.h"
 #include "GameInstance.h"
+#include "Math_Utillity.h"
+#include <Bullet.h>
 
 
 CPosin::CPosin()
@@ -32,7 +34,6 @@ HRESULT CPosin::Initialize(void* pArg)
 	m_pMeshCom = Add_Component<CMesh_Cube>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
 	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f));
 
 
@@ -41,11 +42,14 @@ HRESULT CPosin::Initialize(void* pArg)
 
 void CPosin::Tick(_float fTimeDelta)
 {
-	if (GetKeyState('A') & 0x8000)
-		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 10.f, fTimeDelta * -1);
+	LookAt_CamTPS();
 
-	if (GetKeyState('D') & 0x8000)
-		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 10.f, fTimeDelta);
+	if (KEY_INPUT(KEY::CTRL, KEY_STATE::TAP))
+	{
+		CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CBullet>(CURRENT_LEVEL, TEXT("Bullet"));
+
+		((CBullet*)Bullet)->Link_CameraPosinTransform(m_pTransformCom);
+	}
 }
 
 void CPosin::LateTick(_float fTimeDelta)
@@ -55,13 +59,13 @@ void CPosin::LateTick(_float fTimeDelta)
 
 HRESULT CPosin::Render()
 {
-	m_pTransformCom->Bind_WorldMatrix();
+	m_pTransformCom->Bind_WorldMatrix(D3D_ALL, D3D_ALL);
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
 	if (Get_Controller() == CONTROLLER::PLAYER)
-		m_pVIBufferCom->Render();
+		m_pMeshCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
@@ -83,6 +87,16 @@ inline HRESULT CPosin::SetUp_Components()
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
 
 	return S_OK;
+}
+
+void CPosin::LookAt_CamTPS()
+{
+	_float3 MouseEndPos;
+	RAY	MouseWorldPos;
+	MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
+	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 1000.f);
+
+	m_pTransformCom->LookAt(MouseEndPos);
 }
 
 

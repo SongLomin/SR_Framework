@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "UITest.h"
 #include "GameInstance.h"
+#include "Math_Utillity.h"
 
 CUITest::CUITest()
 {
@@ -36,9 +37,12 @@ void CUITest::Tick(_float fTimeDelta)
 {
 	_float3 vPickedPos;
 
-	if (GetKeyState(VK_LBUTTON) < 0)
+	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
 	{
-		if (true == GAMEINSTANCE->Get_Instance()->Picking(m_pVIBufferCom, m_pTransformCom, &vPickedPos))
+		RAY MouseRay;
+		CMath_Utillity::Compute_RayInWorldSpace(&MouseRay, 10000.f);
+
+		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseRay, &vPickedPos))
 		{
 			int a = 1;
 		}

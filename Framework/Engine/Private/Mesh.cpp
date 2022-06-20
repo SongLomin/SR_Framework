@@ -37,6 +37,11 @@ HRESULT CMesh::Render()
 	return S_OK;
 }
 
+ID3DXMesh* CMesh::Get_Mesh()
+{
+	return m_pMesh;
+}
+
 HRESULT CMesh::Create_EmptyMesh()
 {
 	if (nullptr == LPDEVICE)

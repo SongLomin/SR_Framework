@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "..\Public\Monster.h"
 #include "GameInstance.h"
+#include <Math_Utillity.h>
 
 
 
@@ -31,6 +32,18 @@ void CMonster::Tick(_float fTimeDelta)
 
 	m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
 	m_pTransformCom->Go_BackAndForth(2.5, fTimeDelta);
+
+	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
+	{
+		RAY MouseRay;
+		CMath_Utillity::Compute_RayInWorldSpace(&MouseRay, 10000.f);
+		_float3 vPickedPos;
+
+		if (true == CMath_Utillity::Picking_Mesh(m_pMeshCom->Get_Mesh(), m_pTransformCom, MouseRay, &vPickedPos))
+		{
+			int a = 1;
+		}
+	}
 
 }
 
