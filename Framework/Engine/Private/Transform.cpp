@@ -165,6 +165,7 @@ void CTransform::Go_UpAndDown(_float fSpeed, _float ftimeDelta)
 }
 
 
+
 void CTransform::Rotation(const _float3& vAxis, _float fRadian)
 {
 	_float3		vRight = _float3(1.f, 0.f, 0.f);
@@ -217,6 +218,42 @@ void CTransform::Turn_Look(const _float3& vAxis, _float fTimeDelta)
 	D3DXVec3Cross(&vRight, &_float3(0.f, 1.f, 0.f), &vLook);
 
 	_float3 vUp;
+	D3DXVec3Cross(&vUp, &vLook, &vRight);
+
+	Set_State(CTransform::STATE_RIGHT, vRight);
+	Set_State(CTransform::STATE_UP, vUp);
+	Set_State(CTransform::STATE_LOOK, vLook);
+}
+
+void CTransform::Turn_AxisZ(const _float & fRadian, _float fTimeDelta)
+{
+	_float3 vUp = _float3(0.f, 1.f, 0.f);
+	_float3 vLook = Get_State(CTransform::STATE_LOOK);
+	_float3 vRight = Get_State(CTransform::STATE_RIGHT);
+	_float4x4	matRotation;
+
+	D3DXMatrixRotationAxis(&matRotation, &vLook, fRadian);
+	
+	D3DXVec3TransformNormal(&vUp, &vUp, &matRotation);
+	D3DXVec3Cross(&vRight, &vUp, &vLook);
+
+	Set_State(CTransform::STATE_RIGHT, vRight);
+	Set_State(CTransform::STATE_UP, vUp);
+	Set_State(CTransform::STATE_LOOK, vLook);
+
+}
+
+void CTransform::Turn_AxisY(const _float & fRadian, _float fTimeDelta)
+{
+	_float3 vUp = _float3(0.f, 1.f, 0.f);
+	_float3 vLook = Get_State(CTransform::STATE_LOOK);
+	_float3 vRight = Get_State(CTransform::STATE_RIGHT);
+	_float4x4	matRotation;
+
+	D3DXMatrixRotationAxis(&matRotation, &vUp, fRadian*fTimeDelta);
+
+	D3DXVec3TransformNormal(&vLook, &vLook, &matRotation);
+	D3DXVec3Cross(&vRight, &vUp, &vLook);
 	D3DXVec3Cross(&vUp, &vLook, &vRight);
 
 	Set_State(CTransform::STATE_RIGHT, vRight);

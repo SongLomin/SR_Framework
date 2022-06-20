@@ -65,11 +65,13 @@ public:
 	void Go_BackAndForth(_float fSpeed, _float ftimeDelta);
 	void Go_SideToSide(_float fSpeed, _float ftimeDelta);
 	void Go_UpAndDown(_float fSpeed, _float ftimeDelta);
-
+	
 	void Rotation(const _float3 & vAxis, _float fRadian);
 	void Turn(const _float3 & vAxis, _float fRadSpeed,_float fTimeDelta);
 	void Turn_Look(const _float3& vAxis, _float fTimeDelta);
-
+	
+	void Turn_AxisZ(const _float& fRadian, _float fTimeDelta);
+	void Turn_AxisY(const _float& fRadian, _float fTimeDelta);
 
 	void LookAt(const _float3& vAt);
 	void LookAt(CTransform* pTargetTransform);

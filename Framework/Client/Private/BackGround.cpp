@@ -164,6 +164,8 @@ HRESULT CBackGround::SetUp_Components()
 
 	RigidBodyDesc.m_fFrictional = 0.05f;
 	RigidBodyDesc.m_fRadFrictional =0.02f;
+	RigidBodyDesc.m_fRadZ = 0.01f;
+
 
 	RigidBodyDesc.m_fOwnerLiftSpeed = 3.f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
