@@ -88,6 +88,8 @@ public:
 	void Turn(const _float3& vAxis, _float fRadSpeed, _float fTimeDelta, _bool _bWorld = false);
 	void Turn_Look(const _float3& vAxis, _float fTimeDelta, _bool _bWorld = false);
 
+	void Turn_AxisZ(const _float& fRadian, _float fTimeDelta, _bool _bWorld = false);
+	void Turn_AxisY(const _float& fRadian, _float fTimeDelta, _bool _bWorld = false);
 
 	void LookAt(const _float3& vAt, _bool _bWorld = false);
 	void LookAt(CTransform* pTargetTransform, _bool _bWorld = false);
