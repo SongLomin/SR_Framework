@@ -85,9 +85,6 @@
     <Filter Include="01.Utility\03.Components\01. Renderer">
       <UniqueIdentifier>{ab7714b5-eee9-4739-98c1-a11b37af4394}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Utility\03.Components\01. Renderer\Manager">
-      <UniqueIdentifier>{4641f8f5-e445-449e-bd39-fd459d8db911}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Utility\03.Components\02. Transform">
       <UniqueIdentifier>{4c554e52-c1e9-426c-b771-3aa800919186}</UniqueIdentifier>
     </Filter>
@@ -129,6 +126,9 @@
     </Filter>
     <Filter Include="01.Utility\03.Components\00. Model\Mesh_Terrain">
       <UniqueIdentifier>{af6912cf-7f5b-4f81-97fb-129bd74978b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\04.Manager\08. Render_Manager">
+      <UniqueIdentifier>{4641f8f5-e445-449e-bd39-fd459d8db911}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -190,7 +190,7 @@
       <Filter>01.Utility\03.Components\00. Model\Rect</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Render_Manager.h">
-      <Filter>01.Utility\03.Components\01. Renderer\Manager</Filter>
+      <Filter>01.Utility\04.Manager\08. Render_Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Resource_Manager.h">
       <Filter>01.Utility\04.Manager\04. Resource_Manager</Filter>
@@ -288,7 +288,7 @@
       <Filter>01.Utility\03.Components\00. Model\Rect</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Render_Manager.cpp">
-      <Filter>01.Utility\03.Components\01. Renderer\Manager</Filter>
+      <Filter>01.Utility\04.Manager\08. Render_Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Resource_Manager.cpp">
       <Filter>01.Utility\04.Manager\04. Resource_Manager</Filter>
