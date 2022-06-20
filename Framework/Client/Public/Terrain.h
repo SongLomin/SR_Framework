@@ -5,6 +5,7 @@
 BEGIN(Engine)
 class CRenderer;
 class CVIBuffer_Terrain;
+class CMesh_Terrain;
 class CTransform;
 END
 
@@ -33,6 +34,7 @@ private:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
     CVIBuffer_Terrain* m_pVIBufferCom = nullptr;
+    CMesh_Terrain* m_pMeshCom = nullptr;
 
 public:
     static CTerrain* Create();

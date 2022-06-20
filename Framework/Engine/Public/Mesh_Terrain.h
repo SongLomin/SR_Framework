@@ -23,7 +23,7 @@ private:
 	_point m_Terrain_Count;
 
 private:
-	void Mesh_Bake();
+	void Bake_Terrain_Mesh();
 };
 
 END

@@ -9,6 +9,7 @@
 #include "VIBuffer_Cube.h"
 #include "Transform.h"
 #include "Mesh_Cube.h"
+#include "Mesh_Terrain.h"
 #include "Camera.h"
 #include "Status.h"
 #include "Font.h"

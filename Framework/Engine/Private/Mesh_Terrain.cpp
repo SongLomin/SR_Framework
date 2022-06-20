@@ -12,13 +12,27 @@ CMesh_Terrain::CMesh_Terrain(const CMesh_Terrain& Prototype)
 
 HRESULT CMesh_Terrain::Initialize_Prototype()
 {
+
 	return S_OK;
 }
 
 HRESULT CMesh_Terrain::Initialize(void* pArg)
 {
+	_point* pTerrainCnt = (_point*)pArg;
+
+	if (nullptr == pTerrainCnt)
+	{
+		assert(false);
+		return E_FAIL;
+	}
+
+	m_Terrain_Count = (*pTerrainCnt);
+
+	Bake_Terrain_Mesh();
+
 	return S_OK;
 }
+
 
 CMesh_Terrain* CMesh_Terrain::Create()
 {
@@ -37,11 +51,11 @@ void CMesh_Terrain::Free()
 	delete this;
 }
 
-void CMesh_Terrain::Mesh_Bake()
+void CMesh_Terrain::Bake_Terrain_Mesh()
 {
 	int Max_Terrain_Count = m_Terrain_Count.x * m_Terrain_Count.y;
 
-	m_iNumVertices = 24;
+	m_iNumVertices = Max_Terrain_Count;
 	m_iNumPrimitive = (m_Terrain_Count.x - 1) * (m_Terrain_Count.y - 1) * 2;
 	m_dwFVF = VTXTEX::FVF;
 
@@ -49,20 +63,18 @@ void CMesh_Terrain::Mesh_Bake()
 
 	//m_vTextures = CGameInstance::Get_Instance()->Get_Textures_From_Key(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
+	VTXTEX* vertices = nullptr;
 
+	m_pMesh->LockVertexBuffer(0, (void**)&vertices);
 
-	VTXTEX* pVertices = nullptr;
-
-	m_pMesh->LockVertexBuffer(0, (void**)&pVertices);
-	//front
 	int index = 0;
 
 	for (int i = 0; i < m_Terrain_Count.x; i++)
 	{
 		for (int j = 0; j < m_Terrain_Count.y; j++)
 		{
-			pVertices[index].vPosition = _float3(2.f * i, 0.f, 2.f * j);
-			pVertices[index].vTexUV = _float2(i / (m_Terrain_Count.x - 1.f) * 20.f, j / (m_Terrain_Count.y - 1.f) * 20.f);
+			vertices[index].vPosition = _float3(2.f * i, 0.f, 2.f * j);
+			vertices[index].vTexUV = _float2(i / (m_Terrain_Count.x - 1.f) * 20.f, j / (m_Terrain_Count.y - 1.f) * 20.f);
 
 			index++;
 		}
@@ -70,50 +82,28 @@ void CMesh_Terrain::Mesh_Bake()
 
 	m_pMesh->UnlockVertexBuffer();
 
-	WORD* pIndices = 0;
+	FACEINDICES16* Indices = nullptr;
 
-	m_pMesh->LockIndexBuffer(0, (void**)&pIndices);
+	m_pMesh->LockIndexBuffer(0, (void**)&Indices);
 
-	index = 0;
 
-	//for (int i = 0; i < m_Terrain_Count.x - 1; i++)
-	//{
-
-	//	for (int j = 0; j < m_Terrain_Count.y - 1; j++)
-	//	{
-	//		pIndices[index * 2]._1 = j + ((_ushort)m_Terrain_Count.y * i);
-	//		pIndices[index * 2]._2 = j + 1 + ((_ushort)m_Terrain_Count.y * i);
-	//		pIndices[index * 2]._3 = j + 1 + ((_ushort)m_Terrain_Count.y * (i + 1));
-
-	//		pIndices[index * 2 + 1]._1 = j + 1 + ((_ushort)m_Terrain_Count.y * (i + 1));
-	//		pIndices[index * 2 + 1]._2 = j + ((_ushort)m_Terrain_Count.y * (i + 1));
-	//		pIndices[index * 2 + 1]._3 = j + ((_ushort)m_Terrain_Count.y * i);
-
-	//		index++;
-	//	}
-	//}
-
-	m_pMesh->UnlockIndexBuffer();
-
-	DWORD* attributeBuffer = 0;
-	m_pMesh->LockAttributeBuffer(0, &attributeBuffer);
-
-	for (int i = 0; i < 6; ++i)
+	for (int i = 0; i < m_Terrain_Count.x - 1; i++)
 	{
-		attributeBuffer[i * 2] = i;
-		attributeBuffer[i * 2 + 1] = i;
+
+		for (int j = 0; j < m_Terrain_Count.y - 1; j++)
+		{
+			Indices[index * 2]._1 = j + ((_ushort)m_Terrain_Count.y * i);
+			Indices[index * 2]._2 = j + 1 + ((_ushort)m_Terrain_Count.y * i);
+			Indices[index * 2]._3 = j + 1 + ((_ushort)m_Terrain_Count.y * (i + 1));
+
+			Indices[index * 2 + 1]._1 = j + 1 + ((_ushort)m_Terrain_Count.y * (i + 1));
+			Indices[index * 2 + 1]._2 = j + ((_ushort)m_Terrain_Count.y * (i + 1));
+			Indices[index * 2 + 1]._3 = j + ((_ushort)m_Terrain_Count.y * i);
+
+			index++;
+		}
 	}
 
-	m_pMesh->UnlockAttributeBuffer();
 
-	vector<DWORD> adjacencyBuffer(m_iNumPrimitive * 3);
-	m_pMesh->GenerateAdjacency(0.f, &adjacencyBuffer[0]);
-
-	m_pMesh->OptimizeInplace(
-		D3DXMESHOPT_ATTRSORT |
-		D3DXMESHOPT_COMPACT |
-		D3DXMESHOPT_VERTEXCACHE,
-		&adjacencyBuffer[0],
-		0, 0, 0
-	);
+	m_pMesh->UnlockIndexBuffer();
 }

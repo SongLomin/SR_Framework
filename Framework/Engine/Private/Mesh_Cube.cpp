@@ -107,6 +107,7 @@ HRESULT CMesh_Cube::Initialize_Prototype()
 
 	m_pMesh->UnlockAttributeBuffer();
 
+
 	vector<DWORD> adjacencyBuffer(m_iNumPrimitive*3);
 	m_pMesh->GenerateAdjacency(0.f, &adjacencyBuffer[0]);
 
