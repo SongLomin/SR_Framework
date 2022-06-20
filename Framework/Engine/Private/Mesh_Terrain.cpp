@@ -59,9 +59,16 @@ void CMesh_Terrain::Bake_Terrain_Mesh()
 	m_iNumPrimitive = (m_Terrain_Count.x - 1) * (m_Terrain_Count.y - 1) * 2;
 	m_dwFVF = VTXTEX::FVF;
 
-	m_dwNumSubsets = (m_Terrain_Count.x - 1) * (m_Terrain_Count.y - 1);
+	m_dwNumSubsets = 1;
 
-	//m_vTextures = CGameInstance::Get_Instance()->Get_Textures_From_Key(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
+	m_vTextures = CGameInstance::Get_Instance()->Get_Textures_From_Key(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
+
+	if (FAILED(Create_EmptyMesh()))
+	{
+		MSG_BOX("Failed to Create_EmptyMesh : CMesh_Cube");
+		return;
+	}
+
 
 	VTXTEX* vertices = nullptr;
 
@@ -104,6 +111,27 @@ void CMesh_Terrain::Bake_Terrain_Mesh()
 		}
 	}
 
-
 	m_pMesh->UnlockIndexBuffer();
+
+	DWORD* attributeBuffer = 0;
+	m_pMesh->LockAttributeBuffer(0, &attributeBuffer);
+
+	for (int i = 0; i < m_iNumPrimitive; ++i)
+	{
+		attributeBuffer[i] = 0;
+	}
+
+	m_pMesh->UnlockAttributeBuffer();
+
+	vector<DWORD> adjacencyBuffer(m_iNumPrimitive * 3);
+	m_pMesh->GenerateAdjacency(0.f, &adjacencyBuffer[0]);
+
+	m_pMesh->OptimizeInplace(
+		D3DXMESHOPT_ATTRSORT |
+		D3DXMESHOPT_COMPACT |
+		D3DXMESHOPT_VERTEXCACHE,
+		&adjacencyBuffer[0],
+		0, 0, 0
+	);
+
 }

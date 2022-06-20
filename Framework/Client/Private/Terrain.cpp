@@ -30,8 +30,8 @@ HRESULT CTerrain::Initialize(void* pArg)
 	m_pVIBufferCom = Add_Component<CVIBuffer_Terrain>(&TerrainCnt);
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
-	//m_pMeshCom = Add_Component<CMesh_Terrain>(&TerrainCnt);
-	//m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
+	m_pMeshCom = Add_Component<CMesh_Terrain>(&TerrainCnt);
+	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 
 	//m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 0.f, 0.f));
 
@@ -55,7 +55,7 @@ HRESULT CTerrain::Render()
 	m_pRendererCom->Bind_Texture(0);
 	
 	m_pVIBufferCom->Render();
-	//m_pMeshCom->Render();
+	m_pMeshCom->Render();
 
 	m_pRendererCom->UnBind_Texture();
 
