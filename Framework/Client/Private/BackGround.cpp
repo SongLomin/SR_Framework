@@ -177,7 +177,7 @@ HRESULT CBackGround::SetUp_Components()
 	//약포인터: 원본 객체가 삭제되면 약포인터로 등록된 포인터들도 nullptr로 바뀐다.
 	//댕글링 포인터를 방지하기 위해 사용한다.
 
-	
+
 	CStatus::STATUS		Status;
 	Status.fHp = 10.f;
 	Status.fAttack = 7.f;
@@ -211,7 +211,7 @@ HRESULT CBackGround::SetUp_Components()
 	GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
 	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
 	GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
-	
+	CGameObject* CameraPosin = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
 
 	m_pCameraPosin = (CCameraPosin*)GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
 
@@ -241,6 +241,7 @@ void CBackGround::On_Change_Controller(const CONTROLLER& _IsAI)
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
+		m_pCameraPosin->Link_CameraTransfrom(TPS_Cam->Get_Component<CTransform>());
 	}
 }
 

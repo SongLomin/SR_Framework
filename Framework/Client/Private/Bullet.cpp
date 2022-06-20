@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "Bullet.h"
+#include "stdafx.h"
+#include "Bullet.h"
 #include "GameInstance.h"
 #include "CameraPosin.h"
 
@@ -29,8 +31,8 @@ HRESULT CBullet::Initialize(void* pArg)
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
 
-	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
-	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
+	m_pMeshCom = Add_Component<CMesh_Cube>();
+	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 
 	return S_OK;
 }
@@ -38,7 +40,7 @@ HRESULT CBullet::Initialize(void* pArg)
 void CBullet::Tick(_float fTimeDelta)
 {
 	m_pTransformCom->Go_BackAndForth(80.f, fTimeDelta);
-	m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK), 10.f,fTimeDelta);
+	m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK), 10.f, fTimeDelta);
 }
 
 void CBullet::LateTick(_float fTimeDelta)
@@ -53,7 +55,7 @@ HRESULT CBullet::Render()
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
-	m_pVIBufferCom->Render();
+	m_pMeshCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);

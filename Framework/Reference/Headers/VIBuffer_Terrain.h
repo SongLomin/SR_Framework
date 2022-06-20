@@ -10,6 +10,14 @@ private:
 	CVIBuffer_Terrain(const CVIBuffer_Terrain & Prototype);
 	virtual ~CVIBuffer_Terrain() = default;
 
+
+public:
+	virtual _uint3 Get_Indices(_uint iIndex) const {
+		return _uint3(((FACEINDICES16*)m_pIndices)[iIndex]._1,
+			((FACEINDICES16*)m_pIndices)[iIndex]._2,
+			((FACEINDICES16*)m_pIndices)[iIndex]._3);
+	}
+
 public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);

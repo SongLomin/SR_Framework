@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 
 
+
 CMonster::CMonster(const CMonster& Prototype)
 {
 	*this = Prototype;
@@ -12,7 +13,7 @@ CMonster::CMonster(const CMonster& Prototype)
 
 HRESULT CMonster::Initialize_Prototype()
 {
-    return S_OK;
+	return S_OK;
 }
 
 HRESULT CMonster::Initialize(void* pArg)
@@ -20,13 +21,13 @@ HRESULT CMonster::Initialize(void* pArg)
 	SetUp_Components();
 	m_pPlayerTransformCom = CGameInstance::Get_Instance()->Get_Player_GameObject()->Get_Component<CTransform>();
 	m_pPlayerTransformCom->Set_WeakPtr((void**)&m_pPlayerTransformCom);
-    return S_OK;
+	return S_OK;
 }
 
 void CMonster::Tick(_float fTimeDelta)
 {
-	ISVALID(m_pPlayerTransformCom,);
-	ISVALID(m_pTransformCom,);
+	ISVALID(m_pPlayerTransformCom, );
+	ISVALID(m_pTransformCom, );
 
 	m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
 	m_pTransformCom->Go_BackAndForth(2.5, fTimeDelta);
@@ -45,12 +46,12 @@ HRESULT CMonster::Render()
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
-	m_pVIBufferCom->Render();
+	m_pMeshCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
-    return S_OK;
+	return S_OK;
 }
 
 HRESULT CMonster::SetUp_Components()
@@ -67,8 +68,9 @@ HRESULT CMonster::SetUp_Components()
 	m_pRendererCom->Set_WeakPtr((void**)&m_pRendererCom);
 	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
 
-	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
-	m_pVIBufferCom->Set_WeakPtr((void**)&m_pVIBufferCom);
+
+	m_pMeshCom = Add_Component<CMesh_Cube>();
+	m_pMeshCom->Set_WeakPtr((void**)&m_pMeshCom);
 
 	/*CTransform::TRANSFORMDESC		TransformDesc;
 	TransformDesc.fSpeedPerSec = 2.5f;
@@ -76,8 +78,8 @@ HRESULT CMonster::SetUp_Components()
 
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
-	
-	
+
+
 
 	//Safe_Release(pGameInstance);
 	return S_OK;
@@ -95,7 +97,7 @@ CGameObject* CMonster::Clone(void* pArg)
 
 void CMonster::Free()
 {
-    __super::Free();
+	__super::Free();
 
-    delete this;
+	delete this;
 }

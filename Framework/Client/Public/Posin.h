@@ -4,7 +4,7 @@
 
 BEGIN(Engine)
 class CRenderer;
-class CVIBuffer_Rect;
+class CMesh_Cube;
 class CTransform;
 END
 
@@ -28,7 +28,7 @@ public:
 private:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
-    CVIBuffer_Rect* m_pVIBufferCom = nullptr;
+    CMesh_Cube* m_pMeshCom = nullptr;
 
 private:
     HRESULT SetUp_Components();
@@ -41,4 +41,5 @@ public:
 };
 
 END
+
 

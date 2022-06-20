@@ -5,8 +5,8 @@
 
 BEGIN(Engine)
 class CRenderer;
-class CVIBuffer_Rect;
 class CTransform;
+class CMesh_Cube;
 class CRigid_Body;
 END
 
@@ -30,7 +30,7 @@ public:
 private:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
-    CVIBuffer_Rect* m_pVIBufferCom = nullptr;
+    CMesh_Cube* m_pMeshCom = nullptr;
     CRigid_Body* m_pRigidBodyCom = nullptr;
 
     CTransform* m_pCameraPosinTransformCom = nullptr;

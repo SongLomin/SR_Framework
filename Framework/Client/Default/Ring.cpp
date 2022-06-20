@@ -27,19 +27,16 @@ HRESULT CRing::Initialize(void* pArg)
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
+	m_pMeshCom = Add_Component<CMesh_Cube>();
+	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 
-	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
-	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
-
-	
-	
 	return S_OK;
 }
 
 void CRing::Tick(_float fTimeDelta)
 {
 	m_pTransformCom->Go_BackAndForth(8.f, fTimeDelta);
-	m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 3.f,fTimeDelta);
+	m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 3.f, fTimeDelta);
 }
 
 void CRing::LateTick(_float fTimeDelta)
@@ -87,7 +84,7 @@ inline HRESULT CRing::SetUp_Components()
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
-	
+
 
 	return S_OK;
 }

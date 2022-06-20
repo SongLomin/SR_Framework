@@ -6,6 +6,7 @@
 #include "Monster.h"
 #include "Terrain.h"
 #include "Cam_Free.h"
+#include "UITest.h"
 
 CLevel_Logo::CLevel_Logo()
 {
@@ -15,6 +16,9 @@ CLevel_Logo::CLevel_Logo()
 HRESULT CLevel_Logo::Initialize()
 {
 	if (FAILED(__super::Initialize()))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CUITest>(LEVEL_LOGO, TEXT("UITest")))
 		return E_FAIL;
 
 	return S_OK;
