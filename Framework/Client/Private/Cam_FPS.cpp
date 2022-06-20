@@ -44,6 +44,8 @@ HRESULT CCam_FPS::Initialize(void* pArg)
 
 void CCam_FPS::Tick(_float fTimeDelta)
 {
+	m_pTransformCom->Update_WorldMatrix();
+
 	m_pTransformCom->LookAt(_float3(0.f, 1.f, 1.f));
 
 }

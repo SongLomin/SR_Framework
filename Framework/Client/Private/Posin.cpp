@@ -42,13 +42,15 @@ HRESULT CPosin::Initialize(void* pArg)
 
 void CPosin::Tick(_float fTimeDelta)
 {
+	m_pTransformCom->Update_WorldMatrix();
+
 	LookAt_CamTPS();
 
 	if (KEY_INPUT(KEY::CTRL, KEY_STATE::TAP))
 	{
 		CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CBullet>(CURRENT_LEVEL, TEXT("Bullet"));
 
-		((CBullet*)Bullet)->Link_CameraPosinTransform(m_pTransformCom);
+		((CBullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
 	}
 }
 
@@ -96,7 +98,7 @@ void CPosin::LookAt_CamTPS()
 	MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
 	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 1000.f);
 
-	m_pTransformCom->LookAt(MouseEndPos);
+	m_pTransformCom->LookAt(MouseEndPos, true);
 }
 
 

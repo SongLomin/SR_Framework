@@ -49,7 +49,7 @@ HRESULT CBackGround::Initialize(void* pArg)
 
 void CBackGround::Tick(_float fTimeDelta)
 {
-	
+	m_pTransformCom->Update_WorldMatrix();
 
 	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_DirZ(0.1f);

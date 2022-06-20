@@ -35,6 +35,8 @@ HRESULT CRing::Initialize(void* pArg)
 
 void CRing::Tick(_float fTimeDelta)
 {
+	m_pTransformCom->Update_WorldMatrix();
+
 	m_pTransformCom->Go_BackAndForth(8.f, fTimeDelta);
 	m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 3.f, fTimeDelta);
 }
@@ -69,7 +71,7 @@ inline HRESULT CRing::SetUp_Components()
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
 
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(-1.5f, 1.0f, 0.f));
+	//m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(-1.5f, 1.0f, 0.f));
 	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f));
 
 

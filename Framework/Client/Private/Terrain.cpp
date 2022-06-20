@@ -37,6 +37,7 @@ HRESULT CTerrain::Initialize(void* pArg)
 
 void CTerrain::Tick(_float fTimeDelta)
 {
+	m_pTransformCom->Update_WorldMatrix();
 }
 
 void CTerrain::LateTick(_float fTimeDelta)

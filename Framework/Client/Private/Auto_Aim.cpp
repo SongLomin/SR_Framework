@@ -33,6 +33,8 @@ HRESULT CAuto_Aim::Initialize(void* pArg)
 
 void CAuto_Aim::Tick(_float fTimeDelta)
 {
+	m_pTransformCom->Update_WorldMatrix();
+
 	if (KEY_INPUT(KEY::M, KEY_STATE::TAP))
 	{
 		m_bUse = !m_bUse;

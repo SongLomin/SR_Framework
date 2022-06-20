@@ -33,10 +33,10 @@ private:
     CMesh_Cube* m_pMeshCom = nullptr;
     CRigid_Body* m_pRigidBodyCom = nullptr;
 
-    CTransform* m_pCameraPosinTransformCom = nullptr;
+    CTransform* m_pPosinTransformCom = nullptr;
 
 public:
-    void Link_CameraPosinTransform(CTransform* pTransform);
+    void Link_PosinTransform(CTransform* pTransform);
 
 private:
     HRESULT SetUp_Components();

@@ -47,7 +47,7 @@ HRESULT CDummy::Initialize(void* pArg)
 
 void CDummy::Tick(_float fTimeDelta)
 {
-
+	m_pTransformCom->Update_WorldMatrix();
 }
 
 void CDummy::LateTick(_float fTimeDelta)

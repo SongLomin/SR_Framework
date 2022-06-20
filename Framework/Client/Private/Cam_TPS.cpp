@@ -51,6 +51,8 @@ HRESULT CCam_TPS::Initialize(void* pArg)
 
 void CCam_TPS::Tick(_float fTimeDelta)
 {
+	m_pTransformCom->Update_WorldMatrix();
+
 	if (GAMEINSTANCE->Get_Camera(CURRENT_CAMERA) == m_pCameraCom)
 	{
 		m_CurCursorPosition = Get_MousePos(GAMEINSTANCE->Get_Window_Handle());

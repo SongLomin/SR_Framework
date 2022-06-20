@@ -35,25 +35,8 @@ HRESULT CCam_Free::Initialize(void* pArg)
 
 void CCam_Free::Tick(_float fTimeDelta)
 {
-	/*if (GetKeyState('W') & 0x8000)
-	{
-		m_pTransformCom->Go_Straight(fTimeDelta);
-	}
 
-	if (GetKeyState('S') & 0x8000)
-	{
-		m_pTransformCom->Go_Backward(fTimeDelta);
-	}
-
-	if (GetKeyState('A') & 0x8000)
-	{
-		m_pTransformCom->Go_Left(fTimeDelta);
-	}
-
-	if (GetKeyState('D') & 0x8000)
-	{
-		m_pTransformCom->Go_Right(fTimeDelta);
-	}*/
+	m_pTransformCom->Update_WorldMatrix();
 
 	if (FAILED(m_pCameraCom->Bind_PipeLine()))
 		return;

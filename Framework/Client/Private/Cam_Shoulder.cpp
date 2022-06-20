@@ -46,6 +46,8 @@ HRESULT CCam_Shoulder::Initialize(void* pArg)
 
 void CCam_Shoulder::Tick(_float fTimeDelta)
 {
+	m_pTransformCom->Update_WorldMatrix();
+
 	if (GAMEINSTANCE->Get_Camera(CURRENT_CAMERA) == m_pCameraCom)
 	{
 		_float3 pos = m_pTransformCom->Get_State(CTransform::STATE_POSITION);
