@@ -39,6 +39,7 @@ private:
 
 	bool m_bUse = false;
 
+	list<CGameObject*>* m_pTargetList;
 public:
 	static CAuto_Aim* Create();
 	virtual CGameObject* Clone(void* pArg) override;

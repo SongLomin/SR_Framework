@@ -40,28 +40,60 @@ void CAuto_Aim::Tick(_float fTimeDelta)
 		m_bUse = !m_bUse;
 	}
 
-
 	if (m_bUse)
 	{
-		list<CGameObject*>* Monster = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster"));
+		CTransform* CameraTransform = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform();
 
-		ISVALID(Monster, );
+		m_pTargetList = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster"));
 
-		_float4x4 MyWorldMat = Monster->front()->Get_Component<CTransform>()->Get_WorldMatrix();
-		_float3 MyPos{ MyWorldMat._41, MyWorldMat._42, MyWorldMat._43 };
+		_float3 MonsterPos = m_pTargetList->front()->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
 
-		_float3 MyScreenPos;
+		_float3 CameraPos = CameraTransform->Get_World_State(CTransform::STATE_POSITION);
 
-		CMath_Utillity::WorldToScreen(&MyPos, &MyScreenPos);
+		//_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 
-		_point MousePos{ (int)MyScreenPos.x, (int)MyScreenPos.y };
+		RAY MouseRay = CMath_Utillity::Get_MouseRayInWorldSpace();
 
-		//Win32 좌표계
-		//Win32에선 이걸 클라이언트 좌표라고 주장함... 바보들...
-		ClientToScreen(g_hWnd, &MousePos);
+		_float3 MonsterRay = MonsterPos - MouseRay.Pos;
 
-		SetCursorPos(MousePos.x, MousePos.y);
+		_float f = D3DXVec3Dot(&MouseRay.Dir, &MonsterRay);
+
+		if (f > 0.f)
+		{
+			_float3 Star = f * MouseRay.Dir;
+
+			Star += MouseRay.Pos;
+
+			_float3 Lenght = MonsterPos - Star;
+
+			_float Range = D3DXVec3Length(&Lenght);
+
+
+
+			if (Range < 10.f)
+			{
+				list<CGameObject*>* Monster = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster"));
+
+				ISVALID(Monster, );
+
+				_float4x4 MyWorldMat = Monster->front()->Get_Component<CTransform>()->Get_WorldMatrix();
+				_float3 MyPos{ MyWorldMat._41, MyWorldMat._42, MyWorldMat._43 };
+
+				_float3 MyScreenPos;
+
+				CMath_Utillity::WorldToScreen(&MyPos, &MyScreenPos);
+
+				_point MousePos{ (int)MyScreenPos.x, (int)MyScreenPos.y };
+
+				//Win32 좌표계
+				//Win32에선 이걸 클라이언트 좌표라고 주장함... 바보들...
+				ClientToScreen(g_hWnd, &MousePos);
+
+				SetCursorPos(MousePos.x, MousePos.y);
+			}
+		}
 	}
+
 }
 
 void CAuto_Aim::LateTick(_float fTimeDelta)
