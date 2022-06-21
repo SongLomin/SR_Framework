@@ -64,6 +64,100 @@ namespace Engine
 
 	}RAY;
 
+	typedef struct tagOBBBoxInfo
+	{
+		//OBB박스의 중점(오브젝트의 정 가운데가 되어야 함)
+		D3DXVECTOR3 ObbCenterPos;
+
+		// 각 축과 평행한 버텍스의 길이
+		D3DXVECTOR3 ObbSize;
+
+		// 각 버텍스들의 월드상의 좌표
+		D3DXVECTOR3 tVertex[8];
+
+		//로컬 축
+		D3DXVECTOR3 LocalAxis[3];
+
+		//로컬축을 행렬변환에 맞춰 만든 월드기준의 축 = 6개의 면중 겹치지 않는 3면에 대한 법선벡터
+		D3DXVECTOR3 WorldAxis[3];
+
+		tagOBBBoxInfo()
+		{
+			ObbCenterPos = { 0, 0, 0 };
+			ObbSize = { 0, 0, 0 };
+			LocalAxis[0] = { 1, 0, 0 };
+			LocalAxis[1] = { 0, 1, 0 };
+			LocalAxis[2] = { 0, 0, 1 };
+		}
+
+		tagOBBBoxInfo(D3DXVECTOR3& size)
+		{
+			ObbSize = size;
+			LocalAxis[0] = { 1, 0, 0 };
+			LocalAxis[1] = { 0, 1, 0 };
+			LocalAxis[2] = { 0, 0, 1 };
+		}
+
+		void SetSize(const D3DXVECTOR3& size)
+		{
+			ObbSize = size;
+
+
+			tVertex[0] = { 0 - (ObbSize.x), 0 + (ObbSize.y), 0 - (ObbSize.z) };
+			tVertex[1] = { 0 + (ObbSize.x), 0 + (ObbSize.y), 0 - (ObbSize.z) };
+			tVertex[2] = { 0 + (ObbSize.x), 0 - (ObbSize.y), 0 - (ObbSize.z) };
+			tVertex[3] = { 0 - (ObbSize.x), 0 - (ObbSize.y), 0 - (ObbSize.z) };
+
+			//4-7 -> z < 0, 시계(축 반전시 반시계)
+			tVertex[4] = { 0 - (ObbSize.x), 0 + (ObbSize.y), 0 + (ObbSize.z) };
+			tVertex[5] = { 0 + (ObbSize.x), 0 + (ObbSize.y), 0 + (ObbSize.z) };
+			tVertex[6] = { 0 + (ObbSize.x), 0 - (ObbSize.y), 0 + (ObbSize.z) };
+			tVertex[7] = { 0 - (ObbSize.x), 0 - (ObbSize.y), 0 + (ObbSize.z) };
+		}
+
+		void SetMatrix(D3DXMATRIX* pmatWorld)
+		{
+			ObbCenterPos.x = pmatWorld->_41;
+			ObbCenterPos.y = pmatWorld->_42;
+			ObbCenterPos.z = pmatWorld->_43;
+
+			for (int i = 0; i < 3; ++i)
+			{
+				WorldAxis[i] = LocalAxis[i];
+				D3DXVec3TransformNormal(&WorldAxis[i], &WorldAxis[i], pmatWorld);
+			}
+
+			tVertex[0] = { 0 - (ObbSize.x), 0 + (ObbSize.y), 0 - (ObbSize.z) };
+			tVertex[1] = { 0 + (ObbSize.x), 0 + (ObbSize.y), 0 - (ObbSize.z) };
+			tVertex[2] = { 0 + (ObbSize.x), 0 - (ObbSize.y), 0 - (ObbSize.z) };
+			tVertex[3] = { 0 - (ObbSize.x), 0 - (ObbSize.y), 0 - (ObbSize.z) };
+
+			//4-7 -> z < 0, 시계(축 반전시 반시계)
+			tVertex[4] = { 0 - (ObbSize.x), 0 + (ObbSize.y), 0 + (ObbSize.z) };
+			tVertex[5] = { 0 + (ObbSize.x), 0 + (ObbSize.y), 0 + (ObbSize.z) };
+			tVertex[6] = { 0 + (ObbSize.x), 0 - (ObbSize.y), 0 + (ObbSize.z) };
+			tVertex[7] = { 0 - (ObbSize.x), 0 - (ObbSize.y), 0 + (ObbSize.z) };
+
+			//로컬 정점 8개 월드화
+			for (int i = 0; i < 8; ++i)
+			{
+				D3DXVec3TransformCoord(&tVertex[i], &tVertex[i], pmatWorld);
+			}
+		}
+
+	}OBBINFO;
+
+	union COLLIDER_ID
+	{
+		struct
+		{
+			UINT Left_id;
+			UINT Right_id;
+		};
+		ULONGLONG ID;
+
+	};
+
 
 	enum class RENDERGROUP { RENDER_PRIORITY = 0, RENDER_NONALPHABLEND, RENDER_ALPHABLEND, RENDER_UI, RENDER_END };
 
@@ -108,4 +202,42 @@ namespace Engine
 	enum class CONTROLLER {PLAYER = 0, AI, CONTROLLER_END};
 
 	enum class MATRIX_STATE { RIGHT, UP, LOOK, POSITION, STATE_END };
+
+	enum class COLLISION_TYPE
+	{
+		DEFAULT = 0,
+		PLAYER,
+		PLAYER_ATTACK,
+		MONSTER,
+		MONSTER_ATTACK,
+		EFFECTS,
+		SIGHT,
+		RANGE,
+		CAMERA,
+		MOUSE,
+		TYPE_END
+	};
+
+	enum class COLLIDER_SHAPE
+	{
+		SPHERE = 0,
+		OBB,
+		SHAPE_END
+	};
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
 }

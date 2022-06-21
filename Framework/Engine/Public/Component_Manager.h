@@ -14,6 +14,8 @@
 #include "Status.h"
 #include "Font.h"
 #include "Rigid_Body.h"
+#include "Collider.h"
+#include "Collider_OBB.h"
 
 BEGIN(Engine)
 

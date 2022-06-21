@@ -47,6 +47,8 @@ void CAuto_Aim::Tick(_float fTimeDelta)
 
 		ISVALID(Monster, );
 
+		//몬스터랑 거리 비교가 끝나고, 몬스터 좌표에 마우스를 붙이는 코드
+		//거리 비교가 성공했다는 가정
 		_float4x4 MyWorldMat = Monster->front()->Get_Component<CTransform>()->Get_WorldMatrix();
 		_float3 MyPos{ MyWorldMat._41, MyWorldMat._42, MyWorldMat._43 };
 
@@ -56,8 +58,7 @@ void CAuto_Aim::Tick(_float fTimeDelta)
 
 		_point MousePos{ (int)MyScreenPos.x, (int)MyScreenPos.y };
 
-		//Win32 좌표계
-		//Win32에선 이걸 클라이언트 좌표라고 주장함... 바보들...
+		//Win32 좌표계 변환
 		ClientToScreen(g_hWnd, &MousePos);
 
 		SetCursorPos(MousePos.x, MousePos.y);

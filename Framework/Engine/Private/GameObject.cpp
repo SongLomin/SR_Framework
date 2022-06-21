@@ -54,3 +54,15 @@ void CGameObject::On_Change_Controller(const CONTROLLER& _IsAI)
 {
 	//do nothing.
 }
+
+void CGameObject::On_Collision_Enter(CCollider* _Other_Collider)
+{
+}
+
+void CGameObject::On_Collision_Stay(CCollider* _Other_Collider)
+{
+}
+
+void CGameObject::On_Collision_Exit(CCollider* _Other_Collider)
+{
+}

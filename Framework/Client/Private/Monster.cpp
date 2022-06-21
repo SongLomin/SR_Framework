@@ -31,6 +31,7 @@ void CMonster::Tick(_float fTimeDelta)
 	ISVALID(m_pTransformCom, );
 
 	m_pTransformCom->Update_WorldMatrix();
+	m_pCColliderCom->Tick(fTimeDelta);
 
 	m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
 	m_pTransformCom->Go_BackAndForth(2.5, fTimeDelta);
@@ -94,7 +95,9 @@ HRESULT CMonster::SetUp_Components()
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
 
-
+	m_pCColliderCom = Add_Component<CCollider_OBB>();
+	m_pCColliderCom->Set_WeakPtr(&m_pCColliderCom);
+	m_pCColliderCom->Link_Transform(m_pTransformCom);
 
 	//Safe_Release(pGameInstance);
 	return S_OK;

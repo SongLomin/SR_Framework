@@ -76,12 +76,6 @@
     <Filter Include="01.Utility\03.Components\00. Model\VIBuffer">
       <UniqueIdentifier>{14e1e29b-5f0f-45a6-b390-0732db21f5cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Utility\03.Components\00. Model\Rect">
-      <UniqueIdentifier>{9bbfb4c2-f50e-4feb-b393-a311f3b0b406}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01.Utility\03.Components\00. Model\Terrain">
-      <UniqueIdentifier>{d3cc4939-75f0-4532-bc74-61b9e76f472a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Utility\03.Components\01. Renderer">
       <UniqueIdentifier>{ab7714b5-eee9-4739-98c1-a11b37af4394}</UniqueIdentifier>
     </Filter>
@@ -100,17 +94,11 @@
     <Filter Include="01.Utility\03.Components\00. Model\Mesh">
       <UniqueIdentifier>{5dcfe90f-c1ce-40b1-ace7-176812048b65}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Utility\03.Components\00. Model\Mesh_Cube">
-      <UniqueIdentifier>{5a1452ed-fd54-415b-82d3-7a432f420cfc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Utility\03.Components\06. Rigid_Body">
       <UniqueIdentifier>{4eceaa67-6893-4444-adae-f14905ce8a8e}</UniqueIdentifier>
     </Filter>
     <Filter Include="01.Utility\04.Manager\06. Input_Manager">
       <UniqueIdentifier>{6054f646-e3eb-4fae-98ed-b8fb372e4815}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01.Utility\03.Components\00. Model\Cube">
-      <UniqueIdentifier>{e75f994b-3174-4fe1-986a-ec875abbc036}</UniqueIdentifier>
     </Filter>
     <Filter Include="01.Utility\04.Manager\07. Camera_Manager">
       <UniqueIdentifier>{6daeb880-eedd-419f-bd71-e44b47ad773a}</UniqueIdentifier>
@@ -124,11 +112,32 @@
     <Filter Include="05.Picking">
       <UniqueIdentifier>{89700394-3094-4d7d-9623-87ccf4bd784d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Utility\03.Components\00. Model\Mesh_Terrain">
-      <UniqueIdentifier>{af6912cf-7f5b-4f81-97fb-129bd74978b0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Utility\04.Manager\08. Render_Manager">
       <UniqueIdentifier>{4641f8f5-e445-449e-bd39-fd459d8db911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\04.Manager\09. Collision_Manager">
+      <UniqueIdentifier>{408120a8-dca3-4566-ab48-48857d3238d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\07. Collider">
+      <UniqueIdentifier>{89397d9d-4f76-41c1-935f-53b69873dab1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\Mesh\Mesh_Terrain">
+      <UniqueIdentifier>{af6912cf-7f5b-4f81-97fb-129bd74978b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\Mesh\Mesh_Cube">
+      <UniqueIdentifier>{5a1452ed-fd54-415b-82d3-7a432f420cfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\VIBuffer\Terrain">
+      <UniqueIdentifier>{d3cc4939-75f0-4532-bc74-61b9e76f472a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\VIBuffer\Rect">
+      <UniqueIdentifier>{9bbfb4c2-f50e-4feb-b393-a311f3b0b406}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\VIBuffer\Cube">
+      <UniqueIdentifier>{e75f994b-3174-4fe1-986a-ec875abbc036}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\07. Collider\00. Collider_OBB">
+      <UniqueIdentifier>{14405e89-68e0-4ca9-a15f-f969a731b894}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -187,7 +196,7 @@
       <Filter>01.Utility\03.Components\00. Model\VIBuffer</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\VIBuffer_Rect.h">
-      <Filter>01.Utility\03.Components\00. Model\Rect</Filter>
+      <Filter>01.Utility\03.Components\00. Model\VIBuffer\Rect</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Render_Manager.h">
       <Filter>01.Utility\04.Manager\08. Render_Manager</Filter>
@@ -208,7 +217,7 @@
       <Filter>01.Utility\04.Manager\05. Time_Manager\00. Timer</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\VIBuffer_Terrain.h">
-      <Filter>01.Utility\03.Components\00. Model\Terrain</Filter>
+      <Filter>01.Utility\03.Components\00. Model\VIBuffer\Terrain</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Camera.h">
       <Filter>01.Utility\03.Components\03. Camera</Filter>
@@ -220,7 +229,7 @@
       <Filter>01.Utility\03.Components\05. Font</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Mesh_Cube.h">
-      <Filter>01.Utility\03.Components\00. Model\Mesh_Cube</Filter>
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_Cube</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Mesh.h">
       <Filter>01.Utility\03.Components\00. Model\Mesh</Filter>
@@ -235,16 +244,25 @@
       <Filter>05.Picking</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\VIBuffer_Cube.h">
-      <Filter>01.Utility\03.Components\00. Model\Cube</Filter>
+      <Filter>01.Utility\03.Components\00. Model\VIBuffer\Cube</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Mesh_Terrain.h">
-      <Filter>01.Utility\03.Components\00. Model\Mesh_Terrain</Filter>
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_Terrain</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Camera_Manager.h">
       <Filter>01.Utility\04.Manager\07. Camera_Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Math_Utillity.h">
       <Filter>01.Utility\99.SuperClass\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Collision_Manager.h">
+      <Filter>01.Utility\04.Manager\09. Collision_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Collider.h">
+      <Filter>01.Utility\03.Components\07. Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Collider_OBB.h">
+      <Filter>01.Utility\03.Components\07. Collider\00. Collider_OBB</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -285,7 +303,7 @@
       <Filter>01.Utility\03.Components\00. Model\VIBuffer</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\VIBuffer_Rect.cpp">
-      <Filter>01.Utility\03.Components\00. Model\Rect</Filter>
+      <Filter>01.Utility\03.Components\00. Model\VIBuffer\Rect</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Render_Manager.cpp">
       <Filter>01.Utility\04.Manager\08. Render_Manager</Filter>
@@ -306,7 +324,7 @@
       <Filter>01.Utility\04.Manager\05. Time_Manager\00. Timer</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\VIBuffer_Terrain.cpp">
-      <Filter>01.Utility\03.Components\00. Model\Terrain</Filter>
+      <Filter>01.Utility\03.Components\00. Model\VIBuffer\Terrain</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Camera.cpp">
       <Filter>01.Utility\03.Components\03. Camera</Filter>
@@ -318,7 +336,7 @@
       <Filter>01.Utility\03.Components\05. Font</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Mesh_Cube.cpp">
-      <Filter>01.Utility\03.Components\00. Model\Mesh_Cube</Filter>
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_Cube</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Mesh.cpp">
       <Filter>01.Utility\03.Components\00. Model\Mesh</Filter>
@@ -333,16 +351,25 @@
       <Filter>05.Picking</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\VIBuffer_Cube.cpp">
-      <Filter>01.Utility\03.Components\00. Model\Cube</Filter>
+      <Filter>01.Utility\03.Components\00. Model\VIBuffer\Cube</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Mesh_Terrain.cpp">
-      <Filter>01.Utility\03.Components\00. Model\Mesh_Terrain</Filter>
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_Terrain</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Camera_Manager.cpp">
       <Filter>01.Utility\04.Manager\07. Camera_Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Math_Utillity.cpp">
       <Filter>01.Utility\99.SuperClass\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Collision_Manager.cpp">
+      <Filter>01.Utility\04.Manager\09. Collision_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Collider.cpp">
+      <Filter>01.Utility\03.Components\07. Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Collider_OBB.cpp">
+      <Filter>01.Utility\03.Components\07. Collider\00. Collider_OBB</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

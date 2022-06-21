@@ -13,6 +13,7 @@ CGameInstance::CGameInstance()
 	, m_pTime_Manager(CTime_Manager::Get_Instance())
 	, m_pInput_Manager(CInput_Manager::Get_Instance())
 	, m_pCamera_Manager(CCamera_Manager::Get_Instance())
+	, m_pCollision_Manager(CCollision_Manager::Get_Instance())
 {
 	//Safe_AddRef(m_pComponent_Manager);
 	//Safe_AddRef(m_pObject_Manager);
@@ -321,6 +322,8 @@ void CGameInstance::Release_Engine()
 	CGameInstance::Get_Instance()->Destroy_Instance();
 
 	CCamera_Manager::Get_Instance()->Destroy_Instance();
+
+	CCollision_Manager::Get_Instance()->Destroy_Instance();
 }
 
 void CGameInstance::Free()

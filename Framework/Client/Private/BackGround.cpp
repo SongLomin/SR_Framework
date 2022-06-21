@@ -43,6 +43,16 @@ HRESULT CBackGround::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
+
+	GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
+
+	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
+		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
+
+	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
+		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
+
+	GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
 	
 	return S_OK;
 }
@@ -50,6 +60,7 @@ HRESULT CBackGround::Initialize(void* pArg)
 void CBackGround::Tick(_float fTimeDelta)
 {
 	m_pTransformCom->Update_WorldMatrix();
+	m_pCColliderCom->Tick(fTimeDelta);
 
 	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_DirZ(0.1f);
@@ -203,15 +214,13 @@ HRESULT CBackGround::SetUp_Components()
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
-	GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
+	m_pCColliderCom = Add_Component<CCollider_OBB>();
+	m_pCColliderCom->Set_WeakPtr(&m_pCColliderCom);
+	m_pCColliderCom->Link_Transform(m_pTransformCom);
 
-	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
-		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
 
-	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
-		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
 
-	GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
+	
 	//CGameObject* CameraPosin = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);	
 	//m_pCameraPosin = (CCameraPosin*)GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
 	
@@ -233,6 +242,21 @@ void CBackGround::On_Change_Controller(const CONTROLLER& _IsAI)
 		//if(m_pCameraPosin)
 		//	m_pCameraPosin->Link_CameraTransfrom(GAMEINSTANCE->Get_Camera(TEXT("TPS"))->Get_Owner()->Get_Component<CTransform>());
 	}
+}
+
+void CBackGround::On_Collision_Enter(CCollider* _Other_Collider)
+{
+	int i = 0;
+}
+
+void CBackGround::On_Collision_Stay(CCollider* _Other_Collider)
+{
+
+}
+
+void CBackGround::On_Collision_Exit(CCollider* _Other_Collider)
+{
+	int i = 0;
 }
 
 

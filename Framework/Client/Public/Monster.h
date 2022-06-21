@@ -29,7 +29,9 @@ private:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
     CMesh_Cube* m_pMeshCom = nullptr;
+    CCollider_OBB* m_pCColliderCom = nullptr;
 
+private:
     CTransform* m_pPlayerTransformCom = nullptr;
 
 private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */

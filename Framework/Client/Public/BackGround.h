@@ -34,6 +34,7 @@ private:
 	CMesh_Cube*				m_pMeshCubeCom = nullptr;
 	CStatus*				m_pStatusCom = nullptr;
 	CRigid_Body*			m_pRigidBodyCom = nullptr;
+	CCollider_OBB*			m_pCColliderCom = nullptr;
 
 private:
 	CCameraPosin*           m_pCameraPosin = nullptr;
@@ -41,9 +42,13 @@ private:
 
 	_uint					m_iCurrentCam = 0;
 
-protected: /* 이벤트 함수들 정의 */
+protected: /* For Event Function */
 	virtual void On_Change_Controller(const CONTROLLER& _IsAI) override;
 
+public: /* For Event Function */
+	virtual void On_Collision_Enter(CCollider* _Other_Collider) override;
+	virtual void On_Collision_Stay(CCollider* _Other_Collider) override;
+	virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
 
 private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 	HRESULT SetUp_Components();

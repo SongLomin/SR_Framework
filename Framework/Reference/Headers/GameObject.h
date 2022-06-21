@@ -4,6 +4,8 @@
 
 BEGIN(Engine)
 
+class CCollider;
+
 class ENGINE_DLL CGameObject abstract : public CBase
 {
 protected:
@@ -22,8 +24,13 @@ public:
 	void Set_Controller(const CONTROLLER& _eController);
 	CONTROLLER Get_Controller() { return m_eController; };
 
-protected:
+protected: 
 	virtual void On_Change_Controller(const CONTROLLER& _eController);
+
+public: /* For Event Function */
+	virtual void On_Collision_Enter(CCollider* _Other_Collider);
+	virtual void On_Collision_Stay(CCollider* _Other_Collider);
+	virtual void On_Collision_Exit(CCollider* _Other_Collider);
 
 protected:
 	map<const _char*, class CComponent*> m_pComs;
