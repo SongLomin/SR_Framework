@@ -115,8 +115,6 @@ void CEnemySpace_Body::MoveMent(_float fTimeDelta)
 		m_pRigidBodyCom->Add_Jump();
 	}
 
-
-
 	if (m_fCountTime < 0.f)
 	{
 		m_bMoveMentCheck = false;
@@ -125,12 +123,11 @@ void CEnemySpace_Body::MoveMent(_float fTimeDelta)
 
 void CEnemySpace_Body::MoveMent1(_float fTimeDelta)
 {
-
-
 	if (m_bMoveMentCheck)
 	{
 		m_pRigidBodyCom->Add_Jump();
-		m_pRigidBodyCom->Add_RotationZ(1.0f);
+		m_pRigidBodyCom->Add_RotationZ(0.1f);
+		m_pRigidBodyCom->Add_DirZ(0.1f);
 	}
 
 	if (m_fCountTime < 0.f)
@@ -145,7 +142,7 @@ void CEnemySpace_Body::MoveMent2(_float fTimeDelta)
 	if (m_bMoveMentCheck)
 	{
 		m_pRigidBodyCom->Add_DirZ(0.1f);
-	//	m_pRigidBodyCom->Minus_Jump();
+		m_pRigidBodyCom->Add_Jump();
 
 	}
 
@@ -159,7 +156,7 @@ void CEnemySpace_Body::MoveMent3(_float fTimeDelta)
 {
 	if (m_bMoveMentCheck)
 	{
-		m_pRigidBodyCom->Add_DirZ(0.1f);
+		m_pRigidBodyCom->Add_RotationX(0.1f);
 		m_pRigidBodyCom->Add_Jump();
 	}
 
@@ -172,6 +169,7 @@ void CEnemySpace_Body::MoveMent3(_float fTimeDelta)
 void CEnemySpace_Body::MoveMent4(_float fTimeDelta)
 {
 	m_pRigidBodyCom->Add_DirZ(3.f);
+	m_pRigidBodyCom->Add_Jump();
 }
 
 void CEnemySpace_Body::MoveMentChange(_float fTimeDelta)
@@ -181,7 +179,7 @@ void CEnemySpace_Body::MoveMentChange(_float fTimeDelta)
 	if (m_fCountTime < 0.f) // ½Ã°£ ³Ö¾îÁà¾ßµÊ
 	{
 
-		_uint iState = rand() % CEnemySpace_Body::MOVEMENT_4;
+		_uint iState = rand() % CEnemySpace_Body::MOVEMENT_END;
 		m_eCurMovement = (CEnemySpace_Body::STATE)iState;
 		m_bMoveMentCheck = true;
 
@@ -202,6 +200,9 @@ void CEnemySpace_Body::MoveMentChange(_float fTimeDelta)
 		break;
 	case CEnemySpace_Body::MOVEMENT_3:
 		MoveMent3(fTimeDelta);
+		break;
+	case CEnemySpace_Body::MOVEMENT_4:
+		MoveMent4(fTimeDelta);
 		break;
 	}
 
