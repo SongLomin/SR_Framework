@@ -6,23 +6,17 @@ BEGIN(Engine)
 
 class CTransform;
 
-class ENGINE_DLL CRigid_Body final : public CComponent
+class ENGINE_DLL CRigidBody final : public CComponent
 {
 public:
-	enum Func { LEFT,RIGHT,FRONT,BACK,JUMP,LIFT };
+	enum Func{ LEFT,RIGHT,FRONT,BACK,JUMP,LIFT};
 
 	typedef struct tagRigidbodyDesc
 	{
 		_float		m_fOwnerSpeed;
 		_float		m_fOwnerAccel;
 		_float		m_fOwnerRadSpeed;
-		_float		m_fOwnerRadAccel;
-
 		_float		m_fOwnerLiftSpeed;
-		_float		m_fOwnerLiftAccel;
-
-		_float		m_fOwnerJump;
-		_float		m_fOwnerJumpScale;
 
 		_float		m_fFrictional;
 		_float		m_fRadFrictional;
@@ -34,9 +28,9 @@ public:
 	}RIGIDBODYDESC;
 
 private:
-	CRigid_Body();
-	CRigid_Body(const CRigid_Body& Prototype);
-	virtual ~CRigid_Body() = default;
+	CRigidBody();
+	CRigidBody(const CRigidBody& Prototype);
+	virtual ~CRigidBody() = default;
 
 public:
 	virtual HRESULT		Initialize_Prototype();
@@ -46,30 +40,22 @@ public:
 public:
 	void		Add_Dir(Func Dir);
 
-	void		Update_Transform(_float fTimeDelta);
-
 private:
 	void		Compute_Force();
 
 	void		Compute_Dir();
 	void		Compute_Rotation();
-
 	void		Compute_RotDirection();//비행기 회전용
+	void		Compute_Jump();
 	void		Compute_Lift();
 
-	void		Compute_Jump();
 	void		Friction();//마찰력
 
-	void		Compute_Ground();
+	void		Move();
 
-	
 
-	void		Move(_float fTimeDelta);
-	void		Turn(_float fTimeDelta);
-	void		SubTurn();
-		
+	void		Update_Transform(_float fTimeDelta);
 
-	
 private:
 	CTransform*		m_pTransform;
 
@@ -88,8 +74,8 @@ private:
 
 	_float3		m_vSpeed;
 	_float3		m_vAccel;
-	_float		m_fJump;//점프할 때 이용
-
+	_float3		m_vJump;//점프할 때 이용
+	
 	_float		m_fRadAccelY = 0;//Y축 기준, 
 	_float		m_fRadSpeedY = 0;
 
@@ -108,8 +94,10 @@ private:
 	_float		m_fLiftSpeed = 0;
 
 
+
+
 public:
-	static CRigid_Body*		Create();
+	static CRigidBody*		Create();
 	virtual CComponent*		Clone(void* pArg) override;
 	virtual void Free() override;
 };

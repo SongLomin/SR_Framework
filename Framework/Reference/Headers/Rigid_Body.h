@@ -6,14 +6,23 @@ BEGIN(Engine)
 
 class CTransform;
 
-class ENGINE_DLL CRigid_Body final: public CComponent
+class ENGINE_DLL CRigid_Body final : public CComponent
 {
 public:
+	enum Func { LEFT,RIGHT,FRONT,BACK,JUMP,LIFT };
+
 	typedef struct tagRigidbodyDesc
 	{
 		_float		m_fOwnerSpeed;
+		_float		m_fOwnerAccel;
 		_float		m_fOwnerRadSpeed;
+		_float		m_fOwnerRadAccel;
+
 		_float		m_fOwnerLiftSpeed;
+		_float		m_fOwnerLiftAccel;
+
+		_float		m_fOwnerJump;
+		_float		m_fOwnerJumpScale;
 
 		_float		m_fFrictional;
 		_float		m_fRadFrictional;
@@ -35,17 +44,8 @@ public:
 	void	Link_TransformCom(CTransform* _pTransform);
 
 public:
-	void		Add_DirZ(_float vAccel);
-	void		Add_DirY(_float vAccel);
-	void		Add_DirX(_float vAccel);
+	void		Add_Dir(Func Dir);
 
-	void		Add_RotationY(_float fRadAccel);
-	void		Add_RotationX(_float fRadAccel);
-	void		Add_RotationZ(_float fRadAccel);
-
-	void		Add_Lift(_float fLiftAccel);
-
-	void		Add_Jump();
 	void		Update_Transform(_float fTimeDelta);
 
 private:
@@ -53,48 +53,65 @@ private:
 
 	void		Compute_Dir();
 	void		Compute_Rotation();
+
 	void		Compute_RotDirection();//비행기 회전용
+	void		Compute_Lift();
+
 	void		Compute_Jump();
-	void		Compute_Lift(); 
+	void		Friction();//마찰력
 
+	void		Compute_Ground();
 
+	
+
+	void		Move(_float fTimeDelta);
+	void		Turn(_float fTimeDelta);
+	void		SubTurn();
+		
+
+	
 private:
 	CTransform*		m_pTransform;
 
 private:
 	RIGIDBODYDESC	m_RigidbodyDesc;
 
-	//내부 계산
-	_float		m_fSpeedZ=0;
-	_float		m_fAccelZ=0;
+	_float3		m_vLook;
+	_float3		m_vUp;
+	_float3		m_vRight;
 
-	_float		m_fSpeedY= 0;
-	_float		m_fAccelY= 0;
+	_float3		m_vPos;
 
-	_float		m_fSpeedX = 0;
-	_float		m_fAccelX = 0;
+	_float3		m_vSubLook;
+	_float3		m_vSubUp;
+	_float3		m_vSubRight;
 
-	_float		m_fRadAccelY=0;//Y축 기준
-	_float		m_fRadSpeedY=0;
+	_float3		m_vSpeed;
+	_float3		m_vAccel;
+	_float		m_fJump;//점프할 때 이용
 
-	_float		m_fRadAccelX= 0;
-	_float		m_fRadSpeedX= 0;
+	_float		m_fRadAccelY = 0;//Y축 기준, 
+	_float		m_fRadSpeedY = 0;
+
+	_float		m_fRadAccelX = 0;
+	_float		m_fRadSpeedX = 0;
 
 	_float		m_fRadAccelZ = 0;
 	_float		m_fRadSpeedZ = 0;
 
+	_bool		m_bJump = false;
+	_bool		m_bLift = false;
+
+
+
 	_float		m_fLiftAccel = 0;
 	_float		m_fLiftSpeed = 0;
 
-	_float		m_fJump = 0;
-	bool		m_bJump = false;
-	bool		m_bLift = false;
-	
+
 public:
 	static CRigid_Body*		Create();
 	virtual CComponent*		Clone(void* pArg) override;
 	virtual void Free() override;
-
 };
 
 END
