@@ -8,6 +8,7 @@ class CRenderer;
 class CMesh_Cube;
 class CTransform;
 class CRigid_Body;
+class CState;
 END
 
 
@@ -35,6 +36,7 @@ private:
     CMesh_Cube* m_pMeshCom = nullptr;
     CTransform* m_pPlayerTransformCom = nullptr;
     CRigid_Body* m_pRigidBodyCom = nullptr;
+    CState*      m_pStateCom = nullptr;
 
 private:
     _float	 m_fCountTime = 0.f;

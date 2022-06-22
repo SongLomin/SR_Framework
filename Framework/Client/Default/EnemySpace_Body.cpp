@@ -37,14 +37,19 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 
 	m_pTransformCom->Update_WorldMatrix();
 
-	if (!m_bMoveMentCheck)
+	/*if (!m_bMoveMentCheck)
 	{
 		MoveMent5(fTimeDelta);
 	}
 
-	MoveMentChange(fTimeDelta);
+	MoveMentChange(fTimeDelta);*/
 
-	
+  	if (!m_bMoveMentCheck)
+	{
+		m_pStateCom->State_Start(0.1f);
+	}
+
+	m_pStateCom->State_Change(0.1f, m_fCountTime, m_bMoveMentCheck);
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 
@@ -96,6 +101,12 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
+
+	// ==========================================
+	m_pStateCom = Add_Component<CState>();
+	m_pStateCom->Set_WeakPtr(&m_pStateCom);
+	m_pStateCom->Link_RigidBodyCom(m_pRigidBodyCom);
+	// ==========================================
 
 	GAMEINSTANCE->Add_GameObject<CEnemySpace_RightBody>(CURRENT_LEVEL, TEXT("EnemySpace_RightBody"), m_pTransformCom);
 

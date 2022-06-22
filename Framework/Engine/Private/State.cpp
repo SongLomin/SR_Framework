@@ -27,7 +27,7 @@ void CState::State_1(_float fSpeedValue , _float fCountTime)
 	m_fCountTime = fCountTime;
 
 
-	if (m_bMoveMentCheck)
+	if (m_bStateCheck)
 	{
 		m_pRigidBody->Add_Jump();
 		m_pRigidBody->Add_DirZ(fSpeedValue);
@@ -37,7 +37,7 @@ void CState::State_1(_float fSpeedValue , _float fCountTime)
 
 	if (fCountTime < 0.f)
 	{
-		m_bMoveMentCheck = false;
+		m_bStateCheck = false;
 	}
 }
 
@@ -47,7 +47,7 @@ void CState::State_2(_float fSpeedValue, _float fCountTime)
 	m_fCountTime = fCountTime;
 
 
-	if (m_bMoveMentCheck)
+	if (m_bStateCheck)
 	{
 		m_pRigidBody->Add_RotationY(fSpeedValue);
 		m_pRigidBody->Add_DirZ(fSpeedValue);
@@ -56,7 +56,7 @@ void CState::State_2(_float fSpeedValue, _float fCountTime)
 
 	if (fCountTime < 0.f)
 	{
-		m_bMoveMentCheck = false;
+		m_bStateCheck = false;
 	}
 }
 
@@ -65,7 +65,7 @@ void CState::State_3(_float fSpeedValue, _float fCountTime)
 	m_fSpeedValue = fSpeedValue;
 	m_fCountTime = fCountTime;
 
-	if (m_bMoveMentCheck)
+	if (m_bStateCheck)
 	{
 		m_pRigidBody->Add_Jump();
 		m_pRigidBody->Add_RotationX(fSpeedValue);
@@ -76,7 +76,7 @@ void CState::State_3(_float fSpeedValue, _float fCountTime)
 
 	if (fCountTime < 0.f)
 	{
-		m_bMoveMentCheck = false;
+		m_bStateCheck = false;
 	}
 }
 
@@ -85,7 +85,7 @@ void CState::State_4(_float fSpeedValue, _float fCountTime)
 	m_fSpeedValue = fSpeedValue;
 	m_fCountTime = fCountTime;
 
-	if (m_bMoveMentCheck)
+	if (m_bStateCheck)
 	{
 		m_pRigidBody->Add_RotationZ(fSpeedValue);
 		m_pRigidBody->Add_Lift(fSpeedValue);
@@ -93,7 +93,7 @@ void CState::State_4(_float fSpeedValue, _float fCountTime)
 
 	if (fCountTime < 0.f)
 	{
-		m_bMoveMentCheck = false;
+		m_bStateCheck = false;
 	}
 }
 
@@ -102,7 +102,7 @@ void CState::State_5(_float fSpeedValue, _float fCountTime)
 	m_fSpeedValue = fSpeedValue;
 	m_fCountTime = fCountTime;
 
-	if (m_bMoveMentCheck)
+	if (m_bStateCheck)
 	{
 		m_pRigidBody->Add_RotationY(0.1f);
 		m_pRigidBody->Add_DirZ(0.1f);
@@ -110,26 +110,28 @@ void CState::State_5(_float fSpeedValue, _float fCountTime)
 
 	if (fCountTime < 0.f)
 	{
-		m_bMoveMentCheck = false;
+		m_bStateCheck = false;
 	}
 }
 
-void CState::State_Change(_float fSpeedValue, _float fCountTime, STATE _eState)
+void CState::State_Change(_float fSpeedValue, _float fCountTime, _bool bStateCheck)
 {
 
-	if (fCountTime < 0.f) // ½Ã°£ ³Ö¾îÁà¾ßµÊ
+	m_bStateCheck = bStateCheck;
+
+	if (fCountTime < 0.f) 
 	{
 
 		_uint iState = rand() %  (_uint)STATE::STATE_START;
 		m_eCurMovement = (STATE)iState;
-		m_bMoveMentCheck = true;
+		bStateCheck = true;
 
 		fCountTime = 0.5f;
 
 	}
 
 	switch (m_eCurMovement)
-	{
+	{ 
 	case STATE::STATE_1:
 		State_1(fSpeedValue, fCountTime);
 		break;
@@ -154,7 +156,7 @@ void CState::Link_RigidBodyCom(CRigid_Body* pRigidBody)
 	m_pRigidBody->Set_WeakPtr(&m_pRigidBody);
 }
 
-void CState::State_Start(_float fSpeedValue, _float fCountTime)
+void CState::State_Start(_float fSpeedValue)
 {
 	m_pRigidBody->Add_DirZ(fSpeedValue);
 	m_pRigidBody->Add_Lift(fSpeedValue);
