@@ -34,7 +34,7 @@ private:
 
 private:
     HRESULT SetUp_Components();
-    void    LookAt_CamTPS();
+    void    LookAt_Targetting();
 
 public:
     static CPosin* Create();

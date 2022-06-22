@@ -1,6 +1,6 @@
 #include "Targetting.h"
 #include "GameInstance.h"
-#include <Math_Utillity.h>
+#include "Math_Utillity.h"
 #include "GameObject.h"
 
 CTargetting::CTargetting()
@@ -47,9 +47,22 @@ void CTargetting::Make_TargetList(list<CGameObject*>* pLayer)
 
 
 
-			if (Range < 5.f)
+			if (Range < 7.f)
 			{
 				m_pTargetting.push_back(*iter);
+
+				for (auto iter : m_pTargetting)
+				{
+					
+					GAMEINSTANCE->Add_Text(
+						_point{ (long)GAMEINSTANCE->Get_Graphic_Desc().iWinCX / 2 - 100, 
+						(long)GAMEINSTANCE->Get_Graphic_Desc().iWinCY / 2 - 100},
+						D3DCOLOR_ARGB(255, 130, 255, 0),
+						0.0f,
+						L"Targetting SUCCESS !",
+						1);
+
+				}
 			}
 		}
 	}

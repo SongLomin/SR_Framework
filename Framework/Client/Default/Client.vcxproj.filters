@@ -144,9 +144,6 @@
     <ClInclude Include="..\Public\UITest.h">
       <Filter>97. UITest</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Auto_Aim.h">
-      <Filter>02.GameObject\09. Aim\Auto_Aim</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -205,9 +202,6 @@
     </ClCompile>
     <ClCompile Include="..\Private\UITest.cpp">
       <Filter>97. UITest</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\Auto_Aim.cpp">
-      <Filter>02.GameObject\09. Aim\Auto_Aim</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
