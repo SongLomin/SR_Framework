@@ -44,7 +44,7 @@ void CPosin::Tick(_float fTimeDelta)
 {
 	m_pTransformCom->Update_WorldMatrix();
 
-	LookAt_Targetting();
+	LookAt_Targeting();
 
 	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
 	{
@@ -93,9 +93,9 @@ inline HRESULT CPosin::SetUp_Components()
 	return S_OK;
 }
 
-void CPosin::LookAt_Targetting()
+void CPosin::LookAt_Targeting()
 {
-	auto Monster = GAMEINSTANCE->Get_Player_GameObject()->Get_Component<CTargetting>()->Get_Targetting();
+	auto Monster = GAMEINSTANCE->Get_Player_GameObject()->Get_Component<CTargeting>()->Get_Targetting();
 	if (!Monster.empty())
 	{
 		for (auto& iter : Monster)

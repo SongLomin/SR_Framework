@@ -4,19 +4,19 @@
 
 BEGIN(Engine)
 
-class ENGINE_DLL CTargetting final : public CComponent
+class ENGINE_DLL CTargeting final : public CComponent
 {
 private:
-	CTargetting();
-	virtual ~CTargetting() = default;
+	CTargeting();
+	virtual ~CTargeting() = default;
 
 public:
 	list<CGameObject*> Get_Targetting() {
-		return m_pTargetting;
+		return m_pTargeting;
 	}
 
 public:
-	void Update_Targetting();
+	void Update_Targeting();
 
 public:
 	void Make_TargetList(list<CGameObject*>* pLayer);
@@ -24,10 +24,10 @@ public:
 
 
 private:
-	list<CGameObject*> m_pTargetting;
+	list<CGameObject*> m_pTargeting;
 
 public:
-	static CTargetting* Create();
+	static CTargeting* Create();
 	virtual CComponent* Clone(void* pArg) override;
 	virtual void Free() override;
 };

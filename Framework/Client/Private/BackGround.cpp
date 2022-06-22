@@ -166,8 +166,8 @@ HRESULT CBackGround::Render()
 
 void CBackGround::Set_Targetting()
 {
-	m_pTargettingCom->Update_Targetting();
-	m_pTargettingCom->Make_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster")));
+	m_pTargetingCom->Update_Targeting();
+	m_pTargetingCom->Make_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster")));
 
 }
 
@@ -193,8 +193,8 @@ HRESULT CBackGround::SetUp_Components()
 	/*m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);*/
 
-	m_pTargettingCom = Add_Component<CTargetting>();
-	m_pTargettingCom->Set_WeakPtr(&m_pTargettingCom);
+	m_pTargetingCom = Add_Component<CTargeting>();
+	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
 
 	m_pMeshCubeCom = Add_Component<CMesh_Cube>();
 	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);

@@ -133,7 +133,7 @@
     <Filter Include="00.System\IMGUI\IMGUI_Manager">
       <UniqueIdentifier>{64d53e00-20ba-4c10-ad62-497971bd4cc2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Utility\03.Components\07. Targetting">
+    <Filter Include="01.Utility\03.Components\07. Targeting">
       <UniqueIdentifier>{6ecce992-5cb3-4ab6-9ece-d03156b360b6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -279,8 +279,8 @@
     <ClInclude Include="..\Public\ImguiMgr.h">
       <Filter>00.System\IMGUI\IMGUI_Manager</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Targetting.h">
-      <Filter>01.Utility\03.Components\07. Targetting</Filter>
+    <ClInclude Include="..\Public\Targeting.h">
+      <Filter>01.Utility\03.Components\07. Targeting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -404,8 +404,8 @@
     <ClCompile Include="..\Private\ImguiMgr.cpp">
       <Filter>00.System\IMGUI\IMGUI_Manager</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Targetting.cpp">
-      <Filter>01.Utility\03.Components\07. Targetting</Filter>
+    <ClCompile Include="..\Private\Targeting.cpp">
+      <Filter>01.Utility\03.Components\07. Targeting</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

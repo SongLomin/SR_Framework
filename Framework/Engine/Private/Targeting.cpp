@@ -1,20 +1,20 @@
-#include "Targetting.h"
+#include "Targeting.h"
 #include "GameInstance.h"
 #include "Math_Utillity.h"
 #include "GameObject.h"
 
-CTargetting::CTargetting()
+CTargeting::CTargeting()
 {
 }
 
 
 
-void CTargetting::Update_Targetting()
+void CTargeting::Update_Targeting()
 {
-	m_pTargetting.clear();
+	m_pTargeting.clear();
 }
 
-void CTargetting::Make_TargetList(list<CGameObject*>* pLayer)
+void CTargeting::Make_TargetList(list<CGameObject*>* pLayer)
 {
 	CTransform* CameraTransform = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform();
 
@@ -49,9 +49,9 @@ void CTargetting::Make_TargetList(list<CGameObject*>* pLayer)
 
 			if (Range < 7.f)
 			{
-				m_pTargetting.push_back(*iter);
+				m_pTargeting.push_back(*iter);
 
-				for (auto iter : m_pTargetting)
+				for (auto iter : m_pTargeting)
 				{
 					
 					_float3 vWorldPos = (*iter).Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
@@ -62,7 +62,7 @@ void CTargetting::Make_TargetList(list<CGameObject*>* pLayer)
 						(long)vWorldPos.y},
 						D3DCOLOR_ARGB(255, 130, 255, 0),
 						0.0f,
-						L"Targetting SUCCESS !",
+						L"Targeting SUCCESS !",
 						1);
 
 				}
@@ -72,17 +72,17 @@ void CTargetting::Make_TargetList(list<CGameObject*>* pLayer)
 }
 
 
-CTargetting* CTargetting::Create()
+CTargeting* CTargeting::Create()
 {
-	CREATE_PIPELINE(CTargetting);
+	CREATE_PIPELINE(CTargeting);
 }
 
-CComponent* CTargetting::Clone(void* pArg)
+CComponent* CTargeting::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CTargetting);
+	CLONE_PIPELINE(CTargeting);
 }
 
-void CTargetting::Free()
+void CTargeting::Free()
 {
 	__super::Free();
 

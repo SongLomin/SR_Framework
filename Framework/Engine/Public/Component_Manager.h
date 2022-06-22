@@ -14,7 +14,7 @@
 #include "Status.h"
 #include "Font.h"
 #include "Rigid_Body.h"
-#include "Targetting.h"
+#include "Targeting.h"
 
 BEGIN(Engine)
 
