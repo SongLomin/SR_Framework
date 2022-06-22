@@ -76,7 +76,13 @@
     <Filter Include="02.GameObject\00. Player">
       <UniqueIdentifier>{5bbc74ac-51d4-4b0f-9cbf-b4c01ecfd969}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\00. Player\PlayerParts">
+    <Filter Include="02.GameObject\02. Monster\EnemySpace">
+      <UniqueIdentifier>{9b1b7ac5-60c7-490d-89a3-5ebd8a68bc87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\02. Monster\EnemySpace\Parts">
+      <UniqueIdentifier>{b3d972e1-ddd4-4930-976b-1b450e1465a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\00. Player\Parts">
       <UniqueIdentifier>{61642fb2-8e65-497f-932c-c5c5c856a54e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -142,13 +148,22 @@
       <Filter>02.GameObject\00. Player</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Player_Posin.h">
-      <Filter>02.GameObject\00. Player\PlayerParts</Filter>
+      <Filter>02.GameObject\00. Player\Parts</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Player_RightBody.h">
-      <Filter>02.GameObject\00. Player\PlayerParts</Filter>
+      <Filter>02.GameObject\00. Player\Parts</Filter>
     </ClInclude>
     <ClInclude Include="Player_ProPeller.h">
-      <Filter>02.GameObject\00. Player\PlayerParts</Filter>
+      <Filter>02.GameObject\00. Player\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySpace_Body.h">
+      <Filter>02.GameObject\02. Monster\EnemySpace</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\EnemySpace_RightBody.h">
+      <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\EnemySpace_Posin.h">
+      <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -204,13 +219,22 @@
       <Filter>02.GameObject\00. Player</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Player_Posin.cpp">
-      <Filter>02.GameObject\00. Player\PlayerParts</Filter>
+      <Filter>02.GameObject\00. Player\Parts</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Player_RightBody.cpp">
-      <Filter>02.GameObject\00. Player\PlayerParts</Filter>
+      <Filter>02.GameObject\00. Player\Parts</Filter>
     </ClCompile>
     <ClCompile Include="Player_ProPeller.cpp">
-      <Filter>02.GameObject\00. Player\PlayerParts</Filter>
+      <Filter>02.GameObject\00. Player\Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySpace_Body.cpp">
+      <Filter>02.GameObject\02. Monster\EnemySpace</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\EnemySpace_RightBody.cpp">
+      <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\EnemySpace_Posin.cpp">
+      <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -164,6 +164,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Auto_Aim.h" />
+    <ClInclude Include="..\Public\EnemySpace_Posin.h" />
+    <ClInclude Include="..\Public\EnemySpace_RightBody.h" />
     <ClInclude Include="..\public\Player_Body.h" />
     <ClInclude Include="..\Public\Cam_FPS.h" />
     <ClInclude Include="..\Public\Bullet.h" />
@@ -182,6 +184,7 @@
     <ClInclude Include="..\Public\Terrain.h" />
     <ClInclude Include="..\Public\UITest.h" />
     <ClInclude Include="Client.h" />
+    <ClInclude Include="EnemySpace_Body.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Player_ProPeller.h" />
     <ClInclude Include="stdafx.h" />
@@ -189,6 +192,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Auto_Aim.cpp" />
+    <ClCompile Include="..\Private\EnemySpace_Posin.cpp" />
+    <ClCompile Include="..\Private\EnemySpace_RightBody.cpp" />
     <ClCompile Include="..\private\Player_Body.cpp" />
     <ClCompile Include="..\Private\Bullet.cpp" />
     <ClCompile Include="..\Private\Cam_FPS.cpp" />
@@ -206,6 +211,7 @@
     <ClCompile Include="..\Private\Terrain.cpp" />
     <ClCompile Include="..\Private\UITest.cpp" />
     <ClCompile Include="Client.cpp" />
+    <ClCompile Include="EnemySpace_Body.cpp" />
     <ClCompile Include="Player_ProPeller.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

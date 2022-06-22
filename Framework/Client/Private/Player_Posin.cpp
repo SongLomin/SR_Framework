@@ -46,7 +46,7 @@ void CPlayer_Posin::Tick(_float fTimeDelta)
 
 	LookAt_CamTPS();
 
-	if (KEY_INPUT(KEY::CTRL, KEY_STATE::TAP))
+	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
 	{
 		CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CBullet>(CURRENT_LEVEL, TEXT("Bullet"));
 

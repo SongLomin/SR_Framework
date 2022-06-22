@@ -10,6 +10,7 @@
 #include "Cam_FPS.h"
 #include "Cam_Shoulder.h"
 #include "Cam_TPS.h"
+#include "EnemySpace_Body.h"
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -36,6 +37,10 @@ HRESULT CLevel_GamePlay::Initialize()
 
 	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_GAMEPLAY, TEXT("Background")))
 		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_GAMEPLAY, TEXT("EnemySpace_Body")))
+		return E_FAIL;
+
 
 	if (!GAMEINSTANCE->Add_GameObject<CMonster>(LEVEL_GAMEPLAY, TEXT("Monster")))
 		return E_FAIL;
