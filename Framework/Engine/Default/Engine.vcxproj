@@ -192,6 +192,7 @@
     <ClCompile Include="..\Private\Render_Manager.cpp" />
     <ClCompile Include="..\Private\Resource_Manager.cpp" />
     <ClCompile Include="..\private\Rigid_Body.cpp" />
+    <ClCompile Include="..\Private\State.cpp" />
     <ClCompile Include="..\Private\Status.cpp" />
     <ClCompile Include="..\Private\Time_Manager.cpp" />
     <ClCompile Include="..\Private\Timer.cpp" />
@@ -238,6 +239,7 @@
     <ClInclude Include="..\Public\Render_Manager.h" />
     <ClInclude Include="..\Public\Resource_Manager.h" />
     <ClInclude Include="..\public\Rigid_Body.h" />
+    <ClInclude Include="..\Public\State.h" />
     <ClInclude Include="..\Public\Status.h" />
     <ClInclude Include="..\Public\Time_Manager.h" />
     <ClInclude Include="..\Public\Timer.h" />

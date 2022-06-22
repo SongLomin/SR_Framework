@@ -139,6 +139,9 @@
     <Filter Include="01.Utility\03.Components\07. Collider\00. Collider_OBB">
       <UniqueIdentifier>{14405e89-68e0-4ca9-a15f-f969a731b894}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\08. State">
+      <UniqueIdentifier>{4a2f3f11-7e6b-456e-a1f4-faf19a01d503}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -264,6 +267,9 @@
     <ClInclude Include="..\Public\Collider_OBB.h">
       <Filter>01.Utility\03.Components\07. Collider\00. Collider_OBB</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\State.h">
+      <Filter>01.Utility\03.Components\08. State</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -370,6 +376,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Collider_OBB.cpp">
       <Filter>01.Utility\03.Components\07. Collider\00. Collider_OBB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State.cpp">
+      <Filter>01.Utility\03.Components\08. State</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
