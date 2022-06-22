@@ -243,9 +243,6 @@
     <ClInclude Include="..\Public\Input_Manager.h">
       <Filter>01.Utility\04.Manager\06. Input_Manager</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Picking.h">
-      <Filter>05.Picking</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\VIBuffer_Cube.h">
       <Filter>01.Utility\03.Components\00. Model\VIBuffer\Cube</Filter>
     </ClInclude>
@@ -352,9 +349,6 @@
     </ClCompile>
     <ClCompile Include="..\Private\Input_Manager.cpp">
       <Filter>01.Utility\04.Manager\06. Input_Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\Picking.cpp">
-      <Filter>05.Picking</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\VIBuffer_Cube.cpp">
       <Filter>01.Utility\03.Components\00. Model\VIBuffer\Cube</Filter>

@@ -16,7 +16,7 @@ BEGIN(Client)
 class CEnemySpace_Body final : public CGameObject
 {
 private:
-    enum STATE { MOVEMENT, MOVEMENT_1, MOVEMENT_2, MOVEMENT_3, MOVEMENT_4, MOVEMENT_END };
+    enum STATE { MOVEMENT, MOVEMENT_1, MOVEMENT_2, MOVEMENT_3, MOVEMENT_4, MOVEMENT_5, MOVEMENT_END };
 private:
     CEnemySpace_Body() = default;
     CEnemySpace_Body(const CEnemySpace_Body& Prototype);
@@ -51,6 +51,7 @@ private:
     void    MoveMent2(_float fTimeDelta);
     void    MoveMent3(_float fTimeDelta);
     void    MoveMent4(_float fTimeDelta);
+    void    MoveMent5(_float fTimeDelta);
     void    MoveMentChange(_float fTimeDelta);
 
 public:

@@ -26,7 +26,7 @@ HRESULT CEnemySpace_Body::Initialize(void* pArg)
 	m_pPlayerTransformCom = CGameInstance::Get_Instance()->Get_Player_GameObject()->Get_Component<CTransform>();
 	m_pPlayerTransformCom->Set_WeakPtr((void**)&m_pPlayerTransformCom);
 
-	m_fCountTime = 2.f;
+	m_fCountTime = 0.5f;
 
 	return S_OK;
 }
@@ -39,10 +39,12 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 
 	if (!m_bMoveMentCheck)
 	{
-		MoveMent4(fTimeDelta);
+		MoveMent5(fTimeDelta);
 	}
 
 	MoveMentChange(fTimeDelta);
+
+	
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 
@@ -110,9 +112,10 @@ void CEnemySpace_Body::MoveMent(_float fTimeDelta)
 {
 	if (m_bMoveMentCheck)
 	{
-		m_pRigidBodyCom->Add_DirZ(0.1f);
-		m_pRigidBodyCom->Add_RotationY(0.1f);
 		m_pRigidBodyCom->Add_Jump();
+		m_pRigidBodyCom->Add_DirZ(0.3f);
+		m_pRigidBodyCom->Add_RotationY(0.1f);
+		m_pRigidBodyCom->Add_Lift(0.1);
 	}
 
 	if (m_fCountTime < 0.f)
@@ -125,9 +128,9 @@ void CEnemySpace_Body::MoveMent1(_float fTimeDelta)
 {
 	if (m_bMoveMentCheck)
 	{
-		m_pRigidBodyCom->Add_Jump();
-		m_pRigidBodyCom->Add_RotationZ(0.1f);
-		m_pRigidBodyCom->Add_DirZ(0.1f);
+		m_pRigidBodyCom->Add_RotationY(0.1f);
+		m_pRigidBodyCom->Add_DirZ(0.3f);
+		m_pRigidBodyCom->Add_Lift(0.3);
 	}
 
 	if (m_fCountTime < 0.f)
@@ -141,8 +144,10 @@ void CEnemySpace_Body::MoveMent2(_float fTimeDelta)
 
 	if (m_bMoveMentCheck)
 	{
-		m_pRigidBodyCom->Add_DirZ(0.1f);
 		m_pRigidBodyCom->Add_Jump();
+		m_pRigidBodyCom->Add_RotationX(0.1f);
+		m_pRigidBodyCom->Add_DirZ(0.3f);
+		m_pRigidBodyCom->Add_Lift(0.3);
 
 	}
 
@@ -156,8 +161,8 @@ void CEnemySpace_Body::MoveMent3(_float fTimeDelta)
 {
 	if (m_bMoveMentCheck)
 	{
-		m_pRigidBodyCom->Add_RotationX(0.1f);
-		m_pRigidBodyCom->Add_Jump();
+		m_pRigidBodyCom->Add_RotationZ(0.1f);
+		m_pRigidBodyCom->Add_Lift(0.3);
 	}
 
 	if (m_fCountTime < 0.f)
@@ -168,8 +173,22 @@ void CEnemySpace_Body::MoveMent3(_float fTimeDelta)
 
 void CEnemySpace_Body::MoveMent4(_float fTimeDelta)
 {
+	if (m_bMoveMentCheck)
+	{
+		m_pRigidBodyCom->Add_RotationY(0.1f);
+		m_pRigidBodyCom->Add_DirZ(0.1f);
+	}
+
+	if (m_fCountTime < 0.f)
+	{
+		m_bMoveMentCheck = false;
+	}
+}
+
+void CEnemySpace_Body::MoveMent5(_float fTimeDelta)
+{
 	m_pRigidBodyCom->Add_DirZ(3.f);
-	m_pRigidBodyCom->Add_Jump();
+	m_pRigidBodyCom->Add_Lift(0.3);
 }
 
 void CEnemySpace_Body::MoveMentChange(_float fTimeDelta)
@@ -179,11 +198,11 @@ void CEnemySpace_Body::MoveMentChange(_float fTimeDelta)
 	if (m_fCountTime < 0.f) // ½Ã°£ ³Ö¾îÁà¾ßµÊ
 	{
 
-		_uint iState = rand() % CEnemySpace_Body::MOVEMENT_END;
+		_uint iState = rand() % CEnemySpace_Body::MOVEMENT_5;
 		m_eCurMovement = (CEnemySpace_Body::STATE)iState;
 		m_bMoveMentCheck = true;
 
-		m_fCountTime = 3.f;
+		m_fCountTime = 0.5f;
 
 	}
 

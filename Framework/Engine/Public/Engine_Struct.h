@@ -44,7 +44,7 @@ namespace Engine
 
 	typedef struct tagGraphicDesc
 	{
-		unsigned int iWinCX, iWinCY; 
+		unsigned int iWinCX, iWinCY;
 		HWND	hWnd;
 		bool	isWindowMode;
 	}GRAPHICDESC;
@@ -199,7 +199,7 @@ namespace Engine
 	enum class MOUSEBUTTON { MBS_LBUTTON = 0, MBS_RBUTTON, MBS_WHEEL, MBS_X, MBS_END };
 	enum class MOUSEMOVE { MMS_X = 0, MMS_Y, MMS_WHEEL, MMS_END };
 
-	enum class CONTROLLER {PLAYER = 0, AI, CONTROLLER_END};
+	enum class CONTROLLER { PLAYER = 0, AI, CONTROLLER_END };
 
 	enum class MATRIX_STATE { RIGHT, UP, LOOK, POSITION, STATE_END };
 
@@ -225,7 +225,18 @@ namespace Engine
 		SHAPE_END
 	};
 
-	enum Class 
+	enum class STATE 
+	{ 
+		STATE_1, 
+		STATE_2, 
+		STATE_3, 
+		STATE_4, 
+		STATE_5, 
+		STATE_START,
+		STATE_END
+	};
+
+}
 
 
 
@@ -242,4 +253,4 @@ namespace Engine
 
 
 
-}
+
