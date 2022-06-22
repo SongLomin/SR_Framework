@@ -21,10 +21,10 @@ HRESULT CState::Tick(_float fTimeDelta)
 	return S_OK;
 }
 
-void CState::State_1(_float fSpeedValue , _float fCountTime)
+void CState::State_1(_float fSpeedValue , _float* fCountTime)
 {
 	m_fSpeedValue = fSpeedValue;
-	m_fCountTime = fCountTime;
+	m_fCountTime = *fCountTime;
 
 
 	if (m_bStateCheck)
@@ -35,16 +35,18 @@ void CState::State_1(_float fSpeedValue , _float fCountTime)
 		m_pRigidBody->Add_Lift(fSpeedValue);
 	}
 
-	if (fCountTime < 0.f)
+	m_fCountTime -= GAMEINSTANCE->Compute_Timer(3);
+
+	if (m_fCountTime < 0.f)
 	{
 		m_bStateCheck = false;
 	}
 }
 
-void CState::State_2(_float fSpeedValue, _float fCountTime)
+void CState::State_2(_float fSpeedValue, _float *fCountTime)
 {
 	m_fSpeedValue = fSpeedValue;
-	m_fCountTime = fCountTime;
+	m_fCountTime = *fCountTime;
 
 
 	if (m_bStateCheck)
@@ -54,16 +56,18 @@ void CState::State_2(_float fSpeedValue, _float fCountTime)
 		m_pRigidBody->Add_Lift(fSpeedValue);
 	}
 
-	if (fCountTime < 0.f)
+	m_fCountTime -= GAMEINSTANCE->Compute_Timer(3);
+
+	if (m_fCountTime < 0.f)
 	{
 		m_bStateCheck = false;
 	}
 }
 
-void CState::State_3(_float fSpeedValue, _float fCountTime)
+void CState::State_3(_float fSpeedValue, _float *fCountTime)
 {
 	m_fSpeedValue = fSpeedValue;
-	m_fCountTime = fCountTime;
+	m_fCountTime = *fCountTime;
 
 	if (m_bStateCheck)
 	{
@@ -74,16 +78,18 @@ void CState::State_3(_float fSpeedValue, _float fCountTime)
 
 	}
 
-	if (fCountTime < 0.f)
+	m_fCountTime -= GAMEINSTANCE->Compute_Timer(3);
+
+	if (m_fCountTime < 0.f)
 	{
 		m_bStateCheck = false;
 	}
 }
 
-void CState::State_4(_float fSpeedValue, _float fCountTime)
+void CState::State_4(_float fSpeedValue, _float *fCountTime)
 {
 	m_fSpeedValue = fSpeedValue;
-	m_fCountTime = fCountTime;
+	m_fCountTime = *fCountTime;
 
 	if (m_bStateCheck)
 	{
@@ -91,16 +97,18 @@ void CState::State_4(_float fSpeedValue, _float fCountTime)
 		m_pRigidBody->Add_Lift(fSpeedValue);
 	}
 
-	if (fCountTime < 0.f)
+	m_fCountTime -= GAMEINSTANCE->Compute_Timer(3);
+
+	if (m_fCountTime < 0.f)
 	{
 		m_bStateCheck = false;
 	}
 }
 
-void CState::State_5(_float fSpeedValue, _float fCountTime)
+void CState::State_5(_float fSpeedValue, _float *fCountTime)
 {
 	m_fSpeedValue = fSpeedValue;
-	m_fCountTime = fCountTime;
+	m_fCountTime = *fCountTime;
 
 	if (m_bStateCheck)
 	{
@@ -108,25 +116,29 @@ void CState::State_5(_float fSpeedValue, _float fCountTime)
 		m_pRigidBody->Add_DirZ(0.1f);
 	}
 
-	if (fCountTime < 0.f)
+	m_fCountTime -= GAMEINSTANCE->Compute_Timer(3);
+
+	if (m_fCountTime < 0.f)
 	{
 		m_bStateCheck = false;
 	}
 }
 
-void CState::State_Change(_float fSpeedValue, _float fCountTime, _bool bStateCheck)
+void CState::State_Change(_float fSpeedValue, _float* fCountTime, _bool bStateCheck)
 {
 
+ 
 	m_bStateCheck = bStateCheck;
+	m_fCountTime = *fCountTime;
 
-	if (fCountTime < 0.f) 
+	if (m_fCountTime < 0.f)
 	{
 
 		_uint iState = rand() %  (_uint)STATE::STATE_START;
 		m_eCurMovement = (STATE)iState;
-		bStateCheck = true;
+		m_bStateCheck = true;
 
-		fCountTime = 0.5f;
+		m_fCountTime = 0.5f;
 
 	}
 
