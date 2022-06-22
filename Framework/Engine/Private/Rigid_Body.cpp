@@ -41,7 +41,7 @@ void CRigid_Body::Link_TransformCom(CTransform * _pTransform)
 
 }
 
-void CRigid_Body::Add_Dir(Func Dir)
+void CRigid_Body::Add_Dir(Func Dir, _float fDir )
 {
 	switch (Dir)
 	{

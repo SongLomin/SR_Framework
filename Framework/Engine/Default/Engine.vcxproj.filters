@@ -130,6 +130,9 @@
     <Filter Include="01.Utility\03.Components\00. Model\Mesh_Terrain">
       <UniqueIdentifier>{af6912cf-7f5b-4f81-97fb-129bd74978b0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\02.GameObject\00. CursorObject">
+      <UniqueIdentifier>{ba0ad428-977c-4716-a701-157b12ff5b11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
