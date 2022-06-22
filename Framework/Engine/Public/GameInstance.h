@@ -104,6 +104,9 @@ public: /* For.Input_Manager */
 	CCamera* Get_Camera(const _tchar* _CameraTag = TEXT(""));
 	void Set_Current_Camera(const _tchar* _CameraTag = TEXT(""));
 
+public: /* For. Collision_Manager */
+	void Add_Collider(CCollider* pCollider);
+
 
 private:
 	CGraphic_Device*				m_pGraphic_Device = nullptr;

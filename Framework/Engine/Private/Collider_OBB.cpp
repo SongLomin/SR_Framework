@@ -15,7 +15,10 @@ HRESULT CCollider_OBB::Initialize_Prototype()
 
 HRESULT CCollider_OBB::Initialize(void* pArg)
 {
+    m_eCollision_Type = *(COLLISION_TYPE*)pArg;
+    m_iID = g_iNextID++;
 
+    GAMEINSTANCE->Add_Collider(this);
     return S_OK;
 }
 

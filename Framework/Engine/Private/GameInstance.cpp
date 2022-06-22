@@ -41,6 +41,8 @@ HRESULT CGameInstance::Initialize_Engine(HINSTANCE hInst, _uint iNumLevels, cons
 	if (FAILED(m_pObject_Manager->Reserve_Container(iNumLevels)))
 		return E_FAIL;
 
+	m_pCollision_Manager->Initialize();
+
 	/* 컴포넌트 매니져의 예약. */
 	//if (FAILED(m_pComponent_Manager->Reserve_Container(iNumLevels)))
 	//	return E_FAIL;
@@ -54,6 +56,8 @@ HRESULT CGameInstance::Tick_Engine(_float fTimeDelta)
 	m_pInput_Manager->SetUp_DeviceState();
 
 	m_pLevel_Manager->Tick(fTimeDelta);	
+
+	m_pCollision_Manager->Tick();
 
 	m_pObject_Manager->Tick(fTimeDelta);
 
@@ -299,6 +303,12 @@ CCamera* CGameInstance::Get_Camera(const _tchar* _CameraTag)
 void CGameInstance::Set_Current_Camera(const _tchar* _CameraTag)
 {
 	m_pCamera_Manager->Set_Current_Camera(_CameraTag);
+}
+
+void CGameInstance::Add_Collider(CCollider* pCollider)
+{
+	m_pCollision_Manager->Add_Collider(pCollider);
+
 }
 
 void CGameInstance::Release_Engine()

@@ -8,7 +8,7 @@
 CMonster::CMonster(const CMonster& Prototype)
 {
 	*this = Prototype;
-	Add_Component<CTransform>();
+	Add_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
 	Set_Controller(CONTROLLER::AI);
 }
 
@@ -22,6 +22,7 @@ HRESULT CMonster::Initialize(void* pArg)
 	SetUp_Components();
 	m_pPlayerTransformCom = CGameInstance::Get_Instance()->Get_Player_GameObject()->Get_Component<CTransform>();
 	m_pPlayerTransformCom->Set_WeakPtr((void**)&m_pPlayerTransformCom);
+	
 	return S_OK;
 }
 
@@ -36,7 +37,7 @@ void CMonster::Tick(_float fTimeDelta)
 	m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
 	m_pTransformCom->Go_BackAndForth(2.5, fTimeDelta);
 
-	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
+	/*if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
 	{
 		RAY MouseRay;
 		CMath_Utillity::Compute_RayInWorldSpace(&MouseRay, 10000.f);
@@ -46,7 +47,7 @@ void CMonster::Tick(_float fTimeDelta)
 		{
 			int a = 1;
 		}
-	}
+	}*/
 
 }
 
@@ -95,12 +96,26 @@ HRESULT CMonster::SetUp_Components()
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
 
-	m_pCColliderCom = Add_Component<CCollider_OBB>();
+	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
+	m_pCColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
 	m_pCColliderCom->Set_WeakPtr(&m_pCColliderCom);
 	m_pCColliderCom->Link_Transform(m_pTransformCom);
+	m_pCColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
 
 	//Safe_Release(pGameInstance);
 	return S_OK;
+}
+
+void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
+{
+}
+
+void CMonster::On_Collision_Stay(CCollider* _Other_Collider)
+{
+}
+
+void CMonster::On_Collision_Exit(CCollider* _Other_Collider)
+{
 }
 
 CMonster* CMonster::Create()

@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CRenderer;
 class CMesh_Cube;
 class CTransform;
+class CCollider_OBB;
 END
 
 BEGIN(Client)
@@ -36,6 +37,12 @@ private:
 
 private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
     HRESULT SetUp_Components();
+
+public: /* For Event Function */
+    virtual void On_Collision_Enter(CCollider* _Other_Collider) override;
+    virtual void On_Collision_Stay(CCollider* _Other_Collider) override;
+    virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
+
 
 public:
     static CMonster* Create();

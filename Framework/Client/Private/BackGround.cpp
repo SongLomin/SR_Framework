@@ -214,17 +214,11 @@ HRESULT CBackGround::SetUp_Components()
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
-	m_pCColliderCom = Add_Component<CCollider_OBB>();
+	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER;
+	m_pCColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
 	m_pCColliderCom->Set_WeakPtr(&m_pCColliderCom);
 	m_pCColliderCom->Link_Transform(m_pTransformCom);
-
-
-
-	
-	//CGameObject* CameraPosin = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);	
-	//m_pCameraPosin = (CCameraPosin*)GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
-	
-	//GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
+	m_pCColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
 
 	Set_Controller(CONTROLLER::PLAYER);
 
@@ -246,17 +240,17 @@ void CBackGround::On_Change_Controller(const CONTROLLER& _IsAI)
 
 void CBackGround::On_Collision_Enter(CCollider* _Other_Collider)
 {
-	int i = 0;
+	
 }
 
 void CBackGround::On_Collision_Stay(CCollider* _Other_Collider)
 {
-
+	m_pRigidBodyCom->Add_Jump();
 }
 
 void CBackGround::On_Collision_Exit(CCollider* _Other_Collider)
 {
-	int i = 0;
+	
 }
 
 

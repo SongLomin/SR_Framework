@@ -21,7 +21,6 @@ void CCollider::Link_Transform(CTransform* _TransformCom)
 void CCollider::Set_Collision_Type(COLLISION_TYPE _eType)
 {
     m_eCollision_Type = _eType;
-    m_iID = g_iNextID++;
 }
 
 void CCollider::Free()

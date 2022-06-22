@@ -10,6 +10,7 @@ class CTransform;
 class CStatus;
 class CMesh_Cube;
 class CRigid_Body;
+class CCollider_OBB;
 END
 
 BEGIN(Client)

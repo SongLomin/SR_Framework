@@ -71,6 +71,7 @@ void CCollision_Manager::Erase_Collider(CCollider* pCollider)
 	{
 		if (*iter == pCollider)
 		{
+			(*iter)->Return_WeakPtr(&(*iter));
 			m_ColliderList[(UINT)collisontype].erase(iter);
 			return;
 		}
@@ -129,7 +130,7 @@ void CCollision_Manager::CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_T
 				}
 				else // 이번에 최초 충돌
 				{
-					if (!(*LeftIter) && !(*RightIter)) // 둘다 활성화일 때만 실행
+					if ((*LeftIter) && (*RightIter)) // 둘다 활성화일 때만 실행
 					{
 						(*LeftIter)->Get_Owner()->On_Collision_Enter((*RightIter));
 						(*RightIter)->Get_Owner()->On_Collision_Enter((*LeftIter));
@@ -155,8 +156,8 @@ void CCollision_Manager::CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_T
 
 bool CCollision_Manager::Is3DCollision(CCollider* _pLeft, CCollider* _pRight)
 {
-	if (!(_pLeft->Get_Collider_Shape() == COLLIDER_SHAPE::OBB)
-		&& !(_pRight->Get_Collider_Shape() == COLLIDER_SHAPE::OBB))
+	if ((_pLeft->Get_Collider_Shape() == COLLIDER_SHAPE::OBB)
+		&& (_pRight->Get_Collider_Shape() == COLLIDER_SHAPE::OBB))
 	{
 		return IsOBBCollision(_pLeft, _pRight);
 	}// 사각 - 사각
