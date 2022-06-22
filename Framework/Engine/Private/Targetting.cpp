@@ -54,9 +54,12 @@ void CTargetting::Make_TargetList(list<CGameObject*>* pLayer)
 				for (auto iter : m_pTargetting)
 				{
 					
+					_float3 vWorldPos = (*iter).Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
+					CMath_Utillity::WorldToScreen(&vWorldPos, &vWorldPos);
+					
 					GAMEINSTANCE->Add_Text(
-						_point{ (long)GAMEINSTANCE->Get_Graphic_Desc().iWinCX / 2 - 100, 
-						(long)GAMEINSTANCE->Get_Graphic_Desc().iWinCY / 2 - 100},
+						_point{ (long)vWorldPos.x, 
+						(long)vWorldPos.y},
 						D3DCOLOR_ARGB(255, 130, 255, 0),
 						0.0f,
 						L"Targetting SUCCESS !",
