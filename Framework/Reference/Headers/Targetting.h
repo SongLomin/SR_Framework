@@ -10,9 +10,16 @@ private:
 	CTargetting();
 	virtual ~CTargetting() = default;
 
+public:
+	list<CGameObject*> Get_Targetting() {
+		return m_pTargetting;
+	}
 
 public:
-	HRESULT Add_Targetting(CGameObject* pObject);
+	void Update_Targetting();
+
+public:
+	void Make_TargetList(list<CGameObject*>* pLayer);
 	
 
 

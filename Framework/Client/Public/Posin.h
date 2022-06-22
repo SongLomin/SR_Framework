@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CRenderer;
 class CMesh_Cube;
 class CTransform;
+class CTargetting;
 END
 
 BEGIN(Client)
@@ -29,6 +30,7 @@ private:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
     CMesh_Cube* m_pMeshCom = nullptr;
+    CTargetting* m_pTargettingCom = nullptr;
 
 private:
     HRESULT SetUp_Components();

@@ -10,6 +10,7 @@ class CTransform;
 class CStatus;
 class CMesh_Cube;
 class CRigid_Body;
+class CTargetting;
 END
 
 BEGIN(Client)
@@ -28,12 +29,16 @@ public:
 	virtual void LateTick(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
+public:
+	void Set_Targetting();
+
 private:
 	CTransform*				m_pTransformCom = nullptr;
 	CRenderer*				m_pRendererCom = nullptr;
 	CMesh_Cube*				m_pMeshCubeCom = nullptr;
 	CStatus*				m_pStatusCom = nullptr;
 	CRigid_Body*			m_pRigidBodyCom = nullptr;
+	CTargetting*			m_pTargettingCom = nullptr;
 
 private:
 	CCameraPosin*           m_pCameraPosin = nullptr;

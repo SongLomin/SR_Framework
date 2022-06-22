@@ -50,6 +50,8 @@ HRESULT CBackGround::Initialize(void* pArg)
 void CBackGround::Tick(_float fTimeDelta)
 {
 	m_pTransformCom->Update_WorldMatrix();
+	
+	Set_Targetting();
 
 	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_DirZ(0.1f);
@@ -162,6 +164,13 @@ HRESULT CBackGround::Render()
 	return S_OK;
 }
 
+void CBackGround::Set_Targetting()
+{
+	m_pTargettingCom->Update_Targetting();
+	m_pTargettingCom->Make_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster")));
+
+}
+
 HRESULT CBackGround::SetUp_Components()
 {
 
@@ -183,6 +192,9 @@ HRESULT CBackGround::SetUp_Components()
 
 	/*m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);*/
+
+	m_pTargettingCom = Add_Component<CTargetting>();
+	m_pTargettingCom->Set_WeakPtr(&m_pTargettingCom);
 
 	m_pMeshCubeCom = Add_Component<CMesh_Cube>();
 	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);
