@@ -1,15 +1,15 @@
 #include "stdafx.h"
-#include "..\Public\BackGround.h"
+#include "Player_Body.h"
 #include "GameInstance.h"
-#include "Dummy.h"
+#include "Player_RightBody.h"
 #include <tchar.h>
-#include "Posin.h"
+#include "Player_Posin.h"
 #include "CameraPosin.h"
 #include "Cam_Free.h"
 #include "Cam_TPS.h"
 #include "Cam_FPS.h"
 #include "Cam_Shoulder.h"
-#include "Ring.h"
+#include "Player_ProPeller.h"
 #include "Bullet.h"
 #include "Math_Utillity.h"
 
@@ -44,15 +44,20 @@ HRESULT CPlayer_Body::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
+	GAMEINSTANCE->Add_GameObject<CPlayer_RightBody>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
 
-	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
+	GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
 		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
 
-	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
+	GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
 		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
 
-	GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
+	//GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
+
+	GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom);
+
+	GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom)
+		->Get_Component<CTransform>()->Rotation(_float3(0.f, 1.f, 0.f), 30);
 	
 	return S_OK;
 }
@@ -122,10 +127,7 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 	}
 
 
-	if (KEY_INPUT(KEY::Q, KEY_STATE::TAP))
-	{
-		GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
-	}
+	
 
 	
 
@@ -223,13 +225,20 @@ HRESULT CPlayer_Body::SetUp_Components()
 	//CGameObject* CameraPosin = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);	
 	//m_pCameraPosin = (CCameraPosin*)GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
 	
-	GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
+	GAMEINSTANCE->Add_GameObject<CPlayer_RightBody>(CURRENT_LEVEL, TEXT("Player_RightBody"), m_pTransformCom);
 
-	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
+	GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom)
 		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));;
 
-	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
+	GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom)
 		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
+
+	//GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom);
+
+	GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom);
+
+	GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom)
+		->Get_Component<CTransform>()->Rotation(_float3(0.f, 1.f, 0.f), 30);
 
 	Set_Controller(CONTROLLER::PLAYER);
 

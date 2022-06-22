@@ -1,29 +1,29 @@
 #include "stdafx.h"
-#include "..\Public\Dummy.h"
+#include "Player_RightBody.h"
 #include "GameInstance.h"
 
-CDummy* CDummy::Create()
+CPlayer_RightBody* CPlayer_RightBody::Create()
 {
-	CREATE_PIPELINE(CDummy);
+	CREATE_PIPELINE(CPlayer_RightBody);
 }
 
-CGameObject* CDummy::Clone(void* pArg)
+CGameObject* CPlayer_RightBody::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CDummy);
+	CLONE_PIPELINE(CPlayer_RightBody);
 }
 
-CDummy::CDummy(const CDummy& Prototype)
+CPlayer_RightBody::CPlayer_RightBody(const CPlayer_RightBody& Prototype)
 {
 	*this = Prototype;
 	Add_Component<CTransform>();
 }
 
-HRESULT CDummy::Initialize_Prototype()
+HRESULT CPlayer_RightBody::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CDummy::Initialize(void* pArg)
+HRESULT CPlayer_RightBody::Initialize(void* pArg)
 {
 	//m_szName = L"Dummy";
 	m_pRendererCom = Add_Component<CRenderer>();
@@ -45,17 +45,17 @@ HRESULT CDummy::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CDummy::Tick(_float fTimeDelta)
+void CPlayer_RightBody::Tick(_float fTimeDelta)
 {
 	m_pTransformCom->Update_WorldMatrix();
 }
 
-void CDummy::LateTick(_float fTimeDelta)
+void CPlayer_RightBody::LateTick(_float fTimeDelta)
 {
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
-HRESULT CDummy::Render()
+HRESULT CPlayer_RightBody::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -71,7 +71,7 @@ HRESULT CDummy::Render()
 	return S_OK;
 }
 
-void CDummy::Free()
+void CPlayer_RightBody::Free()
 {
 	__super::Free();
 

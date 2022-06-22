@@ -1,24 +1,24 @@
 #include "stdafx.h"
-#include "Ring.h"
+#include "Player_ProPeller.h"
 #include "GameInstance.h"
 
-CRing::CRing()
+CPlayer_ProPeller::CPlayer_ProPeller()
 {
 }
 
-CRing::CRing(const CRing& Prototype)
+CPlayer_ProPeller::CPlayer_ProPeller(const CPlayer_ProPeller& Prototype)
 {
 	*this = Prototype;
 	//m_szName = L"Ring";
 	Add_Component<CTransform>();
 }
 
-HRESULT CRing::Initialize_Prototype()
+HRESULT CPlayer_ProPeller::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CRing::Initialize(void* pArg)
+HRESULT CPlayer_ProPeller::Initialize(void* pArg)
 {
 
 	if (FAILED(SetUp_Components()))
@@ -33,20 +33,20 @@ HRESULT CRing::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CRing::Tick(_float fTimeDelta)
+void CPlayer_ProPeller::Tick(_float fTimeDelta)
 {
 	m_pTransformCom->Update_WorldMatrix();
 
-	m_pTransformCom->Go_BackAndForth(8.f, fTimeDelta);
-	m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 3.f, fTimeDelta);
+	//m_pTransformCom->Go_BackAndForth(8.f, fTimeDelta);
+	m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 15.f, fTimeDelta);
 }
 
-void CRing::LateTick(_float fTimeDelta)
+void CPlayer_ProPeller::LateTick(_float fTimeDelta)
 {
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
-HRESULT CRing::Render()
+HRESULT CPlayer_ProPeller::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -64,15 +64,15 @@ HRESULT CRing::Render()
 
 
 
-inline HRESULT CRing::SetUp_Components()
+inline HRESULT CPlayer_ProPeller::SetUp_Components()
 {
 	//CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
 
-	//m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(-1.5f, 1.0f, 0.f));
-	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f));
+	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(1.f, 3.5f, 0.f));
+	m_pTransformCom->Scaling(_float3(5.f, 0.3f, 0.5f));
 
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
@@ -93,17 +93,17 @@ inline HRESULT CRing::SetUp_Components()
 
 
 
-CRing* CRing::Create()
+CPlayer_ProPeller* CPlayer_ProPeller::Create()
 {
-	CREATE_PIPELINE(CRing);
+	CREATE_PIPELINE(CPlayer_ProPeller);
 }
 
-CGameObject* CRing::Clone(void* pArg)
+CGameObject* CPlayer_ProPeller::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CRing);
+	CLONE_PIPELINE(CPlayer_ProPeller);
 }
 
-void CRing::Free()
+void CPlayer_ProPeller::Free()
 {
 	__super::Free();
 

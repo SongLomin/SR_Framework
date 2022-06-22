@@ -1,22 +1,23 @@
 #pragma once
+
 #include "Client_Defines.h"
 #include "GameObject.h"
 
 BEGIN(Engine)
 class CRenderer;
-class CTransform;
 class CMesh_Cube;
+class CTransform;
+class CRigid_Body;
 END
 
 BEGIN(Client)
 
-class CDummy final :
-    public CGameObject
+class CPlayer_ProPeller final : public CGameObject
 {
 private:
-    CDummy() = default;
-    CDummy(const CDummy& Prototype);
-    virtual ~CDummy() = default;
+    explicit CPlayer_ProPeller();
+    explicit CPlayer_ProPeller(const CPlayer_ProPeller& Prototype);
+    virtual ~CPlayer_ProPeller() = default;
 
 public:
     // CGameObject을(를) 통해 상속됨
@@ -30,12 +31,16 @@ private:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
     CMesh_Cube* m_pMeshCom = nullptr;
+    CRigid_Body* m_pRigidBodyCom = nullptr;
+
+private:
+    HRESULT SetUp_Components();
 
 public:
-    // CGameObject을(를) 통해 상속됨
-    static CDummy* Create();
+    static CPlayer_ProPeller* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 };
 
 END
+

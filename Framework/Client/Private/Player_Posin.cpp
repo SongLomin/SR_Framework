@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Posin.h"
+#include "Player_Posin.h"
 #include "GameInstance.h"
 #include "Math_Utillity.h"
 #include <Bullet.h>

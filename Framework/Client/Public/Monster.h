@@ -29,7 +29,7 @@ private:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
     CMesh_Cube* m_pMeshCom = nullptr;
-    CCollider_OBB* m_pCColliderCom = nullptr;
+    //CCollider_OBB* m_pCColliderCom = nullptr;
 
 private:
     CTransform* m_pPlayerTransformCom = nullptr;
