@@ -131,7 +131,7 @@ HRESULT CVIBuffer_Cube::Initialize_Prototype()
 
 	m_pIB->Unlock();*/
 
-
+	return S_OK;
 }
 
 HRESULT CVIBuffer_Cube::Initialize(void* pArg)

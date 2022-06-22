@@ -44,7 +44,7 @@ HRESULT CCam_FPS::Initialize(void* pArg)
 
 void CCam_FPS::Tick(_float fTimeDelta)
 {
-	m_pTransformCom->Update_WorldMatrix();
+	__super::Tick(fTimeDelta);
 
 	m_pTransformCom->LookAt(_float3(0.f, 1.f, 1.f));
 
@@ -52,10 +52,13 @@ void CCam_FPS::Tick(_float fTimeDelta)
 
 void CCam_FPS::LateTick(_float fTimeDelta)
 {
+	__super::LateTick(fTimeDelta);
 }
 
 HRESULT CCam_FPS::Render()
 {
+	__super::Render();
+
 	return S_OK;
 }
 

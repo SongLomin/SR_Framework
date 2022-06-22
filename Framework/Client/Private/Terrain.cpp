@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Terrain.h"
 #include "GameInstance.h"
+#include "Mesh_Cube.h"
 
 CTerrain::CTerrain(const CTerrain& Prototype)
 {
@@ -40,24 +41,35 @@ HRESULT CTerrain::Initialize(void* pArg)
 
 void CTerrain::Tick(_float fTimeDelta)
 {
+	__super::Tick(fTimeDelta);
+
 	m_pTransformCom->Update_WorldMatrix();
 }
 
 void CTerrain::LateTick(_float fTimeDelta)
 {
+	__super::LateTick(fTimeDelta);
+
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_PRIORITY, this);
 }
 
 HRESULT CTerrain::Render()
 {
+	
+
 	m_pTransformCom->Bind_WorldMatrix();
 
 	m_pRendererCom->Bind_Texture(0);
+
+	__super::Render();
 	
-	m_pVIBufferCom->Render();
-	m_pMeshCom->Render();
+	//DEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILLMODE::D3DFILL_WIREFRAME);
+	//m_pMeshCom->Render_Mesh();
+
+	//DEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILLMODE::D3DFILL_SOLID);
 
 	m_pRendererCom->UnBind_Texture();
+
 
 	return S_OK;
 }

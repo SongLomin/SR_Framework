@@ -14,7 +14,7 @@ protected:
 public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);
-	virtual HRESULT Render();
+	virtual HRESULT Render_Mesh();
 
 public:
 	ID3DXMesh* Get_Mesh();

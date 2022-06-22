@@ -9,6 +9,20 @@ CTransform::CTransform(const CTransform& Prototype)
 
 }
 
+void CTransform::Tick(_float fTimeDelta)
+{
+	Update_WorldMatrix();
+}
+
+void CTransform::LateTick(_float fTimeDelta)
+{
+}
+
+HRESULT CTransform::Render()
+{
+	return S_OK;
+}
+
 list<CTransform*>* CTransform::Get_Children()
 {
 	return &m_pChildren;

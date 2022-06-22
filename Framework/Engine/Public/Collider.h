@@ -14,10 +14,6 @@ protected:
     virtual ~CCollider() = default;
 
 public:
-    virtual void Tick(_float _TimeDelta) PURE;
-    virtual HRESULT Render();
-
-public:
     void Link_Transform(CTransform * _TransformCom);
 
     virtual void Set_Collider_Size(const _float3& _Size) PURE;

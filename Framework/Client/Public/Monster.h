@@ -7,6 +7,7 @@ class CRenderer;
 class CMesh_Cube;
 class CTransform;
 class CCollider_OBB;
+class CStatus;
 END
 
 BEGIN(Client)
@@ -27,10 +28,11 @@ public:
     virtual HRESULT Render() override;
 
 private:
-    CTransform* m_pTransformCom = nullptr;
-    CRenderer* m_pRendererCom = nullptr;
-    CMesh_Cube* m_pMeshCom = nullptr;
-    CCollider_OBB* m_pCColliderCom = nullptr;
+    CTransform*     m_pTransformCom = nullptr;
+    CRenderer*      m_pRendererCom = nullptr;
+    CMesh_Cube*     m_pMeshCom = nullptr;
+    CCollider_OBB*  m_pCColliderCom = nullptr;
+    CStatus*        m_pStatusCom = nullptr;
 
 private:
     CTransform* m_pPlayerTransformCom = nullptr;

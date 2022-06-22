@@ -27,6 +27,42 @@ void CGameObject::Free()
 	//delete this;
 }
 
+void CGameObject::Tick(_float fTimeDelta)
+{
+	for (auto& elem : m_pComs)
+	{
+		if (elem.second)
+		{
+			elem.second->Tick(fTimeDelta);
+		}
+	}
+
+}
+
+void CGameObject::LateTick(_float fTimeDelta)
+{
+	for (auto& elem : m_pComs)
+	{
+		if (elem.second)
+		{
+			elem.second->LateTick(fTimeDelta);
+		}
+	}
+}
+
+HRESULT CGameObject::Render()
+{
+	for (auto& elem : m_pComs)
+	{
+		if (elem.second)
+		{
+			elem.second->Render();
+		}
+	}
+
+	return S_OK;
+}
+
 void CGameObject::Set_Controller(const CONTROLLER& _eController)
 {
 	m_eController = _eController;

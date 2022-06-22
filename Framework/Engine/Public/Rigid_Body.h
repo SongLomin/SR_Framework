@@ -29,6 +29,10 @@ private:
 	CRigid_Body(const CRigid_Body& Prototype);
 	virtual ~CRigid_Body() = default;
 
+	virtual void Tick(_float fTimeDelta) override;
+	virtual void LateTick(_float fTimeDelta) override;
+	virtual HRESULT Render() override;
+
 public:
 	virtual HRESULT		Initialize_Prototype();
 	virtual HRESULT		Initialize(void* pArg);

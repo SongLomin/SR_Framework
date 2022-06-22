@@ -21,6 +21,10 @@ private:
 	CTransform(const CTransform& Prototype);
 	virtual ~CTransform() = default;
 
+	virtual void Tick(_float fTimeDelta) override;
+	virtual void LateTick(_float fTimeDelta) override;
+	virtual HRESULT Render() override;
+
 public:
 	_float3 Get_State(STATE eState, _bool _bWorld = false) const {
 

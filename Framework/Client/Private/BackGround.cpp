@@ -57,10 +57,68 @@ HRESULT CBackGround::Initialize(void* pArg)
 	return S_OK;
 }
 
+HRESULT CBackGround::SetUp_Components()
+{
+
+	//약포인터: 원본 객체가 삭제되면 약포인터로 등록된 포인터들도 nullptr로 바뀐다.
+	//댕글링 포인터를 방지하기 위해 사용한다.
+
+#pragma region 스테이터스 컴포넌트
+	CStatus::STATUS		Status;
+	Status.fHp = 10.f;
+	Status.fAttack = 7.f;
+	Status.fArmor = 5.f;
+
+	m_pStatusCom = Add_Component<CStatus>(&Status);
+	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
+#pragma endregion
+
+#pragma region 랜더링 컴포넌트
+	m_pRendererCom = Add_Component<CRenderer>();
+	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
+#pragma endregion
+
+#pragma region 큐브 메쉬 컴포넌트
+	m_pMeshCubeCom = Add_Component<CMesh_Cube>();
+	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);
+#pragma endregion
+
+#pragma region 리지드바디 컴포넌트
+	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
+	RigidBodyDesc.m_fOwnerSpeed = 10.f;
+	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
+
+	RigidBodyDesc.m_fFrictional = 0.05f;
+	RigidBodyDesc.m_fRadFrictional = 0.02f;
+	RigidBodyDesc.m_fRadZ = 0.01f;
+
+
+	RigidBodyDesc.m_fOwnerLiftSpeed = 3.f;
+	RigidBodyDesc.m_fRadDrag = 1.f;
+	RigidBodyDesc.m_fDirDrag = 0.05f;
+	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
+	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
+	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
+#pragma endregion
+
+#pragma region 충돌체 컴포넌트
+	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER;
+	m_pCColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
+	m_pCColliderCom->Set_WeakPtr(&m_pCColliderCom);
+	m_pCColliderCom->Link_Transform(m_pTransformCom);
+	m_pCColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
+#pragma endregion
+
+	Set_Controller(CONTROLLER::PLAYER);
+
+
+	return S_OK;
+}
+
 void CBackGround::Tick(_float fTimeDelta)
 {
-	m_pTransformCom->Update_WorldMatrix();
-	m_pCColliderCom->Tick(fTimeDelta);
+	__super::Tick(fTimeDelta);
 
 	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_DirZ(0.1f);
@@ -127,12 +185,6 @@ void CBackGround::Tick(_float fTimeDelta)
 		GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
 	}
 
-	
-
-	
-
-	m_pRigidBodyCom->Update_Transform(fTimeDelta);
-
 	GAMEINSTANCE->Add_Text(
 		_point{ 100, g_iWinCY - 100 },
 		D3DCOLOR_ARGB(255, 130, 255, 0), 
@@ -151,6 +203,8 @@ void CBackGround::Tick(_float fTimeDelta)
 
 void CBackGround::LateTick(_float fTimeDelta)
 {
+	__super::LateTick(fTimeDelta);
+
 	ISVALID(m_pRendererCom, );
 
 	
@@ -159,69 +213,18 @@ void CBackGround::LateTick(_float fTimeDelta)
 
 HRESULT CBackGround::Render()
 {
+	
+
 	m_pTransformCom->Bind_WorldMatrix();
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-
+	__super::Render();
 	m_pRendererCom->Bind_Texture(0);
 	if(Get_Controller() == CONTROLLER::PLAYER)
-		m_pMeshCubeCom->Render();
+		m_pMeshCubeCom->Render_Mesh();
 	m_pRendererCom->UnBind_Texture();
 
 	
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-
-	return S_OK;
-}
-
-HRESULT CBackGround::SetUp_Components()
-{
-
-	//약포인터: 원본 객체가 삭제되면 약포인터로 등록된 포인터들도 nullptr로 바뀐다.
-	//댕글링 포인터를 방지하기 위해 사용한다.
-
-
-	CStatus::STATUS		Status;
-	Status.fHp = 10.f;
-	Status.fAttack = 7.f;
-	Status.fArmor = 5.f;
-
-	m_pStatusCom = Add_Component<CStatus>(&Status);
-	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
-
-	m_pRendererCom = Add_Component<CRenderer>();
-	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
-
-	/*m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
-	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);*/
-
-	m_pMeshCubeCom = Add_Component<CMesh_Cube>();
-	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);
-
-	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 10.f;
-	RigidBodyDesc.m_fOwnerRadSpeed= D3DXToRadian(90.0f);
-
-	RigidBodyDesc.m_fFrictional = 0.05f;
-	RigidBodyDesc.m_fRadFrictional =0.02f;
-	RigidBodyDesc.m_fRadZ = 0.01f;
-
-
-	RigidBodyDesc.m_fOwnerLiftSpeed = 3.f;
-	RigidBodyDesc.m_fRadDrag = 1.f;
-	RigidBodyDesc.m_fDirDrag = 0.05f;
-	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
-	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
-	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
-
-	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER;
-	m_pCColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
-	m_pCColliderCom->Set_WeakPtr(&m_pCColliderCom);
-	m_pCColliderCom->Link_Transform(m_pTransformCom);
-	m_pCColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
-
-	Set_Controller(CONTROLLER::PLAYER);
-
 
 	return S_OK;
 }

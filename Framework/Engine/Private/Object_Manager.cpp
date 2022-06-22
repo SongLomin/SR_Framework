@@ -62,6 +62,31 @@ void CObject_Manager::LateTick(_float fTimeDelta)
 	}
 }
 
+void CObject_Manager::Remove_Dead_Object()
+{
+
+	for (_uint i = 0; i < m_iNumLevels; ++i)
+	{
+		for (auto& Pair : m_pLayers[i])
+		{
+			for (auto iter = Pair.second.begin(); iter != Pair.second.end();)
+			{
+				if ((*iter)->Get_Dead())
+				{
+					Safe_Release((*iter));
+					iter = Pair.second.erase(iter);
+				}
+				else
+				{
+					iter++;
+				}
+			}
+		}
+	}
+
+
+}
+
 void CObject_Manager::Clear(_uint iLevelIndex)
 {
 	if (iLevelIndex >= m_iNumLevels)
@@ -71,7 +96,8 @@ void CObject_Manager::Clear(_uint iLevelIndex)
 	{
 		for (auto& elem_GameObject : Pair.second)
 		{
-			Safe_Release(elem_GameObject);
+			if(elem_GameObject)
+				Safe_Release(elem_GameObject);
 		}
 	}
 		

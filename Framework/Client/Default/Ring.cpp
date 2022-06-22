@@ -35,7 +35,7 @@ HRESULT CRing::Initialize(void* pArg)
 
 void CRing::Tick(_float fTimeDelta)
 {
-	m_pTransformCom->Update_WorldMatrix();
+	__super::Tick(fTimeDelta);
 
 	m_pTransformCom->Go_BackAndForth(8.f, fTimeDelta);
 	m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 3.f, fTimeDelta);
@@ -43,18 +43,27 @@ void CRing::Tick(_float fTimeDelta)
 
 void CRing::LateTick(_float fTimeDelta)
 {
+	__super::LateTick(fTimeDelta);
+
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CRing::Render()
 {
+	
+
 	m_pTransformCom->Bind_WorldMatrix();
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
+
+	__super::Render();
+
 	if (Get_Controller() == CONTROLLER::PLAYER)
-		m_pMeshCom->Render();
+		m_pMeshCom->Render_Mesh();
+
+
 	m_pRendererCom->UnBind_Texture();
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);

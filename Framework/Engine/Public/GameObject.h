@@ -16,13 +16,16 @@ protected:
 public:
 	virtual HRESULT Initialize_Prototype() PURE;
 	virtual HRESULT Initialize(void* pArg) PURE;
-	virtual void Tick(_float fTimeDelta) PURE;
-	virtual void LateTick(_float fTimeDelta) PURE;
-	virtual HRESULT Render() PURE;
+	virtual void Tick(_float fTimeDelta);
+	virtual void LateTick(_float fTimeDelta);
+	virtual HRESULT Render();
 
 
 	void Set_Controller(const CONTROLLER& _eController);
 	CONTROLLER Get_Controller() { return m_eController; };
+
+	void Set_Dead() { m_bDead = true; }
+	bool Get_Dead() const { return m_bDead; }
 
 protected: 
 	virtual void On_Change_Controller(const CONTROLLER& _eController);
@@ -37,6 +40,7 @@ protected:
 
 private:
 	CONTROLLER	m_eController = CONTROLLER::CONTROLLER_END;
+	bool m_bDead = false;
 
 public:
 	virtual CGameObject* Clone(void* pArg) = 0;

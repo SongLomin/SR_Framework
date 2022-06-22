@@ -4,6 +4,7 @@
 #include "Bullet.h"
 #include "GameInstance.h"
 #include "CameraPosin.h"
+#include "Collider_OBB.h"
 
 
 CBullet::CBullet()
@@ -34,12 +35,19 @@ HRESULT CBullet::Initialize(void* pArg)
 	m_pMeshCom = Add_Component<CMesh_Cube>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 
+	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER_ATTACK;
+	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
+	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
+	m_pColliderCom->Link_Transform(m_pTransformCom);
+	m_pColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
+
+
 	return S_OK;
 }
 
 void CBullet::Tick(_float fTimeDelta)
 {
-	m_pTransformCom->Update_WorldMatrix();
+	__super::Tick(fTimeDelta);
 
 	m_pTransformCom->Go_BackAndForth(80.f, fTimeDelta);
 	m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK), 10.f, fTimeDelta);
@@ -47,17 +55,22 @@ void CBullet::Tick(_float fTimeDelta)
 
 void CBullet::LateTick(_float fTimeDelta)
 {
+	__super::LateTick(fTimeDelta);
+
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CBullet::Render()
 {
+	
+
 	m_pTransformCom->Bind_WorldMatrix();
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
-	m_pMeshCom->Render();
+	__super::Render();
+	m_pMeshCom->Render_Mesh();
 	m_pRendererCom->UnBind_Texture();
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
@@ -77,6 +90,23 @@ void CBullet::Link_PosinTransform(CTransform* pTransform)
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_UP, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_UP, true));
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_LOOK, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_LOOK, true));
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_POSITION, true));
+}
+
+void CBullet::On_Collision_Enter(CCollider* _Other_Collider)
+{
+	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER)
+	{
+		Set_Dead();
+	}
+
+}
+
+void CBullet::On_Collision_Stay(CCollider* _Other_Collider)
+{
+}
+
+void CBullet::On_Collision_Exit(CCollider* _Other_Collider)
+{
 }
 
 inline HRESULT CBullet::SetUp_Components()

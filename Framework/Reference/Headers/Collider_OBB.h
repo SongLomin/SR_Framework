@@ -16,7 +16,9 @@ public:
     virtual HRESULT Initialize(void* pArg);
 
     // CCollider을(를) 통해 상속됨
-    virtual void Tick(_float _TimeDelta) override;
+    virtual void Tick(_float fTimeDelta) override;
+    virtual void LateTick(_float fTimeDelta) override;
+    virtual HRESULT Render() override;
 
 public:
     OBBINFO Get_OBBInfo() const { return m_OBBInfo; };
@@ -29,7 +31,12 @@ public:
 
 private:
     OBBINFO m_OBBInfo;
-
+    
+private: /* For Debug Mesh */
+    ID3DXMesh* m_pMesh = nullptr;
+    _uint			m_iNumVertices = 0;
+    _uint			m_iNumPrimitive = 0;
+    _ulong			m_dwFVF;
 public:
     static CCollider_OBB* Create();
     virtual	CComponent* Clone(void* pArg) override;

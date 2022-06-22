@@ -81,17 +81,31 @@ void CCollision_Manager::Erase_Collider(CCollider* pCollider)
 
 void CCollision_Manager::CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_TYPE _eRight)
 {
-	list<CCollider*>& LeftList = m_ColliderList[(UINT)_eLeft];
-	list<CCollider*>& RightList = m_ColliderList[(UINT)_eRight];
 
 	map<ULONGLONG, bool>::iterator iter;
 
-	for (auto LeftIter = LeftList.begin(); LeftIter != LeftList.end(); ++LeftIter)
+	for (auto LeftIter = m_ColliderList[(UINT)_eLeft].begin(); LeftIter != m_ColliderList[(UINT)_eLeft].end(); )
 	{
-		for (auto RightIter = RightList.begin(); RightIter != RightList.end(); ++RightIter)
+		if (!(*LeftIter))
 		{
-			if (*LeftIter == *RightIter) // 나 자신과 충돌 방지
+			LeftIter = m_ColliderList[(UINT)_eLeft].erase(LeftIter);
+			continue;
+		} //이미 삭제된 객체면 리스트에서 지우고 넘긴다.
+
+		for (auto RightIter = m_ColliderList[(UINT)_eRight].begin(); RightIter != m_ColliderList[(UINT)_eRight].end(); )
+		{
+			if (!(*RightIter))
+			{
+				RightIter = m_ColliderList[(UINT)_eRight].erase(RightIter);
 				continue;
+			} //이미 삭제된 객체면 리스트에서 지우고 넘긴다.
+
+			if (*LeftIter == *RightIter) // 나 자신과 충돌 방지
+			{
+				++RightIter;
+				continue;
+			}
+				
 
 			COLLIDER_ID ID;
 			ID.Left_id = (*LeftIter)->Get_ID();		// 4바이트
@@ -149,7 +163,11 @@ void CCollision_Manager::CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_T
 
 				}
 			}
+
+			++RightIter;
 		}
+
+		++LeftIter;
 
 	}
 }

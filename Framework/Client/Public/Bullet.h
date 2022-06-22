@@ -8,6 +8,7 @@ class CRenderer;
 class CTransform;
 class CMesh_Cube;
 class CRigid_Body;
+class CCollider_OBB;
 END
 
 BEGIN(Client)
@@ -32,11 +33,17 @@ private:
     CRenderer* m_pRendererCom = nullptr;
     CMesh_Cube* m_pMeshCom = nullptr;
     CRigid_Body* m_pRigidBodyCom = nullptr;
+    CCollider_OBB* m_pColliderCom = nullptr;
 
     CTransform* m_pPosinTransformCom = nullptr;
 
 public:
     void Link_PosinTransform(CTransform* pTransform);
+
+public: /* For Event Function */
+    virtual void On_Collision_Enter(CCollider* _Other_Collider) override;
+    virtual void On_Collision_Stay(CCollider* _Other_Collider) override;
+    virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
 
 private:
     HRESULT SetUp_Components();

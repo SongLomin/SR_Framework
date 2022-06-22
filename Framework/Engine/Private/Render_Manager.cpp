@@ -14,6 +14,7 @@ HRESULT CRender_Manager::Add_RenderGroup(RENDERGROUP eGroup, CGameObject* pGameO
 		return E_FAIL;
 
 	m_RenderObjects[(_uint)eGroup].push_back(pGameObject);
+	pGameObject->Set_WeakPtr(&m_RenderObjects[(_uint)eGroup].back());
 
 	//Safe_AddRef(pGameObject);
 
@@ -24,14 +25,27 @@ HRESULT CRender_Manager::Draw_RenderGroup()
 {
 	for (_uint i = 0; i < (_uint)RENDERGROUP::RENDER_END; ++i)
 	{
-		for (auto& pGameObject : m_RenderObjects[i])
+		for (auto iter = m_RenderObjects[i].begin(); iter != m_RenderObjects[i].end();)
 		{
-			if (nullptr != pGameObject)
-				pGameObject->Render();
+			if ((*iter))
+			{
+				(*iter)->Render();
+				(*iter)->Return_WeakPtr(&(*iter));
+			}
 
-			//Safe_Release(pGameObject);
+			iter = m_RenderObjects[i].erase(iter);
 		}
-		m_RenderObjects[i].clear();
+
+		//for (auto& pGameObject : m_RenderObjects[i])
+		//{
+		//	if (nullptr != pGameObject)
+		//		pGameObject->Render();
+		//	
+		//	pGameObject->Return_WeakPtr(&pGameObject);
+
+		//	//Safe_Release(pGameObject);
+		//}
+		//m_RenderObjects[i].clear();
 	}
 
 	return S_OK;

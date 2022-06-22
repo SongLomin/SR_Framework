@@ -35,8 +35,7 @@ HRESULT CCam_Free::Initialize(void* pArg)
 
 void CCam_Free::Tick(_float fTimeDelta)
 {
-
-	m_pTransformCom->Update_WorldMatrix();
+	__super::Tick(fTimeDelta);
 
 	if (FAILED(m_pCameraCom->Bind_PipeLine()))
 		return;
@@ -44,11 +43,13 @@ void CCam_Free::Tick(_float fTimeDelta)
 
 void CCam_Free::LateTick(_float fTimeDelta)
 {
-
+	__super::LateTick(fTimeDelta);
 }
 
 HRESULT CCam_Free::Render()
 {
+	__super::Render();
+
 	return S_OK;
 }
 

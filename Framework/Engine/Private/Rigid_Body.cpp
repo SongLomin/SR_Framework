@@ -11,6 +11,23 @@ CRigid_Body::CRigid_Body(const CRigid_Body & Prototype)
 	*this = Prototype;
 }
 
+void CRigid_Body::Tick(_float fTimeDelta)
+{
+	Update_Transform(fTimeDelta);
+}
+
+void CRigid_Body::LateTick(_float fTimeDelta)
+{
+
+}
+
+HRESULT CRigid_Body::Render()
+{
+
+
+	return S_OK;
+}
+
 HRESULT CRigid_Body::Initialize_Prototype()
 {
 	

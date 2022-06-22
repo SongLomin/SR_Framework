@@ -33,7 +33,7 @@ HRESULT CAuto_Aim::Initialize(void* pArg)
 
 void CAuto_Aim::Tick(_float fTimeDelta)
 {
-	m_pTransformCom->Update_WorldMatrix();
+	__super::Tick(fTimeDelta);
 
 	if (KEY_INPUT(KEY::M, KEY_STATE::TAP))
 	{
@@ -67,6 +67,8 @@ void CAuto_Aim::Tick(_float fTimeDelta)
 
 void CAuto_Aim::LateTick(_float fTimeDelta)
 {
+	__super::LateTick(fTimeDelta);
+
 	if (m_pRendererCom == nullptr)
 		return;
 
@@ -75,6 +77,8 @@ void CAuto_Aim::LateTick(_float fTimeDelta)
 
 HRESULT CAuto_Aim::Render()
 {
+	__super::Render();
+
 	return S_OK;
 }
 

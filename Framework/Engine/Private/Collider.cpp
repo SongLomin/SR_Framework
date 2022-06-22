@@ -7,11 +7,6 @@ CCollider::CCollider(const CCollider& Prototype)
 {
 }
 
-HRESULT CCollider::Render()
-{
-    return S_OK;
-}
-
 void CCollider::Link_Transform(CTransform* _TransformCom)
 {
     m_pMyTransformCom = _TransformCom;

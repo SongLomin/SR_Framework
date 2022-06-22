@@ -51,7 +51,7 @@ HRESULT CCam_TPS::Initialize(void* pArg)
 
 void CCam_TPS::Tick(_float fTimeDelta)
 {
-	m_pTransformCom->Update_WorldMatrix();
+	__super::Tick(fTimeDelta);
 
 	if (GAMEINSTANCE->Get_Camera(CURRENT_CAMERA) == m_pCameraCom)
 	{
@@ -76,7 +76,7 @@ void CCam_TPS::Tick(_float fTimeDelta)
 
 		m_pRigidBodyCom->Add_DirX(-Cursor_Weight.x*0.1f);
 		m_pRigidBodyCom->Add_DirY(Cursor_Weight.y*0.1f);
-		m_pRigidBodyCom->Update_Transform(fTimeDelta);
+		//m_pRigidBodyCom->Update_Transform(fTimeDelta);
 
 		m_pTransformCom->LookAt(_float3(0.f, 0.f, 0.f));
 		m_PreCursorPosition = m_MouseRealPosition;
@@ -85,10 +85,13 @@ void CCam_TPS::Tick(_float fTimeDelta)
 
 void CCam_TPS::LateTick(_float fTimeDelta)
 {
+	__super::LateTick(fTimeDelta);
 }
 
 HRESULT CCam_TPS::Render()
 {
+	__super::Render();
+
 	return S_OK;
 }
 

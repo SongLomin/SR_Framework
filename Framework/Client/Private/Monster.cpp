@@ -28,45 +28,43 @@ HRESULT CMonster::Initialize(void* pArg)
 
 void CMonster::Tick(_float fTimeDelta)
 {
+	__super::Tick(fTimeDelta);
+
 	ISVALID(m_pPlayerTransformCom, );
 	ISVALID(m_pTransformCom, );
-
-	m_pTransformCom->Update_WorldMatrix();
-	m_pCColliderCom->Tick(fTimeDelta);
 
 	m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
 	m_pTransformCom->Go_BackAndForth(2.5, fTimeDelta);
 
-	/*if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
-	{
-		RAY MouseRay;
-		CMath_Utillity::Compute_RayInWorldSpace(&MouseRay, 10000.f);
-		_float3 vPickedPos;
+	
+	_float3 MyScreenPos;
+	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE::STATE_POSITION, true), &MyScreenPos);
 
-		if (true == CMath_Utillity::Picking_Mesh(m_pMeshCom->Get_Mesh(), m_pTransformCom, MouseRay, &vPickedPos))
-		{
-			int a = 1;
-		}
-	}*/
-
+	GAMEINSTANCE->Add_Text(
+		_point{ (long)MyScreenPos.x, (long)MyScreenPos.y },
+		D3DCOLOR_ARGB(255, 130, 255, 0),
+		0.0f,
+		L"HP : %d / 10",
+		1,
+		(_int)m_pStatusCom->Get_Status().fHp);
 }
 
 void CMonster::LateTick(_float fTimeDelta)
 {
+	__super::LateTick(fTimeDelta);
+
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CMonster::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
-
-	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-
 	m_pRendererCom->Bind_Texture(1);
-	m_pMeshCom->Render();
-	m_pRendererCom->UnBind_Texture();
 
-	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	__super::Render();
+	m_pMeshCom->Render_Mesh();
+
+	m_pRendererCom->UnBind_Texture();
 
 	return S_OK;
 }
@@ -79,6 +77,14 @@ HRESULT CMonster::SetUp_Components()
 	/* For.Com_Renderer */
 	//약포인터: 해당 객체가 삭제되면 약포인터로 선언된 포인터 객체들도 nullptr를 가르킨다.
 	//댕글링 포인터를 방지하기 위해 사용한다.
+
+	CStatus::STATUS		Status;
+	Status.fHp = 10.f;
+	Status.fAttack = 7.f;
+	Status.fArmor = 5.f;
+
+	m_pStatusCom = Add_Component<CStatus>(&Status);
+	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
 
 	m_pRendererCom = Add_Component<CRenderer>();
 
@@ -101,6 +107,7 @@ HRESULT CMonster::SetUp_Components()
 	m_pCColliderCom->Set_WeakPtr(&m_pCColliderCom);
 	m_pCColliderCom->Link_Transform(m_pTransformCom);
 	m_pCColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
+	
 
 	//Safe_Release(pGameInstance);
 	return S_OK;
@@ -108,6 +115,17 @@ HRESULT CMonster::SetUp_Components()
 
 void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 {
+	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::PLAYER_ATTACK)
+	{
+		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+
+		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
+		{
+			Set_Dead();
+		}
+		
+	}
+
 }
 
 void CMonster::On_Collision_Stay(CCollider* _Other_Collider)

@@ -46,7 +46,7 @@ HRESULT CCam_Shoulder::Initialize(void* pArg)
 
 void CCam_Shoulder::Tick(_float fTimeDelta)
 {
-	m_pTransformCom->Update_WorldMatrix();
+	__super::Tick(fTimeDelta);
 
 	if (GAMEINSTANCE->Get_Camera(CURRENT_CAMERA) == m_pCameraCom)
 	{
@@ -79,10 +79,13 @@ void CCam_Shoulder::Tick(_float fTimeDelta)
 
 void CCam_Shoulder::LateTick(_float fTimeDelta)
 {
+	__super::LateTick(fTimeDelta);
 }
 
 HRESULT CCam_Shoulder::Render()
 {
+	__super::Render();
+
 	return S_OK;
 }
 
