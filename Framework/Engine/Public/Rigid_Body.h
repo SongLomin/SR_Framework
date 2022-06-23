@@ -79,6 +79,7 @@ private:
 	
 private:
 	CTransform*		m_pTransform;
+	_bool			m_bFirst = true;
 
 private:
 	RIGIDBODYDESC	m_RigidbodyDesc;

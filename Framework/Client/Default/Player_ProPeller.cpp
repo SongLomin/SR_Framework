@@ -38,7 +38,9 @@ void CPlayer_ProPeller::Tick(_float fTimeDelta)
 	__super::Tick(fTimeDelta);
 
 	//m_pTransformCom->Go_BackAndForth(8.f, fTimeDelta);
-	m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 15.f, fTimeDelta);
+	//m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 15.f, fTimeDelta);
+	m_pRigidBodyCom->Set_DirVector();
+	m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
 }
 
 void CPlayer_ProPeller::LateTick(_float fTimeDelta)

@@ -52,10 +52,7 @@ void CRigid_Body::Link_TransformCom(CTransform * _pTransform)
 	m_pTransform = _pTransform;
 	m_pTransform->Set_WeakPtr(&m_pTransform);
 
-	m_vLook = m_vSubLook = m_pTransform->Get_State(CTransform::STATE_LOOK);
-	m_vRight = m_vSubRight = m_pTransform->Get_State(CTransform::STATE_RIGHT);
-	m_vUp = m_vSubUp = _float3(0.f, 1.f, 0.f);
-	m_vPos  = m_pTransform->Get_State(CTransform::STATE_POSITION);
+	
 
 }
 
@@ -150,7 +147,7 @@ void CRigid_Body::Compute_Force()
 			Compute_Jump();
 		Friction();
 	}
-	//Compute_Ground();
+	Compute_Ground();
 }
 
 void CRigid_Body::Compute_Dir()
@@ -381,9 +378,18 @@ void CRigid_Body::Update_Transform(_float fTimeDelta)
 
 void CRigid_Body::Set_DirVector()
 {
-	m_vLook = m_vSubLook = m_pTransform->Get_State(CTransform::STATE_LOOK);
-	m_vRight = m_vSubRight = m_pTransform->Get_State(CTransform::STATE_RIGHT);
-	m_vUp = m_vSubUp = _float3(0.f, 1.f, 0.f);
+	if (m_bFirst)
+	{
+		m_vLook = m_vSubLook = m_pTransform->Get_State(CTransform::STATE_LOOK);
+		m_vRight = m_vSubRight = m_pTransform->Get_State(CTransform::STATE_RIGHT);
+		m_vUp = m_vSubUp = _float3(0.f, 1.f, 0.f);
+
+		m_bFirst = false;
+	}
+
+	m_vSubLook = m_pTransform->Get_State(CTransform::STATE_LOOK);
+	m_vSubRight = m_pTransform->Get_State(CTransform::STATE_RIGHT);
+	m_vSubUp = _float3(0.f, 1.f, 0.f);
 	m_vPos = m_pTransform->Get_State(CTransform::STATE_POSITION);
 	m_vScale = m_pTransform->Get_Scaled();
 }
