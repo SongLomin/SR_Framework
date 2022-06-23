@@ -48,13 +48,13 @@ private:
     HRESULT SetUp_Components();
 
 private:
-    void    MoveMent(_float fTimeDelta);
+  /*  void    MoveMent(_float fTimeDelta);
     void    MoveMent1(_float fTimeDelta);
     void    MoveMent2(_float fTimeDelta);
     void    MoveMent3(_float fTimeDelta);
     void    MoveMent4(_float fTimeDelta);
     void    MoveMent5(_float fTimeDelta);
-    void    MoveMentChange(_float fTimeDelta);
+    void    MoveMentChange(_float fTimeDelta);*/
 
 public:
     static CEnemySpace_Body* Create();

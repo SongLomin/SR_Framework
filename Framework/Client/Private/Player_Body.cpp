@@ -64,8 +64,7 @@ HRESULT CPlayer_Body::Initialize(void* pArg)
 
 void CPlayer_Body::Tick(_float fTimeDelta)
 {
-	m_pTransformCom->Update_WorldMatrix();
-	//m_pCColliderCom->Tick(fTimeDelta);
+	__super::Tick(fTimeDelta);
 
 	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
@@ -127,14 +126,6 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 	}
 
 
-	
-
-	
-
-	
-
-	m_pRigidBodyCom->Update_Transform(fTimeDelta);
-
 	GAMEINSTANCE->Add_Text(
 		_point{ 100, g_iWinCY - 100 },
 		D3DCOLOR_ARGB(255, 130, 255, 0), 
@@ -153,6 +144,8 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 
 void CPlayer_Body::LateTick(_float fTimeDelta)
 {
+	__super::LateTick(fTimeDelta);
+
 	ISVALID(m_pRendererCom, );
 
 	
@@ -165,8 +158,11 @@ HRESULT CPlayer_Body::Render()
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(0);
+
+	__super::Render();
+
 	if(Get_Controller() == CONTROLLER::PLAYER)
-		m_pMeshCubeCom->Render();
+		m_pMeshCubeCom->Render_Mesh();
 	m_pRendererCom->UnBind_Texture();
 
 	

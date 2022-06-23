@@ -48,8 +48,6 @@ HRESULT CPlayer_RightBody::Initialize(void* pArg)
 void CPlayer_RightBody::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
-
-	m_pTransformCom->Update_WorldMatrix();
 }
 
 void CPlayer_RightBody::LateTick(_float fTimeDelta)
