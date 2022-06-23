@@ -68,26 +68,26 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 	//m_pCColliderCom->Tick(fTimeDelta);
 
 	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_DirZ(0.1f);
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 
 	
 	if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_DirZ(-0.1f);
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::BACK);
 
 	if (KEY_INPUT(KEY::D, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_RotationY(0.3f);
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
 
 	if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_RotationY(-0.3f);
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
 
-	if (KEY_INPUT(KEY::SPACE, KEY_STATE::HOLD))
+	if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP))
 	{
-		m_pRigidBodyCom->Add_Jump();
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::JUMP);
 	}
 
 	if (KEY_INPUT(KEY::UP, KEY_STATE::HOLD))
 	{
-		m_pRigidBodyCom->Add_Lift(0.3f);
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::LIFT);
 	}
 
 
@@ -201,7 +201,11 @@ HRESULT CPlayer_Body::SetUp_Components()
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 10.f;
+	RigidBodyDesc.m_fOwnerAccel = 0.1f;
 	RigidBodyDesc.m_fOwnerRadSpeed= D3DXToRadian(90.0f);
+	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
+	RigidBodyDesc.m_fOwnerJump = 5.f;
+	RigidBodyDesc.m_fOwnerJumpScale = 1.f;
 
 	RigidBodyDesc.m_fFrictional = 0.05f;
 	RigidBodyDesc.m_fRadFrictional =0.02f;
@@ -209,6 +213,7 @@ HRESULT CPlayer_Body::SetUp_Components()
 
 
 	RigidBodyDesc.m_fOwnerLiftSpeed = 3.f;
+	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);

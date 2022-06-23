@@ -141,9 +141,6 @@
     <ClInclude Include="..\Public\UITest.h">
       <Filter>97. UITest</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Auto_Aim.h">
-      <Filter>02.GameObject\09. Aim\Auto_Aim</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\Player_Body.h">
       <Filter>02.GameObject\00. Player</Filter>
     </ClInclude>
@@ -165,7 +162,6 @@
     <ClInclude Include="..\Public\EnemySpace_Posin.h">
       <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\BackGround.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -213,9 +209,6 @@
     <ClCompile Include="..\Private\UITest.cpp">
       <Filter>97. UITest</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Auto_Aim.cpp">
-      <Filter>02.GameObject\09. Aim\Auto_Aim</Filter>
-    </ClCompile>
     <ClCompile Include="..\private\Player_Body.cpp">
       <Filter>02.GameObject\00. Player</Filter>
     </ClCompile>
@@ -237,7 +230,6 @@
     <ClCompile Include="..\Private\EnemySpace_Posin.cpp">
       <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
     </ClCompile>
-    <ClCompile Include="..\private\BackGround.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

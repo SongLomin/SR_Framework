@@ -35,6 +35,8 @@ HRESULT CBullet::Initialize(void* pArg)
 	m_pMeshCom = Add_Component<CMesh_Cube>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 
+
+
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER_ATTACK;
 	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
@@ -119,7 +121,9 @@ inline HRESULT CBullet::SetUp_Components()
 	m_pTransformCom->Scaling(_float3(0.2f, 10.0f, 0.2f));
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 10.f;
+	ZeroMemory(&RigidBodyDesc, sizeof(CRigid_Body::RIGIDBODYDESC));
+	RigidBodyDesc.m_fOwnerSpeed = 80.f;
+	RigidBodyDesc.m_fOwnerAccel = 10.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 
 	RigidBodyDesc.m_fFrictional = 0.05f;

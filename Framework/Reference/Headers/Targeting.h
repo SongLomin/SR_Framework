@@ -11,8 +11,8 @@ private:
 	virtual ~CTargeting() = default;
 
 public:
-	list<CGameObject*> Get_Targetting() {
-		return m_pTargeting;
+	list<CGameObject*>* Get_Targetting() {
+		return &m_pTargeting;
 	}
 
 public:
