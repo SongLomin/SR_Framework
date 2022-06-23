@@ -79,7 +79,7 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 	if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
 
-	if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP))
+	if (KEY_INPUT(KEY::SPACE, KEY_STATE::HOLD))
 	{
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::JUMP);
 	}
