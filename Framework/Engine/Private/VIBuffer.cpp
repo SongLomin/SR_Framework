@@ -39,6 +39,8 @@ HRESULT CVIBuffer::Render()
 	DEVICE->SetIndices(m_pIB);
 	DEVICE->SetFVF(m_dwFVF);
 	DEVICE->DrawIndexedPrimitive(m_ePrimitiveType, 0, 0, m_iNumVertices, 0, m_iNumPrimitive);
+	
+	DEVICE->SetTexture(0, 0);
 
 	return S_OK;
 }

@@ -41,6 +41,20 @@ namespace Engine
 		static const DWORD FVF = D3DFVF_XYZ | D3DFVF_TEX1;
 	}VTXTEX;
 
+	typedef struct tagVertex_CubeTexture
+	{
+		D3DXVECTOR3		vPosition;
+		D3DXVECTOR3		vTexUV;
+
+		tagVertex_CubeTexture(const D3DXVECTOR3& _Pos, const D3DXVECTOR3& _Tex)
+		{
+			vPosition = _Pos;
+			vTexUV = _Tex;
+		}
+
+		static const DWORD SKY = D3DFVF_XYZ | D3DFVF_TEX1 | D3DFVF_TEXCOORDSIZE3(0);
+	}VTXCUBETEX;
+
 
 	typedef struct tagGraphicDesc
 	{

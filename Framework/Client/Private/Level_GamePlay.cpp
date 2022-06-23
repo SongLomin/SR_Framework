@@ -10,6 +10,7 @@
 #include "Cam_Shoulder.h"
 #include "Cam_TPS.h"
 #include "EnemySpace_Body.h"
+#include <SkyBox.h>
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -45,6 +46,9 @@ HRESULT CLevel_GamePlay::Initialize()
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_GAMEPLAY, TEXT("Terrain")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVEL_GAMEPLAY, TEXT("SkyBox")))
 		return E_FAIL;
 
 

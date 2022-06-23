@@ -37,6 +37,14 @@ HRESULT CMesh::Render_Mesh()
 	return S_OK;
 }
 
+HRESULT CMesh::Set_Texture(const _tchar* _Str_Key, MEMORY_TYPE _eType)
+{
+	m_vTextures = GAMEINSTANCE->Get_Textures_From_Key(_Str_Key, _eType);
+
+	
+	return S_OK;
+}
+
 ID3DXMesh* CMesh::Get_Mesh()
 {
 	return m_pMesh;

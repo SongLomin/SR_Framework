@@ -17,6 +17,9 @@ public:
 	virtual HRESULT Render_Mesh();
 
 public:
+	virtual HRESULT Set_Texture(const _tchar* _Str_Key, MEMORY_TYPE _eType);
+
+public:
 	ID3DXMesh* Get_Mesh();
 
 protected:
@@ -29,6 +32,7 @@ protected:
 	_uint			m_iNumVertices = 0;
 	_uint			m_iNumPrimitive = 0;
 	_ulong			m_dwFVF;
+
 
 
 
