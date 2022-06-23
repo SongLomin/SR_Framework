@@ -34,8 +34,6 @@ HRESULT CPlayer_Posin::Initialize(void* pArg)
 	m_pMeshCom = Add_Component<CMesh_Cube>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 
-	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f));
-
 
 	return S_OK;
 }
@@ -71,6 +69,7 @@ void CPlayer_Posin::LateTick(_float fTimeDelta)
 
 HRESULT CPlayer_Posin::Render()
 {
+	m_pTransformCom->Scaling(_float3(0.4f, 0.24f, 1.6f), true);
 	m_pTransformCom->Bind_WorldMatrix(D3D_ALL, D3D_ALL);
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);

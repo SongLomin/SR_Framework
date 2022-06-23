@@ -10,6 +10,7 @@
 #include "Cam_Shoulder.h"
 #include "Cam_TPS.h"
 #include "EnemySpace_Body.h"
+#include <UITest.h>
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -46,6 +47,8 @@ HRESULT CLevel_GamePlay::Initialize()
 
 	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_GAMEPLAY, TEXT("Terrain")))
 		return E_FAIL;
+
+	//CGameObject* Mesh_Test = GAMEINSTANCE->Add_GameObject<CUITest>(LEVEL_GAMEPLAY, TEXT("Test"));
 
 
 	/*TEXTINFO Info;

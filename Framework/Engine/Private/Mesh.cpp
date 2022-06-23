@@ -28,7 +28,8 @@ HRESULT CMesh::Render_Mesh()
 
 	for (_ulong i = 0; i < m_dwNumSubsets; ++i)
 	{
-		DEVICE->SetTexture(0, (*m_vTextures)[i]);
+		if(m_vTextures)
+			DEVICE->SetTexture(0, (*m_vTextures)[6]);
 		//DEVICE->SetMaterial(m_vMtrl[i]);
 		m_pMesh->DrawSubset(i);
 	}

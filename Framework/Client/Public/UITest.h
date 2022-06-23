@@ -7,6 +7,8 @@ BEGIN(Engine)
 class CRenderer;
 class CTransform;
 class CVIBuffer_Rect;
+class CMesh_Test;
+class CMesh_SongShip;
 END
 
 BEGIN(Client)
@@ -29,7 +31,8 @@ public:
 private:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
-    CVIBuffer_Rect* m_pVIBufferCom = nullptr;
+    //CMesh_Test* m_pMesh_TestCom = nullptr;
+    CMesh_SongShip* m_pMesh_TestCom = nullptr;
 
 private:
     HRESULT SetUp_Components();

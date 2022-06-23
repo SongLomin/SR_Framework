@@ -23,7 +23,7 @@ protected:
 	/*메쉬 렌더*/
 	ID3DXMesh*		m_pMesh = nullptr;
 	_ulong			m_dwNumSubsets = 0;
-	vector<LPDIRECT3DBASETEXTURE9>*		m_vTextures;
+	vector<LPDIRECT3DBASETEXTURE9>*		m_vTextures = nullptr;
 	//vector<D3DXMATERIAL>			m_vMtrl;
 	/*메쉬 생성*/
 	_uint			m_iNumVertices = 0;

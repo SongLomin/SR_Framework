@@ -98,6 +98,10 @@ HRESULT CLoader::Loading_ForLogoLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
+	if (FAILED(pGameInstance->Add_Textures(TEXT("Mesh_Cube"), TEXT("../Bin/Resources/Textures/Terrain/Spaceship.jpg"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
 	lstrcpy(m_szLoadingText, TEXT("¸ðµ¨À» ·ÎµùÁßÀÌºñ³®. "));
 
 
@@ -118,7 +122,7 @@ HRESULT CLoader::Loading_ForGamePlayLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Tex_Terrain"), TEXT("../Bin/Resources/Textures/Terrain/Grass_1.tga"),
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Tex_Terrain"), TEXT("../Bin/Resources/Textures/Terrain/SpaceStation.jpg"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
 		return E_FAIL;
 

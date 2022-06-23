@@ -66,7 +66,7 @@ void CBullet::LateTick(_float fTimeDelta)
 HRESULT CBullet::Render()
 {
 	
-
+	m_pTransformCom->Scaling(_float3(0.2f, 0.1f, 10.f));
 	m_pTransformCom->Bind_WorldMatrix();
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
@@ -97,7 +97,7 @@ void CBullet::Link_PosinTransform(CTransform* pTransform)
 	m_pTransformCom->Update_WorldMatrix();
 	m_pRigidBodyCom->Set_DirVector();
 	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
-	//m_pRigidBodyCom->Add_Dir(CRigid_Body::JUMP);
+	m_pRigidBodyCom->Add_Dir(CRigid_Body::JUMP);
 }
 
 void CBullet::On_Collision_Enter(CCollider* _Other_Collider)
@@ -127,8 +127,8 @@ inline HRESULT CBullet::SetUp_Components()
 	//m_pTransformCom->Scaling(_float3(0.2f, 10.0f, 0.2f));
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 50.f;
-	RigidBodyDesc.m_fOwnerAccel = 50.f;
+	RigidBodyDesc.m_fOwnerSpeed = 150.f;
+	RigidBodyDesc.m_fOwnerAccel = 150.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
 	RigidBodyDesc.m_fOwnerJump = 0.f;
