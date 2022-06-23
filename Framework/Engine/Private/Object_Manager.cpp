@@ -23,7 +23,7 @@ HRESULT CObject_Manager::Reserve_Container(_uint iNumLevels)
 
 CGameObject* CObject_Manager::Get_Player()
 {
-	list<CGameObject*>* pLayer = Find_Layer(CURRENT_LEVEL, TEXT("Background"));
+	list<CGameObject*>* pLayer = Find_Layer(CURRENT_LEVEL, TEXT("Player_Body"));
 
 	ISVALID(pLayer, nullptr);
 

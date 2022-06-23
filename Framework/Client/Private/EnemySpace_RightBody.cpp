@@ -45,11 +45,13 @@ HRESULT CEnemySpace_RightBody::Initialize(void* pArg)
 
 void CEnemySpace_RightBody::Tick(_float fTimeDelta)
 {
-	m_pTransformCom->Update_WorldMatrix();
+	__super::Tick(fTimeDelta);
 }
 
 void CEnemySpace_RightBody::LateTick(_float fTimeDelta)
 {
+	__super::LateTick(fTimeDelta);
+
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
@@ -59,7 +61,8 @@ HRESULT CEnemySpace_RightBody::Render()
 
 
 	m_pRendererCom->Bind_Texture(1);
-	m_pMeshCom->Render();
+	__super::Render();
+	m_pMeshCom->Render_Mesh();
 	m_pRendererCom->UnBind_Texture();
 
 
