@@ -11,6 +11,7 @@ CTargeting::CTargeting()
 
 void CTargeting::Update_Targeting()
 {
+	//return_Weakptr
 	m_pTargeting.clear();
 }
 
@@ -41,15 +42,16 @@ void CTargeting::Make_TargetList(list<CGameObject*>* pLayer)
 
 			Projection += MouseRay.Pos;
 
-			_float3 Lenght = MonsterPos - Projection;
+			_float3 Length = MonsterPos - Projection;
 
-			_float Range = D3DXVec3Length(&Lenght);
+			_float Range = D3DXVec3Length(&Length);
 
 
 
 			if (Range < 7.f)
 			{
 				m_pTargeting.push_back(*iter);
+				(*iter)->Set_WeakPtr(&m_pTargeting.back());
 
 				for (auto iter : m_pTargeting)
 				{

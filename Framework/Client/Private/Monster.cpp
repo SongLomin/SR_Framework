@@ -102,6 +102,7 @@ HRESULT CMonster::SetUp_Components()
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
 
+	//콜라이더 기본 틀
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
 	m_pCColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
 	m_pCColliderCom->Set_WeakPtr(&m_pCColliderCom);

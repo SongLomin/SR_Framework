@@ -112,7 +112,7 @@ void CPosin::LookAt_Targeting()
 	auto Monster = GAMEINSTANCE->Get_Player_GameObject()->Get_Component<CTargeting>()->Get_Targetting();
 	if (!Monster.empty())
 	{
-		for (auto& iter : Monster)
+		for (auto& elem : Monster)
 		{
 			m_pTransformCom->LookAt(iter->Get_Component<CTransform>(), true);
 		}
