@@ -13,17 +13,13 @@ CRigid_Body::CRigid_Body(const CRigid_Body & Prototype)
 
 void CRigid_Body::Tick(_float fTimeDelta)
 {
-	m_vLook = m_vSubLook = m_pTransform->Get_State(CTransform::STATE_LOOK);
-	m_vRight = m_vSubRight = m_pTransform->Get_State(CTransform::STATE_RIGHT);
-	m_vUp = m_vSubUp = _float3(0.f, 1.f, 0.f);
-	m_vPos = m_pTransform->Get_State(CTransform::STATE_POSITION);
-
-	Update_Transform(fTimeDelta);
+	
 }
 
 void CRigid_Body::LateTick(_float fTimeDelta)
 {
-
+	Set_DirVector();
+	Update_Transform(fTimeDelta);
 }
 
 HRESULT CRigid_Body::Render()
@@ -364,6 +360,14 @@ void CRigid_Body::Update_Transform(_float fTimeDelta)
 	Turn(fTimeDelta);
 	SubTurn();
 
+	D3DXVec3Normalize(&m_vSubLook, &m_vSubLook);
+	D3DXVec3Normalize(&m_vSubUp, &m_vSubUp);
+	D3DXVec3Normalize(&m_vSubRight, &m_vSubRight);
+
+	m_vSubLook *= m_vScale.z;
+	m_vSubUp *= m_vScale.y;
+	m_vSubRight *= m_vScale.x;
+
 	m_pTransform->Set_State(CTransform::STATE_LOOK, m_vSubLook);
 	m_pTransform->Set_State(CTransform::STATE_UP, m_vSubUp);
 	m_pTransform->Set_State(CTransform::STATE_RIGHT, m_vSubRight);
@@ -373,6 +377,15 @@ void CRigid_Body::Update_Transform(_float fTimeDelta)
 	m_fRadAccelX = m_fRadAccelY = m_fRadAccelZ = 0.f;
 	m_fLiftAccel = 0;
 
+}
+
+void CRigid_Body::Set_DirVector()
+{
+	m_vLook = m_vSubLook = m_pTransform->Get_State(CTransform::STATE_LOOK);
+	m_vRight = m_vSubRight = m_pTransform->Get_State(CTransform::STATE_RIGHT);
+	m_vUp = m_vSubUp = _float3(0.f, 1.f, 0.f);
+	m_vPos = m_pTransform->Get_State(CTransform::STATE_POSITION);
+	m_vScale = m_pTransform->Get_Scaled();
 }
 
 CRigid_Body * CRigid_Body::Create()

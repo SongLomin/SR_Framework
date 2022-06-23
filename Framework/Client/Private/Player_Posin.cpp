@@ -44,11 +44,13 @@ void CPlayer_Posin::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+	LookAt_Targeting();
+
 	// 1초에 한번 호출
 	m_fTime += fTimeDelta;
 	if (1.f > m_fTime)
 	{
-		LookAt_Targeting();
+		//LookAt_Targeting();
 		m_fTime = 0.f;
 	}
 
@@ -104,7 +106,7 @@ inline HRESULT CPlayer_Posin::SetUp_Components()
 
 void CPlayer_Posin::LookAt_Targeting()
 {
-	list<CGameObject*>* Monster = GAMEINSTANCE->Get_Player_GameObject()->Get_Component<CTargeting>()->Get_Targetting();
+	/*list<CGameObject*>* Monster = GAMEINSTANCE->Get_Player_GameObject()->Get_Component<CTargeting>()->Get_Targetting();
 	if (!Monster->empty())
 	{
 		for (auto& elem : *Monster)
@@ -113,14 +115,14 @@ void CPlayer_Posin::LookAt_Targeting()
 		}
 	}
 	else
-	{
+	{*/
 		_float3 MouseEndPos;
 		RAY	MouseWorldPos;
 		MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
 		MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 1000.f);
 
 		m_pTransformCom->LookAt(MouseEndPos, true);
-	}
+	
 }
 
 

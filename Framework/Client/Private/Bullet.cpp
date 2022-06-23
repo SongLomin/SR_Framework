@@ -51,7 +51,6 @@ void CBullet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	//m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 
 	/*m_pTransformCom->Go_BackAndForth(80.f, fTimeDelta);
 	m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK), 10.f, fTimeDelta);*/
@@ -94,6 +93,11 @@ void CBullet::Link_PosinTransform(CTransform* pTransform)
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_UP, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_UP, true));
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_LOOK, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_LOOK, true));
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_POSITION, true));
+
+	m_pTransformCom->Update_WorldMatrix();
+	m_pRigidBodyCom->Set_DirVector();
+	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
+	//m_pRigidBodyCom->Add_Dir(CRigid_Body::JUMP);
 }
 
 void CBullet::On_Collision_Enter(CCollider* _Other_Collider)
@@ -123,11 +127,11 @@ inline HRESULT CBullet::SetUp_Components()
 	//m_pTransformCom->Scaling(_float3(0.2f, 10.0f, 0.2f));
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 80.f;
-	RigidBodyDesc.m_fOwnerAccel = 10.f;
+	RigidBodyDesc.m_fOwnerSpeed = 50.f;
+	RigidBodyDesc.m_fOwnerAccel = 50.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
-	RigidBodyDesc.m_fOwnerJump = 5.f;
+	RigidBodyDesc.m_fOwnerJump = 0.f;
 	RigidBodyDesc.m_fOwnerJumpScale = 1.f;
 
 	RigidBodyDesc.m_fFrictional = 0.05f;

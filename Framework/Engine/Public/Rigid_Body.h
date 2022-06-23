@@ -54,7 +54,7 @@ public:
 	void		Add_Rotation(Func Dir, _float fRad);
 	
 	void		Update_Transform(_float fTimeDelta);
-
+	void		Set_DirVector();
 private:
 	void		Compute_Force();
 
@@ -86,6 +86,7 @@ private:
 	_float3		m_vLook;
 	_float3		m_vUp;
 	_float3		m_vRight;
+	_float3		m_vScale;
 
 	_float3		m_vPos;
 
