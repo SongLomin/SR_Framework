@@ -51,8 +51,10 @@ void CBullet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	m_pTransformCom->Go_BackAndForth(80.f, fTimeDelta);
-	m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK), 10.f, fTimeDelta);
+	//m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
+
+	/*m_pTransformCom->Go_BackAndForth(80.f, fTimeDelta);
+	m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK), 10.f, fTimeDelta);*/
 }
 
 void CBullet::LateTick(_float fTimeDelta)
@@ -118,16 +120,25 @@ inline HRESULT CBullet::SetUp_Components()
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
 
-	m_pTransformCom->Scaling(_float3(0.2f, 10.0f, 0.2f));
+	//m_pTransformCom->Scaling(_float3(0.2f, 10.0f, 0.2f));
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	ZeroMemory(&RigidBodyDesc, sizeof(CRigid_Body::RIGIDBODYDESC));
 	RigidBodyDesc.m_fOwnerSpeed = 80.f;
 	RigidBodyDesc.m_fOwnerAccel = 10.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
+	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
+	RigidBodyDesc.m_fOwnerJump = 5.f;
+	RigidBodyDesc.m_fOwnerJumpScale = 1.f;
 
 	RigidBodyDesc.m_fFrictional = 0.05f;
-	RigidBodyDesc.m_fRadFrictional = 0.05f;
+	RigidBodyDesc.m_fRadFrictional = 0.02f;
+	RigidBodyDesc.m_fRadZ = 0.01f;
+
+
+	RigidBodyDesc.m_fOwnerLiftSpeed = 3.f;
+	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
+	RigidBodyDesc.m_fRadDrag = 1.f;
+	RigidBodyDesc.m_fDirDrag = 0.05f;
 
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
