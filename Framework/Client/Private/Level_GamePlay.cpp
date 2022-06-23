@@ -2,7 +2,7 @@
 #include "..\Public\Level_GamePlay.h"
 #include "GameInstance.h"
 #include "LEvel_Loading.h"
-#include "BackGround.h"
+#include "Player_Body.h"
 #include "Monster.h"
 #include "Terrain.h"
 #include "Cam_Free.h"
@@ -10,6 +10,7 @@
 #include "Cam_FPS.h"
 #include "Cam_Shoulder.h"
 #include "Cam_TPS.h"
+#include "EnemySpace_Body.h"
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -34,8 +35,12 @@ HRESULT CLevel_GamePlay::Initialize()
 	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
 
 
-	if (!GAMEINSTANCE->Add_GameObject<CBackGround>(LEVEL_GAMEPLAY, TEXT("Background")))
+	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_GAMEPLAY, TEXT("Background")))
 		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_GAMEPLAY, TEXT("EnemySpace_Body")))
+		return E_FAIL;
+
 
 	if (!GAMEINSTANCE->Add_GameObject<CMonster>(LEVEL_GAMEPLAY, TEXT("Monster")))
 		return E_FAIL;

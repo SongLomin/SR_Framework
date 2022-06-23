@@ -4,18 +4,18 @@
 
 BEGIN(Engine)
 class CRenderer;
-class CMesh_Cube;
 class CTransform;
+class CMesh_Cube;
 END
 
 BEGIN(Client)
 
-class CPlayer_Posin final : public CGameObject
+class CEnemySpace_RightBody final :public CGameObject
 {
 private:
-    explicit CPlayer_Posin();
-    explicit CPlayer_Posin(const CPlayer_Posin& Prototype);
-    virtual ~CPlayer_Posin() = default;
+    CEnemySpace_RightBody() = default;
+    CEnemySpace_RightBody(const CEnemySpace_RightBody& Prototype);
+    virtual ~CEnemySpace_RightBody() = default;
 
 public:
     // CGameObject을(를) 통해 상속됨
@@ -30,16 +30,12 @@ private:
     CRenderer* m_pRendererCom = nullptr;
     CMesh_Cube* m_pMeshCom = nullptr;
 
-private:
-    HRESULT SetUp_Components();
-    void    LookAt_CamTPS();
-
 public:
-    static CPlayer_Posin* Create();
+    // CGameObject을(를) 통해 상속됨
+    static CEnemySpace_RightBody* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 };
 
 END
-
 

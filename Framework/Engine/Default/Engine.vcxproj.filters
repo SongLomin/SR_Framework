@@ -142,6 +142,9 @@
     <Filter Include="01.Utility\02.GameObject\00. CursorObject">
       <UniqueIdentifier>{ba0ad428-977c-4716-a701-157b12ff5b11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\08. State">
+      <UniqueIdentifier>{4a2f3f11-7e6b-456e-a1f4-faf19a01d503}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -243,9 +246,6 @@
     <ClInclude Include="..\Public\Input_Manager.h">
       <Filter>01.Utility\04.Manager\06. Input_Manager</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Picking.h">
-      <Filter>05.Picking</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\VIBuffer_Cube.h">
       <Filter>01.Utility\03.Components\00. Model\VIBuffer\Cube</Filter>
     </ClInclude>
@@ -266,6 +266,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\Collider_OBB.h">
       <Filter>01.Utility\03.Components\07. Collider\00. Collider_OBB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\State.h">
+      <Filter>01.Utility\03.Components\08. State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -350,9 +353,6 @@
     <ClCompile Include="..\Private\Input_Manager.cpp">
       <Filter>01.Utility\04.Manager\06. Input_Manager</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Picking.cpp">
-      <Filter>05.Picking</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\VIBuffer_Cube.cpp">
       <Filter>01.Utility\03.Components\00. Model\VIBuffer\Cube</Filter>
     </ClCompile>
@@ -373,6 +373,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Collider_OBB.cpp">
       <Filter>01.Utility\03.Components\07. Collider\00. Collider_OBB</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State.cpp">
+      <Filter>01.Utility\03.Components\08. State</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "..\Public\Loader.h"
 #include "GameInstance.h"
-#include "BackGround.h"
+#include "Player_Body.h"
 #include "Monster.h"
 
 CLoader::CLoader(LPDIRECT3DDEVICE9 pGraphic_Device)
@@ -60,7 +60,7 @@ HRESULT CLoader::Loading_ForLogoLevel()
 
 	lstrcpy(m_szLoadingText, TEXT("객체를 생성중입니다."));
 	/* For.Prototype_GameObject_BackGround */
-	//if (FAILED(pGameInstance->Add_Prototype_GameObject<CBackGround>()))
+	//if (FAILED(pGameInstance->Add_Prototype_GameObject<CPlayer_Body>()))
 	//	return E_FAIL;
 
 	//if (FAILED(pGameInstance->Add_Prototype_GameObject<CMonster>()))

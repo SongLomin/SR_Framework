@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Posin.h"
+#include "Player_Posin.h"
 #include "GameInstance.h"
 #include "Math_Utillity.h"
 #include <Bullet.h>
@@ -42,11 +42,11 @@ HRESULT CPlayer_Posin::Initialize(void* pArg)
 
 void CPlayer_Posin::Tick(_float fTimeDelta)
 {
-	__super::Tick(fTimeDelta);
+	m_pTransformCom->Update_WorldMatrix();
 
 	LookAt_CamTPS();
 
-	if (KEY_INPUT(KEY::CTRL, KEY_STATE::TAP))
+	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
 	{
 		CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CBullet>(CURRENT_LEVEL, TEXT("Bullet"));
 
@@ -56,27 +56,18 @@ void CPlayer_Posin::Tick(_float fTimeDelta)
 
 void CPlayer_Posin::LateTick(_float fTimeDelta)
 {
-	__super::LateTick(fTimeDelta);
-
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CPlayer_Posin::Render()
 {
-	
-
 	m_pTransformCom->Bind_WorldMatrix(D3D_ALL, D3D_ALL);
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
-
-	__super::Render();
-
 	if (Get_Controller() == CONTROLLER::PLAYER)
-		m_pMeshCom->Render_Mesh();
-
-
+		m_pMeshCom->Render();
 	m_pRendererCom->UnBind_Texture();
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);

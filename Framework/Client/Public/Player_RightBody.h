@@ -1,23 +1,22 @@
 #pragma once
-
 #include "Client_Defines.h"
 #include "GameObject.h"
 
 BEGIN(Engine)
 class CRenderer;
-class CMesh_Cube;
 class CTransform;
-class CRigid_Body;
+class CMesh_Cube;
 END
 
 BEGIN(Client)
 
-class CRing final : public CGameObject
+class CPlayer_RightBody final :
+    public CGameObject
 {
 private:
-    explicit CRing();
-    explicit CRing(const CRing& Prototype);
-    virtual ~CRing() = default;
+    CPlayer_RightBody() = default;
+    CPlayer_RightBody(const CPlayer_RightBody& Prototype);
+    virtual ~CPlayer_RightBody() = default;
 
 public:
     // CGameObject을(를) 통해 상속됨
@@ -31,16 +30,12 @@ private:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
     CMesh_Cube* m_pMeshCom = nullptr;
-    CRigid_Body* m_pRigidBodyCom = nullptr;
-
-private:
-    HRESULT SetUp_Components();
 
 public:
-    static CRing* Create();
+    // CGameObject을(를) 통해 상속됨
+    static CPlayer_RightBody* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 };
 
 END
-

@@ -28,6 +28,7 @@ protected:
 	CGameObject* m_pOwner = nullptr;
 
 public:
+	static CComponent* Create();
 	virtual CComponent* Clone(void* pArg) = 0;
 	virtual void Free() override;
 };

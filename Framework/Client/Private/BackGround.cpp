@@ -15,12 +15,12 @@
 
 
 
-CBackGround::CBackGround()
+CPlayer_Body::CPlayer_Body()
 {
 
 }
 
-CBackGround::CBackGround(const CBackGround & Prototype)
+CPlayer_Body::CPlayer_Body(const CPlayer_Body & Prototype)
 {
 	*this = Prototype;
 	//m_szName = L"Body";
@@ -31,7 +31,7 @@ CBackGround::CBackGround(const CBackGround & Prototype)
 	GAMEINSTANCE->Set_Current_Camera(TEXT("FPS"));
 }
 
-HRESULT CBackGround::Initialize_Prototype()
+HRESULT CPlayer_Body::Initialize_Prototype()
 {
 	/* 백엔드로부터 값ㅇ를 어덩오낟. */
 
@@ -39,7 +39,7 @@ HRESULT CBackGround::Initialize_Prototype()
 	return S_OK;
 }
 
-HRESULT CBackGround::Initialize(void* pArg)
+HRESULT CPlayer_Body::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
@@ -201,7 +201,7 @@ void CBackGround::Tick(_float fTimeDelta)
 
 }
 
-void CBackGround::LateTick(_float fTimeDelta)
+void CPlayer_Body::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
@@ -211,7 +211,7 @@ void CBackGround::LateTick(_float fTimeDelta)
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_PRIORITY, this);
 }
 
-HRESULT CBackGround::Render()
+HRESULT CPlayer_Body::Render()
 {
 	
 
@@ -241,33 +241,33 @@ void CBackGround::On_Change_Controller(const CONTROLLER& _IsAI)
 	}
 }
 
-void CBackGround::On_Collision_Enter(CCollider* _Other_Collider)
+void CPlayer_Body::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	
 }
 
-void CBackGround::On_Collision_Stay(CCollider* _Other_Collider)
+void CPlayer_Body::On_Collision_Stay(CCollider* _Other_Collider)
 {
 	m_pRigidBodyCom->Add_Jump();
 }
 
-void CBackGround::On_Collision_Exit(CCollider* _Other_Collider)
+void CPlayer_Body::On_Collision_Exit(CCollider* _Other_Collider)
 {
 	
 }
 
 
-CBackGround * CBackGround::Create()
+CPlayer_Body * CPlayer_Body::Create()
 {
-	CREATE_PIPELINE(CBackGround);
+	CREATE_PIPELINE(CPlayer_Body);
 }
 
-CGameObject * CBackGround::Clone(void* pArg)
+CGameObject * CPlayer_Body::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CBackGround);
+	CLONE_PIPELINE(CPlayer_Body);
 }
 
-void CBackGround::Free()
+void CPlayer_Body::Free()
 {
 	__super::Free();
 	
