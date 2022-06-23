@@ -206,7 +206,8 @@ void CRigid_Body::Turn(_float fTimeDelta)
 
 
 	m_vSubLook = m_vLook;
-
+	m_vSubUp = m_vUp;
+	m_vSubRight = m_vRight;
 }
 
 void CRigid_Body::SubTurn()
