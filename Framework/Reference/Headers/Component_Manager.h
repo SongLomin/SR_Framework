@@ -17,6 +17,7 @@
 #include "Collider.h"
 #include "Collider_OBB.h"
 #include "State.h"
+#include "Targeting.h"
 
 BEGIN(Engine)
 

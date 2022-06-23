@@ -40,29 +40,70 @@ void CAuto_Aim::Tick(_float fTimeDelta)
 		m_bUse = !m_bUse;
 	}
 
-
 	if (m_bUse)
 	{
-		list<CGameObject*>* Monster = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster"));
+		m_pTargettingCom->Update_Targetting();
+		CTransform* CameraTransform = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform();
 
-		ISVALID(Monster, );
+		m_pTargetList = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster"));
 
-		//몬스터랑 거리 비교가 끝나고, 몬스터 좌표에 마우스를 붙이는 코드
-		//거리 비교가 성공했다는 가정
-		_float4x4 MyWorldMat = Monster->front()->Get_Component<CTransform>()->Get_WorldMatrix();
-		_float3 MyPos{ MyWorldMat._41, MyWorldMat._42, MyWorldMat._43 };
 
-		_float3 MyScreenPos;
+		for (auto iter = m_pTargetList->begin();
+			iter != m_pTargetList->end();
+			++iter)
+		{
+			_float3 MonsterPos = (*iter)->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
 
-		CMath_Utillity::WorldToScreen(&MyPos, &MyScreenPos);
 
-		_point MousePos{ (int)MyScreenPos.x, (int)MyScreenPos.y };
+			_float3 CameraPos = CameraTransform->Get_World_State(CTransform::STATE_POSITION);
 
-		//Win32 좌표계 변환
-		ClientToScreen(g_hWnd, &MousePos);
 
-		SetCursorPos(MousePos.x, MousePos.y);
+			RAY MouseRay = CMath_Utillity::Get_MouseRayInWorldSpace();
+			D3DXVec3Normalize(&MouseRay.Dir, &MouseRay.Dir);
+
+			_float3 MonsterRay = MonsterPos - MouseRay.Pos;
+
+			_float Dotproduct = D3DXVec3Dot(&MouseRay.Dir, &MonsterRay);
+
+			if (Dotproduct > 0.f)
+			{
+				_float3 Projection = Dotproduct * MouseRay.Dir;
+
+				Projection += MouseRay.Pos;
+
+				_float3 Lenght = MonsterPos - Projection;
+
+				_float Range = D3DXVec3Length(&Lenght);
+
+
+
+				if (Range < 5.f)
+				{
+					//list<CGameObject*>* Monster = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster"));
+					//
+					//ISVALID(Monster, );
+					//
+					//_float4x4 MyWorldMat = Monster->front()->Get_Component<CTransform>()->Get_WorldMatrix();
+					//_float3 MyPos{ MyWorldMat._41, MyWorldMat._42, MyWorldMat._43 };
+					//
+					//_float3 MyScreenPos;
+					//
+					//CMath_Utillity::WorldToScreen(&MyPos, &MyScreenPos);
+					//
+					//_point MousePos{ (int)MyScreenPos.x, (int)MyScreenPos.y };
+					//
+					////Win32 좌표계
+					////Win32에선 이걸 클라이언트 좌표라고 주장함... 바보들...
+					//ClientToScreen(g_hWnd, &MousePos);
+					//
+					//SetCursorPos(MousePos.x, MousePos.y);
+
+					
+				}
+			}
+		}
 	}
+
 }
 
 void CAuto_Aim::LateTick(_float fTimeDelta)
@@ -89,6 +130,9 @@ HRESULT CAuto_Aim::SetUp_Components()
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
+
+	m_pTargettingCom = Add_Component<CTargetting>();
+	m_pTargettingCom->Set_WeakPtr(&m_pTargettingCom);
 
 
 	return S_OK;

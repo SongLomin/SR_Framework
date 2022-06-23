@@ -6,6 +6,7 @@
 BEGIN(Engine)
 class CTransform;
 class CRenderer;
+class CTargetting;
 END
 
 
@@ -34,11 +35,13 @@ private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 private:
 	CTransform* m_pTransformCom = nullptr;
 	CRenderer* m_pRendererCom = nullptr;
+	CTargetting* m_pTargettingCom = nullptr;
 
 	POINT m_pt = {};
 
 	bool m_bUse = false;
 
+	list<CGameObject*>* m_pTargetList;
 public:
 	static CAuto_Aim* Create();
 	virtual CGameObject* Clone(void* pArg) override;

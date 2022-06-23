@@ -11,6 +11,7 @@
 #include "Camera_Manager.h"
 #include "Picking.h"
 #include "Collision_Manager.h"
+#include "ImguiMgr.h"
 
 /* 1. 게임내에 필요한 객체(매니져등)들을 모아서 보관한다. */
 /* 2. 클라이언트 개발자가 접근하기좋은 루트를 제공해준다. 나. */
@@ -106,6 +107,8 @@ public: /* For.Input_Manager */
 
 public: /* For. Collision_Manager */
 	void Add_Collider(CCollider* pCollider);
+public: /* For.IMGUI_Manager */
+	HRESULT ImGuiImplHandle(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 
 private:
@@ -119,6 +122,7 @@ private:
 	CInput_Manager*					m_pInput_Manager = nullptr;
 	CCamera_Manager*				m_pCamera_Manager = nullptr;
 	CCollision_Manager*				m_pCollision_Manager = nullptr;
+	CImguiMgr*						m_pIMGUI_Manager = nullptr;
 
 private:
 	GRAPHICDESC						m_Graphic_Desc;

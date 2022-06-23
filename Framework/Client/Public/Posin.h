@@ -32,7 +32,7 @@ private:
 
 private:
     HRESULT SetUp_Components();
-    void    LookAt_CamTPS();
+    void    LookAt_Targeting();
 
 public:
     static CPlayer_Posin* Create();

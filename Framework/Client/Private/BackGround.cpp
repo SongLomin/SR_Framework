@@ -119,6 +119,8 @@ HRESULT CBackGround::SetUp_Components()
 void CBackGround::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
+	
+	Set_Targetting();
 
 	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
@@ -225,6 +227,77 @@ HRESULT CPlayer_Body::Render()
 
 	
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+
+	return S_OK;
+}
+
+void CBackGround::Set_Targetting()
+{
+	m_pTargetingCom->Update_Targeting();
+	m_pTargetingCom->Make_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster")));
+
+}
+
+HRESULT CBackGround::SetUp_Components()
+{
+
+	//약포인터: 원본 객체가 삭제되면 약포인터로 등록된 포인터들도 nullptr로 바뀐다.
+	//댕글링 포인터를 방지하기 위해 사용한다.
+
+
+	CStatus::STATUS		Status;
+	Status.fHp = 10.f;
+	Status.fAttack = 7.f;
+	Status.fArmor = 5.f;
+
+	m_pStatusCom = Add_Component<CStatus>(&Status);
+	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
+
+	m_pRendererCom = Add_Component<CRenderer>();
+	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
+
+	/*m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
+	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);*/
+
+	m_pTargetingCom = Add_Component<CTargeting>();
+	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
+
+	m_pMeshCubeCom = Add_Component<CMesh_Cube>();
+	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);
+
+	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
+	RigidBodyDesc.m_fOwnerSpeed = 10.f;
+	RigidBodyDesc.m_fOwnerRadSpeed= D3DXToRadian(90.0f);
+
+	RigidBodyDesc.m_fFrictional = 0.05f;
+	RigidBodyDesc.m_fRadFrictional =0.02f;
+	RigidBodyDesc.m_fRadZ = 0.01f;
+
+
+	RigidBodyDesc.m_fOwnerLiftSpeed = 3.f;
+	RigidBodyDesc.m_fRadDrag = 1.f;
+	RigidBodyDesc.m_fDirDrag = 0.05f;
+	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
+	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
+	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
+
+	GAMEINSTANCE->Add_GameObject<CDummy>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
+
+	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
+		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
+
+	GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
+		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
+
+	GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
+	//CGameObject* CameraPosin = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);	
+	//m_pCameraPosin = (CCameraPosin*)GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
+	
+	//GAMEINSTANCE->Add_GameObject<CPosin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom);
+
+	Set_Controller(CONTROLLER::PLAYER);
+
 
 	return S_OK;
 }

@@ -44,14 +44,15 @@ void CPlayer_Posin::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	LookAt_CamTPS();
+	LookAt_Targeting();
 
-	if (KEY_INPUT(KEY::CTRL, KEY_STATE::TAP))
+	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
 	{
 		CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CBullet>(CURRENT_LEVEL, TEXT("Bullet"));
 
 		((CBullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
 	}
+
 }
 
 void CPlayer_Posin::LateTick(_float fTimeDelta)
@@ -106,8 +107,25 @@ void CPlayer_Posin::LookAt_CamTPS()
 	RAY	MouseWorldPos;
 	MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
 	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 1000.f);
+void CPosin::LookAt_Targeting()
+{
+	auto Monster = GAMEINSTANCE->Get_Player_GameObject()->Get_Component<CTargeting>()->Get_Targetting();
+	if (!Monster.empty())
+	{
+		for (auto& iter : Monster)
+		{
+			m_pTransformCom->LookAt(iter->Get_Component<CTransform>(), true);
+		}
+	}
+	else
+	{
+		_float3 MouseEndPos;
+		RAY	MouseWorldPos;
+		MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
+		MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 1000.f);
 
-	m_pTransformCom->LookAt(MouseEndPos, true);
+		m_pTransformCom->LookAt(MouseEndPos, true);
+	}
 }
 
 
