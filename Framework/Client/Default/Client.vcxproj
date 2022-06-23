@@ -163,7 +163,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Public\Auto_Aim.h" />
     <ClInclude Include="..\Public\EnemySpace_Posin.h" />
     <ClInclude Include="..\Public\EnemySpace_RightBody.h" />
     <ClInclude Include="..\public\Player_Body.h" />
@@ -192,7 +191,6 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Private\Auto_Aim.cpp" />
     <ClCompile Include="..\Private\EnemySpace_Posin.cpp" />
     <ClCompile Include="..\Private\EnemySpace_RightBody.cpp" />
     <ClCompile Include="..\private\Player_Body.cpp" />

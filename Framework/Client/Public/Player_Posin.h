@@ -30,9 +30,11 @@ private:
     CRenderer* m_pRendererCom = nullptr;
     CMesh_Cube* m_pMeshCom = nullptr;
 
+    _float m_fTime = 0.f;
+
 private:
     HRESULT SetUp_Components();
-    void    LookAt_CamTPS();
+    void    LookAt_Targeting();
 
 public:
     static CPlayer_Posin* Create();

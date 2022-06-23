@@ -7,16 +7,10 @@ CTargeting::CTargeting()
 {
 }
 
-
-
-void CTargeting::Update_Targeting()
+void CTargeting::Make_TargetList(list<CGameObject*>* pLayer, _float fDist)
 {
-	//return_Weakptr
-	m_pTargeting.clear();
-}
+	Clear_Targeting();
 
-void CTargeting::Make_TargetList(list<CGameObject*>* pLayer)
-{
 	CTransform* CameraTransform = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform();
 
 
@@ -48,7 +42,7 @@ void CTargeting::Make_TargetList(list<CGameObject*>* pLayer)
 
 
 
-			if (Range < 7.f)
+			if (Range < fDist)
 			{
 				m_pTargeting.push_back(*iter);
 				(*iter)->Set_WeakPtr(&m_pTargeting.back());
@@ -64,13 +58,22 @@ void CTargeting::Make_TargetList(list<CGameObject*>* pLayer)
 						(long)vWorldPos.y},
 						D3DCOLOR_ARGB(255, 130, 255, 0),
 						0.0f,
-						L"Targeting SUCCESS !",
-						1);
-
+						L"Targeting SUCCESS !",0);
 				}
 			}
 		}
 	}
+}
+
+
+void CTargeting::Clear_Targeting()
+{
+	//return_Weakptr
+	for (auto& iter : m_pTargeting)
+	{
+		iter->Return_WeakPtr(&iter);
+	}
+	m_pTargeting.clear();
 }
 
 
