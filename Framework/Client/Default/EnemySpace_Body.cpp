@@ -126,125 +126,125 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	return S_OK;
 }
 
-void CEnemySpace_Body::MoveMent(_float fTimeDelta)
-{
-	if (m_bMoveMentCheck)
-	{
-		m_pRigidBodyCom->Add_Jump();
-		m_pRigidBodyCom->Add_DirZ(0.1f);
-		m_pRigidBodyCom->Add_RotationY(0.1f);
-		m_pRigidBodyCom->Add_Lift(0.1);
-	}
-
-	if (m_fCountTime < 0.f)
-	{
-		m_bMoveMentCheck = false;
-	}
-}
-
-void CEnemySpace_Body::MoveMent1(_float fTimeDelta)
-{
-	if (m_bMoveMentCheck)
-	{
-		m_pRigidBodyCom->Add_RotationY(0.1f);
-		m_pRigidBodyCom->Add_DirZ(0.1f);
-		m_pRigidBodyCom->Add_Lift(0.1);
-	}
-
-	if (m_fCountTime < 0.f)
-	{
-		m_bMoveMentCheck = false;
-	}
-}
-
-void CEnemySpace_Body::MoveMent2(_float fTimeDelta)
-{
-
-	if (m_bMoveMentCheck)
-	{
-		m_pRigidBodyCom->Add_Jump();
-		m_pRigidBodyCom->Add_RotationX(0.1f);
-		m_pRigidBodyCom->Add_DirZ(0.1f);
-		m_pRigidBodyCom->Add_Lift(0.1);
-
-	}
-
-	if (m_fCountTime < 0.f)
-	{
-		m_bMoveMentCheck = false;
-	}
-}
-
-void CEnemySpace_Body::MoveMent3(_float fTimeDelta)
-{
-	if (m_bMoveMentCheck)
-	{
-		m_pRigidBodyCom->Add_RotationZ(0.1f);
-		m_pRigidBodyCom->Add_Lift(0.1);
-	}
-
-	if (m_fCountTime < 0.f)
-	{
-		m_bMoveMentCheck = false;
-	}
-}
-
-void CEnemySpace_Body::MoveMent4(_float fTimeDelta)
-{
-	if (m_bMoveMentCheck)
-	{
-		m_pRigidBodyCom->Add_RotationY(0.1f);
-		m_pRigidBodyCom->Add_DirZ(0.1f);
-	}
-
-	if (m_fCountTime < 0.f)
-	{
-		m_bMoveMentCheck = false;
-	}
-}
-
-void CEnemySpace_Body::MoveMent5(_float fTimeDelta)
-{
-	m_pRigidBodyCom->Add_DirZ(0.1f);
-	m_pRigidBodyCom->Add_Lift(0.3);
-}
-
-void CEnemySpace_Body::MoveMentChange(_float fTimeDelta)
-{
-
-
-	if (m_fCountTime < 0.f) // ½Ã°£ ³Ö¾îÁà¾ßµÊ
-	{
-
-		_uint iState = rand() % CEnemySpace_Body::MOVEMENT_5;
-		m_eCurMovement = (CEnemySpace_Body::STATE)iState;
-		m_bMoveMentCheck = true;
-
-		m_fCountTime = 0.5f;
-
-	}
-
-	switch (m_eCurMovement)
-	{
-	case CEnemySpace_Body::MOVEMENT:
-		MoveMent(fTimeDelta);
-		break;
-	case CEnemySpace_Body::MOVEMENT_1:
-		MoveMent1(fTimeDelta);
-		break;
-	case CEnemySpace_Body::MOVEMENT_2:
-		MoveMent2(fTimeDelta);
-		break;
-	case CEnemySpace_Body::MOVEMENT_3:
-		MoveMent3(fTimeDelta);
-		break;
-	case CEnemySpace_Body::MOVEMENT_4:
-		MoveMent4(fTimeDelta);
-		break;
-	}
-
-
-}
+//void CEnemySpace_Body::MoveMent(_float fTimeDelta)
+//{
+//	if (m_bMoveMentCheck)
+//	{
+//		m_pRigidBodyCom->Add_Jump();
+//		m_pRigidBodyCom->Add_DirZ(0.1f);
+//		m_pRigidBodyCom->Add_RotationY(0.1f);
+//		m_pRigidBodyCom->Add_Lift(0.1);
+//	}
+//
+//	if (m_fCountTime < 0.f)
+//	{
+//		m_bMoveMentCheck = false;
+//	}
+//}
+//
+//void CEnemySpace_Body::MoveMent1(_float fTimeDelta)
+//{
+//	if (m_bMoveMentCheck)
+//	{
+//		m_pRigidBodyCom->Add_RotationY(0.1f);
+//		m_pRigidBodyCom->Add_DirZ(0.1f);
+//		m_pRigidBodyCom->Add_Lift(0.1);
+//	}
+//
+//	if (m_fCountTime < 0.f)
+//	{
+//		m_bMoveMentCheck = false;
+//	}
+//}
+//
+//void CEnemySpace_Body::MoveMent2(_float fTimeDelta)
+//{
+//
+//	if (m_bMoveMentCheck)
+//	{
+//		m_pRigidBodyCom->Add_Jump();
+//		m_pRigidBodyCom->Add_RotationX(0.1f);
+//		m_pRigidBodyCom->Add_DirZ(0.1f);
+//		m_pRigidBodyCom->Add_Lift(0.1);
+//
+//	}
+//
+//	if (m_fCountTime < 0.f)
+//	{
+//		m_bMoveMentCheck = false;
+//	}
+//}
+//
+//void CEnemySpace_Body::MoveMent3(_float fTimeDelta)
+//{
+//	if (m_bMoveMentCheck)
+//	{
+//		m_pRigidBodyCom->Add_RotationZ(0.1f);
+//		m_pRigidBodyCom->Add_Lift(0.1);
+//	}
+//
+//	if (m_fCountTime < 0.f)
+//	{
+//		m_bMoveMentCheck = false;
+//	}
+//}
+//
+//void CEnemySpace_Body::MoveMent4(_float fTimeDelta)
+//{
+//	if (m_bMoveMentCheck)
+//	{
+//		m_pRigidBodyCom->Add_RotationY(0.1f);
+//		m_pRigidBodyCom->Add_DirZ(0.1f);
+//	}
+//
+//	if (m_fCountTime < 0.f)
+//	{
+//		m_bMoveMentCheck = false;
+//	}
+//}
+//
+//void CEnemySpace_Body::MoveMent5(_float fTimeDelta)
+//{
+//	m_pRigidBodyCom->Add_DirZ(0.1f);
+//	m_pRigidBodyCom->Add_Lift(0.3);
+//}
+//
+//void CEnemySpace_Body::MoveMentChange(_float fTimeDelta)
+//{
+//
+//
+//	if (m_fCountTime < 0.f) // ½Ã°£ ³Ö¾îÁà¾ßµÊ
+//	{
+//
+//		_uint iState = rand() % CEnemySpace_Body::MOVEMENT_5;
+//		m_eCurMovement = (CEnemySpace_Body::STATE)iState;
+//		m_bMoveMentCheck = true;
+//
+//		m_fCountTime = 0.5f;
+//
+//	}
+//
+//	switch (m_eCurMovement)
+//	{
+//	case CEnemySpace_Body::MOVEMENT:
+//		MoveMent(fTimeDelta);
+//		break;
+//	case CEnemySpace_Body::MOVEMENT_1:
+//		MoveMent1(fTimeDelta);
+//		break;
+//	case CEnemySpace_Body::MOVEMENT_2:
+//		MoveMent2(fTimeDelta);
+//		break;
+//	case CEnemySpace_Body::MOVEMENT_3:
+//		MoveMent3(fTimeDelta);
+//		break;
+//	case CEnemySpace_Body::MOVEMENT_4:
+//		MoveMent4(fTimeDelta);
+//		break;
+//	}
+//
+//
+//}
 
 CEnemySpace_Body* CEnemySpace_Body::Create()
 {
