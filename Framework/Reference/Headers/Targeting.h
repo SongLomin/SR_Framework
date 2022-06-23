@@ -15,13 +15,13 @@ public:
 		return &m_pTargeting;
 	}
 
-public:
-	void Update_Targeting();
 
 public:
-	void Make_TargetList(list<CGameObject*>* pLayer);
+	void Make_TargetList(list<CGameObject*>* pLayer, _float fDist = 7.f);
 	
 
+private:
+	void Clear_Targeting();
 
 private:
 	list<CGameObject*> m_pTargeting;

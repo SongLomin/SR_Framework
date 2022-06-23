@@ -216,6 +216,9 @@ HRESULT CPlayer_Body::SetUp_Components()
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
+	m_pTargetingCom = Add_Component<CTargeting>();
+	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
+
 	//m_pCColliderCom = Add_Component<CCollider_OBB>();
 	//m_pCColliderCom->Set_WeakPtr(&m_pCColliderCom);
 	//m_pCColliderCom->Link_Transform(m_pTransformCom);

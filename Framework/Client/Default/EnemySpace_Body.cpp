@@ -52,7 +52,7 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 		m_pStateCom->State_Start(0.1f);
 	}
 
-    m_pStateCom->State_Change(0.1f, &m_fCountTime, m_bMoveMentCheck);
+    m_pStateCom->State_Change(&fTimeDelta, m_bMoveMentCheck);
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 

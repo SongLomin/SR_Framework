@@ -27,8 +27,8 @@ HRESULT CMesh_Terrain::Initialize(void* pArg)
 	}
 
 	m_Terrain_Count = (*pTerrainCnt);
-
-	Bake_Terrain_Mesh();
+	m_dwNumSubsets = 0;
+	//Bake_Terrain_Mesh();
 
 	return S_OK;
 }

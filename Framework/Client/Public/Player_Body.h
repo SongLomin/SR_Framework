@@ -10,6 +10,7 @@ class CTransform;
 class CStatus;
 class CMesh_Cube;
 class CRigid_Body;
+class CTargeting;
 END
 
 BEGIN(Client)
@@ -35,6 +36,7 @@ private:
 	CStatus*				m_pStatusCom = nullptr;
 	CRigid_Body*			m_pRigidBodyCom = nullptr;
 	//CCollider_OBB*			m_pCColliderCom = nullptr;
+	CTargeting*				m_pTargetingCom = nullptr;
 
 private:
 	CCameraPosin*           m_pCameraPosin = nullptr;
