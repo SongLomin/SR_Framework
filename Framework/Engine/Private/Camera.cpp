@@ -1,6 +1,7 @@
 #include "Camera.h"
 #include "GameInstance.h"
 #include "Engine_Macro.h"
+#include "Math_Utillity.h"
 
 CCamera::CCamera(const CCamera& Prototype)
 {
@@ -26,14 +27,15 @@ void CCamera::Set_Param(_float _fFovy, _float _fAspect, _float _fNear, _float _f
 }
 
 _float4x4 CCamera::Get_CameraWorldMat()
-{
+{		
 	_float4x4		TargetMatrix = m_pTarget_Transform ?
-		m_pTarget_Transform->Get_WorldMatrix()
+		CMath_Utillity::Get_Position_Matrix(m_pTarget_Transform->Get_WorldMatrix())
 		: *D3DXMatrixIdentity(&TargetMatrix);
 
 
-
 	_float4x4		WorldMatrix = m_pTransform->Get_WorldMatrix() * TargetMatrix;
+	
+
 
 	return WorldMatrix;
 }
@@ -56,13 +58,8 @@ HRESULT CCamera::Bind_PipeLine()
 {
 	ISVALID(m_pTransform, E_FAIL);
 
-	_float4x4		TargetMatrix = m_pTarget_Transform ? 
-		m_pTarget_Transform->Get_WorldMatrix() 
-		: *D3DXMatrixIdentity(&TargetMatrix);
 	
-
-
-	_float4x4		WorldMatrix = m_pTransform->Get_WorldMatrix() * TargetMatrix;
+	_float4x4		WorldMatrix = Get_CameraWorldMat();
 	_float4x4		ViewMatrix;
 
 	D3DXMatrixInverse(&ViewMatrix, nullptr, &WorldMatrix);

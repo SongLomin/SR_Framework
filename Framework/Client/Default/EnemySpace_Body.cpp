@@ -10,6 +10,7 @@ CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
 	m_pTransformCom = Add_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(5.f, 1.f, 5.f));
+	m_pTransformCom->Update_WorldMatrix();
 }
 
 HRESULT CEnemySpace_Body::Initialize_Prototype()
@@ -38,7 +39,7 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 
 	ISVALID(m_pTransformCom);
 
-	m_pTransformCom->Update_WorldMatrix();
+	
 
 	/*if (!m_bMoveMentCheck)
 	{
@@ -54,7 +55,7 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 
     m_pStateCom->State_Change(&fTimeDelta, m_bMoveMentCheck);
 
-	m_pRigidBodyCom->Update_Transform(fTimeDelta);
+//%	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 
 	m_fCountTime -= GAMEINSTANCE->Compute_Timer(3);
 }
@@ -95,6 +96,7 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 10.f;
+	RigidBodyDesc.m_fOwnerAccel = 0.1f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 
 	RigidBodyDesc.m_fFrictional = 0.05f;
@@ -105,6 +107,7 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	RigidBodyDesc.m_fOwnerLiftSpeed = 3.f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;
+
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
