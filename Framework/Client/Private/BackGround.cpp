@@ -121,26 +121,26 @@ void CBackGround::Tick(_float fTimeDelta)
 	__super::Tick(fTimeDelta);
 
 	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_DirZ(0.1f);
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 
 	
 	if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_DirZ(-0.1f);
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::BACK);
 
 	if (KEY_INPUT(KEY::D, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_RotationY(0.3f);
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
 
 	if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_RotationY(-0.3f);
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
 
-	if (KEY_INPUT(KEY::SPACE, KEY_STATE::HOLD))
+	if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP))
 	{
-		m_pRigidBodyCom->Add_Jump();
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::JUMP);
 	}
 
 	if (KEY_INPUT(KEY::UP, KEY_STATE::HOLD))
 	{
-		m_pRigidBodyCom->Add_Lift(0.3f);
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::LIFT);
 	}
 
 
