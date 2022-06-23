@@ -53,7 +53,7 @@ void CRigid_Body::Link_TransformCom(CTransform * _pTransform)
 
 	m_vLook = m_vSubLook = m_pTransform->Get_State(CTransform::STATE_LOOK);
 	m_vRight = m_vSubRight = m_pTransform->Get_State(CTransform::STATE_RIGHT);
-	m_vUp = m_vSubUp = _float3(0.f, 0.f, 0.f);
+	m_vUp = m_vSubUp = _float3(0.f, 1.f, 0.f);
 	m_vPos  = m_pTransform->Get_State(CTransform::STATE_POSITION);
 
 }

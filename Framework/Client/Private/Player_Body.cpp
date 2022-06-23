@@ -154,6 +154,7 @@ void CPlayer_Body::LateTick(_float fTimeDelta)
 
 HRESULT CPlayer_Body::Render()
 {
+
 	m_pTransformCom->Bind_WorldMatrix();
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
