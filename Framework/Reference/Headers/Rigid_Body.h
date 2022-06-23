@@ -9,7 +9,7 @@ class CTransform;
 class ENGINE_DLL CRigid_Body final : public CComponent
 {
 public:
-	enum Func { LEFT,RIGHT,FRONT,BACK,JUMP,LIFT };
+	enum Func { LEFT,RIGHT,FRONT,BACK,JUMP,LIFT,DOWN };
 
 	typedef struct tagRigidbodyDesc
 	{
@@ -48,8 +48,11 @@ public:
 	void	Link_TransformCom(CTransform* _pTransform);
 
 public:
-	void		Add_Dir(Func Dir);
-
+	//이동용 실질적인 이동용
+	void		Add_Dir(Func Dir, _float fDir =0.f);
+	//실질적인건 아닌데 연출용
+	void		Add_Rotation(Func Dir);
+	
 	void		Update_Transform(_float fTimeDelta);
 
 private:

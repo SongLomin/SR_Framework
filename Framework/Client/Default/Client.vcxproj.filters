@@ -162,7 +162,6 @@
     <ClInclude Include="..\Public\EnemySpace_Posin.h">
       <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\BackGround.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -231,7 +230,6 @@
     <ClCompile Include="..\Private\EnemySpace_Posin.cpp">
       <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
     </ClCompile>
-    <ClCompile Include="..\private\BackGround.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

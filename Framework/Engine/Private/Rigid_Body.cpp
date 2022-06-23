@@ -107,6 +107,30 @@ void CRigid_Body::Add_Dir(Func Dir, _float fDir )
 	}
 }
 
+void CRigid_Body::Add_Rotation(Func Dir, _float fRad)
+{
+	switch (Dir)
+	{
+	case LEFT:
+		//m_vAccel -= m_vRight;
+		m_fRadAccelZ = -1.f*fRad;
+		break;
+
+	case RIGHT:
+		//m_vAccel += m_vRight;
+		m_fRadAccelZ = fRad;
+		break;
+
+	case FRONT:
+		m_fRadAccelX = -1.f*fRad;
+		break;
+
+	case BACK:
+		m_fRadAccelX = fRad;
+		break;
+	}
+}
+
 
 
 void CRigid_Body::Compute_Force()
@@ -125,7 +149,7 @@ void CRigid_Body::Compute_Force()
 			Compute_Jump();
 		Friction();
 	}
-	Compute_Ground();
+	//Compute_Ground();
 }
 
 void CRigid_Body::Compute_Dir()
@@ -182,8 +206,7 @@ void CRigid_Body::Turn(_float fTimeDelta)
 
 
 	m_vSubLook = m_vLook;
-	m_vSubUp = m_vUp;
-	m_vSubRight = m_vRight;
+
 }
 
 void CRigid_Body::SubTurn()

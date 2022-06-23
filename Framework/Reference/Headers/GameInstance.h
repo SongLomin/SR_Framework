@@ -105,10 +105,10 @@ public: /* For.Input_Manager */
 	CCamera* Get_Camera(const _tchar* _CameraTag = TEXT(""));
 	void Set_Current_Camera(const _tchar* _CameraTag = TEXT(""));
 
-public: /* For. Collision_Manager */
-	void Add_Collider(CCollider* pCollider);
 public: /* For.IMGUI_Manager */
 	HRESULT ImGuiImplHandle(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+public: /* For. Collision_Manager */
+	void Add_Collider(CCollider* pCollider);
 
 
 private:
@@ -121,8 +121,8 @@ private:
 	CTime_Manager*					m_pTime_Manager = nullptr;
 	CInput_Manager*					m_pInput_Manager = nullptr;
 	CCamera_Manager*				m_pCamera_Manager = nullptr;
-	CCollision_Manager*				m_pCollision_Manager = nullptr;
 	CImguiMgr*						m_pIMGUI_Manager = nullptr;
+	CCollision_Manager*				m_pCollision_Manager = nullptr;
 
 private:
 	GRAPHICDESC						m_Graphic_Desc;

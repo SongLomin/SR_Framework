@@ -45,7 +45,7 @@ HRESULT CEnemySpace_Posin::Initialize(void* pArg)
 
 void CEnemySpace_Posin::Tick(_float fTimeDelta)
 {
-	m_pTransformCom->Update_WorldMatrix();
+	__super::Tick(fTimeDelta);
 
 
 
@@ -56,15 +56,21 @@ void CEnemySpace_Posin::Tick(_float fTimeDelta)
 
 void CEnemySpace_Posin::LateTick(_float fTimeDelta)
 {
+	__super::LateTick(fTimeDelta);
+
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CEnemySpace_Posin::Render()
 {
+
+
 	m_pTransformCom->Bind_WorldMatrix(D3D_ALL, D3D_ALL);
 
 	m_pRendererCom->Bind_Texture(1);
-	m_pMeshCom->Render();
+
+	__super::Render();
+	m_pMeshCom->Render_Mesh();
 	m_pRendererCom->UnBind_Texture();
 
 	return S_OK;
