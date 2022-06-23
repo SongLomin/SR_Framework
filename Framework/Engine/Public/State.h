@@ -18,18 +18,20 @@ private:
 public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);
-	virtual HRESULT Tick(_float fTimeDelta);
+	virtual void Tick(_float fTimeDelta) {};
+	virtual void LateTick(_float fTimeDelta) {};
+	virtual HRESULT Render() { return S_OK; };
 
 public:
 	void State_Start(_float fSpeedValue);
-	void State_1(_float fSpeedValue, _float* fCountTime);
-	void State_2(_float fSpeedValue, _float* fCountTime);
-	void State_3(_float fSpeedValue, _float* fCountTime);
-	void State_4(_float fSpeedValue, _float* fCountTime);
-	void State_5(_float fSpeedValue, _float* fCountTime);
+	void State_1( _float* fCountTime);
+	void State_2( _float* fCountTime);
+	void State_3( _float* fCountTime);
+	void State_4( _float* fCountTime);
+	void State_5( _float* fCountTime);
 
 public:
-	void State_Change(_float fSpeedValue, _float* fCountTime, _bool bStateCheck);
+	void State_Change(_float* fCountTime, _bool bStateCheck);
 	void Link_RigidBodyCom(CRigid_Body* pRigidBody);
 	
 	

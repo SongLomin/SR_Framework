@@ -246,9 +246,6 @@
     <ClInclude Include="..\public\Mesh.h">
       <Filter>01.Utility\03.Components\00. Model\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\Rigid_Body.h">
-      <Filter>01.Utility\03.Components\06. Rigid_Body</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\Input_Manager.h">
       <Filter>01.Utility\04.Manager\06. Input_Manager</Filter>
     </ClInclude>
@@ -306,6 +303,9 @@
     <ClInclude Include="..\Public\Targeting.h">
       <Filter>01.Utility\03.Components\07. Targeting</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Rigid_Body.h">
+      <Filter>01.Utility\03.Components\06. Rigid_Body</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -331,9 +331,6 @@
     </ClCompile>
     <ClCompile Include="..\PRIVATE\Layer.cpp">
       <Filter>01.Utility\04.Manager\03. Object_Manager\Layer</Filter>
-    </ClCompile>
-    <ClCompile Include="..\private\Component.cpp">
-      <Filter>01.Utility\03.Components</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Component_Manager.cpp">
       <Filter>01.Utility\04.Manager\01. Component_Manager</Filter>
@@ -439,6 +436,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Targeting.cpp">
       <Filter>01.Utility\03.Components\07. Targeting</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Component.cpp">
+      <Filter>01.Utility\03.Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

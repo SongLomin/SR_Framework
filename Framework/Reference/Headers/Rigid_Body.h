@@ -48,7 +48,7 @@ public:
 	void	Link_TransformCom(CTransform* _pTransform);
 
 public:
-	void		Add_Dir(Func Dir);
+	void		Add_Dir(Func Dir, _float fDir =0.f);
 
 	void		Update_Transform(_float fTimeDelta);
 
