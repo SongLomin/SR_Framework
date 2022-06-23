@@ -9,6 +9,9 @@ CTargeting::CTargeting()
 
 void CTargeting::Make_TargetList(list<CGameObject*>* pLayer, _float fDist)
 {
+	if (pLayer == nullptr)
+		return;
+
 	Clear_Targeting();
 
 	CTransform* CameraTransform = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform();
@@ -71,7 +74,7 @@ void CTargeting::Clear_Targeting()
 	//return_Weakptr
 	for (auto& iter : m_pTargeting)
 	{
-		iter->Return_WeakPtr(&iter);
+		//iter->Return_WeakPtr(&iter);
 	}
 	m_pTargeting.clear();
 }
