@@ -22,9 +22,8 @@ public:
 
 protected:
 	_float	 m_fCurTime = 0.f;
-	_float	 m_fMaxTime = 2.f;
+	_float	 m_fMaxTime = 0.5f;
 	bool     m_bStateCheck = true;
-	STATE    m_eState;
 
 public: 
 	virtual CComponent* Clone(void* pArg) = 0;

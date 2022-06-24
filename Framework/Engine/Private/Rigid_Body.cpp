@@ -127,7 +127,6 @@ void CRigid_Body::Add_Dir(Func Dir, _float fDir )//fDir에 마우스 이동량을 전달
 
 		case FALL:
 			m_bLift = false;
-
 			break;
 
 		}
