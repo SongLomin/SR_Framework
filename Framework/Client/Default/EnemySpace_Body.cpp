@@ -115,9 +115,9 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
 	
-	m_pStateCom = Add_Component<CState_Move>();
+	/*m_pStateCom = Add_Component<CState_Move>();
 	m_pStateCom->Set_WeakPtr((void**)m_pStateCom);
-	m_pStateCom->Link_RigidBodyCom(m_pRigidBodyCom);
+	m_pStateCom->Link_RigidBodyCom(m_pRigidBodyCom);*/
 
 	
 	
