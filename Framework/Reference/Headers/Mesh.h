@@ -17,18 +17,22 @@ public:
 	virtual HRESULT Render_Mesh();
 
 public:
+	virtual HRESULT Set_Texture(const _tchar* _Str_Key, MEMORY_TYPE _eType);
+
+public:
 	ID3DXMesh* Get_Mesh();
 
 protected:
 	/*메쉬 렌더*/
 	ID3DXMesh*		m_pMesh = nullptr;
 	_ulong			m_dwNumSubsets = 0;
-	vector<LPDIRECT3DBASETEXTURE9>*		m_vTextures;
+	vector<LPDIRECT3DBASETEXTURE9>*		m_vTextures = nullptr;
 	//vector<D3DXMATERIAL>			m_vMtrl;
 	/*메쉬 생성*/
 	_uint			m_iNumVertices = 0;
 	_uint			m_iNumPrimitive = 0;
 	_ulong			m_dwFVF;
+
 
 
 

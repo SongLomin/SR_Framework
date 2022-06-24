@@ -28,12 +28,21 @@ HRESULT CMesh::Render_Mesh()
 
 	for (_ulong i = 0; i < m_dwNumSubsets; ++i)
 	{
-		DEVICE->SetTexture(0, (*m_vTextures)[i]);
+		if(m_vTextures)
+			DEVICE->SetTexture(0, (*m_vTextures)[6]);
 		//DEVICE->SetMaterial(m_vMtrl[i]);
 		m_pMesh->DrawSubset(i);
 	}
 	DEVICE->SetTexture(0, 0);
 
+	return S_OK;
+}
+
+HRESULT CMesh::Set_Texture(const _tchar* _Str_Key, MEMORY_TYPE _eType)
+{
+	m_vTextures = GAMEINSTANCE->Get_Textures_From_Key(_Str_Key, _eType);
+
+	
 	return S_OK;
 }
 

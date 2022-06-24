@@ -41,6 +41,36 @@ namespace Engine
 		static const DWORD FVF = D3DFVF_XYZ | D3DFVF_TEX1;
 	}VTXTEX;
 
+	typedef struct tagVertex_CubeTexture
+	{
+		D3DXVECTOR3		vPosition;
+		D3DXVECTOR3		vTexUV;
+
+		tagVertex_CubeTexture(const D3DXVECTOR3& _Pos, const D3DXVECTOR3& _Tex)
+		{
+			vPosition = _Pos;
+			vTexUV = _Tex;
+		}
+
+		static const DWORD SKY = D3DFVF_XYZ | D3DFVF_TEX1 | D3DFVF_TEXCOORDSIZE3(0);
+	}VTXCUBETEX;
+
+	typedef struct tagVertex_Color
+	{
+		D3DXVECTOR3		vPosition;
+		D3DXVECTOR3		vNorm;
+		D3DCOLOR		DColor;
+
+		tagVertex_Color(const D3DXVECTOR3& _Pos, const D3DXVECTOR3& _Norm, const D3DCOLOR& _Color)
+		{
+			vPosition = _Pos;
+			vNorm = _Norm;
+			DColor = _Color;
+		}
+
+		static const DWORD FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE;
+	}VTXCOLOR;
+
 
 	typedef struct tagGraphicDesc
 	{
@@ -225,7 +255,7 @@ namespace Engine
 		SHAPE_END
 	};
 
-	enum class STATE 
+	enum class STATE_MOVE 
 	{ 
 		STATE_1, 
 		STATE_2, 
@@ -233,6 +263,14 @@ namespace Engine
 		STATE_4, 
 		STATE_5, 
 		STATE_START,
+		STATE_END
+	};
+
+	enum class STATE
+	{
+		STATE_MOVE,
+		STATE_ATTACK,
+		STATE_DEAD,
 		STATE_END
 	};
 

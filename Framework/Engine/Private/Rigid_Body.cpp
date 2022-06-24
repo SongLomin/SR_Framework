@@ -19,7 +19,6 @@ void CRigid_Body::Tick(_float fTimeDelta)
 void CRigid_Body::LateTick(_float fTimeDelta)
 {
 	Set_DirVector();
-	Update_Transform(fTimeDelta);
 }
 
 HRESULT CRigid_Body::Render()
@@ -52,56 +51,78 @@ void CRigid_Body::Link_TransformCom(CTransform * _pTransform)
 	m_pTransform = _pTransform;
 	m_pTransform->Set_WeakPtr(&m_pTransform);
 
-	
-
 }
 
-void CRigid_Body::Add_Dir(Func Dir, _float fDir )
+void CRigid_Body::Add_Dir(Func Dir, _float fDir )//fDir에 마우스 이동량을 전달
 {
-	switch (Dir)
+	if (m_bMouse)
 	{
-	case LEFT:
-		//m_vAccel -= m_vRight;
-		m_fRadAccelY = -1.f*m_RigidbodyDesc.m_fOwnerRadAccel;
-		if (m_bLift)
+		switch (Dir)
 		{
-			m_fRadAccelZ = 0.01f;
-		}
-		break;
+		case RIGHT://좌우 회전
+			m_fRadSpeedY = fDir*0.01f;
+			m_fRadSpeedZ = fDir*-0.01f;
+			break;
 
-	case RIGHT:
-		//m_vAccel += m_vRight;
-		m_fRadAccelY = m_RigidbodyDesc.m_fOwnerRadAccel;
-		if (m_bLift)
+		case DOWN://위아래 회전
+			m_fLiftSpeed = fDir*-0.1f;
+			m_fRadSpeedX = fDir*0.01f;
+			break;
+
+		case FRONT:
+			m_vAccel += m_vLook;
+			break;
+		}
+
+
+	}
+	else
+	{
+		switch (Dir)
 		{
-			m_fRadAccelZ = -0.01f;
+		case LEFT:
+			//m_vAccel -= m_vRight;
+			m_fRadAccelY = -1.f*(fDir? fDir :m_RigidbodyDesc.m_fOwnerRadAccel);
+			if (m_bLift)
+			{
+				m_fRadAccelZ = 0.01f;
+			}
+			break;
+
+		case RIGHT:
+			//m_vAccel += m_vRight;
+			m_fRadAccelY = fDir? fDir : m_RigidbodyDesc.m_fOwnerRadAccel;
+			if (m_bLift)
+			{
+				m_fRadAccelZ = -0.01f;
+			}
+			break;
+
+		case FRONT:
+			m_vAccel += m_vLook;
+			break;
+
+		case BACK:
+			m_vAccel -= m_vLook;
+			m_fRadAccelY *= -1.f;
+			break;
+
+		case JUMP:
+			m_fJump = m_RigidbodyDesc.m_fOwnerJump*m_RigidbodyDesc.m_fOwnerJumpScale;
+			m_bJump = true;
+			break;
+
+		case LIFT:
+			if (m_RigidbodyDesc.m_fOwnerSpeed*0.7 < fabs(D3DXVec3Length(&m_vSpeed)))
+			{
+				m_fLiftAccel = m_RigidbodyDesc.m_fOwnerLiftAccel;
+				m_fRadAccelX = -0.005f;
+				m_bLift = true;
+			}
+			break;
+
+
 		}
-		break;
-
-	case FRONT:
-		m_vAccel += m_vLook;
-		break;
-
-	case BACK:
-		m_vAccel -= m_vLook;
-		m_fRadAccelY *= -1.f;
-		break;
-
-	case JUMP:
-		m_fJump = m_RigidbodyDesc.m_fOwnerJump*m_RigidbodyDesc.m_fOwnerJumpScale;
-		m_bJump = true;
-		break;
-
-	case LIFT:
-		if (m_RigidbodyDesc.m_fOwnerSpeed*0.7 < fabs(D3DXVec3Length(&m_vSpeed)))
-		{
-			m_fLiftAccel = m_RigidbodyDesc.m_fOwnerLiftAccel;
-			m_fRadAccelX = -0.005f;
-			m_bLift = true;
-		}
-		break;
-
-
 	}
 }
 
@@ -147,7 +168,7 @@ void CRigid_Body::Compute_Force()
 			Compute_Jump();
 		Friction();
 	}
-	Compute_Ground();
+	//Compute_Ground();
 }
 
 void CRigid_Body::Compute_Dir()
@@ -228,75 +249,124 @@ void CRigid_Body::SubTurn()
 void CRigid_Body::Compute_Rotation()
 {
 	/*각속도(Y축회전)*/
-	if (m_RigidbodyDesc.m_fOwnerRadSpeed - (m_bLift ? m_RigidbodyDesc.m_fRadDrag : 0) > fabs(m_fRadSpeedY))
+	if (m_bMouse)
 	{
-		m_fRadSpeedY += m_fRadAccelY;
+		if (m_RigidbodyDesc.m_fOwnerRadSpeed < fabs(m_fRadSpeedY))
+		{
+			if (0.f < m_fRadSpeedY)
+			{
+				m_fRadSpeedY = m_RigidbodyDesc.m_fOwnerRadSpeed;
+			}
+			else if (0.f > m_fRadSpeedY)
+			{
+				m_fRadSpeedY = -1.f*m_RigidbodyDesc.m_fOwnerRadSpeed;
+			}
+			
+		}
 	}
-
-	if (DBL_EPSILON < fabs(m_fRadSpeedY))
+	else
 	{
-		float _fAccel;
-		if (DBL_EPSILON < fabs(D3DXVec3Length(&m_vSpeed)))
-			_fAccel = m_RigidbodyDesc.m_fRadFrictional*2.f;
-		else
-			_fAccel = m_RigidbodyDesc.m_fRadFrictional;
+		if (m_RigidbodyDesc.m_fOwnerRadSpeed - (m_bLift ? m_RigidbodyDesc.m_fRadDrag : 0) > fabs(m_fRadSpeedY))
+		{
+			m_fRadSpeedY += m_fRadAccelY;
+		}
 
-		if (0.f < m_fRadSpeedY)
-			m_fRadSpeedY -= _fAccel;
+		if (DBL_EPSILON < fabs(m_fRadSpeedY))
+		{
+			float _fAccel;
+			if (DBL_EPSILON < fabs(D3DXVec3Length(&m_vSpeed)))
+				_fAccel = m_RigidbodyDesc.m_fRadFrictional*2.f;
+			else
+				_fAccel = m_RigidbodyDesc.m_fRadFrictional;
 
-		else if (0.f > m_fRadSpeedY)
-			m_fRadSpeedY += _fAccel;
+			if (0.f < m_fRadSpeedY)
+				m_fRadSpeedY -= _fAccel;
+
+			else if (0.f > m_fRadSpeedY)
+				m_fRadSpeedY += _fAccel;
 
 
 
-		if (m_RigidbodyDesc.m_fRadFrictional > fabs(m_fRadSpeedY))
-			m_fRadSpeedY = 0.f;
+			if (m_RigidbodyDesc.m_fRadFrictional > fabs(m_fRadSpeedY))
+				m_fRadSpeedY = 0.f;
+		}
 	}
 }
 
 void CRigid_Body::Compute_RotDirection()
 {
-	if (D3DXToRadian(30.f) > fabs(m_fRadSpeedZ))
+	if (m_bMouse)
 	{
-		m_fRadSpeedZ += m_fRadAccelZ;
-	}
-
-	if (!(DBL_EPSILON < fabs(m_fRadAccelZ)))
-		if (DBL_EPSILON < fabs(m_fRadSpeedZ))
+		if (D3DXToRadian(30.f) < fabs(m_fRadSpeedZ))
 		{
-			float _fAccel;
-			_fAccel = m_RigidbodyDesc.m_fRadZ;
-
-
-			if (0.f < m_fRadSpeedZ)
-				m_fRadSpeedZ -= _fAccel;
-			else if (0.f > m_fRadSpeedZ)
-				m_fRadSpeedZ += _fAccel;
-
-			if (m_RigidbodyDesc.m_fRadZ> fabs(m_fRadSpeedZ))
-				m_fRadSpeedZ = 0.f;
+			if (0.f > m_fRadSpeedZ)
+			{
+				m_fRadSpeedZ = -1.f*D3DXToRadian(30.f);
+			}
+			else if (0.f < m_fRadSpeedZ)
+			{
+				m_fRadSpeedZ = D3DXToRadian(30.f);
+			}
 		}
 
-	if (D3DXToRadian(20.f) > fabs(m_fRadSpeedX))
-	{
-		m_fRadSpeedX += m_fRadAccelX;
-	}
-
-	if (!(DBL_EPSILON < fabs(m_fRadAccelX)))
-		if (DBL_EPSILON < fabs(m_fRadSpeedX))
+		if (D3DXToRadian(40.f) < fabs(m_fRadSpeedX))
 		{
-			float _fAccel;
-			_fAccel = m_RigidbodyDesc.m_fRadZ;
+			if (0.f > m_fRadSpeedX)
+			{
+				m_fRadSpeedX = -1.f*D3DXToRadian(40.f);
+			}
 
-
-			if (0.f < m_fRadSpeedX)
-				m_fRadSpeedX -= _fAccel;
-			else if (0.f > m_fRadSpeedX)
-				m_fRadSpeedX += _fAccel;
-
-			if (m_RigidbodyDesc.m_fRadZ> fabs(m_fRadSpeedX))
-				m_fRadSpeedX = 0.f;
+			else if (0.f < m_fRadSpeedX)
+			{
+				m_fRadSpeedX = D3DXToRadian(40.f);
+			}
 		}
+
+	}
+	else
+	{
+		if (D3DXToRadian(30.f) > fabs(m_fRadSpeedZ))
+		{
+			m_fRadSpeedZ += m_fRadAccelZ;
+		}
+
+		if (!(DBL_EPSILON < fabs(m_fRadAccelZ)))
+			if (DBL_EPSILON < fabs(m_fRadSpeedZ))
+			{
+				float _fAccel;
+				_fAccel = m_RigidbodyDesc.m_fRadZ;
+
+
+				if (0.f < m_fRadSpeedZ)
+					m_fRadSpeedZ -= _fAccel;
+				else if (0.f > m_fRadSpeedZ)
+					m_fRadSpeedZ += _fAccel;
+
+				if (m_RigidbodyDesc.m_fRadZ > fabs(m_fRadSpeedZ))
+					m_fRadSpeedZ = 0.f;
+			}
+
+		if (D3DXToRadian(20.f) > fabs(m_fRadSpeedX))
+		{
+			m_fRadSpeedX += m_fRadAccelX;
+		}
+
+		if (!(DBL_EPSILON < fabs(m_fRadAccelX)))
+			if (DBL_EPSILON < fabs(m_fRadSpeedX))
+			{
+				float _fAccel;
+				_fAccel = m_RigidbodyDesc.m_fRadZ;
+
+
+				if (0.f < m_fRadSpeedX)
+					m_fRadSpeedX -= _fAccel;
+				else if (0.f > m_fRadSpeedX)
+					m_fRadSpeedX += _fAccel;
+
+				if (m_RigidbodyDesc.m_fRadZ > fabs(m_fRadSpeedX))
+					m_fRadSpeedX = 0.f;
+			}
+	}
 }
 
 void CRigid_Body::Compute_Jump()

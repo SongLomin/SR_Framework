@@ -27,26 +27,18 @@ HRESULT CUITest::Initialize(void* pArg)
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
 
-	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
-	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
+	/*m_pMesh_TestCom = Add_Component<CMesh_Test>();
+	m_pMesh_TestCom->Set_WeakPtr(&m_pMesh_TestCom);*/
+
+	m_pMesh_TestCom = Add_Component<CMesh_SongShip>();
+	m_pMesh_TestCom->Set_WeakPtr(&m_pMesh_TestCom);
 
 	return S_OK;
 }
 
 void CUITest::Tick(_float fTimeDelta)
 {
-	_float3 vPickedPos;
-
-	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
-	{
-		RAY MouseRay;
-		CMath_Utillity::Compute_RayInWorldSpace(&MouseRay, 10000.f);
-
-		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseRay, &vPickedPos))
-		{
-			int a = 1;
-		}
-	}
+	__super::Tick(fTimeDelta);
 
 	
 
@@ -55,17 +47,21 @@ void CUITest::Tick(_float fTimeDelta)
 
 void CUITest::LateTick(_float fTimeDelta)
 {
+	__super::LateTick(fTimeDelta);
+
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_UI, this);
 }
 
 HRESULT CUITest::Render()
 {
+	__super::Render();
+
 	m_pTransformCom->Bind_WorldMatrix();
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
-	m_pVIBufferCom->Render();
+	m_pMesh_TestCom->Render_Mesh();
 	m_pRendererCom->UnBind_Texture();
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);

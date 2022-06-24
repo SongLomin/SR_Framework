@@ -85,6 +85,15 @@
     <Filter Include="02.GameObject\00. Player\Parts">
       <UniqueIdentifier>{61642fb2-8e65-497f-932c-c5c5c856a54e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.AI">
+      <UniqueIdentifier>{44d8b3d7-f2cb-48f9-b86f-a76840698f92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.AI\00.Move">
+      <UniqueIdentifier>{916ec019-9fba-4f61-8fde-0f85862a5454}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. SkyBox">
+      <UniqueIdentifier>{0fe98c48-2de0-4630-ad1c-ae8ae3dbaa13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -162,6 +171,12 @@
     <ClInclude Include="..\Public\EnemySpace_Posin.h">
       <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\State_Move.h">
+      <Filter>03.AI\00.Move</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\SkyBox.h">
+      <Filter>02.GameObject\10. SkyBox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -229,6 +244,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\EnemySpace_Posin.cpp">
       <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\State_Move.cpp">
+      <Filter>03.AI\00.Move</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\SkyBox.cpp">
+      <Filter>02.GameObject\10. SkyBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

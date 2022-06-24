@@ -53,6 +53,7 @@ void CCam_TPS::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+
 	if (GAMEINSTANCE->Get_Camera(CURRENT_CAMERA) == m_pCameraCom)
 	{
 		m_CurCursorPosition = Get_MousePos(GAMEINSTANCE->Get_Window_Handle());
@@ -69,14 +70,14 @@ void CCam_TPS::Tick(_float fTimeDelta)
 
 			ClientToScreen(g_hWnd, &ptMouse); // 클라이언트 기준 좌표를 바탕화면 기준으로 변환한다
 
-			SetCursorPos(ptMouse.x, ptMouse.y); // 커서를 윈도우 기준으로 (400, 300)에 위치시킨다
+			//SetCursorPos(ptMouse.x, ptMouse.y); // 커서를 윈도우 기준으로 (400, 300)에 위치시킨다
 		}
 
 		_float3 Cursor_Weight = m_MouseRealPosition - m_PreCursorPosition;
 
-	/*	m_pRigidBodyCom->Add_DirX(-Cursor_Weight.x*0.1f);
-		m_pRigidBodyCom->Add_DirY(Cursor_Weight.y*0.1f);*/
-		//m_pRigidBodyCom->Update_Transform(fTimeDelta);
+		/*m_pRigidBodyCom->Add_Dir(-, Cursor_Weight.x*0.1f);
+		m_pRigidBodyCom->Add_Dir(Cursor_Weight.y*0.1f);*/
+		m_pRigidBodyCom->Update_Transform(fTimeDelta);
 
 		m_pTransformCom->LookAt(_float3(0.f, 0.f, 0.f));
 		m_PreCursorPosition = m_MouseRealPosition;
@@ -86,6 +87,7 @@ void CCam_TPS::Tick(_float fTimeDelta)
 void CCam_TPS::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
+	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 }
 
 HRESULT CCam_TPS::Render()

@@ -21,6 +21,7 @@
 #include <functional>
 #include <tchar.h>
 #include <assert.h>
+#include <fstream>
 
 #include "Engine_Typedef.h"
 #include "Engine_Function.h"

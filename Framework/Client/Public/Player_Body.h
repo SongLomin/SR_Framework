@@ -11,6 +11,7 @@ class CStatus;
 class CMesh_Cube;
 class CRigid_Body;
 class CTargeting;
+class CMesh_SongShip;
 END
 
 BEGIN(Client)
@@ -32,7 +33,7 @@ public:
 private:
 	CTransform*				m_pTransformCom = nullptr;
 	CRenderer*				m_pRendererCom = nullptr;
-	CMesh_Cube*				m_pMeshCubeCom = nullptr;
+	CMesh_SongShip*				m_pMeshCubeCom = nullptr;
 	CStatus*				m_pStatusCom = nullptr;
 	CRigid_Body*			m_pRigidBodyCom = nullptr;
 	//CCollider_OBB*			m_pCColliderCom = nullptr;
@@ -43,6 +44,8 @@ private:
 	static const _tchar*	m_pTag;
 
 	_uint					m_iCurrentCam = 0;
+	_bool					m_bMouse = false;
+	_float					m_fTime = 0.f;
 
 protected: /* For Event Function */
 	virtual void On_Change_Controller(const CONTROLLER& _IsAI) override;

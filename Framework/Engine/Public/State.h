@@ -7,10 +7,10 @@ BEGIN(Engine)
 class CTransform;
 class CRigid_Body;
 
-class ENGINE_DLL CState : public CComponent
+class ENGINE_DLL CState abstract : public CComponent
 {
 	
-private:
+protected:
 	CState() = default;
 	CState(const CState& Prototype);
 	virtual ~CState() = default;
@@ -23,31 +23,19 @@ public:
 	virtual HRESULT Render() { return S_OK; };
 
 public:
-	void State_Start(_float fSpeedValue);
-	void State_1( _float* fCountTime);
-	void State_2( _float* fCountTime);
-	void State_3( _float* fCountTime);
-	void State_4( _float* fCountTime);
-	void State_5( _float* fCountTime);
-
-public:
-	void State_Change(_float* fCountTime, _bool bStateCheck);
 	void Link_RigidBodyCom(CRigid_Body* pRigidBody);
-	
-	
-private:
+
+protected:
 	CRigid_Body* m_pRigidBody = nullptr;
 
-public:
+protected:
 	_float   m_fSpeedValue = 0.f;
 	_float	 m_fCountTime = 0.f;
-	STATE    m_ePreMovement = STATE::STATE_END;
-	STATE    m_eCurMovement = STATE::STATE_END;
 	bool     m_bStateCheck = false;
+	STATE    m_eState;
 
-public:
-	static CState* Create();
-	virtual	CComponent* Clone(void* pArg);
+public: 
+	virtual CComponent* Clone(void* pArg) = 0;
 	virtual void Free() override;
 };
 

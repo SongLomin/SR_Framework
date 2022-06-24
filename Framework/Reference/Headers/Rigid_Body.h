@@ -49,6 +49,10 @@ public:
 
 public:
 	//이동용 실질적인 이동용
+	void		Set_MouseMove()
+	{
+		m_bMouse = !m_bMouse;
+	}
 	void		Add_Dir(Func Dir, _float fDir =0.f);
 	//실질적인건 아닌데 연출용
 	void		Add_Rotation(Func Dir, _float fRad);
@@ -108,13 +112,12 @@ private:
 	_float		m_fRadAccelZ = 0;
 	_float		m_fRadSpeedZ = 0;
 
-	_bool		m_bJump = false;
-	_bool		m_bLift = false;
-
-
-
 	_float		m_fLiftAccel = 0;
 	_float		m_fLiftSpeed = 0;
+
+	_bool		m_bJump = false;
+	_bool		m_bLift = false;
+	_bool		m_bMouse = false;
 
 
 public:

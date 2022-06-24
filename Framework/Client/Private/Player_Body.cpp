@@ -44,20 +44,20 @@ HRESULT CPlayer_Body::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	GAMEINSTANCE->Add_GameObject<CPlayer_RightBody>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
+	//GAMEINSTANCE->Add_GameObject<CPlayer_RightBody>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
 
-	GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
-		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
+	//GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
+	//	->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
 
-	GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
-		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
+	//GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
+	//	->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-3.f, 1.5f, 0.f));
 
-	//GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
+	////GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
 
-	GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom);
+	//GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom);
 
-	GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom)
-		->Get_Component<CTransform>()->Rotation(_float3(0.f, 1.f, 0.f), 30);
+	//GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom)
+	//	->Get_Component<CTransform>()->Rotation(_float3(0.f, 1.f, 0.f), 30);
 	
 	return S_OK;
 }
@@ -69,26 +69,46 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 
-	
-	if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::BACK);
+	if (m_bMouse)
+	{	
+		POINT pt{};
+		GetCursorPos(&pt);
+		ScreenToClient(g_hWnd, &pt);
 
-	if (KEY_INPUT(KEY::D, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
+		_float fDirX = pt.x - g_iWinCX*0.5f;
+		_float fDirY = pt.y - g_iWinCY*0.5f;
 
-	if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT, fDirX*0.1f);
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::DOWN, fDirY*0.1f);
 
-	if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP))
+	}
+	else
+	{
+
+		if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
+			m_pRigidBodyCom->Add_Dir(CRigid_Body::BACK);
+
+		if (KEY_INPUT(KEY::D, KEY_STATE::HOLD))
+			m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
+
+		if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
+			m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
+
+		if (KEY_INPUT(KEY::UP, KEY_STATE::HOLD))
+		{
+			m_pRigidBodyCom->Add_Dir(CRigid_Body::LIFT);
+		}
+	}
+	if (KEY_INPUT(KEY::SPACE, KEY_STATE::HOLD))
 	{
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::JUMP);
 	}
 
-	if (KEY_INPUT(KEY::UP, KEY_STATE::HOLD))
+	if (KEY_INPUT(KEY::CTRL, KEY_STATE::TAP))//마우스 움직임 테스트용
 	{
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::LIFT);
+		m_bMouse = !m_bMouse;
+		m_pRigidBodyCom->Set_MouseMove();
 	}
-
 
 	if (KEY_INPUT(KEY::Z, KEY_STATE::TAP))
 	{
@@ -111,15 +131,15 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 			GAMEINSTANCE->Set_Current_Camera(TEXT("TPS"));
 			break;
 		}
-		
+
 		m_iCurrentCam = (m_iCurrentCam + 1) % 3;
 	}
 
 	if (KEY_INPUT(KEY::L, KEY_STATE::TAP))
 	{
-		CONTROLLER Next_Controller = 
-			Get_Controller() == CONTROLLER::PLAYER ? 
-			CONTROLLER::AI : 
+		CONTROLLER Next_Controller =
+			Get_Controller() == CONTROLLER::PLAYER ?
+			CONTROLLER::AI :
 			CONTROLLER::PLAYER;
 
 		Set_Controller(Next_Controller);
@@ -128,10 +148,10 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 
 	GAMEINSTANCE->Add_Text(
 		_point{ 100, g_iWinCY - 100 },
-		D3DCOLOR_ARGB(255, 130, 255, 0), 
-		0.0f, 
-		L"HP : %d", 
-		1, 
+		D3DCOLOR_ARGB(255, 130, 255, 0),
+		0.0f,
+		L"HP : %d",
+		1,
 		(_int)m_pStatusCom->Get_Status().fHp);
 
 	GAMEINSTANCE->Add_Text(
@@ -140,34 +160,45 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 		2,
 		14, 300);
 
+	m_fTime += fTimeDelta;
+	if (m_fTime > 1.f)
+	{
+		m_pTargetingCom->Make_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster")));
+		m_fTime = 0.f;
+	}
+
 }
 
 void CPlayer_Body::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
+	m_pRigidBodyCom->Update_Transform(fTimeDelta);
+
 	ISVALID(m_pRendererCom, );
 
 	
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_PRIORITY, this);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CPlayer_Body::Render()
 {
-
+	m_pTransformCom->Scaling(_float3(0.03f, 0.03f, 0.03f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-	m_pRendererCom->Bind_Texture(0);
+	//m_pRendererCom->Bind_Texture(0);
 
 	__super::Render();
 
+
+
 	if(Get_Controller() == CONTROLLER::PLAYER)
 		m_pMeshCubeCom->Render_Mesh();
-	m_pRendererCom->UnBind_Texture();
+	//m_pRendererCom->UnBind_Texture();
 
 	
-	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	 //DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	return S_OK;
 }
@@ -193,9 +224,9 @@ HRESULT CPlayer_Body::SetUp_Components()
 
 
 
-	m_pMeshCubeCom = Add_Component<CMesh_Cube>();
+	m_pMeshCubeCom = Add_Component<CMesh_SongShip>();
 	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);
-
+	m_pMeshCubeCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 10.f;
 	RigidBodyDesc.m_fOwnerAccel = 0.1f;
@@ -209,7 +240,7 @@ HRESULT CPlayer_Body::SetUp_Components()
 	RigidBodyDesc.m_fRadZ = 0.01f;
 
 
-	RigidBodyDesc.m_fOwnerLiftSpeed = 3.f;
+	RigidBodyDesc.m_fOwnerLiftSpeed = 10.f;
 	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;
@@ -230,20 +261,26 @@ HRESULT CPlayer_Body::SetUp_Components()
 	//CGameObject* CameraPosin = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);	
 	//m_pCameraPosin = (CCameraPosin*)GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
 	
-	GAMEINSTANCE->Add_GameObject<CPlayer_RightBody>(CURRENT_LEVEL, TEXT("Player_RightBody"), m_pTransformCom);
+	//GAMEINSTANCE->Add_GameObject<CPlayer_RightBody>(CURRENT_LEVEL, TEXT("Player_RightBody"), m_pTransformCom);
 
 	GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom)
-		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));;
+		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.8f, -0.15f, 0.f));;
 
 	GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom)
-		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
+		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(1.6f, -0.15f, 0.f));
+
+	GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom)
+		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-1.6f, -0.15f, 0.f));
+
+	GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom)
+		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
 
 	//GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom);
 
-	GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom);
+	//GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom);
 
-	GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom)
-		->Get_Component<CTransform>()->Rotation(_float3(0.f, 1.f, 0.f), 30);
+	//GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom)
+	//	->Get_Component<CTransform>()->Rotation(_float3(0.f, 1.f, 0.f), 30);
 
 	Set_Controller(CONTROLLER::PLAYER);
 

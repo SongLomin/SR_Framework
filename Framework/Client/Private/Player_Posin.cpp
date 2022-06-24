@@ -33,8 +33,7 @@ HRESULT CPlayer_Posin::Initialize(void* pArg)
 
 	m_pMeshCom = Add_Component<CMesh_Cube>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
-
-	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f));
+	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 
 	return S_OK;
@@ -66,11 +65,14 @@ void CPlayer_Posin::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
+	
+
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CPlayer_Posin::Render()
 {
+	m_pTransformCom->Scaling(_float3(0.4f, 0.24f, 1.6f), true);
 	m_pTransformCom->Bind_WorldMatrix(D3D_ALL, D3D_ALL);
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
@@ -106,23 +108,25 @@ inline HRESULT CPlayer_Posin::SetUp_Components()
 
 void CPlayer_Posin::LookAt_Targeting()
 {
-	/*list<CGameObject*>* Monster = GAMEINSTANCE->Get_Player_GameObject()->Get_Component<CTargeting>()->Get_Targetting();
+	list<CGameObject*>* Monster = GAMEINSTANCE->Get_Player_GameObject()->Get_Component<CTargeting>()->Get_Targetting();
 	if (!Monster->empty())
 	{
 		for (auto& elem : *Monster)
 		{
-			m_pTransformCom->LookAt(elem->Get_Component<CTransform>(), true);
+			if(elem)
+				m_pTransformCom->LookAt(elem->Get_Component<CTransform>(), true);
 		}
 	}
 	else
-	{*/
+	{
 		_float3 MouseEndPos;
 		RAY	MouseWorldPos;
 		MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
 		MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 1000.f);
 
 		m_pTransformCom->LookAt(MouseEndPos, true);
-	
+
+	}
 }
 
 

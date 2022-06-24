@@ -18,6 +18,8 @@
 #include "Collider_OBB.h"
 #include "State.h"
 #include "Targeting.h"
+#include "Mesh_Test.h"
+#include "Mesh_SongShip.h"
 
 BEGIN(Engine)
 

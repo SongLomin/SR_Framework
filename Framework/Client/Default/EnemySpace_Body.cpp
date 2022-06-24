@@ -3,6 +3,8 @@
 #include "GameInstance.h"
 #include "EnemySpace_RightBody.h"
 #include "EnemySpace_Posin.h"
+#include "State_Move.h"
+
 
 CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
 {
@@ -10,6 +12,7 @@ CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
 	m_pTransformCom = Add_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(5.f, 1.f, 5.f));
+	m_pTransformCom->Update_WorldMatrix();
 }
 
 HRESULT CEnemySpace_Body::Initialize_Prototype()
@@ -38,7 +41,7 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 
 	ISVALID(m_pTransformCom);
 
-	m_pTransformCom->Update_WorldMatrix();
+	
 
 	/*if (!m_bMoveMentCheck)
 	{
@@ -46,15 +49,16 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 	}
 
 	MoveMentChange(fTimeDelta);*/
+	
 
-  	if (!m_bMoveMentCheck)
+  	/*if (!m_bMoveMentCheck)
 	{
-		m_pStateCom->State_Start(0.1f);
-	}
+		((CState*)m_pStateCom)->State_Change();
+	}*/
 
-    m_pStateCom->State_Change(&fTimeDelta, m_bMoveMentCheck);
+    //m_pStateCom->State_Change(&fTimeDelta, m_bMoveMentCheck);
 
-	m_pRigidBodyCom->Update_Transform(fTimeDelta);
+//%	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 
 	m_fCountTime -= GAMEINSTANCE->Compute_Timer(3);
 }
@@ -62,7 +66,7 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 void CEnemySpace_Body::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
-
+	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
@@ -92,9 +96,11 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 
 	m_pMeshCom = Add_Component<CMesh_Cube>();
 	m_pMeshCom->Set_WeakPtr((void**)&m_pMeshCom);
+	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 10.f;
+	RigidBodyDesc.m_fOwnerAccel = 0.1f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 
 	RigidBodyDesc.m_fFrictional = 0.05f;
@@ -109,11 +115,13 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
-	// ==========================================
-	m_pStateCom = Add_Component<CState>();
-	m_pStateCom->Set_WeakPtr(&m_pStateCom);
-	m_pStateCom->Link_RigidBodyCom(m_pRigidBodyCom);
-	// ==========================================
+	
+	/*m_pStateCom = Add_Component<CState_Move>();
+	m_pStateCom->Set_WeakPtr((void**)m_pStateCom);
+	m_pStateCom->Link_RigidBodyCom(m_pRigidBodyCom);*/
+
+	
+	
 
 	GAMEINSTANCE->Add_GameObject<CEnemySpace_RightBody>(CURRENT_LEVEL, TEXT("EnemySpace_RightBody"), m_pTransformCom);
 
