@@ -3,7 +3,6 @@
 #include "GameInstance.h"
 #include "EnemySpace_RightBody.h"
 #include "EnemySpace_Posin.h"
-#include "State_Move.h"
 
 
 CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
@@ -42,25 +41,11 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 	ISVALID(m_pTransformCom);
 
 	
+	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
+	m_pRigidBodyCom->Add_Dir(CRigid_Body::JUMP);
 
-	/*if (!m_bMoveMentCheck)
-	{
-		MoveMent5(fTimeDelta);
-	}
-
-	MoveMentChange(fTimeDelta);*/
-	
-
-  	/*if (!m_bMoveMentCheck)
-	{
-		((CState*)m_pStateCom)->State_Change();
-	}*/
-
-    //m_pStateCom->State_Change(&fTimeDelta, m_bMoveMentCheck);
-
-//%	m_pRigidBodyCom->Update_Transform(fTimeDelta);
-
-	m_fCountTime -= GAMEINSTANCE->Compute_Timer(3);
+	m_pStateCom->State_Change(fTimeDelta);
+    
 }
 
 void CEnemySpace_Body::LateTick(_float fTimeDelta)
@@ -122,6 +107,12 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
 	
+	m_pStateCom = Add_Component<CState_Move>();
+	m_pStateCom->Set_WeakPtr((void**)m_pStateCom);
+	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
+	//m_pStateCom->Set_WeakPtr((void**)m_pStateCom);
+	//m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
+
 	/*m_pStateCom = Add_Component<CState_Move>();
 	m_pStateCom->Set_WeakPtr((void**)m_pStateCom);
 	m_pStateCom->Link_RigidBodyCom(m_pRigidBodyCom);*/

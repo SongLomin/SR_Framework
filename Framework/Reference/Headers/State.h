@@ -4,9 +4,6 @@
 
 BEGIN(Engine)
 
-class CTransform;
-class CRigid_Body;
-
 class ENGINE_DLL CState abstract : public CComponent
 {
 	
@@ -22,15 +19,9 @@ public:
 	virtual void LateTick(_float fTimeDelta) {};
 	virtual HRESULT Render() { return S_OK; };
 
-public:
-	void Link_RigidBodyCom(CRigid_Body* pRigidBody);
 
 protected:
-	CRigid_Body* m_pRigidBody = nullptr;
-
-protected:
-	_float   m_fSpeedValue = 0.f;
-	_float	 m_fCountTime = 0.f;
+	_float	 m_fTimeAcc = 0.f;
 	bool     m_bStateCheck = false;
 	STATE    m_eState;
 

@@ -22,17 +22,7 @@ HRESULT CState::Initialize(void* pArg)
 
 
 
-void CState::Link_RigidBodyCom(CRigid_Body* pRigidBody)
-{
-	m_pRigidBody = pRigidBody;
-	m_pRigidBody->Set_WeakPtr(&m_pRigidBody);
-}
-
-
-
 void CState::Free()
 {
 	__super::Free();
-
-	delete this;
 }
