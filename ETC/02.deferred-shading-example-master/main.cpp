@@ -262,6 +262,8 @@ void DeferredPipeline()
 
 	Device->BeginScene();
 
+	//Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
+
 	D3DXHANDLE worldHandle = g_buffer_effect->GetParameterByName(0, "world");
 	D3DXHANDLE viewHandle = g_buffer_effect->GetParameterByName(0, "view");
 	D3DXHANDLE projHandle = g_buffer_effect->GetParameterByName(0, "proj");

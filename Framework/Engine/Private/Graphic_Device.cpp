@@ -12,6 +12,8 @@ CGraphic_Device::CGraphic_Device()
 
 HRESULT CGraphic_Device::InitDevice(const GRAPHICDESC& GraphicDesc, LPDIRECT3DDEVICE9* ppOut)
 {
+	m_GraphicDesc = GraphicDesc;
+
 	// HRESULT : 함수가 호출 이후 문제가 없이 종료될 경우 양수값을
 	// 문제가 있는 상태로 종료될 경우 음수값을 반환시키기 위한 자료형
 
@@ -123,7 +125,7 @@ void CGraphic_Device::Render_Begin(void)
 	m_pDevice->Clear(0,
 		nullptr,
 		D3DCLEAR_STENCIL | D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-		D3DCOLOR_ARGB(255, 10, 20, 30),	// 백버퍼 색상
+		0x00000000,	// 백버퍼 색상
 		1.f, // z버퍼의 초기화 값
 		0);	 // 스텐실 버퍼의 초기화 값
 
@@ -193,6 +195,85 @@ HRESULT CGraphic_Device::Add_Text(TEXTINFO Info, float CountTime)
 		m_Text.push_back(Font);
 
 	return S_OK;
+}
+
+D3DLIGHT9 CGraphic_Device::InitLight(D3DLIGHTTYPE type)
+{
+	D3DLIGHT9 light;
+	::ZeroMemory(&light, sizeof(light));
+
+	D3DXCOLOR color = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);       // white
+	D3DXVECTOR3 position = D3DXVECTOR3(0.f, 0.f, 5.f);
+	D3DXVECTOR3 direction = D3DXVECTOR3(-1.f, -1.f, -1.f);
+
+	light.Type = type;
+
+	light.Ambient = color * 0.01f;
+	light.Diffuse = color;
+	light.Specular = color * 0.6f;
+
+	light.Position = position;
+	light.Direction = direction;
+
+	light.Range = 8.0f;
+	light.Falloff = 4.0f;
+
+	light.Attenuation0 = 0.2f;
+	light.Attenuation1 = 0.4f;
+	light.Attenuation2 = 0.8f;
+
+	light.Theta = 1.f;
+	light.Phi = 2.f;
+
+	return light;
+}
+
+bool CGraphic_Device::SetupEffect(const _tchar* shaderFilename, ID3DXEffect** effect)
+{
+	ID3DXBuffer* errorBuffer = 0;
+
+	HRESULT hr = D3DXCreateEffectFromFile(
+		m_pDevice,
+		shaderFilename,
+		0,
+		0,
+		D3DXSHADER_DEBUG,
+		0,
+		effect,
+		&errorBuffer
+	);
+
+	if (errorBuffer) {
+		assert(false);
+	}
+
+	if (FAILED(hr)) {
+		assert(false);
+	}
+
+	return true;
+}
+
+bool CGraphic_Device::SetupTexture(IDirect3DTexture9** texture, IDirect3DSurface9** surface)
+{
+	HRESULT hr = D3DXCreateTexture(
+		m_pDevice,
+		m_GraphicDesc.iWinCX,
+		m_GraphicDesc.iWinCY,
+		D3DX_DEFAULT,
+		D3DUSAGE_RENDERTARGET,
+		D3DFMT_A8R8G8B8,
+		D3DPOOL_DEFAULT,
+		texture
+	);
+
+	if (FAILED(hr)) {
+		assert(false);
+	}
+
+	(*texture)->GetSurfaceLevel(0, surface);
+
+	return true;	
 }
 
 
