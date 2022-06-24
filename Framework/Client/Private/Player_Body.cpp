@@ -185,7 +185,7 @@ HRESULT CPlayer_Body::Render()
 {
 	m_pTransformCom->Scaling(_float3(0.03f, 0.03f, 0.03f), true);
 	m_pTransformCom->Bind_WorldMatrix();
-	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	//m_pRendererCom->Bind_Texture(0);
 
@@ -198,7 +198,7 @@ HRESULT CPlayer_Body::Render()
 	//m_pRendererCom->UnBind_Texture();
 
 	
-	 //DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	 DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	return S_OK;
 }

@@ -94,6 +94,9 @@
     <Filter Include="02.GameObject\10. SkyBox">
       <UniqueIdentifier>{0fe98c48-2de0-4630-ad1c-ae8ae3dbaa13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\09. Aim\Default_Aim">
+      <UniqueIdentifier>{734aabdc-1d76-4a3a-91db-df9e552fa7cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -177,6 +180,9 @@
     <ClInclude Include="..\Public\SkyBox.h">
       <Filter>02.GameObject\10. SkyBox</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Default_Aim.h">
+      <Filter>02.GameObject\09. Aim\Default_Aim</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -250,6 +256,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\SkyBox.cpp">
       <Filter>02.GameObject\10. SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Default_Aim.cpp">
+      <Filter>02.GameObject\09. Aim\Default_Aim</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

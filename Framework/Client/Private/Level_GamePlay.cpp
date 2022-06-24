@@ -12,6 +12,7 @@
 #include "EnemySpace_Body.h"
 #include <UITest.h>
 #include <SkyBox.h>
+#include "Default_Aim.h"
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -50,6 +51,9 @@ HRESULT CLevel_GamePlay::Initialize()
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVEL_GAMEPLAY, TEXT("SkyBox")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_GAMEPLAY, TEXT("Aim")))
 		return E_FAIL;
 
 

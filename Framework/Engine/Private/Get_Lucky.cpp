@@ -6,12 +6,13 @@ IMPLEMENT_SINGLETON(Get_Lucky)
 void Get_Lucky::Team_EverSpace()
 {
 	//파싱할 x파일 경로 수정
-	D3DXLoadMeshFromX(TEXT("../Bin/Resources/Textures/Terrain/ship3.x"), D3DXMESH_MANAGED,
+	D3DXLoadMeshFromX(TEXT("../Bin/Resources/Textures/Terrain/Paper_Airplane.x"), D3DXMESH_MANAGED,
 		DEVICE, &m_pAdj, &m_pMtrl, &m_pEffectInstances,
 		&m_iNumMtrl, &m_pMesh);
 
 	m_dwNumSubsets = 1;
 
+	
 
 	//출력될 파일 경로는 Framework\Client\Default의 아래 이름
 	ofstream fout("Past_Initialize_Prototype.cpp");
