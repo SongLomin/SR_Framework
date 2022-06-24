@@ -3,6 +3,8 @@
 #include "GameInstance.h"
 #include "EnemySpace_RightBody.h"
 #include "EnemySpace_Posin.h"
+#include "State_Move.h"
+
 
 CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
 {
@@ -46,13 +48,14 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 	}
 
 	MoveMentChange(fTimeDelta);*/
+	
 
-  	if (!m_bMoveMentCheck)
+  	/*if (!m_bMoveMentCheck)
 	{
-		m_pStateCom->State_Start(0.1f);
-	}
+		((CState*)m_pStateCom)->State_Change();
+	}*/
 
-    m_pStateCom->State_Change(&fTimeDelta, m_bMoveMentCheck);
+    //m_pStateCom->State_Change(&fTimeDelta, m_bMoveMentCheck);
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 
@@ -106,15 +109,18 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	RigidBodyDesc.m_fOwnerLiftSpeed = 3.f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;
+	RigidBodyDesc.m_fOwnerAccel = 0.1f;
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
-	// ==========================================
-	m_pStateCom = Add_Component<CState>();
-	m_pStateCom->Set_WeakPtr(&m_pStateCom);
+	
+	m_pStateCom = Add_Component<CState_Move>();
+	m_pStateCom->Set_WeakPtr((void**)m_pStateCom);
 	m_pStateCom->Link_RigidBodyCom(m_pRigidBodyCom);
-	// ==========================================
+
+	
+	
 
 	GAMEINSTANCE->Add_GameObject<CEnemySpace_RightBody>(CURRENT_LEVEL, TEXT("EnemySpace_RightBody"), m_pTransformCom);
 

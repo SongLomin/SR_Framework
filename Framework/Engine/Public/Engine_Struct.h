@@ -255,7 +255,7 @@ namespace Engine
 		SHAPE_END
 	};
 
-	enum class STATE 
+	enum class STATE_MOVE 
 	{ 
 		STATE_1, 
 		STATE_2, 
@@ -263,6 +263,14 @@ namespace Engine
 		STATE_4, 
 		STATE_5, 
 		STATE_START,
+		STATE_END
+	};
+
+	enum class STATE
+	{
+		STATE_MOVE,
+		STATE_ATTACK,
+		STATE_DEAD,
 		STATE_END
 	};
 

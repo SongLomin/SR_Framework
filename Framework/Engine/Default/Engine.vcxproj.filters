@@ -142,6 +142,9 @@
     <Filter Include="01.Utility\02.GameObject\00. CursorObject">
       <UniqueIdentifier>{ba0ad428-977c-4716-a701-157b12ff5b11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00.System\IMGUI\IMGUI_Manager">
+      <UniqueIdentifier>{64d53e00-20ba-4c10-ad62-497971bd4cc2}</UniqueIdentifier>
+    </Filter>
     <Filter Include="01.Utility\03.Components\08. State">
       <UniqueIdentifier>{4a2f3f11-7e6b-456e-a1f4-faf19a01d503}</UniqueIdentifier>
     </Filter>
@@ -159,6 +162,9 @@
     </Filter>
     <Filter Include="00.System\IMGUI\00. IMGUI_Manager">
       <UniqueIdentifier>{64d53e00-20ba-4c10-ad62-497971bd4cc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\05. State">
+      <UniqueIdentifier>{4a2f3f11-7e6b-456e-a1f4-faf19a01d503}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -280,7 +286,7 @@
       <Filter>01.Utility\03.Components\07. Collider\00. Collider_OBB</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\State.h">
-      <Filter>01.Utility\03.Components\08. State</Filter>
+      <Filter>01.Utility\03.Components\05. State</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\imconfig.h">
       <Filter>00.System\IMGUI</Filter>
@@ -426,7 +432,7 @@
       <Filter>01.Utility\03.Components\07. Collider\00. Collider_OBB</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\State.cpp">
-      <Filter>01.Utility\03.Components\08. State</Filter>
+      <Filter>01.Utility\03.Components\05. State</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\imgui_widgets.cpp">
       <Filter>00.System\IMGUI</Filter>
