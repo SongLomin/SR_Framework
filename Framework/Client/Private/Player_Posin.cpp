@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Math_Utillity.h"
 #include <Bullet.h>
+#include <TargetingBox.h>
 
 
 CPlayer_Posin::CPlayer_Posin()
@@ -113,8 +114,13 @@ void CPlayer_Posin::LookAt_Targeting()
 	{
 		for (auto& elem : *Monster)
 		{
-			if(elem)
+			if (elem)
+			{
 				m_pTransformCom->LookAt(elem->Get_Component<CTransform>(), true);
+
+				CGameObject* Box = GAMEINSTANCE->Add_GameObject<CTargetingBox>(CURRENT_LEVEL,
+					TEXT("Targeting"),elem->Get_Component<CTransform>());
+			}
 		}
 	}
 	else
@@ -123,7 +129,7 @@ void CPlayer_Posin::LookAt_Targeting()
 		RAY	MouseWorldPos;
 		MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
 		MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 1000.f);
-
+		
 		m_pTransformCom->LookAt(MouseEndPos, true);
 
 	}

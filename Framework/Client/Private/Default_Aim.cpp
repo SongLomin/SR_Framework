@@ -56,7 +56,7 @@ void CDefault_Aim::LateTick(_float fTimeDelta)
 	__super::LateTick(fTimeDelta);
 
 	//m_pTransformCom->Set_Scaled(_float3(m_fSizeX, m_fSizeY, 1.f));
-	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f));
+	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f) * 2);
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(m_fX - (g_iWinCX >> 1), -m_fY + (g_iWinCY >> 1), 0.f));
 
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_UI, this);
@@ -68,14 +68,29 @@ HRESULT CDefault_Aim::Render()
 
 	m_pRendererCom->Bind_Texture(0);
 
+	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	DEVICE->SetRenderState(D3DRS_ALPHAREF, 120);
+	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+
+	_float4x4 CurView, CurProj;
+	DEVICE->GetTransform(D3DTS_VIEW, &CurView);
+	DEVICE->GetTransform(D3DTS_PROJECTION, &CurProj);
+
 	_float4x4	ViewMatrix;
 	D3DXMatrixIdentity(&ViewMatrix);
 
 	DEVICE->SetTransform(D3DTS_VIEW, &ViewMatrix);
 	DEVICE->SetTransform(D3DTS_PROJECTION, &m_ProjMatrix);
+
 	m_pVIBufferCom->Render();
 
 	m_pRendererCom->UnBind_Texture();
+
+	
+	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+	DEVICE->SetTransform(D3DTS_VIEW, &CurView);
+	DEVICE->SetTransform(D3DTS_PROJECTION, &CurProj);
+
 	return S_OK;
 }
 
@@ -108,6 +123,8 @@ CGameObject* CDefault_Aim::Clone(void* pArg)
 
 void CDefault_Aim::Free()
 {
+	ShowCursor(true);
+
 	__super::Free();
 
 	delete this;

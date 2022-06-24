@@ -97,6 +97,9 @@
     <Filter Include="02.GameObject\09. Aim\Default_Aim">
       <UniqueIdentifier>{734aabdc-1d76-4a3a-91db-df9e552fa7cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\09. Aim\TargetingBox">
+      <UniqueIdentifier>{8fc77501-5795-4450-b246-1a210fb9072d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -183,6 +186,9 @@
     <ClInclude Include="..\Public\Default_Aim.h">
       <Filter>02.GameObject\09. Aim\Default_Aim</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\TargetingBox.h">
+      <Filter>02.GameObject\09. Aim\TargetingBox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -259,6 +265,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Default_Aim.cpp">
       <Filter>02.GameObject\09. Aim\Default_Aim</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\TargetingBox.cpp">
+      <Filter>02.GameObject\09. Aim\TargetingBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
