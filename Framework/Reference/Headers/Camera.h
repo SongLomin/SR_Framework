@@ -34,6 +34,10 @@ public:
     void Set_Target(CTransform* _pTransform);
 
     void Set_Param(_float _fFovy, _float _fAspect, _float _fNear, _float _fFar);
+	CTransform* Get_Target()
+	{
+		return m_pTarget_Transform;
+	}
     
     HRESULT Bind_PipeLine();
 

@@ -126,6 +126,24 @@ void CRigid_Body::Add_Dir(Func Dir, _float fDir )//fDir에 마우스 이동량을 전달
 	}
 }
 
+void CRigid_Body::Add_Camera(Func Dir, _float fDir)
+{
+
+	switch (Dir)
+	{
+	case RIGHT://좌우 회전
+		
+		m_vSpeed += m_vRight*fDir*0.01f;
+		break;
+
+	case DOWN://위아래 회전
+		
+		m_vSpeed += m_vUp*fDir*-0.01f;
+		break;
+
+	}
+}
+
 void CRigid_Body::Add_Rotation(Func Dir, _float fRad)
 {
 	switch (Dir)
@@ -154,21 +172,35 @@ void CRigid_Body::Add_Rotation(Func Dir, _float fRad)
 
 void CRigid_Body::Compute_Force()
 {
+	if (m_bCamera)
+		Compute_Camera();
+	else 
+	{
+		Compute_Dir();
+		Compute_Rotation();
+		if (m_bLift)
+		{
+			Compute_Lift();
+			Compute_RotDirection();
+		}
+		else
+		{
+			if (m_bJump)
+				Compute_Jump();
+			Friction();
+		}
+		//Compute_Ground();
+	}
+}
 
-	Compute_Dir();
-	Compute_Rotation();
-	if (m_bLift)
-	{
-		Compute_Lift();
-		Compute_RotDirection();
-	}
-	else
-	{
-		if (m_bJump)
-			Compute_Jump();
-		Friction();
-	}
-	//Compute_Ground();
+void CRigid_Body::Compute_Camera()
+{
+	m_vSubLook = m_vLook;
+	m_vSubUp = m_vUp;
+	m_vSubRight = m_vRight;
+
+	m_vPos += m_vSpeed;
+	m_vSpeed = _float3(0.f, 0.f, 0.f);
 }
 
 void CRigid_Body::Compute_Dir()
@@ -423,23 +455,41 @@ void CRigid_Body::Compute_Ground()
 void CRigid_Body::Update_Transform(_float fTimeDelta)
 {
 	Compute_Force();
-	Move(fTimeDelta);
-	Turn(fTimeDelta);
-	SubTurn();
+	if(m_bCamera)
+	{
+		D3DXVec3Normalize(&m_vSubLook, &m_vSubLook);
+		D3DXVec3Normalize(&m_vSubUp, &m_vSubUp);
+		D3DXVec3Normalize(&m_vSubRight, &m_vSubRight);
 
-	D3DXVec3Normalize(&m_vSubLook, &m_vSubLook);
-	D3DXVec3Normalize(&m_vSubUp, &m_vSubUp);
-	D3DXVec3Normalize(&m_vSubRight, &m_vSubRight);
+		m_vSubLook *= m_vScale.z;
+		m_vSubUp *= m_vScale.y;
+		m_vSubRight *= m_vScale.x;
 
-	m_vSubLook *= m_vScale.z;
-	m_vSubUp *= m_vScale.y;
-	m_vSubRight *= m_vScale.x;
+		m_pTransform->Set_State(CTransform::STATE_LOOK, m_vSubLook,true);
+		m_pTransform->Set_State(CTransform::STATE_UP, m_vSubUp,true);
+		m_pTransform->Set_State(CTransform::STATE_RIGHT, m_vSubRight,true);
+		m_pTransform->Set_State(CTransform::STATE_POSITION, m_vPos,true);
+	}
+	else
+	{
+		Move(fTimeDelta);
+		Turn(fTimeDelta);
+		SubTurn();
 
-	m_pTransform->Set_State(CTransform::STATE_LOOK, m_vSubLook);
-	m_pTransform->Set_State(CTransform::STATE_UP, m_vSubUp);
-	m_pTransform->Set_State(CTransform::STATE_RIGHT, m_vSubRight);
-	m_pTransform->Set_State(CTransform::STATE_POSITION, m_vPos);
 
+		D3DXVec3Normalize(&m_vSubLook, &m_vSubLook);
+		D3DXVec3Normalize(&m_vSubUp, &m_vSubUp);
+		D3DXVec3Normalize(&m_vSubRight, &m_vSubRight);
+
+		m_vSubLook *= m_vScale.z;
+		m_vSubUp *= m_vScale.y;
+		m_vSubRight *= m_vScale.x;
+
+		m_pTransform->Set_State(CTransform::STATE_LOOK, m_vSubLook);
+		m_pTransform->Set_State(CTransform::STATE_UP, m_vSubUp);
+		m_pTransform->Set_State(CTransform::STATE_RIGHT, m_vSubRight);
+		m_pTransform->Set_State(CTransform::STATE_POSITION, m_vPos);
+	}
 	m_vAccel = _float3(0.f, 0.f, 0.f);
 	m_fRadAccelX = m_fRadAccelY = m_fRadAccelZ = 0.f;
 	m_fLiftAccel = 0;

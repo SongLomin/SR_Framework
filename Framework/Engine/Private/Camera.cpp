@@ -28,16 +28,7 @@ void CCamera::Set_Param(_float _fFovy, _float _fAspect, _float _fNear, _float _f
 
 _float4x4 CCamera::Get_CameraWorldMat()
 {		
-	_float4x4		TargetMatrix = m_pTarget_Transform ?
-		CMath_Utillity::Get_Position_Matrix(m_pTarget_Transform->Get_WorldMatrix())
-		: *D3DXMatrixIdentity(&TargetMatrix);
-
-
-	_float4x4		WorldMatrix = m_pTransform->Get_WorldMatrix() * TargetMatrix;
-	
-
-
-	return WorldMatrix;
+	return m_pTransform->Get_WorldMatrix();
 }
 
 void CCamera::Link_TransformCom(CTransform* _pTransform)

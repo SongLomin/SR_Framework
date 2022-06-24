@@ -63,7 +63,13 @@ void CCam_Shoulder::Tick(_float fTimeDelta)
 			pos.x += 0.01f;
 			pos.z -= 0.01f;
 			m_fAngle -= 2.f;
-			m_pCameraCom->Set_Param(D3DXToRadian(m_fAngle), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+			m_pCameraCom->Set_Param(D3DXToRadian(m_fAngle), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f); _float3 vLook = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_LOOK, true);
+			_float3 vPos = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_POSITION, true);
+			_float3 vUp = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_UP, true);
+			_float3 vRight = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_RIGHT, true);;
+
+
+			m_pTransformCom->Set_State(CTransform::STATE_POSITION, vPos, true);
 			m_pTransformCom->Set_State(CTransform::STATE_POSITION, pos);
 		}
 		/*if (FAILED(m_pCameraCom->Bind_PipeLine()))
