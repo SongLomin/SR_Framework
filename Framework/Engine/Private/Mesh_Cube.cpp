@@ -19,7 +19,7 @@ HRESULT CMesh_Cube::Initialize_Prototype()
 
 	m_dwNumSubsets = 6;
 
-	m_vTextures = CGameInstance::Get_Instance()->Get_Textures_From_Key(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
+	//m_vTextures = CGameInstance::Get_Instance()->Get_Textures_From_Key(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 	if (FAILED(Create_EmptyMesh()))
 	{

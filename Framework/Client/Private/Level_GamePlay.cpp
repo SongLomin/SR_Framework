@@ -11,6 +11,7 @@
 #include "Cam_TPS.h"
 #include "EnemySpace_Body.h"
 #include <UITest.h>
+#include <SkyBox.h>
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -48,7 +49,8 @@ HRESULT CLevel_GamePlay::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_GAMEPLAY, TEXT("Terrain")))
 		return E_FAIL;
 
-	//CGameObject* Mesh_Test = GAMEINSTANCE->Add_GameObject<CUITest>(LEVEL_GAMEPLAY, TEXT("Test"));
+	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVEL_GAMEPLAY, TEXT("SkyBox")))
+		return E_FAIL;
 
 
 	/*TEXTINFO Info;

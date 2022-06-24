@@ -69,7 +69,7 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 
-	
+
 	if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::BACK);
 
@@ -111,15 +111,15 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 			GAMEINSTANCE->Set_Current_Camera(TEXT("TPS"));
 			break;
 		}
-		
+
 		m_iCurrentCam = (m_iCurrentCam + 1) % 3;
 	}
 
 	if (KEY_INPUT(KEY::L, KEY_STATE::TAP))
 	{
-		CONTROLLER Next_Controller = 
-			Get_Controller() == CONTROLLER::PLAYER ? 
-			CONTROLLER::AI : 
+		CONTROLLER Next_Controller =
+			Get_Controller() == CONTROLLER::PLAYER ?
+			CONTROLLER::AI :
 			CONTROLLER::PLAYER;
 
 		Set_Controller(Next_Controller);
@@ -128,10 +128,10 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 
 	GAMEINSTANCE->Add_Text(
 		_point{ 100, g_iWinCY - 100 },
-		D3DCOLOR_ARGB(255, 130, 255, 0), 
-		0.0f, 
-		L"HP : %d", 
-		1, 
+		D3DCOLOR_ARGB(255, 130, 255, 0),
+		0.0f,
+		L"HP : %d",
+		1,
 		(_int)m_pStatusCom->Get_Status().fHp);
 
 	GAMEINSTANCE->Add_Text(
@@ -139,7 +139,12 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 		L"³²Àº ÃÑ¾Ë : %d / %d",
 		2,
 		14, 300);
-
+	m_fTime += fTimeDelta;
+	if (m_fTime > 1.f)
+	{
+		m_pTargetingCom->Make_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster")));
+		m_fTime = 0.f;
+	}
 }
 
 void CPlayer_Body::LateTick(_float fTimeDelta)
@@ -149,7 +154,7 @@ void CPlayer_Body::LateTick(_float fTimeDelta)
 	ISVALID(m_pRendererCom, );
 
 	
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_PRIORITY, this);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CPlayer_Body::Render()
@@ -197,7 +202,7 @@ HRESULT CPlayer_Body::SetUp_Components()
 
 	m_pMeshCubeCom = Add_Component<CMesh_SongShip>();
 	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);
-
+	m_pMeshCubeCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 10.f;
 	RigidBodyDesc.m_fOwnerAccel = 0.1f;

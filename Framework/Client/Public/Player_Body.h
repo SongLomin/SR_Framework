@@ -45,6 +45,8 @@ private:
 
 	_uint					m_iCurrentCam = 0;
 
+	_float					m_fTime = 0.f;
+
 protected: /* For Event Function */
 	virtual void On_Change_Controller(const CONTROLLER& _IsAI) override;
 

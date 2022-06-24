@@ -33,6 +33,7 @@ HRESULT CPlayer_Posin::Initialize(void* pArg)
 
 	m_pMeshCom = Add_Component<CMesh_Cube>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
+	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 
 	return S_OK;
@@ -105,23 +106,24 @@ inline HRESULT CPlayer_Posin::SetUp_Components()
 
 void CPlayer_Posin::LookAt_Targeting()
 {
-	/*list<CGameObject*>* Monster = GAMEINSTANCE->Get_Player_GameObject()->Get_Component<CTargeting>()->Get_Targetting();
+	list<CGameObject*>* Monster = GAMEINSTANCE->Get_Player_GameObject()->Get_Component<CTargeting>()->Get_Targetting();
 	if (!Monster->empty())
 	{
 		for (auto& elem : *Monster)
 		{
-			m_pTransformCom->LookAt(elem->Get_Component<CTransform>(), true);
+			if(elem)
+				m_pTransformCom->LookAt(elem->Get_Component<CTransform>(), true);
 		}
 	}
 	else
-	{*/
+	{
 		_float3 MouseEndPos;
 		RAY	MouseWorldPos;
 		MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
 		MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 1000.f);
 
 		m_pTransformCom->LookAt(MouseEndPos, true);
-	
+	}
 }
 
 

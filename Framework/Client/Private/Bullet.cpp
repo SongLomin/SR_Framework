@@ -34,7 +34,7 @@ HRESULT CBullet::Initialize(void* pArg)
 
 	m_pMeshCom = Add_Component<CMesh_Cube>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
-
+	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER_ATTACK;
