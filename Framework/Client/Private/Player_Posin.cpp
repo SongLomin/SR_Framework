@@ -123,6 +123,7 @@ void CPlayer_Posin::LookAt_Targeting()
 		MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 1000.f);
 
 		m_pTransformCom->LookAt(MouseEndPos, true);
+
 	}
 }
 

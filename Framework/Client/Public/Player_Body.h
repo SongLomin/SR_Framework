@@ -44,6 +44,8 @@ private:
 	static const _tchar*	m_pTag;
 
 	_uint					m_iCurrentCam = 0;
+	_bool					m_bMouse = false;
+	_float					m_fTime = 0.f;
 
 	_float					m_fTime = 0.f;
 

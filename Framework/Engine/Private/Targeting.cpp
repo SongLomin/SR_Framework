@@ -9,7 +9,7 @@ CTargeting::CTargeting()
 
 void CTargeting::Make_TargetList(list<CGameObject*>* pLayer, _float fDist)
 {
-	if (pLayer == nullptr)
+	if (nullptr == pLayer)
 		return;
 
 	Clear_Targeting();
@@ -72,9 +72,10 @@ void CTargeting::Make_TargetList(list<CGameObject*>* pLayer, _float fDist)
 void CTargeting::Clear_Targeting()
 {
 	//return_Weakptr
-	for (auto& iter : m_pTargeting)
+	for (auto& elem : m_pTargeting)
 	{
-		//iter->Return_WeakPtr(&iter);
+		if(elem)
+			elem->Return_WeakPtr(&elem);
 	}
 	m_pTargeting.clear();
 }

@@ -69,26 +69,46 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 
+	if (m_bMouse)
+	{	
+		POINT pt{};
+		GetCursorPos(&pt);
+		ScreenToClient(g_hWnd, &pt);
 
-	if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::BACK);
+		_float fDirX = pt.x - g_iWinCX*0.5f;
+		_float fDirY = pt.y - g_iWinCY*0.5f;
 
-	if (KEY_INPUT(KEY::D, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT, fDirX*0.1f);
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::DOWN, fDirY*0.1f);
 
-	if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
+	}
+	else
+	{
 
+		if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
+			m_pRigidBodyCom->Add_Dir(CRigid_Body::BACK);
+
+		if (KEY_INPUT(KEY::D, KEY_STATE::HOLD))
+			m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
+
+		if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
+			m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
+
+		if (KEY_INPUT(KEY::UP, KEY_STATE::HOLD))
+		{
+			m_pRigidBodyCom->Add_Dir(CRigid_Body::LIFT);
+		}
+	}
 	if (KEY_INPUT(KEY::SPACE, KEY_STATE::HOLD))
 	{
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::JUMP);
 	}
 
-	if (KEY_INPUT(KEY::UP, KEY_STATE::HOLD))
+	if (KEY_INPUT(KEY::CTRL, KEY_STATE::TAP))//마우스 움직임 테스트용
 	{
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::LIFT);
+		m_bMouse = !m_bMouse;
+		m_pRigidBodyCom->Set_MouseMove();
 	}
-
 
 	if (KEY_INPUT(KEY::Z, KEY_STATE::TAP))
 	{
@@ -139,12 +159,14 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 		L"남은 총알 : %d / %d",
 		2,
 		14, 300);
+
 	m_fTime += fTimeDelta;
 	if (m_fTime > 1.f)
 	{
 		m_pTargetingCom->Make_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster")));
 		m_fTime = 0.f;
 	}
+
 }
 
 void CPlayer_Body::LateTick(_float fTimeDelta)
@@ -216,7 +238,7 @@ HRESULT CPlayer_Body::SetUp_Components()
 	RigidBodyDesc.m_fRadZ = 0.01f;
 
 
-	RigidBodyDesc.m_fOwnerLiftSpeed = 3.f;
+	RigidBodyDesc.m_fOwnerLiftSpeed = 10.f;
 	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;

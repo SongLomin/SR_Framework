@@ -174,7 +174,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     /* IMGUI */
-    GAMEINSTANCE->ImGuiImplHandle(hWnd, message, wParam, lParam);
+   GAMEINSTANCE->ImGuiImplHandle(hWnd, message, wParam, lParam);
 
 
     switch (message)
