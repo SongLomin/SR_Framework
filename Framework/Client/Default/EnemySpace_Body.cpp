@@ -41,8 +41,8 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 	ISVALID(m_pTransformCom);
 
 	
-	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
-	m_pRigidBodyCom->Add_Dir(CRigid_Body::JUMP);
+	//m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
+	//m_pRigidBodyCom->Add_Dir(CRigid_Body::JUMP);
 
 	m_pStateCom->State_Change(fTimeDelta);
     

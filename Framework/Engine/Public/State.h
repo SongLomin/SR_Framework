@@ -21,8 +21,9 @@ public:
 
 
 protected:
-	_float	 m_fTimeAcc = 0.f;
-	bool     m_bStateCheck = false;
+	_float	 m_fCurTime = 0.f;
+	_float	 m_fMaxTime = 2.f;
+	bool     m_bStateCheck = true;
 	STATE    m_eState;
 
 public: 

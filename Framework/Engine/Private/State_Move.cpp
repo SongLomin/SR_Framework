@@ -14,6 +14,8 @@ HRESULT CState_Move::Initialize_Prototype()
 HRESULT CState_Move::Initialize(void* pArg)
 {
 	return S_OK;
+
+	m_fCurTime = m_fMaxTime;
 }
 
 void CState_Move::State_Start(_float fTimeDelta)
@@ -23,97 +25,67 @@ void CState_Move::State_Start(_float fTimeDelta)
 	m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
 }
 
+//오른쪽 위로 꺾으면서 이동
 void CState_Move::State_1(_float fTimeDelta)
 {
-	if (m_bStateCheck)
-	{
-		m_pRigidBody->Add_Dir(CRigid_Body::RIGHT);
-		m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
-	}
+	m_pRigidBody->Add_Dir(CRigid_Body::RIGHT);
+	m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
 
-	if (m_fTimeAcc > 3)
-	{
-		m_bStateCheck = false;
-	}
 }
 
+//왼쪽 위로 꺾으면서 이동
 void CState_Move::State_2(_float fTimeDelta)
 {
-	m_fTimeAcc += fTimeDelta;
 
-	if (m_bStateCheck)
-	{
-		m_pRigidBody->Add_Dir(CRigid_Body::LEFT);
-		m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
-	}
+	m_pRigidBody->Add_Dir(CRigid_Body::LEFT);
+	m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
 
-	if (m_fTimeAcc > 3)
-	{
-		m_bStateCheck = false;
-	}
 }
+
 
 void CState_Move::State_3(_float fTimeDelta)
 {
-	m_fTimeAcc += fTimeDelta;
 
-	if (m_bStateCheck)
-	{
-		m_pRigidBody->Add_Dir(CRigid_Body::BACK);
-		m_pRigidBody->Add_Dir(CRigid_Body::JUMP);
-		m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
-	}
+	m_pRigidBody->Add_Dir(CRigid_Body::BACK);
+	//m_pRigidBody->Add_Dir(CRigid_Body::JUMP);
+	m_pRigidBody->Add_Dir(CRigid_Body::DESCEND);
 
-	if (m_fTimeAcc > 3)
-	{
-		m_bStateCheck = false;
-	}
 }
 
 void CState_Move::State_4(_float fTimeDelta)
 {
-	m_fTimeAcc += fTimeDelta;
+	m_pRigidBody->Add_Dir(CRigid_Body::BACK);
+	//m_pRigidBody->Add_Dir(CRigid_Body::LEFT);
+	m_pRigidBody->Add_Dir(CRigid_Body::DESCEND);
 
-	if (m_bStateCheck)
-	{
-		m_pRigidBody->Add_Dir(CRigid_Body::LEFT);
-		m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
-	}
-
-	if (m_fTimeAcc > 3)
-	{
-		m_bStateCheck = false;
-	}
 }
 
 void CState_Move::State_5(_float fTimeDelta)
 {
-	m_fTimeAcc += fTimeDelta;
+	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
+	//m_pRigidBody->Add_Dir(CRigid_Body::LEFT);
+	m_pRigidBody->Add_Dir(CRigid_Body::DESCEND);
 
-	if (m_bStateCheck)
-	{
-		m_pRigidBody->Add_Dir(CRigid_Body::LEFT);
-		m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
-	}
-
-	if (m_fTimeAcc > 3)
-	{
-		m_bStateCheck = false;
-	}
 }
 
 void CState_Move::State_Change(_float fTimeDelta)
 {
 
-	m_fTimeAcc += fTimeDelta;
+	m_fCurTime -= fTimeDelta;
 
-	if (m_fTimeAcc > 8.f);
+	GAMEINSTANCE->Add_Text(_point{ 100, 600 }, TEXT("m_fCurTime : %d"), 1, (int)m_fCurTime);
+
+	if (m_fCurTime <= 0.f)
 	{
-		_uint iState = rand() % (_uint)STATE_MOVE::STATE_START;
-		m_eCurState = (STATE_MOVE)iState;
+		m_eCurState = (STATE_MOVE)(rand() % (_uint)STATE_MOVE::STATE_END);
 		m_bStateCheck = true;
 
-		m_fTimeAcc = 0;
+		m_fCurTime = m_fMaxTime;
+	}
+
+	if (!m_bStateCheck)
+	{
+		return;
 	}
 
 	switch (m_eCurState)
@@ -121,17 +93,25 @@ void CState_Move::State_Change(_float fTimeDelta)
 	case  STATE_MOVE::STATE_1:
 		State_1(fTimeDelta);
 		break;
+
 	case  STATE_MOVE::STATE_2:
 		State_2(fTimeDelta);
 		break;
+
 	case  STATE_MOVE::STATE_3:
 		State_3(fTimeDelta);
 		break;
+
 	case  STATE_MOVE::STATE_4:
 		State_4(fTimeDelta);
 		break;
+
 	case  STATE_MOVE::STATE_5:
 		State_5(fTimeDelta);
+		break;
+
+	case  STATE_MOVE::STATE_6:
+		State_Start(fTimeDelta);
 		break;
 	}
 

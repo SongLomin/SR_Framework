@@ -41,7 +41,7 @@ public:
 public:
 
 	STATE_MOVE    m_ePreState = STATE_MOVE::STATE_END;
-	STATE_MOVE    m_eCurState = STATE_MOVE::STATE_END;
+	STATE_MOVE    m_eCurState = STATE_MOVE::STATE_6;
 
 
 public:
