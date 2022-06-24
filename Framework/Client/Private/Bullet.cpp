@@ -41,8 +41,14 @@ HRESULT CBullet::Initialize(void* pArg)
 	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
-	m_pColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
 
+	_float3 ColliderSize = m_pTransformCom->Get_Scaled();
+	_float3 RenderScale = _float3(0.2f, 0.1f, 10.f);
+	ColliderSize.x *= RenderScale.x;
+	ColliderSize.y *= RenderScale.y;
+	ColliderSize.z *= RenderScale.z;
+
+	m_pColliderCom->Set_Collider_Size(ColliderSize);
 
 	return S_OK;
 }
@@ -59,7 +65,7 @@ void CBullet::Tick(_float fTimeDelta)
 void CBullet::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
-
+	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
