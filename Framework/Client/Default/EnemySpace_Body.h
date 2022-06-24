@@ -18,6 +18,7 @@ class CEnemySpace_Body final : public CGameObject
 {
 private:
     enum STATE { MOVEMENT, MOVEMENT_1, MOVEMENT_2, MOVEMENT_3, MOVEMENT_4, MOVEMENT_5, MOVEMENT_END };
+
 private:
     CEnemySpace_Body() = default;
     CEnemySpace_Body(const CEnemySpace_Body& Prototype);
@@ -37,8 +38,6 @@ private:
     CTransform* m_pPlayerTransformCom = nullptr;
     CRigid_Body* m_pRigidBodyCom = nullptr;
     CState* m_pStateCom = nullptr;
-
-
 
 private:
     _float	 m_fCountTime = 0.f;
