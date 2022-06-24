@@ -75,9 +75,9 @@ void CCam_TPS::Tick(_float fTimeDelta)
 
 		_float3 Cursor_Weight = m_MouseRealPosition - m_PreCursorPosition;
 
-	//	m_pRigidBodyCom->Add_DirX(-Cursor_Weight.x*0.1f);
-		//m_pRigidBodyCom->Add_DirY(Cursor_Weight.y*0.1f);
-		//m_pRigidBodyCom->Update_Transform(fTimeDelta);
+		/*m_pRigidBodyCom->Add_Dir(-, Cursor_Weight.x*0.1f);
+		m_pRigidBodyCom->Add_Dir(Cursor_Weight.y*0.1f);*/
+		m_pRigidBodyCom->Update_Transform(fTimeDelta);
 
 		m_pTransformCom->LookAt(_float3(0.f, 0.f, 0.f));
 		m_PreCursorPosition = m_MouseRealPosition;
@@ -87,6 +87,7 @@ void CCam_TPS::Tick(_float fTimeDelta)
 void CCam_TPS::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
+	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 }
 
 HRESULT CCam_TPS::Render()

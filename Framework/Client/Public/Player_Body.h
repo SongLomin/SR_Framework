@@ -47,8 +47,6 @@ private:
 	_bool					m_bMouse = false;
 	_float					m_fTime = 0.f;
 
-	_float					m_fTime = 0.f;
-
 protected: /* For Event Function */
 	virtual void On_Change_Controller(const CONTROLLER& _IsAI) override;
 

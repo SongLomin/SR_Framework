@@ -65,6 +65,8 @@ void CPlayer_Posin::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
+	
+
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 

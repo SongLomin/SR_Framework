@@ -69,9 +69,9 @@ HRESULT CGameInstance::Tick_Engine(_float fTimeDelta)
 
 	m_pObject_Manager->Tick(fTimeDelta);
 
-	m_pObject_Manager->LateTick(fTimeDelta);
-
 	m_pCamera_Manager->LateTick(fTimeDelta);
+
+	m_pObject_Manager->LateTick(fTimeDelta);
 	
 	m_pInput_Manager->Tick(fTimeDelta);
 

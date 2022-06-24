@@ -66,7 +66,7 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 void CEnemySpace_Body::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
-
+	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 

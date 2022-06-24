@@ -19,7 +19,6 @@ void CRigid_Body::Tick(_float fTimeDelta)
 void CRigid_Body::LateTick(_float fTimeDelta)
 {
 	Set_DirVector();
-	Update_Transform(fTimeDelta);
 }
 
 HRESULT CRigid_Body::Render()

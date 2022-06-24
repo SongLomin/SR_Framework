@@ -173,6 +173,8 @@ void CPlayer_Body::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
+	m_pRigidBodyCom->Update_Transform(fTimeDelta);
+
 	ISVALID(m_pRendererCom, );
 
 	
