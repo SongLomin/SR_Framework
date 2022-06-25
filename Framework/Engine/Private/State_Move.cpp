@@ -24,15 +24,12 @@ void CState_Move::State_Start(_float fTimeDelta)
 	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
 	m_pRigidBody->Add_Dir(CRigid_Body::RIGHT);
 	m_pRigidBody->Add_Dir(CRigid_Body::LEFT);
-	m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
 }
 
 //오른쪽 위로 꺾으면서 이동
 void CState_Move::State_1(_float fTimeDelta)
 {
 	m_pRigidBody->Add_Dir(CRigid_Body::RIGHT);
-	m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
-	//m_pRigidBody->Add_Rotation(CRigid_Body::RIGHT, 0.3);
 
 }
 
@@ -41,8 +38,6 @@ void CState_Move::State_2(_float fTimeDelta)
 {
 
 	m_pRigidBody->Add_Dir(CRigid_Body::LEFT);
-	m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
-	//m_pRigidBody->Add_Rotation(CRigid_Body::LEFT, 0.3);
 }
 
 
