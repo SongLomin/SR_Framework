@@ -24,13 +24,13 @@ public:
 	virtual HRESULT Render() { return S_OK; };
 
 public:
-	void State_Start(_float fTimeDelta);
-	void State_1(_float fTimeDelta);
-	void State_2(_float fTimeDelta);
-	void State_3(_float fTimeDelta);
-	void State_4(_float fTimeDelta);
-	void State_5(_float fTimeDelta);
-	void State_6(CTransform* pPlayerTransform, _float fTimeDelta);
+	void Move_Upper_Right(_float fTimeDelta);
+	void Move_Upper_Left(_float fTimeDelta);
+	void Move_Upper_Front(_float fTimeDelta);
+	void Move_Lift_Front(_float fTimeDelta);
+	void Move_Lift_Back(_float fTimeDelta);
+	void Move_Jump_Front(_float fTimeDelta);
+	void Move_Chase_Player(CTransform* pPlayerTransform, _float fTimeDelta);
 
 public:
 	void State_Change(CTransform* pPlayerTransform, _float fTimeDelta);
@@ -45,7 +45,7 @@ public:
 public:
 
 	STATE_MOVE    m_ePreState = STATE_MOVE::STATE_END;
-	STATE_MOVE    m_eCurState = STATE_MOVE::STATE_6;
+	STATE_MOVE    m_eCurState = STATE_MOVE::MOVE_UPPER_RIGHT;
 
 
 public:

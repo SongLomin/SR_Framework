@@ -18,8 +18,8 @@ HRESULT CState_Move::Initialize(void* pArg)
 	m_fCurTime = m_fMaxTime;
 }
 
-// 시작 앞으로가면서 대가리 위로
-void CState_Move::State_Start(_float fTimeDelta)
+
+void CState_Move::Move_Upper_Right(_float fTimeDelta)
 {
 	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
 	m_pRigidBody->Add_Dir(CRigid_Body::RIGHT);
@@ -28,8 +28,8 @@ void CState_Move::State_Start(_float fTimeDelta)
 	
 }
 
-//오른쪽 위로 꺾으면서 이동
-void CState_Move::State_1(_float fTimeDelta)
+
+void CState_Move::Move_Upper_Left(_float fTimeDelta)
 {
 	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
 	m_pRigidBody->Add_Dir(CRigid_Body::LEFT);
@@ -37,8 +37,8 @@ void CState_Move::State_1(_float fTimeDelta)
 	m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
 }
 
-//왼쪽 위로 꺾으면서 이동
-void CState_Move::State_2(_float fTimeDelta)
+
+void CState_Move::Move_Upper_Front(_float fTimeDelta)
 {
 
 	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
@@ -46,26 +46,26 @@ void CState_Move::State_2(_float fTimeDelta)
 }
 
 
-void CState_Move::State_3(_float fTimeDelta)
+void CState_Move::Move_Lift_Front(_float fTimeDelta)
 {
 	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
 	m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
 
 }
 
-void CState_Move::State_4(_float fTimeDelta)
+void CState_Move::Move_Lift_Back(_float fTimeDelta)
 {
 	m_pRigidBody->Add_Dir(CRigid_Body::BACK);
 	m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
 }
 
-void CState_Move::State_5(_float fTimeDelta)
+void CState_Move::Move_Jump_Front(_float fTimeDelta)
 {
 	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
 	m_pRigidBody->Add_Dir(CRigid_Body::JUMP);
 }
 
-void CState_Move::State_6(CTransform* pPlayerTransform, _float fTimeDelta)
+void CState_Move::Move_Chase_Player(CTransform* pPlayerTransform, _float fTimeDelta)
 {
 	m_pTransform->Go_Target(pPlayerTransform, fTimeDelta);
 	m_pTransform->Go_BackAndForth(8.f, fTimeDelta);
@@ -94,31 +94,31 @@ void CState_Move::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)
 
 	switch (m_eCurState)
 	{
-	case  STATE_MOVE::STATE_1:
-		State_1(fTimeDelta);
+	case  STATE_MOVE::MOVE_UPPER_LEFT:
+		Move_Upper_Left(fTimeDelta);
 		break;
 
-	case  STATE_MOVE::STATE_2:
-		State_2(fTimeDelta);
+	case  STATE_MOVE::MOVE_UPPER_FRONT:
+		Move_Upper_Front(fTimeDelta);
 		break;
 
-	case  STATE_MOVE::STATE_3:
-		State_3(fTimeDelta);
+	case  STATE_MOVE::MOVE_LIFT_FRONT:
+		Move_Lift_Front(fTimeDelta);
 		break;
 
-	case  STATE_MOVE::STATE_4:
-		State_4(fTimeDelta);
+	case  STATE_MOVE::MOVE_LIFT_BACK:
+		Move_Lift_Back(fTimeDelta);
 		break;
 
-	case  STATE_MOVE::STATE_5:
-		State_5(fTimeDelta);
+	case  STATE_MOVE::MOVE_JUMP_FRONT:
+		Move_Jump_Front(fTimeDelta);
 		break;
 
-	case STATE_MOVE::STATE_7:
-		State_6(pPlayerTransform, fTimeDelta);
+	case STATE_MOVE::MOVE_CHAES_PLAYER:
+		Move_Chase_Player(pPlayerTransform, fTimeDelta);
 
-	case  STATE_MOVE::STATE_6:
-		State_Start(fTimeDelta);
+	case  STATE_MOVE::MOVE_UPPER_RIGHT:
+		Move_Upper_Right(fTimeDelta);
 		break;
 	}
 
