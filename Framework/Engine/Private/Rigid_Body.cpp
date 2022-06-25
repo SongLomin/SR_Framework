@@ -72,6 +72,10 @@ void CRigid_Body::Add_Dir(Func Dir, _float fDir )//fDir에 마우스 이동량을 전달
 		case FRONT:
 			m_vAccel += m_vLook;
 			break;
+
+		case BACK:
+			m_vAccel -= m_vLook;
+			break;
 		}
 
 
@@ -107,10 +111,6 @@ void CRigid_Body::Add_Dir(Func Dir, _float fDir )//fDir에 마우스 이동량을 전달
 			m_fRadAccelY *= -1.f;
 			break;
 
-		case JUMP:
-			m_fJump = m_RigidbodyDesc.m_fOwnerJump*m_RigidbodyDesc.m_fOwnerJumpScale;
-			m_bJump = true;
-			break;
 
 		case LIFT:
 			if (m_RigidbodyDesc.m_fOwnerSpeed*0.7 < fabs(D3DXVec3Length(&m_vSpeed)))
@@ -164,12 +164,8 @@ void CRigid_Body::Compute_Force()
 			Compute_Lift();
 			Compute_RotDirection();
 		}
-		else
-		{
-			if (m_bJump)
-				Compute_Jump();
-			Friction();
-		}
+	
+		Friction();
 		//Compute_Ground();
 	}
 }
@@ -382,12 +378,6 @@ void CRigid_Body::Compute_RotDirection()
 	}
 }
 
-void CRigid_Body::Compute_Jump()
-{
-	/*점프*/
-	m_fJump -= 0.098f;
-	
-}
 
 void CRigid_Body::Compute_Lift()//수직방향
 {
@@ -408,21 +398,7 @@ void CRigid_Body::Compute_Lift()//수직방향
 		if (0.098f > fabs(m_fLiftSpeed))
 			m_fLiftSpeed = 0.f;
 	}
-	else if (DBL_EPSILON < fabs(D3DXVec3Length(&m_vAccel)))
-	{
-		if (0.f> m_fLiftSpeed)
-			m_fLiftSpeed += 0.01f;
-		else if (0.f < m_fLiftSpeed)
-			m_fLiftSpeed -= 0.01f;
 
-		if (0.01f > fabs(m_fLiftSpeed))
-			m_fLiftSpeed = 0.f;
-	}
-	else
-	{
-		if (-2.f < m_fLiftSpeed)
-			m_fLiftSpeed -= 0.098f;
-	}
 }
 
 void CRigid_Body::Compute_Ground()

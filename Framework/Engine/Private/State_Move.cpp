@@ -23,7 +23,6 @@ void CState_Move::Move_Upper_Right(_float fTimeDelta)
 {
 	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
 	m_pRigidBody->Add_Dir(CRigid_Body::RIGHT);
-	m_pRigidBody->Add_Dir(CRigid_Body::JUMP);
 	m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
 	
 }
@@ -33,7 +32,6 @@ void CState_Move::Move_Upper_Left(_float fTimeDelta)
 {
 	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
 	m_pRigidBody->Add_Dir(CRigid_Body::LEFT);
-	m_pRigidBody->Add_Dir(CRigid_Body::JUMP);
 	m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
 }
 

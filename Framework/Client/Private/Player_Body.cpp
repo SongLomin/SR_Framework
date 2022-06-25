@@ -68,6 +68,9 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
+	if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::BACK);
+
 
 	if (m_bMouse)
 	{	
@@ -98,10 +101,6 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 		{
 			m_pRigidBodyCom->Add_Dir(CRigid_Body::LIFT);
 		}
-	}
-	if (KEY_INPUT(KEY::SPACE, KEY_STATE::HOLD))
-	{
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::JUMP);
 	}
 
 	if (KEY_INPUT(KEY::CTRL, KEY_STATE::TAP))//마우스 움직임 테스트용

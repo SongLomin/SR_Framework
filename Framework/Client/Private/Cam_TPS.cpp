@@ -21,30 +21,14 @@ HRESULT CCam_TPS::Initialize(void* pArg)
 	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f)*/;
 
 	m_pTransformCom = Get_Component<CTransform>();
-	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
+	m_pTransformCom->Set_WeakPtr(&m_pTransformCom); 
 
 	m_pCameraCom = Add_Component<CCamera>();
 	m_pCameraCom->Set_WeakPtr(&m_pCameraCom);
 
 	m_pCameraCom->Link_TransformCom(m_pTransformCom);
 
-	/*Rigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 10.f;
-	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
-
-	RigidBodyDesc.m_fFrictional = 0.5f;
-	RigidBodyDesc.m_fRadFrictional = 0.1f;
-
-	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
-	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
-	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
-
-	m_pRigidBodyCom->Set_Camera();*/
-
-	//m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.0, 0.f, 0.f));
-	//m_pTransformCom->LookAt(_float3(0.f, 1.f, 0.f));
-
-
+	m_vCurPos = _float3(0.f, 0.f, 0.f);
 
 	return S_OK;
 }
@@ -76,17 +60,42 @@ void CCam_TPS::Tick(_float fTimeDelta)
 	if (GAMEINSTANCE->Get_Camera(CURRENT_CAMERA) == m_pCameraCom)
 	{
 
-		POINT ptMouse{ 0, 0 };
-
 		POINT pt{};
 		GetCursorPos(&pt);
 		ScreenToClient(g_hWnd, &pt);
 
-		_float fDirX = pt.x - g_iWinCX*0.5f;
-		_float fDirY = pt.y - g_iWinCY*0.5f;
+		if (pt.x == m_ptPrePos.x && pt.y == m_ptPrePos.y)
+		{
+			m_fSpeedX += m_fAccelX;
+			m_fSpeedY += m_fAccelY;
+			
+		}
+		else
+		{
+			_float fDirX = pt.x - g_iWinCX*0.5f;
+			_float fDirY = pt.y - g_iWinCY*0.5f;
 
-		vPos += vRight*fDirX*0.01f;
-		vPos -= vUp*fDirY*0.01f;
+			m_fAccelX = fDirX / (72.f*100.f);
+			m_fAccelY = fDirY / (72.f*100.f);
+
+			m_fSpeedX = fDirX / 72.f;
+			m_fSpeedY = fDirY / 72.f;
+		
+		}
+
+
+		if (g_iWinCX*0.5f > fabs(m_vCurPos.x + m_fSpeedX) && DBL_EPSILON < fabs(m_vCurPos.x + m_fSpeedX) &&
+			g_iWinCY*0.5f > fabs(m_vCurPos.y + m_fSpeedY) && DBL_EPSILON < fabs(m_vCurPos.y + m_fSpeedY))
+		{
+			m_vCurPos.x += m_fSpeedX;
+			m_vCurPos.y += m_fSpeedY;
+		}
+
+		vPos += vRight*m_vCurPos.x*0.01f;
+		vPos -= vUp*m_vCurPos.y*0.01f;
+
+		
+		m_ptPrePos = pt;
 
 	}
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, vPos);
