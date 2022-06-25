@@ -42,7 +42,7 @@ void CState_Move::Move_Upper_Front(_float fTimeDelta)
 {
 
 	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
-	m_pRigidBody->Add_Dir(CRigid_Body::JUMP);
+	m_pRigidBody->Add_Dir(CRigid_Body::DOWN);
 }
 
 
@@ -62,7 +62,7 @@ void CState_Move::Move_Lift_Back(_float fTimeDelta)
 void CState_Move::Move_Jump_Front(_float fTimeDelta)
 {
 	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
-	m_pRigidBody->Add_Dir(CRigid_Body::JUMP);
+	m_pRigidBody->Add_Dir(CRigid_Body::DOWN);
 }
 
 void CState_Move::Move_Chase_Player(CTransform* pPlayerTransform, _float fTimeDelta)

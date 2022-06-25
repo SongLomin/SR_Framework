@@ -37,6 +37,9 @@ private:
 
     CTransform* m_pPosinTransformCom = nullptr;
 
+private:
+    _float  m_fLifeTime = 1.f;
+
 public:
     void Link_PosinTransform(CTransform* _pTransform);
 

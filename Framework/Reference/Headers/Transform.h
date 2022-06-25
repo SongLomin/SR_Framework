@@ -115,6 +115,7 @@ public:
 	static CTransform* Create();
 	virtual CComponent* Clone(void* pArg);
 	virtual void Free() override;
+
 };
 
 END

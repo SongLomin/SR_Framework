@@ -186,7 +186,6 @@
     <ClInclude Include="..\Public\Monster.h" />
     <ClInclude Include="..\Public\Player_Posin.h" />
     <ClInclude Include="..\Public\SkyBox.h" />
-    <ClInclude Include="..\Public\State_Move.h" />
     <ClInclude Include="..\Public\TargetingBox.h" />
     <ClInclude Include="..\Public\Terrain.h" />
     <ClInclude Include="..\Public\UITest.h" />
@@ -216,7 +215,6 @@
     <ClCompile Include="..\Private\Monster.cpp" />
     <ClCompile Include="..\Private\Player_Posin.cpp" />
     <ClCompile Include="..\Private\SkyBox.cpp" />
-    <ClCompile Include="..\Private\State_Move.cpp" />
     <ClCompile Include="..\Private\TargetingBox.cpp" />
     <ClCompile Include="..\Private\Terrain.cpp" />
     <ClCompile Include="..\Private\UITest.cpp" />

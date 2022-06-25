@@ -59,6 +59,9 @@ void Get_Lucky::Team_EverSpace()
 	{
 		//Vtx_Vector.push_back(VTXCOLOR(_float3(0.f, 0.f, 0.f), _float3(0.f, 0.f, 0.f), D3DCOLOR_ARGB(255, 0, 0, 0)));
 		Vtx_Vector.push_back(vertices[i]);
+		
+		fout << fixed;
+		fout.precision(2);
 		fout << "vertices[" << i << "] = VTXCOLOR(_float3(" << vertices[i].vPosition.x << ", " << vertices[i].vPosition.y << ", " << vertices[i].vPosition.z <<
 			"), _float3(" << vertices[i].vNorm.x << ", " << vertices[i].vNorm.y << ", " << vertices[i].vNorm.z <<
 			"), D3DCOLOR_ARGB(" << Diffuse[0] << ", " << Diffuse[1] << ", " << Diffuse[2] << ", " << Diffuse[3] << "));\n";

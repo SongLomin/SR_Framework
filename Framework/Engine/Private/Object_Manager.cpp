@@ -11,12 +11,13 @@ CObject_Manager::CObject_Manager()
 
 HRESULT CObject_Manager::Reserve_Container(_uint iNumLevels)
 {
-	if (nullptr != m_pLayers)
+	if (0 != m_pLayers.size())
 		return E_FAIL;
 
 	m_iNumLevels = iNumLevels;
 
-	m_pLayers = new LAYERS[iNumLevels];
+	for(int i=0; i<iNumLevels; i++)
+		m_pLayers.push_back({});
 	
 	return S_OK;
 }
@@ -142,8 +143,6 @@ void CObject_Manager::Free()
 		}
 		m_pLayers[i].clear();
 	}
-
-	Safe_Delete_Array(m_pLayers);
 
 	for (auto& Pair : m_Prototypes)	
 		Safe_Release(Pair.second);

@@ -20,12 +20,20 @@ public:
 	virtual void LateTick(_float fTimeDelta);
 	virtual HRESULT Render();
 
-
+public:
 	void Set_Controller(const CONTROLLER& _eController);
 	CONTROLLER Get_Controller() { return m_eController; };
 
 	void Set_Dead();
 	bool Get_Dead() const { return m_bDead; }
+
+	void Set_Internal_Tag(const _tchar* _Tag);
+
+public:
+	list<CGameObject*> Get_Children_From_Key(const _tchar* _Key);
+
+private:
+	void Add_List_Child_From_Key(const _tchar* _Key, list<CGameObject*>& _List);
 
 protected: 
 	virtual void On_Change_Controller(const CONTROLLER& _eController);
@@ -41,6 +49,7 @@ protected:
 private:
 	CONTROLLER	m_eController = CONTROLLER::CONTROLLER_END;
 	bool m_bDead = false;
+	const _tchar* m_Tag;
 
 public:
 	virtual CGameObject* Clone(void* pArg) = 0;

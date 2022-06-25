@@ -257,21 +257,13 @@ namespace Engine
 
 	enum class STATE_MOVE 
 	{ 
-		STATE_1, 
-		STATE_2, 
-		STATE_3, 
-		STATE_4, 
-		STATE_5, 
-		STATE_6,
-		STATE_7,
-		STATE_END
-	};
-
-	enum class STATE
-	{
-		STATE_MOVE,
-		STATE_ATTACK,
-		STATE_DEAD,
+		MOVE_UPPER_LEFT, 
+		MOVE_UPPER_FRONT, 
+		MOVE_LIFT_FRONT, 
+		MOVE_LIFT_BACK, 
+		MOVE_JUMP_FRONT, 
+		MOVE_UPPER_RIGHT,
+		MOVE_CHAES_PLAYER,
 		STATE_END
 	};
 

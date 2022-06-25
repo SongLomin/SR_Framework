@@ -105,6 +105,46 @@ void CGameObject::Set_Dead()
 
 }
 
+void CGameObject::Set_Internal_Tag(const _tchar* _Tag)
+{
+	m_Tag = _Tag;
+}
+
+list<CGameObject*> CGameObject::Get_Children_From_Key(const _tchar* _Key)
+{
+	list<CGameObject*> Target_Children;
+
+	Add_List_Child_From_Key(_Key, Target_Children);
+
+	return Target_Children;
+}
+
+void CGameObject::Add_List_Child_From_Key(const _tchar* _Key, list<CGameObject*>& _List)
+{
+
+	CTransform* pMyTransform = Get_Component<CTransform>();
+
+	if (!pMyTransform)
+	{
+		return;
+	}
+
+	//태그가 서로 같으면 리스트에 담아준다.
+	if (!lstrcmp(_Key, m_Tag))
+	{
+		_List.push_back(this);
+	}
+
+	for (auto& elem : *pMyTransform->Get_Children())
+	{
+		elem->Get_Owner()->Add_List_Child_From_Key(_Key, _List);
+	}
+
+}
+
+
+
+
 //컨트롤러가 변경될 때 호출된다.
 void CGameObject::On_Change_Controller(const CONTROLLER& _IsAI)
 {

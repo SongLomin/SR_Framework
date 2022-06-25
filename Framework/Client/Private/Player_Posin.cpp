@@ -120,10 +120,11 @@ void CPlayer_Posin::LookAt_Targeting()
 
 				if (!m_pBoxObject)
 				{
-					m_pBoxObject = GAMEINSTANCE->Add_GameObject<CTargetingBox>(CURRENT_LEVEL,
-						TEXT("Targeting"), elem->Get_Component<CTransform>());
-
+					list<CGameObject*> Targetings = elem->Get_Children_From_Key(TEXT("Targeting"));
+					m_pBoxObject = Targetings.front();
 					WEAK_PTR(m_pBoxObject);
+
+					m_pBoxObject->Set_Enable(true);
 					break;
 				}
 

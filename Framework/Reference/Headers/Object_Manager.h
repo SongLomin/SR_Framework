@@ -38,7 +38,7 @@ private:
 
 private:
 
-	map<const _tchar*, list<CGameObject*>>*				m_pLayers = nullptr;
+	vector<map<const _tchar*, list<CGameObject*>>>				m_pLayers;
 	typedef map<const _tchar*, list<CGameObject*>>	LAYERS;
 	_uint					m_iNumLevels = 0;
 
@@ -94,6 +94,8 @@ public: /* Template Function */
 		}
 
 		CGameObject* pCloneObject = pPrototype->Clone(pArg);
+
+		pCloneObject->Set_Internal_Tag(pLayerTag);
 
 		if (nullptr == pCloneObject)
 			return nullptr;

@@ -121,14 +121,13 @@ void CRigid_Body::Add_Dir(Func Dir, _float fDir )//fDir에 마우스 이동량을 전달
 			}
 			break;
 
-		case DESCEND:
-			m_bLift = false;
+		case DOWN:
+			if (m_bLift)
+			{
+				m_fLiftAccel = -1.f*m_RigidbodyDesc.m_fOwnerLiftAccel;
+				m_fRadAccelX = 0.005f;
+			}
 			break;
-
-		case FALL:
-			m_bLift = false;
-			break;
-
 		}
 	}
 }
@@ -150,31 +149,6 @@ void CRigid_Body::Add_Camera(Func Dir, _float fDir)
 
 	}
 }
-
-void CRigid_Body::Add_Rotation(Func Dir, _float fRad)
-{
-	switch (Dir)
-	{
-	case LEFT:
-		//m_vAccel -= m_vRight;
-		m_fRadAccelZ = -1.f*fRad;
-		break;
-
-	case RIGHT:
-		//m_vAccel += m_vRight;
-		m_fRadAccelZ = fRad;
-		break;
-
-	case FRONT:
-		m_fRadAccelX = -1.f*fRad;
-		break;
-
-	case BACK:
-		m_fRadAccelX = fRad;
-		break;
-	}
-}
-
 
 
 void CRigid_Body::Compute_Force()
@@ -419,14 +393,17 @@ void CRigid_Body::Compute_Lift()//수직방향
 {
 	if (!m_bLift) return;
 
-	if (m_RigidbodyDesc.m_fOwnerLiftSpeed > m_fLiftSpeed)
+	if (m_RigidbodyDesc.m_fOwnerLiftSpeed > fabs(m_fLiftSpeed))
 	{
 		m_fLiftSpeed += m_fLiftAccel;
 	}
 
-	if (DBL_EPSILON < m_fLiftSpeed)
+	if (DBL_EPSILON < fabs(m_fLiftSpeed))
 	{
-		m_fLiftSpeed -= 0.098f;//중력을 받음
+		if(0.f < m_fLiftSpeed)
+			m_fLiftSpeed -= 0.098f;//중력을 받음
+		else if(0.f > m_fLiftSpeed)
+			m_fLiftSpeed += 0.098f;
 
 		if (0.098f > fabs(m_fLiftSpeed))
 			m_fLiftSpeed = 0.f;
@@ -435,6 +412,8 @@ void CRigid_Body::Compute_Lift()//수직방향
 	{
 		if (0.f> m_fLiftSpeed)
 			m_fLiftSpeed += 0.01f;
+		else if (0.f < m_fLiftSpeed)
+			m_fLiftSpeed -= 0.01f;
 
 		if (0.01f > fabs(m_fLiftSpeed))
 			m_fLiftSpeed = 0.f;

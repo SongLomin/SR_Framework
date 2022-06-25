@@ -34,7 +34,7 @@ private:
     CMesh_Cube* m_pMeshCom = nullptr;
     CTransform* m_pPlayerTransformCom = nullptr;
     CRigid_Body* m_pRigidBodyCom = nullptr;
-    CState* m_pStateCom = nullptr;
+    Engine::CState_Move* m_pStateCom = nullptr;
 
 
 

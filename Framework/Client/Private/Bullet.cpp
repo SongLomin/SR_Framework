@@ -28,28 +28,6 @@ HRESULT CBullet::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pRendererCom = Add_Component<CRenderer>();
-	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
-
-
-	m_pMeshCom = Add_Component<CMesh_Cube>();
-	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
-	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
-
-
-	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER_ATTACK;
-	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
-	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
-	m_pColliderCom->Link_Transform(m_pTransformCom);
-
-	_float3 ColliderSize = m_pTransformCom->Get_Scaled();
-	_float3 RenderScale = _float3(0.2f, 0.1f, 10.f);
-	ColliderSize.x *= RenderScale.x;
-	ColliderSize.y *= RenderScale.y;
-	ColliderSize.z *= RenderScale.z;
-
-	m_pColliderCom->Set_Collider_Size(ColliderSize);
-
 	return S_OK;
 }
 
@@ -57,9 +35,18 @@ void CBullet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+	m_fLifeTime -= fTimeDelta;
+
+	if (m_fLifeTime < 0.f)
+	{
+		Set_Dead();
+	}
+
 
 	/*m_pTransformCom->Go_BackAndForth(80.f, fTimeDelta);
 	m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK), 10.f, fTimeDelta);*/
+
+	
 }
 
 void CBullet::LateTick(_float fTimeDelta)

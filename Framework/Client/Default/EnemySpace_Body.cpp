@@ -4,6 +4,7 @@
 #include "EnemySpace_RightBody.h"
 #include "EnemySpace_Posin.h"
 #include "State_Move.h"
+#include <TargetingBox.h>
 
 
 CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
@@ -29,6 +30,8 @@ HRESULT CEnemySpace_Body::Initialize(void* pArg)
 	m_pPlayerTransformCom->Set_WeakPtr((void**)&m_pPlayerTransformCom);
 
 	
+	GAMEINSTANCE->Add_GameObject<CTargetingBox>(CURRENT_LEVEL,
+		TEXT("Targeting"), m_pTransformCom)->Set_Enable(false);
 
 	return S_OK;
 }
@@ -107,7 +110,7 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
 	
-	m_pStateCom = Add_Component<CState_Move>();
+	m_pStateCom = Add_Component<Engine::CState_Move>();
 	m_pStateCom->Set_WeakPtr((void**)m_pStateCom);
 	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
 	m_pStateCom->Link_Transform(m_pTransformCom);

@@ -33,6 +33,11 @@ HRESULT CVIBuffer::Render()
 	if (nullptr == LPDEVICE)
 		return E_FAIL;
 
+	if (!Get_Enable())
+	{
+		return S_OK;
+	}
+
 	//장치에 바인드하는데 여러 버텍스 버퍼를 장치에 바인드할 수 있다.
 	//즉, 동일한 파이프라인을 통과하는 버텍스 버퍼들을 묶어서 처리할 수 있다.
 	DEVICE->SetStreamSource(0, m_pVB, 0, m_iStride);
