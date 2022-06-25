@@ -217,7 +217,6 @@
     <ClCompile Include="..\Private\Monster.cpp" />
     <ClCompile Include="..\Private\Player_Posin.cpp" />
     <ClCompile Include="..\Private\SkyBox.cpp" />
-    <ClCompile Include="..\Private\SkyBox.cpp" />
     <ClCompile Include="..\Private\State_Move.cpp" />
     <ClCompile Include="..\Private\TargetingBox.cpp" />
     <ClCompile Include="..\Private\Terrain.cpp" />
