@@ -10,7 +10,7 @@ CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
 	*this = Prototype;
 	m_pTransformCom = Add_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(20.f, 1.f, 30.f));
+	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(rand()% 100, rand() % 20, rand() % 100));
 	m_pTransformCom->Update_WorldMatrix();
 }
 

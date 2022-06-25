@@ -22,7 +22,7 @@ public:
 
 protected:
 	_float	 m_fCurTime = 0.f;
-	_float	 m_fMaxTime = 2.f;
+	_float	 m_fMaxTime = 1.f;
 	bool     m_bStateCheck = true;
 
 public: 
