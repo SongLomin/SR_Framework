@@ -14,6 +14,8 @@
 #include <SkyBox.h>
 #include "Default_Aim.h"
 #include <TargetingBox.h>
+#include <UITest.h>
+#include <SkyBox.h>
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -41,8 +43,11 @@ HRESULT CLevel_GamePlay::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_GAMEPLAY, TEXT("0.Player_Body")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_GAMEPLAY, TEXT("EnemySpace_Body")))
-		return E_FAIL;
+	for (int i = 0; i < 50; ++i)
+	{
+		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_GAMEPLAY, TEXT("EnemySpace_Body")))
+			return E_FAIL;
+	}
 
 
 	for (int i = 0; i < 5; i++)

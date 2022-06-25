@@ -9,7 +9,7 @@ class CTransform;
 class ENGINE_DLL CRigid_Body final : public CComponent
 {
 public:
-	enum Func { LEFT,RIGHT,FRONT,BACK,JUMP,LIFT,DOWN };
+	enum Func { LEFT,RIGHT,FRONT,BACK,JUMP,LIFT,DOWN,DESCEND,FALL };
 
 	typedef struct tagRigidbodyDesc
 	{

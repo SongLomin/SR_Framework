@@ -11,7 +11,7 @@ CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
 	*this = Prototype;
 	m_pTransformCom = Add_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(5.f, 1.f, 5.f));
+	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(rand()% 100, rand() % 20, rand() % 100));
 	m_pTransformCom->Update_WorldMatrix();
 }
 
@@ -25,11 +25,10 @@ HRESULT CEnemySpace_Body::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_fCountTime = GAMEINSTANCE->Add_Timer(3);
 	m_pPlayerTransformCom = CGameInstance::Get_Instance()->Get_Player_GameObject()->Get_Component<CTransform>();
 	m_pPlayerTransformCom->Set_WeakPtr((void**)&m_pPlayerTransformCom);
 
-	m_fCountTime = 0.5f;
+	
 
 	return S_OK;
 }
@@ -41,26 +40,12 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 
 	ISVALID(m_pTransformCom);
 
-	
+	//m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
+	//m_pTransformCom->Go_BackAndForth(2.5, fTimeDelta);
 
-	/*if (!m_bMoveMentCheck)
-	{
-		MoveMent5(fTimeDelta);
-	}
-
-	MoveMentChange(fTimeDelta);*/
-	
-
-  	/*if (!m_bMoveMentCheck)
-	{
-		((CState*)m_pStateCom)->State_Change();
-	}*/
-
-    //m_pStateCom->State_Change(&fTimeDelta, m_bMoveMentCheck);
-
-//%	m_pRigidBodyCom->Update_Transform(fTimeDelta);
-
-	m_fCountTime -= GAMEINSTANCE->Compute_Timer(3);
+ 
+	m_pStateCom->State_Change(m_pPlayerTransformCom,fTimeDelta);
+    
 }
 
 void CEnemySpace_Body::LateTick(_float fTimeDelta)
@@ -102,26 +87,31 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	RigidBodyDesc.m_fOwnerSpeed = 10.f;
 	RigidBodyDesc.m_fOwnerAccel = 0.1f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
+	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
+	RigidBodyDesc.m_fOwnerJump = 5.f;
+	RigidBodyDesc.m_fOwnerJumpScale = 1.f;
 
 	RigidBodyDesc.m_fFrictional = 0.05f;
 	RigidBodyDesc.m_fRadFrictional = 0.02f;
 	RigidBodyDesc.m_fRadZ = 0.01f;
 
 
-	RigidBodyDesc.m_fOwnerLiftSpeed = 3.f;
+	RigidBodyDesc.m_fOwnerLiftSpeed = 10.f;
+	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;
+	RigidBodyDesc.m_fOwnerAccel = 0.1f;
+
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
 	
-	/*m_pStateCom = Add_Component<CState_Move>();
+	m_pStateCom = Add_Component<CState_Move>();
 	m_pStateCom->Set_WeakPtr((void**)m_pStateCom);
-	m_pStateCom->Link_RigidBodyCom(m_pRigidBodyCom);*/
+	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
+	m_pStateCom->Link_Transform(m_pTransformCom);
 
-	
-	
 
 	GAMEINSTANCE->Add_GameObject<CEnemySpace_RightBody>(CURRENT_LEVEL, TEXT("EnemySpace_RightBody"), m_pTransformCom);
 
@@ -134,125 +124,6 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	return S_OK;
 }
 
-//void CEnemySpace_Body::MoveMent(_float fTimeDelta)
-//{
-//	if (m_bMoveMentCheck)
-//	{
-//		m_pRigidBodyCom->Add_Jump();
-//		m_pRigidBodyCom->Add_DirZ(0.1f);
-//		m_pRigidBodyCom->Add_RotationY(0.1f);
-//		m_pRigidBodyCom->Add_Lift(0.1);
-//	}
-//
-//	if (m_fCountTime < 0.f)
-//	{
-//		m_bMoveMentCheck = false;
-//	}
-//}
-//
-//void CEnemySpace_Body::MoveMent1(_float fTimeDelta)
-//{
-//	if (m_bMoveMentCheck)
-//	{
-//		m_pRigidBodyCom->Add_RotationY(0.1f);
-//		m_pRigidBodyCom->Add_DirZ(0.1f);
-//		m_pRigidBodyCom->Add_Lift(0.1);
-//	}
-//
-//	if (m_fCountTime < 0.f)
-//	{
-//		m_bMoveMentCheck = false;
-//	}
-//}
-//
-//void CEnemySpace_Body::MoveMent2(_float fTimeDelta)
-//{
-//
-//	if (m_bMoveMentCheck)
-//	{
-//		m_pRigidBodyCom->Add_Jump();
-//		m_pRigidBodyCom->Add_RotationX(0.1f);
-//		m_pRigidBodyCom->Add_DirZ(0.1f);
-//		m_pRigidBodyCom->Add_Lift(0.1);
-//
-//	}
-//
-//	if (m_fCountTime < 0.f)
-//	{
-//		m_bMoveMentCheck = false;
-//	}
-//}
-//
-//void CEnemySpace_Body::MoveMent3(_float fTimeDelta)
-//{
-//	if (m_bMoveMentCheck)
-//	{
-//		m_pRigidBodyCom->Add_RotationZ(0.1f);
-//		m_pRigidBodyCom->Add_Lift(0.1);
-//	}
-//
-//	if (m_fCountTime < 0.f)
-//	{
-//		m_bMoveMentCheck = false;
-//	}
-//}
-//
-//void CEnemySpace_Body::MoveMent4(_float fTimeDelta)
-//{
-//	if (m_bMoveMentCheck)
-//	{
-//		m_pRigidBodyCom->Add_RotationY(0.1f);
-//		m_pRigidBodyCom->Add_DirZ(0.1f);
-//	}
-//
-//	if (m_fCountTime < 0.f)
-//	{
-//		m_bMoveMentCheck = false;
-//	}
-//}
-//
-//void CEnemySpace_Body::MoveMent5(_float fTimeDelta)
-//{
-//	m_pRigidBodyCom->Add_DirZ(0.1f);
-//	m_pRigidBodyCom->Add_Lift(0.3);
-//}
-//
-//void CEnemySpace_Body::MoveMentChange(_float fTimeDelta)
-//{
-//
-//
-//	if (m_fCountTime < 0.f) // ½Ã°£ ³Ö¾îÁà¾ßµÊ
-//	{
-//
-//		_uint iState = rand() % CEnemySpace_Body::MOVEMENT_5;
-//		m_eCurMovement = (CEnemySpace_Body::STATE)iState;
-//		m_bMoveMentCheck = true;
-//
-//		m_fCountTime = 0.5f;
-//
-//	}
-//
-//	switch (m_eCurMovement)
-//	{
-//	case CEnemySpace_Body::MOVEMENT:
-//		MoveMent(fTimeDelta);
-//		break;
-//	case CEnemySpace_Body::MOVEMENT_1:
-//		MoveMent1(fTimeDelta);
-//		break;
-//	case CEnemySpace_Body::MOVEMENT_2:
-//		MoveMent2(fTimeDelta);
-//		break;
-//	case CEnemySpace_Body::MOVEMENT_3:
-//		MoveMent3(fTimeDelta);
-//		break;
-//	case CEnemySpace_Body::MOVEMENT_4:
-//		MoveMent4(fTimeDelta);
-//		break;
-//	}
-//
-//
-//}
 
 CEnemySpace_Body* CEnemySpace_Body::Create()
 {

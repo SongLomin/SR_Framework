@@ -262,7 +262,16 @@ namespace Engine
 		STATE_3, 
 		STATE_4, 
 		STATE_5, 
-		STATE_START,
+		STATE_6,
+		STATE_7,
+		STATE_END
+	};
+
+	enum class STATE
+	{
+		STATE_MOVE,
+		STATE_ATTACK,
+		STATE_DEAD,
 		STATE_END
 	};
 

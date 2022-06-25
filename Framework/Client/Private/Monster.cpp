@@ -9,6 +9,7 @@ CMonster::CMonster(const CMonster& Prototype)
 {
 	*this = Prototype;
 	Add_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
+	
 	Set_Controller(CONTROLLER::AI);
 }
 
