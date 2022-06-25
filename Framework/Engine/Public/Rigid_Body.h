@@ -53,7 +53,14 @@ public:
 	{
 		m_bMouse = !m_bMouse;
 	}
+
+	void		Set_Camera()
+	{
+		m_bCamera = !m_bCamera;
+	}
+
 	void		Add_Dir(Func Dir, _float fDir =0.f);
+	void		Add_Camera(Func Dir, _float fDir = 0.f);
 	//실질적인건 아닌데 연출용
 	void		Add_Rotation(Func Dir, _float fRad);
 	
@@ -61,6 +68,7 @@ public:
 	void		Set_DirVector();
 private:
 	void		Compute_Force();
+	void		Compute_Camera();
 
 	void		Compute_Dir();
 	void		Compute_Rotation();
@@ -84,6 +92,11 @@ private:
 private:
 	CTransform*		m_pTransform;
 	_bool			m_bFirst = true;
+
+	_bool		m_bJump = false;
+	_bool		m_bLift = false;
+	_bool		m_bMouse = false;
+	_bool		m_bCamera = false;
 
 private:
 	RIGIDBODYDESC	m_RigidbodyDesc;
@@ -115,9 +128,7 @@ private:
 	_float		m_fLiftAccel = 0;
 	_float		m_fLiftSpeed = 0;
 
-	_bool		m_bJump = false;
-	_bool		m_bLift = false;
-	_bool		m_bMouse = false;
+	
 
 
 public:

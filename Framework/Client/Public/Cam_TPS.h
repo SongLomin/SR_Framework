@@ -30,10 +30,7 @@ private:
     CCamera* m_pCameraCom = nullptr;
 	CRigid_Body*	m_pRigidBodyCom = nullptr;
 
-    _float3 m_CurCursorPosition;
-    _float3	m_PreCursorPosition;
-    _float3 m_MouseRealPosition;
-
+ 
 public:
     static CCam_TPS* Create();
     virtual CGameObject* Clone(void* pArg) override;
