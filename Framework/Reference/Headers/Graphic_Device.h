@@ -23,7 +23,9 @@ public:
 
 public:
 	HRESULT		Add_Text(TEXTINFO Info, float CountTime);
-	
+	D3DLIGHT9	InitLight(D3DLIGHTTYPE type);
+	bool SetupEffect(const _tchar* shaderFilename, ID3DXEffect** effect);
+	bool SetupTexture(IDirect3DTexture9** texture, IDirect3DSurface9** surface);
 
 private:
 	LPDIRECT3D9				m_p3D;
@@ -34,6 +36,25 @@ private:
 	list<class CFont*>			m_Text;
 
 	ID3DXSprite*			m_pSprite = nullptr;
+
+	GRAPHICDESC				m_GraphicDesc;
+	
+public: /* For Defferred Rendering */
+	IDirect3DSurface9* originRenderTarget = 0;
+
+	IDirect3DTexture9* normalTex = 0;
+	IDirect3DSurface9* normalSurface = 0;
+
+	IDirect3DTexture9* depthTex = 0;
+	IDirect3DSurface9* depthSurface = 0;
+
+	IDirect3DTexture9* diffuseTex = 0;
+	IDirect3DSurface9* diffuseSurface = 0;
+
+	IDirect3DTexture9* specularTex = 0;
+	IDirect3DSurface9* specularSurface = 0;
+
+
 private:
 	void		SetParameters(const GRAPHICDESC& GraphicDesc, D3DPRESENT_PARAMETERS& d3dpp);
 
