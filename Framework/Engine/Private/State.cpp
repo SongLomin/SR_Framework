@@ -19,11 +19,17 @@ HRESULT CState::Initialize(void* pArg)
 	return S_OK;
 }
 
+void CState::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)
+{
+}
 
+void CState::Link_RigidBody(CRigid_Body* pRigidBody)
+{
+}
 
-
-
-
+void CState::Link_Transform(CTransform* pTransform)
+{
+}
 
 
 
