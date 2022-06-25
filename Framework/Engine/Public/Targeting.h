@@ -11,7 +11,7 @@ private:
 	virtual ~CTargeting() = default;
 
 public:
-	list<CGameObject*>* Get_Targetting() {
+	map<_float, CGameObject*>* Get_Targetting() {
 		return &m_pTargeting;
 	}
 
@@ -24,7 +24,7 @@ private:
 	void Clear_Targeting();
 
 private:
-	list<CGameObject*> m_pTargeting;
+	map<_float, CGameObject*> m_pTargeting;
 
 public:
 	static CTargeting* Create();

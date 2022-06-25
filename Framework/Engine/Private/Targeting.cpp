@@ -47,22 +47,8 @@ void CTargeting::Make_TargetList(list<CGameObject*>* pLayer, _float fDist)
 
 			if (Range < fDist)
 			{
-				m_pTargeting.push_back(*iter);
-				(*iter)->Set_WeakPtr(&m_pTargeting.back());
-
-				for (auto iter : m_pTargeting)
-				{
-					
-					_float3 vWorldPos = (*iter).Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
-					CMath_Utillity::WorldToScreen(&vWorldPos, &vWorldPos);
-					
-					GAMEINSTANCE->Add_Text(
-						_point{ (long)vWorldPos.x, 
-						(long)vWorldPos.y},
-						D3DCOLOR_ARGB(255, 130, 255, 0),
-						0.0f,
-						L"Targeting SUCCESS !",0);
-				}
+				m_pTargeting.emplace(Range, (*iter));
+				(*iter)->Set_WeakPtr(&m_pTargeting[Range]);
 			}
 		}
 	}
@@ -74,8 +60,8 @@ void CTargeting::Clear_Targeting()
 	//return_Weakptr
 	for (auto& elem : m_pTargeting)
 	{
-		if(elem)
-			elem->Return_WeakPtr(&elem);
+		if(elem.second)
+			elem.second->Return_WeakPtr(&elem.second);
 	}
 	m_pTargeting.clear();
 }
@@ -97,8 +83,8 @@ void CTargeting::Free()
 
 	for (auto& elem : m_pTargeting)
 	{
-		if (elem)
-			elem->Return_WeakPtr(&elem);
+		if (elem.second)
+			elem.second->Return_WeakPtr(&elem.second);
 	}
 	m_pTargeting.clear();
 

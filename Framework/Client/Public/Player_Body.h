@@ -15,7 +15,10 @@ class CMesh_SongShip;
 END
 
 BEGIN(Client)
+
 class CCameraPosin;
+class CPlayer_Posin;
+
 class CPlayer_Body final : public CGameObject
 {
 private:
@@ -28,6 +31,7 @@ public:
 	virtual HRESULT Initialize(void* pArg)override;
 	virtual void Tick(_float fTimeDelta) override;
 	virtual void LateTick(_float fTimeDelta) override;
+	virtual HRESULT Render_Begin() override;
 	virtual HRESULT Render() override;
 
 private:
@@ -40,12 +44,15 @@ private:
 	CTargeting*				m_pTargetingCom = nullptr;
 
 private:
-	CCameraPosin*           m_pCameraPosin = nullptr;
-	static const _tchar*	m_pTag;
+	list<CPlayer_Posin*>	m_pMyPosinList;
+
+private:
 
 	_uint					m_iCurrentCam = 0;
 	_bool					m_bMouse = false;
 	_float					m_fTime = 0.f;
+
+	_bool					m_bTargetMode = false;
 
 protected: /* For Event Function */
 	virtual void On_Change_Controller(const CONTROLLER& _IsAI) override;
@@ -57,6 +64,7 @@ public: /* For Event Function */
 
 private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 	HRESULT SetUp_Components();
+	void Update_PosinTarget();
 
 public:
 	static CPlayer_Body* Create();

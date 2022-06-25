@@ -16,6 +16,7 @@ protected:
 public:
 	virtual void Tick(_float fTimeDelta) {};
 	virtual void LateTick(_float fTimeDelta) {};
+	virtual HRESULT Render_Begin() { return S_OK; }
 	virtual HRESULT Render() { return S_OK; };
 
 public:

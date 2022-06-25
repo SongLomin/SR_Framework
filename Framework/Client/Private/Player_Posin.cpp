@@ -44,7 +44,10 @@ void CPlayer_Posin::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	LookAt_Targeting();
+	if (!LookAt_Targeting())
+	{
+		LookAt_Aim();
+	}
 
 	// 1초에 한번 호출
 	m_fTime += fTimeDelta;
@@ -91,6 +94,31 @@ HRESULT CPlayer_Posin::Render()
 	return S_OK;
 }
 
+void CPlayer_Posin::Set_Target(CGameObject* _Target)
+{
+	//기존에 타겟 인스턴스가 살아 있는데 바뀐 경우는
+	if (m_pTarget)
+	{
+		m_pBoxObject->Set_Enable(false);
+	}
+
+	if (!_Target)
+	{
+		m_pTarget = nullptr;
+		m_pBoxObject = nullptr;
+
+		return;
+	}
+
+
+	m_pTarget = _Target;
+	WEAK_PTR(m_pTarget);
+
+	list<CGameObject*> Targetings = m_pTarget->Get_Children_From_Key(TEXT("Targeting"));
+	m_pBoxObject = Targetings.front();
+	WEAK_PTR(m_pBoxObject);
+}
+
 
 
 inline HRESULT CPlayer_Posin::SetUp_Components()
@@ -107,40 +135,34 @@ inline HRESULT CPlayer_Posin::SetUp_Components()
 	return S_OK;
 }
 
-void CPlayer_Posin::LookAt_Targeting()
+_bool CPlayer_Posin::LookAt_Targeting()
 {
-	list<CGameObject*>* Monster = GAMEINSTANCE->Get_Player_GameObject()->Get_Component<CTargeting>()->Get_Targetting();
-	if (!Monster->empty() || !m_pBoxObject)
+	//map<_float, CGameObject*>* Monster = m_pTransformCom->Get->Get_Component<CTargeting>()->Get_Targetting();
+
+	/*if (Monster->empty())
 	{
-		for (auto& elem : *Monster)
-		{
-			if (elem)
-			{
-				m_pTransformCom->LookAt(elem->Get_Component<CTransform>(), true);
+		return false;
+	}*/
 
-				if (!m_pBoxObject)
-				{
-					list<CGameObject*> Targetings = elem->Get_Children_From_Key(TEXT("Targeting"));
-					m_pBoxObject = Targetings.front();
-					WEAK_PTR(m_pBoxObject);
-
-					m_pBoxObject->Set_Enable(true);
-					break;
-				}
-
-			}
-		}
-	}
-	else
+	if (!m_pTarget)
 	{
-		_float3 MouseEndPos;
-		RAY	MouseWorldPos;
-		MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
-		MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 1000.f);
-		
-		m_pTransformCom->LookAt(MouseEndPos, true);
-
+		return false;
 	}
+
+	m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>(), true);
+
+	m_pBoxObject->Set_Enable(true);
+}
+
+void CPlayer_Posin::LookAt_Aim()
+{
+	_float3 MouseEndPos;
+	RAY	MouseWorldPos;
+	MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
+	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 1000.f);
+
+	m_pTransformCom->LookAt(MouseEndPos, true);
+
 }
 
 

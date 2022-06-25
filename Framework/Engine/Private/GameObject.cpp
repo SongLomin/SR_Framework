@@ -50,6 +50,19 @@ void CGameObject::LateTick(_float fTimeDelta)
 	}
 }
 
+HRESULT CGameObject::Render_Begin()
+{
+	for (auto& elem : m_pComs)
+	{
+		if (elem.second)
+		{
+			elem.second->Render();
+		}
+	}
+
+	return S_OK;
+}
+
 HRESULT CGameObject::Render()
 {
 	for (auto& elem : m_pComs)

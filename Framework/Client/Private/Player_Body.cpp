@@ -141,6 +141,11 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 		Set_Controller(Next_Controller);
 	}
 
+	if (KEY_INPUT(KEY::TAB, KEY_STATE::TAP))
+	{
+		m_bTargetMode = !m_bTargetMode;
+	}
+
 
 	GAMEINSTANCE->Add_Text(
 		_point{ 100, g_iWinCY - 100 },
@@ -160,6 +165,7 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 	if (m_fTime > 1.f)
 	{
 		m_pTargetingCom->Make_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")));
+		Update_PosinTarget();
 		m_fTime = 0.f;
 	}
 
@@ -175,6 +181,11 @@ void CPlayer_Body::LateTick(_float fTimeDelta)
 
 	
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+}
+
+HRESULT CPlayer_Body::Render_Begin()
+{
+	return E_NOTIMPL;
 }
 
 HRESULT CPlayer_Body::Render()
@@ -247,41 +258,98 @@ HRESULT CPlayer_Body::SetUp_Components()
 	m_pTargetingCom = Add_Component<CTargeting>();
 	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
 
-	//m_pCColliderCom = Add_Component<CCollider_OBB>();
-	//m_pCColliderCom->Set_WeakPtr(&m_pCColliderCom);
-	//m_pCColliderCom->Link_Transform(m_pTransformCom);
-
-
-
 	
-	//CGameObject* CameraPosin = GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);	
-	//m_pCameraPosin = (CCameraPosin*)GAMEINSTANCE->Add_GameObject<CCameraPosin>(CURRENT_LEVEL, TEXT("CameraPosin"), m_pTransformCom);
-	
-	//GAMEINSTANCE->Add_GameObject<CPlayer_RightBody>(CURRENT_LEVEL, TEXT("Player_RightBody"), m_pTransformCom);
+	CPlayer_Posin* Posin = static_cast<CPlayer_Posin*>(GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 
-	GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom)
-		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.8f, -0.15f, 0.f));;
+	Posin = static_cast<CPlayer_Posin*>(GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(1.6f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 
-	GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom)
-		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(1.6f, -0.15f, 0.f));
+	Posin = static_cast<CPlayer_Posin*>(GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-1.6f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 
-	GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom)
-		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-1.6f, -0.15f, 0.f));
-
-	GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom)
-		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
-
-	//GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom);
-
-	//GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom);
-
-	//GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom)
-	//	->Get_Component<CTransform>()->Rotation(_float3(0.f, 1.f, 0.f), 30);
+	Posin = static_cast<CPlayer_Posin*>(GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 
 	Set_Controller(CONTROLLER::PLAYER);
 
 
 	return S_OK;
+}
+
+void CPlayer_Body::Update_PosinTarget()
+{
+	map<_float, CGameObject*>* TargetList = m_pTargetingCom->Get_Targetting();
+	
+	if (TargetList->empty())
+	{
+		for (auto iter = m_pMyPosinList.begin(); iter != m_pMyPosinList.end();)
+		{
+			if (!(*iter))
+			{
+				iter = m_pMyPosinList.erase(iter);
+				continue;
+			}
+
+			(*iter)->Set_Target(nullptr);
+			iter++;
+		}
+
+		return;
+	}
+
+	vector<CGameObject*> TargetVec;
+
+	for (auto& elem : *TargetList)
+	{
+		TargetVec.push_back(elem.second);
+	}
+
+	//¸ÖÆ¼ Å¸°Ù ¸ðµå
+	if (m_bTargetMode)
+	{
+		_uint Index = 0;
+
+		for (auto iter = m_pMyPosinList.begin(); iter != m_pMyPosinList.end();)
+		{
+			if (!(*iter))
+			{
+				iter = m_pMyPosinList.erase(iter);
+				continue;
+			}
+
+			(*iter)->Set_Target(TargetVec[Index % TargetVec.size()]);
+			Index++;
+			iter++;
+		}
+	}
+
+	//½Ì±Û Å¸°Ù ¸ðµå
+	else
+	{
+		for (auto iter = m_pMyPosinList.begin(); iter != m_pMyPosinList.end();)
+		{
+			if (!(*iter))
+			{
+				iter = m_pMyPosinList.erase(iter);
+				continue;
+			}
+
+			(*iter)->Set_Target(TargetVec.front());
+
+			iter++;
+		}
+
+	}
+
 }
 
 void CPlayer_Body::On_Change_Controller(const CONTROLLER& _IsAI)

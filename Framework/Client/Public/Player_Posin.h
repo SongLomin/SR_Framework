@@ -25,6 +25,9 @@ public:
     virtual void LateTick(_float fTimeDelta) override;
     virtual HRESULT Render() override;
 
+public:
+    void    Set_Target(CGameObject* _Target);
+
 private:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
@@ -34,10 +37,12 @@ private:
 
 private:
     CGameObject* m_pBoxObject = nullptr;
+    CGameObject* m_pTarget = nullptr;
 
 private:
     HRESULT SetUp_Components();
-    void    LookAt_Targeting();
+    _bool    LookAt_Targeting();
+    void    LookAt_Aim();
 
 public:
     static CPlayer_Posin* Create();
