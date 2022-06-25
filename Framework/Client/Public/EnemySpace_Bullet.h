@@ -13,12 +13,12 @@ END
 
 BEGIN(Client)
 
-class CBullet final : public CGameObject
+class CEnemySpace_Bullet final : public CGameObject
 {
 private:
-    explicit CBullet();
-    explicit CBullet(const CBullet& Prototype);
-    virtual ~CBullet() = default;
+    explicit CEnemySpace_Bullet();
+    explicit CEnemySpace_Bullet(const CEnemySpace_Bullet& Prototype);
+    virtual ~CEnemySpace_Bullet() = default;
 
 public:
     // CGameObject을(를) 통해 상속됨
@@ -53,9 +53,10 @@ private:
 
 
 public:
-    static CBullet* Create();
+    static CEnemySpace_Bullet* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 };
 
 END
+

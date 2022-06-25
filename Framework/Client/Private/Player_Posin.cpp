@@ -2,7 +2,7 @@
 #include "Player_Posin.h"
 #include "GameInstance.h"
 #include "Math_Utillity.h"
-#include <Bullet.h>
+#include "Player_Bullet.h"
 #include <TargetingBox.h>
 
 
@@ -36,6 +36,8 @@ HRESULT CPlayer_Posin::Initialize(void* pArg)
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
+	
+
 
 	return S_OK;
 }
@@ -56,9 +58,9 @@ void CPlayer_Posin::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
 	{
-		CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CBullet>(CURRENT_LEVEL, TEXT("Bullet"));
+		CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CPlayer_Bullet>(CURRENT_LEVEL, TEXT("Bullet"));
 
-		((CBullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
+		((CPlayer_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
 	}
 }
 
