@@ -43,8 +43,8 @@ void CCam_TPS::Tick(_float fTimeDelta)
 	_float3 vUp = _float3(0.f, 1.f, 0.f);
 	_float3 vRight;
 
-	vPos -= vLook*10.f;
-	vPos += vUp*2.f;
+	vPos -= vLook*13.f;
+	vPos += vUp*1.f;
 
 	D3DXVec3Cross(&vRight, &vUp, &vLook);
 	D3DXVec3Cross(&vUp, &vLook, &vRight);
