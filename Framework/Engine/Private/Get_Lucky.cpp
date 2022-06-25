@@ -18,7 +18,6 @@ void Get_Lucky::Team_EverSpace()
 	ofstream fout("Past_Initialize_Prototype.cpp");
 
 
-
 	VTXCOLOR* vertices = nullptr;
 	DWORD vtxSize = 0;
 	vtxSize = m_pMesh->GetNumVertices();
