@@ -49,12 +49,14 @@ void CState_Move::State_2(_float fTimeDelta)
 void CState_Move::State_3(_float fTimeDelta)
 {
 	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
+	m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
 
 }
 
 void CState_Move::State_4(_float fTimeDelta)
 {
 	m_pRigidBody->Add_Dir(CRigid_Body::BACK);
+	m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
 }
 
 void CState_Move::State_5(_float fTimeDelta)
