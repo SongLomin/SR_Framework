@@ -30,13 +30,17 @@ public:
 	void State_3(_float fTimeDelta);
 	void State_4(_float fTimeDelta);
 	void State_5(_float fTimeDelta);
+	void State_6(CTransform* pPlayerTransform, _float fTimeDelta);
 
 public:
-	void State_Change(_float fTimeDelta);
+	void State_Change(CTransform* pPlayerTransform, _float fTimeDelta);
 	void Link_RigidBody(CRigid_Body* pRigidBody);
+	void Link_Transform(CTransform* pTransform);
 
 public:
 	CRigid_Body* m_pRigidBody = nullptr;
+	CTransform* m_pTransform = nullptr;
+	CTransform* m_pPlayerTransform = nullptr;
 
 public:
 

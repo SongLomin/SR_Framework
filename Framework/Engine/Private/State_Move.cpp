@@ -65,7 +65,14 @@ void CState_Move::State_5(_float fTimeDelta)
 	m_pRigidBody->Add_Dir(CRigid_Body::JUMP);
 }
 
-void CState_Move::State_Change(_float fTimeDelta)
+void CState_Move::State_6(CTransform* pPlayerTransform, _float fTimeDelta)
+{
+	m_pTransform->Go_Target(pPlayerTransform, fTimeDelta);
+	m_pTransform->Go_BackAndForth(8.f, fTimeDelta);
+	
+}
+
+void CState_Move::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)
 {
 
 	m_fCurTime -= fTimeDelta;
@@ -107,6 +114,9 @@ void CState_Move::State_Change(_float fTimeDelta)
 		State_5(fTimeDelta);
 		break;
 
+	case STATE_MOVE::STATE_7:
+		State_6(pPlayerTransform, fTimeDelta);
+
 	case  STATE_MOVE::STATE_6:
 		State_Start(fTimeDelta);
 		break;
@@ -119,6 +129,13 @@ void CState_Move::Link_RigidBody(CRigid_Body* pRigidBody)
 	m_pRigidBody = pRigidBody;
 
 	m_pRigidBody->Set_WeakPtr(&m_pRigidBody);
+}
+
+void CState_Move::Link_Transform(CTransform* pTransform)
+{
+	m_pTransform = pTransform;
+
+	m_pTransform->Set_WeakPtr(&m_pTransform);
 }
 
 CState_Move* CState_Move::Create()

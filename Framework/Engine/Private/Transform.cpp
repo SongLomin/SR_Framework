@@ -95,7 +95,7 @@ _float4x4 CTransform::Get_WorldMatrix(BYTE MyFlags, BYTE ParentFlags)
 	return m_WorldMatrix;
 }
 
-void CTransform::Go_Target(CTransform* _Trans, _float fTimeDelta, _bool _bWorld)
+void CTransform::Go_Target(CTransform* _Trans, _float fTimeDelta,  _bool _bWorld)
 {
 	_float3 vPlayerPos = _Trans->Get_State(CTransform::STATE_POSITION, _bWorld);
 	_float3 vLook = vPlayerPos - Get_State(CTransform::STATE_POSITION, _bWorld);
@@ -109,10 +109,6 @@ void CTransform::Go_Target(CTransform* _Trans, _float fTimeDelta, _bool _bWorld)
 	
 	Set_State(CTransform::STATE_RIGHT, vRight, _bWorld);
 	Set_State(CTransform::STATE_UP, vUp, _bWorld);
-
-	//_float fPre_LookS_cale = D3DXVec3Length(&Get_State(CTransform::STATE_LOOK, _bWorld));
-	//vLook *= fPre_LookS_cale;
-
 	Set_State(CTransform::STATE_LOOK, vLook, _bWorld);
 
 	

@@ -263,6 +263,7 @@ namespace Engine
 		STATE_4, 
 		STATE_5, 
 		STATE_6,
+		STATE_7,
 		STATE_END
 	};
 
