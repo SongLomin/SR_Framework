@@ -35,7 +35,8 @@ void CBase::Free()
 {
 	for (auto& elem : m_WeakList)
 	{
-		(*elem) = nullptr;
+		if(elem)
+			(*elem) = nullptr;
 	}
 
 	m_WeakList.clear();

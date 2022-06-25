@@ -110,7 +110,7 @@ inline HRESULT CPlayer_Posin::SetUp_Components()
 void CPlayer_Posin::LookAt_Targeting()
 {
 	list<CGameObject*>* Monster = GAMEINSTANCE->Get_Player_GameObject()->Get_Component<CTargeting>()->Get_Targetting();
-	if (!Monster->empty())
+	if (!Monster->empty() || !m_pBoxObject)
 	{
 		for (auto& elem : *Monster)
 		{
@@ -118,8 +118,15 @@ void CPlayer_Posin::LookAt_Targeting()
 			{
 				m_pTransformCom->LookAt(elem->Get_Component<CTransform>(), true);
 
-				CGameObject* Box = GAMEINSTANCE->Add_GameObject<CTargetingBox>(CURRENT_LEVEL,
-					TEXT("Targeting"),elem->Get_Component<CTransform>());
+				if (!m_pBoxObject)
+				{
+					m_pBoxObject = GAMEINSTANCE->Add_GameObject<CTargetingBox>(CURRENT_LEVEL,
+						TEXT("Targeting"), elem->Get_Component<CTransform>());
+
+					WEAK_PTR(m_pBoxObject);
+					break;
+				}
+
 			}
 		}
 	}
@@ -150,6 +157,8 @@ CGameObject* CPlayer_Posin::Clone(void* pArg)
 void CPlayer_Posin::Free()
 {
 	__super::Free();
+
+	RETURN_WEAKPTR(m_pBoxObject);
 
 	delete this;
 }

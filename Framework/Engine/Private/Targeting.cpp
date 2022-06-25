@@ -95,5 +95,13 @@ void CTargeting::Free()
 {
 	__super::Free();
 
+	for (auto& elem : m_pTargeting)
+	{
+		if (elem)
+			elem->Return_WeakPtr(&elem);
+	}
+	m_pTargeting.clear();
+
+
 	delete this;
 }

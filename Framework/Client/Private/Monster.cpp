@@ -33,8 +33,8 @@ void CMonster::Tick(_float fTimeDelta)
 	ISVALID(m_pPlayerTransformCom, );
 	ISVALID(m_pTransformCom, );
 
-	m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
-	m_pTransformCom->Go_BackAndForth(2.5, fTimeDelta);
+	/*m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
+	m_pTransformCom->Go_BackAndForth(2.5, fTimeDelta);*/
 
 	
 	_float3 MyScreenPos;
@@ -125,7 +125,6 @@ void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 		{
 			Set_Dead();
 		}
-		
 	}
 
 }

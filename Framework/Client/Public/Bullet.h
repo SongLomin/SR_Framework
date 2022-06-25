@@ -38,7 +38,7 @@ private:
     CTransform* m_pPosinTransformCom = nullptr;
 
 public:
-    void Link_PosinTransform(CTransform* pTransform);
+    void Link_PosinTransform(CTransform* _pTransform);
 
 public: /* For Event Function */
     virtual void On_Collision_Enter(CCollider* _Other_Collider) override;

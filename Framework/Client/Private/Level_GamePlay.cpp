@@ -45,8 +45,11 @@ HRESULT CLevel_GamePlay::Initialize()
 		return E_FAIL;
 
 
-	if (!GAMEINSTANCE->Add_GameObject<CMonster>(LEVEL_GAMEPLAY, TEXT("Monster")))
-		return E_FAIL;
+	for (int i = 0; i < 5; i++)
+	{
+		GAMEINSTANCE->Add_GameObject<CMonster>(LEVEL_GAMEPLAY, TEXT("Monster"))
+			->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(i * 5.f, 0.f, 0.f));
+	}
 
 	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_GAMEPLAY, TEXT("Terrain")))
 		return E_FAIL;

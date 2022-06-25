@@ -118,6 +118,10 @@ void CTargetingBox::Free()
 {
 	__super::Free();
 
+	RETURN_WEAKPTR(m_pTransformCom);
+	RETURN_WEAKPTR(m_pRendererCom);
+	RETURN_WEAKPTR(m_pVIBufferCom);
+
 
 	delete this;
 }

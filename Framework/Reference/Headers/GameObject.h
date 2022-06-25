@@ -24,7 +24,7 @@ public:
 	void Set_Controller(const CONTROLLER& _eController);
 	CONTROLLER Get_Controller() { return m_eController; };
 
-	void Set_Dead() { m_bDead = true; }
+	void Set_Dead();
 	bool Get_Dead() const { return m_bDead; }
 
 protected: 

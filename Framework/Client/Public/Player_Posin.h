@@ -33,6 +33,9 @@ private:
     _float m_fTime = 0.f;
 
 private:
+    CGameObject* m_pBoxObject = nullptr;
+
+private:
     HRESULT SetUp_Components();
     void    LookAt_Targeting();
 

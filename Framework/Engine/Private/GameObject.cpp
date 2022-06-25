@@ -85,6 +85,26 @@ void CGameObject::Set_Controller(const CONTROLLER& _eController)
 
 }
 
+void CGameObject::Set_Dead()
+{
+	m_bDead = true;
+
+	CTransform* pMyTransform = Get_Component<CTransform>();
+
+	if (!pMyTransform)
+	{
+		return;
+	}
+
+	list<CTransform*>* pMyChildren = pMyTransform->Get_Children();
+
+	for (auto& elem : *pMyChildren)
+	{
+		elem->Get_Owner()->Set_Dead();
+	}
+
+}
+
 //컨트롤러가 변경될 때 호출된다.
 void CGameObject::On_Change_Controller(const CONTROLLER& _IsAI)
 {

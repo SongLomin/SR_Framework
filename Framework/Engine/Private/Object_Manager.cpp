@@ -138,6 +138,7 @@ void CObject_Manager::Free()
 			{
 				Safe_Release(elem_GameObject);
 			}
+			int i = 0;
 		}
 		m_pLayers[i].clear();
 	}

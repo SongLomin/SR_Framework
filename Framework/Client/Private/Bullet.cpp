@@ -28,28 +28,6 @@ HRESULT CBullet::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pRendererCom = Add_Component<CRenderer>();
-	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
-
-
-	m_pMeshCom = Add_Component<CMesh_Cube>();
-	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
-	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
-
-
-	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER_ATTACK;
-	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
-	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
-	m_pColliderCom->Link_Transform(m_pTransformCom);
-
-	_float3 ColliderSize = m_pTransformCom->Get_Scaled();
-	_float3 RenderScale = _float3(0.2f, 0.1f, 10.f);
-	ColliderSize.x *= RenderScale.x;
-	ColliderSize.y *= RenderScale.y;
-	ColliderSize.z *= RenderScale.z;
-
-	m_pColliderCom->Set_Collider_Size(ColliderSize);
-
 	return S_OK;
 }
 
@@ -89,11 +67,11 @@ HRESULT CBullet::Render()
 
 
 
-void CBullet::Link_PosinTransform(CTransform* pTransform)
+void CBullet::Link_PosinTransform(CTransform* _pTransform)
 {
-	m_pPosinTransformCom = pTransform;
+	m_pPosinTransformCom = _pTransform;
 
-	m_pPosinTransformCom->Set_WeakPtr(&m_pTransformCom);
+	m_pPosinTransformCom->Set_WeakPtr(&m_pPosinTransformCom);
 
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_RIGHT, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_RIGHT, true));
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_UP, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_UP, true));
@@ -117,6 +95,7 @@ void CBullet::On_Collision_Enter(CCollider* _Other_Collider)
 
 void CBullet::On_Collision_Stay(CCollider* _Other_Collider)
 {
+	
 }
 
 void CBullet::On_Collision_Exit(CCollider* _Other_Collider)
@@ -154,6 +133,28 @@ inline HRESULT CBullet::SetUp_Components()
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
+	m_pRendererCom = Add_Component<CRenderer>();
+	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
+
+
+	m_pMeshCom = Add_Component<CMesh_Cube>();
+	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
+	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
+
+
+	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER_ATTACK;
+	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
+	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
+	m_pColliderCom->Link_Transform(m_pTransformCom);
+
+	_float3 ColliderSize = m_pTransformCom->Get_Scaled();
+	_float3 RenderScale = _float3(0.2f, 0.1f, 0.2f);
+	ColliderSize.x *= RenderScale.x;
+	ColliderSize.y *= RenderScale.y;
+	ColliderSize.z *= RenderScale.z;
+
+	m_pColliderCom->Set_Collider_Size(ColliderSize);
+
 	return S_OK;
 }
 
@@ -171,7 +172,19 @@ CGameObject* CBullet::Clone(void* pArg)
 
 void CBullet::Free()
 {
+	if (m_pPosinTransformCom)
+		m_pPosinTransformCom->Return_WeakPtr(&m_pPosinTransformCom);
+
+	if (m_pMeshCom)
+		m_pMeshCom->Return_WeakPtr(&m_pMeshCom);
+
+	if (m_pRendererCom)
+		m_pRendererCom->Return_WeakPtr(&m_pRendererCom);
+
 	__super::Free();
+
+	
+
 
 	delete this;
 }
