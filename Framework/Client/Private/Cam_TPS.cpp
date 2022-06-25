@@ -72,8 +72,8 @@ void CCam_TPS::Tick(_float fTimeDelta)
 		}
 		else
 		{
-			_float fDirX = pt.x - g_iWinCX*0.5f;
-			_float fDirY = pt.y - g_iWinCY*0.5f;
+			_float fDirX = (pt.x-g_iWinCX*0.5f) - m_vCurPos.x;
+			_float fDirY = (pt.y-g_iWinCY*0.5f) - m_vCurPos.y;
 
 			m_fAccelX = fDirX / (72.f*100.f);
 			m_fAccelY = fDirY / (72.f*100.f);
