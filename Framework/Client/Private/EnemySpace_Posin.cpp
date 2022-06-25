@@ -63,9 +63,7 @@ void CEnemySpace_Posin::LateTick(_float fTimeDelta)
 
 HRESULT CEnemySpace_Posin::Render()
 {
-
-
-	m_pTransformCom->Scaling(_float3(0.4f, 0.24f, 1.6f), true);
+	m_pTransformCom->Scaling(_float3(0.4f, 0.30f, 1.6f), true);
 
 	m_pTransformCom->Bind_WorldMatrix(D3D_ALL, D3D_ALL);
 
@@ -102,8 +100,6 @@ HRESULT CEnemySpace_Posin::SetUp_Components()
 
 void CEnemySpace_Posin::LookAt_Player()
 {
-
-
 	m_pTransformCom->LookAt(m_pPlayerTransformCom, true);
 }
 

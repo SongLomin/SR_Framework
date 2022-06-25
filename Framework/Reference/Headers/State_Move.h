@@ -41,7 +41,6 @@ public:
 	CRigid_Body* m_pRigidBody = nullptr;
 	CTransform* m_pTransform = nullptr;
 	CTransform* m_pPlayerTransform = nullptr;
-
 public:
 
 	STATE_MOVE    m_ePreState = STATE_MOVE::STATE_END;

@@ -267,6 +267,14 @@ namespace Engine
 		STATE_END
 	};
 
+	enum class STATE_ATTACK
+	{
+		ATTACK_BULLET,
+		ATTACK_LAGER,
+		ATTACK_REST,
+		ATTACK_END
+	};
+
 	enum class STATE
 	{
 		STATE_MOVE,
