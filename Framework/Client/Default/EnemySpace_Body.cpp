@@ -150,11 +150,12 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	Posin->Set_WeakPtr(&m_pPosinList.back());
 
 
-	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
-	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
-	m_pColliderCom->Link_Transform(m_pTransformCom);
-	m_pColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
-	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
+	// 구충돌 먼저 하고 키면 됨.
+	//COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
+	//m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
+	//m_pColliderCom->Link_Transform(m_pTransformCom);
+	//m_pColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
+	//m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 
 
 	return S_OK;
