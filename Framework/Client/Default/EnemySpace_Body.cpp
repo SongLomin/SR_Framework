@@ -84,9 +84,16 @@ HRESULT CEnemySpace_Body::Render()
 HRESULT CEnemySpace_Body::SetUp_Components()
 {
 
+	CStatus::STATUS Status;
+	Status.fHp = 20.f;
+	Status.fAttack = 1.f;
+	Status.fArmor = 5.f;
+
+	m_pStatusCom = Add_Component<CStatus>(&Status);
+	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
+
 
 	m_pRendererCom = Add_Component<CRenderer>();
-
 	m_pRendererCom->Set_WeakPtr((void**)&m_pRendererCom);
 	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
 
@@ -143,6 +150,13 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	Posin->Set_WeakPtr(&m_pPosinList.back());
 
 
+	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
+	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
+	m_pColliderCom->Link_Transform(m_pTransformCom);
+	m_pColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
+	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
+
+
 	return S_OK;
 }
 
@@ -191,4 +205,25 @@ void CEnemySpace_Body::Free()
 	__super::Free();
 
 	delete this;
+}
+
+void CEnemySpace_Body::On_Collision_Enter(CCollider* _Other_Collider)
+{
+	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::PLAYER_ATTACK)
+	{
+		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+
+		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
+		{
+			Set_Dead();
+		}
+	}
+}
+
+void CEnemySpace_Body::On_Collision_Stay(CCollider* _Other_Collider)
+{
+}
+
+void CEnemySpace_Body::On_Collision_Exit(CCollider* _Other_Collider)
+{
 }
