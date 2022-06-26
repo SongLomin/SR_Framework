@@ -33,9 +33,22 @@ void CState::Link_AiTransform(CTransform* pAiTransform)
 	m_pTransform->Set_WeakPtr((void**)m_pTransform);
 }
 
+void CState::Link_PosinTransform(CTransform* pPosinTransform)
+{
+	m_pTransform = pPosinTransform;
+	m_pTransform->Set_WeakPtr((void**)m_pTransform);
+}
+
+void CState::Link_BulletTrnasform(CTransform* pBulletTransform)
+{
+	m_pTransform = pBulletTransform;
+	m_pTransform->Set_WeakPtr((void**)m_pTransform);
+}
+
 
 
 void CState::Free()
 {
 	__super::Free();
+
 }

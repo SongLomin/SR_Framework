@@ -25,6 +25,8 @@ public:
 public:
 	void Link_RigidBody(CRigid_Body* pRigidBody);
 	void Link_AiTransform(CTransform* m_pAiTransform);
+	void Link_PosinTransform(CTransform* pPosinTransform);
+	void Link_BulletTrnasform(CTransform* pBulletTransform);
 
 protected:
 	CRigid_Body* m_pRigidBody = nullptr;
