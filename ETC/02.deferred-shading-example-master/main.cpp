@@ -14,6 +14,8 @@
   * D3DLIGHT_SPOT
   */
 #define LIGHT_TYPE D3DLIGHT_POINT
+//#define LIGHT_TYPE D3DLIGHT_DIRECTIONAL
+//#define LIGHT_TYPE D3DLIGHT_SPOT
 
   /*
    * in x-y plane, place plenty of balls and show the moving lights
@@ -25,14 +27,15 @@
 
 IDirect3DDevice9* Device = 0;
 
-const int Width = 640;
-const int Height = 480;
+const int Width = 1920;
+const int Height = 1080;
 const float ScreenSize[2] = { (float)Width, (float)Height };
 
 const float Fov = D3DX_PI * 0.5f;
 const float ViewAspect = (float)Width / (float)Height;
 const float TanHalfFov = tanf(Fov / 2);
 
+ID3DXMesh* ObjectMesh = 0;
 ID3DXMesh* sphereMesh = 0;
 const int meshComplexity = 50;
 const int sphereMeshRadius = 1.0;
@@ -128,6 +131,7 @@ bool SetupTexture(IDirect3DTexture9** texture, IDirect3DSurface9** surface)
 bool Setup()
 {
 	D3DXCreateSphere(Device, sphereMeshRadius, 50, 50, &sphereMesh, 0);
+	D3DXCreateBox(Device, 1, 1, 2, &ObjectMesh, 0);
 
 	/* load shaders */
 	if (!SetupEffect("GBuffer.hlsl", &g_buffer_effect)) {
@@ -170,6 +174,8 @@ bool Setup()
 		&vb,
 		0
 	);
+
+	srand((unsigned int)time(nullptr));
 
 	/* screen quad coordinates
 
@@ -254,6 +260,12 @@ void DrawSphere()
 	sphereMesh->DrawSubset(0);
 }
 
+void DrawObject()
+{
+	Device->SetFVF(D3DFVF_XYZ | D3DFVF_NORMAL);
+	ObjectMesh->DrawSubset(0);
+}
+
 void DeferredPipeline()
 {
 	/* G-buffer stage */
@@ -267,6 +279,7 @@ void DeferredPipeline()
 	D3DXHANDLE worldHandle = g_buffer_effect->GetParameterByName(0, "world");
 	D3DXHANDLE viewHandle = g_buffer_effect->GetParameterByName(0, "view");
 	D3DXHANDLE projHandle = g_buffer_effect->GetParameterByName(0, "proj");
+	D3DXHANDLE ColorHandle = g_buffer_effect->GetParameterByName(0, "Color");
 
 	g_buffer_effect->SetMatrix(viewHandle, &view);
 	g_buffer_effect->SetMatrix(projHandle, &proj);
@@ -282,11 +295,19 @@ void DeferredPipeline()
 			D3DXMatrixTranslation(&world, x, y, 0);
 			g_buffer_effect->SetMatrix(worldHandle, &world);
 
+			float floatArray[3];
+			floatArray[0] = 1.f / (X_Y_PLANE_LIMIT - 1) * x;
+			floatArray[1] = 1.f / (X_Y_PLANE_LIMIT - 1) * y;
+			floatArray[2] = floatArray[0] * 0.5f + floatArray[1] * 0.5f;
+
+			g_buffer_effect->SetFloatArray(ColorHandle, floatArray, 3);
+
+
 			g_buffer_effect->Begin(&numPasses, 0);
 			for (int i = 0; i < numPasses; i++)
 			{
 				g_buffer_effect->BeginPass(i);
-				DrawSphere();
+				DrawObject();
 				g_buffer_effect->EndPass();
 			}
 			g_buffer_effect->End();
@@ -443,6 +464,7 @@ void DeferredPipeline()
 		}
 		effect->End();
 
+		
 		Device->StretchRect(originRenderTarget, NULL, stashSurface, NULL, D3DTEXF_NONE);
 	}
 
@@ -531,6 +553,7 @@ bool Display(float timeDelta)
 void Cleanup()
 {
 	d3d::Release<ID3DXMesh*>(sphereMesh);
+	d3d::Release<ID3DXMesh*>(ObjectMesh);
 }
 
 LRESULT CALLBACK d3d::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)

@@ -43,21 +43,6 @@ HRESULT CPlayer_Body::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
-
-	//GAMEINSTANCE->Add_GameObject<CPlayer_RightBody>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
-
-	//GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
-	//	->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
-
-	//GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
-	//	->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-3.f, 1.5f, 0.f));
-
-	////GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
-
-	//GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom);
-
-	//GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom)
-	//	->Get_Component<CTransform>()->Rotation(_float3(0.f, 1.f, 0.f), 30);
 	
 	return S_OK;
 }
@@ -359,11 +344,10 @@ void CPlayer_Body::On_Change_Controller(const CONTROLLER& _IsAI)
 {
 	if (_IsAI == CONTROLLER::PLAYER)
 	{
+		//이 게임오브젝트가 플레이어라면, 카메라에게 이 게임 오브젝트를 보도록 하겠다.
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
-		//if(m_pCameraPosin)
-		//	m_pCameraPosin->Link_CameraTransfrom(GAMEINSTANCE->Get_Camera(TEXT("TPS"))->Get_Owner()->Get_Component<CTransform>());
 	}
 }
 

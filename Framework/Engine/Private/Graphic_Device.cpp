@@ -174,6 +174,9 @@ void CGraphic_Device::Render_End(HWND hWnd)
 	// 3인자 : 출력 대상 윈도우 핸들, 기본 nullptr인 경우 d3dpp.hDeviceWindow을 참조
 	// 4인자 :  스왑체인 기법이 D3DSWAPEFFECT_COPY가 아닌 이상 NULL
 
+	IDirect3DSurface9* originRenderTarget = nullptr;
+
+	m_pDevice->GetRenderTarget(0, &originRenderTarget);
 }
 
 HRESULT CGraphic_Device::Add_Text(TEXTINFO Info, float CountTime)

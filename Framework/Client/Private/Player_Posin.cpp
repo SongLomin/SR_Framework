@@ -154,6 +154,8 @@ _bool CPlayer_Posin::LookAt_Targeting()
 	m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>(), true);
 
 	m_pBoxObject->Set_Enable(true);
+
+	return true;
 }
 
 void CPlayer_Posin::LookAt_Aim()

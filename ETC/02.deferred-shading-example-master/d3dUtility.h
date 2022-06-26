@@ -2,6 +2,7 @@
 
 #include <d3dx9.h>
 #include <string>
+#include <ctime>
 
 namespace d3d
 {
