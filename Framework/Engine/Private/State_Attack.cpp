@@ -1,4 +1,6 @@
 #include "State_Attack.h"
+#include "GameInstance.h"
+
 
 CState_Attack::CState_Attack(const CState_Attack& Prototype)
 {

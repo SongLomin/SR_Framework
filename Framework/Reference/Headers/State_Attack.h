@@ -33,12 +33,6 @@ public:
 	void Link_Transform(CTransform* pTransform);
 
 public:
-	CRigid_Body* m_pRigidBody = nullptr;
-	CTransform* m_pTransform = nullptr;
-	CTransform* m_pPlayerTransform = nullptr;
-
-public:
-
 	STATE_ATTACK    m_ePreState = STATE_ATTACK::ATTACK_END;
 	STATE_ATTACK    m_eCurState = STATE_ATTACK::ATTACK_BULLET;
 

@@ -4,6 +4,9 @@
 
 BEGIN(Engine)
 
+class CTransform;
+class CRigid_Body;
+
 class ENGINE_DLL CState abstract : public CComponent
 {
 	
