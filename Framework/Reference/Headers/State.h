@@ -23,7 +23,6 @@ public:
 	virtual HRESULT Render() { return S_OK; };
 
 public:
-	void State_Change(CTransform* pPlayerTransform, _float fTimeDelta);
 	void Link_RigidBody(CRigid_Body* pRigidBody);
 	void Link_Transform(CTransform* pTransform);
 
@@ -31,6 +30,8 @@ protected:
 	CRigid_Body* m_pRigidBody = nullptr;
 	CTransform* m_pTransform = nullptr;
 	CTransform* m_pPlayerTransform = nullptr;
+	CTransform* m_pPosinTransform = nullptr;
+	CTransform* m_pBulletTransform = nullptr;
 
 protected:
 	_float	 m_fCurTime = 0.f;

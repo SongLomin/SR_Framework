@@ -43,9 +43,6 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 
 	ISVALID(m_pTransformCom);
 
-	
-
- 
 	m_pStateCom->State_Change(m_pPlayerTransformCom,fTimeDelta);
     
 }
@@ -87,7 +84,7 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 10.f;
-	RigidBodyDesc.m_fOwnerAccel = 0.1f;
+	RigidBodyDesc.m_fOwnerAccel = 0.5f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
 	RigidBodyDesc.m_fOwnerJump = 5.f;
@@ -109,7 +106,7 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
 	
-	m_pStateCom = Add_Component<Engine::CState_Move>();
+	m_pStateCom = Add_Component<CState_Move>();
 	m_pStateCom->Set_WeakPtr((void**)m_pStateCom);
 	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
 	m_pStateCom->Link_Transform(m_pTransformCom);

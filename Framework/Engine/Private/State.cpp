@@ -19,16 +19,18 @@ HRESULT CState::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CState::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)
-{
-}
+
 
 void CState::Link_RigidBody(CRigid_Body* pRigidBody)
 {
+	m_pRigidBody = pRigidBody;
+	m_pRigidBody->Set_WeakPtr((void**)m_pRigidBody);
 }
 
 void CState::Link_Transform(CTransform* pTransform)
 {
+	m_pTransform = pTransform;
+	m_pTransform->Set_WeakPtr((void**)m_pTransform);
 }
 
 
