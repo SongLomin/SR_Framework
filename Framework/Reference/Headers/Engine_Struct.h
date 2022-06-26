@@ -258,7 +258,7 @@ namespace Engine
 	enum class STATE_MOVE 
 	{ 
 		MOVE_UPPER_LEFT, 
-		MOVE_UPPER_FRONT, 
+		MOVE_DOWN_FRONT, 
 		MOVE_LIFT_FRONT, 
 		MOVE_LIFT_BACK, 
 		MOVE_JUMP_FRONT, 

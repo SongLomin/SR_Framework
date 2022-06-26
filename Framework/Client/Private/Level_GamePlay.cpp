@@ -16,6 +16,7 @@
 #include <TargetingBox.h>
 #include <UITest.h>
 #include <SkyBox.h>
+#include "Rock.h"
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -64,6 +65,12 @@ HRESULT CLevel_GamePlay::Initialize()
 
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_GAMEPLAY, TEXT("Aim")))
 		return E_FAIL;
+
+	for (int i = 0; i < 30; ++i)
+	{
+		if (!GAMEINSTANCE->Add_GameObject<CRock>(LEVEL_GAMEPLAY, TEXT("Rock")))
+			return E_FAIL;
+	}
 
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
 	//	return E_FAIL;

@@ -94,8 +94,11 @@
     <Filter Include="02.GameObject\02. Monster\EnemySpace\Bullet">
       <UniqueIdentifier>{0f9994a7-dc98-4ffe-864a-1a7be8aa1559}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\02. Monster\EnemySpace\Bullet\Parts">
+    <Filter Include="02.GameObject\02. Monster\EnemySpace\Parts">
       <UniqueIdentifier>{b3d972e1-ddd4-4930-976b-1b450e1465a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\05. Rock">
+      <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -166,10 +169,10 @@
       <Filter>02.GameObject\02. Monster\EnemySpace</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\EnemySpace_RightBody.h">
-      <Filter>02.GameObject\02. Monster\EnemySpace\Bullet\Parts</Filter>
+      <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\EnemySpace_Posin.h">
-      <Filter>02.GameObject\02. Monster\EnemySpace\Bullet\Parts</Filter>
+      <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\SkyBox.h">
       <Filter>02.GameObject\10. SkyBox</Filter>
@@ -188,6 +191,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\EnemySpace_Bullet.h">
       <Filter>02.GameObject\02. Monster\EnemySpace\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h">
+      <Filter>02.GameObject\05. Rock</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -249,10 +255,10 @@
       <Filter>02.GameObject\02. Monster\EnemySpace</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\EnemySpace_RightBody.cpp">
-      <Filter>02.GameObject\02. Monster\EnemySpace\Bullet\Parts</Filter>
+      <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\EnemySpace_Posin.cpp">
-      <Filter>02.GameObject\02. Monster\EnemySpace\Bullet\Parts</Filter>
+      <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\SkyBox.cpp">
       <Filter>02.GameObject\10. SkyBox</Filter>
@@ -271,6 +277,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\EnemySpace_Bullet.cpp">
       <Filter>02.GameObject\02. Monster\EnemySpace\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp">
+      <Filter>02.GameObject\05. Rock</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

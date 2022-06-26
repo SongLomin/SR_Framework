@@ -24,23 +24,17 @@ public:
 	virtual HRESULT Render() { return S_OK; };
 
 public:
-	void Move_Upper_Right(_float fTimeDelta);
-	void Move_Upper_Left(_float fTimeDelta);
-	void Move_Upper_Front(_float fTimeDelta);
-	void Move_Lift_Front(_float fTimeDelta);
-	void Move_Lift_Back(_float fTimeDelta);
-	void Move_Jump_Front(_float fTimeDelta);
+	void Move_Upper_Right();
+	void Move_Upper_Left();
+	void Move_Down_Front();
+	void Move_Lift_Front();
+	void Move_Lift_Back();
+	void Move_Jump_Front();
 	void Move_Chase_Player(CTransform* pPlayerTransform, _float fTimeDelta);
 
 public:
 	void State_Change(CTransform* pPlayerTransform, _float fTimeDelta);
-	void Link_RigidBody(CRigid_Body* pRigidBody);
-	void Link_Transform(CTransform* pTransform);
 
-public:
-	CRigid_Body* m_pRigidBody = nullptr;
-	CTransform* m_pTransform = nullptr;
-	CTransform* m_pPlayerTransform = nullptr;
 public:
 
 	STATE_MOVE    m_ePreState = STATE_MOVE::STATE_END;

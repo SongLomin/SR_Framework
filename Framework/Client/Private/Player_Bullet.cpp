@@ -39,12 +39,6 @@ void CPlayer_Bullet::Tick(_float fTimeDelta)
 	{
 		Set_Dead();
 	}
-
-
-	/*m_pTransformCom->Go_BackAndForth(80.f, fTimeDelta);
-	m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK), 10.f, fTimeDelta);*/
-
-	
 }
 
 void CPlayer_Bullet::LateTick(_float fTimeDelta)
