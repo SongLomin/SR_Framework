@@ -109,7 +109,7 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pStateCom = Add_Component<CState_Move>();
 	m_pStateCom->Set_WeakPtr((void**)m_pStateCom);
 	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
-	m_pStateCom->Link_Transform(m_pTransformCom);
+	m_pStateCom->Link_AiTransform(m_pTransformCom);
 
 
 	GAMEINSTANCE->Add_GameObject<CEnemySpace_RightBody>(CURRENT_LEVEL, TEXT("EnemySpace_RightBody"), m_pTransformCom);

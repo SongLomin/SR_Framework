@@ -24,12 +24,12 @@ public:
 
 public:
 	void Link_RigidBody(CRigid_Body* pRigidBody);
-	void Link_Transform(CTransform* pTransform);
+	void Link_AiTransform(CTransform* m_pAiTransform);
 
 protected:
 	CRigid_Body* m_pRigidBody = nullptr;
 	CTransform* m_pTransform = nullptr;
-	CTransform* m_pPlayerTransform = nullptr;
+	CTransform* m_pAiTransform = nullptr;
 	CTransform* m_pPosinTransform = nullptr;
 	CTransform* m_pBulletTransform = nullptr;
 
