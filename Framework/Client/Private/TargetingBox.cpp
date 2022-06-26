@@ -100,7 +100,7 @@ void CTargetingBox::LookAtCamera()
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, *(_float3*)&ViewMatrix.m[2][0] * -1.f + vWorldPos,true);
 
-	m_pTransformCom->Scaling(Scaled * 2.5f, true);
+	m_pTransformCom->Scaling(Scaled * 3.5f, true);
 }
 
 CTargetingBox* CTargetingBox::Create()

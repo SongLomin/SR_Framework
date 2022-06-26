@@ -26,8 +26,6 @@ HRESULT CEnemySpace_Body::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pPlayerTransformCom = CGameInstance::Get_Instance()->Get_Player_GameObject()->Get_Component<CTransform>();
-	m_pPlayerTransformCom->Set_WeakPtr((void**)&m_pPlayerTransformCom);
 
 	
 	GAMEINSTANCE->Add_GameObject<CTargetingBox>(CURRENT_LEVEL,
@@ -43,18 +41,30 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 
 	ISVALID(m_pTransformCom);
 
-	
-
  
 	m_pStateCom->State_Change(m_pPlayerTransformCom,fTimeDelta);
+
+
     
 }
 
 void CEnemySpace_Body::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
+
+
+	m_fTime -= fTimeDelta;
+	if (m_fTime < 0.f)
+	{
+		m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player_Body")), m_pTransformCom);
+		Update_Target();
+		m_fTime = 1.f;
+	}
+
+
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+
 }
 
 HRESULT CEnemySpace_Body::Render()
@@ -115,15 +125,54 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pStateCom->Link_Transform(m_pTransformCom);
 
 
+	m_pTargetingCom = Add_Component<CTargeting>();
+	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
+
+
 	GAMEINSTANCE->Add_GameObject<CEnemySpace_RightBody>(CURRENT_LEVEL, TEXT("EnemySpace_RightBody"), m_pTransformCom);
 
-	GAMEINSTANCE->Add_GameObject<CEnemySpace_Posin>(CURRENT_LEVEL, TEXT("EnemySpace_Posin"), m_pTransformCom)
-		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
 
-	GAMEINSTANCE->Add_GameObject<CEnemySpace_Posin>(CURRENT_LEVEL, TEXT("EnemySpace_Posin"), m_pTransformCom)
-		->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
+	CEnemySpace_Posin* Posin = static_cast<CEnemySpace_Posin*>(GAMEINSTANCE->Add_GameObject<CEnemySpace_Posin>(CURRENT_LEVEL, TEXT("EnemySpace_Posin"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
+	m_pPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pPosinList.back());
+
+	Posin = static_cast<CEnemySpace_Posin*>(GAMEINSTANCE->Add_GameObject<CEnemySpace_Posin>(CURRENT_LEVEL, TEXT("EnemySpace_Posin"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
+	m_pPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pPosinList.back());
+
 
 	return S_OK;
+}
+
+void CEnemySpace_Body::Update_Target()
+{
+	map<_float, CGameObject*>* TargetList = m_pTargetingCom->Get_Targetting();
+
+	if (TargetList->empty())
+	{
+		for (auto iter = m_pPosinList.begin(); iter != m_pPosinList.end();)
+		{
+			(*iter)->Set_Target(nullptr);
+			++iter;
+		}
+		return;
+	}
+
+	vector<CGameObject*> TargetVec;
+
+	for (auto& elem : *TargetList)
+	{
+		TargetVec.push_back(elem.second);
+	}
+
+	for (auto& elem : m_pPosinList)
+	{
+		
+		elem->Set_Target(TargetVec.front());
+	}
+
 }
 
 

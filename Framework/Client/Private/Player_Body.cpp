@@ -164,12 +164,12 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 		2,
 		14, 300);
 
-	m_fTime += fTimeDelta;
-	if (m_fTime > 1.f)
+	m_fTime -= fTimeDelta;
+	if (m_fTime < 0.f)
 	{
-		m_pTargetingCom->Make_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")));
+		m_pTargetingCom->Make_Player_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")));
 		Update_PosinTarget();
-		m_fTime = 0.f;
+		m_fTime = 1.f;
 	}
 
 }
