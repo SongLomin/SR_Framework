@@ -7,18 +7,16 @@ BEGIN(Engine)
 class CRenderer;
 class CTransform;
 class CVIBuffer_Rect;
-class CMesh_Test;
-class CMesh_SongShip;
 END
 
 BEGIN(Client)
 
-class CUITest final : public CGameObject
+class CLogo final : public CGameObject
 {
 private:
-    explicit CUITest();
-    explicit CUITest(const CUITest& Prototype);
-    virtual ~CUITest() = default;
+    explicit CLogo() = default;
+    explicit CLogo(const CLogo& Prototype);
+    virtual ~CLogo() = default;
 
 public:
     // CGameObject을(를) 통해 상속됨
@@ -29,6 +27,10 @@ public:
     virtual HRESULT Render() override;
 
 private:
+    _float					m_fX, m_fY, m_fSizeX, m_fSizeY;
+    _float4x4				m_ProjMatrix;
+
+private:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
     CVIBuffer_Rect* m_pVIBufferCom = nullptr;
@@ -37,10 +39,10 @@ private:
     HRESULT SetUp_Components();
 
 public:
-    static CUITest* Create();
+    static CLogo* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 };
 
-END
 
+END

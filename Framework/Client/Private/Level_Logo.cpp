@@ -6,7 +6,9 @@
 #include "Monster.h"
 #include "Terrain.h"
 #include "Cam_Free.h"
+#include "Cam_FPS.h"
 #include "UITest.h"
+#include "Logo.h"
 
 CLevel_Logo::CLevel_Logo()
 {
@@ -18,7 +20,10 @@ HRESULT CLevel_Logo::Initialize()
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
 
+	\
 	
+	if (!GAMEINSTANCE->Add_GameObject<CLogo>(LEVEL_LOGO, TEXT("Logo")))
+		return E_FAIL;
 
 	return S_OK;
 }
@@ -38,13 +43,7 @@ void CLevel_Logo::Tick(_float fTimeDelta)
 		//Safe_Release(pGameInstance);
 	}
 
-	if (GetKeyState('1') & 0x8000)
-	{
-		CGameInstance* pGameInstance = CGameInstance::Get_Instance();
-
-		if (pGameInstance->Add_GameObject<CMonster>(LEVEL_LOGO, TEXT("Monster")))
-			return;
-	}
+	
 }
 
 HRESULT CLevel_Logo::Render()
@@ -52,7 +51,7 @@ HRESULT CLevel_Logo::Render()
 	if (FAILED(__super::Render()))
 		return E_FAIL;
 
-	SetWindowText(g_hWnd, TEXT("롷고레벨임. "));
+	SetWindowText(g_hWnd, TEXT("로고 레벨입니다. "));
 
 	return S_OK;
 }

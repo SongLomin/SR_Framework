@@ -68,7 +68,6 @@ void CState_Move::Move_Chase_Player(CTransform* pPlayerTransform, _float fTimeDe
 {
 	m_pTransform->Go_Target(pPlayerTransform, fTimeDelta);
 	m_pTransform->Go_BackAndForth(8.f, fTimeDelta);
-	
 }
 
 void CState_Move::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)

@@ -193,6 +193,7 @@
     <ClInclude Include="..\Public\UITest.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="EnemySpace_Body.h" />
+    <ClInclude Include="Logo.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Player_ProPeller.h" />
     <ClInclude Include="stdafx.h" />
@@ -224,6 +225,7 @@
     <ClCompile Include="..\Private\UITest.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="EnemySpace_Body.cpp" />
+    <ClCompile Include="Logo.cpp" />
     <ClCompile Include="Player_ProPeller.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

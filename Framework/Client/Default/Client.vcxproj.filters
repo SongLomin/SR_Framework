@@ -100,6 +100,9 @@
     <Filter Include="02.GameObject\05. Rock">
       <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
     </Filter>
+    <Filter Include="97. UITest\Logo">
+      <UniqueIdentifier>{6bb5c36a-72de-4ccf-81d5-8849cacc2d18}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -195,6 +198,9 @@
     <ClInclude Include="..\Public\Rock.h">
       <Filter>02.GameObject\05. Rock</Filter>
     </ClInclude>
+    <ClInclude Include="Logo.h">
+      <Filter>97. UITest\Logo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -280,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Rock.cpp">
       <Filter>02.GameObject\05. Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="Logo.cpp">
+      <Filter>97. UITest\Logo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

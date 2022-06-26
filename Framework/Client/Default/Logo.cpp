@@ -1,24 +1,19 @@
 #include "stdafx.h"
-#include "UITest.h"
+#include "Logo.h"
 #include "GameInstance.h"
-#include "Math_Utillity.h"
 
-CUITest::CUITest()
-{
-}
 
-CUITest::CUITest(const CUITest& Prototype)
+CLogo::CLogo(const CLogo& Prototype)
 {
 	*this = Prototype;
-	Add_Component<CTransform>();
 }
 
-HRESULT CUITest::Initialize_Prototype()
+HRESULT CLogo::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CUITest::Initialize(void* pArg)
+HRESULT CLogo::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
@@ -28,41 +23,37 @@ HRESULT CUITest::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CUITest::Tick(_float fTimeDelta)
+void CLogo::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	
-
-
 }
 
-void CUITest::LateTick(_float fTimeDelta)
+void CLogo::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_UI, this);
 }
 
-HRESULT CUITest::Render()
+HRESULT CLogo::Render()
 {
 	__super::Render();
 
 	m_pTransformCom->Bind_WorldMatrix();
 
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-	m_pRendererCom->Bind_Texture(1);
+	m_pRendererCom->Bind_Texture(0);
 	m_pVIBufferCom->Render();
-	
+
 	m_pRendererCom->UnBind_Texture();
 
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	
 
 	return S_OK;
 }
 
-HRESULT CUITest::SetUp_Components()
+HRESULT CLogo::SetUp_Components()
 {
 	Add_Component<CTransform>();
 
@@ -71,31 +62,29 @@ HRESULT CUITest::SetUp_Components()
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Rock"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Logo"), MEMORY_TYPE::MEMORY_STATIC);
 
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1.f, 1.f, 1.f));
-
-
-
-
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 0.f, 0.f));
+	m_pTransformCom->Scaling(_float3(1.f, 1.f, 1.f));
+	
 	return S_OK;
 }
 
-CUITest* CUITest::Create()
+CLogo* CLogo::Create()
 {
-	CREATE_PIPELINE(CUITest);
+	CREATE_PIPELINE(CLogo);
 }
 
-CGameObject* CUITest::Clone(void* pArg)
+CGameObject* CLogo::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CUITest);
+	CLONE_PIPELINE(CLogo);
 }
 
-void CUITest::Free()
+void CLogo::Free()
 {
 	__super::Free();
 

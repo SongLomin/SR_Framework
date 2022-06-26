@@ -125,7 +125,7 @@ void CGraphic_Device::Render_Begin(void)
 	m_pDevice->Clear(0,
 		nullptr,
 		D3DCLEAR_STENCIL | D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-		0x00000000,	// 백버퍼 색상
+		D3DCOLOR_ARGB(255, 0, 0, 255),	// 백버퍼 색상
 		1.f, // z버퍼의 초기화 값
 		0);	 // 스텐실 버퍼의 초기화 값
 
