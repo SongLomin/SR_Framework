@@ -238,7 +238,7 @@ HRESULT CPlayer_Body::SetUp_Components()
 	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);
 	m_pMeshCubeCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 10.f;
+	RigidBodyDesc.m_fOwnerSpeed = 40.f;
 	RigidBodyDesc.m_fOwnerAccel = 0.5f;
 	RigidBodyDesc.m_fOwnerRadSpeed= D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
@@ -250,7 +250,7 @@ HRESULT CPlayer_Body::SetUp_Components()
 	RigidBodyDesc.m_fRadZ = 0.01f;
 
 
-	RigidBodyDesc.m_fOwnerLiftSpeed = 10.f;
+	RigidBodyDesc.m_fOwnerLiftSpeed = 40.f;
 	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;
