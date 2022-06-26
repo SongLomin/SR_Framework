@@ -1,29 +1,27 @@
 #include "stdafx.h"
-#include "Bullet.h"
-#include "stdafx.h"
-#include "Bullet.h"
+#include "Player_Bullet.h"
 #include "GameInstance.h"
 #include "CameraPosin.h"
 #include "Collider_OBB.h"
 
 
-CBullet::CBullet()
+CPlayer_Bullet::CPlayer_Bullet()
 {
 }
 
-CBullet::CBullet(const CBullet& Prototype)
+CPlayer_Bullet::CPlayer_Bullet(const CPlayer_Bullet& Prototype)
 {
 	*this = Prototype;
 	//m_szName = L"Bullet";
 	Add_Component<CTransform>();
 }
 
-HRESULT CBullet::Initialize_Prototype()
+HRESULT CPlayer_Bullet::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CBullet::Initialize(void* pArg)
+HRESULT CPlayer_Bullet::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
@@ -31,7 +29,7 @@ HRESULT CBullet::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CBullet::Tick(_float fTimeDelta)
+void CPlayer_Bullet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
@@ -49,14 +47,14 @@ void CBullet::Tick(_float fTimeDelta)
 	
 }
 
-void CBullet::LateTick(_float fTimeDelta)
+void CPlayer_Bullet::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
-HRESULT CBullet::Render()
+HRESULT CPlayer_Bullet::Render()
 {
 	
 	m_pTransformCom->Scaling(_float3(0.2f, 0.1f, 10.f));
@@ -76,7 +74,7 @@ HRESULT CBullet::Render()
 
 
 
-void CBullet::Link_PosinTransform(CTransform* _pTransform)
+void CPlayer_Bullet::Link_PosinTransform(CTransform* _pTransform)
 {
 	m_pPosinTransformCom = _pTransform;
 
@@ -92,7 +90,7 @@ void CBullet::Link_PosinTransform(CTransform* _pTransform)
 	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 }
 
-void CBullet::On_Collision_Enter(CCollider* _Other_Collider)
+void CPlayer_Bullet::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER)
 	{
@@ -101,16 +99,16 @@ void CBullet::On_Collision_Enter(CCollider* _Other_Collider)
 
 }
 
-void CBullet::On_Collision_Stay(CCollider* _Other_Collider)
+void CPlayer_Bullet::On_Collision_Stay(CCollider* _Other_Collider)
 {
 	
 }
 
-void CBullet::On_Collision_Exit(CCollider* _Other_Collider)
+void CPlayer_Bullet::On_Collision_Exit(CCollider* _Other_Collider)
 {
 }
 
-inline HRESULT CBullet::SetUp_Components()
+inline HRESULT CPlayer_Bullet::SetUp_Components()
 {
 	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 
@@ -168,17 +166,17 @@ inline HRESULT CBullet::SetUp_Components()
 
 
 
-CBullet* CBullet::Create()
+CPlayer_Bullet* CPlayer_Bullet::Create()
 {
-	CREATE_PIPELINE(CBullet);
+	CREATE_PIPELINE(CPlayer_Bullet);
 }
 
-CGameObject* CBullet::Clone(void* pArg)
+CGameObject* CPlayer_Bullet::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CBullet);
+	CLONE_PIPELINE(CPlayer_Bullet);
 }
 
-void CBullet::Free()
+void CPlayer_Bullet::Free()
 {
 	if (m_pPosinTransformCom)
 		m_pPosinTransformCom->Return_WeakPtr(&m_pPosinTransformCom);

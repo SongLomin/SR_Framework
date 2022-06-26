@@ -2,7 +2,7 @@
 #include "EnemySpace_Posin.h"
 #include "GameInstance.h"
 #include "Math_Utillity.h"
-#include <Bullet.h>
+#include "EnemySpace_Bullet.h"
 
 
 
@@ -26,19 +26,12 @@ HRESULT CEnemySpace_Posin::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pRendererCom = Add_Component<CRenderer>();
-	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
 
-	m_pMeshCom = Add_Component<CMesh_Cube>();
-	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
-	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
+	
 
-	m_pPlayerTransformCom = CGameInstance::Get_Instance()->Get_Player_GameObject()->Get_Component<CTransform>();
-	m_pPlayerTransformCom->Set_WeakPtr((void**)&m_pPlayerTransformCom);
-
-
+	m_fCurTime = m_fMaxTime;
 
 	return S_OK;
 }
@@ -47,11 +40,18 @@ void CEnemySpace_Posin::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+	m_fCurTime -= fTimeDelta;
 
 
-	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f));
+	LookAt_Player();
 
-	m_pTransformCom->LookAt(m_pPlayerTransformCom);
+	if (m_fCurTime <= 0)
+	{
+		CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CEnemySpace_Bullet>(CURRENT_LEVEL, TEXT("EnemySpace_Bullet"));
+		((CEnemySpace_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
+
+		m_fCurTime = m_fMaxTime;
+	}
 }
 
 void CEnemySpace_Posin::LateTick(_float fTimeDelta)
@@ -63,11 +63,9 @@ void CEnemySpace_Posin::LateTick(_float fTimeDelta)
 
 HRESULT CEnemySpace_Posin::Render()
 {
-
+	m_pTransformCom->Scaling(_float3(0.4f, 0.30f, 1.6f), true);
 
 	m_pTransformCom->Bind_WorldMatrix(D3D_ALL, D3D_ALL);
-
-	m_pRendererCom->Bind_Texture(1);
 
 	__super::Render();
 	m_pMeshCom->Render_Mesh();
@@ -83,18 +81,26 @@ HRESULT CEnemySpace_Posin::Render()
 HRESULT CEnemySpace_Posin::SetUp_Components()
 {
 
-	m_pTransformCom = Get_Component<CTransform>();
+	m_pRendererCom = Add_Component<CRenderer>();
+	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
+
+	m_pMeshCom = Add_Component<CMesh_Cube>();
+	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
+	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
+
+	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
 
-
+	m_pPlayerTransformCom = CGameInstance::Get_Instance()->Get_Player_GameObject()->Get_Component<CTransform>();
+	m_pPlayerTransformCom->Set_WeakPtr((void**)&m_pPlayerTransformCom);
 
 	return S_OK;
 }
 
 void CEnemySpace_Posin::LookAt_Player()
 {
-
+	m_pTransformCom->LookAt(m_pPlayerTransformCom, true);
 }
 
 

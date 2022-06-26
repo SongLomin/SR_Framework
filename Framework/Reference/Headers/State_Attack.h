@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include "State.h"
 
 BEGIN(Engine)
@@ -8,13 +7,13 @@ BEGIN(Engine)
 class CTransform;
 class CRigid_Body;
 
-class ENGINE_DLL CState_Move final : public CState
+class ENGINE_DLL CState_Attack final : public CState
 {
 
 private:
-	CState_Move() = default;
-	CState_Move(const CState_Move& Prototype);
-	virtual ~CState_Move() = default;
+	CState_Attack() = default;
+	CState_Attack(const CState_Attack& Prototype);
+	virtual ~CState_Attack() = default;
 
 public:
 	virtual HRESULT Initialize_Prototype();
@@ -24,13 +23,9 @@ public:
 	virtual HRESULT Render() { return S_OK; };
 
 public:
-	void Move_Upper_Right(_float fTimeDelta);
-	void Move_Upper_Left(_float fTimeDelta);
-	void Move_Upper_Front(_float fTimeDelta);
-	void Move_Lift_Front(_float fTimeDelta);
-	void Move_Lift_Back(_float fTimeDelta);
-	void Move_Jump_Front(_float fTimeDelta);
-	void Move_Chase_Player(CTransform* pPlayerTransform, _float fTimeDelta);
+	void Attack_Bullet(_float fTimeDelta);
+	void Attack_Rager(_float fTimeDelta);
+	void Attack_Rest(_float fTimeDelta);
 
 public:
 	void State_Change(CTransform* pPlayerTransform, _float fTimeDelta);
@@ -41,19 +36,19 @@ public:
 	CRigid_Body* m_pRigidBody = nullptr;
 	CTransform* m_pTransform = nullptr;
 	CTransform* m_pPlayerTransform = nullptr;
-public:
-
-	STATE_MOVE    m_ePreState = STATE_MOVE::STATE_END;
-	STATE_MOVE    m_eCurState = STATE_MOVE::MOVE_UPPER_RIGHT;
-
 
 public:
-	static CState_Move* Create();
+
+	STATE_ATTACK    m_ePreState = STATE_ATTACK::ATTACK_END;
+	STATE_ATTACK    m_eCurState = STATE_ATTACK::ATTACK_BULLET;
+
+
+public:
+	static CState_Attack* Create();
 	virtual CComponent* Clone(void* pArg) override;
 	virtual void Free() override;
 
 };
 
-
-
 END
+
