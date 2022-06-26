@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Rock.h"
 #include "GameInstance.h"
+#include "Math_Utillity.h"
 
 CRock::CRock()
 {
@@ -25,6 +26,7 @@ HRESULT CRock::Initialize(void* pArg)
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(rand() % 500, rand() % 300, rand() % 500));
 
 	
+	
 
 	return S_OK;
 }
@@ -33,30 +35,35 @@ void CRock::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	
 }
 
 void CRock::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
-	LookAtCamera();
 
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+
+	LookAtCamera();
+
 }
 
 HRESULT CRock::Render()
 {
 
-	/*m_pTransformCom->Scaling(_float3(rand() % 20, rand() % 20, rand() % 20));*/
-
 	m_pTransformCom->Scaling(_float3(30.f, 30.f, 30.f), true);
 
 	m_pTransformCom->Bind_WorldMatrix();
 
-	m_pRendererCom->Bind_Texture(0);
+	//_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
 
+	//CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
+
+	//_float3 Look = m_pTransformCom->Get_State(CTransform::STATE_LOOK, true);
+
+	//GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);
 	
+	m_pRendererCom->Bind_Texture(0);
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 	DEVICE->SetRenderState(D3DRS_ALPHAREF, 253);
@@ -66,8 +73,8 @@ HRESULT CRock::Render()
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 
-
 	m_pRendererCom->UnBind_Texture();
+
 
 	return S_OK;
 }
@@ -98,20 +105,10 @@ void CRock::LookAtCamera()
 	DEVICE->GetTransform(D3DTS_VIEW, &ViewMatrix);
 	D3DXMatrixInverse(&ViewMatrix, nullptr, &ViewMatrix);
 
-
-	_float3 Scaled = m_pTransformCom->Get_Scaled();
-
-	
-
 	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, *(_float3*)&ViewMatrix.m[0][0], true);
 	m_pTransformCom->Set_State(CTransform::STATE_UP, *(_float3*)&ViewMatrix.m[1][0], true);
 	m_pTransformCom->Set_State(CTransform::STATE_LOOK, *(_float3*)&ViewMatrix.m[2][0], true);
 
-	_float3 vWorldPos = m_pTransformCom->Get_State(CTransform::STATE_POSITION, true);
-
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, *(_float3*)&ViewMatrix.m[2][0] * -1.f + vWorldPos, true);
-
-	m_pTransformCom->Scaling(Scaled * 2.5f, true);
 }
 
 CRock* CRock::Create()
