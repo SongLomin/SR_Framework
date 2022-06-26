@@ -27,6 +27,7 @@ HRESULT CCam_Shoulder::Initialize(void* pArg)
 	m_pCameraCom->Set_WeakPtr(&m_pCameraCom);
 	m_pCameraCom->Link_TransformCom(m_pTransformCom);
 
+	m_vPos = _float3(0.f, 0.f, 0.f);
 	////////////////
 	//CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	//RigidBodyDesc.m_fOwnerSpeed = 7.f;
@@ -48,39 +49,50 @@ void CCam_Shoulder::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+	_float3 vLook = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_LOOK, true);
+	_float3 vPos = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_POSITION, true);
+	_float3 vUp = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_UP, true);
+	_float3 vRight = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_RIGHT, true);;
+
 	if (GAMEINSTANCE->Get_Camera(CURRENT_CAMERA) == m_pCameraCom)
 	{
-		_float3 pos = m_pTransformCom->Get_State(CTransform::STATE_POSITION);
 
-		if (pos.x > 0.99f || pos.z < -0.99f || m_fAngle < 30.f)
+		if (m_vPos.x > 0.99f || m_vPos.z < -0.99f || m_fAngle < 30.f)
 		{
-			
-			m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1.f, 1.f, -1.f));
-			m_pTransformCom->LookAt(_float3(1.f, 1.f, 0.f));
+			vPos += vRight;
+			vPos -= vLook;
+
+			m_pTransformCom->Set_State(CTransform::STATE_POSITION, vPos, true);
+			//m_pTransformCom->LookAt(_float3(1.f, 1.f, 0.f));
 		}
 		else
 		{
-			pos.x += 0.01f;
-			pos.z -= 0.01f;
+			m_vPos += vRight*0.01f;
+			m_vPos -= vLook*0.01f;
 			m_fAngle -= 2.f;
 			m_pCameraCom->Set_Param(D3DXToRadian(m_fAngle), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f); _float3 vLook = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_LOOK, true);
 			_float3 vPos = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_POSITION, true);
 			_float3 vUp = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_UP, true);
 			_float3 vRight = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_RIGHT, true);;
 
+			vPos += m_vPos;
 
 			m_pTransformCom->Set_State(CTransform::STATE_POSITION, vPos, true);
-			m_pTransformCom->Set_State(CTransform::STATE_POSITION, pos);
+			//m_pTransformCom->Set_State(CTransform::STATE_POSITION, pos);
 		}
 		/*if (FAILED(m_pCameraCom->Bind_PipeLine()))
-			return;*/
+		return;*/
+
 	}
 	else
 	{
-		m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 1.f, 0.f));
-		m_pTransformCom->LookAt(_float3(0.f, 1.f, 1.f));
+		m_vPos = _float3(0.f, 0.f, 0.f);
 		m_fAngle = 65.f;
 	}
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, vPos, true);
+	m_pTransformCom->Set_State(CTransform::STATE_LOOK, vLook, true);
+	m_pTransformCom->Set_State(CTransform::STATE_UP, vUp, true);
+	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, vRight, true);
 }
 
 void CCam_Shoulder::LateTick(_float fTimeDelta)

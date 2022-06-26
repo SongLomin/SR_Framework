@@ -59,7 +59,7 @@ void CRigid_Body::Add_Dir(Func Dir, _float fDir )//fDir에 마우스 이동량을 전달
 	{
 		switch (Dir)
 		{
-		case RIGHT://좌우 회전
+		case SPIN://좌우 회전
 			m_fRadSpeedY = fDir*0.01f;
 			m_fRadSpeedZ = fDir*-0.01f;
 			break;
@@ -75,6 +75,14 @@ void CRigid_Body::Add_Dir(Func Dir, _float fDir )//fDir에 마우스 이동량을 전달
 
 		case BACK:
 			m_vAccel -= m_vLook;
+			break;
+		
+		case LEFT:
+			m_vAccel -= m_vRight;
+			break;
+
+		case RIGHT:
+			m_vAccel += m_vRight;
 			break;
 		}
 
