@@ -23,11 +23,9 @@ HRESULT CRock::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(rand() % 500, rand() % 300, rand() % 500));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(rand() % 700, rand() % 400, rand() % 700));
 
 	
-	
-
 	return S_OK;
 }
 
@@ -35,6 +33,7 @@ void CRock::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+	m_pTransformCom->Turn(_float3(0.f, 0.f, 1.f), 0.5f, fTimeDelta);
 }
 
 void CRock::LateTick(_float fTimeDelta)
@@ -50,8 +49,7 @@ void CRock::LateTick(_float fTimeDelta)
 
 HRESULT CRock::Render()
 {
-
-	m_pTransformCom->Scaling(_float3(30.f, 30.f, 30.f), true);
+	m_pTransformCom->Scaling(_float3(50.f, 50.f, 50.f), true);
 
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -75,6 +73,7 @@ HRESULT CRock::Render()
 
 	m_pRendererCom->UnBind_Texture();
 
+	
 
 	return S_OK;
 }
