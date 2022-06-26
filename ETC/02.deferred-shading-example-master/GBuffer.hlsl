@@ -2,7 +2,7 @@ matrix world;
 matrix view;
 matrix proj;
 
-float3 blue = { .0f, .0f, 1.0f };
+float3 Color;
 float3 white = { 1.0f, 1.0f, 1.0f };
 
 float shininess = 5.0f;
@@ -62,7 +62,7 @@ PS_OUTPUT PS_Main(VS_OUTPUT input)
     float dec_depth = frac(depth);
     output.depth = float4((int_depth / 256.f) / 256.f, (int_depth % 256.f) / 256.f, dec_depth, 0);
 
-    output.diffuse = float4(blue, 0);
+    output.diffuse = float4(Color, 0);
     output.specular = float4(white, shininess / 256.f);
 
     return output;

@@ -109,6 +109,7 @@ struct VS_OUTPUT
 struct PS_OUTPUT
 {
     float4 color : COLOR0;
+    
 };
 
 float dist_factor(float3 point_view_pos)
@@ -222,6 +223,7 @@ PS_OUTPUT PS_Main(VS_OUTPUT input)
     float3 I_tot = I_amb + lighting(diffuse.rgb, normal.xyz, position.xyz, specular.rgb, shininess);
 
     output.color = float4(I_tot + stash.rgb, 1);
+    
     return output;
 }
 
