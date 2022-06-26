@@ -97,6 +97,9 @@
     <Filter Include="02.GameObject\02. Monster\EnemySpace\Parts">
       <UniqueIdentifier>{b3d972e1-ddd4-4930-976b-1b450e1465a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\05. Rock">
+      <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -189,6 +192,9 @@
     <ClInclude Include="..\Public\EnemySpace_Bullet.h">
       <Filter>02.GameObject\02. Monster\EnemySpace\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Rock.h">
+      <Filter>02.GameObject\05. Rock</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -271,6 +277,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\EnemySpace_Bullet.cpp">
       <Filter>02.GameObject\02. Monster\EnemySpace\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp">
+      <Filter>02.GameObject\05. Rock</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

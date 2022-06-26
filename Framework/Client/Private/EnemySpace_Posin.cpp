@@ -26,11 +26,6 @@ HRESULT CEnemySpace_Posin::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-
-
-
-	
-
 	m_fCurTime = m_fMaxTime;
 
 	return S_OK;

@@ -186,6 +186,7 @@
     <ClInclude Include="..\Public\MainApp.h" />
     <ClInclude Include="..\Public\Monster.h" />
     <ClInclude Include="..\Public\Player_Posin.h" />
+    <ClInclude Include="..\Public\Rock.h" />
     <ClInclude Include="..\Public\SkyBox.h" />
     <ClInclude Include="..\Public\TargetingBox.h" />
     <ClInclude Include="..\Public\Terrain.h" />
@@ -216,6 +217,7 @@
     <ClCompile Include="..\Private\MainApp.cpp" />
     <ClCompile Include="..\Private\Monster.cpp" />
     <ClCompile Include="..\Private\Player_Posin.cpp" />
+    <ClCompile Include="..\Private\Rock.cpp" />
     <ClCompile Include="..\Private\SkyBox.cpp" />
     <ClCompile Include="..\Private\TargetingBox.cpp" />
     <ClCompile Include="..\Private\Terrain.cpp" />
