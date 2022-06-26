@@ -90,7 +90,6 @@ void CBullet::Link_PosinTransform(CTransform* _pTransform)
 	m_pTransformCom->Update_WorldMatrix();
 	m_pRigidBodyCom->Set_DirVector();
 	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
-	m_pRigidBodyCom->Add_Dir(CRigid_Body::JUMP);
 }
 
 void CBullet::On_Collision_Enter(CCollider* _Other_Collider)

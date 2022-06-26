@@ -30,7 +30,15 @@ private:
     CCamera* m_pCameraCom = nullptr;
 	CRigid_Body*	m_pRigidBodyCom = nullptr;
 
- 
+	_float3		m_vCurPos;
+	POINT		m_ptPrePos{};
+
+	_float		m_fSpeedX =0.f;
+	_float		m_fSpeedY = 0.f;
+
+	_float		m_fAccelX=0.f;
+	_float		m_fAccelY=0.f;
+
 public:
     static CCam_TPS* Create();
     virtual CGameObject* Clone(void* pArg) override;

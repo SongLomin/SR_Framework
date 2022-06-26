@@ -9,7 +9,7 @@ class CTransform;
 class ENGINE_DLL CRigid_Body final : public CComponent
 {
 public:
-	enum Func { LEFT,RIGHT,FRONT,BACK,JUMP,LIFT,DOWN};
+	enum Func { LEFT,RIGHT,FRONT,BACK,LIFT,DOWN};
 
 	typedef struct tagRigidbodyDesc
 	{
@@ -62,7 +62,6 @@ public:
 	void		Add_Dir(Func Dir, _float fDir =0.f);
 	void		Add_Camera(Func Dir, _float fDir = 0.f);
 	//실질적인건 아닌데 연출용
-	void		Add_Rotation(Func Dir, _float fRad);
 	
 	void		Update_Transform(_float fTimeDelta);
 	void		Set_DirVector();
@@ -76,7 +75,6 @@ private:
 	void		Compute_RotDirection();//비행기 회전용
 	void		Compute_Lift();
 
-	void		Compute_Jump();
 	void		Friction();//마찰력
 
 	void		Compute_Ground();
