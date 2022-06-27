@@ -6,22 +6,21 @@ IMPLEMENT_SINGLETON(Get_Lucky)
 void Get_Lucky::Team_EverSpace()
 {
 	//파싱할 x파일 경로 수정
-	D3DXLoadMeshFromX(TEXT("../Bin/Resources/Textures/Terrain/ship3.x"), D3DXMESH_MANAGED,
+	D3DXLoadMeshFromX(TEXT("../Bin/Resources/Textures/Terrain/StarShip.x"), D3DXMESH_MANAGED,
 		DEVICE, &m_pAdj, &m_pMtrl, &m_pEffectInstances,
 		&m_iNumMtrl, &m_pMesh);
 
 	m_dwNumSubsets = 1;
 
-
-
+	DWORD fuck = m_pMesh->GetFVF();
+	int i = 0;
 	//출력될 파일 경로는 Framework\Client\Default의 아래 이름
 	ofstream fout("Past_Initialize_Prototype.cpp");
-
-
-	VTXCOLOR* vertices = nullptr;
+	
+	VTXDEFAULT* vertices = nullptr;
 	DWORD vtxSize = 0;
 	vtxSize = m_pMesh->GetNumVertices();
-	vector<VTXCOLOR> Vtx_Vector;
+	vector<VTXDEFAULT> Vtx_Vector;
 
 	WORD* indices = 0;
 	DWORD indexSize = 0;
@@ -29,7 +28,7 @@ void Get_Lucky::Team_EverSpace()
 	vector<WORD> Index_Vector;
 
 	//설정하고 싶은 색깔!!!!
-	int Diffuse[4]{ 255, 40, 40, 40 };
+	//int Diffuse[4]{ 255, 40, 40, 40 };
 
 
 	m_pMesh->LockVertexBuffer(0, (void**)&vertices);
@@ -42,7 +41,7 @@ void Get_Lucky::Team_EverSpace()
 
 	fout << "m_iNumVertices = " << vtxSize << ";\n";
 	fout << "m_iNumPrimitive = " << indexSize / 3 << ";\n";
-	fout << "m_dwFVF = VTXCOLOR::FVF;\n\n";
+	fout << "m_dwFVF = VTXDEFAULT::FVF;\n\n";
 	fout << "m_dwNumSubsets = 1;\n";
 	fout << "if (FAILED(Create_EmptyMesh()))\n";
 	fout << "{\n";
@@ -50,20 +49,20 @@ void Get_Lucky::Team_EverSpace()
 	fout << "	return E_FAIL;\n";
 	fout << "}\n";
 
-	fout << "VTXCOLOR* vertices = nullptr;\n";
+	fout << "VTXDEFAULT* vertices = nullptr;\n";
 	fout << "m_pMesh->LockVertexBuffer(0, (void**)&vertices);\n\n";
 
 
 	for (_uint i = 0; i < vtxSize; i++)
 	{
-		//Vtx_Vector.push_back(VTXCOLOR(_float3(0.f, 0.f, 0.f), _float3(0.f, 0.f, 0.f), D3DCOLOR_ARGB(255, 0, 0, 0)));
+		//Vtx_Vector.push_back(VTXDEFAULT(_float3(0.f, 0.f, 0.f), _float3(0.f, 0.f, 0.f), D3DCOLOR_ARGB(255, 0, 0, 0)));
 		Vtx_Vector.push_back(vertices[i]);
 		
 		fout << fixed;
 		fout.precision(2);
-		fout << "vertices[" << i << "] = VTXCOLOR(_float3(" << vertices[i].vPosition.x << ", " << vertices[i].vPosition.y << ", " << vertices[i].vPosition.z <<
+		fout << "vertices[" << i << "] = VTXDEFAULT(_float3(" << vertices[i].vPosition.x << ", " << vertices[i].vPosition.y << ", " << vertices[i].vPosition.z <<
 			"), _float3(" << vertices[i].vNorm.x << ", " << vertices[i].vNorm.y << ", " << vertices[i].vNorm.z <<
-			"), D3DCOLOR_ARGB(" << Diffuse[0] << ", " << Diffuse[1] << ", " << Diffuse[2] << ", " << Diffuse[3] << "));\n";
+			"), _float2(" << vertices[i].vUV.x << ", " << vertices[i].vUV.y << "));\n";
 	}
 
 	fout << "m_pMesh->UnlockVertexBuffer();\n\n";

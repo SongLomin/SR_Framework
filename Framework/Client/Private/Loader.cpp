@@ -90,7 +90,7 @@ HRESULT CLoader::Loading_ForLogoLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	if (FAILED(pGameInstance->Add_Textures(TEXT("Mesh_Cube"), TEXT("../Bin/Resources/Textures/Terrain/MyHeight.bmp"),
+	if (FAILED(pGameInstance->Add_Textures(TEXT("Red_Cube"), TEXT("../Bin/Resources/Textures/Terrain/MyHeight.bmp"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 

@@ -27,23 +27,12 @@ void CState::Link_RigidBody(CRigid_Body* pRigidBody)
 	m_pRigidBody->Set_WeakPtr((void**)m_pRigidBody);
 }
 
-void CState::Link_AiTransform(CTransform* pAiTransform)
+void CState::Link_AI_Transform(CTransform* pAITransform)
 {
-	m_pTransform = pAiTransform;
+	m_pTransform = pAITransform;
 	m_pTransform->Set_WeakPtr((void**)m_pTransform);
 }
 
-void CState::Link_PosinTransform(CTransform* pPosinTransform)
-{
-	m_pTransform = pPosinTransform;
-	m_pTransform->Set_WeakPtr((void**)m_pTransform);
-}
-
-void CState::Link_BulletTrnasform(CTransform* pBulletTransform)
-{
-	m_pTransform = pBulletTransform;
-	m_pTransform->Set_WeakPtr((void**)m_pTransform);
-}
 
 
 

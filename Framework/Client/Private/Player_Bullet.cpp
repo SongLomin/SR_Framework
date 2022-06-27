@@ -49,8 +49,8 @@ void CPlayer_Bullet::LateTick(_float fTimeDelta)
 
 HRESULT CPlayer_Bullet::Render()
 {
-	m_pColliderCom->Debug_Render();
-	m_pPreColliderCom->Debug_Render();
+	//m_pColliderCom->Debug_Render();
+	//m_pPreColliderCom->Debug_Render();
 
 	m_pTransformCom->Scaling(_float3(0.2f, 0.1f, 10.f));
 	m_pTransformCom->Bind_WorldMatrix();
@@ -59,7 +59,7 @@ HRESULT CPlayer_Bullet::Render()
 
 	m_pRendererCom->Bind_Texture(1);
 	__super::Render();
-	m_pMeshCom->Render_Mesh();
+	m_pMeshCom->Render_Mesh(5);
 	m_pRendererCom->UnBind_Texture();
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);

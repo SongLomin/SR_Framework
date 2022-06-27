@@ -353,6 +353,8 @@
     </ClInclude>
     <ClInclude Include="..\Public\State_Attack.h">
       <Filter>01.Utility\03.Components\05. State\State_Attack</Filter>
+    <ClInclude Include="..\Public\State_Attack.h">
+      <Filter>01.Utility\03.Components\05. State\State_Attack</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Get_Lucky.h">
       <Filter>01.Utility\00.GameInstance\IMGUI\01. Tool</Filter>
@@ -360,6 +362,13 @@
     <ClInclude Include="..\Public\Get_Lucky.h" />
     <ClInclude Include="..\Public\Collider_Pre.h">
       <Filter>01.Utility\03.Components\07. Collider\01. Collider_Pre</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Get_Lucky.h" />
+    <ClInclude Include="..\Public\Collider_Pre.h">
+      <Filter>01.Utility\03.Components\07. Collider\01. Collider_Pre</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Get_Lucky.h">
+      <Filter>01.Utility\00.GameInstance\IMGUI\01. Tool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -519,6 +528,15 @@
     <ClCompile Include="..\Private\Get_Lucky.cpp" />
     <ClCompile Include="..\Private\Collider_Pre.cpp">
       <Filter>01.Utility\03.Components\07. Collider\01. Collider_Pre</Filter>
+    <ClCompile Include="..\Private\State_Attack.cpp">
+      <Filter>01.Utility\03.Components\05. State\State_Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Get_Lucky.cpp" />
+    <ClCompile Include="..\Private\Collider_Pre.cpp">
+      <Filter>01.Utility\03.Components\07. Collider\01. Collider_Pre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Get_Lucky.cpp">
+      <Filter>01.Utility\00.GameInstance\IMGUI\01. Tool</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

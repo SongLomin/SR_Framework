@@ -56,7 +56,7 @@ HRESULT CEnemySpace_Bullet::Render()
 
 	m_pRendererCom->Bind_Texture(1);
 	__super::Render();
-	m_pMeshCom->Render_Mesh();
+	m_pMeshCom->Render_Mesh(0);
 	m_pRendererCom->UnBind_Texture();
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
@@ -129,7 +129,7 @@ HRESULT CEnemySpace_Bullet::SetUp_Components()
 
 	m_pMeshCom = Add_Component<CMesh_Cube>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
-	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pMeshCom->Set_Texture(TEXT("Red_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 	m_pPreColliderCom = Add_Component<CCollider_Pre>();
 	WEAK_PTR(m_pPreColliderCom);

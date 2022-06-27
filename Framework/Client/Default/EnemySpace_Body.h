@@ -12,6 +12,10 @@ class CState_Move;
 class CTargeting;
 class CStatus;
 class CCollider_OBB;
+class CCollider_Pre;
+class CTargeting;
+class CStatus;
+class CCollider_OBB;
 END
 
 
@@ -41,6 +45,7 @@ private:
     CTargeting* m_pTargetingCom = nullptr;
     CStatus* m_pStatusCom = nullptr;
     CCollider_OBB* m_pColliderCom = nullptr;
+    CCollider_Pre* m_pColliderPreCom = nullptr;
 
 private:
     list<CEnemySpace_Posin*> m_pPosinList;
