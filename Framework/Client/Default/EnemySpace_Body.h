@@ -41,7 +41,6 @@ private:
     CTargeting* m_pTargetingCom = nullptr;
     CStatus* m_pStatusCom = nullptr;
     CCollider_OBB* m_pColliderCom = nullptr;
-    CState_Move* m_pStateCom = nullptr;
 
 private:
     list<CEnemySpace_Posin*> m_pPosinList;
