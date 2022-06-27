@@ -33,6 +33,8 @@ void CCamera_Manager::Set_Current_Camera(const _tchar* _CameraTag)
 void CCamera_Manager::Tick(_float fTimeDelta)
 {
 	ISVALID(m_pCurrentCam, );
+
+	
 }
 
 void CCamera_Manager::LateTick(_float fTimeDelta)

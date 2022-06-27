@@ -79,9 +79,7 @@
     <Filter Include="02.GameObject\10. SkyBox">
       <UniqueIdentifier>{0fe98c48-2de0-4630-ad1c-ae8ae3dbaa13}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\10. SkyBox">
-      <UniqueIdentifier>{0fe98c48-2de0-4630-ad1c-ae8ae3dbaa13}</UniqueIdentifier>
-    </Filter>
+
     <Filter Include="02.GameObject\09. Aim\Default_Aim">
       <UniqueIdentifier>{734aabdc-1d76-4a3a-91db-df9e552fa7cd}</UniqueIdentifier>
     </Filter>
@@ -105,6 +103,15 @@
     </Filter>
     <Filter Include="02.GameObject\00. Player\AI_Player">
       <UniqueIdentifier>{9f84a888-4e75-4ca0-bda1-90ac50b954b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\05. Rock">
+      <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97. UITest\Logo">
+      <UniqueIdentifier>{6bb5c36a-72de-4ccf-81d5-8849cacc2d18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\05. Camera_Object\04. Cam_Moving">
+      <UniqueIdentifier>{0d73d39a-9716-4db9-913c-cc8991ef9d9b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +211,15 @@
     <ClInclude Include="Logo.h">
       <Filter>97. UITest\Logo</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\MovingCamera.h">
+      <Filter>02.GameObject\05. Camera_Object\04. Cam_Moving</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h">
+      <Filter>02.GameObject\05. Rock</Filter>
+    </ClInclude>
+    <ClInclude Include="Logo.h">
+      <Filter>97. UITest\Logo</Filter>
+    </ClInclude>
     <ClInclude Include="..\Public\AI_Player.h">
       <Filter>02.GameObject\00. Player\AI_Player</Filter>
     </ClInclude>
@@ -289,6 +305,15 @@
     </ClCompile>
     <ClCompile Include="..\Private\EnemySpace_Bullet.cpp">
       <Filter>02.GameObject\02. Monster\EnemySpace\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp">
+      <Filter>02.GameObject\05. Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="Logo.cpp">
+      <Filter>97. UITest\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\MovingCamera.cpp">
+      <Filter>02.GameObject\05. Camera_Object\04. Cam_Moving</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Rock.cpp">
       <Filter>02.GameObject\05. Rock</Filter>

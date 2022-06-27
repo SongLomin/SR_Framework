@@ -39,7 +39,6 @@ void CCam_TPS::Tick(_float fTimeDelta)
 
 	_float3 vLook = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_LOOK, true);
 	_float3 vPos = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_POSITION, true);
-	_float3 vPlayerPos = vPos;
 	_float3 vUp = _float3(0.f, 1.f, 0.f);
 	_float3 vRight;
 
@@ -55,7 +54,7 @@ void CCam_TPS::Tick(_float fTimeDelta)
 	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, vRight);
 
 	
-	//m_pRigidBodyCom->Set_DirVector();
+
 
 	if (GAMEINSTANCE->Get_Camera(CURRENT_CAMERA) == m_pCameraCom)
 	{
@@ -64,24 +63,34 @@ void CCam_TPS::Tick(_float fTimeDelta)
 		GetCursorPos(&pt);
 		ScreenToClient(g_hWnd, &pt);
 
-		if (pt.x == m_ptPrePos.x && pt.y == m_ptPrePos.y)
+		
+		m_fSpeedX += m_fAccelX;
+		m_fSpeedY += m_fAccelY;
+		
+		
+		
+		_float fDirX = (pt.x-g_iWinCX*0.5f) - m_vCurPos.x;
+		_float fDirY = (pt.y-g_iWinCY*0.5f) - m_vCurPos.y;
+		if (DBL_EPSILON < fabs(fDirX))
 		{
-			m_fSpeedX += m_fAccelX;
-			m_fSpeedY += m_fAccelY;
-			
+			m_fAccelX = fDirX / (72.f * 150.f);
+			m_fSpeedX = fDirX / 72.f;
 		}
 		else
 		{
-			_float fDirX = (pt.x-g_iWinCX*0.5f) - m_vCurPos.x;
-			_float fDirY = (pt.y-g_iWinCY*0.5f) - m_vCurPos.y;
-
-			m_fAccelX = fDirX / (72.f*100.f);
-			m_fAccelY = fDirY / (72.f*100.f);
-
-			m_fSpeedX = fDirX / 72.f;
-			m_fSpeedY = fDirY / 72.f;
-		
+			m_fAccelX = m_fSpeedX = 0.f;
 		}
+		if (DBL_EPSILON < fabs(fDirY))
+		{
+			m_fAccelY = fDirY / (72.f * 150.f);
+			m_fSpeedY = fDirY / 72.f;
+		}
+		else
+		{
+			m_fAccelY = m_fSpeedY = 0.f;
+		}
+		
+		
 
 
 		if (g_iWinCX*0.5f > fabs(m_vCurPos.x + m_fSpeedX) && DBL_EPSILON < fabs(m_vCurPos.x + m_fSpeedX) &&
@@ -99,7 +108,6 @@ void CCam_TPS::Tick(_float fTimeDelta)
 
 	}
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, vPos);
-	//m_pTransformCom->LookAt(vPlayerPos);
 	m_pTransformCom->Update_WorldMatrix();
 }
 

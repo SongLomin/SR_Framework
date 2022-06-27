@@ -60,12 +60,12 @@ void CRigid_Body::Add_Dir(Func Dir, _float fDir )//fDir에 마우스 이동량을 전달
 		switch (Dir)
 		{
 		case SPIN://좌우 회전
-			m_fRadSpeedY = fDir*0.01f;
+			m_fRadSpeedY = fDir*0.1f;
 			m_fRadSpeedZ = fDir*-0.01f;
 			break;
 
 		case DOWN://위아래 회전
-			m_fLiftSpeed = fDir*-0.1f;
+			m_fLiftSpeed = fDir*-1.f;
 			m_fRadSpeedX = fDir*0.01f;
 			break;
 

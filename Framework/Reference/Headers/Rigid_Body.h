@@ -49,10 +49,6 @@ public:
 
 public:
 	//이동용 실질적인 이동용
-	void		Set_MouseMove()
-	{
-		m_bMouse = !m_bMouse;
-	}
 
 	void		Set_Camera()
 	{
@@ -92,8 +88,8 @@ private:
 	_bool			m_bFirst = true;
 
 	_bool		m_bJump = false;
-	_bool		m_bLift = false;
-	_bool		m_bMouse = false;
+	_bool		m_bLift = true;
+	_bool		m_bMouse = true;
 	_bool		m_bCamera = false;
 
 private:

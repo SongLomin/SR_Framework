@@ -99,11 +99,16 @@ public: /* For.Input_Manager */
 	_byte Get_DIMouseKeyState(MOUSEBUTTON eMouseButtonID);
 	_long Get_DIMouseMoveState(MOUSEMOVE eMouseMove);
 
-public: /* For.Input_Manager */
+public: /* For.Camera_Manager */
 	void Register_Camera(const _tchar* _CameraTag, CCamera* _CameraCom);
 	void Set_Camera_Target(CTransform* _Target = nullptr, const _tchar* _CameraTag = TEXT(""));
 	CCamera* Get_Camera(const _tchar* _CameraTag = TEXT(""));
 	void Set_Current_Camera(const _tchar* _CameraTag = TEXT(""));
+	void Update_MovingCam();
+	void Set_MovingCam(CGameObject* _pMovingCam);
+	CGameObject* Get_MovingCam();
+	void Swap_Camera();
+
 
 public: /* For.IMGUI_Manager */
 	HRESULT ImGuiImplHandle(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);

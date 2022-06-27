@@ -70,7 +70,7 @@ public: /* Template Function */
 	{
 		static_assert(is_base_of<CGameObject, T>::value, "T Isn't base of CGameObject");
 
-		if (m_iNumLevels <= iLevelIndex - 1)
+		if (m_iNumLevels <= iLevelIndex)
 		{
 			//잘못된 레벨 인덱스
 #ifdef _DEBUG
