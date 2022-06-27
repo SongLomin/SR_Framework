@@ -21,6 +21,8 @@
 #include "HpBar.h"
 #include "BoosterBar.h"
 #include "ShieldBar.h"
+#include "BulletUI.h"
+#include "BulletCountUI.h"
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -88,6 +90,13 @@ HRESULT CLevel_GamePlay::Initialize()
 
 	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_GAMEPLAY, TEXT("Shield")))
 		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_GAMEPLAY, TEXT("NormalBullet")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_GAMEPLAY, TEXT("CBulletCountUI")))
+		return E_FAIL;
+
 
 
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))

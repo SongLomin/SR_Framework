@@ -106,6 +106,9 @@
     <Filter Include="02.GameObject\07. UI\00. StatusUI">
       <UniqueIdentifier>{e657156e-73b8-431d-982f-1d7f819450b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\07. UI\01. BulletUI">
+      <UniqueIdentifier>{3b94ad26-3396-4fb4-ba53-8cb3db730943}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -216,6 +219,12 @@
     <ClInclude Include="..\Public\BoosterBar.h">
       <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\BulletUI.h">
+      <Filter>02.GameObject\07. UI\01. BulletUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\BulletCountUI.h">
+      <Filter>02.GameObject\07. UI\01. BulletUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -316,6 +325,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\BoosterBar.cpp">
       <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\BulletUI.cpp">
+      <Filter>02.GameObject\07. UI\01. BulletUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\BulletCountUI.cpp">
+      <Filter>02.GameObject\07. UI\01. BulletUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

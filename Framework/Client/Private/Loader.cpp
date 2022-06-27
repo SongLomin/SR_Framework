@@ -163,6 +163,18 @@ HRESULT CLoader::Loading_ForGamePlayLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Test"), TEXT("../Bin/Resources/Textures/UI/Test.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Test2"), TEXT("../Bin/Resources/Textures/UI/Test2.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Test3"), TEXT("../Bin/Resources/Textures/UI/Test3.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
 	lstrcpy(m_szLoadingText, TEXT("·Îµù ³¡ "));
 
 	m_isFinished = true;

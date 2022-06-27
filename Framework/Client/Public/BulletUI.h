@@ -11,12 +11,12 @@ END
 
 BEGIN(Client)
 
-class CHpBar final : public CGameObject
+class CBulletUI final : public CGameObject
 {
 public:
-	CHpBar() = default;
-	CHpBar(const CHpBar& Prototype);
-	virtual ~CHpBar() = default;
+	CBulletUI() = default;
+	CBulletUI(const CBulletUI& Prototype);
+	virtual ~CBulletUI() = default;
 
 public:
 	virtual HRESULT Initialize_Prototype() override;
@@ -35,15 +35,12 @@ private:
 	_point					m_ptMouse;
 	_float4x4				m_ProjMatrix;
 	RECT					m_rcRect;
-
-public:
-	void UpdateHpBar(_float _beforeHp, _float _afterHp);
-
+	_bool                   m_bChangeWeapon = false;
 private:
 	HRESULT SetUp_Components();
 
 public:
-	static CHpBar* Create();
+	static CBulletUI* Create();
 	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
 };

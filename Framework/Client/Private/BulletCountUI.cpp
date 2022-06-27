@@ -1,11 +1,8 @@
 #include "stdafx.h"
-#include "StatusBar.h"
+#include "BulletCountUI.h"
 #include "GameInstance.h"
-#include "HpBar.h"
 
-
-
-CHpBar::CHpBar(const CHpBar& Prototype)
+CBulletCountUI::CBulletCountUI(const CBulletCountUI& Prototype)
 {
 	*this = Prototype;
 
@@ -14,41 +11,42 @@ CHpBar::CHpBar(const CHpBar& Prototype)
 
 }
 
-HRESULT CHpBar::Initialize_Prototype()
+HRESULT CBulletCountUI::Initialize_Prototype()
 {
 
 	return S_OK;
 }
 
-HRESULT CHpBar::Initialize(void* pArg)
+HRESULT CBulletCountUI::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
 	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinCX, g_iWinCY, 0.0f, 1.f);
 
-	m_fX = 260.f;
-	m_fY = 50.f;
+	m_fX = 1100.f;
+	m_fY = 630.f;
 
-	m_fSizeX = 200.0f;
-	m_fSizeY = 5.0f;
+	m_fSizeX = 160.0f;
+	m_fSizeY = 50.0f;
 
 	return S_OK;
 }
 
-void CHpBar::Tick(_float fTimeDelta)
+void CBulletCountUI::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
 	GetCursorPos(&m_ptMouse);
 	ScreenToClient(g_hWnd, &m_ptMouse);
 
+	
 
 	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
 }
 
-void CHpBar::LateTick(_float fTimeDelta)
+void CBulletCountUI::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
@@ -58,7 +56,7 @@ void CHpBar::LateTick(_float fTimeDelta)
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_UI, this);
 }
 
-HRESULT CHpBar::Render()
+HRESULT CBulletCountUI::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -90,18 +88,15 @@ HRESULT CHpBar::Render()
 }
 
 
-void CHpBar::UpdateHpBar(_float _beforeHp, _float _afterHp)
-{
-}
-
-HRESULT CHpBar::SetUp_Components()
+HRESULT CBulletCountUI::SetUp_Components()
 {
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
-	m_pRendererCom->Set_Textures_From_Key(TEXT("HP"), MEMORY_TYPE::MEMORY_STATIC);
+
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Test3"), MEMORY_TYPE::MEMORY_STATIC);
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
@@ -110,20 +105,19 @@ HRESULT CHpBar::SetUp_Components()
 	return S_OK;
 }
 
-CHpBar* CHpBar::Create()
+CBulletCountUI* CBulletCountUI::Create()
 {
-	CREATE_PIPELINE(CHpBar);
+	CREATE_PIPELINE(CBulletCountUI);
 }
 
-CGameObject* CHpBar::Clone(void* pArg)
+CGameObject* CBulletCountUI::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CHpBar);
+	CLONE_PIPELINE(CBulletCountUI);
 }
 
-void CHpBar::Free()
+void CBulletCountUI::Free()
 {
 	__super::Free();
 
 	delete this;
 }
-

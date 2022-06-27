@@ -168,6 +168,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\BoosterBar.h" />
+    <ClInclude Include="..\Public\BulletCountUI.h" />
+    <ClInclude Include="..\Public\BulletUI.h" />
     <ClInclude Include="..\Public\Default_Aim.h" />
     <ClInclude Include="..\Public\EnemySpace_Bullet.h" />
     <ClInclude Include="..\Public\EnemySpace_Posin.h" />
@@ -205,6 +207,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\BoosterBar.cpp" />
+    <ClCompile Include="..\Private\BulletCountUI.cpp" />
+    <ClCompile Include="..\Private\BulletUI.cpp" />
     <ClCompile Include="..\Private\Default_Aim.cpp" />
     <ClCompile Include="..\Private\EnemySpace_Bullet.cpp" />
     <ClCompile Include="..\Private\EnemySpace_Posin.cpp" />
