@@ -229,6 +229,8 @@ HRESULT CPlayer_Body::SetUp_Components()
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
+	m_pRigidBodyCom->Set_Mouse();
+
 	m_pTargetingCom = Add_Component<CTargeting>();
 	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
 

@@ -51,23 +51,9 @@ void CMovingCamera::Tick(_float fTimeDelta)
 	
 
 	_float3 vPosition = m_pTransformCom->Get_State(CTransform::STATE_POSITION);
-	//_float3 vUp = m_pEndTransform->Get_State(CTransform::STATE_UP);
-	//_float3 vLook = m_pEndTransform->Get_State(CTransform::STATE_LOOK);
-	//_float3 vRight = m_pEndTransform->Get_State(CTransform::STATE_RIGHT);
-
-	//m_pTransformCom->Turn(vUp, m_CameraRoute.fAngle, fTimeDelta);
 	vPosition += m_CameraRoute.m_vSpeed*fTimeDelta;
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, vPosition);
-	/*m_pTransformCom->Set_State(CTransform::STATE_UP, vUp);
-	m_pTransformCom->Set_State(CTransform::STATE_LOOK, vLook);
-	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, vRight);*/
-
-
-
-
-
-	//m_pTransformCom->Set_World_State(CTransform::STATE_POSITION, vPosition);
 	m_pTransformCom->LookAt(m_pEndTransform, true);
 
 }

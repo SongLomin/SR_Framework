@@ -55,6 +55,11 @@ public:
 		m_bCamera = !m_bCamera;
 	}
 
+	void		Set_Mouse()
+	{
+		m_bMouse = true;
+	}
+
 	void		Add_Dir(Func Dir, _float fDir =0.f);
 	void		Add_Camera(Func Dir, _float fDir = 0.f);
 	//실질적인건 아닌데 연출용
@@ -89,7 +94,7 @@ private:
 
 	_bool		m_bJump = false;
 	_bool		m_bLift = true;
-	_bool		m_bMouse = true;
+	_bool		m_bMouse = false;
 	_bool		m_bCamera = false;
 
 private:
