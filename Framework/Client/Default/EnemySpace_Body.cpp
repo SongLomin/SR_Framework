@@ -43,7 +43,15 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 
 	ISVALID(m_pTransformCom);
 
-	m_pStateCom->State_Change(m_pPlayerTransformCom,fTimeDelta);
+	//m_pStateCom->State_Change(m_pPlayerTransformCom,fTimeDelta);
+
+
+
+	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
+	m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
+	m_pTransformCom->Set_State(CTransform::STATE_LOOK, m_pPlayerTransformCom->Get_State(CTransform::STATE_LOOK, true), true);
+
+	//m_pStateCom->State_Tagetting(m_pPlayerTransformCom, fTimeDelta, 1);
     
 }
 

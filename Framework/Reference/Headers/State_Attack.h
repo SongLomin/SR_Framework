@@ -2,8 +2,6 @@
 
 #include "State.h"
 
-
-
 BEGIN(Engine)
 
 class CTransform;
@@ -34,9 +32,6 @@ public:
 public:
 	void State_Change(CTransform* pPlayerTransform, _float fTimeDelta);
 
-public:
-	STATE_ATTACK    m_ePreState = STATE_ATTACK::ATTACK_END;
-	STATE_ATTACK    m_eCurState = STATE_ATTACK::ATTACK_BULLET;
 
 
 public:
