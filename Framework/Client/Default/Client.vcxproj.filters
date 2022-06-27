@@ -210,6 +210,12 @@
     <ClInclude Include="..\Public\HpBar.h">
       <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\ShieldBar.h">
+      <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\BoosterBar.h">
+      <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -303,6 +309,12 @@
       <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\HpBar.cpp">
+      <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ShieldBar.cpp">
+      <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\BoosterBar.cpp">
       <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
     </ClCompile>
   </ItemGroup>

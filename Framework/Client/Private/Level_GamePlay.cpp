@@ -19,6 +19,8 @@
 #include "../Default/EnemySpace_Body.h"
 #include "StatusBar.h"
 #include "HpBar.h"
+#include "BoosterBar.h"
+#include "ShieldBar.h"
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -79,6 +81,12 @@ HRESULT CLevel_GamePlay::Initialize()
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_GAMEPLAY, TEXT("HP")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_GAMEPLAY, TEXT("Booster")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_GAMEPLAY, TEXT("Shield")))
 		return E_FAIL;
 
 

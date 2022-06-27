@@ -1,11 +1,11 @@
 #include "stdafx.h"
-#include "StatusBar.h"
+
 #include "GameInstance.h"
-#include "HpBar.h"
+#include "ShieldBar.h"
 
 
 
-CHpBar::CHpBar(const CHpBar& Prototype)
+CShieldBar::CShieldBar(const CShieldBar& Prototype)
 {
 	*this = Prototype;
 
@@ -14,13 +14,13 @@ CHpBar::CHpBar(const CHpBar& Prototype)
 
 }
 
-HRESULT CHpBar::Initialize_Prototype()
+HRESULT CShieldBar::Initialize_Prototype()
 {
 
 	return S_OK;
 }
 
-HRESULT CHpBar::Initialize(void* pArg)
+HRESULT CShieldBar::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
@@ -33,25 +33,25 @@ HRESULT CHpBar::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CHpBar::Tick(_float fTimeDelta)
+void CShieldBar::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
 	GetCursorPos(&m_ptMouse);
 	ScreenToClient(g_hWnd, &m_ptMouse);
 
-	m_fX = 260.f;
-	m_fY = 50.f;
+	m_fX = 165.f;
+	m_fY = 30.f;
 
 
-	m_fSizeX = 200.0f;
+	m_fSizeX = 100.0f;
 	m_fSizeY = 5.0f;
 
 	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
 }
 
-void CHpBar::LateTick(_float fTimeDelta)
+void CShieldBar::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
@@ -61,7 +61,7 @@ void CHpBar::LateTick(_float fTimeDelta)
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_UI, this);
 }
 
-HRESULT CHpBar::Render()
+HRESULT CShieldBar::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -93,14 +93,14 @@ HRESULT CHpBar::Render()
 }
 
 
-HRESULT CHpBar::SetUp_Components()
+HRESULT CShieldBar::SetUp_Components()
 {
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
-	m_pRendererCom->Set_Textures_From_Key(TEXT("HP"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Shield"), MEMORY_TYPE::MEMORY_STATIC);
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
@@ -109,17 +109,17 @@ HRESULT CHpBar::SetUp_Components()
 	return S_OK;
 }
 
-CHpBar* CHpBar::Create()
+CShieldBar* CShieldBar::Create()
 {
-	CREATE_PIPELINE(CHpBar);
+	CREATE_PIPELINE(CShieldBar);
 }
 
-CGameObject* CHpBar::Clone(void* pArg)
+CGameObject* CShieldBar::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CHpBar);
+	CLONE_PIPELINE(CShieldBar);
 }
 
-void CHpBar::Free()
+void CShieldBar::Free()
 {
 	__super::Free();
 

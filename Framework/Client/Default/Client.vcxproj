@@ -167,6 +167,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Public\BoosterBar.h" />
     <ClInclude Include="..\Public\Default_Aim.h" />
     <ClInclude Include="..\Public\EnemySpace_Bullet.h" />
     <ClInclude Include="..\Public\EnemySpace_Posin.h" />
@@ -188,6 +189,7 @@
     <ClInclude Include="..\Public\Monster.h" />
     <ClInclude Include="..\Public\Player_Posin.h" />
     <ClInclude Include="..\Public\Rock.h" />
+    <ClInclude Include="..\Public\ShieldBar.h" />
     <ClInclude Include="..\Public\SkyBox.h" />
     <ClInclude Include="..\Public\StatusBar.h" />
     <ClInclude Include="..\Public\TargetingBox.h" />
@@ -202,6 +204,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Private\BoosterBar.cpp" />
     <ClCompile Include="..\Private\Default_Aim.cpp" />
     <ClCompile Include="..\Private\EnemySpace_Bullet.cpp" />
     <ClCompile Include="..\Private\EnemySpace_Posin.cpp" />
@@ -222,6 +225,7 @@
     <ClCompile Include="..\Private\Monster.cpp" />
     <ClCompile Include="..\Private\Player_Posin.cpp" />
     <ClCompile Include="..\Private\Rock.cpp" />
+    <ClCompile Include="..\Private\ShieldBar.cpp" />
     <ClCompile Include="..\Private\SkyBox.cpp" />
     <ClCompile Include="..\Private\StatusBar.cpp" />
     <ClCompile Include="..\Private\TargetingBox.cpp" />

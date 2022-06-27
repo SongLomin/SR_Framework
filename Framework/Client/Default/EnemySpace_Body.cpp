@@ -45,7 +45,7 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 	ISVALID(m_pTransformCom);
 
  
-	m_pStateCom->State_Change(m_pPlayerTransformCom,fTimeDelta);
+	//m_pStateCom->State_Change(m_pPlayerTransformCom,fTimeDelta);
 
 
 	/*m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
@@ -54,7 +54,7 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 	m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
 	m_pTransformCom->Chase(m_pPlayerTransformCom, fTimeDelta, 10);*/
 
-	//m_pStateCom->State_Tagetting(m_pPlayerTransformCom, fTimeDelta, 8);
+	m_pStateCom->State_Tagetting(m_pPlayerTransformCom, fTimeDelta, 8);
     
 }
 

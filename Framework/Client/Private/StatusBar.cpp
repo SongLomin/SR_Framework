@@ -70,6 +70,10 @@ HRESULT CStatusBar::Render()
 	DEVICE->SetRenderState(D3DRS_ALPHAREF, 120);
 	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 
+	_float4x4 CurView, CurProj;
+	DEVICE->GetTransform(D3DTS_VIEW, &CurView);
+	DEVICE->GetTransform(D3DTS_PROJECTION, &CurProj);
+
 	_float4x4	ViewMatrix;
 	D3DXMatrixIdentity(&ViewMatrix);
 
@@ -81,6 +85,9 @@ HRESULT CStatusBar::Render()
 	m_pRendererCom->UnBind_Texture();
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+	DEVICE->SetTransform(D3DTS_VIEW, &CurView);
+	DEVICE->SetTransform(D3DTS_PROJECTION, &CurProj);
+
 	
 	return S_OK;
 }
