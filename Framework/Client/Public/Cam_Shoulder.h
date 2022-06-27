@@ -30,7 +30,7 @@ private:
 	CRigid_Body* m_pRogidBodyCom = nullptr;
 
 	_float m_fAngle = 65.f;
-
+	_float3 m_vPos;
 public:
 	static CCam_Shoulder* Create();
 	virtual CGameObject* Clone(void* pArg) override;

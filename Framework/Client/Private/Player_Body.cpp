@@ -53,7 +53,10 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 	if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::BACK);
-
+	if (KEY_INPUT(KEY::D, KEY_STATE::HOLD))
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
+	if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
 
 	if (m_bMouse)
 	{	
@@ -64,7 +67,7 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 		_float fDirX = pt.x - g_iWinCX*0.5f;
 		_float fDirY = pt.y - g_iWinCY*0.5f;
 
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT, fDirX*0.1f);
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::SPIN, fDirX*0.1f);
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::DOWN, fDirY*0.1f);
 
 	}
