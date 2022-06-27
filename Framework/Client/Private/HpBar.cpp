@@ -40,12 +40,12 @@ void CHpBar::Tick(_float fTimeDelta)
 	GetCursorPos(&m_ptMouse);
 	ScreenToClient(g_hWnd, &m_ptMouse);
 
-	m_fX = 200.f;
-	m_fY = 45.f;
+	m_fX = 260.f;
+	m_fY = 65.f;
 
 
 	m_fSizeX = 200.0f;
-	m_fSizeY = 40.0f;
+	m_fSizeY = 5.0f;
 
 	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);

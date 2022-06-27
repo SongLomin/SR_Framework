@@ -27,7 +27,7 @@ HRESULT CStatusBar::Initialize(void* pArg)
 	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinCX, g_iWinCY, 0.0f, 1.f);
 
 
-	ShowCursor(false);
+
 
 	return S_OK;
 }
@@ -43,8 +43,8 @@ void CStatusBar::Tick(_float fTimeDelta)
 	m_fY = 45.f;
 
 	
-	m_fSizeX = 200.0f;
-	m_fSizeY = 40.0f;
+	m_fSizeX = 190.0f;
+	m_fSizeY = 35.0f;
 
 	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
