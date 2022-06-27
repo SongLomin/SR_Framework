@@ -41,10 +41,11 @@ private:
     CMesh_Cube* m_pMeshCom = nullptr;
     CTransform* m_pPlayerTransformCom = nullptr;
     CRigid_Body* m_pRigidBodyCom = nullptr;
-    Engine::CState_Move* m_pStateCom = nullptr;
+    CState_Move* m_pStateCom = nullptr;
     CTargeting* m_pTargetingCom = nullptr;
     CStatus* m_pStatusCom = nullptr;
     CCollider_OBB* m_pColliderCom = nullptr;
+    CGameObject* m_pTargetObject = nullptr;
     CCollider_Pre* m_pColliderPreCom = nullptr;
 
 private:

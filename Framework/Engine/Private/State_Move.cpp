@@ -16,6 +16,8 @@ HRESULT CState_Move::Initialize(void* pArg)
 	return S_OK;
 
 	m_fCurTime = m_fMaxTime;
+
+	m_fTargetCurTime = m_fTargetMaxTime;
 }
 
 
@@ -73,24 +75,30 @@ void CState_Move::Move_Chase_Player(CTransform* pPlayerTransform, _float fTimeDe
 
 
 // Taget
-void CState_Move::MoveTarget_Chase(CTransform* pTargetTransform, _float fTimeDelta)
+void CState_Move::MoveTarget_Chase(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit)
 {
 	m_pTransform->Go_Target(pTargetTransform, fTimeDelta);
-	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
+	m_pTransform->Chase(pTargetTransform, fTimeDelta, fLimit);
 }
 
 void CState_Move::MoveTarget_LSpin(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit)
 {
-	m_pTransform->LookAt(pTargetTransform);
-	//m_pTransform->Chase(pTargetTransform, fTimeDelta, fLimit, false);
+	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
 	m_pRigidBody->Add_Dir(CRigid_Body::LEFT);
+
+	m_pTransform->Go_Target(pTargetTransform, fTimeDelta);
+	m_pTransform->Chase(pTargetTransform, fTimeDelta, 10);
+
+	
 }
 
 void CState_Move::MoveTarget_RSpin(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit)
 {
-	m_pTransform->LookAt(pTargetTransform);
-	//m_pTransform->Chase(pTargetTransform, fTimeDelta, fLimit, false);
+	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
 	m_pRigidBody->Add_Dir(CRigid_Body::RIGHT);
+
+	m_pTransform->Go_Target(pTargetTransform, fTimeDelta);
+	m_pTransform->Chase(pTargetTransform, fTimeDelta, fLimit);
 }
 
 void CState_Move::MoveTarget_Back(_float fTimeDelta)
@@ -140,10 +148,6 @@ void CState_Move::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)
 	case  STATE_MOVE::MOVE_JUMP_FRONT:
 		Move_Jump_Front();
 		break;
-
-	//case STATE_MOVE::MOVE_CHAES_PLAYER:
-	//	Move_Chase_Player(pPlayerTransform, fTimeDelta);
-
 	case  STATE_MOVE::MOVE_UPPER_RIGHT:
 		Move_Upper_Right();
 		break;
@@ -154,14 +158,14 @@ void CState_Move::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)
 void CState_Move::State_Tagetting(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit)
 {
 
-	m_fCurTime -= fTimeDelta;
+	m_fTargetCurTime -= fTimeDelta;
 
-	if (m_fCurTime <= 0.f)
+	if (m_fTargetCurTime <= 0.f)
 	{
 		m_eTargetCurState = (STATE_MOVETARGET)(rand() % (_uint)STATE_MOVETARGET::MOVETARGET_END);
 		m_bStateCheck = true;
 
-		m_fCurTime = m_fMaxTime;
+		m_fTargetCurTime = m_fTargetMaxTime;
 	}
 
 	if (!m_bStateCheck)
@@ -172,7 +176,7 @@ void CState_Move::State_Tagetting(CTransform* pTargetTransform, _float fTimeDelt
 	switch (m_eTargetCurState)
 	{
 	case  STATE_MOVETARGET::MOVETARGET_CHASE:
-		MoveTarget_Chase(pTargetTransform, fTimeDelta);
+		MoveTarget_Chase(pTargetTransform, fTimeDelta, fLimit);
 		break;
 
 	case  STATE_MOVETARGET::MOVETARGET_LSPIN:

@@ -28,9 +28,6 @@
     <Filter Include="02.GameObject">
       <UniqueIdentifier>{d82d045d-f3df-48ca-85c6-d375684d5662}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\03. Dummy">
-      <UniqueIdentifier>{48afe763-4d05-4659-9db7-becf15def9ef}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\04. Terrain">
       <UniqueIdentifier>{3e4f3c86-6ff2-4698-aa04-79444a09b1a0}</UniqueIdentifier>
     </Filter>
@@ -102,6 +99,15 @@
     </Filter>
     <Filter Include="97. UITest\Logo">
       <UniqueIdentifier>{6bb5c36a-72de-4ccf-81d5-8849cacc2d18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\07. UI">
+      <UniqueIdentifier>{0490002b-9b52-4a93-b9fe-323e9753bc8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\07. UI\00. StatusUI">
+      <UniqueIdentifier>{e657156e-73b8-431d-982f-1d7f819450b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\07. UI\01. BulletUI">
+      <UniqueIdentifier>{3b94ad26-3396-4fb4-ba53-8cb3db730943}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.GameObject\00. Player\AI_Player">
       <UniqueIdentifier>{9f84a888-4e75-4ca0-bda1-90ac50b954b7}</UniqueIdentifier>
@@ -222,6 +228,24 @@
     <ClInclude Include="Logo.h">
       <Filter>97. UITest\Logo</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\StatusBar.h">
+      <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\HpBar.h">
+      <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\ShieldBar.h">
+      <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\BoosterBar.h">
+      <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\BulletUI.h">
+      <Filter>02.GameObject\07. UI\01. BulletUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\BulletCountUI.h">
+      <Filter>02.GameObject\07. UI\01. BulletUI</Filter>
+    </ClInclude>
     <ClInclude Include="..\Public\MovingCamera.h">
       <Filter>02.GameObject\05. Camera_Object\04. Cam_Moving</Filter>
     </ClInclude>
@@ -322,6 +346,24 @@
     </ClCompile>
     <ClCompile Include="Logo.cpp">
       <Filter>97. UITest\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\StatusBar.cpp">
+      <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\HpBar.cpp">
+      <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ShieldBar.cpp">
+      <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\BoosterBar.cpp">
+      <Filter>02.GameObject\07. UI\00. StatusUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\BulletUI.cpp">
+      <Filter>02.GameObject\07. UI\01. BulletUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\BulletCountUI.cpp">
+      <Filter>02.GameObject\07. UI\01. BulletUI</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\MovingCamera.cpp">
       <Filter>02.GameObject\05. Camera_Object\04. Cam_Moving</Filter>

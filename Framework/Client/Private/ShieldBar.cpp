@@ -1,68 +1,64 @@
 #include "stdafx.h"
-#include "Default_Aim.h"
+
 #include "GameInstance.h"
-#include "Math_Utillity.h"
+#include "ShieldBar.h"
 
-CDefault_Aim::CDefault_Aim()
-{
-}
 
-CDefault_Aim::CDefault_Aim(const CDefault_Aim& Prototype)
+
+CShieldBar::CShieldBar(const CShieldBar& Prototype)
 {
 	*this = Prototype;
 
 	m_pTransformCom = Add_Component<CTransform>();
 
-	
+
 }
 
-HRESULT CDefault_Aim::Initialize_Prototype()
+HRESULT CShieldBar::Initialize_Prototype()
 {
-	
+
 	return S_OK;
 }
 
-HRESULT CDefault_Aim::Initialize(void* pArg)
+HRESULT CShieldBar::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
 	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinCX, g_iWinCY, 0.0f, 1.f);
 
+	m_fX = 215.f;
+	m_fY = 30.f;
 
-	ShowCursor(false);
+	m_fSizeX = 150.0f;
+	m_fSizeY = 5.0f;
 
 	return S_OK;
 }
 
-void CDefault_Aim::Tick(_float fTimeDelta)
+void CShieldBar::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
 	GetCursorPos(&m_ptMouse);
 	ScreenToClient(g_hWnd, &m_ptMouse);
 
-	m_fX = m_ptMouse.x;
-	m_fY = m_ptMouse.y;
-	m_fSizeX = 50.0f;
-	m_fSizeY = 50.0f;
-	
-	SetRect(&m_rcAim, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
+
+	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
 }
 
-void CDefault_Aim::LateTick(_float fTimeDelta)
+void CShieldBar::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
-	//m_pTransformCom->Set_Scaled(_float3(m_fSizeX, m_fSizeY, 1.f));
 	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f) * 2);
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(m_fX - (g_iWinCX >> 1), -m_fY + (g_iWinCY >> 1), 0.f));
 
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_UI, this);
 }
 
-HRESULT CDefault_Aim::Render()
+HRESULT CShieldBar::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -94,14 +90,14 @@ HRESULT CDefault_Aim::Render()
 }
 
 
-HRESULT CDefault_Aim::SetUp_Components()
+HRESULT CShieldBar::SetUp_Components()
 {
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Aim_Default"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Shield"), MEMORY_TYPE::MEMORY_STATIC);
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
@@ -110,21 +106,20 @@ HRESULT CDefault_Aim::SetUp_Components()
 	return S_OK;
 }
 
-CDefault_Aim* CDefault_Aim::Create()
+CShieldBar* CShieldBar::Create()
 {
-	CREATE_PIPELINE(CDefault_Aim);
+	CREATE_PIPELINE(CShieldBar);
 }
 
-CGameObject* CDefault_Aim::Clone(void* pArg)
+CGameObject* CShieldBar::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CDefault_Aim);
+	CLONE_PIPELINE(CShieldBar);
 }
 
-void CDefault_Aim::Free()
+void CShieldBar::Free()
 {
-	ShowCursor(true);
-
 	__super::Free();
 
 	delete this;
 }
+

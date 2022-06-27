@@ -17,6 +17,12 @@
 #include <SkyBox.h>
 #include "Rock.h"
 #include "../Default/EnemySpace_Body.h"
+#include "StatusBar.h"
+#include "HpBar.h"
+#include "BoosterBar.h"
+#include "ShieldBar.h"
+#include "BulletUI.h"
+#include "BulletCountUI.h"
 #include "AI_Player.h"
 #include "Rock.h"
 #include "MovingCamera.h"
@@ -85,14 +91,31 @@ HRESULT CLevel_GamePlay::Initialize()
 			return E_FAIL;
 	}
 
-	for (int i = 0; i < 30; ++i)
-	{
-		if (!GAMEINSTANCE->Add_GameObject<CRock>(LEVEL_GAMEPLAY, TEXT("Rock")))
-			return E_FAIL;
-	}
+
+	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_GAMEPLAY, TEXT("Status")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_GAMEPLAY, TEXT("HP")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_GAMEPLAY, TEXT("Booster")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_GAMEPLAY, TEXT("Shield")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_GAMEPLAY, TEXT("NormalBullet")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_GAMEPLAY, TEXT("CBulletCountUI")))
+		return E_FAIL;
+
+
 
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
 	//	return E_FAIL;
+
+	
 
 
 	/*TEXTINFO Info;

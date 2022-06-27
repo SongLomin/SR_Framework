@@ -167,11 +167,15 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Public\BoosterBar.h" />
+    <ClInclude Include="..\Public\BulletCountUI.h" />
+    <ClInclude Include="..\Public\BulletUI.h" />
     <ClInclude Include="..\Public\AI_Player.h" />
     <ClInclude Include="..\Public\Default_Aim.h" />
     <ClInclude Include="..\Public\EnemySpace_Bullet.h" />
     <ClInclude Include="..\Public\EnemySpace_Posin.h" />
     <ClInclude Include="..\Public\EnemySpace_RightBody.h" />
+    <ClInclude Include="..\Public\HpBar.h" />
     <ClInclude Include="..\Public\MovingCamera.h" />
     <ClInclude Include="..\public\Player_Body.h" />
     <ClInclude Include="..\Public\Cam_FPS.h" />
@@ -189,7 +193,9 @@
     <ClInclude Include="..\Public\Monster.h" />
     <ClInclude Include="..\Public\Player_Posin.h" />
     <ClInclude Include="..\Public\Rock.h" />
+    <ClInclude Include="..\Public\ShieldBar.h" />
     <ClInclude Include="..\Public\SkyBox.h" />
+    <ClInclude Include="..\Public\StatusBar.h" />
     <ClInclude Include="..\Public\TargetingBox.h" />
     <ClInclude Include="..\Public\Terrain.h" />
     <ClInclude Include="..\Public\UITest.h" />
@@ -202,11 +208,15 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Private\BoosterBar.cpp" />
+    <ClCompile Include="..\Private\BulletCountUI.cpp" />
+    <ClCompile Include="..\Private\BulletUI.cpp" />
     <ClCompile Include="..\Private\AI_Player.cpp" />
     <ClCompile Include="..\Private\Default_Aim.cpp" />
     <ClCompile Include="..\Private\EnemySpace_Bullet.cpp" />
     <ClCompile Include="..\Private\EnemySpace_Posin.cpp" />
     <ClCompile Include="..\Private\EnemySpace_RightBody.cpp" />
+    <ClCompile Include="..\Private\HpBar.cpp" />
     <ClCompile Include="..\Private\MovingCamera.cpp" />
     <ClCompile Include="..\private\Player_Body.cpp" />
     <ClCompile Include="..\Private\Player_Bullet.cpp" />
@@ -223,7 +233,9 @@
     <ClCompile Include="..\Private\Monster.cpp" />
     <ClCompile Include="..\Private\Player_Posin.cpp" />
     <ClCompile Include="..\Private\Rock.cpp" />
+    <ClCompile Include="..\Private\ShieldBar.cpp" />
     <ClCompile Include="..\Private\SkyBox.cpp" />
+    <ClCompile Include="..\Private\StatusBar.cpp" />
     <ClCompile Include="..\Private\TargetingBox.cpp" />
     <ClCompile Include="..\Private\Terrain.cpp" />
     <ClCompile Include="..\Private\UITest.cpp" />

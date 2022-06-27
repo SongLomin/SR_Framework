@@ -31,6 +31,8 @@ void CTargetingBox::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+	
+
 }
 
 void CTargetingBox::LateTick(_float fTimeDelta)
@@ -40,6 +42,7 @@ void CTargetingBox::LateTick(_float fTimeDelta)
 
 	LookAtCamera();
 
+	m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta, true);
 
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
