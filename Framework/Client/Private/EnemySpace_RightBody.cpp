@@ -37,7 +37,7 @@ HRESULT CEnemySpace_RightBody::Initialize(void* pArg)
 
 	m_pMeshCom = Add_Component<CMesh_Cube>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
-	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pMeshCom->Set_Texture(TEXT("Red_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 0.f, 0.f));
 
@@ -63,7 +63,7 @@ HRESULT CEnemySpace_RightBody::Render()
 
 	m_pRendererCom->Bind_Texture(1);
 	__super::Render();
-	m_pMeshCom->Render_Mesh();
+	m_pMeshCom->Render_Mesh(0);
 	m_pRendererCom->UnBind_Texture();
 
 

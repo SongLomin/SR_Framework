@@ -58,9 +58,22 @@ void CTargeting::Make_AI_TargetList(list<CGameObject*>* pTarget, CTransform* pOb
 {
 	if (nullptr == pTarget)
 		return;
+	
+	for (auto& iter = m_pTargeting.begin(); iter != m_pTargeting.end();)
+	{
+		if (iter->second == nullptr)
+		{
+			iter = m_pTargeting.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
+	}
 
 	if (!m_pTargeting.empty())
 		return;
+
 	//Clear_Targeting();
 
 	_float3 ObjectLook = pObject->Get_World_State(CTransform::STATE_LOOK);

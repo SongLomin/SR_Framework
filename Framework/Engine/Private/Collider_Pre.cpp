@@ -39,10 +39,13 @@ HRESULT CCollider_Pre::Debug_Render()
 	_float4x4 MatColliderWorld;
 	D3DXMatrixIdentity(&MatColliderWorld);
 
-	MatColliderWorld._41 = MatMyObjectWorld._41;
-	MatColliderWorld._42 = MatMyObjectWorld._42;
-	MatColliderWorld._43 = MatMyObjectWorld._43;
+	//MatColliderWorld._41 = MatMyObjectWorld._41;
+	//MatColliderWorld._42 = MatMyObjectWorld._42;
+	//MatColliderWorld._43 = MatMyObjectWorld._43;
 
+	MatColliderWorld._41 = m_vColliderPosition.x;
+	MatColliderWorld._42 = m_vColliderPosition.y;
+	MatColliderWorld._43 = m_vColliderPosition.z;
 
 	DEVICE->SetTransform(D3DTS_WORLD, &MatColliderWorld);
 	//m_pMesh->DrawSubset(0);

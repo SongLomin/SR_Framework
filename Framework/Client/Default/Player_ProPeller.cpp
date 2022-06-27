@@ -64,7 +64,7 @@ HRESULT CPlayer_ProPeller::Render()
 	__super::Render();
 
 	if (Get_Controller() == CONTROLLER::PLAYER)
-		m_pMeshCom->Render_Mesh();
+		m_pMeshCom->Render_Mesh(5);
 
 
 	m_pRendererCom->UnBind_Texture();

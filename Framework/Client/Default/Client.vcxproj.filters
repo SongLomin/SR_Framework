@@ -103,6 +103,9 @@
     <Filter Include="97. UITest\Logo">
       <UniqueIdentifier>{6bb5c36a-72de-4ccf-81d5-8849cacc2d18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\00. Player\AI_Player">
+      <UniqueIdentifier>{9f84a888-4e75-4ca0-bda1-90ac50b954b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -201,6 +204,9 @@
     <ClInclude Include="Logo.h">
       <Filter>97. UITest\Logo</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\AI_Player.h">
+      <Filter>02.GameObject\00. Player\AI_Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -289,6 +295,9 @@
     </ClCompile>
     <ClCompile Include="Logo.cpp">
       <Filter>97. UITest\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\AI_Player.cpp">
+      <Filter>02.GameObject\00. Player\AI_Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

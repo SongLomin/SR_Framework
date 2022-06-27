@@ -21,7 +21,7 @@ HRESULT CMesh::Initialize(void * pArg)
 	return S_OK;
 }
 
-HRESULT CMesh::Render_Mesh()
+HRESULT CMesh::Render_Mesh(_uint _IndexNum)
 {
 	if (nullptr == LPDEVICE)
 		return E_FAIL;
@@ -29,7 +29,7 @@ HRESULT CMesh::Render_Mesh()
 	for (_ulong i = 0; i < m_dwNumSubsets; ++i)
 	{
 		if(m_vTextures)
-			DEVICE->SetTexture(0, (*m_vTextures)[6]);
+			DEVICE->SetTexture(0, (*m_vTextures)[_IndexNum]);
 		//DEVICE->SetMaterial(m_vMtrl[i]);
 		m_pMesh->DrawSubset(i);
 	}

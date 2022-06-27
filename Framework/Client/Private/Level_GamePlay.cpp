@@ -17,6 +17,7 @@
 #include <SkyBox.h>
 #include "Rock.h"
 #include "../Default/EnemySpace_Body.h"
+#include "AI_Player.h"
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -44,11 +45,17 @@ HRESULT CLevel_GamePlay::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_GAMEPLAY, TEXT("Player_Body")))
 		return E_FAIL;
 
-	//for (int i = 0; i < 30; ++i)
-	//{
+	for (int i = 0; i < 50; ++i)
+	{
 		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_GAMEPLAY, TEXT("EnemySpace_Body")))
 			return E_FAIL;
-	//}
+	}
+
+	for (int i = 0; i < 50; ++i)
+	{
+		if (!GAMEINSTANCE->Add_GameObject<CAI_Player>(LEVEL_GAMEPLAY, TEXT("AI_Player")))
+			return E_FAIL;
+	}
 
 
 	for (int i = 0; i < 5; i++)

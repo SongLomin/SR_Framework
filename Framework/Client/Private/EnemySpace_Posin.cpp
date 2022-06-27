@@ -77,7 +77,7 @@ HRESULT CEnemySpace_Posin::Render()
 	m_pTransformCom->Bind_WorldMatrix(D3D_ALL, D3D_ALL);
 
 	__super::Render();
-	m_pMeshCom->Render_Mesh();
+	m_pMeshCom->Render_Mesh(0);
 	m_pRendererCom->UnBind_Texture();
 
 	return S_OK;
@@ -124,7 +124,7 @@ HRESULT CEnemySpace_Posin::SetUp_Components()
 
 	m_pMeshCom = Add_Component<CMesh_Cube>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
-	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pMeshCom->Set_Texture(TEXT("Red_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);

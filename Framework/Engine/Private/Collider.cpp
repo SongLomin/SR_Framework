@@ -26,7 +26,7 @@ void CCollider::Link_Pre_Collider(CCollider_Pre* _PreCol)
 
 CCollider_Pre* CCollider::Get_Pre_Collider() const
 {
-    return nullptr;
+    return m_pPreCollider;
 }
 
 void CCollider::Free()

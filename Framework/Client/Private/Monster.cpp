@@ -63,7 +63,7 @@ HRESULT CMonster::Render()
 	m_pRendererCom->Bind_Texture(1);
 
 	__super::Render();
-	m_pMeshCom->Render_Mesh();
+	m_pMeshCom->Render_Mesh(5);
 
 	m_pRendererCom->UnBind_Texture();
 

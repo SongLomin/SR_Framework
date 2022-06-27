@@ -42,7 +42,21 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 	ISVALID(m_pTransformCom);
 
  
-	m_pStateCom->State_Change(m_pPlayerTransformCom,fTimeDelta);
+	map<_float, CGameObject*>* TargetList = m_pTargetingCom->Get_Targetting();
+	
+	if (TargetList->empty())
+	{
+		m_pStateCom->State_Change(m_pTransformCom, fTimeDelta);
+	}
+	else
+	{
+		CGameObject* TargetCheck = TargetList->begin()->second;
+		if (!TargetCheck)
+		{
+			return;
+		}
+		m_pStateCom->State_Tagetting(TargetList->begin()->second->Get_Component<CTransform>(), fTimeDelta, 7.f);
+	}
 
 
 	/*m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
@@ -61,7 +75,7 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 	m_fTime -= fTimeDelta;
 	if (m_fTime < 0.f)
 	{
-		m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player_Body")), m_pTransformCom);
+		m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("AI_Player")), m_pTransformCom);
 		Update_Target();
 		m_fTime = 1.f;
 	}
@@ -74,13 +88,16 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 
 HRESULT CEnemySpace_Body::Render()
 {
+	//m_pColliderCom->Debug_Render();
+	//m_pColliderPreCom->Debug_Render();
+
 	__super::Render();
 
 	m_pTransformCom->Bind_WorldMatrix();
 
 
 	m_pRendererCom->Bind_Texture(1);
-	m_pMeshCom->Render_Mesh();
+	m_pMeshCom->Render_Mesh(0);
 	m_pRendererCom->UnBind_Texture();
 
 	return S_OK;
@@ -100,12 +117,12 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr((void**)&m_pRendererCom);
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
+	//m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
 
 
 	m_pMeshCom = Add_Component<CMesh_Cube>();
 	m_pMeshCom->Set_WeakPtr((void**)&m_pMeshCom);
-	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pMeshCom->Set_Texture(TEXT("Red_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 10.f;
@@ -134,7 +151,7 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pStateCom = Add_Component<CState_Move>();
 	m_pStateCom->Set_WeakPtr((void**)m_pStateCom);
 	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
-	m_pStateCom->Link_AiTransform(m_pTransformCom);
+	m_pStateCom->Link_AI_Transform(m_pTransformCom);
 
 
 	m_pTargetingCom = Add_Component<CTargeting>();
@@ -155,11 +172,21 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	Posin->Set_WeakPtr(&m_pPosinList.back());
 
 
+
+	m_pColliderPreCom = Add_Component<CCollider_Pre>();
+	WEAK_PTR(m_pColliderPreCom);
+	m_pColliderPreCom->Link_Transform(m_pTransformCom);
+	//구체라서 x만 받는다.
+	m_pColliderPreCom->Set_Collider_Size(_float3(4.5f, 0.f, 0.f));
+
+
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
 	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
-	m_pColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
+	m_pColliderCom->Link_Pre_Collider(m_pColliderPreCom);
+	m_pColliderCom->Set_Collider_Size(_float3(3.f, 3.f, 3.f));
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
+
 
 
 	return S_OK;

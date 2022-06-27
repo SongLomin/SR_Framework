@@ -179,10 +179,11 @@ HRESULT CPlayer_Body::Render_Begin()
 
 HRESULT CPlayer_Body::Render()
 {
-	m_pColliderCom->Debug_Render();
-	m_pPreColliderCom->Debug_Render();
+	//m_pColliderCom->Debug_Render();
+	//m_pPreColliderCom->Debug_Render();
 
-	m_pTransformCom->Scaling(_float3(0.03f, 0.03f, 0.03f), true);
+	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f), true);
+
 	m_pTransformCom->Bind_WorldMatrix();
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
@@ -193,7 +194,7 @@ HRESULT CPlayer_Body::Render()
 
 
 	if(Get_Controller() == CONTROLLER::PLAYER)
-		m_pMeshCubeCom->Render_Mesh();
+		m_pMeshCubeCom->Render_Mesh(5);
 	//m_pRendererCom->UnBind_Texture();
 
 	

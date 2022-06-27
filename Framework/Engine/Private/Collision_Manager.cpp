@@ -175,6 +175,7 @@ void CCollision_Manager::CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_T
 
 bool CCollision_Manager::Is3DCollision(CCollider* _pLeft, CCollider* _pRight)
 {
+
 	if (!IsSphereCollision(_pLeft->Get_Pre_Collider(), _pRight->Get_Pre_Collider()))
 	{
 		return false;
