@@ -245,9 +245,14 @@ HRESULT CGameInstance::Draw_RenderGroup()
 	return m_pRender_Manager->Draw_RenderGroup();
 }
 
-HRESULT CGameInstance::Add_Textures(const _tchar* _strKey, const _tchar* pTextureFilePath, TEXTURE_TYPE eType, MEMORY_TYPE eMemType)
+HRESULT CGameInstance::Load_Textures(const _tchar* _strKey, const _tchar* pTextureFilePath, TEXTURE_TYPE eType, MEMORY_TYPE eMemType)
 {
-	return m_pResource_Manager->Add_Texture(_strKey, pTextureFilePath, eType, eMemType);
+	return m_pResource_Manager->Load_Textures(_strKey, pTextureFilePath, eType, eMemType);
+}
+
+HRESULT CGameInstance::Load_Shader(const _tchar* _strKey, const _tchar* pShaderFilePath, MEMORY_TYPE eMemType)
+{
+	return m_pResource_Manager->Load_Shader(_strKey, pShaderFilePath, eMemType);
 }
 
 HRESULT CGameInstance::Remove_Textures_By_MemoryType(MEMORY_TYPE _eMemType)
@@ -258,6 +263,11 @@ HRESULT CGameInstance::Remove_Textures_By_MemoryType(MEMORY_TYPE _eMemType)
 vector<LPDIRECT3DBASETEXTURE9>* CGameInstance::Get_Textures_From_Key(const _tchar* _Str_Key, MEMORY_TYPE _eType)
 {
 	return CResource_Manager::Get_Instance()->Get_Textures_From_Key(_Str_Key, _eType);
+}
+
+ID3DXEffect** CGameInstance::Get_Shader_From_Key(const _tchar* _Str_Key, MEMORY_TYPE _eType)
+{
+	return m_pResource_Manager->Get_Shader_From_Key(_Str_Key, _eType);
 }
 
 HRESULT CGameInstance::Add_Timer(_uint eTimer)

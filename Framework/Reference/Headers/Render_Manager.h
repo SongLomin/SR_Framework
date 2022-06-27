@@ -21,6 +21,8 @@ private:
 	typedef list<class CGameObject*>		RENDEROBJECTS;
 
 private:
+	void Lighting_Pipeline();
+	void Foward_Pipeline();
 
 
 public:

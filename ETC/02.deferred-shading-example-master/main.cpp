@@ -266,11 +266,61 @@ void DrawObject()
 	ObjectMesh->DrawSubset(0);
 }
 
+void FowardPipeline()
+{
+	static float x;
+	static float y;
+
+	x = 0.6f;
+	y = 0.6f;
+
+	//Device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
+	Device->BeginScene();
+	Device->SetRenderState(D3DRS_LIGHTING, false);
+
+	D3DXMatrixTranslation(&world, x, y, 0.f);
+	Device->SetTransform(D3DTS_WORLD, &world);
+	Device->SetTransform(D3DTS_VIEW, &view);
+	Device->SetTransform(D3DTS_PROJECTION, &proj);
+
+	DrawObject();
+
+
+	Device->EndScene();
+}
+
+void PriorityPipeline()
+{
+	Device->BeginScene();
+	Device->SetRenderState(D3DRS_LIGHTING, false);
+	Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
+	Device->SetRenderState(D3DRS_ZENABLE, FALSE);
+	Device->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+
+	D3DXMatrixTranslation(&world, 2.1f, 2.7f, 0.f);
+	Device->SetTransform(D3DTS_WORLD, &world);
+	Device->SetTransform(D3DTS_VIEW, &view);
+	Device->SetTransform(D3DTS_PROJECTION, &proj);
+
+	
+
+	DrawObject();
+
+
+	Device->SetRenderState(D3DRS_LIGHTING, true);
+	Device->SetRenderState(D3DRS_ZENABLE, TRUE);
+	Device->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+	Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+
+	Device->EndScene();
+}
+
+
 void DeferredPipeline()
 {
 	/* G-buffer stage */
 	SetMRT();
-	Device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
+	
 
 	Device->BeginScene();
 
@@ -471,7 +521,7 @@ void DeferredPipeline()
 	Device->EndScene();
 
 
-	Device->Present(0, 0, 0, 0);
+	
 }
 
 bool Display(float timeDelta)
@@ -521,6 +571,8 @@ bool Display(float timeDelta)
 			1000.0f     // far  plane
 		);
 
+		
+
 		/* lights move in x-y plane */
 		for (int i = 0; i < LIGHT_NUM; i++) {
 			D3DVECTOR p = lights[i].Position;
@@ -544,8 +596,10 @@ bool Display(float timeDelta)
 
 			lights[i].Position = p;
 		}
-
+		Device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
 		DeferredPipeline();
+		FowardPipeline();
+		Device->Present(0, 0, 0, 0);
 	}
 	return true;
 }

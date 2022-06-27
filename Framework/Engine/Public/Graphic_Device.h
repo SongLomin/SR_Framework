@@ -27,6 +27,9 @@ public:
 	bool SetupEffect(const _tchar* shaderFilename, ID3DXEffect** effect);
 	bool SetupTexture(IDirect3DTexture9** texture, IDirect3DSurface9** surface);
 
+public:
+
+
 private:
 	LPDIRECT3D9				m_p3D;
 	LPDIRECT3DDEVICE9		m_pDevice;
@@ -38,6 +41,9 @@ private:
 	ID3DXSprite*			m_pSprite = nullptr;
 
 	GRAPHICDESC				m_GraphicDesc;
+
+private: /* For Light */
+	
 	
 public: /* For Defferred Rendering */
 	IDirect3DSurface9* originRenderTarget = 0;
