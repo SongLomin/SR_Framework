@@ -27,10 +27,10 @@ HRESULT CHpBar::Initialize(void* pArg)
 
 	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinCX, g_iWinCY, 0.0f, 1.f);
 
-	m_fX = 260.f;
+	m_fX = 220.f;
 	m_fY = 50.f;
 
-	m_fSizeX = 200.0f;
+	m_fSizeX = 150.0f;
 	m_fSizeY = 5.0f;
 
 	return S_OK;
