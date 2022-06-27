@@ -16,6 +16,7 @@
 #include <UITest.h>
 #include <SkyBox.h>
 #include "Rock.h"
+#include "MovingCamera.h"
 #include "../Default/EnemySpace_Body.h"
 
 CLevel_GamePlay::CLevel_GamePlay()
@@ -40,16 +41,16 @@ HRESULT CLevel_GamePlay::Initialize()
 	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
 
+	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(LEVEL_STATIC, TEXT("Camera"));
+	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
 	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_GAMEPLAY, TEXT("Player_Body")))
 		return E_FAIL;
 
-	//for (int i = 0; i < 30; ++i)
-	//{
+
 		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_GAMEPLAY, TEXT("EnemySpace_Body")))
 			return E_FAIL;
-	//}
-
 
 	for (int i = 0; i < 5; i++)
 	{

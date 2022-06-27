@@ -103,6 +103,9 @@
     <Filter Include="97. UITest\Logo">
       <UniqueIdentifier>{6bb5c36a-72de-4ccf-81d5-8849cacc2d18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\05. Camera_Object\04. Cam_Moving">
+      <UniqueIdentifier>{0d73d39a-9716-4db9-913c-cc8991ef9d9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -201,6 +204,9 @@
     <ClInclude Include="Logo.h">
       <Filter>97. UITest\Logo</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\MovingCamera.h">
+      <Filter>02.GameObject\05. Camera_Object\04. Cam_Moving</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -289,6 +295,9 @@
     </ClCompile>
     <ClCompile Include="Logo.cpp">
       <Filter>97. UITest\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\MovingCamera.cpp">
+      <Filter>02.GameObject\05. Camera_Object\04. Cam_Moving</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

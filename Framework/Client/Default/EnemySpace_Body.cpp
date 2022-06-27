@@ -4,6 +4,7 @@
 #include "EnemySpace_RightBody.h"
 #include "EnemySpace_Posin.h"
 #include "State_Move.h"
+#include "MovingCamera.h"
 #include <TargetingBox.h>
 
 
@@ -41,6 +42,12 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 
 	ISVALID(m_pTransformCom);
 
+	if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP))
+	{
+		CMovingCamera* pMovingCam = (CMovingCamera*)GAMEINSTANCE->Get_MovingCam();
+		pMovingCam->Boss_Cinematic(m_pTransformCom);
+	}
+
  
 	m_pStateCom->State_Change(m_pPlayerTransformCom,fTimeDelta);
 
@@ -67,7 +74,7 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 	}
 
 
-	m_pRigidBodyCom->Update_Transform(fTimeDelta);
+ 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 
 }

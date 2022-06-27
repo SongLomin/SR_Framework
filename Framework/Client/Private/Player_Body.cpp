@@ -13,6 +13,7 @@
 
 
 
+
 CPlayer_Body::CPlayer_Body()
 {
 
@@ -58,42 +59,18 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 	if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
 
-	if (m_bMouse)
-	{	
-		POINT pt{};
-		GetCursorPos(&pt);
-		ScreenToClient(g_hWnd, &pt);
+		
+	POINT pt{};
+	GetCursorPos(&pt);
+	ScreenToClient(g_hWnd, &pt);
 
-		_float fDirX = pt.x - g_iWinCX*0.5f;
-		_float fDirY = pt.y - g_iWinCY*0.5f;
+	_float fDirX = pt.x - g_iWinCX*0.5f;
+	_float fDirY = pt.y - g_iWinCY*0.5f;
 
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::SPIN, fDirX*0.1f);
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::DOWN, fDirY*0.1f);
+	m_pRigidBodyCom->Add_Dir(CRigid_Body::SPIN, fDirX*0.1f);
+	m_pRigidBodyCom->Add_Dir(CRigid_Body::DOWN, fDirY*0.1f);
 
-	}
-	else
-	{
-
-		if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
-			m_pRigidBodyCom->Add_Dir(CRigid_Body::BACK);
-
-		if (KEY_INPUT(KEY::D, KEY_STATE::HOLD))
-			m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
-
-		if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
-			m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
-
-		if (KEY_INPUT(KEY::UP, KEY_STATE::HOLD))
-		{
-			m_pRigidBodyCom->Add_Dir(CRigid_Body::LIFT);
-		}
-	}
-
-	if (KEY_INPUT(KEY::CTRL, KEY_STATE::TAP))//마우스 움직임 테스트용
-	{
-		m_bMouse = !m_bMouse;
-		m_pRigidBodyCom->Set_MouseMove();
-	}
+	
 
 	if (KEY_INPUT(KEY::Z, KEY_STATE::TAP))
 	{
@@ -134,6 +111,9 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 	{
 		m_bTargetMode = !m_bTargetMode;
 	}
+	
+
+	//if(KEY_INPUT(KEY::))
 
 
 	GAMEINSTANCE->Add_Text(
@@ -165,6 +145,8 @@ void CPlayer_Body::LateTick(_float fTimeDelta)
 	__super::LateTick(fTimeDelta);
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
+
+	
 
 	ISVALID(m_pRendererCom, );
 

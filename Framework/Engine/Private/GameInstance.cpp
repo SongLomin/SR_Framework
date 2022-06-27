@@ -320,6 +320,26 @@ void CGameInstance::Set_Current_Camera(const _tchar* _CameraTag)
 	m_pCamera_Manager->Set_Current_Camera(_CameraTag);
 }
 
+void CGameInstance::Update_MovingCam()
+{
+	m_pCamera_Manager->Update_MovingCam();
+}
+
+void CGameInstance::Set_MovingCam(CGameObject* _pMovingCam)
+{
+	m_pCamera_Manager->Set_MovingCam(_pMovingCam);
+}
+
+CGameObject* CGameInstance::Get_MovingCam()
+{
+	return m_pCamera_Manager->Get_MovingCam();
+}
+
+void CGameInstance::Swap_Camera()
+{
+	m_pCamera_Manager->Swap_Camera();
+}
+
 void CGameInstance::Add_Collider(CCollider* pCollider)
 {
 	m_pCollision_Manager->Add_Collider(pCollider);

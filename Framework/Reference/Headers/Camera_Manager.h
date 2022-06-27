@@ -5,6 +5,7 @@ BEGIN(Engine)
 
 class CTransform;
 class CCamera;
+class CGameObject;
 
 class CCamera_Manager :
     public CBase
@@ -21,6 +22,26 @@ public:
     CCamera* Get_Camera(const _tchar* _CameraTag = TEXT(""));
     void Set_Current_Camera(const _tchar* _CameraTag = TEXT(""));
 
+    void Update_MovingCam()
+    {
+        m_pTempCam = m_pCurrentCam;
+        Set_Current_Camera(TEXT("Moving"));
+    }
+
+    void Swap_Camera()
+    {
+        m_pCurrentCam = m_pTempCam;
+    }
+
+    void Set_MovingCam(CGameObject* _pMovingCam)
+    {
+        m_pMovingCam = _pMovingCam;
+    }
+    CGameObject* Get_MovingCam()
+    {
+        return m_pMovingCam;
+    }
+
 public:
     void Tick(_float fTimeDelta);
     void LateTick(_float fTimeDelta);
@@ -30,8 +51,11 @@ private:
 
 private:
     map<const _tchar*, class CCamera*>	m_Cams;
+
+    CGameObject* m_pMovingCam = nullptr;
+
     CCamera* m_pCurrentCam = nullptr;
-    //CGameObject* m_pMovingCam = nullptr;
+    CCamera* m_pTempCam = nullptr;
 
 public:
     virtual void Free() override;
