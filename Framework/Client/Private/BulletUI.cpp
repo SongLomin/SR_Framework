@@ -42,12 +42,12 @@ void CBulletUI::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
 	{
-		m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_STATIC);
+		m_pRendererCom->Set_Textures_From_Key(TEXT("MainWeapon"), MEMORY_TYPE::MEMORY_STATIC);
 	}
 
 	if (KEY_INPUT(KEY::RBUTTON, KEY_STATE::TAP))
 	{
-		m_pRendererCom->Set_Textures_From_Key(TEXT("Test2"), MEMORY_TYPE::MEMORY_STATIC);
+		m_pRendererCom->Set_Textures_From_Key(TEXT("SubWeapon"), MEMORY_TYPE::MEMORY_STATIC);
 	}
 
 	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
@@ -104,7 +104,7 @@ HRESULT CBulletUI::SetUp_Components()
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("MainWeapon"), MEMORY_TYPE::MEMORY_STATIC);
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);

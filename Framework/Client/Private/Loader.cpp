@@ -163,15 +163,15 @@ HRESULT CLoader::Loading_ForGamePlayLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Test"), TEXT("../Bin/Resources/Textures/UI/Test.png"),
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("MainWeapon"), TEXT("../Bin/Resources/Textures/UI/MainWeapon.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Test2"), TEXT("../Bin/Resources/Textures/UI/Test2.png"),
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("SubWeapon"), TEXT("../Bin/Resources/Textures/UI/SubWeapon.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Test3"), TEXT("../Bin/Resources/Textures/UI/Test3.png"),
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("EmptyItem"), TEXT("../Bin/Resources/Textures/UI/EmptyItem.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
