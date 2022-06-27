@@ -321,7 +321,6 @@ void DeferredPipeline()
 	/* G-buffer stage */
 	SetMRT();
 	
-
 	Device->BeginScene();
 
 	//Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);

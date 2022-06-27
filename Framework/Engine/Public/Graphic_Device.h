@@ -43,23 +43,6 @@ private:
 	GRAPHICDESC				m_GraphicDesc;
 
 private: /* For Light */
-	
-	
-public: /* For Defferred Rendering */
-	IDirect3DSurface9* originRenderTarget = 0;
-
-	IDirect3DTexture9* normalTex = 0;
-	IDirect3DSurface9* normalSurface = 0;
-
-	IDirect3DTexture9* depthTex = 0;
-	IDirect3DSurface9* depthSurface = 0;
-
-	IDirect3DTexture9* diffuseTex = 0;
-	IDirect3DSurface9* diffuseSurface = 0;
-
-	IDirect3DTexture9* specularTex = 0;
-	IDirect3DSurface9* specularSurface = 0;
-
 
 private:
 	void		SetParameters(const GRAPHICDESC& GraphicDesc, D3DPRESENT_PARAMETERS& d3dpp);

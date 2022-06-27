@@ -206,6 +206,7 @@
     <ClCompile Include="..\Private\Render_Manager.cpp" />
     <ClCompile Include="..\Private\Resource_Manager.cpp" />
     <ClCompile Include="..\private\Rigid_Body.cpp" />
+    <ClCompile Include="..\Private\SpotLight.cpp" />
     <ClCompile Include="..\Private\State.cpp" />
     <ClCompile Include="..\Private\State_Attack.cpp" />
     <ClCompile Include="..\Private\State_Move.cpp" />
@@ -267,6 +268,7 @@
     <ClInclude Include="..\Public\Render_Manager.h" />
     <ClInclude Include="..\Public\Resource_Manager.h" />
     <ClInclude Include="..\public\Rigid_Body.h" />
+    <ClInclude Include="..\Public\SpotLight.h" />
     <ClInclude Include="..\Public\State.h" />
     <ClInclude Include="..\Public\State_Attack.h" />
     <ClInclude Include="..\Public\State_Move.h" />

@@ -169,21 +169,33 @@ void CPlayer_Body::LateTick(_float fTimeDelta)
 	ISVALID(m_pRendererCom, );
 
 	
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
 }
 
-HRESULT CPlayer_Body::Render_Begin()
+HRESULT CPlayer_Body::Render_Begin(ID3DXEffect** Shader)
 {
-	return E_NOTIMPL;
+	//m_pTransformCom->Scaling(_float3(0.03f, 0.03f, 0.03f), true);
+	m_pTransformCom->Bind_WorldMatrix();
+
+	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
+
+	float floatArray[3];
+	floatArray[0] = 0.7f;
+	floatArray[1] = 0.f;
+	floatArray[2] = 0.7f;
+
+	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
+
+
+	return S_OK;
 }
 
 HRESULT CPlayer_Body::Render()
 {
-	m_pColliderCom->Debug_Render();
-	m_pPreColliderCom->Debug_Render();
+	//m_pColliderCom->Debug_Render();
+	//m_pPreColliderCom->Debug_Render();
 
-	m_pTransformCom->Scaling(_float3(0.03f, 0.03f, 0.03f), true);
-	m_pTransformCom->Bind_WorldMatrix();
+	/*m_pTransformCom->Bind_WorldMatrix();*/
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	//m_pRendererCom->Bind_Texture(0);
@@ -223,7 +235,7 @@ HRESULT CPlayer_Body::SetUp_Components()
 
 
 
-	m_pMeshCubeCom = Add_Component<CMesh_SongShip>();
+	m_pMeshCubeCom = Add_Component<CMesh_Test>();
 	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);
 	m_pMeshCubeCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;

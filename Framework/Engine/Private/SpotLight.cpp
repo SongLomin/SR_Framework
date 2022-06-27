@@ -1,68 +1,21 @@
-#include "DirectionalLight.h"
+#include "SpotLight.h"
 #include "GameInstance.h"
 
-CDirectionalLight::CDirectionalLight(const CDirectionalLight& Prototype)
+CSpotLight::CSpotLight(const CSpotLight& Prototype)
 {
-    *this = Prototype;
+	*this = Prototype;
 }
 
-HRESULT CDirectionalLight::Initialize_Prototype()
+HRESULT CSpotLight::Initialize_Prototype()
 {
-    m_ppLightEffect = GAMEINSTANCE->Get_Shader_From_Key(TEXT("DirectionalLight"));
+	m_ppLightEffect = GAMEINSTANCE->Get_Shader_From_Key(TEXT("SpotLight"));
 
-    return S_OK;
+	return S_OK;
 }
 
-HRESULT CDirectionalLight::Initialize(void* pArg)
+HRESULT CSpotLight::Initialize(void* pArg)
 {
-	/* prepare screen quad vertex buffer */
-	DEVICE->CreateVertexBuffer(
-		6 * sizeof(VTX),
-		0,
-		D3DFVF_XYZ,
-		D3DPOOL_MANAGED,
-		&vb,
-		0
-	);
-
-	/* screen quad coordinates
-
-	-1,1	        1,1
-	 v0             v1
-	  +-------------+
-	  |             |
-	  |    screen   |
-	  |             |
-	  +-------------+
-	 v2             v3
-	-1,-1          1,-1
-
-	*/
-	VTX v0 = {
-		-1, 1, 0
-	};
-	VTX v1 = {
-		1, 1, 0
-	};
-	VTX v2 = {
-		-1, -1, 0
-	};
-	VTX v3 = {
-		1, -1, 0
-	};
-
-	/* fill into buffer */
-	VTX* vertices;
-	vb->Lock(0, 0, (void**)&vertices, 0);
-
-	vertices[0] = v0;
-	vertices[1] = v1;
-	vertices[2] = v2;
-	vertices[3] = v1;
-	vertices[4] = v3;
-	vertices[5] = v2;
-
-	vb->Unlock();
+	D3DXCreateSphere(DEVICE, 1, 50, 50, &m_pMesh, 0);
 
 	D3DXCOLOR color = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);       // white
 	D3DXVECTOR3 position = D3DXVECTOR3(0.f, 0.f, 5.f);
@@ -87,37 +40,34 @@ HRESULT CDirectionalLight::Initialize(void* pArg)
 	m_D3DLight.Theta = 1.f;
 	m_D3DLight.Phi = 2.f;
 
-    return S_OK;
+	return S_OK;
 }
 
-void CDirectionalLight::Tick(_float fTimeDelta)
+void CSpotLight::Tick(_float fTimeDelta)
 {
 }
 
-void CDirectionalLight::LateTick(_float fTimeDelta)
+void CSpotLight::LateTick(_float fTimeDelta)
 {
+
 }
 
-CDirectionalLight* CDirectionalLight::Create()
+void CSpotLight::Bind_ConstBuffer()
 {
-    CREATE_PIPELINE(CDirectionalLight);
-}
+	ISVALID(m_ppLightEffect, );
 
-CComponent* CDirectionalLight::Clone(void* pArg)
-{
-    CLONE_PIPELINE(CDirectionalLight);
-}
+	D3DXHANDLE worldHandle = (*m_ppLightEffect)->GetParameterByName(0, "world");
+	D3DXHANDLE projHandle = (*m_ppLightEffect)->GetParameterByName(0, "proj");
 
-void CDirectionalLight::Free()
-{
-    __super::Free();
+	D3DXMATRIX scale, world, proj;
+	_float s = m_D3DLight.Range / 1;
+	D3DXMatrixScaling(&scale, s, s, s);
+	D3DXMatrixTranslation(&world, m_D3DLight.Position.x, m_D3DLight.Position.y, m_D3DLight.Position.z);
+	world = scale * world;
+	DEVICE->GetTransform(D3DTS_PROJECTION, &proj);
 
-    delete this;
-}
-
-void CDirectionalLight::Bind_ConstBuffer()
-{
-    ISVALID(m_ppLightEffect, );
+	(*m_ppLightEffect)->SetMatrix(worldHandle, &world);
+	(*m_ppLightEffect)->SetMatrix(projHandle, &proj);
 
 	D3DXHANDLE lightAmbientHandle = (*m_ppLightEffect)->GetParameterByName(0, "light_ambient");
 	D3DXHANDLE lightDiffuseHandle = (*m_ppLightEffect)->GetParameterByName(0, "light_diffuse");
@@ -175,18 +125,39 @@ void CDirectionalLight::Bind_ConstBuffer()
 
 
 
-    D3DXHANDLE hTech = (*m_ppLightEffect)->GetTechniqueByName("Plain");
-    (*m_ppLightEffect)->SetTechnique(hTech);
-	
+	D3DXHANDLE hTech = (*m_ppLightEffect)->GetTechniqueByName("StencilCulling");
+	(*m_ppLightEffect)->SetTechnique(hTech);
 
+	DEVICE->Clear(0, 0, D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
 }
 
-void CDirectionalLight::DrawLight()
+void CSpotLight::DrawLight()
 {
-    ISVALID(m_ppLightEffect, );
+	ISVALID(m_ppLightEffect, );
 
-	DEVICE->SetStreamSource(0, vb, 0, sizeof(VTX));
-	DEVICE->SetFVF(D3DFVF_XYZ);
-	DEVICE->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2);
+	DEVICE->SetFVF(D3DFVF_XYZ | D3DFVF_NORMAL);
+	m_pMesh->DrawSubset(0);
+}
 
+CSpotLight* CSpotLight::Create()
+{
+	CREATE_PIPELINE(CSpotLight);
+}
+
+CComponent* CSpotLight::Clone(void* pArg)
+{
+	CLONE_PIPELINE(CSpotLight);
+}
+
+void CSpotLight::Free()
+{
+	__super::Free();
+
+	if (m_pMesh)
+	{
+		m_pMesh->Release();
+		m_pMesh = nullptr;
+	}
+
+	delete this;
 }

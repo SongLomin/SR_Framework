@@ -21,6 +21,8 @@ public:
 
     // CLight을(를) 통해 상속됨
     virtual void DrawLight() override;
+    // CLight을(를) 통해 상속됨
+    virtual void Bind_ConstBuffer() override;
 
 public:
     // CLight을(를) 통해 상속됨
@@ -29,8 +31,7 @@ public:
     virtual void Free() override;
 
 private:
-    ID3DXEffect** m_ppLightEffect = nullptr;
-    
+    IDirect3DVertexBuffer9* vb = nullptr;
 };
 
 END

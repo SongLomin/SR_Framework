@@ -3,13 +3,13 @@
 
 BEGIN(Engine)
 
-class ENGINE_DLL CDirectionalLight :
+class ENGINE_DLL CSpotLight :
     public CLight
 {
 private:
-    explicit CDirectionalLight() = default;
-    CDirectionalLight(const CDirectionalLight& Prototype);
-    virtual ~CDirectionalLight() = default;
+    explicit CSpotLight() = default;
+    CSpotLight(const CSpotLight& Prototype);
+    virtual ~CSpotLight() = default;
 
 public:
     virtual HRESULT Initialize_Prototype();
@@ -26,12 +26,12 @@ public:
 
 public:
     // CLight을(를) 통해 상속됨
-    static CDirectionalLight* Create();
+    static CSpotLight* Create();
     virtual CComponent* Clone(void* pArg) override;
     virtual void Free() override;
 
 private:
-    IDirect3DVertexBuffer9* vb = nullptr;
+    ID3DXMesh* m_pMesh = nullptr;
 };
 
 END

@@ -39,6 +39,9 @@ public:
 		return m_pTarget_Transform;
 	}
     
+    _float Get_Fov() const { return m_CamDesc.fFovy; }
+    _float Get_Aspect() const { return m_CamDesc.fAspect; }
+
     HRESULT Bind_PipeLine();
 
 private:

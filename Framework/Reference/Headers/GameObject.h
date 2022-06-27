@@ -19,7 +19,7 @@ public:
 	virtual void Tick(_float fTimeDelta);
 	virtual void LateTick(_float fTimeDelta);
 	//렌더 이전 작업 수행 (상수버퍼 세팅)
-	virtual HRESULT Render_Begin();
+	virtual HRESULT Render_Begin(ID3DXEffect** Shader = nullptr);
 	virtual HRESULT Render();
 
 public:

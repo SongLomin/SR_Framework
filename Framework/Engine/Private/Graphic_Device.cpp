@@ -122,12 +122,12 @@ void CGraphic_Device::Render_Begin(void)
 	// 1인자 : 지우고자 하는 렉트의 개수
 	// 2인자 : 지우고자 하는 렉트 배열의 이름(nullptr인 경우 전체 화면 영역에 해당하는 렉터라는 의미)
 
-	m_pDevice->Clear(0,
-		nullptr,
-		D3DCLEAR_STENCIL | D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-		D3DCOLOR_ARGB(255, 0, 0, 255),	// 백버퍼 색상
-		1.f, // z버퍼의 초기화 값
-		0);	 // 스텐실 버퍼의 초기화 값
+	//m_pDevice->Clear(0,
+	//	nullptr,
+	//	D3DCLEAR_STENCIL | D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
+	//	D3DCOLOR_ARGB(255, 0, 0, 255),	// 백버퍼 색상
+	//	1.f, // z버퍼의 초기화 값
+	//	0);	 // 스텐실 버퍼의 초기화 값
 
 	//여기서부터 후면버퍼에 그리기 시점을 알린다.
 	m_pDevice->BeginScene();

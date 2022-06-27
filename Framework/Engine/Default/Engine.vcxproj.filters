@@ -379,6 +379,9 @@
     <ClInclude Include="..\Public\DirectionalLight.h">
       <Filter>01.Utility\03.Components\08. Light\00. DirectionalLight</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\SpotLight.h">
+      <Filter>01.Utility\03.Components\08. Light\01. SpotLight</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -543,6 +546,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\DirectionalLight.cpp">
       <Filter>01.Utility\03.Components\08. Light\00. DirectionalLight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\SpotLight.cpp">
+      <Filter>01.Utility\03.Components\08. Light\01. SpotLight</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
