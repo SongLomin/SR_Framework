@@ -33,7 +33,7 @@ public:
 	void Move_Chase_Player(CTransform* pPlayerTransform, _float fTimeDelta);
 
 public:
-	void MoveTarget_Chase(CTransform* pTargetTransform, _float fTimeDelta);
+	void MoveTarget_Chase(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit);
 	void MoveTarget_LSpin(CTransform* pTargetTransform, _float fTimeDelta , _float fLimit);
 	void MoveTarget_RSpin(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit);
 	void MoveTarget_Back(_float fTimeDelta);

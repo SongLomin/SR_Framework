@@ -36,6 +36,8 @@ protected:
 	CTransform* m_pBulletTransform = nullptr;
 
 protected:
+	_float   m_fTargetCurTime = 0.f;
+	_float   m_fTargetMaxTime = 1.3f;
 	_float	 m_fCurTime = 0.f;
 	_float	 m_fMaxTime = 1.f;
 	bool     m_bStateCheck = true;

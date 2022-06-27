@@ -31,6 +31,9 @@ HRESULT CEnemySpace_Body::Initialize(void* pArg)
 	GAMEINSTANCE->Add_GameObject<CTargetingBox>(CURRENT_LEVEL,
 		TEXT("Targeting"), m_pTransformCom)->Set_Enable(false);
 
+	m_pPlayerTransformCom = CGameInstance::Get_Instance()->Get_Player_GameObject()->Get_Component<CTransform>();
+	m_pPlayerTransformCom->Set_WeakPtr((void**)&m_pPlayerTransformCom);
+
 	return S_OK;
 }
 
@@ -47,9 +50,11 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 
 	/*m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 	m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
-	m_pTransformCom->Set_State(CTransform::STATE_LOOK, m_pPlayerTransformCom->Get_State(CTransform::STATE_LOOK, true), true);*/
 
-	//m_pStateCom->State_Tagetting(m_pPlayerTransformCom, fTimeDelta, 1);
+	m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
+	m_pTransformCom->Chase(m_pPlayerTransformCom, fTimeDelta, 10);*/
+
+	//m_pStateCom->State_Tagetting(m_pPlayerTransformCom, fTimeDelta, 8);
     
 }
 

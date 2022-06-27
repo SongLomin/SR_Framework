@@ -171,6 +171,7 @@
     <ClInclude Include="..\Public\EnemySpace_Bullet.h" />
     <ClInclude Include="..\Public\EnemySpace_Posin.h" />
     <ClInclude Include="..\Public\EnemySpace_RightBody.h" />
+    <ClInclude Include="..\Public\HpBar.h" />
     <ClInclude Include="..\public\Player_Body.h" />
     <ClInclude Include="..\Public\Cam_FPS.h" />
     <ClInclude Include="..\Public\Player_Bullet.h" />
@@ -188,6 +189,7 @@
     <ClInclude Include="..\Public\Player_Posin.h" />
     <ClInclude Include="..\Public\Rock.h" />
     <ClInclude Include="..\Public\SkyBox.h" />
+    <ClInclude Include="..\Public\StatusBar.h" />
     <ClInclude Include="..\Public\TargetingBox.h" />
     <ClInclude Include="..\Public\Terrain.h" />
     <ClInclude Include="..\Public\UITest.h" />
@@ -204,6 +206,7 @@
     <ClCompile Include="..\Private\EnemySpace_Bullet.cpp" />
     <ClCompile Include="..\Private\EnemySpace_Posin.cpp" />
     <ClCompile Include="..\Private\EnemySpace_RightBody.cpp" />
+    <ClCompile Include="..\Private\HpBar.cpp" />
     <ClCompile Include="..\private\Player_Body.cpp" />
     <ClCompile Include="..\Private\Player_Bullet.cpp" />
     <ClCompile Include="..\Private\Cam_FPS.cpp" />
@@ -220,6 +223,7 @@
     <ClCompile Include="..\Private\Player_Posin.cpp" />
     <ClCompile Include="..\Private\Rock.cpp" />
     <ClCompile Include="..\Private\SkyBox.cpp" />
+    <ClCompile Include="..\Private\StatusBar.cpp" />
     <ClCompile Include="..\Private\TargetingBox.cpp" />
     <ClCompile Include="..\Private\Terrain.cpp" />
     <ClCompile Include="..\Private\UITest.cpp" />

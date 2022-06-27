@@ -17,6 +17,7 @@
 #include <SkyBox.h>
 #include "Rock.h"
 #include "../Default/EnemySpace_Body.h"
+#include "StatusBar.h"
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -72,8 +73,14 @@ HRESULT CLevel_GamePlay::Initialize()
 			return E_FAIL;
 	}
 
+
+	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_GAMEPLAY, TEXT("Status")))
+		return E_FAIL;
+
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
 	//	return E_FAIL;
+
+	
 
 
 	/*TEXTINFO Info;
