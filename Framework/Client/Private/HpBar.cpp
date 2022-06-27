@@ -27,8 +27,11 @@ HRESULT CHpBar::Initialize(void* pArg)
 
 	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinCX, g_iWinCY, 0.0f, 1.f);
 
+	m_fX = 260.f;
+	m_fY = 50.f;
 
-	ShowCursor(false);
+	m_fSizeX = 200.0f;
+	m_fSizeY = 5.0f;
 
 	return S_OK;
 }
@@ -40,12 +43,6 @@ void CHpBar::Tick(_float fTimeDelta)
 	GetCursorPos(&m_ptMouse);
 	ScreenToClient(g_hWnd, &m_ptMouse);
 
-	m_fX = 260.f;
-	m_fY = 50.f;
-
-
-	m_fSizeX = 200.0f;
-	m_fSizeY = 5.0f;
 
 	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
