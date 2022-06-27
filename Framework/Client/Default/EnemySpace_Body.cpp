@@ -32,9 +32,6 @@ HRESULT CEnemySpace_Body::Initialize(void* pArg)
 	GAMEINSTANCE->Add_GameObject<CTargetingBox>(CURRENT_LEVEL,
 		TEXT("Targeting"), m_pTransformCom)->Set_Enable(false);
 
-	m_pPlayerTransformCom = CGameInstance::Get_Instance()->Get_Player_GameObject()->Get_Component<CTransform>();
-	m_pPlayerTransformCom->Set_WeakPtr((void**)&m_pPlayerTransformCom);
-
 	return S_OK;
 }
 
@@ -84,8 +81,6 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 
 	m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
 	m_pTransformCom->Chase(m_pPlayerTransformCom, fTimeDelta, 10);*/
-
-	m_pStateCom->State_Tagetting(m_pPlayerTransformCom, fTimeDelta, 8);
     
 }
 
@@ -97,7 +92,7 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 	m_fTime -= fTimeDelta;
 	if (m_fTime < 0.f)
 	{
-		m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("AI_Player")), m_pTransformCom);
+		m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("")), m_pTransformCom);
 		Update_Target();
 		m_fTime = 1.f;
 	}
@@ -110,8 +105,10 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 
 HRESULT CEnemySpace_Body::Render()
 {
-	//m_pColliderCom->Debug_Render();
-	//m_pColliderPreCom->Debug_Render();
+
+
+	m_pColliderCom->Debug_Render();
+	m_pColliderPreCom->Debug_Render();
 
 	__super::Render();
 

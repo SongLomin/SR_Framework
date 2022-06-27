@@ -77,8 +77,8 @@ HRESULT CAI_Player::Render_Begin()
 
 HRESULT CAI_Player::Render()
 {
-	//m_pColliderCom->Debug_Render();
-	//m_pPreColliderCom->Debug_Render();
+	m_pColliderCom->Debug_Render();
+	m_pPreColliderCom->Debug_Render();
 
 	m_pTransformCom->Bind_WorldMatrix();
 

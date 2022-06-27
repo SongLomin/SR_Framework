@@ -43,7 +43,6 @@ private:
 
 private:
     HRESULT SetUp_Components();
-    void LookAt_Player();
 
 public:
     // CGameObject을(를) 통해 상속됨

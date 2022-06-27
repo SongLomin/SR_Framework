@@ -133,13 +133,6 @@ HRESULT CEnemySpace_Posin::SetUp_Components()
 	return S_OK;
 }
 
-void CEnemySpace_Posin::LookAt_Player()
-{
-	//m_pTransformCom->LookAt(m_pPlayerTransformCom, true);
-}
-
-
-
 CEnemySpace_Posin* CEnemySpace_Posin::Create()
 {
 	CREATE_PIPELINE(CEnemySpace_Posin);

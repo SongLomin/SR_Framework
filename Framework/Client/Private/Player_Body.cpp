@@ -160,8 +160,8 @@ HRESULT CPlayer_Body::Render_Begin()
 
 HRESULT CPlayer_Body::Render()
 {
-	//m_pColliderCom->Debug_Render();
-	//m_pPreColliderCom->Debug_Render();
+	m_pColliderCom->Debug_Render();
+	m_pPreColliderCom->Debug_Render();
 
 	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f), true);
 

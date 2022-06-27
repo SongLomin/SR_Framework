@@ -49,8 +49,8 @@ void CPlayer_Bullet::LateTick(_float fTimeDelta)
 
 HRESULT CPlayer_Bullet::Render()
 {
-	//m_pColliderCom->Debug_Render();
-	//m_pPreColliderCom->Debug_Render();
+	m_pColliderCom->Debug_Render();
+	m_pPreColliderCom->Debug_Render();
 
 	m_pTransformCom->Scaling(_float3(0.2f, 0.1f, 10.f));
 	m_pTransformCom->Bind_WorldMatrix();

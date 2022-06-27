@@ -59,15 +59,15 @@ HRESULT CTerrain::Render()
 	m_pTransformCom->Bind_WorldMatrix();
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-
+	DEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILLMODE::D3DFILL_WIREFRAME);
 	m_pRendererCom->Bind_Texture(0);
 
 	__super::Render();
 	
-	//DEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILLMODE::D3DFILL_WIREFRAME);
+	
 	//m_pMeshCom->Render_Mesh();
 
-	//DEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILLMODE::D3DFILL_SOLID);
+	DEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILLMODE::D3DFILL_SOLID);
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 

@@ -14,8 +14,6 @@ class CStatus;
 class CCollider_OBB;
 class CCollider_Pre;
 class CTargeting;
-class CStatus;
-class CCollider_OBB;
 END
 
 
@@ -35,17 +33,15 @@ public:
     virtual void LateTick(_float fTimeDelta) override;
     virtual HRESULT Render() override;
 
-private:
+private: /* For My Component*/
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
     CMesh_Cube* m_pMeshCom = nullptr;
-    CTransform* m_pPlayerTransformCom = nullptr;
     CRigid_Body* m_pRigidBodyCom = nullptr;
     CState_Move* m_pStateCom = nullptr;
     CTargeting* m_pTargetingCom = nullptr;
     CStatus* m_pStatusCom = nullptr;
     CCollider_OBB* m_pColliderCom = nullptr;
-    CGameObject* m_pTargetObject = nullptr;
     CCollider_Pre* m_pColliderPreCom = nullptr;
 
 private:
