@@ -3,13 +3,13 @@
 
 BEGIN(Engine)
 
-class ENGINE_DLL CCollider_OBB :
+class ENGINE_DLL CCollider_Pre :
     public CCollider
 {
 protected:
-    explicit CCollider_OBB() = default;
-    CCollider_OBB(const CCollider_OBB& Prototype);
-    virtual ~CCollider_OBB() = default;
+    explicit CCollider_Pre() = default;
+    CCollider_Pre(const CCollider_Pre& Prototype);
+    virtual ~CCollider_Pre() = default;
 
 public:
     virtual HRESULT Initialize_Prototype();
@@ -21,7 +21,6 @@ public:
     HRESULT Debug_Render();
 
 public:
-    OBBINFO Get_OBBInfo() const { return m_OBBInfo; };
     // CCollider을(를) 통해 상속됨
     virtual void Set_Collider_Size(const _float3& _Size) override;
 
@@ -30,18 +29,18 @@ public:
     virtual _float3 Get_Collider_Position() override;
 
 private:
-    OBBINFO m_OBBInfo;
-    
+    _float m_fSize = 0.f;
+    _float3 m_vColliderPosition;
+
 private: /* For Debug Mesh */
-    _uint			m_iNumVertices = 0;
-    _uint			m_iNumPrimitive = 0;
+    ID3DXMesh* m_pMesh = nullptr;
     _ulong			m_dwFVF;
 public:
-    static CCollider_OBB* Create();
+    static CCollider_Pre* Create();
     virtual	CComponent* Clone(void* pArg) override;
     virtual void Free() override;
 
-    
+
 
 };
 

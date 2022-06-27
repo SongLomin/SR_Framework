@@ -20,6 +20,7 @@
 #include "Targeting.h"
 #include "Mesh_Test.h"
 #include "Mesh_SongShip.h"
+#include "Collider_Pre.h"
 
 BEGIN(Engine)
 

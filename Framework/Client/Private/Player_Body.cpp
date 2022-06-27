@@ -4,12 +4,10 @@
 #include "Player_RightBody.h"
 #include <tchar.h>
 #include "Player_Posin.h"
-#include "CameraPosin.h"
 #include "Cam_Free.h"
 #include "Cam_TPS.h"
 #include "Cam_FPS.h"
 #include "Cam_Shoulder.h"
-#include "Player_ProPeller.h"
 #include "Player_Bullet.h"
 #include "Math_Utillity.h"
 
@@ -178,9 +176,12 @@ HRESULT CPlayer_Body::Render_Begin()
 
 HRESULT CPlayer_Body::Render()
 {
+	m_pColliderCom->Debug_Render();
+	m_pPreColliderCom->Debug_Render();
+
 	m_pTransformCom->Scaling(_float3(0.03f, 0.03f, 0.03f), true);
 	m_pTransformCom->Bind_WorldMatrix();
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	//m_pRendererCom->Bind_Texture(0);
 
@@ -193,7 +194,7 @@ HRESULT CPlayer_Body::Render()
 	//m_pRendererCom->UnBind_Texture();
 
 	
-	 DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	 //DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	return S_OK;
 }
@@ -245,6 +246,22 @@ HRESULT CPlayer_Body::SetUp_Components()
 
 	m_pTargetingCom = Add_Component<CTargeting>();
 	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
+
+	
+
+	m_pPreColliderCom = Add_Component<CCollider_Pre>();
+	WEAK_PTR(m_pPreColliderCom);
+	m_pPreColliderCom->Link_Transform(m_pTransformCom);
+	//구체라서 x만 받는다.
+	m_pPreColliderCom->Set_Collider_Size(_float3(4.5f, 0.f, 0.f));
+
+	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER_ATTACK;
+	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
+	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
+	m_pColliderCom->Link_Transform(m_pTransformCom);
+	m_pColliderCom->Set_Collider_Size(_float3(7.f, 1.5f, 1.f));
+	m_pColliderCom->Link_Pre_Collider(m_pPreColliderCom);
+
 
 	
 	CPlayer_Posin* Posin = static_cast<CPlayer_Posin*>(GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom));

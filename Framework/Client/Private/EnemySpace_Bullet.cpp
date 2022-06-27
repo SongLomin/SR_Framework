@@ -46,17 +46,20 @@ void CEnemySpace_Bullet::LateTick(_float fTimeDelta)
 
 HRESULT CEnemySpace_Bullet::Render()
 {
+	m_pColliderCom->Debug_Render();
+	m_pPreColliderCom->Debug_Render();
+
 	m_pTransformCom->Scaling(_float3(0.2f, 0.1f, 10.f));
 	m_pTransformCom->Bind_WorldMatrix();
 
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
 	__super::Render();
 	m_pMeshCom->Render_Mesh();
 	m_pRendererCom->UnBind_Texture();
 
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	return S_OK;
 }
@@ -128,11 +131,17 @@ HRESULT CEnemySpace_Bullet::SetUp_Components()
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
+	m_pPreColliderCom = Add_Component<CCollider_Pre>();
+	WEAK_PTR(m_pPreColliderCom);
+	m_pPreColliderCom->Link_Transform(m_pTransformCom);
+	//구체라서 x만 받는다.
+	m_pPreColliderCom->Set_Collider_Size(_float3(1.f, 0.f, 0.f));
 
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER_ATTACK;
 	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
+	m_pColliderCom->Link_Pre_Collider(m_pPreColliderCom);
 
 	_float3 ColliderSize = m_pTransformCom->Get_Scaled();
 	_float3 RenderScale = _float3(0.2f, 0.1f, 0.2f);
@@ -158,6 +167,8 @@ CGameObject* CEnemySpace_Bullet::Clone(void* pArg)
 void CEnemySpace_Bullet::Free()
 {
 	__super::Free();
+
+	RETURN_WEAKPTR(m_pPosinTransformCom);
 
 	delete this;
 }

@@ -9,7 +9,6 @@
 #include "Cam_FPS.h"
 #include "Cam_Shoulder.h"
 #include "Cam_TPS.h"
-#include "EnemySpace_Body.h"
 #include <UITest.h>
 #include <SkyBox.h>
 #include "Default_Aim.h"
@@ -17,6 +16,7 @@
 #include <UITest.h>
 #include <SkyBox.h>
 #include "Rock.h"
+#include "../Default/EnemySpace_Body.h"
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
