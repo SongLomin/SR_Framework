@@ -7,7 +7,7 @@ CTargeting::CTargeting()
 {
 }
 
-void CTargeting::Make_TargetList(list<CGameObject*>* pLayer, _float fDist)
+void CTargeting::Make_Player_TargetList(list<CGameObject*>* pLayer, _float fDist)
 {
 	if (nullptr == pLayer)
 		return;
@@ -52,6 +52,52 @@ void CTargeting::Make_TargetList(list<CGameObject*>* pLayer, _float fDist)
 			}
 		}
 	}
+}
+
+void CTargeting::Make_AI_TargetList(list<CGameObject*>* pTarget, CTransform* pObject, _float fDist)
+{
+	if (nullptr == pTarget)
+		return;
+
+	if (!m_pTargeting.empty())
+		return;
+	//Clear_Targeting();
+
+	_float3 ObjectLook = pObject->Get_World_State(CTransform::STATE_LOOK);
+	_float3 ObjectPos = pObject->Get_World_State(CTransform::STATE_POSITION);
+
+	D3DXVec3Normalize(&ObjectLook, &ObjectLook);
+
+	for (auto iter = pTarget->begin();
+		iter != pTarget->end();
+		++iter)
+	{
+		_float3 TargetPos = (*iter)->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
+		
+
+		_float3 TargetRay = TargetPos - ObjectPos;
+
+		_float Dotproduct = D3DXVec3Dot(&TargetRay, &ObjectLook);
+
+		if (Dotproduct > 0.f)
+		{
+			_float3 Projection = Dotproduct * ObjectLook;
+
+			Projection += ObjectPos;
+
+			_float3 Length = TargetPos - Projection;
+
+			_float Range = D3DXVec3Length(&Length);
+
+
+			if (Range < fDist)
+			{
+				m_pTargeting.emplace(Range, (*iter));
+				(*iter)->Set_WeakPtr(&m_pTargeting[Range]);
+			}
+		}
+	}
+
 }
 
 

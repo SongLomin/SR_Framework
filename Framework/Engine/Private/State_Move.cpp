@@ -141,8 +141,8 @@ void CState_Move::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)
 		Move_Jump_Front();
 		break;
 
-	case STATE_MOVE::MOVE_CHAES_PLAYER:
-		Move_Chase_Player(pPlayerTransform, fTimeDelta);
+	//case STATE_MOVE::MOVE_CHAES_PLAYER:
+	//	Move_Chase_Player(pPlayerTransform, fTimeDelta);
 
 	case  STATE_MOVE::MOVE_UPPER_RIGHT:
 		Move_Upper_Right();

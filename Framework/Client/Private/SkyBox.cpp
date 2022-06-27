@@ -53,7 +53,7 @@ HRESULT CSkyBox::Render()
 
 	m_pTransformCom->Bind_WorldMatrix();
 
-	m_pRendererCom->Bind_Texture(6);
+	m_pRendererCom->Bind_Texture(7);
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
 	DEVICE->SetRenderState(D3DRS_ZENABLE, FALSE);

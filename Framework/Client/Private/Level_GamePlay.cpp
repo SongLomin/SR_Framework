@@ -41,7 +41,7 @@ HRESULT CLevel_GamePlay::Initialize()
 	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
 
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_GAMEPLAY, TEXT("0.Player_Body")))
+	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_GAMEPLAY, TEXT("Player_Body")))
 		return E_FAIL;
 
 	//for (int i = 0; i < 30; ++i)
