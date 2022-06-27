@@ -33,12 +33,24 @@ public:
 	void Move_Chase_Player(CTransform* pPlayerTransform, _float fTimeDelta);
 
 public:
+	void MoveTarget_Chase(CTransform* pTargetTransform, _float fTimeDelta);
+	void MoveTarget_LSpin(CTransform* pTargetTransform, _float fTimeDelta , _float fLimit);
+	void MoveTarget_RSpin(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit);
+	void MoveTarget_Back(_float fTimeDelta);
+
+public:
 	void State_Change(CTransform* pPlayerTransform, _float fTimeDelta);
+	void State_Tagetting(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit);
 
 public:
 
 	STATE_MOVE    m_ePreState = STATE_MOVE::STATE_END;
 	STATE_MOVE    m_eCurState = STATE_MOVE::MOVE_UPPER_RIGHT;
+
+public:
+
+	STATE_MOVETARGET m_eTargetPreState = STATE_MOVETARGET::MOVETARGET_END;
+	STATE_MOVETARGET m_eTargetCurState = STATE_MOVETARGET::MOVETARGET_CHASE;
 
 
 public:

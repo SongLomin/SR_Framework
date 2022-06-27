@@ -44,11 +44,11 @@ HRESULT CLevel_GamePlay::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_GAMEPLAY, TEXT("0.Player_Body")))
 		return E_FAIL;
 
-	for (int i = 0; i < 30; ++i)
-	{
+	//for (int i = 0; i < 30; ++i)
+	//{
 		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_GAMEPLAY, TEXT("EnemySpace_Body")))
 			return E_FAIL;
-	}
+	//}
 
 
 	for (int i = 0; i < 5; i++)

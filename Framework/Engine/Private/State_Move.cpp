@@ -60,15 +60,44 @@ void CState_Move::Move_Lift_Back()
 
 void CState_Move::Move_Jump_Front()
 {
-	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
 	m_pRigidBody->Add_Dir(CRigid_Body::DOWN);
+	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
 }
+	
 
 void CState_Move::Move_Chase_Player(CTransform* pPlayerTransform, _float fTimeDelta)
 {
 	m_pTransform->Go_Target(pPlayerTransform, fTimeDelta);
 	m_pTransform->Go_BackAndForth(8.f, fTimeDelta);
 }
+
+
+// Taget
+void CState_Move::MoveTarget_Chase(CTransform* pTargetTransform, _float fTimeDelta)
+{
+	m_pTransform->Go_Target(pTargetTransform, fTimeDelta);
+	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
+}
+
+void CState_Move::MoveTarget_LSpin(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit)
+{
+	m_pTransform->LookAt(pTargetTransform);
+	//m_pTransform->Chase(pTargetTransform, fTimeDelta, fLimit, false);
+	m_pRigidBody->Add_Dir(CRigid_Body::LEFT);
+}
+
+void CState_Move::MoveTarget_RSpin(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit)
+{
+	m_pTransform->LookAt(pTargetTransform);
+	//m_pTransform->Chase(pTargetTransform, fTimeDelta, fLimit, false);
+	m_pRigidBody->Add_Dir(CRigid_Body::RIGHT);
+}
+
+void CState_Move::MoveTarget_Back(_float fTimeDelta)
+{
+	m_pRigidBody->Add_Dir(CRigid_Body::BACK);
+}
+//
 
 void CState_Move::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)
 {
@@ -120,6 +149,44 @@ void CState_Move::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)
 		break;
 	}
 
+}
+
+void CState_Move::State_Tagetting(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit)
+{
+
+	m_fCurTime -= fTimeDelta;
+
+	if (m_fCurTime <= 0.f)
+	{
+		m_eTargetCurState = (STATE_MOVETARGET)(rand() % (_uint)STATE_MOVETARGET::MOVETARGET_END);
+		m_bStateCheck = true;
+
+		m_fCurTime = m_fMaxTime;
+	}
+
+	if (!m_bStateCheck)
+	{
+		return;
+	}
+
+	switch (m_eTargetCurState)
+	{
+	case  STATE_MOVETARGET::MOVETARGET_CHASE:
+		MoveTarget_Chase(pTargetTransform, fTimeDelta);
+		break;
+
+	case  STATE_MOVETARGET::MOVETARGET_LSPIN:
+		MoveTarget_LSpin(pTargetTransform, fTimeDelta, fLimit);
+		break;
+
+	case  STATE_MOVETARGET::MOVETARGET_RSPIN:
+		MoveTarget_RSpin(pTargetTransform, fTimeDelta, fLimit);
+		break;
+
+	case STATE_MOVETARGET::MOVETARGET_BACK:
+		MoveTarget_Back(fTimeDelta);
+		break;
+	}
 }
 
 CState_Move* CState_Move::Create()

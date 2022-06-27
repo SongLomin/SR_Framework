@@ -159,5 +159,7 @@ void CEnemySpace_Bullet::Free()
 {
 	__super::Free();
 
+	RETURN_WEAKPTR(m_pPosinTransformCom);
+
 	delete this;
 }
