@@ -69,7 +69,7 @@ HRESULT CLoader::Loading_ForLogoLevel()
 #pragma endregion
 
 
-	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중이비낟. "));
+	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
 	if (FAILED(pGameInstance->Add_Textures(TEXT("Test"), TEXT("../Bin/Resources/Textures/Default%d.jpg"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
 		return E_FAIL;
@@ -102,7 +102,7 @@ HRESULT CLoader::Loading_ForLogoLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중이비낟. "));
+	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
 
 
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));	
@@ -116,7 +116,7 @@ HRESULT CLoader::Loading_ForLogoLevel()
 
 HRESULT CLoader::Loading_ForGamePlayLevel()
 {
-	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중이비낟. "));
+	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
 
 	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Test"), TEXT("../Bin/Resources/Textures/Default%d.jpg"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
@@ -135,6 +135,14 @@ HRESULT CLoader::Loading_ForGamePlayLevel()
 		return E_FAIL;
 
 	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Targeting"), TEXT("../Bin/Resources/Textures/UI/Targeting.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Rock"), TEXT("../Bin/Resources/Textures/Object/Rock.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Logo"), TEXT("../Bin/Resources/Textures/Logo/Logo.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 

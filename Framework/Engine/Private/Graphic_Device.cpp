@@ -125,7 +125,7 @@ void CGraphic_Device::Render_Begin(void)
 	m_pDevice->Clear(0,
 		nullptr,
 		D3DCLEAR_STENCIL | D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
-		0x00000000,	// 백버퍼 색상
+		D3DCOLOR_ARGB(255, 0, 0, 255),	// 백버퍼 색상
 		1.f, // z버퍼의 초기화 값
 		0);	 // 스텐실 버퍼의 초기화 값
 
@@ -174,6 +174,9 @@ void CGraphic_Device::Render_End(HWND hWnd)
 	// 3인자 : 출력 대상 윈도우 핸들, 기본 nullptr인 경우 d3dpp.hDeviceWindow을 참조
 	// 4인자 :  스왑체인 기법이 D3DSWAPEFFECT_COPY가 아닌 이상 NULL
 
+	IDirect3DSurface9* originRenderTarget = nullptr;
+
+	m_pDevice->GetRenderTarget(0, &originRenderTarget);
 }
 
 HRESULT CGraphic_Device::Add_Text(TEXTINFO Info, float CountTime)

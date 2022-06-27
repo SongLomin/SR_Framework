@@ -9,6 +9,19 @@ CMesh_Cube::CMesh_Cube()
 CMesh_Cube::CMesh_Cube(const CMesh_Cube & Prototype)
 {
 	*this = Prototype;
+	
+	//프로토타입에서 처음 메쉬를 만든다.
+	//따라서 현재 원본 프로토타입의 주소를 참조하고 있는 상태다. 즉, 얕은 복사 상태가 된다.
+	//따라서 메쉬도 새로 클론해서 할당한다.
+
+	if (!m_pMesh)
+	{
+		return;
+	}
+
+	ID3DXMesh* pCloneMesh = nullptr;
+	m_pMesh->CloneMeshFVF(m_pMesh->GetOptions(), m_pMesh->GetFVF(), DEVICE, &pCloneMesh);
+	m_pMesh = pCloneMesh;
 }
 
 HRESULT CMesh_Cube::Initialize_Prototype()

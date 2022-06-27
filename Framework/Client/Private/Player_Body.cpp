@@ -4,12 +4,10 @@
 #include "Player_RightBody.h"
 #include <tchar.h>
 #include "Player_Posin.h"
-#include "CameraPosin.h"
 #include "Cam_Free.h"
 #include "Cam_TPS.h"
 #include "Cam_FPS.h"
 #include "Cam_Shoulder.h"
-#include "Player_ProPeller.h"
 #include "Player_Bullet.h"
 #include "Math_Utillity.h"
 
@@ -43,21 +41,6 @@ HRESULT CPlayer_Body::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
-
-	//GAMEINSTANCE->Add_GameObject<CPlayer_RightBody>(CURRENT_LEVEL, TEXT("Dummy"), m_pTransformCom);
-
-	//GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
-	//	->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
-
-	//GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Posin"), m_pTransformCom)
-	//	->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-3.f, 1.5f, 0.f));
-
-	////GAMEINSTANCE->Add_GameObject<CRing>(CURRENT_LEVEL, TEXT("Ring"), m_pTransformCom);
-
-	//GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom);
-
-	//GAMEINSTANCE->Add_GameObject<CPlayer_ProPeller>(CURRENT_LEVEL, TEXT("Player_ProPeller"), m_pTransformCom)
-	//	->Get_Component<CTransform>()->Rotation(_float3(0.f, 1.f, 0.f), 30);
 	
 	return S_OK;
 }
@@ -70,7 +53,10 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 	if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::BACK);
-
+	if (KEY_INPUT(KEY::D, KEY_STATE::HOLD))
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
+	if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
 
 	if (m_bMouse)
 	{	
@@ -81,7 +67,7 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 		_float fDirX = pt.x - g_iWinCX*0.5f;
 		_float fDirY = pt.y - g_iWinCY*0.5f;
 
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT, fDirX*0.1f);
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::SPIN, fDirX*0.1f);
 		m_pRigidBodyCom->Add_Dir(CRigid_Body::DOWN, fDirY*0.1f);
 
 	}
@@ -164,12 +150,12 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 		2,
 		14, 300);
 
-	m_fTime += fTimeDelta;
-	if (m_fTime > 1.f)
+	m_fTime -= fTimeDelta;
+	if (m_fTime < 0.f)
 	{
-		m_pTargetingCom->Make_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")));
+		m_pTargetingCom->Make_Player_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")));
 		Update_PosinTarget();
-		m_fTime = 0.f;
+		m_fTime = 1.f;
 	}
 
 }
@@ -193,9 +179,12 @@ HRESULT CPlayer_Body::Render_Begin()
 
 HRESULT CPlayer_Body::Render()
 {
+	m_pColliderCom->Debug_Render();
+	m_pPreColliderCom->Debug_Render();
+
 	m_pTransformCom->Scaling(_float3(0.03f, 0.03f, 0.03f), true);
 	m_pTransformCom->Bind_WorldMatrix();
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	//m_pRendererCom->Bind_Texture(0);
 
@@ -208,7 +197,7 @@ HRESULT CPlayer_Body::Render()
 	//m_pRendererCom->UnBind_Texture();
 
 	
-	 DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	 //DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	return S_OK;
 }
@@ -238,7 +227,7 @@ HRESULT CPlayer_Body::SetUp_Components()
 	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);
 	m_pMeshCubeCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 10.f;
+	RigidBodyDesc.m_fOwnerSpeed = 40.f;
 	RigidBodyDesc.m_fOwnerAccel = 0.5f;
 	RigidBodyDesc.m_fOwnerRadSpeed= D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
@@ -250,7 +239,7 @@ HRESULT CPlayer_Body::SetUp_Components()
 	RigidBodyDesc.m_fRadZ = 0.01f;
 
 
-	RigidBodyDesc.m_fOwnerLiftSpeed = 10.f;
+	RigidBodyDesc.m_fOwnerLiftSpeed = 40.f;
 	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;
@@ -260,6 +249,22 @@ HRESULT CPlayer_Body::SetUp_Components()
 
 	m_pTargetingCom = Add_Component<CTargeting>();
 	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
+
+	
+
+	m_pPreColliderCom = Add_Component<CCollider_Pre>();
+	WEAK_PTR(m_pPreColliderCom);
+	m_pPreColliderCom->Link_Transform(m_pTransformCom);
+	//구체라서 x만 받는다.
+	m_pPreColliderCom->Set_Collider_Size(_float3(4.5f, 0.f, 0.f));
+
+	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER_ATTACK;
+	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
+	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
+	m_pColliderCom->Link_Transform(m_pTransformCom);
+	m_pColliderCom->Set_Collider_Size(_float3(7.f, 1.5f, 1.f));
+	m_pColliderCom->Link_Pre_Collider(m_pPreColliderCom);
+
 
 	
 	CPlayer_Posin* Posin = static_cast<CPlayer_Posin*>(GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom));
@@ -359,11 +364,10 @@ void CPlayer_Body::On_Change_Controller(const CONTROLLER& _IsAI)
 {
 	if (_IsAI == CONTROLLER::PLAYER)
 	{
+		//이 게임오브젝트가 플레이어라면, 카메라에게 이 게임 오브젝트를 보도록 하겠다.
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
-		//if(m_pCameraPosin)
-		//	m_pCameraPosin->Link_CameraTransfrom(GAMEINSTANCE->Get_Camera(TEXT("TPS"))->Get_Owner()->Get_Component<CTransform>());
 	}
 }
 

@@ -58,7 +58,7 @@ HRESULT CCamera::Bind_PipeLine()
 
 	_float4x4		ProjMatrix;
 
-	D3DXMatrixPerspectiveFovLH(&ProjMatrix, m_CamDesc.fFovy, m_CamDesc.fAspect, m_CamDesc.fNear, m_CamDesc.fFar);
+	D3DXMatrixPerspectiveFovLH(&ProjMatrix, m_CamDesc.fFovy, m_CamDesc.fAspect, m_CamDesc.fNear, m_CamDesc.fFar * 3);
 	DEVICE->SetTransform(D3DTS_PROJECTION, &ProjMatrix);
 
 	return S_OK;

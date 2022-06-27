@@ -12,6 +12,8 @@ class CMesh_Cube;
 class CRigid_Body;
 class CTargeting;
 class CMesh_SongShip;
+class CCollider_OBB;
+class CCollider_Pre;
 END
 
 BEGIN(Client)
@@ -40,8 +42,9 @@ private:
 	CMesh_SongShip*				m_pMeshCubeCom = nullptr;
 	CStatus*				m_pStatusCom = nullptr;
 	CRigid_Body*			m_pRigidBodyCom = nullptr;
-	//CCollider_OBB*			m_pCColliderCom = nullptr;
+	CCollider_OBB*			m_pColliderCom = nullptr;
 	CTargeting*				m_pTargetingCom = nullptr;
+	CCollider_Pre*			m_pPreColliderCom = nullptr;
 
 private:
 	list<CPlayer_Posin*>	m_pMyPosinList;
@@ -50,7 +53,7 @@ private:
 
 	_uint					m_iCurrentCam = 0;
 	_bool					m_bMouse = false;
-	_float					m_fTime = 0.f;
+	_float					m_fTime = 1.f;
 
 	_bool					m_bTargetMode = false;
 

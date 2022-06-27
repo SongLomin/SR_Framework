@@ -106,6 +106,7 @@ struct VS_OUTPUT
 struct PS_OUTPUT
 {
     float4 color : COLOR0;
+    float4 stashColor : COLOR1;
 };
 
 float dist_factor(float3 point_view_pos)
@@ -160,7 +161,12 @@ VS_OUTPUT VS_Main(VS_INPUT input)
     VS_OUTPUT output;
 
     output.position = input.position;
-    output.texCoord = input.position.xy * float2(0.5, -0.5) + float2(0.5, 0.5) + 0.5 / screenSize;
+    
+    float2 mulF2 = input.position.xy * float2(0.5, -0.5)+ float2(0.5, 0.5) + 0.5;
+    float2 divScreenSize = mulF2 / screenSize;
+
+    output.texCoord = divScreenSize;
+
     output.cameraEye = float3(input.position.x * tanHalfFov * viewAspect, input.position.y * tanHalfFov, 1);
 
     return output;
@@ -186,6 +192,9 @@ PS_OUTPUT PS_Main(VS_OUTPUT input)
     float3 I_tot = I_amb + lighting(diffuse.rgb, normal.xyz, position.xyz, specular.rgb, shininess);
 
     output.color = float4(I_tot + stash.rgb, 1);
+    output.stashColor = float4(stash.rgb, 1);
+    //output.color = float4(1, 1, 1, 1);
+    
     return output;
 }
 

@@ -23,18 +23,15 @@ public:
 	virtual HRESULT Render() { return S_OK; };
 
 public:
-	void Attack_Bullet(_float fTimeDelta);
+	void Attack_Bullet(CGameObject* pBullet, _float fTimeDelta);
 	void Attack_Rager(_float fTimeDelta);
 	void Attack_Rest(_float fTimeDelta);
 
-public:
-	void State_Change(CTransform* pPlayerTransform, _float fTimeDelta);
-	void Link_RigidBody(CRigid_Body* pRigidBody);
-	void Link_Transform(CTransform* pTransform);
+
 
 public:
-	STATE_ATTACK    m_ePreState = STATE_ATTACK::ATTACK_END;
-	STATE_ATTACK    m_eCurState = STATE_ATTACK::ATTACK_BULLET;
+	void State_Change(CTransform* pPlayerTransform, _float fTimeDelta);
+
 
 
 public:

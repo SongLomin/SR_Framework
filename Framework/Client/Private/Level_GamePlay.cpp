@@ -9,13 +9,14 @@
 #include "Cam_FPS.h"
 #include "Cam_Shoulder.h"
 #include "Cam_TPS.h"
-#include "EnemySpace_Body.h"
 #include <UITest.h>
 #include <SkyBox.h>
 #include "Default_Aim.h"
 #include <TargetingBox.h>
 #include <UITest.h>
 #include <SkyBox.h>
+#include "Rock.h"
+#include "../Default/EnemySpace_Body.h"
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -40,14 +41,14 @@ HRESULT CLevel_GamePlay::Initialize()
 	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
 
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_GAMEPLAY, TEXT("0.Player_Body")))
+	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_GAMEPLAY, TEXT("Player_Body")))
 		return E_FAIL;
 
-	for (int i = 0; i < 30; ++i)
-	{
+	//for (int i = 0; i < 30; ++i)
+	//{
 		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_GAMEPLAY, TEXT("EnemySpace_Body")))
 			return E_FAIL;
-	}
+	//}
 
 
 	for (int i = 0; i < 5; i++)
@@ -64,6 +65,12 @@ HRESULT CLevel_GamePlay::Initialize()
 
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_GAMEPLAY, TEXT("Aim")))
 		return E_FAIL;
+
+	for (int i = 0; i < 30; ++i)
+	{
+		if (!GAMEINSTANCE->Add_GameObject<CRock>(LEVEL_GAMEPLAY, TEXT("Rock")))
+			return E_FAIL;
+	}
 
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
 	//	return E_FAIL;
@@ -90,7 +97,7 @@ HRESULT CLevel_GamePlay::Render()
 		return E_FAIL;
 
 
-	SetWindowText(g_hWnd, TEXT("게임프렐이레벨임. "));
+	SetWindowText(g_hWnd, TEXT("게임 플레이 레벨입니다. "));
 
 	return S_OK;
 }

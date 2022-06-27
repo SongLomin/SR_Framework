@@ -186,12 +186,14 @@
     <ClInclude Include="..\Public\MainApp.h" />
     <ClInclude Include="..\Public\Monster.h" />
     <ClInclude Include="..\Public\Player_Posin.h" />
+    <ClInclude Include="..\Public\Rock.h" />
     <ClInclude Include="..\Public\SkyBox.h" />
     <ClInclude Include="..\Public\TargetingBox.h" />
     <ClInclude Include="..\Public\Terrain.h" />
     <ClInclude Include="..\Public\UITest.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="EnemySpace_Body.h" />
+    <ClInclude Include="Logo.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Player_ProPeller.h" />
     <ClInclude Include="stdafx.h" />
@@ -216,12 +218,14 @@
     <ClCompile Include="..\Private\MainApp.cpp" />
     <ClCompile Include="..\Private\Monster.cpp" />
     <ClCompile Include="..\Private\Player_Posin.cpp" />
+    <ClCompile Include="..\Private\Rock.cpp" />
     <ClCompile Include="..\Private\SkyBox.cpp" />
     <ClCompile Include="..\Private\TargetingBox.cpp" />
     <ClCompile Include="..\Private\Terrain.cpp" />
     <ClCompile Include="..\Private\UITest.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="EnemySpace_Body.cpp" />
+    <ClCompile Include="Logo.cpp" />
     <ClCompile Include="Player_ProPeller.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

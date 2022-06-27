@@ -4,6 +4,7 @@
 BEGIN(Engine)
 
 class CTransform;
+class CCollider_Pre;
 
 class ENGINE_DLL CCollider abstract :
     public CComponent
@@ -25,6 +26,10 @@ public:
     COLLISION_TYPE Get_Collision_Type() const { return m_eCollision_Type; };
     _uint Get_ID() const { return m_iID; };
     COLLIDER_SHAPE Get_Collider_Shape() const { return m_eShape; };
+
+    void Link_Pre_Collider(CCollider_Pre* _PreCol);
+    CCollider_Pre* Get_Pre_Collider() const;
+
     
 protected:
     COLLISION_TYPE m_eCollision_Type;
@@ -35,6 +40,9 @@ protected:
 
 protected:
     CTransform* m_pMyTransformCom = nullptr;
+    ID3DXMesh* m_pMesh = nullptr;
+private:
+    CCollider_Pre* m_pPreCollider = nullptr;
 
 public:
     virtual	CComponent* Clone(void* pArg) PURE;

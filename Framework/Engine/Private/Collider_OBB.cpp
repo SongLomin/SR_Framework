@@ -1,5 +1,6 @@
 #include "Collider_OBB.h"
 #include "GameInstance.h"
+#include "Math_Utillity.h"
 
 CCollider_OBB::CCollider_OBB(const CCollider_OBB& Prototype)
 {
@@ -19,6 +20,9 @@ HRESULT CCollider_OBB::Initialize(void* pArg)
     m_iID = g_iNextID++;
 
     GAMEINSTANCE->Add_Collider(this);
+
+	
+
 
 	//디버깅용 메쉬 생성
 	//m_iNumVertices = 24;
@@ -137,6 +141,7 @@ HRESULT CCollider_OBB::Initialize(void* pArg)
 void CCollider_OBB::Set_Collider_Size(const _float3& _Size)
 {
     m_OBBInfo.SetSize(_Size);
+	D3DXCreateBox(DEVICE, _Size.x, _Size.y, _Size.z, &m_pMesh, nullptr);
 }
 
 void CCollider_OBB::Tick(_float _TimeDelta)
@@ -151,13 +156,26 @@ void CCollider_OBB::LateTick(_float fTimeDelta)
 {
 }
 
-HRESULT CCollider_OBB::Render()
+HRESULT CCollider_OBB::Debug_Render()
 {
-	/*DEVICE->SetRenderState(D3DRS_FILLMODE, _D3DFILLMODE::D3DFILL_WIREFRAME);
+	DEVICE->SetRenderState(D3DRS_FILLMODE, _D3DFILLMODE::D3DFILL_WIREFRAME);
 
+	_float4x4 MatBindedWorld;
+	DEVICE->GetTransform(D3DTS_WORLD, &MatBindedWorld);
+
+	_float4x4 MatMyObjectWorld = m_pMyTransformCom->Get_WorldMatrix();
+	_float4x4 MatColliderWorld = CMath_Utillity::Get_Rotation_Matrix(MatMyObjectWorld);
+
+	MatColliderWorld._41 = MatMyObjectWorld._41;
+	MatColliderWorld._42 = MatMyObjectWorld._42;
+	MatColliderWorld._43 = MatMyObjectWorld._43;
+
+
+	DEVICE->SetTransform(D3DTS_WORLD, &MatColliderWorld);
 	m_pMesh->DrawSubset(0);
 
-	DEVICE->SetRenderState(D3DRS_FILLMODE, _D3DFILLMODE::D3DFILL_SOLID);*/
+	DEVICE->SetRenderState(D3DRS_FILLMODE, _D3DFILLMODE::D3DFILL_SOLID);
+	DEVICE->SetTransform(D3DTS_WORLD, &MatBindedWorld);
 
     return S_OK;
 }

@@ -25,11 +25,17 @@ public:
     virtual void LateTick(_float fTimeDelta) override;
     virtual HRESULT Render() override;
 
+
+public:
+    void Set_Target(CGameObject* _Object);
+
 private:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
     CMesh_Cube* m_pMeshCom = nullptr;
     CTransform* m_pPlayerTransformCom = nullptr;
+
+    CGameObject* m_pTargetObject = nullptr;
 
 private:
     _float	 m_fCurTime = 0.f;

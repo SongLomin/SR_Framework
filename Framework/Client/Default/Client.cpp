@@ -64,6 +64,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
 
     _float		fTimerAcc = 0.f;
+    _float      fDeltaTime = 0.f;
 
 	while (true)
 	{		
@@ -79,17 +80,34 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			}			
 		}
 
-        fTimerAcc += GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_DEFAULT);
+        //fTimerAcc += GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_DEFAULT);
 
-        if (fTimerAcc > 0.00694f) //144Hz
-        {
-            fTimerAcc = 0.f;
+        //if (fTimerAcc > 0.00694f) //144Hz
+        //{
+        //    fTimerAcc = 0.f;
 
-            pMainApp->Tick(GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_FRAME));
+        //    pMainApp->Tick(GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_FRAME));
 
-            if (FAILED(pMainApp->Render()))
-                break;
-        }
+        //    if (FAILED(pMainApp->Render()))
+        //        break;
+        //}
+
+        //프레임 제한 해제
+        fDeltaTime = GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_DEFAULT);
+        //fTimerAcc += fDeltaTime;
+        pMainApp->Tick(fDeltaTime);
+        if (FAILED(pMainApp->Render()))
+            break;
+
+        //if (fTimerAcc > 0.00694f) //144Hz
+        //{
+        //    fTimerAcc = 0.f;
+
+        //    pMainApp->Tick(GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_FRAME));
+
+        //    if (FAILED(pMainApp->Render()))
+        //        break;
+        //}
 	}
 
 	Safe_Release(pMainApp);    
@@ -207,6 +225,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
+
+    case WM_KEYDOWN:
+        if (wParam == VK_ESCAPE)
+            ::DestroyWindow(hWnd);
+        break;
+
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }

@@ -9,6 +9,7 @@ class CTransform;
 class CMesh_Cube;
 class CRigid_Body;
 class CCollider_OBB;
+class CCollider_Pre;
 END
 
 BEGIN(Client)
@@ -34,8 +35,10 @@ private:
     CMesh_Cube* m_pMeshCom = nullptr;
     CRigid_Body* m_pRigidBodyCom = nullptr;
     CCollider_OBB* m_pColliderCom = nullptr;
+    CCollider_Pre* m_pPreColliderCom = nullptr;
 
     CTransform* m_pPosinTransformCom = nullptr;
+
 
 private:
     _float  m_fLifeTime = 1.f;

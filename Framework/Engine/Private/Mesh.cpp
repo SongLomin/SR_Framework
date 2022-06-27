@@ -72,8 +72,8 @@ void CMesh::Free()
 {
 	__super::Free();
 
-	
-	//m_pMesh->Release();
+	if(m_pMesh)
+		m_pMesh->Release();
 
 }
 

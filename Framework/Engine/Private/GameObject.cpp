@@ -81,6 +81,9 @@ void CGameObject::Set_Controller(const CONTROLLER& _eController)
 	m_eController = _eController;
 	On_Change_Controller(_eController);
 
+
+	/// 이 아래 코드는 재귀적으로 내 자식들의 컨트롤러를 변경해줌.
+
 	//내 트랜스폼 받기
 	CTransform* myTransform = Get_Component<CTransform>();
 

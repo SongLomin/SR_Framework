@@ -9,11 +9,14 @@ class CMesh_Cube;
 class CTransform;
 class CRigid_Body;
 class CState_Move;
+class CTargeting;
+class CStatus;
+class CCollider_OBB;
 END
 
 
 BEGIN(Client)
-
+class CEnemySpace_Posin;
 class CEnemySpace_Body final : public CGameObject
 {
 private:
@@ -35,11 +38,23 @@ private:
     CTransform* m_pPlayerTransformCom = nullptr;
     CRigid_Body* m_pRigidBodyCom = nullptr;
     Engine::CState_Move* m_pStateCom = nullptr;
+    CTargeting* m_pTargetingCom = nullptr;
+    CStatus* m_pStatusCom = nullptr;
+    CCollider_OBB* m_pColliderCom = nullptr;
 
-
+private:
+    list<CEnemySpace_Posin*> m_pPosinList;
+    _float m_fTime = 1.f;
 
 private:
     HRESULT SetUp_Components();
+    void Update_Target();
+
+
+public: /* For Event Function */
+    virtual void On_Collision_Enter(CCollider* _Other_Collider) override;
+    virtual void On_Collision_Stay(CCollider* _Other_Collider) override;
+    virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
 
 public:
     static CEnemySpace_Body* Create();

@@ -8,6 +8,15 @@ CMesh_SongShip::CMesh_SongShip()
 CMesh_SongShip::CMesh_SongShip(const CMesh_SongShip& Prototype)
 {
 	*this = Prototype;
+
+	if (!m_pMesh)
+	{
+		return;
+	}
+
+	ID3DXMesh* pCloneMesh = nullptr;
+	m_pMesh->CloneMeshFVF(m_pMesh->GetOptions(), m_pMesh->GetFVF(), DEVICE, &pCloneMesh);
+	m_pMesh = pCloneMesh;
 }
 
 HRESULT CMesh_SongShip::Initialize_Prototype()

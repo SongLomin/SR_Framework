@@ -178,6 +178,9 @@
     <Filter Include="01.Utility\03.Components\05. State\06. Rigid_Body">
       <UniqueIdentifier>{4eceaa67-6893-4444-adae-f14905ce8a8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\07. Collider\01. Collider_Pre">
+      <UniqueIdentifier>{f6b50abd-be3f-4eec-abfb-960546dec6aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -339,9 +342,6 @@
     <ClInclude Include="..\Public\Mesh_SongShip.h">
       <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_SongShip</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Get_Lucky.h">
-      <Filter>01.Utility\00.GameInstance\IMGUI\01. Tool</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\State_Move.h">
       <Filter>01.Utility\03.Components\05. State\State_Move</Filter>
     </ClInclude>
@@ -351,11 +351,15 @@
     <ClInclude Include="..\Public\Mesh_SongShip.h">
       <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_SongShip</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Get_Lucky.h">
-      <Filter>00.System\IMGUI\01. Tool</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\State_Attack.h">
       <Filter>01.Utility\03.Components\05. State\State_Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Get_Lucky.h">
+      <Filter>01.Utility\00.GameInstance\IMGUI\01. Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Get_Lucky.h" />
+    <ClInclude Include="..\Public\Collider_Pre.h">
+      <Filter>01.Utility\03.Components\07. Collider\01. Collider_Pre</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -497,9 +501,6 @@
     <ClCompile Include="..\Private\Mesh_SongShip.cpp">
       <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_SongShip</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Get_Lucky.cpp">
-      <Filter>01.Utility\00.GameInstance\IMGUI\01. Tool</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\State_Move.cpp">
       <Filter>01.Utility\03.Components\05. State\State_Move</Filter>
     </ClCompile>
@@ -509,11 +510,15 @@
     <ClCompile Include="..\Private\Mesh_SongShip.cpp">
       <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_SongShip</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Get_Lucky.cpp">
-      <Filter>00.System\IMGUI\01. Tool</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\State_Attack.cpp">
       <Filter>01.Utility\03.Components\05. State\State_Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Get_Lucky.cpp">
+      <Filter>01.Utility\00.GameInstance\IMGUI\01. Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Get_Lucky.cpp" />
+    <ClCompile Include="..\Private\Collider_Pre.cpp">
+      <Filter>01.Utility\03.Components\07. Collider\01. Collider_Pre</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

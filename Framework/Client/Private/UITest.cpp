@@ -23,15 +23,7 @@ HRESULT CUITest::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pRendererCom = Add_Component<CRenderer>();
-	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
-
-
-	/*m_pMesh_TestCom = Add_Component<CMesh_Test>();
-	m_pMesh_TestCom->Set_WeakPtr(&m_pMesh_TestCom);*/
-
-	m_pMesh_TestCom = Add_Component<CMesh_SongShip>();
-	m_pMesh_TestCom->Set_WeakPtr(&m_pMesh_TestCom);
+	
 
 	return S_OK;
 }
@@ -61,7 +53,8 @@ HRESULT CUITest::Render()
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pRendererCom->Bind_Texture(1);
-	m_pMesh_TestCom->Render_Mesh();
+	m_pVIBufferCom->Render();
+	
 	m_pRendererCom->UnBind_Texture();
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
@@ -71,13 +64,20 @@ HRESULT CUITest::Render()
 
 HRESULT CUITest::SetUp_Components()
 {
-	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
+	Add_Component<CTransform>();
 
 	m_pTransformCom = Get_Component<CTransform>();
-	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
+	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
-	m_pTransformCom->Scaling(_float3(0.1f, 0.1f, 0.1f));
+	m_pRendererCom = Add_Component<CRenderer>();
+	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Rock"), MEMORY_TYPE::MEMORY_STATIC);
 
+
+	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
+	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
+
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1.f, 1.f, 1.f));
 
 
 

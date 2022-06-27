@@ -3,7 +3,7 @@
 #include "Component.h"
 
 BEGIN(Engine)
-
+class CTransform;
 class ENGINE_DLL CTargeting final : public CComponent
 {
 private:
@@ -17,8 +17,8 @@ public:
 
 
 public:
-	void Make_TargetList(list<CGameObject*>* pLayer, _float fDist = 7.f);
-	
+	void Make_Player_TargetList(list<CGameObject*>* pLayer, _float fDist = 7.f);
+	void Make_AI_TargetList(list<CGameObject*>* pTarget, CTransform* pObject, _float fDist = 7.f);
 
 private:
 	void Clear_Targeting();

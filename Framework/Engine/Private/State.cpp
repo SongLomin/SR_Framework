@@ -19,16 +19,30 @@ HRESULT CState::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CState::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)
-{
-}
+
 
 void CState::Link_RigidBody(CRigid_Body* pRigidBody)
 {
+	m_pRigidBody = pRigidBody;
+	m_pRigidBody->Set_WeakPtr((void**)m_pRigidBody);
 }
 
-void CState::Link_Transform(CTransform* pTransform)
+void CState::Link_AiTransform(CTransform* pAiTransform)
 {
+	m_pTransform = pAiTransform;
+	m_pTransform->Set_WeakPtr((void**)m_pTransform);
+}
+
+void CState::Link_PosinTransform(CTransform* pPosinTransform)
+{
+	m_pTransform = pPosinTransform;
+	m_pTransform->Set_WeakPtr((void**)m_pTransform);
+}
+
+void CState::Link_BulletTrnasform(CTransform* pBulletTransform)
+{
+	m_pTransform = pBulletTransform;
+	m_pTransform->Set_WeakPtr((void**)m_pTransform);
 }
 
 
@@ -36,4 +50,5 @@ void CState::Link_Transform(CTransform* pTransform)
 void CState::Free()
 {
 	__super::Free();
+
 }

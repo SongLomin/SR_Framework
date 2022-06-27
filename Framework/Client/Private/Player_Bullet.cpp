@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "Player_Bullet.h"
 #include "GameInstance.h"
-#include "CameraPosin.h"
 #include "Collider_OBB.h"
 
 
@@ -39,12 +38,6 @@ void CPlayer_Bullet::Tick(_float fTimeDelta)
 	{
 		Set_Dead();
 	}
-
-
-	/*m_pTransformCom->Go_BackAndForth(80.f, fTimeDelta);
-	m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK), 10.f, fTimeDelta);*/
-
-	
 }
 
 void CPlayer_Bullet::LateTick(_float fTimeDelta)
@@ -56,7 +49,9 @@ void CPlayer_Bullet::LateTick(_float fTimeDelta)
 
 HRESULT CPlayer_Bullet::Render()
 {
-	
+	m_pColliderCom->Debug_Render();
+	m_pPreColliderCom->Debug_Render();
+
 	m_pTransformCom->Scaling(_float3(0.2f, 0.1f, 10.f));
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -148,10 +143,17 @@ inline HRESULT CPlayer_Bullet::SetUp_Components()
 	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 
+	m_pPreColliderCom = Add_Component<CCollider_Pre>();
+	WEAK_PTR(m_pPreColliderCom);
+	m_pPreColliderCom->Link_Transform(m_pTransformCom);
+	//구체라서 x만 받는다.
+	m_pPreColliderCom->Set_Collider_Size(_float3(1.f, 0.f, 0.f));
+
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER_ATTACK;
 	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
+	m_pColliderCom->Link_Pre_Collider(m_pPreColliderCom);
 
 	_float3 ColliderSize = m_pTransformCom->Get_Scaled();
 	_float3 RenderScale = _float3(0.2f, 0.1f, 0.2f);

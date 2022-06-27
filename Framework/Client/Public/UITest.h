@@ -31,8 +31,7 @@ public:
 private:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
-    //CMesh_Test* m_pMesh_TestCom = nullptr;
-    CMesh_SongShip* m_pMesh_TestCom = nullptr;
+    CVIBuffer_Rect* m_pVIBufferCom = nullptr;
 
 private:
     HRESULT SetUp_Components();
