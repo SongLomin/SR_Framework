@@ -63,13 +63,11 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 	POINT pt{};
 	GetCursorPos(&pt);
 	ScreenToClient(g_hWnd, &pt);
-		ScreenToClient(g_hWnd, &pt);
 
 	_float fDirX = pt.x - g_iWinCX*0.5f;
 	_float fDirY = pt.y - g_iWinCY*0.5f;
 	m_pRigidBodyCom->Add_Dir(CRigid_Body::SPIN, fDirX*0.1f);
 	m_pRigidBodyCom->Add_Dir(CRigid_Body::DOWN, fDirY*0.1f);
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::DOWN, fDirY*0.1f);
 
 	
 
@@ -161,12 +159,12 @@ HRESULT CPlayer_Body::Render_Begin()
 }
 
 HRESULT CPlayer_Body::Render()
+{
 	//m_pColliderCom->Debug_Render();
 	//m_pPreColliderCom->Debug_Render();
 
 	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f), true);
 
-	m_pTransformCom->Scaling(_float3(0.03f, 0.03f, 0.03f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 

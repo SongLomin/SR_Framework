@@ -175,11 +175,11 @@
     <Filter Include="01.Utility\03.Components\05. State\State_Attack">
       <UniqueIdentifier>{c944f0aa-d89a-430d-aedf-6ae74a9a32cb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Utility\03.Components\05. State\06. Rigid_Body">
-      <UniqueIdentifier>{4eceaa67-6893-4444-adae-f14905ce8a8e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Utility\03.Components\07. Collider\01. Collider_Pre">
       <UniqueIdentifier>{f6b50abd-be3f-4eec-abfb-960546dec6aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\06. Rigid_Body">
+      <UniqueIdentifier>{4eceaa67-6893-4444-adae-f14905ce8a8e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -334,7 +334,7 @@
       <Filter>01.Utility\03.Components\07. Targeting</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Rigid_Body.h">
-      <Filter>01.Utility\03.Components\05. State\06. Rigid_Body</Filter>
+      <Filter>01.Utility\03.Components\06. Rigid_Body</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Mesh_Test.h">
       <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_Test</Filter>
@@ -353,8 +353,6 @@
     </ClInclude>
     <ClInclude Include="..\Public\State_Attack.h">
       <Filter>01.Utility\03.Components\05. State\State_Attack</Filter>
-    <ClInclude Include="..\Public\State_Attack.h">
-      <Filter>01.Utility\03.Components\05. State\State_Attack</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Get_Lucky.h">
       <Filter>01.Utility\00.GameInstance\IMGUI\01. Tool</Filter>
@@ -364,9 +362,6 @@
       <Filter>01.Utility\03.Components\07. Collider\01. Collider_Pre</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Get_Lucky.h" />
-    <ClInclude Include="..\Public\Collider_Pre.h">
-      <Filter>01.Utility\03.Components\07. Collider\01. Collider_Pre</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\Get_Lucky.h">
       <Filter>01.Utility\00.GameInstance\IMGUI\01. Tool</Filter>
     </ClInclude>
@@ -445,7 +440,7 @@
       <Filter>01.Utility\03.Components\00. Model\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Rigid_Body.cpp">
-      <Filter>01.Utility\03.Components\05. State\06. Rigid_Body</Filter>
+      <Filter>01.Utility\03.Components\06. Rigid_Body</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Input_Manager.cpp">
       <Filter>01.Utility\04.Manager\06. Input_Manager</Filter>
@@ -526,8 +521,6 @@
       <Filter>01.Utility\00.GameInstance\IMGUI\01. Tool</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Get_Lucky.cpp" />
-    <ClCompile Include="..\Private\Collider_Pre.cpp">
-      <Filter>01.Utility\03.Components\07. Collider\01. Collider_Pre</Filter>
     <ClCompile Include="..\Private\State_Attack.cpp">
       <Filter>01.Utility\03.Components\05. State\State_Attack</Filter>
     </ClCompile>

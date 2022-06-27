@@ -174,11 +174,6 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pTargetingCom = Add_Component<CTargeting>();
 	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
 
-
-	m_pTargetingCom = Add_Component<CTargeting>();
-	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
-
-
 	GAMEINSTANCE->Add_GameObject<CEnemySpace_RightBody>(CURRENT_LEVEL, TEXT("EnemySpace_RightBody"), m_pTransformCom);
 
 
