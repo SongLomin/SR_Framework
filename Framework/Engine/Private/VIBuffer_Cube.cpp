@@ -11,6 +11,13 @@ CVIBuffer_Cube::CVIBuffer_Cube(const CVIBuffer_Cube& Prototype)
 
 HRESULT CVIBuffer_Cube::Initialize_Prototype()
 {
+	
+
+	return S_OK;
+}
+
+HRESULT CVIBuffer_Cube::Initialize(void* pArg)
+{
 	m_iStride = sizeof(VTXCUBETEX);
 	m_iNumVertices = 8;
 	m_dwFVF = VTXCUBETEX::SKY; /* | D3DFVF_TEXCOORDSIZE2(0) */
@@ -177,11 +184,6 @@ HRESULT CVIBuffer_Cube::Initialize_Prototype()
 
 	m_pIB->Unlock();*/
 
-	return S_OK;
-}
-
-HRESULT CVIBuffer_Cube::Initialize(void* pArg)
-{
 	return S_OK;
 }
 

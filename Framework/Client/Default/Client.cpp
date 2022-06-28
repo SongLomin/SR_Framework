@@ -80,24 +80,24 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			}			
 		}
 
-        //fTimerAcc += GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_DEFAULT);
+        fTimerAcc += GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_DEFAULT);
 
-        //if (fTimerAcc > 0.00694f) //144Hz
-        //{
-        //    fTimerAcc = 0.f;
+        if (fTimerAcc > 0.00694f) //144Hz
+        {
+            fTimerAcc = 0.f;
 
-        //    pMainApp->Tick(GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_FRAME));
+            pMainApp->Tick(GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_FRAME));
 
-        //    if (FAILED(pMainApp->Render()))
-        //        break;
-        //}
+            if (FAILED(pMainApp->Render()))
+                break;
+        }
 
         //프레임 제한 해제
-        fDeltaTime = GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_DEFAULT);
-        //fTimerAcc += fDeltaTime;
-        pMainApp->Tick(fDeltaTime);
-        if (FAILED(pMainApp->Render()))
-            break;
+        //fDeltaTime = GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_DEFAULT);
+        ////fTimerAcc += fDeltaTime;
+        //pMainApp->Tick(fDeltaTime);
+        //if (FAILED(pMainApp->Render()))
+        //    break;
 
         //if (fTimerAcc > 0.00694f) //144Hz
         //{
