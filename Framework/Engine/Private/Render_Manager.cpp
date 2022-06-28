@@ -61,11 +61,13 @@ HRESULT CRender_Manager::Draw_RenderGroup()
 
 	Deferred_Pipeline();
 
-	GAMEINSTANCE->Render_Begin();
+	//DEVICE->BeginScene();
+	/*GAMEINSTANCE->Render_Begin();
 	Foward_Pipeline();
-	GAMEINSTANCE->Render_Engine();
+	GAMEINSTANCE->Render_Engine();*/
 	GAMEINSTANCE->Render_End(GAMEINSTANCE->Get_Window_Handle());
 
+	//DEVICE->EndScene();
 
 
 	return S_OK;

@@ -43,6 +43,7 @@ HRESULT CGameInstance::Initialize_Engine(HINSTANCE hInst, _uint iNumLevels, cons
 		return E_FAIL;
 
 	m_pCollision_Manager->Initialize();
+	m_pRender_Manager->Initialize();
 
 	/* 컴포넌트 매니져의 예약. */
 	//if (FAILED(m_pComponent_Manager->Reserve_Container(iNumLevels)))

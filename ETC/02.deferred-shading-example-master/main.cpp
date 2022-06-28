@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include "d3dUtility.h"
+#include <vector>
 
 /*
  * comment next line if you don't want use stencil culling algorithm
@@ -40,7 +41,11 @@ ID3DXMesh* sphereMesh = 0;
 const int meshComplexity = 50;
 const int sphereMeshRadius = 1.0;
 
+float fMove;
+
 IDirect3DVertexBuffer9* vb = 0;
+
+HWND g_hwnd;
 
 struct Vertex {
 	float x, y, z;
@@ -278,7 +283,7 @@ void FowardPipeline()
 	Device->BeginScene();
 	Device->SetRenderState(D3DRS_LIGHTING, false);
 
-	D3DXMatrixTranslation(&world, x, y, 0.f);
+	D3DXMatrixTranslation(&world, x + fMove, y, 0.f);
 	Device->SetTransform(D3DTS_WORLD, &world);
 	Device->SetTransform(D3DTS_VIEW, &view);
 	Device->SetTransform(D3DTS_PROJECTION, &proj);
@@ -318,6 +323,10 @@ void PriorityPipeline()
 
 void DeferredPipeline()
 {
+	
+
+	fMove += 0.001f;
+
 	/* G-buffer stage */
 	SetMRT();
 	
@@ -341,7 +350,7 @@ void DeferredPipeline()
 
 	for (int x = -X_Y_PLANE_LIMIT; x <= X_Y_PLANE_LIMIT; x += sphereMeshRadius * 2) {
 		for (int y = -X_Y_PLANE_LIMIT; y <= X_Y_PLANE_LIMIT; y += sphereMeshRadius * 2) {
-			D3DXMatrixTranslation(&world, x, y, 0);
+			D3DXMatrixTranslation(&world, x + fMove, y, 0);
 			g_buffer_effect->SetMatrix(worldHandle, &world);
 
 			float floatArray[3];
@@ -598,7 +607,7 @@ bool Display(float timeDelta)
 		Device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
 		DeferredPipeline();
 		FowardPipeline();
-		Device->Present(0, 0, 0, 0);
+		Device->Present(0, 0, g_hwnd, 0);
 	}
 	return true;
 }
@@ -611,6 +620,8 @@ void Cleanup()
 
 LRESULT CALLBACK d3d::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	g_hwnd = hwnd;
+
 	switch (msg)
 	{
 	case WM_DESTROY:

@@ -139,29 +139,29 @@ void CGraphic_Device::Render_Begin(void)
 	//
 	//m_pSprite->SetTransform(&world);
 
-	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);//2D
+	//m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);//2D
 
-	if (!m_Text.empty())
-	{
-		for (auto& iter : m_Text)
-		{
-			if (iter->Get_CountTime() < 0.f) // 시간만큼 돌았단 소리
-			{
-				int i = 0;
-			}
-			else
-			{
-				m_pFont->DrawText(m_pSprite, iter->Get_Font().szBuff, -1, &iter->Get_Font().rcTemp, 0,
-					iter->Get_Font().color);//0xFFFF0000);
-				iter->Minus_CountTime(GAMEINSTANCE->Compute_Timer(99));
-			}
+	//if (!m_Text.empty())
+	//{
+	//	for (auto& iter : m_Text)
+	//	{
+	//		if (iter->Get_CountTime() < 0.f) // 시간만큼 돌았단 소리
+	//		{
+	//			int i = 0;
+	//		}
+	//		else
+	//		{
+	//			m_pFont->DrawText(m_pSprite, iter->Get_Font().szBuff, -1, &iter->Get_Font().rcTemp, 0,
+	//				iter->Get_Font().color);//0xFFFF0000);
+	//			iter->Minus_CountTime(GAMEINSTANCE->Compute_Timer(99));
+	//		}
 
-		}
-	}
+	//	}
+	//}
 
 
 
-	m_pSprite->End();
+	//m_pSprite->End();
 }
 
 void CGraphic_Device::Render_End(HWND hWnd)
@@ -173,10 +173,6 @@ void CGraphic_Device::Render_End(HWND hWnd)
 	// 1,2인자 : 스왑체인 기법이 D3DSWAPEFFECT_COPY가 아닌 이상 NULL
 	// 3인자 : 출력 대상 윈도우 핸들, 기본 nullptr인 경우 d3dpp.hDeviceWindow을 참조
 	// 4인자 :  스왑체인 기법이 D3DSWAPEFFECT_COPY가 아닌 이상 NULL
-
-	IDirect3DSurface9* originRenderTarget = nullptr;
-
-	m_pDevice->GetRenderTarget(0, &originRenderTarget);
 }
 
 HRESULT CGraphic_Device::Add_Text(TEXTINFO Info, float CountTime)
