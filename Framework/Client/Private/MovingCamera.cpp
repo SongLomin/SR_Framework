@@ -39,7 +39,7 @@ void CMovingCamera::Tick(_float fTimeDelta)
 	if (!m_bFlag)
 		return;
 
-	if (0.f > m_CameraRoute.fTime )
+	if (0.f > m_CameraRoute.fTime && m_vecRoute.empty() )
 	{
 		GAMEINSTANCE->Swap_Camera();
 		m_bFlag = false;

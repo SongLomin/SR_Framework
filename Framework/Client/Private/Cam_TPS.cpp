@@ -15,11 +15,7 @@ HRESULT CCam_TPS::Initialize_Prototype()
 
 HRESULT CCam_TPS::Initialize(void* pArg)
 {
-	//m_szName = L"Cam_TPS";
-	/*CTransform::TRANSFORMDESC		TransformDesc;
-	TransformDesc.fSpeedPerSec = 5.0f;
-	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f)*/;
-
+	
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom); 
 
@@ -39,7 +35,8 @@ void CCam_TPS::Tick(_float fTimeDelta)
 
 	_float3 vLook = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_LOOK, true);
 	_float3 vPos = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_POSITION, true);
-	_float3 vUp = _float3(0.f, 1.f, 0.f);
+	_float3 vUp = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_UP, true);
+
 	_float3 vRight;
 
 	vPos -= vLook*13.f;
@@ -49,9 +46,7 @@ void CCam_TPS::Tick(_float fTimeDelta)
 	D3DXVec3Cross(&vUp, &vLook, &vRight);
 
 	
-	m_pTransformCom->Set_State(CTransform::STATE_LOOK, vLook);
-	m_pTransformCom->Set_State(CTransform::STATE_UP, vUp);
-	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, vRight);
+	
 
 	
 
@@ -103,10 +98,28 @@ void CCam_TPS::Tick(_float fTimeDelta)
 		vPos += vRight*m_vCurPos.x*0.01f;
 		vPos -= vUp*m_vCurPos.y*0.01f;
 
+		D3DXMATRIX	matRotation;
+		_float fRadian = m_vCurPos.x * 0.001f;
+		if (D3DXToRadian(30.f) < fabs(fRadian))
+		{
+			if (0.f < fRadian)
+				fRadian = D3DXToRadian(30.f);
+			else if( 0.f > fRadian)
+				fRadian = -1.f*D3DXToRadian(30.f);
+		}
+		//비행체 기울어짐 연출 위해서
+		D3DXMatrixRotationAxis(&matRotation, &vLook, fRadian);
+
+		D3DXVec3TransformNormal(&vUp, &vUp, &matRotation);
+		D3DXVec3Cross(&vRight, &vUp, &vLook);
+
 		
 		m_ptPrePos = pt;
 
 	}
+	m_pTransformCom->Set_State(CTransform::STATE_LOOK, vLook);
+	m_pTransformCom->Set_State(CTransform::STATE_UP, vUp);
+	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, vRight);
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, vPos);
 	m_pTransformCom->Update_WorldMatrix();
 }
@@ -115,8 +128,7 @@ void CCam_TPS::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 	
-	//m_pRigidBodyCom->Update_Transform(fTimeDelta);
-}
+	}
 
 HRESULT CCam_TPS::Render()
 {
