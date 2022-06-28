@@ -15,6 +15,7 @@ class CMesh_SongShip;
 class CCollider_OBB;
 class CCollider_Pre;
 class CMesh_Test;
+class CDirectionalLight;
 END
 
 BEGIN(Client)
@@ -47,6 +48,7 @@ private:
 	CCollider_OBB*			m_pColliderCom = nullptr;
 	CTargeting*				m_pTargetingCom = nullptr;
 	CCollider_Pre*			m_pPreColliderCom = nullptr;
+	CDirectionalLight*		m_pDirectionalLight = nullptr;
 
 private:
 	list<CPlayer_Posin*>	m_pMyPosinList;

@@ -23,6 +23,7 @@
 #include "Collider_Pre.h"
 #include "Light.h"
 #include "DirectionalLight.h"
+#include "SpotLight.h"
 
 BEGIN(Engine)
 

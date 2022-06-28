@@ -245,6 +245,13 @@ HRESULT CGameInstance::Draw_RenderGroup()
 	return m_pRender_Manager->Draw_RenderGroup();
 }
 
+HRESULT CGameInstance::Add_Light(CLight* _pLight)
+{
+	m_pRender_Manager->Add_Light(_pLight);
+
+	return S_OK;
+}
+
 HRESULT CGameInstance::Load_Textures(const _tchar* _strKey, const _tchar* pTextureFilePath, TEXTURE_TYPE eType, MEMORY_TYPE eMemType)
 {
 	return m_pResource_Manager->Load_Textures(_strKey, pTextureFilePath, eType, eMemType);

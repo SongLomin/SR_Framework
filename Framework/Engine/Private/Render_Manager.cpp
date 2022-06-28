@@ -66,6 +66,8 @@ HRESULT CRender_Manager::Draw_RenderGroup()
 	GAMEINSTANCE->Render_Engine();
 	GAMEINSTANCE->Render_End(GAMEINSTANCE->Get_Window_Handle());
 
+
+
 	return S_OK;
 }
 
@@ -93,14 +95,14 @@ void CRender_Manager::Deferred_Pipeline()
 	DEVICE->BeginScene();
 
 	
-	float ViewAspect = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Aspect();
-	float TanHalfFov = tanf(GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Fov() / 2.f);
-	float ScreenSize[2]{(float)Desc.iWinCX, (float)Desc.iWinCY};
+	_float ViewAspect = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Aspect();
+	_float Fov = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Fov();
+	_float TanHalfFov = tanf(Fov / 2.f);
+	_float ScreenSize[2]{(float)Desc.iWinCX, (float)Desc.iWinCY};
 
 	D3DXHANDLE worldHandle = (*G_Buffer)->GetParameterByName(0, "world");
 	D3DXHANDLE viewHandle = (*G_Buffer)->GetParameterByName(0, "view");
 	D3DXHANDLE projHandle = (*G_Buffer)->GetParameterByName(0, "proj");
-	D3DXHANDLE ColorHandle = (*G_Buffer)->GetParameterByName(0, "Color");
 
 	_float4x4 view, proj, world;
 	DEVICE->GetTransform(D3DTS_VIEW, &view);

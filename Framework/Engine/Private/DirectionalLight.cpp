@@ -4,11 +4,12 @@
 CDirectionalLight::CDirectionalLight(const CDirectionalLight& Prototype)
 {
     *this = Prototype;
+	m_ppLightEffect = GAMEINSTANCE->Get_Shader_From_Key(TEXT("DirectionalLight"));
 }
 
 HRESULT CDirectionalLight::Initialize_Prototype()
 {
-    m_ppLightEffect = GAMEINSTANCE->Get_Shader_From_Key(TEXT("DirectionalLight"));
+    
 
     return S_OK;
 }
@@ -70,7 +71,7 @@ HRESULT CDirectionalLight::Initialize(void* pArg)
 
 	m_D3DLight.Type = D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL;
 
-	m_D3DLight.Ambient = color * 0.01f;
+	m_D3DLight.Ambient = color * 0.1f;
 	m_D3DLight.Diffuse = color;
 	m_D3DLight.Specular = color * 0.6f;
 
@@ -96,6 +97,7 @@ void CDirectionalLight::Tick(_float fTimeDelta)
 
 void CDirectionalLight::LateTick(_float fTimeDelta)
 {
+	GAMEINSTANCE->Add_Light(this);
 }
 
 CDirectionalLight* CDirectionalLight::Create()
