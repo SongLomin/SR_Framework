@@ -198,6 +198,7 @@
     <ClInclude Include="..\Public\StatusBar.h" />
     <ClInclude Include="..\Public\TargetingBox.h" />
     <ClInclude Include="..\Public\Terrain.h" />
+    <ClInclude Include="..\Public\Test_Player.h" />
     <ClInclude Include="..\Public\UITest.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="EnemySpace_Body.h" />
@@ -238,6 +239,7 @@
     <ClCompile Include="..\Private\StatusBar.cpp" />
     <ClCompile Include="..\Private\TargetingBox.cpp" />
     <ClCompile Include="..\Private\Terrain.cpp" />
+    <ClCompile Include="..\Private\Test_Player.cpp" />
     <ClCompile Include="..\Private\UITest.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="EnemySpace_Body.cpp" />

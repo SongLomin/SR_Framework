@@ -21,6 +21,9 @@
 #include "Mesh_Test.h"
 #include "Mesh_SongShip.h"
 #include "Collider_Pre.h"
+#include "Controller.h"
+#include "AI_Controller.h"
+#include "Player_Controller.h"
 
 BEGIN(Engine)
 

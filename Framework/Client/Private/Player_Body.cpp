@@ -50,93 +50,21 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
-	if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::BACK);
-	if (KEY_INPUT(KEY::D, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
-	if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
-
-		
-	POINT pt{};
-	GetCursorPos(&pt);
-	ScreenToClient(g_hWnd, &pt);
-
-	_float fDirX = pt.x - g_iWinCX*0.5f;
-	_float fDirY = pt.y - g_iWinCY*0.5f;
-	m_pRigidBodyCom->Add_Dir(CRigid_Body::SPIN, fDirX*0.1f);
-	m_pRigidBodyCom->Add_Dir(CRigid_Body::DOWN, fDirY*0.1f);
-
-	
-
-	if (KEY_INPUT(KEY::Z, KEY_STATE::TAP))
+	if (KEY_INPUT(KEY::C, KEY_STATE::TAP))
 	{
-		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+		Set_Controller(CONTROLLER::AI);
 	}
-
-	if (KEY_INPUT(KEY::V, KEY_STATE::TAP))
+	if (KEY_INPUT(KEY::B, KEY_STATE::TAP))
 	{
-		switch (m_iCurrentCam)
-		{
-		case 0:
-			GAMEINSTANCE->Set_Current_Camera(TEXT("Shoulder"));
-			break;
-
-		case 1:
-			GAMEINSTANCE->Set_Current_Camera(TEXT("FPS"));
-			break;
-
-		case 2:
-			GAMEINSTANCE->Set_Current_Camera(TEXT("TPS"));
-			break;
-		}
-
-		m_iCurrentCam = (m_iCurrentCam + 1) % 3;
+		Set_Controller(CONTROLLER::PLAYER);
 	}
-
-	if (KEY_INPUT(KEY::L, KEY_STATE::TAP))
-	{
-		CONTROLLER Next_Controller =
-			Get_Controller() == CONTROLLER::PLAYER ?
-			CONTROLLER::AI :
-			CONTROLLER::PLAYER;
-
-		Set_Controller(Next_Controller);
-	}
-
-	if (KEY_INPUT(KEY::TAB, KEY_STATE::TAP))
-	{
-		m_bTargetMode = !m_bTargetMode;
-	}
-	
-
-	//if(KEY_INPUT(KEY::))
-
-
-	GAMEINSTANCE->Add_Text(
-		_point{ 100, g_iWinCY - 100 },
-		D3DCOLOR_ARGB(255, 130, 255, 0),
-		0.0f,
-		L"HP : %d",
-		1,
-		(_int)m_pStatusCom->Get_Status().fHp);
-
-	GAMEINSTANCE->Add_Text(
-		_point{ g_iWinCX - 300, g_iWinCY - 100 },
-		L"남은 총알 : %d / %d",
-		2,
-		14, 300);
 
 	m_fTime -= fTimeDelta;
 	if (m_fTime < 0.f)
 	{
-		m_pTargetingCom->Make_Player_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")));
 		Update_PosinTarget();
 		m_fTime = 1.f;
 	}
-
 }
 
 void CPlayer_Body::LateTick(_float fTimeDelta)
@@ -174,8 +102,8 @@ HRESULT CPlayer_Body::Render()
 
 
 
-	if(Get_Controller() == CONTROLLER::PLAYER)
-		m_pMeshCubeCom->Render_Mesh(5);
+	m_pMeshCubeCom->Render_Mesh(5);
+
 	//m_pRendererCom->UnBind_Texture();
 
 	
@@ -249,6 +177,10 @@ HRESULT CPlayer_Body::SetUp_Components()
 	m_pColliderCom->Set_Collider_Size(_float3(7.f, 1.5f, 1.f));
 	m_pColliderCom->Link_Pre_Collider(m_pPreColliderCom);
 
+	m_pStateCom = Add_Component<CState_Move>();
+	m_pStateCom->Set_WeakPtr(&m_pStateCom);
+	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
+	m_pStateCom->Link_AI_Transform(m_pTransformCom);
 
 	
 	CPlayer_Posin* Posin = static_cast<CPlayer_Posin*>(GAMEINSTANCE->Add_GameObject<CPlayer_Posin>(CURRENT_LEVEL, TEXT("Player_Posin"), m_pTransformCom));
@@ -270,6 +202,16 @@ HRESULT CPlayer_Body::SetUp_Components()
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
+
+	m_pAIControllerCom = Add_Component<CAI_Controller>();
+	m_pAIControllerCom->Set_WeakPtr(&m_pAIControllerCom);
+	m_pAIControllerCom->Link_Object(this);
+	m_pAIControllerCom->Set_Enable(false);
+
+	m_pPlayerController = Add_Component<CPlayer_Controller>();
+	m_pPlayerController->Set_WeakPtr(&m_pPlayerController);
+	m_pPlayerController->Link_Object(this);
+	m_pPlayerController->Set_Enable(false);
 
 	Set_Controller(CONTROLLER::PLAYER);
 
@@ -346,13 +288,32 @@ void CPlayer_Body::Update_PosinTarget()
 
 void CPlayer_Body::On_Change_Controller(const CONTROLLER& _IsAI)
 {
-	if (_IsAI == CONTROLLER::PLAYER)
-	{
-		//이 게임오브젝트가 플레이어라면, 카메라에게 이 게임 오브젝트를 보도록 하겠다.
-		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
-		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
-		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
-	}
+
+	// front 받아오는것은 임시 테스트용
+	list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Test_Player"));
+
+		if (_IsAI == CONTROLLER::PLAYER)
+		{
+			m_pAIControllerCom->Set_Enable(false);
+			m_pPlayerController->Set_Enable(true);
+			m_pRigidBodyCom->Set_Mouse();
+
+			if(pAiObect)
+				pAiObect->front()->Set_Controller(CONTROLLER::AI);
+			//이 게임오브젝트가 플레이어라면, 카메라에게 이 게임 오브젝트를 보도록 하겠다.
+			GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
+			GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
+			GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
+		}
+		else
+		{
+			m_pAIControllerCom->Set_Enable(true);
+			m_pPlayerController->Set_Enable(false);
+			m_pRigidBodyCom->Set_Mouse();
+			if(pAiObect)
+				pAiObect->front()->Set_Controller(CONTROLLER::PLAYER);
+		}
+
 }
 
 void CPlayer_Body::On_Collision_Enter(CCollider* _Other_Collider)

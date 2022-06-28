@@ -27,6 +27,7 @@
 #include "Rock.h"
 #include "MovingCamera.h"
 #include "../Default/EnemySpace_Body.h"
+#include <Test_Player.h>
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -55,6 +56,9 @@ HRESULT CLevel_GamePlay::Initialize()
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
 	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_GAMEPLAY, TEXT("Player_Body")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CTest_Player>(LEVEL_GAMEPLAY, TEXT("Test_Player")))
 		return E_FAIL;
 
 	for (int i = 0; i < 50; ++i)

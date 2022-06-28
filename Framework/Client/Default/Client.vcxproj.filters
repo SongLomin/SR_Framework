@@ -121,6 +121,9 @@
     <Filter Include="02.GameObject\05. Camera_Object\04. Cam_Moving">
       <UniqueIdentifier>{0d73d39a-9716-4db9-913c-cc8991ef9d9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\00. Player\Test_Player">
+      <UniqueIdentifier>{1f606b71-6312-4c75-8d94-bb43e7d2f5bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -249,6 +252,9 @@
     <ClInclude Include="..\Public\MovingCamera.h">
       <Filter>02.GameObject\05. Camera_Object\04. Cam_Moving</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Test_Player.h">
+      <Filter>02.GameObject\00. Player\Test_Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -367,6 +373,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\MovingCamera.cpp">
       <Filter>02.GameObject\05. Camera_Object\04. Cam_Moving</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Test_Player.cpp">
+      <Filter>02.GameObject\00. Player\Test_Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

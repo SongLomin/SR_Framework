@@ -14,6 +14,9 @@ class CTargeting;
 class CMesh_SongShip;
 class CCollider_OBB;
 class CCollider_Pre;
+class CAI_Controller;
+class CPlayer_Controller;
+class CState_Move;
 END
 
 BEGIN(Client)
@@ -45,6 +48,9 @@ private:
 	CCollider_OBB*			m_pColliderCom = nullptr;
 	CTargeting*				m_pTargetingCom = nullptr;
 	CCollider_Pre*			m_pPreColliderCom = nullptr;
+	CAI_Controller*			m_pAIControllerCom = nullptr;
+	CPlayer_Controller*		m_pPlayerController = nullptr;
+	CState_Move*			m_pStateCom = nullptr;
 
 private:
 	list<CPlayer_Posin*>	m_pMyPosinList;

@@ -1,40 +1,43 @@
 #include "stdafx.h"
-#include "AI_Player.h"
+#include "Test_Player.h"
 #include "GameInstance.h"
 #include "EnemySpace_Posin.h"
 
-CAI_Player::CAI_Player()
+CTest_Player::CTest_Player()
 {
 }
 
-CAI_Player::CAI_Player(const CAI_Player& Prototype)
+CTest_Player::CTest_Player(const CTest_Player& Prototype)
 {
 	*this = Prototype;
 
 	Add_Component<CTransform>();
+
+
 }
 
-HRESULT CAI_Player::Initialize_Prototype()
+HRESULT CTest_Player::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CAI_Player::Initialize(void* pArg)
+HRESULT CTest_Player::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
+	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(5.f, 1.f, 0.f));
 
 	return S_OK;
 }
 
-void CAI_Player::Tick(_float fTimeDelta)
+void CTest_Player::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
 }
 
-void CAI_Player::LateTick(_float fTimeDelta)
+void CTest_Player::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
@@ -53,12 +56,12 @@ void CAI_Player::LateTick(_float fTimeDelta)
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
-HRESULT CAI_Player::Render_Begin()
+HRESULT CTest_Player::Render_Begin()
 {
 	return S_OK;
 }
 
-HRESULT CAI_Player::Render()
+HRESULT CTest_Player::Render()
 {
 	m_pColliderCom->Debug_Render();
 	m_pPreColliderCom->Debug_Render();
@@ -77,12 +80,13 @@ HRESULT CAI_Player::Render()
 	return S_OK;
 }
 
-void CAI_Player::On_Change_Controller(const CONTROLLER& _IsAI)
+void CTest_Player::On_Change_Controller(const CONTROLLER& _IsAI)
 {
 	if (_IsAI == CONTROLLER::PLAYER)
 	{
 		m_pAIControllerCom->Set_Enable(false);
 		m_pPlayerController->Set_Enable(true);
+		m_pRigidBodyCom->Set_Mouse();
 		//이 게임오브젝트가 플레이어라면, 카메라에게 이 게임 오브젝트를 보도록 하겠다.
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
@@ -90,24 +94,25 @@ void CAI_Player::On_Change_Controller(const CONTROLLER& _IsAI)
 	}
 	else
 	{
+		m_pRigidBodyCom->Set_Mouse();
 		m_pAIControllerCom->Set_Enable(true);
 		m_pPlayerController->Set_Enable(false);
 	}
 }
 
-void CAI_Player::On_Collision_Enter(CCollider* _Other_Collider)
+void CTest_Player::On_Collision_Enter(CCollider* _Other_Collider)
 {
 }
 
-void CAI_Player::On_Collision_Stay(CCollider* _Other_Collider)
+void CTest_Player::On_Collision_Stay(CCollider* _Other_Collider)
 {
 }
 
-void CAI_Player::On_Collision_Exit(CCollider* _Other_Collider)
+void CTest_Player::On_Collision_Exit(CCollider* _Other_Collider)
 {
 }
 
-HRESULT CAI_Player::SetUp_Components()
+HRESULT CTest_Player::SetUp_Components()
 {
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
@@ -119,7 +124,7 @@ HRESULT CAI_Player::SetUp_Components()
 	m_pTargetingCom = Add_Component<CTargeting>();
 	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
 
-	m_pMeshCom = Add_Component<CMesh_Cube>();
+	m_pMeshCom = Add_Component<CMesh_SongShip>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
@@ -207,7 +212,7 @@ HRESULT CAI_Player::SetUp_Components()
 	return S_OK;
 }
 
-void CAI_Player::Update_PosinTarget()
+void CTest_Player::Update_PosinTarget()
 {
 	map<_float, CGameObject*>* TargetList = m_pTargetingCom->Get_Targetting();
 	
@@ -273,17 +278,17 @@ void CAI_Player::Update_PosinTarget()
 	}
 }
 
-CAI_Player* CAI_Player::Create()
+CTest_Player* CTest_Player::Create()
 {
-	CREATE_PIPELINE(CAI_Player);
+	CREATE_PIPELINE(CTest_Player);
 }
 
-CGameObject* CAI_Player::Clone(void* pArg)
+CGameObject* CTest_Player::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CAI_Player);
+	CLONE_PIPELINE(CTest_Player);
 }
 
-void CAI_Player::Free()
+void CTest_Player::Free()
 {
 	__super::Free();
 

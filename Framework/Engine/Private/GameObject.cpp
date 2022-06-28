@@ -78,9 +78,11 @@ HRESULT CGameObject::Render()
 
 void CGameObject::Set_Controller(const CONTROLLER& _eController)
 {
-	m_eController = _eController;
-	On_Change_Controller(_eController);
-
+	if (m_eController != _eController)
+	{
+		m_eController = _eController;
+		On_Change_Controller(_eController);
+	}
 
 	/// 이 아래 코드는 재귀적으로 내 자식들의 컨트롤러를 변경해줌.
 
