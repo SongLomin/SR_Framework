@@ -6,7 +6,7 @@ BEGIN(Engine)
 class CRenderer;
 class CTransform;
 class CVIBuffer_Rect;
-class CStatus
+class CStatus;
 END
 
 
@@ -32,14 +32,15 @@ private:
 	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
 	CStatus* m_pStatusCom = nullptr;
 
-private:
+protected:
 	_float					m_fX, m_fY, m_fSizeX, m_fSizeY;
 	_point					m_ptMouse;
 	_float4x4				m_ProjMatrix;
 	RECT					m_rcRect;
 
 public:
-	void UpdateHpBar(_float _beforeHp, _float _afterHp);
+	void Update_Hp_Bar(CStatus* pStatus);
+	
 
 private:
 	HRESULT SetUp_Components();

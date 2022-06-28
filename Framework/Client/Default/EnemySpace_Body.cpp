@@ -6,6 +6,7 @@
 #include "State_Move.h"
 #include "MovingCamera.h"
 #include <TargetingBox.h>
+#include "Math_Utillity.h"
 
 
 CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
@@ -81,6 +82,17 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 
 	m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
 	m_pTransformCom->Chase(m_pPlayerTransformCom, fTimeDelta, 10);*/
+
+	_float3 MyScreenPos;
+	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE::STATE_POSITION, true), &MyScreenPos);
+
+	GAMEINSTANCE->Add_Text(
+		_point{ (long)MyScreenPos.x, (long)MyScreenPos.y },
+		D3DCOLOR_ARGB(255, 0, 0, 255),
+		0.0f,
+		L"HP : %d / 10",
+		1,
+		(_int)m_pStatusCom->Get_Status().fHp);
     
 }
 

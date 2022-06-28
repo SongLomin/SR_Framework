@@ -18,8 +18,8 @@ END
 
 BEGIN(Client)
 
-class CCameraPosin;
 class CPlayer_Posin;
+class CHpBar;
 
 class CPlayer_Body final : public CGameObject
 {
@@ -39,7 +39,7 @@ public:
 private:
 	CTransform*				m_pTransformCom = nullptr;
 	CRenderer*				m_pRendererCom = nullptr;
-	CMesh_SongShip*				m_pMeshCubeCom = nullptr;
+	CMesh_SongShip*			m_pMeshCubeCom = nullptr;
 	CStatus*				m_pStatusCom = nullptr;
 	CRigid_Body*			m_pRigidBodyCom = nullptr;
 	CCollider_OBB*			m_pColliderCom = nullptr;
@@ -48,6 +48,7 @@ private:
 
 private:
 	list<CPlayer_Posin*>	m_pMyPosinList;
+	CHpBar*                 m_pHpBar;
 
 private:
 
