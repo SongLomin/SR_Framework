@@ -16,14 +16,14 @@ class CPlayer_Controller;
 END
 
 BEGIN(Client)
-class CEnemySpace_Posin;
+class CNormal_Turret;
 
-class CAI_Player final : public CGameObject
+class CAI_Friendly final : public CGameObject
 {
 private:
-	CAI_Player();
-	CAI_Player(const CAI_Player& Prototype);
-	virtual ~CAI_Player() = default;
+	CAI_Friendly();
+	CAI_Friendly(const CAI_Friendly& Prototype);
+	virtual ~CAI_Friendly() = default;
 
 
 public:
@@ -51,7 +51,7 @@ private:
 
 
 private:
-	list<CEnemySpace_Posin*>	m_pMyPosinList;
+	list<CNormal_Turret*>	m_pMyPosinList;
 	_bool					m_bTargetMode = false;
 	_float					m_fTime = 1.f;
 
@@ -72,7 +72,7 @@ private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 
 
 public:
-	static CAI_Player* Create();
+	static CAI_Friendly* Create();
 	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
 

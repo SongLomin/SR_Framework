@@ -49,53 +49,14 @@
     <Filter Include="02.GameObject\05. Camera_Object\03. Cam_Shoulder">
       <UniqueIdentifier>{98c37a5e-4eb2-4e48-a70f-f658331b4355}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\08. Bullet">
-      <UniqueIdentifier>{26b96253-5e95-455b-89fc-fc1a7be41a8f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="97. UITest">
       <UniqueIdentifier>{08e536b4-07ed-4d26-85cc-d3c404e48da1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\09. Aim">
-      <UniqueIdentifier>{c289b9d4-7661-4bb5-bb41-8a8e05b1072f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\09. Aim\Auto_Aim">
-      <UniqueIdentifier>{9eae39b9-843d-4682-9159-98169a48aea3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\09. Aim\FPS_Aim">
-      <UniqueIdentifier>{f0f15b68-20f9-4884-af0d-3ee69e1f4d1c}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.GameObject\00. Player">
       <UniqueIdentifier>{5bbc74ac-51d4-4b0f-9cbf-b4c01ecfd969}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.GameObject\02. Monster\EnemySpace">
       <UniqueIdentifier>{9b1b7ac5-60c7-490d-89a3-5ebd8a68bc87}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\00. Player\Parts">
-      <UniqueIdentifier>{61642fb2-8e65-497f-932c-c5c5c856a54e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\10. SkyBox">
-      <UniqueIdentifier>{0fe98c48-2de0-4630-ad1c-ae8ae3dbaa13}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\10. SkyBox">
-      <UniqueIdentifier>{0fe98c48-2de0-4630-ad1c-ae8ae3dbaa13}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\09. Aim\Default_Aim">
-      <UniqueIdentifier>{734aabdc-1d76-4a3a-91db-df9e552fa7cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\09. Aim\TargetingBox">
-      <UniqueIdentifier>{8fc77501-5795-4450-b246-1a210fb9072d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\00. Player\Bullet">
-      <UniqueIdentifier>{d986ea66-f340-4b29-a962-5ababad86811}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\02. Monster\EnemySpace\Bullet">
-      <UniqueIdentifier>{0f9994a7-dc98-4ffe-864a-1a7be8aa1559}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\02. Monster\EnemySpace\Parts">
-      <UniqueIdentifier>{b3d972e1-ddd4-4930-976b-1b450e1465a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\05. Rock">
-      <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
     </Filter>
     <Filter Include="97. UITest\Logo">
       <UniqueIdentifier>{6bb5c36a-72de-4ccf-81d5-8849cacc2d18}</UniqueIdentifier>
@@ -109,12 +70,6 @@
     <Filter Include="02.GameObject\07. UI\01. BulletUI">
       <UniqueIdentifier>{3b94ad26-3396-4fb4-ba53-8cb3db730943}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\00. Player\AI_Player">
-      <UniqueIdentifier>{9f84a888-4e75-4ca0-bda1-90ac50b954b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\05. Rock">
-      <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
-    </Filter>
     <Filter Include="97. UITest\Logo">
       <UniqueIdentifier>{6bb5c36a-72de-4ccf-81d5-8849cacc2d18}</UniqueIdentifier>
     </Filter>
@@ -123,6 +78,45 @@
     </Filter>
     <Filter Include="02.GameObject\00. Player\Test_Player">
       <UniqueIdentifier>{1f606b71-6312-4c75-8d94-bb43e7d2f5bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\00. Player\AI_Friendly">
+      <UniqueIdentifier>{9f84a888-4e75-4ca0-bda1-90ac50b954b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\01. Turret">
+      <UniqueIdentifier>{2a1ebd7d-3fbe-4fc8-9d9d-a5ed2a5d3922}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\01. Turret\Normal">
+      <UniqueIdentifier>{3f4d50fd-c3ce-41f2-8a20-2463fbb4f8c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\06. Rock">
+      <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\03. Bullet">
+      <UniqueIdentifier>{26b96253-5e95-455b-89fc-fc1a7be41a8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\03. Bullet\Normal">
+      <UniqueIdentifier>{43c81292-dac2-4e57-96cb-77a636f16317}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\08. Aim">
+      <UniqueIdentifier>{c289b9d4-7661-4bb5-bb41-8a8e05b1072f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\08. Aim\Auto_Aim">
+      <UniqueIdentifier>{9eae39b9-843d-4682-9159-98169a48aea3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\08. Aim\FPS_Aim">
+      <UniqueIdentifier>{f0f15b68-20f9-4884-af0d-3ee69e1f4d1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\08. Aim\Default_Aim">
+      <UniqueIdentifier>{734aabdc-1d76-4a3a-91db-df9e552fa7cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\09. Box">
+      <UniqueIdentifier>{0fe98c48-2de0-4630-ad1c-ae8ae3dbaa13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\09. Box\TargetingBox">
+      <UniqueIdentifier>{8fc77501-5795-4450-b246-1a210fb9072d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\09. Box\SkyBox">
+      <UniqueIdentifier>{c62e7395-293e-4448-9a84-cb8755b2214a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -180,50 +174,20 @@
     <ClInclude Include="..\public\Player_Body.h">
       <Filter>02.GameObject\00. Player</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Player_Posin.h">
-      <Filter>02.GameObject\00. Player\Parts</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\Player_RightBody.h">
-      <Filter>02.GameObject\00. Player\Parts</Filter>
-    </ClInclude>
-    <ClInclude Include="Player_ProPeller.h">
-      <Filter>02.GameObject\00. Player\Parts</Filter>
-    </ClInclude>
     <ClInclude Include="EnemySpace_Body.h">
       <Filter>02.GameObject\02. Monster\EnemySpace</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\EnemySpace_RightBody.h">
-      <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\EnemySpace_Posin.h">
-      <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\SkyBox.h">
-      <Filter>02.GameObject\10. SkyBox</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\SkyBox.h">
-      <Filter>02.GameObject\10. SkyBox</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\Default_Aim.h">
-      <Filter>02.GameObject\09. Aim\Default_Aim</Filter>
+      <Filter>02.GameObject\08. Aim\Default_Aim</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\TargetingBox.h">
-      <Filter>02.GameObject\09. Aim\TargetingBox</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\Player_Bullet.h">
-      <Filter>02.GameObject\00. Player\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\EnemySpace_Bullet.h">
-      <Filter>02.GameObject\02. Monster\EnemySpace\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\Rock.h">
-      <Filter>02.GameObject\05. Rock</Filter>
+      <Filter>02.GameObject\09. Box\TargetingBox</Filter>
     </ClInclude>
     <ClInclude Include="Logo.h">
       <Filter>97. UITest\Logo</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\AI_Player.h">
-      <Filter>02.GameObject\00. Player\AI_Player</Filter>
+    <ClInclude Include="..\Public\AI_Friendly.h">
+      <Filter>02.GameObject\00. Player\AI_Friendly</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Rock.h">
       <Filter>02.GameObject\05. Rock</Filter>
@@ -254,6 +218,21 @@
     </ClInclude>
     <ClInclude Include="..\Public\Test_Player.h">
       <Filter>02.GameObject\00. Player\Test_Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Normal_Bullet.h">
+      <Filter>02.GameObject\03. Bullet\Normal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Normal_Turret.h">
+      <Filter>02.GameObject\01. Turret\Normal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\SkyBox.h">
+      <Filter>02.GameObject\09. Box\SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h">
+      <Filter>02.GameObject\06. Rock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\SkyBox.h">
+      <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -302,50 +281,20 @@
     <ClCompile Include="..\private\Player_Body.cpp">
       <Filter>02.GameObject\00. Player</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Player_Posin.cpp">
-      <Filter>02.GameObject\00. Player\Parts</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\Player_RightBody.cpp">
-      <Filter>02.GameObject\00. Player\Parts</Filter>
-    </ClCompile>
-    <ClCompile Include="Player_ProPeller.cpp">
-      <Filter>02.GameObject\00. Player\Parts</Filter>
-    </ClCompile>
     <ClCompile Include="EnemySpace_Body.cpp">
       <Filter>02.GameObject\02. Monster\EnemySpace</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\EnemySpace_RightBody.cpp">
-      <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\EnemySpace_Posin.cpp">
-      <Filter>02.GameObject\02. Monster\EnemySpace\Parts</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\SkyBox.cpp">
-      <Filter>02.GameObject\10. SkyBox</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\SkyBox.cpp">
-      <Filter>02.GameObject\10. SkyBox</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\Default_Aim.cpp">
-      <Filter>02.GameObject\09. Aim\Default_Aim</Filter>
+      <Filter>02.GameObject\08. Aim\Default_Aim</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\TargetingBox.cpp">
-      <Filter>02.GameObject\09. Aim\TargetingBox</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\Player_Bullet.cpp">
-      <Filter>02.GameObject\00. Player\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\EnemySpace_Bullet.cpp">
-      <Filter>02.GameObject\02. Monster\EnemySpace\Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\Rock.cpp">
-      <Filter>02.GameObject\05. Rock</Filter>
+      <Filter>02.GameObject\09. Box\TargetingBox</Filter>
     </ClCompile>
     <ClCompile Include="Logo.cpp">
       <Filter>97. UITest\Logo</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\AI_Player.cpp">
-      <Filter>02.GameObject\00. Player\AI_Player</Filter>
+    <ClCompile Include="..\Private\AI_Friendly.cpp">
+      <Filter>02.GameObject\00. Player\AI_Friendly</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Rock.cpp">
       <Filter>02.GameObject\05. Rock</Filter>
@@ -376,6 +325,21 @@
     </ClCompile>
     <ClCompile Include="..\Private\Test_Player.cpp">
       <Filter>02.GameObject\00. Player\Test_Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Normal_Bullet.cpp">
+      <Filter>02.GameObject\03. Bullet\Normal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Normal_Turret.cpp">
+      <Filter>02.GameObject\01. Turret\Normal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\SkyBox.cpp">
+      <Filter>02.GameObject\09. Box\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp">
+      <Filter>02.GameObject\06. Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\SkyBox.cpp">
+      <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

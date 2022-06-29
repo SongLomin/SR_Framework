@@ -17,6 +17,7 @@ public:
 	virtual void Tick(_float fTimeDelta);
 	virtual void LateTick(_float fTimeDelta);
 
+
 private:
 	_uint	m_iCurrentCam = 0;
 	_float  m_fTime = 1.f;

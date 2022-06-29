@@ -22,7 +22,7 @@ END
 BEGIN(Client)
 
 class CCameraPosin;
-class CPlayer_Posin;
+class CNormal_Turret;
 
 class CPlayer_Body final : public CGameObject
 {
@@ -53,7 +53,7 @@ private:
 	CState_Move*			m_pStateCom = nullptr;
 
 private:
-	list<CPlayer_Posin*>	m_pMyPosinList;
+	list<CNormal_Turret*>	m_pMyPosinList;
 
 private:
 

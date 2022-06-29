@@ -16,7 +16,7 @@ class CPlayer_Controller;
 END
 
 BEGIN(Client)
-class CEnemySpace_Posin;
+class CNormal_Turret;
 
 class CTest_Player final : public CGameObject
 {
@@ -51,7 +51,7 @@ private:
 
 
 private:
-	list<CEnemySpace_Posin*>	m_pMyPosinList;
+	list<CNormal_Turret*>	m_pMyPosinList;
 	_bool					m_bTargetMode = false;
 	_float					m_fTime = 1.f;
 

@@ -1,25 +1,25 @@
 #include "stdafx.h"
-#include "AI_Player.h"
+#include "AI_Friendly.h"
 #include "GameInstance.h"
-#include "EnemySpace_Posin.h"
+#include "Normal_Turret.h"
 
-CAI_Player::CAI_Player()
+CAI_Friendly::CAI_Friendly()
 {
 }
 
-CAI_Player::CAI_Player(const CAI_Player& Prototype)
+CAI_Friendly::CAI_Friendly(const CAI_Friendly& Prototype)
 {
 	*this = Prototype;
 
 	Add_Component<CTransform>();
 }
 
-HRESULT CAI_Player::Initialize_Prototype()
+HRESULT CAI_Friendly::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CAI_Player::Initialize(void* pArg)
+HRESULT CAI_Friendly::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
@@ -28,13 +28,13 @@ HRESULT CAI_Player::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CAI_Player::Tick(_float fTimeDelta)
+void CAI_Friendly::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
 }
 
-void CAI_Player::LateTick(_float fTimeDelta)
+void CAI_Friendly::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
@@ -53,12 +53,12 @@ void CAI_Player::LateTick(_float fTimeDelta)
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
-HRESULT CAI_Player::Render_Begin()
+HRESULT CAI_Friendly::Render_Begin()
 {
 	return S_OK;
 }
 
-HRESULT CAI_Player::Render()
+HRESULT CAI_Friendly::Render()
 {
 	m_pColliderCom->Debug_Render();
 	m_pPreColliderCom->Debug_Render();
@@ -77,7 +77,7 @@ HRESULT CAI_Player::Render()
 	return S_OK;
 }
 
-void CAI_Player::On_Change_Controller(const CONTROLLER& _IsAI)
+void CAI_Friendly::On_Change_Controller(const CONTROLLER& _IsAI)
 {
 	if (_IsAI == CONTROLLER::PLAYER)
 	{
@@ -95,19 +95,19 @@ void CAI_Player::On_Change_Controller(const CONTROLLER& _IsAI)
 	}
 }
 
-void CAI_Player::On_Collision_Enter(CCollider* _Other_Collider)
+void CAI_Friendly::On_Collision_Enter(CCollider* _Other_Collider)
 {
 }
 
-void CAI_Player::On_Collision_Stay(CCollider* _Other_Collider)
+void CAI_Friendly::On_Collision_Stay(CCollider* _Other_Collider)
 {
 }
 
-void CAI_Player::On_Collision_Exit(CCollider* _Other_Collider)
+void CAI_Friendly::On_Collision_Exit(CCollider* _Other_Collider)
 {
 }
 
-HRESULT CAI_Player::SetUp_Components()
+HRESULT CAI_Friendly::SetUp_Components()
 {
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
@@ -178,7 +178,7 @@ HRESULT CAI_Player::SetUp_Components()
 
 #pragma region Posin Setting
 
-	CEnemySpace_Posin* Posin = static_cast<CEnemySpace_Posin*>(GAMEINSTANCE->Add_GameObject<CEnemySpace_Posin>(CURRENT_LEVEL, TEXT("EnemySpace_Posin"), m_pTransformCom));
+	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
@@ -207,7 +207,7 @@ HRESULT CAI_Player::SetUp_Components()
 	return S_OK;
 }
 
-void CAI_Player::Update_PosinTarget()
+void CAI_Friendly::Update_PosinTarget()
 {
 	map<_float, CGameObject*>* TargetList = m_pTargetingCom->Get_Targetting();
 	
@@ -273,17 +273,17 @@ void CAI_Player::Update_PosinTarget()
 	}
 }
 
-CAI_Player* CAI_Player::Create()
+CAI_Friendly* CAI_Friendly::Create()
 {
-	CREATE_PIPELINE(CAI_Player);
+	CREATE_PIPELINE(CAI_Friendly);
 }
 
-CGameObject* CAI_Player::Clone(void* pArg)
+CGameObject* CAI_Friendly::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CAI_Player);
+	CLONE_PIPELINE(CAI_Friendly);
 }
 
-void CAI_Player::Free()
+void CAI_Friendly::Free()
 {
 	__super::Free();
 

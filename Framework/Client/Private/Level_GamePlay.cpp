@@ -23,7 +23,7 @@
 #include "ShieldBar.h"
 #include "BulletUI.h"
 #include "BulletCountUI.h"
-#include "AI_Player.h"
+#include "AI_Friendly.h"
 #include "Rock.h"
 #include "MovingCamera.h"
 #include "../Default/EnemySpace_Body.h"
@@ -69,7 +69,7 @@ HRESULT CLevel_GamePlay::Initialize()
 
 	for (int i = 0; i < 50; ++i)
 	{
-		if (!GAMEINSTANCE->Add_GameObject<CAI_Player>(LEVEL_GAMEPLAY, TEXT("AI_Player")))
+		if (!GAMEINSTANCE->Add_GameObject<CAI_Friendly>(LEVEL_GAMEPLAY, TEXT("AI_Friendly")))
 			return E_FAIL;
 	}
 

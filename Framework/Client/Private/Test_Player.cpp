@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Test_Player.h"
 #include "GameInstance.h"
-#include "EnemySpace_Posin.h"
+#include "Normal_Turret.h"
 
 CTest_Player::CTest_Player()
 {
@@ -183,7 +183,7 @@ HRESULT CTest_Player::SetUp_Components()
 
 #pragma region Posin Setting
 
-	CEnemySpace_Posin* Posin = static_cast<CEnemySpace_Posin*>(GAMEINSTANCE->Add_GameObject<CEnemySpace_Posin>(CURRENT_LEVEL, TEXT("EnemySpace_Posin"), m_pTransformCom));
+	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());

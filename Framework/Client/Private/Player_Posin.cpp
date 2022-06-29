@@ -2,7 +2,7 @@
 #include "Player_Posin.h"
 #include "GameInstance.h"
 #include "Math_Utillity.h"
-#include "Player_Bullet.h"
+#include "Normal_Bullet.h"
 #include <TargetingBox.h>
 
 
@@ -51,20 +51,8 @@ void CPlayer_Posin::Tick(_float fTimeDelta)
 		LookAt_Aim();
 	}
 
-	// 1초에 한번 호출
-	m_fTime += fTimeDelta;
-	if (1.f > m_fTime)
-	{
-		//LookAt_Targeting();
-		m_fTime = 0.f;
-	}
-
-	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
-	{
-		CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CPlayer_Bullet>(CURRENT_LEVEL, TEXT("Bullet"));
-
-		((CPlayer_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
-	}
+	
+	
 }
 
 void CPlayer_Posin::LateTick(_float fTimeDelta)

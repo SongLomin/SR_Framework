@@ -18,7 +18,7 @@ END
 
 
 BEGIN(Client)
-class CEnemySpace_Posin;
+class CNormal_Turret;
 class CEnemySpace_Body final : public CGameObject
 {
 private:
@@ -45,7 +45,7 @@ private: /* For My Component*/
     CCollider_Pre* m_pColliderPreCom = nullptr;
 
 private:
-    list<CEnemySpace_Posin*> m_pPosinList;
+    list<CNormal_Turret*> m_pPosinList;
     _float m_fTime = 1.f;
 
 private:
