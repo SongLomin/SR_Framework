@@ -9,6 +9,7 @@
 #include "Cam_FPS.h"
 #include "UITest.h"
 #include "../Default/Logo.h"
+#
 
 CLevel_Logo::CLevel_Logo()
 {
@@ -38,6 +39,17 @@ void CLevel_Logo::Tick(_float fTimeDelta)
 		//Safe_AddRef(pGameInstance);
 
 		if (FAILED(pGameInstance->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_GAMEPLAY))))
+			return;
+
+		//Safe_Release(pGameInstance);
+	}
+
+	if (GetKeyState(VK_LSHIFT) & 0x8000)
+	{
+		CGameInstance* pGameInstance = CGameInstance::Get_Instance();
+		//Safe_AddRef(pGameInstance);
+
+		if (FAILED(pGameInstance->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
 			return;
 
 		//Safe_Release(pGameInstance);

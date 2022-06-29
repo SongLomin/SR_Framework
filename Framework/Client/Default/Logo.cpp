@@ -69,7 +69,7 @@ HRESULT CLogo::SetUp_Components()
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 0.f, 0.f));
-	m_pTransformCom->Scaling(_float3(1.f, 1.f, 1.f));
+	m_pTransformCom->Scaling(_float3(2.f, 2.f, 1.f));
 	
 	return S_OK;
 }

@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "SkyBox.h"
 #include "GameInstance.h"
+#include "Level_SelectPlanet.h"
+#include "Level_GamePlay.h"
+#include "Level_Loading.h"
 
 CSkyBox::CSkyBox()
 {
@@ -53,7 +56,9 @@ HRESULT CSkyBox::Render()
 
 	m_pTransformCom->Bind_WorldMatrix();
 
+	
 	m_pRendererCom->Bind_Texture(7);
+	
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
 	DEVICE->SetRenderState(D3DRS_ZENABLE, FALSE);

@@ -176,6 +176,7 @@
     <ClInclude Include="..\Public\EnemySpace_Posin.h" />
     <ClInclude Include="..\Public\EnemySpace_RightBody.h" />
     <ClInclude Include="..\Public\HpBar.h" />
+    <ClInclude Include="..\Public\Level_SelectPlanet.h" />
     <ClInclude Include="..\Public\MovingCamera.h" />
     <ClInclude Include="..\public\Player_Body.h" />
     <ClInclude Include="..\Public\Cam_FPS.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="..\Private\EnemySpace_Posin.cpp" />
     <ClCompile Include="..\Private\EnemySpace_RightBody.cpp" />
     <ClCompile Include="..\Private\HpBar.cpp" />
+    <ClCompile Include="..\Private\Level_SelectPlanet.cpp" />
     <ClCompile Include="..\Private\MovingCamera.cpp" />
     <ClCompile Include="..\private\Player_Body.cpp" />
     <ClCompile Include="..\Private\Player_Bullet.cpp" />
