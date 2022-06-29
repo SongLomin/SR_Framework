@@ -26,6 +26,9 @@ public:
 		_float3 m_vSpeed;
 		_float3 m_vAccel;
 
+		CTransform* m_pStartTransform;
+		CTransform* m_pEndTransform;
+
 	}CAMERAROUTE;
 
 private:
@@ -54,10 +57,9 @@ private:
 	CCamera*		m_pCameraCom;
 	CTransform*		m_pTransformCom;
 
-	CTransform* m_pStartTransform;
-	CTransform* m_pEndTransform;
+	
 
-	vector<CAMERAROUTE>		m_vecRoute;
+	list<CAMERAROUTE>		m_listRoute;
 	CAMERAROUTE				m_CameraRoute;
 	_bool					m_bFlag = false;;
 
