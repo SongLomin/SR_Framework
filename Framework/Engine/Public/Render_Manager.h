@@ -27,6 +27,7 @@ private:
 	list<class CLight*>						m_LightComs;
 
 private:
+	void Priority_Pipeline();
 	void Deferred_Pipeline();
 	void Foward_Pipeline();
 

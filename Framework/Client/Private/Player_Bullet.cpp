@@ -38,31 +38,56 @@ void CPlayer_Bullet::Tick(_float fTimeDelta)
 	{
 		Set_Dead();
 	}
+
+	//불빛이 미사일 뒤로 나감
+	_float3 Light_Look_Dir = -m_pTransformCom->Get_State(CTransform::STATE_LOOK, true);
+	D3DXVec3Normalize(&Light_Look_Dir, &Light_Look_Dir);
+
+	m_pLight->Set_LooK_Dir(Light_Look_Dir);
+
 }
 
 void CPlayer_Bullet::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
+}
+
+HRESULT CPlayer_Bullet::Render_Begin(ID3DXEffect** Shader)
+{
+	m_pTransformCom->Scaling(_float3(0.2f, 0.1f, 10.f), true);
+	m_pTransformCom->Bind_WorldMatrix();
+
+	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
+
+
+	float floatArray[3];
+	floatArray[0] = 1.0f;
+	floatArray[1] = 1.0f;
+	floatArray[2] = 0.0f;
+
+	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
+
+
+	return S_OK;
 }
 
 HRESULT CPlayer_Bullet::Render()
 {
-	m_pColliderCom->Debug_Render();
-	m_pPreColliderCom->Debug_Render();
+	//m_pColliderCom->Debug_Render();
+	//m_pPreColliderCom->Debug_Render();
 
-	m_pTransformCom->Scaling(_float3(0.2f, 0.1f, 10.f));
-	m_pTransformCom->Bind_WorldMatrix();
+	
 
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-	m_pRendererCom->Bind_Texture(1);
+	//m_pRendererCom->Bind_Texture(1);
 	__super::Render();
 	m_pMeshCom->Render_Mesh();
-	m_pRendererCom->UnBind_Texture();
+	//m_pRendererCom->UnBind_Texture();
 
-	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	return S_OK;
 }
@@ -79,6 +104,9 @@ void CPlayer_Bullet::Link_PosinTransform(CTransform* _pTransform)
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_UP, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_UP, true));
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_LOOK, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_LOOK, true));
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_POSITION, true));
+
+	//총알 시작 위치를 앞쪽으로 옮긴다.
+	m_pTransformCom->Go_BackAndForth(10.f, 1.f);
 
 	m_pTransformCom->Update_WorldMatrix();
 	m_pRigidBodyCom->Set_DirVector();
@@ -114,7 +142,7 @@ inline HRESULT CPlayer_Bullet::SetUp_Components()
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 150.f;
-	RigidBodyDesc.m_fOwnerAccel = 150.f;
+	RigidBodyDesc.m_fOwnerAccel = 50.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
 	RigidBodyDesc.m_fOwnerJump = 0.f;
@@ -163,6 +191,10 @@ inline HRESULT CPlayer_Bullet::SetUp_Components()
 
 	m_pColliderCom->Set_Collider_Size(ColliderSize);
 
+	m_pLight = Add_Component<CSpotLight>();
+	WEAK_PTR(m_pLight);
+	m_pLight->Set_LightRange(12.f);
+
 	return S_OK;
 }
 
@@ -188,6 +220,8 @@ void CPlayer_Bullet::Free()
 
 	if (m_pRendererCom)
 		m_pRendererCom->Return_WeakPtr(&m_pRendererCom);
+
+	RETURN_WEAKPTR(m_pLight);
 
 	__super::Free();
 

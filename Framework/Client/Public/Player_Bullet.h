@@ -10,6 +10,7 @@ class CMesh_Cube;
 class CRigid_Body;
 class CCollider_OBB;
 class CCollider_Pre;
+class CSpotLight;
 END
 
 BEGIN(Client)
@@ -27,6 +28,7 @@ public:
     virtual HRESULT Initialize(void* pArg) override;
     virtual void Tick(_float fTimeDelta) override;
     virtual void LateTick(_float fTimeDelta) override;
+    virtual HRESULT Render_Begin(ID3DXEffect** Shader = nullptr) override;
     virtual HRESULT Render() override;
 
 private:
@@ -36,6 +38,7 @@ private:
     CRigid_Body* m_pRigidBodyCom = nullptr;
     CCollider_OBB* m_pColliderCom = nullptr;
     CCollider_Pre* m_pPreColliderCom = nullptr;
+    CSpotLight* m_pLight = nullptr;
 
     CTransform* m_pPosinTransformCom = nullptr;
 

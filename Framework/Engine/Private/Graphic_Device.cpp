@@ -179,7 +179,7 @@ HRESULT CGraphic_Device::Add_Text(TEXTINFO Info, float CountTime)
 {
 	
 
-	for (auto& elem : m_Text)
+	/*for (auto& elem : m_Text)
 	{
 		if (elem->Get_CountTime() < 0.f)
 		{
@@ -191,7 +191,7 @@ HRESULT CGraphic_Device::Add_Text(TEXTINFO Info, float CountTime)
 	CFont* Font = CFont::Create(&Info, CountTime);
 
 	if (nullptr != Font)
-		m_Text.push_back(Font);
+		m_Text.push_back(Font);*/
 
 	return S_OK;
 }

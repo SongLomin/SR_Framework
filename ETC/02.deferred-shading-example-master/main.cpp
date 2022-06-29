@@ -497,6 +497,7 @@ void DeferredPipeline()
 
 #ifdef STENCIL_CULLING
 		hTech = effect->GetTechniqueByName("StencilCulling");
+		//hTech = effect->GetTechniqueByName("Plain");
 #else
 		hTech = effect->GetTechniqueByName("Plain");
 #endif
@@ -515,6 +516,7 @@ void DeferredPipeline()
 			effect->BeginPass(i);
 #ifdef STENCIL_CULLING
 			DrawSphere();
+			//DrawScreenQuad();
 #else
 			DrawScreenQuad();
 #endif
@@ -605,6 +607,7 @@ bool Display(float timeDelta)
 			lights[i].Position = p;
 		}
 		Device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
+		PriorityPipeline();
 		DeferredPipeline();
 		FowardPipeline();
 		Device->Present(0, 0, g_hwnd, 0);

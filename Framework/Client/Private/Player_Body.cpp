@@ -299,8 +299,9 @@ HRESULT CPlayer_Body::SetUp_Components()
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 
-	m_pDirectionalLight = Add_Component<CDirectionalLight>();
-	WEAK_PTR(m_pDirectionalLight);
+	m_pLight = Add_Component<CSpotLight>();
+	WEAK_PTR(m_pLight);
+	m_pLight->Set_Margin_Position(_float3(0.f, 5.f, 0.f));
 
 	Set_Controller(CONTROLLER::PLAYER);
 

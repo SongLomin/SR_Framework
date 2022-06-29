@@ -59,18 +59,46 @@ HRESULT CRender_Manager::Draw_RenderGroup()
 {
 	DEVICE->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
 
+	Priority_Pipeline();
 	Deferred_Pipeline();
 
-	//DEVICE->BeginScene();
-	/*GAMEINSTANCE->Render_Begin();
+	DEVICE->BeginScene();
+	//GAMEINSTANCE->Render_Begin();
 	Foward_Pipeline();
-	GAMEINSTANCE->Render_Engine();*/
+	GAMEINSTANCE->Render_Engine();
 	GAMEINSTANCE->Render_End(GAMEINSTANCE->Get_Window_Handle());
 
 	//DEVICE->EndScene();
 
 
 	return S_OK;
+}
+
+void CRender_Manager::Priority_Pipeline()
+{
+	DEVICE->BeginScene();
+
+	DEVICE->SetRenderState(D3DRS_LIGHTING, false);
+
+	CCamera* pCamera = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA);
+
+	if (pCamera)
+		pCamera->Bind_PipeLine();
+
+
+	for (auto iter = m_RenderObjects[(_uint)RENDERGROUP::RENDER_PRIORITY].begin(); iter != m_RenderObjects[(_uint)RENDERGROUP::RENDER_PRIORITY].end();)
+	{
+		if ((*iter))
+		{
+			(*iter)->Render_Begin();
+			(*iter)->Render();
+			(*iter)->Return_WeakPtr(&(*iter));
+		}
+
+		iter = m_RenderObjects[(_uint)RENDERGROUP::RENDER_PRIORITY].erase(iter);
+	}
+
+	DEVICE->EndScene();
 }
 
 void CRender_Manager::Deferred_Pipeline()
@@ -93,7 +121,7 @@ void CRender_Manager::Deferred_Pipeline()
 
 
 	SetMRT();
-
+	DEVICE->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
 	DEVICE->BeginScene();
 
 	
@@ -126,6 +154,8 @@ void CRender_Manager::Deferred_Pipeline()
 		if ((*iter))
 		{
 			(*iter)->Render_Begin(G_Buffer);
+
+			DEVICE->GetTransform(D3DTS_WORLD, &world);
 
 			(*G_Buffer)->SetMatrix(worldHandle, &world);
 			/*
@@ -207,8 +237,10 @@ void CRender_Manager::Deferred_Pipeline()
 			(*LightShader)->End();
 
 			DEVICE->StretchRect(originRenderTarget, NULL, stashSurface, NULL, D3DTEXF_NONE);
+
+			(*iter)->Return_WeakPtr(&(*iter));
 		}
-		(*iter)->Return_WeakPtr(&(*iter));
+		
 		iter = m_LightComs.erase(iter);
 	}
 
@@ -217,12 +249,23 @@ void CRender_Manager::Deferred_Pipeline()
 
 void CRender_Manager::Foward_Pipeline()
 {
+	
+	DEVICE->SetRenderState(D3DRS_LIGHTING, false);
+
+	CCamera* pCamera = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA);
+
+	if(pCamera)
+		pCamera->Bind_PipeLine();
+
+
+
 	for (_uint i = (_uint)RENDERGROUP::RENDER_NONALPHABLEND; i < (_uint)RENDERGROUP::RENDER_END; ++i)
 	{
 		for (auto iter = m_RenderObjects[i].begin(); iter != m_RenderObjects[i].end();)
 		{
 			if ((*iter))
 			{
+				(*iter)->Render_Begin();
 				(*iter)->Render();
 				(*iter)->Return_WeakPtr(&(*iter));
 			}

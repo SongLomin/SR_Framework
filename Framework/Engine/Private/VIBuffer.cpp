@@ -30,7 +30,7 @@ HRESULT CVIBuffer::Initialize(void * pArg)
 HRESULT CVIBuffer::Render()
 {
 
-	/*if (nullptr == LPDEVICE)
+	if (nullptr == LPDEVICE)
 		return E_FAIL;
 
 	if (!Get_Enable())
@@ -42,7 +42,7 @@ HRESULT CVIBuffer::Render()
 	DEVICE->SetIndices(m_pIB);
 	DEVICE->DrawIndexedPrimitive(m_ePrimitiveType, 0, 0, m_iNumVertices, 0, m_iNumPrimitive);
 	
-	DEVICE->SetTexture(0, 0);*/
+	DEVICE->SetTexture(0, 0);
 
 	return S_OK;
 }

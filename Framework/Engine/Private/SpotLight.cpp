@@ -1,5 +1,6 @@
 #include "SpotLight.h"
 #include "GameInstance.h"
+#include "GameObject.h"
 
 CSpotLight::CSpotLight(const CSpotLight& Prototype)
 {
@@ -17,20 +18,20 @@ HRESULT CSpotLight::Initialize(void* pArg)
 {
 	D3DXCreateSphere(DEVICE, 1, 50, 50, &m_pMesh, 0);
 
-	D3DXCOLOR color = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);       // white
+	D3DXCOLOR color = D3DXCOLOR(1.f, 1.f, 0.f, 1.f);       // white
 	D3DXVECTOR3 position = D3DXVECTOR3(0.f, 0.f, 5.f);
 	D3DXVECTOR3 direction = D3DXVECTOR3(-1.f, -1.f, -1.f);
 
-	m_D3DLight.Type = D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL;
+	m_D3DLight.Type = D3DLIGHTTYPE::D3DLIGHT_SPOT;
 
-	m_D3DLight.Ambient = color * 0.01f;
+	m_D3DLight.Ambient = color * 0.5f;
 	m_D3DLight.Diffuse = color;
 	m_D3DLight.Specular = color * 0.6f;
 
 	m_D3DLight.Position = position;
 	m_D3DLight.Direction = direction;
 
-	m_D3DLight.Range = 8.0f;
+	m_D3DLight.Range = 15.0f;
 	m_D3DLight.Falloff = 4.0f;
 
 	m_D3DLight.Attenuation0 = 0.2f;
@@ -49,7 +50,14 @@ void CSpotLight::Tick(_float fTimeDelta)
 
 void CSpotLight::LateTick(_float fTimeDelta)
 {
+	
+	m_D3DLight.Position = m_pOwner->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION, true);
+	
+	m_D3DLight.Position.x += m_Margin_Position.x;
+	m_D3DLight.Position.y += m_Margin_Position.y;
+	m_D3DLight.Position.z += m_Margin_Position.z;
 
+	GAMEINSTANCE->Add_Light(this);
 }
 
 void CSpotLight::Bind_ConstBuffer()
@@ -122,6 +130,7 @@ void CSpotLight::Bind_ConstBuffer()
 
 	(*m_ppLightEffect)->SetFloat(lightThetaHandle, m_D3DLight.Theta);
 	(*m_ppLightEffect)->SetFloat(lightPhiHandle, m_D3DLight.Phi);
+
 
 
 

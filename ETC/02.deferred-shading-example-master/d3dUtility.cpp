@@ -151,7 +151,7 @@ D3DLIGHT9 d3d::InitLight(D3DLIGHTTYPE type)
 
 	light.Type = type;
 
-	light.Ambient = color * 0.01f;
+	light.Ambient = color * 0.1f;
 	light.Diffuse = color;
 	light.Specular = color * 0.6f;
 
