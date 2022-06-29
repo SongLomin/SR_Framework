@@ -8,20 +8,22 @@ class CCollider_OBB;
 class CRigid_Body;
 class CTargeting;
 class CStatus;
-class CMesh_Cube;
+class CMesh_SongShip;
 class CCollider_Pre;
 class CState_Move;
+class CAI_Controller;
+class CPlayer_Controller;
 END
 
 BEGIN(Client)
-class CEnemySpace_Posin;
+class CNormal_Turret;
 
-class CAI_Player final : public CGameObject
+class CTest_Player final : public CGameObject
 {
 private:
-	CAI_Player();
-	CAI_Player(const CAI_Player& Prototype);
-	virtual ~CAI_Player() = default;
+	CTest_Player();
+	CTest_Player(const CTest_Player& Prototype);
+	virtual ~CTest_Player() = default;
 
 
 public:
@@ -41,14 +43,15 @@ private:
 	CRigid_Body* m_pRigidBodyCom = nullptr;
 	CTargeting* m_pTargetingCom = nullptr;
 	CStatus* m_pStatusCom = nullptr;
-	CMesh_Cube* m_pMeshCom = nullptr;
+	CMesh_SongShip* m_pMeshCom = nullptr;
 	CCollider_Pre* m_pPreColliderCom = nullptr;
 	CState_Move* m_pStateCom = nullptr;
-
+	CAI_Controller* m_pAIControllerCom = nullptr;
+	CPlayer_Controller* m_pPlayerController = nullptr;
 
 
 private:
-	list<CEnemySpace_Posin*>	m_pMyPosinList;
+	list<CNormal_Turret*>	m_pMyPosinList;
 	_bool					m_bTargetMode = false;
 	_float					m_fTime = 1.f;
 
@@ -69,7 +72,7 @@ private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 
 
 public:
-	static CAI_Player* Create();
+	static CTest_Player* Create();
 	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
 

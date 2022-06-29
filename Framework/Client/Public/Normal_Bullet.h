@@ -15,12 +15,12 @@ END
 
 BEGIN(Client)
 
-class CPlayer_Bullet final : public CGameObject
+class CNormal_Bullet final : public CGameObject
 {
 private:
-    explicit CPlayer_Bullet();
-    explicit CPlayer_Bullet(const CPlayer_Bullet& Prototype);
-    virtual ~CPlayer_Bullet() = default;
+    explicit CNormal_Bullet();
+    explicit CNormal_Bullet(const CNormal_Bullet& Prototype);
+    virtual ~CNormal_Bullet() = default;
 
 public:
     // CGameObject을(를) 통해 상속됨
@@ -58,7 +58,7 @@ private:
 
 
 public:
-    static CPlayer_Bullet* Create();
+    static CNormal_Bullet* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 };

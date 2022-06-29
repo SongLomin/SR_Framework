@@ -1,25 +1,25 @@
 #include "stdafx.h"
-#include "AI_Player.h"
+#include "AI_Friendly.h"
 #include "GameInstance.h"
-#include "EnemySpace_Posin.h"
+#include "Normal_Turret.h"
 
-CAI_Player::CAI_Player()
+CAI_Friendly::CAI_Friendly()
 {
 }
 
-CAI_Player::CAI_Player(const CAI_Player& Prototype)
+CAI_Friendly::CAI_Friendly(const CAI_Friendly& Prototype)
 {
 	*this = Prototype;
 
 	Add_Component<CTransform>();
 }
 
-HRESULT CAI_Player::Initialize_Prototype()
+HRESULT CAI_Friendly::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CAI_Player::Initialize(void* pArg)
+HRESULT CAI_Friendly::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
@@ -28,30 +28,13 @@ HRESULT CAI_Player::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CAI_Player::Tick(_float fTimeDelta)
+void CAI_Friendly::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	map<_float, CGameObject*>* TargetList = m_pTargetingCom->Get_Targetting();
-
-	if (TargetList->empty())
-	{
-		m_pStateCom->State_Change(m_pTransformCom, fTimeDelta);
-	}
-	else
-	{
-		CGameObject* Target = TargetList->begin()->second;
-		if (!Target)
-		{
-			return;
-		}
-		m_pStateCom->State_Tagetting(Target->Get_Component<CTransform>(), fTimeDelta, 7.f);
-	}
-
-	//m_pStateCom->State_Change(m_pTransformCom, fTimeDelta);
 }
 
-void CAI_Player::LateTick(_float fTimeDelta)
+void CAI_Friendly::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
@@ -70,12 +53,12 @@ void CAI_Player::LateTick(_float fTimeDelta)
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
-HRESULT CAI_Player::Render_Begin()
+HRESULT CAI_Friendly::Render_Begin()
 {
 	return S_OK;
 }
 
-HRESULT CAI_Player::Render()
+HRESULT CAI_Friendly::Render()
 {
 	m_pColliderCom->Debug_Render();
 	m_pPreColliderCom->Debug_Render();
@@ -94,23 +77,37 @@ HRESULT CAI_Player::Render()
 	return S_OK;
 }
 
-void CAI_Player::On_Change_Controller(const CONTROLLER& _IsAI)
+void CAI_Friendly::On_Change_Controller(const CONTROLLER& _IsAI)
+{
+	if (_IsAI == CONTROLLER::PLAYER)
+	{
+		m_pAIControllerCom->Set_Enable(false);
+		m_pPlayerController->Set_Enable(true);
+		//이 게임오브젝트가 플레이어라면, 카메라에게 이 게임 오브젝트를 보도록 하겠다.
+		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
+		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
+		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
+	}
+	else
+	{
+		m_pAIControllerCom->Set_Enable(true);
+		m_pPlayerController->Set_Enable(false);
+	}
+}
+
+void CAI_Friendly::On_Collision_Enter(CCollider* _Other_Collider)
 {
 }
 
-void CAI_Player::On_Collision_Enter(CCollider* _Other_Collider)
+void CAI_Friendly::On_Collision_Stay(CCollider* _Other_Collider)
 {
 }
 
-void CAI_Player::On_Collision_Stay(CCollider* _Other_Collider)
+void CAI_Friendly::On_Collision_Exit(CCollider* _Other_Collider)
 {
 }
 
-void CAI_Player::On_Collision_Exit(CCollider* _Other_Collider)
-{
-}
-
-HRESULT CAI_Player::SetUp_Components()
+HRESULT CAI_Friendly::SetUp_Components()
 {
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
@@ -150,7 +147,6 @@ HRESULT CAI_Player::SetUp_Components()
 	RigidBodyDesc.m_fRadFrictional = 0.02f;
 	RigidBodyDesc.m_fRadZ = 0.01f;
 
-
 	RigidBodyDesc.m_fOwnerLiftSpeed = 20.f;
 	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
@@ -182,7 +178,7 @@ HRESULT CAI_Player::SetUp_Components()
 
 #pragma region Posin Setting
 
-	CEnemySpace_Posin* Posin = static_cast<CEnemySpace_Posin*>(GAMEINSTANCE->Add_GameObject<CEnemySpace_Posin>(CURRENT_LEVEL, TEXT("EnemySpace_Posin"), m_pTransformCom));
+	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
@@ -194,12 +190,24 @@ HRESULT CAI_Player::SetUp_Components()
 	m_pStateCom->Set_WeakPtr(&m_pStateCom);
 	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
 	m_pStateCom->Link_AI_Transform(m_pTransformCom);
+
+
+	m_pAIControllerCom = Add_Component<CAI_Controller>();
+	m_pAIControllerCom->Set_WeakPtr(&m_pAIControllerCom);
+	m_pAIControllerCom->Link_Object(this);
+	m_pAIControllerCom->Set_Enable(false);
+
+	m_pPlayerController = Add_Component<CPlayer_Controller>();
+	m_pPlayerController->Set_WeakPtr(&m_pPlayerController);
+	m_pPlayerController->Link_Object(this);
+	m_pPlayerController->Set_Enable(false);
+
 	Set_Controller(CONTROLLER::AI);
 
 	return S_OK;
 }
 
-void CAI_Player::Update_PosinTarget()
+void CAI_Friendly::Update_PosinTarget()
 {
 	map<_float, CGameObject*>* TargetList = m_pTargetingCom->Get_Targetting();
 	
@@ -265,17 +273,17 @@ void CAI_Player::Update_PosinTarget()
 	}
 }
 
-CAI_Player* CAI_Player::Create()
+CAI_Friendly* CAI_Friendly::Create()
 {
-	CREATE_PIPELINE(CAI_Player);
+	CREATE_PIPELINE(CAI_Friendly);
 }
 
-CGameObject* CAI_Player::Clone(void* pArg)
+CGameObject* CAI_Friendly::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CAI_Player);
+	CLONE_PIPELINE(CAI_Friendly);
 }
 
-void CAI_Player::Free()
+void CAI_Friendly::Free()
 {
 	__super::Free();
 

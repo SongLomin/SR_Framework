@@ -10,12 +10,12 @@ END
 
 BEGIN(Client)
 
-class CEnemySpace_Posin final :public CGameObject
+class CNormal_Turret final :public CGameObject
 {
 private:
-    CEnemySpace_Posin() = default;
-    CEnemySpace_Posin(const CEnemySpace_Posin& Prototype);
-    virtual ~CEnemySpace_Posin() = default;
+    CNormal_Turret() = default;
+    CNormal_Turret(const CNormal_Turret& Prototype);
+    virtual ~CNormal_Turret() = default;
 
 public:
     // CGameObject을(를) 통해 상속됨
@@ -27,13 +27,19 @@ public:
 
 
 public:
-    void Set_Target(CGameObject* _Object);
+    void     Set_Target(CGameObject* _Target);
+    _bool    LookAt_Targeting();
+    void     LookAt_Aim();
 
 private:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
     CMesh_Cube* m_pMeshCom = nullptr;
     CTransform* m_pPlayerTransformCom = nullptr;
+
+private:
+    CGameObject* m_pBoxObject = nullptr;
+    CGameObject* m_pTarget = nullptr;
 
     CGameObject* m_pTargetObject = nullptr;
 
@@ -46,7 +52,7 @@ private:
 
 public:
     // CGameObject을(를) 통해 상속됨
-    static CEnemySpace_Posin* Create();
+    static CNormal_Turret* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 };

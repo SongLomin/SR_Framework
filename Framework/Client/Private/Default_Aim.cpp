@@ -69,7 +69,7 @@ HRESULT CDefault_Aim::Render()
 	m_pRendererCom->Bind_Texture(0);
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	DEVICE->SetRenderState(D3DRS_ALPHAREF, 120);
+	DEVICE->SetRenderState(D3DRS_ALPHAREF, 10);
 	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 
 	_float4x4 CurView, CurProj;

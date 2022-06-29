@@ -133,9 +133,6 @@
     <Filter Include="01.Utility\02.GameObject\00. CursorObject">
       <UniqueIdentifier>{ba0ad428-977c-4716-a701-157b12ff5b11}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Utility\03.Components\07. Targeting">
-      <UniqueIdentifier>{6ecce992-5cb3-4ab6-9ece-d03156b360b6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Utility\03.Components\00. Model\Mesh\Mesh_Test">
       <UniqueIdentifier>{5308598a-0759-42a9-b22b-0088d2f5f65c}</UniqueIdentifier>
     </Filter>
@@ -192,6 +189,18 @@
     </Filter>
     <Filter Include="01.Utility\03.Components\06. Rigid_Body">
       <UniqueIdentifier>{4eceaa67-6893-4444-adae-f14905ce8a8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\08. Targeting">
+      <UniqueIdentifier>{6ecce992-5cb3-4ab6-9ece-d03156b360b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\09. Controller">
+      <UniqueIdentifier>{34ec9a7e-1aee-4fbc-9d8f-66e9bdc4bdea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\09. Controller\AI_Controller">
+      <UniqueIdentifier>{591bb880-2490-48dd-8df6-a530f0232733}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\09. Controller\Player_Controller">
+      <UniqueIdentifier>{59b9e69b-c65a-4c10-bad1-28f03e189ed2}</UniqueIdentifier>
     </Filter>
     <Filter Include="01.Utility\99.SuperClass\ZFrustum">
       <UniqueIdentifier>{c7aa5309-df38-44c7-ae1b-d6f91366dd67}</UniqueIdentifier>
@@ -346,7 +355,7 @@
       <Filter>01.Utility\00.GameInstance\IMGUI\00. IMGUI_Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Targeting.h">
-      <Filter>01.Utility\03.Components\07. Targeting</Filter>
+      <Filter>01.Utility\03.Components\08. Targeting</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Rigid_Body.h">
       <Filter>01.Utility\03.Components\06. Rigid_Body</Filter>
@@ -388,6 +397,15 @@
     <ClInclude Include="..\Public\Get_Lucky.h" />
     <ClInclude Include="..\Public\Get_Lucky.h">
       <Filter>01.Utility\00.GameInstance\IMGUI\01. Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Controller.h">
+      <Filter>01.Utility\03.Components\09. Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Private\AI_Controller.h">
+      <Filter>01.Utility\03.Components\09. Controller\AI_Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Player_Controller.h">
+      <Filter>01.Utility\03.Components\09. Controller\Player_Controller</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\ZFrustum.h">
       <Filter>01.Utility\99.SuperClass\ZFrustum</Filter>
@@ -521,7 +539,7 @@
       <Filter>01.Utility\00.GameInstance\IMGUI\00. IMGUI_Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Targeting.cpp">
-      <Filter>01.Utility\03.Components\07. Targeting</Filter>
+      <Filter>01.Utility\03.Components\08. Targeting</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Component.cpp">
       <Filter>01.Utility\03.Components</Filter>
@@ -566,6 +584,15 @@
     </ClCompile>
     <ClCompile Include="..\Private\Get_Lucky.cpp">
       <Filter>01.Utility\00.GameInstance\IMGUI\01. Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Controller.cpp">
+      <Filter>01.Utility\03.Components\09. Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\AI_Controller.cpp">
+      <Filter>01.Utility\03.Components\09. Controller\AI_Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Player_Controller.cpp">
+      <Filter>01.Utility\03.Components\09. Controller\Player_Controller</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\ZFrustum.cpp">
       <Filter>01.Utility\99.SuperClass\ZFrustum</Filter>

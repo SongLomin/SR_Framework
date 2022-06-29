@@ -23,10 +23,11 @@
 #include "ShieldBar.h"
 #include "BulletUI.h"
 #include "BulletCountUI.h"
-#include "AI_Player.h"
+#include "AI_Friendly.h"
 #include "Rock.h"
 #include "MovingCamera.h"
 #include "../Default/EnemySpace_Body.h"
+#include <Test_Player.h>
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -57,6 +58,9 @@ HRESULT CLevel_GamePlay::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_GAMEPLAY, TEXT("Player_Body")))
 		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CTest_Player>(LEVEL_GAMEPLAY, TEXT("Test_Player")))
+		return E_FAIL;
+
 	for (int i = 0; i < 50; ++i)
 	{
 		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_GAMEPLAY, TEXT("EnemySpace_Body")))
@@ -65,7 +69,7 @@ HRESULT CLevel_GamePlay::Initialize()
 
 	for (int i = 0; i < 50; ++i)
 	{
-		if (!GAMEINSTANCE->Add_GameObject<CAI_Player>(LEVEL_GAMEPLAY, TEXT("AI_Player")))
+		if (!GAMEINSTANCE->Add_GameObject<CAI_Friendly>(LEVEL_GAMEPLAY, TEXT("AI_Friendly")))
 			return E_FAIL;
 	}
 

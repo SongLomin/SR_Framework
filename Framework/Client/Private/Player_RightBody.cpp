@@ -69,8 +69,8 @@ HRESULT CPlayer_RightBody::Render()
 	m_pRendererCom->Bind_Texture(1);
 
 	__super::Render();
-	if (Get_Controller() == CONTROLLER::PLAYER)
-		m_pMeshCom->Render_Mesh(5);
+
+	m_pMeshCom->Render_Mesh(5);
 
 
 	m_pRendererCom->UnBind_Texture();

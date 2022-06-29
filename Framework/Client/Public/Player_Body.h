@@ -14,6 +14,9 @@ class CTargeting;
 class CMesh_SongShip;
 class CCollider_OBB;
 class CCollider_Pre;
+class CAI_Controller;
+class CPlayer_Controller;
+class CState_Move;
 class CMesh_Test;
 class CDirectionalLight;
 class CSpotLight;
@@ -21,6 +24,8 @@ END
 
 BEGIN(Client)
 
+class CCameraPosin;
+class CNormal_Turret;
 class CPlayer_Posin;
 class CHpBar;
 
@@ -49,10 +54,13 @@ private:
 	CCollider_OBB*			m_pColliderCom = nullptr;
 	CTargeting*				m_pTargetingCom = nullptr;
 	CCollider_Pre*			m_pPreColliderCom = nullptr;
+	CAI_Controller*			m_pAIControllerCom = nullptr;
+	CPlayer_Controller*		m_pPlayerController = nullptr;
+	CState_Move*			m_pStateCom = nullptr;
 	CSpotLight*				m_pLight = nullptr;
 
 private:
-	list<CPlayer_Posin*>	m_pMyPosinList;
+	list<CNormal_Turret*>	m_pMyPosinList;
 	CHpBar*                 m_pHpBar;
 
 private:

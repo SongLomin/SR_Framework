@@ -1,26 +1,26 @@
 #include "stdafx.h"
-#include "Player_Bullet.h"
+#include "Normal_Bullet.h"
 #include "GameInstance.h"
 #include "Collider_OBB.h"
 
 
-CPlayer_Bullet::CPlayer_Bullet()
+CNormal_Bullet::CNormal_Bullet()
 {
 }
 
-CPlayer_Bullet::CPlayer_Bullet(const CPlayer_Bullet& Prototype)
+CNormal_Bullet::CNormal_Bullet(const CNormal_Bullet& Prototype)
 {
 	*this = Prototype;
 	//m_szName = L"Bullet";
 	Add_Component<CTransform>();
 }
 
-HRESULT CPlayer_Bullet::Initialize_Prototype()
+HRESULT CNormal_Bullet::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CPlayer_Bullet::Initialize(void* pArg)
+HRESULT CNormal_Bullet::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
@@ -28,7 +28,7 @@ HRESULT CPlayer_Bullet::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CPlayer_Bullet::Tick(_float fTimeDelta)
+void CNormal_Bullet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
@@ -47,7 +47,7 @@ void CPlayer_Bullet::Tick(_float fTimeDelta)
 
 }
 
-void CPlayer_Bullet::LateTick(_float fTimeDelta)
+void CNormal_Bullet::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
@@ -73,7 +73,7 @@ HRESULT CPlayer_Bullet::Render_Begin(ID3DXEffect** Shader)
 	return S_OK;
 }
 
-HRESULT CPlayer_Bullet::Render()
+HRESULT CNormal_Bullet::Render()
 {
 	//m_pColliderCom->Debug_Render();
 	//m_pPreColliderCom->Debug_Render();
@@ -94,7 +94,7 @@ HRESULT CPlayer_Bullet::Render()
 
 
 
-void CPlayer_Bullet::Link_PosinTransform(CTransform* _pTransform)
+void CNormal_Bullet::Link_PosinTransform(CTransform* _pTransform)
 {
 	m_pPosinTransformCom = _pTransform;
 
@@ -113,7 +113,7 @@ void CPlayer_Bullet::Link_PosinTransform(CTransform* _pTransform)
 	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 }
 
-void CPlayer_Bullet::On_Collision_Enter(CCollider* _Other_Collider)
+void CNormal_Bullet::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER)
 	{
@@ -122,16 +122,16 @@ void CPlayer_Bullet::On_Collision_Enter(CCollider* _Other_Collider)
 
 }
 
-void CPlayer_Bullet::On_Collision_Stay(CCollider* _Other_Collider)
+void CNormal_Bullet::On_Collision_Stay(CCollider* _Other_Collider)
 {
 	
 }
 
-void CPlayer_Bullet::On_Collision_Exit(CCollider* _Other_Collider)
+void CNormal_Bullet::On_Collision_Exit(CCollider* _Other_Collider)
 {
 }
 
-inline HRESULT CPlayer_Bullet::SetUp_Components()
+inline HRESULT CNormal_Bullet::SetUp_Components()
 {
 	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 
@@ -200,17 +200,17 @@ inline HRESULT CPlayer_Bullet::SetUp_Components()
 
 
 
-CPlayer_Bullet* CPlayer_Bullet::Create()
+CNormal_Bullet* CNormal_Bullet::Create()
 {
-	CREATE_PIPELINE(CPlayer_Bullet);
+	CREATE_PIPELINE(CNormal_Bullet);
 }
 
-CGameObject* CPlayer_Bullet::Clone(void* pArg)
+CGameObject* CNormal_Bullet::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CPlayer_Bullet);
+	CLONE_PIPELINE(CNormal_Bullet);
 }
 
-void CPlayer_Bullet::Free()
+void CNormal_Bullet::Free()
 {
 	if (m_pPosinTransformCom)
 		m_pPosinTransformCom->Return_WeakPtr(&m_pPosinTransformCom);
