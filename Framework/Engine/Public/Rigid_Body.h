@@ -57,7 +57,7 @@ public:
 
 	void		Set_Mouse()
 	{
-		m_bMouse = true;
+		m_bMouse = !m_bMouse;
 	}
 
 	void		Add_Dir(Func Dir, _float fDir =0.f);

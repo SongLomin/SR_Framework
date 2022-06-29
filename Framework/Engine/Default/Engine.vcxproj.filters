@@ -193,6 +193,9 @@
     <Filter Include="01.Utility\03.Components\06. Rigid_Body">
       <UniqueIdentifier>{4eceaa67-6893-4444-adae-f14905ce8a8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\99.SuperClass\ZFrustum">
+      <UniqueIdentifier>{c7aa5309-df38-44c7-ae1b-d6f91366dd67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -386,6 +389,9 @@
     <ClInclude Include="..\Public\Get_Lucky.h">
       <Filter>01.Utility\00.GameInstance\IMGUI\01. Tool</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\ZFrustum.h">
+      <Filter>01.Utility\99.SuperClass\ZFrustum</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -560,6 +566,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Get_Lucky.cpp">
       <Filter>01.Utility\00.GameInstance\IMGUI\01. Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ZFrustum.cpp">
+      <Filter>01.Utility\99.SuperClass\ZFrustum</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

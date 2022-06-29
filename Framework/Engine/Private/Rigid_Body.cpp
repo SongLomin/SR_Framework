@@ -65,7 +65,7 @@ void CRigid_Body::Add_Dir(Func Dir, _float fDir )//fDir에 마우스 이동량을 전달
 			break;
 
 		case DOWN://위아래 회전
-			m_fLiftSpeed = fDir*-1.f;
+		//	m_fLiftSpeed = fDir*-1.f;
 			m_fRadSpeedX = fDir*0.01f;
 			break;
 
@@ -146,7 +146,7 @@ void CRigid_Body::Add_Camera(Func Dir, _float fDir)
 	switch (Dir)
 	{
 	case RIGHT://좌우 회전
-		
+		m_fRadSpeedZ = fDir * 0.01f;
 		m_vSpeed += m_vRight*fDir*0.01f;
 		break;
 
@@ -162,7 +162,10 @@ void CRigid_Body::Add_Camera(Func Dir, _float fDir)
 void CRigid_Body::Compute_Force()
 {
 	if (m_bCamera)
+	{
 		Compute_Camera();
+		Compute_RotDirection();
+	}
 	else 
 	{
 		Compute_Dir();
@@ -231,12 +234,21 @@ void CRigid_Body::Move(_float fTimeDelta)
 void CRigid_Body::Turn(_float fTimeDelta)
 {
 	D3DXMATRIX	matRotation;
-	D3DXMatrixRotationAxis(&matRotation, &_float3(0.f,1.f,0.f), m_fRadSpeedY * fTimeDelta);
+	D3DXMatrixRotationAxis(&matRotation, &m_vUp, m_fRadSpeedY * fTimeDelta);
 
 	D3DXVec3TransformNormal(&m_vLook, &m_vLook, &matRotation);
 
-	D3DXVec3Cross(&m_vRight, &_float3(0.f, 1.f, 0.f), &m_vLook);
+	D3DXVec3Cross(&m_vRight, &m_vUp, &m_vLook);
 	D3DXVec3Cross(&m_vUp, &m_vLook, &m_vRight);
+
+	D3DXVec3TransformCoord(&m_vSpeed, &m_vSpeed, &matRotation);
+
+	D3DXMatrixRotationAxis(&matRotation, &m_vRight, m_fRadSpeedX * fTimeDelta);
+
+	D3DXVec3TransformNormal(&m_vLook, &m_vLook, &matRotation);
+
+	D3DXVec3Cross(&m_vUp, &m_vLook, &m_vRight);
+	D3DXVec3Cross(&m_vRight, &m_vUp, &m_vLook);
 
 	D3DXVec3TransformCoord(&m_vSpeed, &m_vSpeed, &matRotation);
 
@@ -280,6 +292,7 @@ void CRigid_Body::Compute_Rotation()
 			}
 			
 		}
+
 	}
 	else
 	{
@@ -427,6 +440,7 @@ void CRigid_Body::Update_Transform(_float fTimeDelta)
 	Compute_Force();
 	if(m_bCamera)
 	{
+		SubTurn();
 		D3DXVec3Normalize(&m_vSubLook, &m_vSubLook);
 		D3DXVec3Normalize(&m_vSubUp, &m_vSubUp);
 		D3DXVec3Normalize(&m_vSubRight, &m_vSubRight);

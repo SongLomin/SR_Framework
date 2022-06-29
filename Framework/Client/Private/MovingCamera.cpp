@@ -39,22 +39,28 @@ void CMovingCamera::Tick(_float fTimeDelta)
 	if (!m_bFlag)
 		return;
 
-	if (0.f > m_CameraRoute.fTime )
+	if (0.f > m_CameraRoute.fTime && m_listRoute.empty() )
 	{
 		GAMEINSTANCE->Swap_Camera();
 		m_bFlag = false;
+	}
+
+	if (!m_listRoute.empty())
+	{
+		m_CameraRoute = m_listRoute.front();
+		m_listRoute.pop_front();
 	}
 
 
 	m_CameraRoute.fTime -= fTimeDelta;
 	m_pTransformCom->Update_WorldMatrix();
 	
-
 	_float3 vPosition = m_pTransformCom->Get_State(CTransform::STATE_POSITION);
+	m_CameraRoute.m_vSpeed += m_CameraRoute.m_vAccel; 
 	vPosition += m_CameraRoute.m_vSpeed*fTimeDelta;
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, vPosition);
-	m_pTransformCom->LookAt(m_pEndTransform, true);
+	m_pTransformCom->LookAt(m_CameraRoute.m_pEndTransform, true);
 
 }
 
@@ -80,6 +86,10 @@ HRESULT CMovingCamera::Render()
 
 void CMovingCamera::Add_Movement(CTransform* _pStartTarget, CTransform* _pEndTarget, CAMERAROUTE _tagRoute)
 {
+
+	_tagRoute.m_pEndTransform = _pEndTarget;
+	_tagRoute.m_pStartTransform = _pStartTarget;
+
 	if (CMovingCamera::CAMERAMOVING::CAMERA_MOVE == _tagRoute.eMoveType)
 	{
 		_float3 vecStartPos = _pStartTarget->Get_World_State(CTransform::STATE_POSITION);
@@ -96,12 +106,12 @@ void CMovingCamera::Add_Movement(CTransform* _pStartTarget, CTransform* _pEndTar
 		_tagRoute.m_vSpeed = _tagRoute.m_vAccel = _float3(0.f, 0.f, 0.f);
 	}
 
-	m_vecRoute.push_back(_tagRoute);
+	m_listRoute.push_back(_tagRoute);
 }
 
 void CMovingCamera::Boss_Cinematic(CTransform* _pBossTarget)
 {
-	m_pEndTransform = _pBossTarget;
+	m_CameraRoute.m_pEndTransform = _pBossTarget;
 
 	D3DXMATRIX	matTarget = _pBossTarget->Get_WorldMatrix();
 
@@ -117,7 +127,7 @@ void CMovingCamera::Boss_Cinematic(CTransform* _pBossTarget)
 	m_pTransformCom->LookAt(*(_float3*)&matTarget.m[3], true);
 
 
-	m_CameraRoute.fTime = 10.f;
+	m_CameraRoute.fTime = 5.f;
 	m_CameraRoute.fAngle = D3DXToRadian(30.f);
 
 	m_CameraRoute.eMoveType = CAMERAMOVING::CAMERA_END;

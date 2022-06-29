@@ -41,6 +41,7 @@ void CGameObject::Tick(_float fTimeDelta)
 
 void CGameObject::LateTick(_float fTimeDelta)
 {
+
 	for (auto& elem : m_pComs)
 	{
 		if (elem.second)

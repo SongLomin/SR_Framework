@@ -15,6 +15,7 @@ CGameInstance::CGameInstance()
 	, m_pCamera_Manager(CCamera_Manager::Get_Instance())
 	, m_pCollision_Manager(CCollision_Manager::Get_Instance())
 	, m_pIMGUI_Manager(CImguiMgr::Get_Instance())
+	, m_pZFrustum(CZFrustum::Get_Instance())
 {
 	//Safe_AddRef(m_pComponent_Manager);
 	//Safe_AddRef(m_pObject_Manager);
@@ -69,6 +70,8 @@ HRESULT CGameInstance::Tick_Engine(_float fTimeDelta)
 	m_pCollision_Manager->Tick();
 
 	m_pObject_Manager->Tick(fTimeDelta);
+
+	m_pZFrustum->Update_Frustum();
 
 	m_pCamera_Manager->LateTick(fTimeDelta);
 
@@ -364,6 +367,21 @@ void CGameInstance::Add_Collider(CCollider* pCollider)
 
 }
 
+_bool CGameInstance::IsIn(D3DXVECTOR3* pv)
+{
+	return m_pZFrustum->IsIn(pv);
+}
+
+_bool CGameInstance::IsInSphere(D3DXVECTOR3* pv, float radius)
+{
+	return m_pZFrustum->IsInSphere(pv,radius);
+}
+
+_bool CGameInstance::Draw_Frustum()
+{
+	return m_pZFrustum->Draw();
+}
+
 HRESULT CGameInstance::ImGuiImplHandle(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 
@@ -396,6 +414,8 @@ void CGameInstance::Release_Engine()
 	CImguiMgr::Get_Instance()->Destroy_Instance();
 
 	CCamera_Manager::Get_Instance()->Destroy_Instance();
+
+	CZFrustum::Get_Instance()->Destroy_Instance();
 
 	CCollision_Manager::Get_Instance()->Destroy_Instance();
 }

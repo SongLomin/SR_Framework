@@ -99,7 +99,10 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+
+	if(GAMEINSTANCE->IsIn(&vPos))
+		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 
 }
 
