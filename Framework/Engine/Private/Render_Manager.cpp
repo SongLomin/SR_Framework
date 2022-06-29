@@ -1,5 +1,6 @@
 #include "..\Public\Render_Manager.h"
 #include "GameObject.h"
+#include "GameInstance.h"
 
 IMPLEMENT_SINGLETON(CRender_Manager)
 
@@ -25,6 +26,7 @@ HRESULT CRender_Manager::Draw_RenderGroup()
 {
 	for (_uint i = 0; i < (_uint)RENDERGROUP::RENDER_END; ++i)
 	{
+		
 		for (auto iter = m_RenderObjects[i].begin(); iter != m_RenderObjects[i].end();)
 		{
 			if ((*iter))

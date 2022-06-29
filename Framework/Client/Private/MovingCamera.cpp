@@ -55,7 +55,6 @@ void CMovingCamera::Tick(_float fTimeDelta)
 	m_CameraRoute.fTime -= fTimeDelta;
 	m_pTransformCom->Update_WorldMatrix();
 	
-
 	_float3 vPosition = m_pTransformCom->Get_State(CTransform::STATE_POSITION);
 	m_CameraRoute.m_vSpeed += m_CameraRoute.m_vAccel; 
 	vPosition += m_CameraRoute.m_vSpeed*fTimeDelta;

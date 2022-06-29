@@ -12,6 +12,7 @@
 #include "Picking.h"
 #include "Collision_Manager.h"
 #include "ImguiMgr.h"
+#include "ZFrustum.h"
 
 /* 1. 게임내에 필요한 객체(매니져등)들을 모아서 보관한다. */
 /* 2. 클라이언트 개발자가 접근하기좋은 루트를 제공해준다. 나. */
@@ -115,6 +116,12 @@ public: /* For.IMGUI_Manager */
 public: /* For. Collision_Manager */
 	void Add_Collider(CCollider* pCollider);
 
+public:/* For.ZFrustum*/
+	_bool IsIn(D3DXVECTOR3* pv);
+	_bool IsInSphere(D3DXVECTOR3* pv, float radius);
+	_bool Draw_Frustum();
+
+
 
 private:
 	CGraphic_Device*				m_pGraphic_Device = nullptr;
@@ -128,7 +135,7 @@ private:
 	CCamera_Manager*				m_pCamera_Manager = nullptr;
 	CImguiMgr*						m_pIMGUI_Manager = nullptr;
 	CCollision_Manager*				m_pCollision_Manager = nullptr;
-
+	CZFrustum*						m_pZFrustum = nullptr;
 private:
 	GRAPHICDESC						m_Graphic_Desc;
 
