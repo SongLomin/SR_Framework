@@ -1,25 +1,25 @@
 #include "stdafx.h"
-#include "SkyBox.h"
+#include "SelectPlanet_SkyBox.h"
 #include "GameInstance.h"
 
 
-CSkyBox::CSkyBox()
+CSelectPlanet_SkyBox::CSelectPlanet_SkyBox()
 {
 }
 
-CSkyBox::CSkyBox(const CSkyBox& Prototype)
+CSelectPlanet_SkyBox::CSelectPlanet_SkyBox(const CSelectPlanet_SkyBox& Prototype)
 {
 	*this = Prototype;
 
 	Add_Component<CTransform>();
 }
 
-HRESULT CSkyBox::Initialize_Prototype()
+HRESULT CSelectPlanet_SkyBox::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CSkyBox::Initialize(void* pArg)
+HRESULT CSelectPlanet_SkyBox::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
@@ -27,14 +27,14 @@ HRESULT CSkyBox::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CSkyBox::Tick(_float fTimeDelta)
+void CSelectPlanet_SkyBox::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
 
 }
 
-void CSkyBox::LateTick(_float fTimeDelta)
+void CSelectPlanet_SkyBox::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
@@ -49,14 +49,14 @@ void CSkyBox::LateTick(_float fTimeDelta)
 
 }
 
-HRESULT CSkyBox::Render()
+HRESULT CSelectPlanet_SkyBox::Render()
 {
 
 	m_pTransformCom->Bind_WorldMatrix();
 
-	
-	m_pRendererCom->Bind_Texture(7);
-	
+
+	m_pRendererCom->Bind_Texture(6);
+
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
 	DEVICE->SetRenderState(D3DRS_ZENABLE, FALSE);
@@ -72,7 +72,7 @@ HRESULT CSkyBox::Render()
 	return S_OK;
 }
 
-HRESULT CSkyBox::SetUp_Components()
+HRESULT CSelectPlanet_SkyBox::SetUp_Components()
 {
 
 	m_pTransformCom = Get_Component<CTransform>();
@@ -90,17 +90,17 @@ HRESULT CSkyBox::SetUp_Components()
 	return S_OK;
 }
 
-CSkyBox* CSkyBox::Create()
+CSelectPlanet_SkyBox* CSelectPlanet_SkyBox::Create()
 {
-	CREATE_PIPELINE(CSkyBox);
+	CREATE_PIPELINE(CSelectPlanet_SkyBox);
 }
 
-CGameObject* CSkyBox::Clone(void* pArg)
+CGameObject* CSelectPlanet_SkyBox::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CSkyBox);
+	CLONE_PIPELINE(CSelectPlanet_SkyBox);
 }
 
-void CSkyBox::Free()
+void CSelectPlanet_SkyBox::Free()
 {
 	__super::Free();
 

@@ -7,7 +7,14 @@
 #include "Cam_TPS.h"
 #include "MovingCamera.h"
 #include "Player_Body.h"
-#include "SkyBox.h"
+#include "SelectPlanet_SkyBox.h"
+#include "Default_Aim.h"
+#include "BoosterBar.h"
+#include "StatusBar.h"
+#include "HpBar.h"
+#include "ShieldBar.h"
+#include "BulletUI.h"
+#include "BulletCountUI.h"
 
 CLevel_SelectPlanet::CLevel_SelectPlanet()
 {
@@ -18,8 +25,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
 
-	/*if (!GAMEINSTANCE->Add_GameObject<CLevel_SelectPlanet>(LEVEL_SELECTPLANET, TEXT("SelectPlanet")))
-		return E_FAIL;*/
+	
 
 	CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(CURRENT_LEVEL, TEXT("Camera"));
 	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
@@ -33,14 +39,35 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
 
-	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(LEVEL_STATIC, TEXT("Camera"));
+	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(CURRENT_LEVEL, TEXT("Camera"));
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
 	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_GAMEPLAY, TEXT("Player_Body")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVEL_GAMEPLAY, TEXT("SkyBox")))
+	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_GAMEPLAY, TEXT("SkyBox")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_GAMEPLAY, TEXT("Aim")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_GAMEPLAY, TEXT("Status")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_GAMEPLAY, TEXT("HP")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_GAMEPLAY, TEXT("Booster")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_GAMEPLAY, TEXT("Shield")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_GAMEPLAY, TEXT("NormalBullet")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_GAMEPLAY, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
 	return S_OK;

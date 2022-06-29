@@ -255,6 +255,9 @@
     <ClInclude Include="..\Public\Level_SelectPlanet.h">
       <Filter>01.Levels\02.SelectPlanet</Filter>
     </ClInclude>
+    <ClInclude Include="SelectPlanet_SkyBox.h">
+      <Filter>02.GameObject\10. SkyBox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -376,6 +379,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Level_SelectPlanet.cpp">
       <Filter>01.Levels\02.SelectPlanet</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectPlanet_SkyBox.cpp">
+      <Filter>02.GameObject\10. SkyBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
