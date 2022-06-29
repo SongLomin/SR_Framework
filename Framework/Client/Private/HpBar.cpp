@@ -33,6 +33,9 @@ HRESULT CHpBar::Initialize(void* pArg)
 	m_fSizeX = 150.0f;
 	m_fSizeY = 5.0f;
 
+	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f) * 2);
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(m_fX - (g_iWinCX >> 1), -m_fY + (g_iWinCY >> 1), 0.f));
+
 	return S_OK;
 }
 
@@ -40,20 +43,20 @@ void CHpBar::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+	
+
 	GetCursorPos(&m_ptMouse);
 	ScreenToClient(g_hWnd, &m_ptMouse);
-
-
 	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
+
 }
 
 void CHpBar::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
-	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f) * 2);
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(m_fX - (g_iWinCX >> 1), -m_fY + (g_iWinCY >> 1), 0.f));
+	
 
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_UI, this);
 }
@@ -87,11 +90,15 @@ HRESULT CHpBar::Render()
 	DEVICE->SetTransform(D3DTS_PROJECTION, &CurProj);
 
 	return S_OK;
+
 }
 
 
-void CHpBar::UpdateHpBar(_float _beforeHp, _float _afterHp)
+
+
+void CHpBar::Update_Hp_Bar(CStatus* pStatus)
 {
+	m_pStatusCom = pStatus;
 }
 
 HRESULT CHpBar::SetUp_Components()
@@ -105,6 +112,8 @@ HRESULT CHpBar::SetUp_Components()
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
+
+	
 
 
 	return S_OK;

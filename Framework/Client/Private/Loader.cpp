@@ -25,6 +25,10 @@ unsigned int APIENTRY LoadingMain(void* pArg)
 		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
 		hr = pLoader->Loading_ForLogoLevel();
 		break;
+	case LEVEL_SELECTPLANET:
+		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
+		hr = pLoader->Loading_ForSelectPlanet();
+		break;
 	case LEVEL_GAMEPLAY:
 		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
 		hr = pLoader->Loading_ForGamePlayLevel();
@@ -109,12 +113,29 @@ HRESULT CLoader::Loading_ForLogoLevel()
 	GAMEINSTANCE->Load_Shader(TEXT("DirectionalLight"), TEXT("DirectionalLight.hlsl"));
 	GAMEINSTANCE->Load_Shader(TEXT("SpotLight"), TEXT("SpotLight.hlsl"));
 	GAMEINSTANCE->Load_Shader(TEXT("PointLight"), TEXT("PointLight.hlsl"));
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Sky_Test"), TEXT("../Bin/Resources/Textures/SkyBox/Sky_%d.dds"),
+		TEXTURE_TYPE::TYPE_CUBE, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
 
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Status"), TEXT("../Bin/Resources/Textures/UI/Status.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
 
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("HP"), TEXT("../Bin/Resources/Textures/UI/HP.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
-	m_isFinished = true;
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Booster"), TEXT("../Bin/Resources/Textures/UI/Booster.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
 
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Shield"), TEXT("../Bin/Resources/Textures/UI/Shield.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("MainWeapon"), TEXT("../Bin/Resources/Textures/UI/MainWeapon.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 	return S_OK;
 }
 
@@ -126,12 +147,14 @@ HRESULT CLoader::Loading_ForGamePlayLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
 		return E_FAIL;
 
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("SubWeapon"), TEXT("../Bin/Resources/Textures/UI/SubWeapon.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Tex_Terrain"), TEXT("../Bin/Resources/Textures/Terrain/SpaceStation.jpg"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Sky_Test"), TEXT("../Bin/Resources/Textures/SkyBox/Sky_%d.dds"),
-		TEXTURE_TYPE::TYPE_CUBE, MEMORY_TYPE::MEMORY_STATIC)))
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("EmptyItem"), TEXT("../Bin/Resources/Textures/UI/EmptyItem.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Aim_Default"), TEXT("../Bin/Resources/Textures/UI/Aim_Default.png"),
@@ -146,42 +169,55 @@ HRESULT CLoader::Loading_ForGamePlayLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Logo"), TEXT("../Bin/Resources/Textures/Logo/Logo.png"),
+	
+
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Logo"), TEXT("../Bin/Resources/Textures/Logo/Logo.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Status"), TEXT("../Bin/Resources/Textures/UI/Status.png"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
+
+
+	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));	
+
+	m_isFinished = true;
+
+	//Safe_Release(pGameInstance);
+
+	return S_OK;
+}
+
+HRESULT CLoader::Loading_ForGamePlayLevel()
+{
+	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
+
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Test"), TEXT("../Bin/Resources/Textures/Default%d.jpg"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("HP"), TEXT("../Bin/Resources/Textures/UI/HP.png"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Tex_Terrain"), TEXT("../Bin/Resources/Textures/Terrain/SpaceStation.jpg"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Booster"), TEXT("../Bin/Resources/Textures/UI/Booster.png"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Shield"), TEXT("../Bin/Resources/Textures/UI/Shield.png"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
+	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
-	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("MainWeapon"), TEXT("../Bin/Resources/Textures/UI/MainWeapon.png"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
+	m_isFinished = true;
 
-	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("SubWeapon"), TEXT("../Bin/Resources/Textures/UI/SubWeapon.png"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("EmptyItem"), TEXT("../Bin/Resources/Textures/UI/EmptyItem.png"),
+	return S_OK;
+}
+
+HRESULT CLoader::Loading_ForSelectPlanet()
+{
+	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Venus"), TEXT("../Bin/Resources/Textures/Object/Planet1.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
 	m_isFinished = true;
-
 
 	return S_OK;
 }

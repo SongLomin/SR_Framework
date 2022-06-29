@@ -21,8 +21,8 @@ END
 
 BEGIN(Client)
 
-class CCameraPosin;
 class CPlayer_Posin;
+class CHpBar;
 
 class CPlayer_Body final : public CGameObject
 {
@@ -53,6 +53,7 @@ private:
 
 private:
 	list<CPlayer_Posin*>	m_pMyPosinList;
+	CHpBar*                 m_pHpBar;
 
 private:
 

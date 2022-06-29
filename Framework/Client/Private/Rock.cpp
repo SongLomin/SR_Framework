@@ -33,7 +33,7 @@ void CRock::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	m_pTransformCom->Turn(_float3(0.f, 0.f, 1.f), 0.5f, fTimeDelta);
+	
 }
 
 void CRock::LateTick(_float fTimeDelta)

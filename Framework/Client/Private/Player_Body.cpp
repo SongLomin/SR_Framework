@@ -10,7 +10,7 @@
 #include "Cam_Shoulder.h"
 #include "Player_Bullet.h"
 #include "Math_Utillity.h"
-
+#include "HpBar.h"
 
 
 
@@ -26,7 +26,6 @@ CPlayer_Body::CPlayer_Body(const CPlayer_Body & Prototype)
 	m_pTransformCom = Add_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
-
 	GAMEINSTANCE->Set_Current_Camera(TEXT("FPS"));
 }
 
@@ -43,6 +42,8 @@ HRESULT CPlayer_Body::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 	
+	
+
 	return S_OK;
 }
 
@@ -69,11 +70,18 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 	m_pRigidBodyCom->Add_Dir(CRigid_Body::SPIN, fDirX*0.1f);
 	m_pRigidBodyCom->Add_Dir(CRigid_Body::DOWN, fDirY*0.1f);
 
-	
 
+	if (KEY_INPUT(KEY::Q, KEY_STATE::HOLD))
+	{
+		m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT, 50.0f);
+	}
+
+	
+	
 	if (KEY_INPUT(KEY::Z, KEY_STATE::TAP))
 	{
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+		m_pHpBar->Update_Hp_Bar(m_pStatusCom);
 	}
 
 	if (KEY_INPUT(KEY::V, KEY_STATE::TAP))
@@ -209,6 +217,7 @@ HRESULT CPlayer_Body::SetUp_Components()
 
 	m_pStatusCom = Add_Component<CStatus>(&Status);
 	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
+	
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
