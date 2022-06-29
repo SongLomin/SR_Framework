@@ -6,14 +6,14 @@ CRigid_Body::CRigid_Body()
 {
 }
 
-CRigid_Body::CRigid_Body(const CRigid_Body & Prototype)
+CRigid_Body::CRigid_Body(const CRigid_Body& Prototype)
 {
 	*this = Prototype;
 }
 
 void CRigid_Body::Tick(_float fTimeDelta)
 {
-	
+
 }
 
 void CRigid_Body::LateTick(_float fTimeDelta)
@@ -35,7 +35,7 @@ HRESULT CRigid_Body::Initialize_Prototype()
 	return S_OK;
 }
 
-HRESULT CRigid_Body::Initialize(void * pArg)
+HRESULT CRigid_Body::Initialize(void* pArg)
 {
 	if (FAILED(__super::Initialize(pArg)))
 		return E_FAIL;
@@ -46,27 +46,27 @@ HRESULT CRigid_Body::Initialize(void * pArg)
 	return S_OK;
 }
 
-void CRigid_Body::Link_TransformCom(CTransform * _pTransform)
+void CRigid_Body::Link_TransformCom(CTransform* _pTransform)
 {
 	m_pTransform = _pTransform;
 	m_pTransform->Set_WeakPtr(&m_pTransform);
 
 }
 
-void CRigid_Body::Add_Dir(Func Dir, _float fDir )//fDir에 마우스 이동량을 전달
+void CRigid_Body::Add_Dir(Func Dir, _float fDir)//fDir에 마우스 이동량을 전달
 {
 	if (m_bMouse)
 	{
 		switch (Dir)
 		{
 		case SPIN://좌우 회전
-			m_fRadSpeedY = fDir*0.1f;
-			m_fRadSpeedZ = fDir*-0.01f;
+			m_fRadSpeedY = fDir * 0.1f;
+			m_fRadSpeedZ = fDir * -0.01f;
 			break;
 
 		case DOWN://위아래 회전
 		//	m_fLiftSpeed = fDir*-1.f;
-			m_fRadSpeedX = fDir*0.01f;
+			m_fRadSpeedX = fDir * 0.01f;
 			break;
 
 		case FRONT:
@@ -76,7 +76,7 @@ void CRigid_Body::Add_Dir(Func Dir, _float fDir )//fDir에 마우스 이동량을 전달
 		case BACK:
 			m_vAccel -= m_vLook;
 			break;
-		
+
 		case LEFT:
 			m_vAccel -= m_vRight;
 			break;
@@ -94,7 +94,7 @@ void CRigid_Body::Add_Dir(Func Dir, _float fDir )//fDir에 마우스 이동량을 전달
 		{
 		case LEFT:
 			//m_vAccel -= m_vRight;
-			m_fRadAccelY = -1.f*(fDir? fDir :m_RigidbodyDesc.m_fOwnerRadAccel);
+			m_fRadAccelY = -1.f * (fDir ? fDir : m_RigidbodyDesc.m_fOwnerRadAccel);
 			if (m_bLift)
 			{
 				m_fRadAccelZ = 0.01f;
@@ -103,7 +103,7 @@ void CRigid_Body::Add_Dir(Func Dir, _float fDir )//fDir에 마우스 이동량을 전달
 
 		case RIGHT:
 			//m_vAccel += m_vRight;
-			m_fRadAccelY = fDir? fDir : m_RigidbodyDesc.m_fOwnerRadAccel;
+			m_fRadAccelY = fDir ? fDir : m_RigidbodyDesc.m_fOwnerRadAccel;
 			if (m_bLift)
 			{
 				m_fRadAccelZ = -0.01f;
@@ -121,7 +121,7 @@ void CRigid_Body::Add_Dir(Func Dir, _float fDir )//fDir에 마우스 이동량을 전달
 
 
 		case LIFT:
-			if (m_RigidbodyDesc.m_fOwnerSpeed*0.7 < fabs(D3DXVec3Length(&m_vSpeed)))
+			if (m_RigidbodyDesc.m_fOwnerSpeed * 0.7 < fabs(D3DXVec3Length(&m_vSpeed)))
 			{
 				m_fLiftAccel = m_RigidbodyDesc.m_fOwnerLiftAccel;
 				m_fRadAccelX = -0.005f;
@@ -132,7 +132,7 @@ void CRigid_Body::Add_Dir(Func Dir, _float fDir )//fDir에 마우스 이동량을 전달
 		case DOWN:
 			if (m_bLift)
 			{
-				m_fLiftAccel = -1.f*m_RigidbodyDesc.m_fOwnerLiftAccel;
+				m_fLiftAccel = -1.f * m_RigidbodyDesc.m_fOwnerLiftAccel;
 				m_fRadAccelX = 0.005f;
 			}
 			break;
@@ -147,12 +147,12 @@ void CRigid_Body::Add_Camera(Func Dir, _float fDir)
 	{
 	case RIGHT://좌우 회전
 		m_fRadSpeedZ = fDir * 0.01f;
-		m_vSpeed += m_vRight*fDir*0.01f;
+		m_vSpeed += m_vRight * fDir * 0.01f;
 		break;
 
 	case DOWN://위아래 회전
-		
-		m_vSpeed += m_vUp*fDir*-0.01f;
+
+		m_vSpeed += m_vUp * fDir * -0.01f;
 		break;
 
 	}
@@ -166,7 +166,7 @@ void CRigid_Body::Compute_Force()
 		Compute_Camera();
 		Compute_RotDirection();
 	}
-	else 
+	else
 	{
 		Compute_Dir();
 		Compute_Rotation();
@@ -175,7 +175,7 @@ void CRigid_Body::Compute_Force()
 			Compute_Lift();
 			Compute_RotDirection();
 		}
-	
+
 		Friction();
 		//Compute_Ground();
 	}
@@ -194,7 +194,7 @@ void CRigid_Body::Compute_Camera()
 void CRigid_Body::Compute_Dir()
 {
 	D3DXVec3Normalize(&m_vAccel, &m_vAccel);
-	m_vSpeed += m_vAccel*m_RigidbodyDesc.m_fOwnerAccel;
+	m_vSpeed += m_vAccel * m_RigidbodyDesc.m_fOwnerAccel;
 
 	if (m_RigidbodyDesc.m_fOwnerSpeed < fabs(D3DXVec3Length(&m_vSpeed)))
 	{
@@ -211,22 +211,22 @@ void CRigid_Body::Friction()
 	{
 		_float3 vFriction;
 		D3DXVec3Normalize(&vFriction, &m_vSpeed);
-	
+
 
 		m_vSpeed -= vFriction * m_RigidbodyDesc.m_fFrictional;
 
 		if (m_RigidbodyDesc.m_fFrictional > fabs(D3DXVec3Length(&m_vSpeed)))
 			m_vSpeed = _float3(0.f, 0.f, 0.f);
 	}
-	
+
 
 }
 
 void CRigid_Body::Move(_float fTimeDelta)
 {
-	m_vPos += m_vSpeed*fTimeDelta;
+	m_vPos += m_vSpeed * fTimeDelta;
 	if (m_bLift)
-		m_vPos += m_vUp*m_fLiftSpeed*fTimeDelta;
+		m_vPos += m_vUp * m_fLiftSpeed * fTimeDelta;
 }
 
 void CRigid_Body::Turn(_float fTimeDelta)
@@ -259,7 +259,7 @@ void CRigid_Body::Turn(_float fTimeDelta)
 void CRigid_Body::SubTurn()
 {
 	D3DXMATRIX	matRotation;
-	
+
 	D3DXMatrixRotationAxis(&matRotation, &m_vSubLook, m_fRadSpeedZ);
 
 	D3DXVec3TransformNormal(&m_vSubUp, &m_vSubUp, &matRotation);
@@ -286,9 +286,9 @@ void CRigid_Body::Compute_Rotation()
 			}
 			else if (0.f > m_fRadSpeedY)
 			{
-				m_fRadSpeedY = -1.f*m_RigidbodyDesc.m_fOwnerRadSpeed;
+				m_fRadSpeedY = -1.f * m_RigidbodyDesc.m_fOwnerRadSpeed;
 			}
-			
+
 		}
 
 	}
@@ -303,7 +303,7 @@ void CRigid_Body::Compute_Rotation()
 		{
 			float _fAccel;
 			if (DBL_EPSILON < fabs(D3DXVec3Length(&m_vSpeed)))
-				_fAccel = m_RigidbodyDesc.m_fRadFrictional*2.f;
+				_fAccel = m_RigidbodyDesc.m_fRadFrictional * 2.f;
 			else
 				_fAccel = m_RigidbodyDesc.m_fRadFrictional;
 
@@ -329,7 +329,7 @@ void CRigid_Body::Compute_RotDirection()
 		{
 			if (0.f > m_fRadSpeedZ)
 			{
-				m_fRadSpeedZ = -1.f*D3DXToRadian(30.f);
+				m_fRadSpeedZ = -1.f * D3DXToRadian(30.f);
 			}
 			else if (0.f < m_fRadSpeedZ)
 			{
@@ -341,7 +341,7 @@ void CRigid_Body::Compute_RotDirection()
 		{
 			if (0.f > m_fRadSpeedX)
 			{
-				m_fRadSpeedX = -1.f*D3DXToRadian(40.f);
+				m_fRadSpeedX = -1.f * D3DXToRadian(40.f);
 			}
 
 			else if (0.f < m_fRadSpeedX)
@@ -409,9 +409,9 @@ void CRigid_Body::Compute_Lift()//수직방향
 
 	if (DBL_EPSILON < fabs(m_fLiftSpeed))
 	{
-		if(0.f < m_fLiftSpeed)
+		if (0.f < m_fLiftSpeed)
 			m_fLiftSpeed -= 0.098f;//중력을 받음
-		else if(0.f > m_fLiftSpeed)
+		else if (0.f > m_fLiftSpeed)
 			m_fLiftSpeed += 0.098f;
 
 		if (0.098f > fabs(m_fLiftSpeed))
@@ -434,7 +434,7 @@ void CRigid_Body::Compute_Ground()
 void CRigid_Body::Update_Transform(_float fTimeDelta)
 {
 	Compute_Force();
-	if(m_bCamera)
+	if (m_bCamera)
 	{
 		SubTurn();
 		D3DXVec3Normalize(&m_vSubLook, &m_vSubLook);
@@ -445,10 +445,10 @@ void CRigid_Body::Update_Transform(_float fTimeDelta)
 		m_vSubUp *= m_vScale.y;
 		m_vSubRight *= m_vScale.x;
 
-		m_pTransform->Set_State(CTransform::STATE_LOOK, m_vSubLook,true);
-		m_pTransform->Set_State(CTransform::STATE_UP, m_vSubUp,true);
-		m_pTransform->Set_State(CTransform::STATE_RIGHT, m_vSubRight,true);
-		m_pTransform->Set_State(CTransform::STATE_POSITION, m_vPos,true);
+		m_pTransform->Set_State(CTransform::STATE_LOOK, m_vSubLook, true);
+		m_pTransform->Set_State(CTransform::STATE_UP, m_vSubUp, true);
+		m_pTransform->Set_State(CTransform::STATE_RIGHT, m_vSubRight, true);
+		m_pTransform->Set_State(CTransform::STATE_POSITION, m_vPos, true);
 	}
 	else
 	{
@@ -494,12 +494,12 @@ void CRigid_Body::Set_DirVector()
 	m_vScale = m_pTransform->Get_Scaled();
 }
 
-CRigid_Body * CRigid_Body::Create()
+CRigid_Body* CRigid_Body::Create()
 {
 	CREATE_PIPELINE(CRigid_Body);
 }
 
-CComponent * CRigid_Body::Clone(void * pArg)
+CComponent* CRigid_Body::Clone(void* pArg)
 {
 	CLONE_PIPELINE(CRigid_Body);
 }

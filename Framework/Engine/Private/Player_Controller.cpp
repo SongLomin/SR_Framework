@@ -35,7 +35,7 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 			m_pObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::LEFT);
 
 
-
+		
 
 		POINT pt{};
 		GetCursorPos(&pt);
