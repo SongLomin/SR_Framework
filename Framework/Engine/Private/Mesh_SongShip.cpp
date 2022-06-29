@@ -422,6 +422,14 @@ HRESULT CMesh_SongShip::Initialize(void* pArg)
 	return S_OK;
 }
 
+HRESULT CMesh_SongShip::Render_Mesh()
+{
+	DEVICE->SetFVF(D3DFVF_XYZ | D3DFVF_NORMAL);
+	m_pMesh->DrawSubset(0);
+
+	return S_OK;
+}
+
 CMesh_SongShip* CMesh_SongShip::Create()
 {
 	CREATE_PIPELINE(CMesh_SongShip);

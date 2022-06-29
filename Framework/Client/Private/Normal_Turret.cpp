@@ -92,8 +92,7 @@ HRESULT CNormal_Turret::Render()
 
 
 	__super::Render();
-	m_pMeshCom->Render_Mesh(5);
-	m_pRendererCom->UnBind_Texture();
+	m_pMeshCom->Render_Mesh();
 
 
 

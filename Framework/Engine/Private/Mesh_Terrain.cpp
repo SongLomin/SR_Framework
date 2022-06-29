@@ -33,6 +33,11 @@ HRESULT CMesh_Terrain::Initialize(void* pArg)
 	return S_OK;
 }
 
+HRESULT CMesh_Terrain::Render_Mesh()
+{
+	return S_OK;
+}
+
 
 CMesh_Terrain* CMesh_Terrain::Create()
 {

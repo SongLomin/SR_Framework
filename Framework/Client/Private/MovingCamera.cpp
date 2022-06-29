@@ -70,7 +70,7 @@ void CMovingCamera::LateTick(_float fTimeDelta)
 
 }
 
-HRESULT CMovingCamera::Render_Begin()
+HRESULT CMovingCamera::Render_Begin(ID3DXEffect** Shader)
 {
 	
 	return S_OK;

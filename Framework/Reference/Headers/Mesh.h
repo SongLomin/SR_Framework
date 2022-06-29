@@ -14,7 +14,7 @@ protected:
 public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);
-	virtual HRESULT Render_Mesh(_uint _IndexNum);
+	virtual HRESULT Render_Mesh();
 
 public:
 	virtual HRESULT Set_Texture(const _tchar* _Str_Key, MEMORY_TYPE _eType);

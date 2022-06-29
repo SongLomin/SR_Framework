@@ -142,7 +142,8 @@ HRESULT CLoader::Loading_ForLogoLevel()
 	
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
-	
+	m_isFinished = true;
+
 	return S_OK;
 }
 
@@ -194,26 +195,26 @@ HRESULT CLoader::Loading_ForGamePlayLevel()
 	return S_OK;
 }
 
-HRESULT CLoader::Loading_ForGamePlayLevel()
-{
-	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
-
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Test"), TEXT("../Bin/Resources/Textures/Default%d.jpg"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
-		return E_FAIL;
-
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Tex_Terrain"), TEXT("../Bin/Resources/Textures/Terrain/SpaceStation.jpg"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
-		return E_FAIL;
-
-
-	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
-
-	m_isFinished = true;
-
-
-	return S_OK;
-}
+//HRESULT CLoader::Loading_ForGamePlayLevel()
+//{
+//	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
+//
+//	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Test"), TEXT("../Bin/Resources/Textures/Default%d.jpg"),
+//		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
+//		return E_FAIL;
+//
+//	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Tex_Terrain"), TEXT("../Bin/Resources/Textures/Terrain/SpaceStation.jpg"),
+//		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
+//		return E_FAIL;
+//
+//
+//	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
+//
+//	m_isFinished = true;
+//
+//
+//	return S_OK;
+//}
 
 HRESULT CLoader::Loading_ForSelectPlanet()
 {

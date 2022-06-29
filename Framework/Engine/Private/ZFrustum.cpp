@@ -24,6 +24,11 @@ void CZFrustum::Update_Frustum()
 	
 }
 
+void CZFrustum::Free()
+{
+	delete this;
+}
+
 // 카메라(view) * 프로젝션(projection)행렬을 입력받아 6개의 평면을 만든다.
 BOOL CZFrustum::Make( D3DXMATRIX* pmatViewProj )
 {

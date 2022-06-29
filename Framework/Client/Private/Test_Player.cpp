@@ -56,7 +56,7 @@ void CTest_Player::LateTick(_float fTimeDelta)
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
-HRESULT CTest_Player::Render_Begin()
+HRESULT CTest_Player::Render_Begin(ID3DXEffect** Shader)
 {
 	return S_OK;
 }
@@ -70,11 +70,8 @@ HRESULT CTest_Player::Render()
 
 	__super::Render();
 
-	m_pRendererCom->Bind_Texture(1);
 
-	m_pMeshCom->Render_Mesh(5);
-
-	m_pRendererCom->UnBind_Texture();
+	m_pMeshCom->Render_Mesh();
 
 
 	return S_OK;

@@ -388,9 +388,6 @@
     <ClInclude Include="..\Public\Light.h">
       <Filter>01.Utility\03.Components\08. Light</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\DirectionalLight.h">
-      <Filter>01.Utility\03.Components\08. Light\00. DirectionalLight</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\SpotLight.h">
       <Filter>01.Utility\03.Components\08. Light\01. SpotLight</Filter>
     </ClInclude>

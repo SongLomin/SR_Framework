@@ -13,6 +13,7 @@ protected:
 public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);
+	virtual HRESULT Render_Mesh() override;
 
 public:
 	static CMesh_Terrain* Create();

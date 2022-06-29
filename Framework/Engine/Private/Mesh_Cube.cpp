@@ -114,8 +114,8 @@ HRESULT CMesh_Cube::Initialize_Prototype()
 
 	for (int i = 0; i < 6; ++i)
 	{
-		attributeBuffer[i*2] = i;
-		attributeBuffer[i * 2+1] = i;
+		attributeBuffer[i*2] = 0;
+		attributeBuffer[i * 2+1] = 0;
 	}
 
 	m_pMesh->UnlockAttributeBuffer();
@@ -138,6 +138,14 @@ HRESULT CMesh_Cube::Initialize_Prototype()
 
 HRESULT CMesh_Cube::Initialize(void * pArg)
 {
+	return S_OK;
+}
+
+HRESULT CMesh_Cube::Render_Mesh()
+{
+	DEVICE->SetFVF(m_dwFVF);
+	m_pMesh->DrawSubset(0);
+
 	return S_OK;
 }
 

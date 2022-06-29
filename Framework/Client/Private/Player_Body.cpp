@@ -115,7 +115,7 @@ HRESULT CPlayer_Body::Render()
 
 
 
-	m_pMeshCubeCom->Render_Mesh(5);
+	m_pMeshCubeCom->Render_Mesh();
 
 	//m_pRendererCom->UnBind_Texture();
 

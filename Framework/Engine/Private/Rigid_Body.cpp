@@ -225,9 +225,7 @@ void CRigid_Body::Friction()
 void CRigid_Body::Move(_float fTimeDelta)
 {
 	m_vPos += m_vSpeed*fTimeDelta;
-	if (m_bJump)
-		m_vPos += m_vUp*m_fJump*fTimeDelta;
-	else if (m_bLift)
+	if (m_bLift)
 		m_vPos += m_vUp*m_fLiftSpeed*fTimeDelta;
 }
 
@@ -427,8 +425,6 @@ void CRigid_Body::Compute_Ground()
 	if (1.f > m_vPos.y)
 	{
 		m_fLiftSpeed = 0.f;
-		m_fJump = 0.f;
-		m_bJump = false;
 		m_bLift = false;
 		m_vPos.y += 1.f - m_vPos.y;//(지형의 높이 넣어줌)
 	}

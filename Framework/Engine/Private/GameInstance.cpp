@@ -14,7 +14,7 @@ CGameInstance::CGameInstance()
 	, m_pInput_Manager(CInput_Manager::Get_Instance())
 	, m_pCamera_Manager(CCamera_Manager::Get_Instance())
 	, m_pCollision_Manager(CCollision_Manager::Get_Instance())
-	, m_pIMGUI_Manager(CImguiMgr::Get_Instance())
+	//, m_pIMGUI_Manager(CImguiMgr::Get_Instance())
 	, m_pZFrustum(CZFrustum::Get_Instance())
 {
 	//Safe_AddRef(m_pComponent_Manager);
@@ -51,7 +51,7 @@ HRESULT CGameInstance::Initialize_Engine(HINSTANCE hInst, _uint iNumLevels, cons
 	//	return E_FAIL;
 
 	/* IMGUI 이니셜라이즈 */
-	m_pIMGUI_Manager->Initialize();
+	//m_pIMGUI_Manager->Initialize();
 
 	return S_OK;	
 }
@@ -62,7 +62,7 @@ HRESULT CGameInstance::Tick_Engine(_float fTimeDelta)
 	m_pInput_Manager->SetUp_DeviceState();
 
 	
-	m_pIMGUI_Manager->Tick(fTimeDelta);
+	//m_pIMGUI_Manager->Tick(fTimeDelta);
 	
 
 	m_pLevel_Manager->Tick(fTimeDelta);	
@@ -91,13 +91,14 @@ HRESULT CGameInstance::Tick_Engine(_float fTimeDelta)
 HRESULT CGameInstance::Render_Engine()
 {
 	
-	if (nullptr == m_pLevel_Manager ||
-		nullptr == m_pIMGUI_Manager)
+	if (nullptr == m_pLevel_Manager
+		//|| nullptr == m_pIMGUI_Manager
+		)
 		return E_FAIL;
 
 	m_pLevel_Manager->Render();
 
-	m_pIMGUI_Manager->Render();
+	//m_pIMGUI_Manager->Render();
 
 	return S_OK;
 }
@@ -385,8 +386,8 @@ _bool CGameInstance::Draw_Frustum()
 HRESULT CGameInstance::ImGuiImplHandle(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 
-	if (FAILED(m_pIMGUI_Manager->ImGuiImplHandle(hWnd, msg, wParam, lParam)))
-		return E_FAIL;
+	/*if (FAILED(m_pIMGUI_Manager->ImGuiImplHandle(hWnd, msg, wParam, lParam)))
+		return E_FAIL;*/
 
 	return S_OK;
 }
@@ -411,7 +412,7 @@ void CGameInstance::Release_Engine()
 
 	CGameInstance::Get_Instance()->Destroy_Instance();
 
-	CImguiMgr::Get_Instance()->Destroy_Instance();
+	//CImguiMgr::Get_Instance()->Destroy_Instance();
 
 	CCamera_Manager::Get_Instance()->Destroy_Instance();
 

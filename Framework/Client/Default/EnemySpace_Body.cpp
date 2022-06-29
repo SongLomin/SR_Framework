@@ -129,9 +129,7 @@ HRESULT CEnemySpace_Body::Render()
 	m_pTransformCom->Bind_WorldMatrix();
 
 
-	m_pRendererCom->Bind_Texture(1);
-	m_pMeshCom->Render_Mesh(0);
-	m_pRendererCom->UnBind_Texture();
+	m_pMeshCom->Render_Mesh();
 
 	return S_OK;
 }

@@ -53,7 +53,7 @@ void CAI_Friendly::LateTick(_float fTimeDelta)
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
-HRESULT CAI_Friendly::Render_Begin()
+HRESULT CAI_Friendly::Render_Begin(ID3DXEffect** Shader)
 {
 	return S_OK;
 }
@@ -67,11 +67,7 @@ HRESULT CAI_Friendly::Render()
 
 	__super::Render();
 
-	m_pRendererCom->Bind_Texture(1);
-
-	m_pMeshCom->Render_Mesh(5);
-
-	m_pRendererCom->UnBind_Texture();
+	m_pMeshCom->Render_Mesh();
 
 
 	return S_OK;

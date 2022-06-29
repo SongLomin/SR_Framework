@@ -59,15 +59,13 @@ HRESULT CPlayer_ProPeller::Render()
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-	m_pRendererCom->Bind_Texture(1);
 
 	__super::Render();
 
 	if (Get_Controller() == CONTROLLER::PLAYER)
-		m_pMeshCom->Render_Mesh(5);
+		m_pMeshCom->Render_Mesh();
 
 
-	m_pRendererCom->UnBind_Texture();
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 

@@ -54,7 +54,7 @@ void CNormal_Bullet::LateTick(_float fTimeDelta)
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
 }
 
-HRESULT CPlayer_Bullet::Render_Begin(ID3DXEffect** Shader)
+HRESULT CNormal_Bullet::Render_Begin(ID3DXEffect** Shader)
 {
 	m_pTransformCom->Scaling(_float3(0.2f, 0.1f, 10.f), true);
 	m_pTransformCom->Bind_WorldMatrix();

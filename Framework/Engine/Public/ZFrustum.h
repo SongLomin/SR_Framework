@@ -39,6 +39,9 @@ public:
 
 	/// 현재 카메라의 월드좌표를 얻어준다.
 	D3DXVECTOR3*	GetPos() { return &m_vPos; }
+
+	void Free();
+	
 private:
 	BOOL	Make(D3DXMATRIX* pmatViewProj);
 

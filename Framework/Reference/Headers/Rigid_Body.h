@@ -92,7 +92,7 @@ private:
 	CTransform*		m_pTransform;
 	_bool			m_bFirst = true;
 
-	_bool		m_bJump = false;
+
 	_bool		m_bLift = true;
 	_bool		m_bMouse = false;
 	_bool		m_bCamera = false;

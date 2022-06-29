@@ -62,12 +62,10 @@ void CMonster::LateTick(_float fTimeDelta)
 HRESULT CMonster::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
-	m_pRendererCom->Bind_Texture(1);
 
 	__super::Render();
-	m_pMeshCom->Render_Mesh(5);
+	m_pMeshCom->Render_Mesh();
 
-	m_pRendererCom->UnBind_Texture();
 
 	return S_OK;
 }

@@ -21,7 +21,7 @@ HRESULT CMesh::Initialize(void * pArg)
 	return S_OK;
 }
 
-HRESULT CMesh::Render_Mesh(_uint _IndexNum)
+HRESULT CMesh::Render_Mesh()
 {
 	if (nullptr == LPDEVICE)
 		return E_FAIL;
