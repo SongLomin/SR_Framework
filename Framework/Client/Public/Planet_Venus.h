@@ -12,7 +12,7 @@ BEGIN(Client)
 
 class CPlanet_Venus final : public CGameObject
 {
-private:
+public:
 	CPlanet_Venus();
 	CPlanet_Venus(const CPlanet_Venus& Prototype);
 	virtual ~CPlanet_Venus() = default;
@@ -24,10 +24,12 @@ public:
 	virtual void LateTick(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
-private:
+public:
 	CRenderer* m_pRendererCom = nullptr;
 	CTransform* m_pTransformCom = nullptr;
 	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
+
+
 
 private:
 	HRESULT SetUp_Components();

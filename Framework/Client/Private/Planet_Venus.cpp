@@ -2,7 +2,7 @@
 #include "Planet_Venus.h"
 #include "GameInstance.h"
 #include "Math_Utillity.h"
-
+#include "Level_Loading.h"
 CPlanet_Venus::CPlanet_Venus()
 {
 }
@@ -33,13 +33,10 @@ void CPlanet_Venus::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-
 	_float3 MouseEndPos;
 	RAY	MouseWorldPos;
 	MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
 	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 10000.f);
-
-	
 
 	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
 	{
@@ -48,7 +45,11 @@ void CPlanet_Venus::Tick(_float fTimeDelta)
 		{
 			int i = 10;
 		}
+
+	
 	}
+
+	
 }
 
 void CPlanet_Venus::LateTick(_float fTimeDelta)
@@ -92,6 +93,7 @@ HRESULT CPlanet_Venus::Render()
 
 	return S_OK;
 }
+
 
 HRESULT CPlanet_Venus::SetUp_Components()
 {

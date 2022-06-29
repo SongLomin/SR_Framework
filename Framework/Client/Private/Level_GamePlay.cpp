@@ -28,6 +28,8 @@
 #include "MovingCamera.h"
 #include "../Default/EnemySpace_Body.h"
 #include <Test_Player.h>
+#include "Planet_Venus.h"
+#include "Math_Utillity.h"
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -38,6 +40,8 @@ HRESULT CLevel_GamePlay::Initialize()
 {
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
+
+
 
 	CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(CURRENT_LEVEL, TEXT("Camera"));
 	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
@@ -135,6 +139,19 @@ HRESULT CLevel_GamePlay::Initialize()
 void CLevel_GamePlay::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);		
+
+
+	// 1
+
+
+
+	// 2
+	
+
+
+	// 3
+	 
+	
 }
 
 HRESULT CLevel_GamePlay::Render()
@@ -166,5 +183,10 @@ void CLevel_GamePlay::Free()
 	__super::Free();
 
 	delete this;
+}
+
+void CLevel_GamePlay::Ai_Create(_float TimeDelta)
+{
+	
 }
 

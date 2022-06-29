@@ -19,6 +19,13 @@ public:
 public:
 	static CLevel_GamePlay* Create();
 	virtual void Free() override;
+
+private:
+	void Ai_Create(_float TimeDelta);
+
+private:
+	_ulong	m_lPage[10];
+	bool	m_bWaveCheck[10];
 };
 
 END

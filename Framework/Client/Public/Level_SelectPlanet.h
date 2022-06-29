@@ -16,6 +16,8 @@ public:
 	virtual void Tick(_float fTimeDelta);
 	virtual HRESULT Render();
 
+
+
 public:
 	static CLevel_SelectPlanet* Create();
 	virtual void Free() override;
