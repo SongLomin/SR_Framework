@@ -25,7 +25,19 @@ HRESULT CRender_Manager::Initialize()
 	if (!SetupTexture(&stashTex, &stashSurface)) {
 		return false;
 	}
-
+	
+	/*if (FAILED(DEVICE->CreateDepthStencilSurface(
+		GAMEINSTANCE->Get_Graphic_Desc().iWinCX,
+		GAMEINSTANCE->Get_Graphic_Desc().iWinCY,
+		D3DFMT_D24S8,
+		D3DMULTISAMPLE_NONE,
+		D3DMULTISAMPLE_NONE,
+		TRUE,
+		&pStencilSurface, 0
+	)))
+	{
+		return false;
+	}*/
 
 	
 
@@ -59,8 +71,17 @@ HRESULT CRender_Manager::Draw_RenderGroup()
 {
 	DEVICE->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
 
-	Priority_Pipeline();
 	Deferred_Pipeline();
+	DEVICE->SetRenderState(D3DRS_STENCILENABLE, true);
+	DEVICE->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_EQUAL);
+	DEVICE->SetRenderState(D3DRS_STENCILREF, 0x0);
+	DEVICE->SetRenderState(D3DRS_STENCILMASK, 0xffffffff);
+	DEVICE->SetRenderState(D3DRS_STENCILWRITEMASK, 0xffffffff);
+	DEVICE->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILOP_KEEP);
+	DEVICE->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILOP_REPLACE);
+	DEVICE->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);
+	Priority_Pipeline();
+	DEVICE->SetRenderState(D3DRS_STENCILENABLE, false);
 
 	DEVICE->BeginScene();
 	//GAMEINSTANCE->Render_Begin();
@@ -85,7 +106,7 @@ void CRender_Manager::Priority_Pipeline()
 	if (pCamera)
 		pCamera->Bind_PipeLine();
 
-
+	//DEVICE->SetDepthStencilSurface(pStencilSurface);
 	for (auto iter = m_RenderObjects[(_uint)RENDERGROUP::RENDER_PRIORITY].begin(); iter != m_RenderObjects[(_uint)RENDERGROUP::RENDER_PRIORITY].end();)
 	{
 		if ((*iter))
@@ -98,6 +119,7 @@ void CRender_Manager::Priority_Pipeline()
 		iter = m_RenderObjects[(_uint)RENDERGROUP::RENDER_PRIORITY].erase(iter);
 	}
 
+	//DEVICE->SetDepthStencilSurface(originStencilBuffer);
 	DEVICE->EndScene();
 }
 
@@ -244,6 +266,7 @@ void CRender_Manager::Deferred_Pipeline()
 		iter = m_LightComs.erase(iter);
 	}
 
+	DEVICE->SetDepthStencilSurface(originStencilBuffer);
 	DEVICE->EndScene();
 }
 
@@ -311,6 +334,8 @@ void CRender_Manager::SetMRT()
 	DEVICE->SetRenderTarget(2, diffuseSurface);
 	DEVICE->SetRenderTarget(3, specularSurface);
 
+	
+
 }
 
 void CRender_Manager::ResumeOriginRender()
@@ -320,6 +345,9 @@ void CRender_Manager::ResumeOriginRender()
 	DEVICE->SetRenderTarget(1, NULL);
 	DEVICE->SetRenderTarget(2, NULL);
 	DEVICE->SetRenderTarget(3, NULL);
+
+	DEVICE->GetDepthStencilSurface(&originStencilBuffer);
+	DEVICE->SetDepthStencilSurface(pStencilSurface);
 }
 
 void CRender_Manager::DrawScreenQuad()

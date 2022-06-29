@@ -39,6 +39,9 @@ private:
 private: /* For Defferred Rendering */
 	IDirect3DSurface9* originRenderTarget = nullptr;
 
+	IDirect3DSurface9* originStencilBuffer = nullptr;
+	IDirect3DSurface9* pStencilSurface = nullptr;
+
 	IDirect3DTexture9* normalTex = nullptr;
 	IDirect3DSurface9* normalSurface = nullptr;
 

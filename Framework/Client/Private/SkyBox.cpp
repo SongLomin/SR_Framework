@@ -62,6 +62,8 @@ HRESULT CSkyBox::Render()
 	DEVICE->SetRenderState(D3DRS_ZENABLE, FALSE);
 	DEVICE->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
 
+	
+
 	__super::Render();
 
 	DEVICE->SetRenderState(D3DRS_ZENABLE, TRUE);
