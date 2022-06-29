@@ -33,9 +33,21 @@ void CPlanet_Venus::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+
+	_float3 MouseEndPos;
+	RAY	MouseWorldPos;
+	MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
+	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 10000.f);
+
+	
+
 	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
 	{
-
+	
+		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
+		{
+			int i = 10;
+		}
 	}
 }
 

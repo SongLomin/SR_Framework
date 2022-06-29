@@ -201,9 +201,6 @@
     <ClInclude Include="..\Public\AI_Friendly.h">
       <Filter>02.GameObject\00. Player\AI_Friendly</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Rock.h">
-      <Filter>02.GameObject\05. Rock</Filter>
-    </ClInclude>
     <ClInclude Include="Logo.h">
       <Filter>97. UITest\Logo</Filter>
     </ClInclude>
@@ -249,11 +246,13 @@
     <ClInclude Include="..\Public\Level_SelectPlanet.h">
       <Filter>01.Levels\02.SelectPlanet</Filter>
     </ClInclude>
-    <ClInclude Include="SelectPlanet_SkyBox.h">
-      <Filter>02.GameObject\10. SkyBox</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\Planet_Venus.h">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h" />
+    <ClInclude Include="Player_ProPeller.h" />
+    <ClInclude Include="SelectPlanet_SkyBox.h">
+      <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -317,9 +316,6 @@
     <ClCompile Include="..\Private\AI_Friendly.cpp">
       <Filter>02.GameObject\00. Player\AI_Friendly</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Rock.cpp">
-      <Filter>02.GameObject\05. Rock</Filter>
-    </ClCompile>
     <ClCompile Include="Logo.cpp">
       <Filter>97. UITest\Logo</Filter>
     </ClCompile>
@@ -365,11 +361,13 @@
     <ClCompile Include="..\Private\Level_SelectPlanet.cpp">
       <Filter>01.Levels\02.SelectPlanet</Filter>
     </ClCompile>
-    <ClCompile Include="SelectPlanet_SkyBox.cpp">
-      <Filter>02.GameObject\10. SkyBox</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\Planet_Venus.cpp">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp" />
+    <ClCompile Include="Player_ProPeller.cpp" />
+    <ClCompile Include="SelectPlanet_SkyBox.cpp">
+      <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
