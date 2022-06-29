@@ -23,7 +23,7 @@ HRESULT CPlanet_Venus::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1.f, 1.f, 200.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1.f, 1.f, 300.f));
 
 
 	return S_OK;
@@ -33,7 +33,10 @@ void CPlanet_Venus::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	m_pTransformCom->Turn(_float3(0.f, 0.f, 1.f), 0.5f, fTimeDelta);
+	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
+	{
+
+	}
 }
 
 void CPlanet_Venus::LateTick(_float fTimeDelta)
@@ -53,13 +56,13 @@ HRESULT CPlanet_Venus::Render()
 
 	m_pTransformCom->Bind_WorldMatrix();
 
-	//_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
+	_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
 
-	//CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
+	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
 
-	//_float3 Look = m_pTransformCom->Get_State(CTransform::STATE_LOOK, true);
+	_float3 Look = m_pTransformCom->Get_State(CTransform::STATE_LOOK, true);
 
-	//GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);
+	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);
 
 	m_pRendererCom->Bind_Texture(0);
 

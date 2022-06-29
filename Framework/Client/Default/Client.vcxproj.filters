@@ -127,6 +127,12 @@
     <Filter Include="02.GameObject\06. Planet">
       <UniqueIdentifier>{da87416d-1441-4a2b-9e14-1774ec64dff8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\06. Planet\Venus">
+      <UniqueIdentifier>{220c64e2-24e7-4cf6-9075-a59c15bc4946}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\06. Planet\Magma">
+      <UniqueIdentifier>{03a017cb-5c8d-4940-a682-01ff84257f89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -262,7 +268,7 @@
       <Filter>02.GameObject\10. SkyBox</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Planet_Venus.h">
-      <Filter>02.GameObject\06. Planet</Filter>
+      <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -390,7 +396,7 @@
       <Filter>02.GameObject\10. SkyBox</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Planet_Venus.cpp">
-      <Filter>02.GameObject\06. Planet</Filter>
+      <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
