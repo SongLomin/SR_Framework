@@ -50,13 +50,13 @@ void CGameObject::LateTick(_float fTimeDelta)
 	}
 }
 
-HRESULT CGameObject::Render_Begin()
+HRESULT CGameObject::Render_Begin(ID3DXEffect** Shader)
 {
 	for (auto& elem : m_pComs)
 	{
 		if (elem.second)
 		{
-			elem.second->Render();
+			elem.second->Render_Begin(Shader);
 		}
 	}
 

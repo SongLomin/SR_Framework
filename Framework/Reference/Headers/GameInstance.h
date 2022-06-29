@@ -39,6 +39,8 @@ public:
 public: /* For.Graphic_Device */	
 	void		Render_Begin(void);
 	void		Render_End(HWND hWnd = NULL);
+	//void		Deferred_Begin();
+	//void		
 	LPDIRECT3DDEVICE9* Get_Device(void);
 	HRESULT		Add_Text(_point _Pos, D3DXCOLOR _Color, _float _CountTime, _tchar* _tString, int _iParamCnt, ...);
 	HRESULT		Add_Text(_point _Pos, _tchar* _tString, int _iParamCnt, ...);
@@ -84,11 +86,17 @@ public: /* For.Component_Mananger */
 public: /* For.Render_Mananger */
 	HRESULT Add_RenderGroup(RENDERGROUP eGroup, class CGameObject* pGameObject);
 	HRESULT Draw_RenderGroup();
+	HRESULT Add_Light(CLight* _pLight);
 
 public: /* For.Resource_Mananger */
-	HRESULT Add_Textures(const _tchar * _strKey, const _tchar * pTextureFilePath, TEXTURE_TYPE eType = TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE eMemType = MEMORY_TYPE::MEMORY_STATIC);
 	HRESULT Remove_Textures_By_MemoryType(MEMORY_TYPE _eMemType);
+
+	HRESULT Load_Textures(const _tchar * _strKey, const _tchar * pTextureFilePath, TEXTURE_TYPE eType = TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE eMemType = MEMORY_TYPE::MEMORY_STATIC);
+	HRESULT Load_Shader(const _tchar* _strKey, const _tchar* pShaderFilePath, MEMORY_TYPE eMemType = MEMORY_TYPE::MEMORY_STATIC);
+
 	vector<LPDIRECT3DBASETEXTURE9>* Get_Textures_From_Key(const _tchar * _Str_Key, MEMORY_TYPE _eType = MEMORY_TYPE::MEMORY_END);
+	ID3DXEffect** Get_Shader_From_Key(const _tchar* _Str_Key, MEMORY_TYPE _eType = MEMORY_TYPE::MEMORY_END);
+
 
 public: /* For.Time_Manager */
 	HRESULT Add_Timer(_uint eTimer);

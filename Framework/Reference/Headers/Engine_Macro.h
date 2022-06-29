@@ -43,6 +43,7 @@ void ClassName::Destroy_Instance()						\
 #define GAMEINSTANCE CGameInstance::Get_Instance()
 
 #define ISVALID(instance, return_type) if(instance == nullptr) return return_type;
+
 #define CURRENT_LEVEL GAMEINSTANCE->Get_CurrentLevelIndex()
 
 #define CURRENT_CAMERA TEXT("")

@@ -26,6 +26,11 @@ namespace Engine
 	인덱스들은 참조할 버텍스의 인덱스 크기에 따라서 2바이트를 쓸지 4바이트를 쓸지가 다르다.
 	예를 들어 참조할 버텍스 번호가 크다면 short보다 long이 적합할 것이다.
 	*/
+	typedef struct tagVertex_XYZ
+	{
+		float		x, y, z;
+	}VTX;
+
 
 	typedef struct tagVertex_Texture
 	{
@@ -204,7 +209,7 @@ namespace Engine
 	};
 
 
-	enum class RENDERGROUP { RENDER_PRIORITY = 0, RENDER_NONALPHABLEND, RENDER_ALPHABLEND, RENDER_UI, RENDER_END };
+	enum class RENDERGROUP { RENDER_DEFERRED = 0, RENDER_PRIORITY, RENDER_NONALPHABLEND, RENDER_ALPHABLEND, RENDER_UI, RENDER_END };
 
 	enum class TEXTURE_TYPE { TYPE_DEFAULT = 0, TYPE_CUBE, TYPE_END };
 	enum class MEMORY_TYPE { MEMORY_STATIC = 0, MEMORY_DYNAMIC, MEMORY_END };

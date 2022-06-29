@@ -3,7 +3,7 @@
 
 IMPLEMENT_SINGLETON(CResource_Manager)
 
-HRESULT CResource_Manager::Add_Texture(const _tchar* _strKey, const _tchar* pTextureFilePath, TEXTURE_TYPE eType, MEMORY_TYPE eMemType)
+HRESULT CResource_Manager::Load_Textures(const _tchar* _strKey, const _tchar* pTextureFilePath, TEXTURE_TYPE eType, MEMORY_TYPE eMemType)
 {
 	_tchar		szTextureFullPath[MAX_PATH] = TEXT("");
 
@@ -50,6 +50,7 @@ HRESULT CResource_Manager::Add_Texture(const _tchar* _strKey, const _tchar* pTex
 
 HRESULT CResource_Manager::Remove_By_MemoryType(MEMORY_TYPE _eMemType)
 {
+	//Release Textures
 	for (auto& pair : m_pTextures[(_uint)_eMemType])
 	{
 		for (auto& elem : pair.second)
@@ -61,6 +62,14 @@ HRESULT CResource_Manager::Remove_By_MemoryType(MEMORY_TYPE _eMemType)
 	}
 
 	m_pTextures[(_uint)_eMemType].clear();
+
+	//Release Shaders
+	for (auto& elem : m_pShaders[(_uint)_eMemType])
+	{
+		elem.second->Release();
+	}
+
+	m_pShaders[(_uint)_eMemType].clear();
 
 	return S_OK;
 }
@@ -88,6 +97,72 @@ vector<LPDIRECT3DBASETEXTURE9>* CResource_Manager::Get_Textures_From_Key(const _
 		auto	iter = find_if(m_pTextures[(_uint)_eType].begin(), m_pTextures[(_uint)_eType].end(), CTag_Finder(_Str_Key));
 
 		if (m_pTextures[(_uint)_eType].end() != iter)
+		{
+			return &(*iter).second;
+		}
+	}
+
+	return nullptr;
+}
+
+HRESULT CResource_Manager::Load_Shader(const _tchar* _strKey, const _tchar* pShaderFilePath, MEMORY_TYPE eMemType)
+{
+	ID3DXEffect* Effect = nullptr;
+	ID3DXBuffer* errorBuffer = nullptr;
+
+	HRESULT hr = D3DXCreateEffectFromFile(
+		DEVICE,
+		pShaderFilePath,
+		0,
+		0,
+		D3DXSHADER_DEBUG,
+		0,
+		&Effect,
+		&errorBuffer
+	);
+
+	if (errorBuffer) {
+		//쉐이더를 불러오지 못했음.
+		errorBuffer->Release();
+		assert(false);
+		return E_FAIL;
+	}
+
+	if (FAILED(hr))
+	{
+		//쉐이더를 불러오지 못했음.
+		assert(false);
+		return E_FAIL;
+	}
+
+	m_pShaders->emplace(_strKey, Effect);
+
+	return S_OK;
+}
+
+ID3DXEffect** CResource_Manager::Get_Shader_From_Key(const _tchar* _Str_Key, MEMORY_TYPE _eType)
+{
+	if (MEMORY_TYPE::MEMORY_END == _eType)
+	{
+		auto	iter = find_if(m_pShaders[(_uint)MEMORY_TYPE::MEMORY_STATIC].begin(), m_pShaders[(_uint)MEMORY_TYPE::MEMORY_STATIC].end(), CTag_Finder(_Str_Key));
+
+		if (m_pShaders[(_uint)MEMORY_TYPE::MEMORY_STATIC].end() != iter)
+		{
+			return &(*iter).second;
+		}
+
+		iter = find_if(m_pShaders[(_uint)MEMORY_TYPE::MEMORY_DYNAMIC].begin(), m_pShaders[(_uint)MEMORY_TYPE::MEMORY_DYNAMIC].end(), CTag_Finder(_Str_Key));
+
+		if (m_pShaders[(_uint)MEMORY_TYPE::MEMORY_DYNAMIC].end() != iter)
+		{
+			return &(*iter).second;
+		}
+	}
+	else
+	{
+		auto	iter = find_if(m_pShaders[(_uint)_eType].begin(), m_pShaders[(_uint)_eType].end(), CTag_Finder(_Str_Key));
+
+		if (m_pShaders[(_uint)_eType].end() != iter)
 		{
 			return &(*iter).second;
 		}

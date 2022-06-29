@@ -3,6 +3,8 @@
 #include <d3dx9.h>
 #include <string>
 #include <ctime>
+#include <vector>
+#include <iostream>
 
 namespace d3d
 {

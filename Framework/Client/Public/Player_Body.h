@@ -14,6 +14,9 @@ class CTargeting;
 class CMesh_SongShip;
 class CCollider_OBB;
 class CCollider_Pre;
+class CMesh_Test;
+class CDirectionalLight;
+class CSpotLight;
 END
 
 BEGIN(Client)
@@ -33,18 +36,20 @@ public:
 	virtual HRESULT Initialize(void* pArg)override;
 	virtual void Tick(_float fTimeDelta) override;
 	virtual void LateTick(_float fTimeDelta) override;
-	virtual HRESULT Render_Begin() override;
+	virtual HRESULT Render_Begin(ID3DXEffect** Shader = nullptr) override;
 	virtual HRESULT Render() override;
 
 private:
 	CTransform*				m_pTransformCom = nullptr;
 	CRenderer*				m_pRendererCom = nullptr;
-	CMesh_SongShip*				m_pMeshCubeCom = nullptr;
+	//CMesh_SongShip*				m_pMeshCubeCom = nullptr;
+	CMesh_Test*				m_pMeshCubeCom = nullptr;
 	CStatus*				m_pStatusCom = nullptr;
 	CRigid_Body*			m_pRigidBodyCom = nullptr;
 	CCollider_OBB*			m_pColliderCom = nullptr;
 	CTargeting*				m_pTargetingCom = nullptr;
 	CCollider_Pre*			m_pPreColliderCom = nullptr;
+	CSpotLight*				m_pLight = nullptr;
 
 private:
 	list<CPlayer_Posin*>	m_pMyPosinList;

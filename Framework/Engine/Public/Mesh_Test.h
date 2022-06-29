@@ -14,6 +14,7 @@ protected:
 public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);
+	virtual HRESULT Render_Mesh() override;
 
 private:
 	LPD3DXBUFFER	m_pAdj = nullptr;

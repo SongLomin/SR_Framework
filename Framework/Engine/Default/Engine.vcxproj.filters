@@ -178,6 +178,18 @@
     <Filter Include="01.Utility\03.Components\07. Collider\01. Collider_Pre">
       <UniqueIdentifier>{f6b50abd-be3f-4eec-abfb-960546dec6aa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\08. Light">
+      <UniqueIdentifier>{26054078-a18c-4354-b1d1-86414e20c159}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\08. Light\01. SpotLight">
+      <UniqueIdentifier>{d82083e1-e07f-46cd-ba44-5c049481ebcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\08. Light\02. PointLight">
+      <UniqueIdentifier>{9c8e0548-b6be-4b6f-85e4-df4ee710a0f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\08. Light\00. DirectionalLight">
+      <UniqueIdentifier>{82f05e2c-9e76-49bf-9afc-91f0e9275b3c}</UniqueIdentifier>
+    </Filter>
     <Filter Include="01.Utility\03.Components\06. Rigid_Body">
       <UniqueIdentifier>{4eceaa67-6893-4444-adae-f14905ce8a8e}</UniqueIdentifier>
     </Filter>
@@ -361,6 +373,15 @@
     <ClInclude Include="..\Public\Collider_Pre.h">
       <Filter>01.Utility\03.Components\07. Collider\01. Collider_Pre</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Light.h">
+      <Filter>01.Utility\03.Components\08. Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\DirectionalLight.h">
+      <Filter>01.Utility\03.Components\08. Light\00. DirectionalLight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\SpotLight.h">
+      <Filter>01.Utility\03.Components\08. Light\01. SpotLight</Filter>
+    </ClInclude>
     <ClInclude Include="..\Public\Get_Lucky.h" />
     <ClInclude Include="..\Public\Get_Lucky.h">
       <Filter>01.Utility\00.GameInstance\IMGUI\01. Tool</Filter>
@@ -527,6 +548,15 @@
     <ClCompile Include="..\Private\Get_Lucky.cpp" />
     <ClCompile Include="..\Private\Collider_Pre.cpp">
       <Filter>01.Utility\03.Components\07. Collider\01. Collider_Pre</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Light.cpp">
+      <Filter>01.Utility\03.Components\08. Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\DirectionalLight.cpp">
+      <Filter>01.Utility\03.Components\08. Light\00. DirectionalLight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\SpotLight.cpp">
+      <Filter>01.Utility\03.Components\08. Light\01. SpotLight</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Get_Lucky.cpp">
       <Filter>01.Utility\00.GameInstance\IMGUI\01. Tool</Filter>

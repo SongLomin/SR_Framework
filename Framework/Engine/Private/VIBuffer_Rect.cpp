@@ -11,6 +11,14 @@ CVIBuffer_Rect::CVIBuffer_Rect(const CVIBuffer_Rect& Prototype)
 
 HRESULT CVIBuffer_Rect::Initialize_Prototype()
 {
+	
+
+
+	return S_OK;
+}
+
+HRESULT CVIBuffer_Rect::Initialize(void* pArg)
+{
 	m_iStride = sizeof(VTXTEX);
 	m_iNumVertices = 4;
 	m_dwFVF = VTXTEX::FVF; /* | D3DFVF_TEXCOORDSIZE2(0) */
@@ -65,12 +73,6 @@ HRESULT CVIBuffer_Rect::Initialize_Prototype()
 
 	m_pIB->Unlock();
 
-
-	return S_OK;
-}
-
-HRESULT CVIBuffer_Rect::Initialize(void* pArg)
-{
 	return S_OK;
 }
 

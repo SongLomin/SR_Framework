@@ -64,10 +64,10 @@ HRESULT CMainApp::Render()
 	if (nullptr == m_pGameInstance)
 		return E_FAIL;
 
-	m_pGameInstance->Render_Begin();
+	
 	m_pGameInstance->Draw_RenderGroup();
-	m_pGameInstance->Render_Engine();
-	m_pGameInstance->Render_End(g_hWnd);
+	
+	
 
 	return S_OK;
 }
