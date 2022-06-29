@@ -178,6 +178,7 @@
     <ClInclude Include="..\Public\HpBar.h" />
     <ClInclude Include="..\Public\Level_SelectPlanet.h" />
     <ClInclude Include="..\Public\MovingCamera.h" />
+    <ClInclude Include="..\Public\Planet_Venus.h" />
     <ClInclude Include="..\public\Player_Body.h" />
     <ClInclude Include="..\Public\Cam_FPS.h" />
     <ClInclude Include="..\Public\Player_Bullet.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="..\Private\HpBar.cpp" />
     <ClCompile Include="..\Private\Level_SelectPlanet.cpp" />
     <ClCompile Include="..\Private\MovingCamera.cpp" />
+    <ClCompile Include="..\Private\Planet_Venus.cpp" />
     <ClCompile Include="..\private\Player_Body.cpp" />
     <ClCompile Include="..\Private\Player_Bullet.cpp" />
     <ClCompile Include="..\Private\Cam_FPS.cpp" />

@@ -124,6 +124,9 @@
     <Filter Include="01.Levels\02.SelectPlanet">
       <UniqueIdentifier>{549eec5f-3b33-4fcf-a38a-86d10ebaadf5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\06. Planet">
+      <UniqueIdentifier>{da87416d-1441-4a2b-9e14-1774ec64dff8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -258,6 +261,9 @@
     <ClInclude Include="SelectPlanet_SkyBox.h">
       <Filter>02.GameObject\10. SkyBox</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Planet_Venus.h">
+      <Filter>02.GameObject\06. Planet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -382,6 +388,9 @@
     </ClCompile>
     <ClCompile Include="SelectPlanet_SkyBox.cpp">
       <Filter>02.GameObject\10. SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Planet_Venus.cpp">
+      <Filter>02.GameObject\06. Planet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

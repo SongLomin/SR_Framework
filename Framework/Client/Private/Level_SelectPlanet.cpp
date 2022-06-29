@@ -15,6 +15,7 @@
 #include "ShieldBar.h"
 #include "BulletUI.h"
 #include "BulletCountUI.h"
+#include "Planet_Venus.h"
 
 CLevel_SelectPlanet::CLevel_SelectPlanet()
 {
@@ -70,6 +71,9 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_GAMEPLAY, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_GAMEPLAY, TEXT("Venus")))
+		return E_FAIL;
+	
 	return S_OK;
 }
 
