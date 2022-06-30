@@ -13,8 +13,8 @@ CController::CController(const CController& Prototype)
 
 void CController::Link_Object(CGameObject* _pObject)
 {
-	m_pObject = _pObject;
-	WEAK_PTR(m_pObject);
+	m_pMyObject = _pObject;
+	WEAK_PTR(m_pMyObject);
 }
 
 

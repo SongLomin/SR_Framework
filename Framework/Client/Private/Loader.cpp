@@ -131,7 +131,7 @@ HRESULT CLoader::Loading_ForGamePlayLevel()
 		TEXTURE_TYPE::TYPE_CUBE, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Aim_Default"), TEXT("../Bin/Resources/Textures/UI/Aim_Default1.png"),
+	if (FAILED(GAMEINSTANCE->Add_Textures(TEXT("Aim_Default"), TEXT("../Bin/Resources/Textures/UI/Aim_Default%d.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 

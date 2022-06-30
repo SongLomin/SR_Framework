@@ -39,6 +39,7 @@ private:
 	_point					m_ptMouse;
 	RECT					m_rcAim;
 
+
 private:
 	HRESULT SetUp_Components();
 

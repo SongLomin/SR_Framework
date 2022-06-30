@@ -3,6 +3,10 @@
 
 BEGIN(Engine)
 
+class CState_Move;
+class CTransform;
+class CTargeting;
+
 class ENGINE_DLL CAI_Controller final : public CController
 {
 public:
@@ -18,6 +22,17 @@ public:
 	virtual void Tick(_float fTimeDelta);
 	virtual void LateTick(_float fTimeDelta);
 
+private:
+	CState_Move* m_pMyState_Move = nullptr;
+	CTransform* m_pMyTransform = nullptr;
+	CTargeting* m_pMyTargeting = nullptr;
+
+protected:
+	//객체의 상태가 활성화 상태로 변경될 때, 호출되는 이벤트입니다.
+	virtual void OnEnable();
+
+	//객체의 상태가 비활성화 상태로 변경될 때, 호출되는 이벤트입니다.
+	virtual void OnDisable();
 
 public:
 	static CAI_Controller* Create();

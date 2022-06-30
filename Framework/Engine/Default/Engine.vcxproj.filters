@@ -377,11 +377,11 @@
     <ClInclude Include="..\Public\Controller.h">
       <Filter>01.Utility\03.Components\09. Controller</Filter>
     </ClInclude>
-    <ClInclude Include="..\Private\AI_Controller.h">
-      <Filter>01.Utility\03.Components\09. Controller\AI_Controller</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\Player_Controller.h">
       <Filter>01.Utility\03.Components\09. Controller\Player_Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\AI_Controller.h">
+      <Filter>01.Utility\03.Components\09. Controller\AI_Controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

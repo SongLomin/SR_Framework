@@ -26,13 +26,13 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 	if (Get_Enable())
 	{
 		if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
-			m_pObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::FRONT);
+			m_pMyObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::FRONT);
 		if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
-			m_pObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::BACK);
+			m_pMyObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::BACK);
 		if (KEY_INPUT(KEY::D, KEY_STATE::HOLD))
-			m_pObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::RIGHT);
+			m_pMyObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::RIGHT);
 		if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
-			m_pObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::LEFT);
+			m_pMyObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::LEFT);
 
 
 
@@ -43,8 +43,8 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 
 		_float fDirX = pt.x - GAMEINSTANCE->Get_Graphic_Desc().iWinCX * 0.5f;
 		_float fDirY = pt.y - GAMEINSTANCE->Get_Graphic_Desc().iWinCY * 0.5f;
-		m_pObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::SPIN, fDirX * 0.1f);
-		m_pObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::DOWN, fDirY * 0.1f);
+		m_pMyObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::SPIN, fDirX * 0.1f);
+		m_pMyObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::DOWN, fDirY * 0.1f);
 
 
 
@@ -82,8 +82,27 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 		m_fTime -= fTimeDelta;
 		if (m_fTime < 0.f)
 		{
-			m_pObject->Get_Component<CTargeting>()->Make_Player_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")));
+			m_pMyObject->Get_Component<CTargeting>()->Make_Player_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")));
 			m_fTime = 1.f;
+		}
+
+		if (KEY_INPUT(KEY::TAB, KEY_STATE::TAP))
+		{
+			switch (m_iCurrent_TargetMode)
+			{
+			case 0:
+				m_pMyObject->Get_Component<CTargeting>()->Set_TargetMode(TARGETMODE::TARGET_SINGLE);
+				break;
+
+			case 1:
+				m_pMyObject->Get_Component<CTargeting>()->Set_TargetMode(TARGETMODE::TARGET_MULTIRAY);
+				break;
+
+			case 2:
+				m_pMyObject->Get_Component<CTargeting>()->Set_TargetMode(TARGETMODE::TARGET_MULTIWIDE);
+				break;
+			}
+			m_iCurrent_TargetMode = (m_iCurrent_TargetMode + 1) % 3;
 		}
 	}
 }
