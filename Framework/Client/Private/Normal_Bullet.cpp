@@ -56,7 +56,7 @@ void CNormal_Bullet::LateTick(_float fTimeDelta)
 
 HRESULT CNormal_Bullet::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.2f, 0.1f, 10.f), true);
+	m_pTransformCom->Scaling(_float3(0.2f, 0.2f, 0.2f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -65,7 +65,7 @@ HRESULT CNormal_Bullet::Render_Begin(ID3DXEffect** Shader)
 	float floatArray[3];
 	floatArray[0] = 1.0f;
 	floatArray[1] = 1.0f;
-	floatArray[2] = 0.0f;
+	floatArray[2] = 1.f;
 
 	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 
@@ -142,7 +142,7 @@ inline HRESULT CNormal_Bullet::SetUp_Components()
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 150.f;
-	RigidBodyDesc.m_fOwnerAccel = 50.f;
+	RigidBodyDesc.m_fOwnerAccel = 150.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
 	RigidBodyDesc.m_fOwnerJump = 0.f;
@@ -193,7 +193,7 @@ inline HRESULT CNormal_Bullet::SetUp_Components()
 
 	m_pLight = Add_Component<CPointLight>();
 	WEAK_PTR(m_pLight);
-	m_pLight->Set_LightRange(12.f);
+	m_pLight->Set_Preset_PowLight();
 
 	return S_OK;
 }

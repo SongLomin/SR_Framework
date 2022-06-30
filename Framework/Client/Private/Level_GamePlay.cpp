@@ -28,6 +28,7 @@
 #include "MovingCamera.h"
 #include "../Default/EnemySpace_Body.h"
 #include <Test_Player.h>
+#include <Planet_Venus.h>
 
 CLevel_GamePlay::CLevel_GamePlay()
 {
@@ -74,11 +75,11 @@ HRESULT CLevel_GamePlay::Initialize()
 	}
 
 
-	for (int i = 0; i < 5; i++)
+	/*for (int i = 0; i < 5; i++)
 	{
 		GAMEINSTANCE->Add_GameObject<CMonster>(LEVEL_GAMEPLAY, TEXT("Monster"))
 			->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(i * 5.f, 0.f, 0.f));
-	}
+	}*/
 
 	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_GAMEPLAY, TEXT("Terrain")))
 		return E_FAIL;
@@ -95,6 +96,8 @@ HRESULT CLevel_GamePlay::Initialize()
 			return E_FAIL;
 	}
 
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
+		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_GAMEPLAY, TEXT("Status")))
 		return E_FAIL;

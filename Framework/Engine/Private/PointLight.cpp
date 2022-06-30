@@ -18,15 +18,14 @@ HRESULT CPointLight::Initialize(void* pArg)
 {
 	D3DXCreateSphere(DEVICE, 1, 50, 50, &m_pMesh, 0);
 
-	D3DXCOLOR color = D3DXCOLOR(1.f, 1.f, 0.f, 1.f);       // white
 	D3DXVECTOR3 position = D3DXVECTOR3(0.f, 0.f, 5.f);
 	D3DXVECTOR3 direction = D3DXVECTOR3(-1.f, -1.f, -1.f);
 
 	m_D3DLight.Type = D3DLIGHTTYPE::D3DLIGHT_POINT;
 
-	m_D3DLight.Ambient = color * 0.5f * m_fColorScale;
-	m_D3DLight.Diffuse = color;
-	m_D3DLight.Specular = color * 0.6f;
+	m_D3DLight.Ambient = m_Color * 0.5f * m_fColorScale;
+	m_D3DLight.Diffuse = m_Color;
+	m_D3DLight.Specular = m_Color * 0.6f;
 
 	m_D3DLight.Position = position;
 	m_D3DLight.Direction = direction;
@@ -64,6 +63,11 @@ void CPointLight::LateTick(_float fTimeDelta)
 void CPointLight::Bind_ConstBuffer()
 {
 	ISVALID(m_ppLightEffect, );
+
+	m_D3DLight.Ambient = m_Color * 0.5f * m_fColorScale;
+	m_D3DLight.Diffuse = m_Color;
+	m_D3DLight.Specular = m_Color * 0.6f;
+
 
 	D3DXHANDLE worldHandle = (*m_ppLightEffect)->GetParameterByName(0, "world");
 	D3DXHANDLE projHandle = (*m_ppLightEffect)->GetParameterByName(0, "proj");

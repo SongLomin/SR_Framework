@@ -146,27 +146,27 @@ D3DLIGHT9 d3d::InitLight(D3DLIGHTTYPE type)
 	::ZeroMemory(&light, sizeof(light));
 
 	D3DXCOLOR color = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);       // white
-	D3DXVECTOR3 position = D3DXVECTOR3(0.f, 0.f, 5.f);
+	D3DXVECTOR3 position = D3DXVECTOR3(0.f, 1.f, 50.f);
 	D3DXVECTOR3 direction = D3DXVECTOR3(-1.f, -1.f, -1.f);
 
 	light.Type = type;
 
-	light.Ambient = color * 0.1f;
+	light.Ambient = color * 0.5f;
 	light.Diffuse = color;
 	light.Specular = color * 0.6f;
 
 	light.Position = position;
 	light.Direction = direction;
 
-	light.Range = 8.0f;
-	light.Falloff = 4.0f;
+	light.Range = 800.0f;
+	light.Falloff = 800.0f;
 
-	light.Attenuation0 = 0.2f;
-	light.Attenuation1 = 0.4f;
-	light.Attenuation2 = 0.8f;
+	light.Attenuation0 = 1.0f;
+	light.Attenuation1 = 0.001f;
+	light.Attenuation2 = 0.0001f;
 
-	light.Theta = 1.f;
-	light.Phi = 2.f;
+	light.Theta = 100.f;
+	light.Phi = 200.f;
 
 	return light;
 }

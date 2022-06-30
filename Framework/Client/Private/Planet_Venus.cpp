@@ -99,7 +99,7 @@ HRESULT CPlanet_Venus::SetUp_Components()
 
 	m_pPointLightCom = Add_Component<CPointLight>();
 	m_pPointLightCom->Set_WeakPtr(&m_pPointLightCom);
-	m_pPointLightCom->Set_LightRange(500.f);
+	m_pPointLightCom->Set_Preset_SunLight();
 
 	return S_OK;
 }

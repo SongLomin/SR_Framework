@@ -80,14 +80,30 @@ void CNormal_Turret::LateTick(_float fTimeDelta)
 			}
 		}
 	}
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
+}
+
+HRESULT CNormal_Turret::Render_Begin(ID3DXEffect** Shader)
+{
+	m_pTransformCom->Scaling(_float3(0.4f, 0.30f, 1.6f), true);
+	m_pTransformCom->Bind_WorldMatrix(D3D_ALL, D3D_ALL);
+
+	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
+
+	float floatArray[3];
+	floatArray[0] = 0.9f;
+	floatArray[1] = 0.5f;
+	floatArray[2] = 0.9f;
+
+	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
+
+
+	return S_OK;
 }
 
 HRESULT CNormal_Turret::Render()
 {
-	m_pTransformCom->Scaling(_float3(0.4f, 0.30f, 1.6f), true);
-
-	m_pTransformCom->Bind_WorldMatrix(D3D_ALL, D3D_ALL);
+	
 
 
 

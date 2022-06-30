@@ -5,17 +5,17 @@
 /*
  * comment next line if you don't want use stencil culling algorithm
  */
-#define STENCIL_CULLING
+//#define STENCIL_CULLING
 
-#define LIGHT_NUM 30
+#define LIGHT_NUM 1
 
  /*
   * D3DLIGHT_DIRECTIONAL
   * D3DLIGHT_POINT
   * D3DLIGHT_SPOT
   */
-#define LIGHT_TYPE D3DLIGHT_POINT
-//#define LIGHT_TYPE D3DLIGHT_DIRECTIONAL
+//#define LIGHT_TYPE D3DLIGHT_POINT
+#define LIGHT_TYPE D3DLIGHT_DIRECTIONAL
 //#define LIGHT_TYPE D3DLIGHT_SPOT
 
   /*
@@ -225,8 +225,8 @@ bool Setup()
 	for (int i = 0; i < LIGHT_NUM; i++) {
 		lights[i] = d3d::InitLight(LIGHT_TYPE);
 
-		lights[i].Position.x = rand() % (X_Y_PLANE_LIMIT * 2) - X_Y_PLANE_LIMIT;
-		lights[i].Position.y = rand() % (X_Y_PLANE_LIMIT * 2) - X_Y_PLANE_LIMIT;
+		//lights[i].Position.x = rand() % (X_Y_PLANE_LIMIT * 2) - X_Y_PLANE_LIMIT;
+		//lights[i].Position.y = rand() % (X_Y_PLANE_LIMIT * 2) - X_Y_PLANE_LIMIT;
 	}
 
 	return true;
@@ -325,7 +325,7 @@ void DeferredPipeline()
 {
 	
 
-	fMove += 0.001f;
+	//fMove += 0.001f;
 
 	/* G-buffer stage */
 	SetMRT();
@@ -604,7 +604,7 @@ bool Display(float timeDelta)
 				p.y = X_Y_PLANE_LIMIT;
 			}
 
-			lights[i].Position = p;
+			//lights[i].Position = p;
 		}
 		Device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
 		PriorityPipeline();

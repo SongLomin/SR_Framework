@@ -7,6 +7,7 @@ class CRenderer;
 class CTransform;
 class CVIBuffer_Rect;
 class CPointLight;
+class CSpotLight;
 END
 
 BEGIN(Client)

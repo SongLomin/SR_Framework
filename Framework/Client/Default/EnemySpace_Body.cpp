@@ -113,21 +113,35 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 
 	if(GAMEINSTANCE->IsIn(&vPos))
-		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
 
+}
+
+HRESULT CEnemySpace_Body::Render_Begin(ID3DXEffect** Shader)
+{
+	m_pTransformCom->Bind_WorldMatrix();
+
+	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
+
+	float floatArray[3];
+	floatArray[0] = 0.7f;
+	floatArray[1] = 0.0f;
+	floatArray[2] = 0.0f;
+
+	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
+
+
+	return S_OK;
 }
 
 HRESULT CEnemySpace_Body::Render()
 {
 
 
-	m_pColliderCom->Debug_Render();
-	m_pColliderPreCom->Debug_Render();
+	/*m_pColliderCom->Debug_Render();
+	m_pColliderPreCom->Debug_Render();*/
 
 	__super::Render();
-
-	m_pTransformCom->Bind_WorldMatrix();
-
 
 	m_pMeshCom->Render_Mesh();
 
