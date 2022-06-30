@@ -74,7 +74,5 @@ Technique gbuffer
     {
         VertexShader = compile vs_3_0 VS_Main();
         PixelShader = compile ps_3_0 PS_Main();
-
-       
     }
 }

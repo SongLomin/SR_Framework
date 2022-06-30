@@ -30,12 +30,12 @@ HRESULT CPointLight::Initialize(void* pArg)
 	m_D3DLight.Position = position;
 	m_D3DLight.Direction = direction;
 
-	m_D3DLight.Range = 15.0f;
+	m_D3DLight.Range = 7.0f;
 	m_D3DLight.Falloff = 4.0f;
 
-	m_D3DLight.Attenuation0 = 0.2f;
-	m_D3DLight.Attenuation1 = 0.4f;
-	m_D3DLight.Attenuation2 = 0.8f;
+	m_D3DLight.Attenuation0 = 1.f;
+	m_D3DLight.Attenuation1 = 0.7f;
+	m_D3DLight.Attenuation2 = 1.8f;
 
 	m_D3DLight.Theta = 1.f;
 	m_D3DLight.Phi = 2.f;

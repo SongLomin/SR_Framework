@@ -280,6 +280,7 @@
     </ClInclude>
     <ClInclude Include="..\Public\Roket_Bullet.h">
       <Filter>02.GameObject\03. Bullet\Roket</Filter>
+	</ClInclude>
     <ClInclude Include="..\Public\Planet_Venus.h">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClInclude>
@@ -414,6 +415,7 @@
     </ClCompile>
     <ClCompile Include="..\Private\Roket_Bullet.cpp">
       <Filter>02.GameObject\03. Bullet\Roket</Filter>
+	</ClCompile>
     <ClCompile Include="..\Private\Planet_Venus.cpp">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClCompile>
