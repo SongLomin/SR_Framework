@@ -57,5 +57,5 @@ void CLight::Set_Preset_SunLight()
 
 	m_D3DLight.Attenuation0 = 1.0f;
 	m_D3DLight.Attenuation1 = 0.007f;
-	m_D3DLight.Attenuation2 = 0.0002f;
+	m_D3DLight.Attenuation2 = 0.001f;
 }

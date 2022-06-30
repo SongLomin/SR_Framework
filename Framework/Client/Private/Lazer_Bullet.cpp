@@ -32,12 +32,14 @@ void CLazer_Bullet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	m_fLifeTime -= fTimeDelta;
+	
 
 	if (m_fLifeTime < 0.f)
 	{
 		Set_Dead();
 	}
+
+	m_fLifeTime -= fTimeDelta;
 
 	//불빛이 미사일 뒤로 나감
 	_float3 Light_Look_Dir = -m_pTransformCom->Get_State(CTransform::STATE_LOOK, true);

@@ -463,9 +463,6 @@
     <ClCompile Include="..\Private\VIBuffer_Rect.cpp">
       <Filter>01.Utility\03.Components\00. Model\VIBuffer\Rect</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Render_Manager.cpp">
-      <Filter>01.Utility\04.Manager\08. Render_Manager</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\Resource_Manager.cpp">
       <Filter>01.Utility\04.Manager\04. Resource_Manager</Filter>
     </ClCompile>
@@ -620,6 +617,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Collier_Sphere.cpp">
       <Filter>01.Utility\03.Components\07. Collider\02. Collider_Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Render_Manager.cpp">
+      <Filter>01.Utility\04.Manager\08. Render_Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
