@@ -26,7 +26,7 @@ HRESULT CRender_Manager::Initialize()
 		return false;
 	}
 	
-	/*if (FAILED(DEVICE->CreateDepthStencilSurface(
+	if (FAILED(DEVICE->CreateDepthStencilSurface(
 		GAMEINSTANCE->Get_Graphic_Desc().iWinCX,
 		GAMEINSTANCE->Get_Graphic_Desc().iWinCY,
 		D3DFMT_D24S8,
@@ -37,7 +37,7 @@ HRESULT CRender_Manager::Initialize()
 	)))
 	{
 		return false;
-	}*/
+	}
 
 	
 
@@ -78,7 +78,7 @@ HRESULT CRender_Manager::Draw_RenderGroup()
 	DEVICE->SetRenderState(D3DRS_STENCILMASK, 0xffffffff);
 	DEVICE->SetRenderState(D3DRS_STENCILWRITEMASK, 0xffffffff);
 	DEVICE->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILOP_KEEP);
-	DEVICE->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILOP_REPLACE);
+	DEVICE->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILOP_KEEP);
 	DEVICE->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);
 	Priority_Pipeline();
 	DEVICE->SetRenderState(D3DRS_STENCILENABLE, false);
@@ -106,7 +106,6 @@ void CRender_Manager::Priority_Pipeline()
 	if (pCamera)
 		pCamera->Bind_PipeLine();
 
-	//DEVICE->SetDepthStencilSurface(pStencilSurface);
 	for (auto iter = m_RenderObjects[(_uint)RENDERGROUP::RENDER_PRIORITY].begin(); iter != m_RenderObjects[(_uint)RENDERGROUP::RENDER_PRIORITY].end();)
 	{
 		if ((*iter))
@@ -119,7 +118,6 @@ void CRender_Manager::Priority_Pipeline()
 		iter = m_RenderObjects[(_uint)RENDERGROUP::RENDER_PRIORITY].erase(iter);
 	}
 
-	//DEVICE->SetDepthStencilSurface(originStencilBuffer);
 	DEVICE->EndScene();
 }
 
@@ -208,7 +206,7 @@ void CRender_Manager::Deferred_Pipeline()
 
 	/* deferred shading stage */
 	ResumeOriginRender();
-	DEVICE->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
+	DEVICE->Clear(0, 0, /*D3DCLEAR_TARGET | */D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
 	DEVICE->ColorFill(stashSurface, NULL, D3DXCOLOR(0.f, 0.f, 0.f, 0.f));
 
 	DEVICE->BeginScene();
@@ -217,7 +215,7 @@ void CRender_Manager::Deferred_Pipeline()
 	{
 		if ((*iter))
 		{
-			
+			DEVICE->Clear(0, 0, /*D3DCLEAR_TARGET | */D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
 			ID3DXEffect** LightShader = (*iter)->Get_Effect();
 
 			D3DXHANDLE screenSizeHandle = (*LightShader)->GetParameterByName(0, "screenSize");
@@ -245,6 +243,7 @@ void CRender_Manager::Deferred_Pipeline()
 
 			(*iter)->Bind_ConstBuffer();
 
+			
 			numPasses = 0;
 			(*LightShader)->Begin(&numPasses, 0);
 
@@ -346,7 +345,7 @@ void CRender_Manager::ResumeOriginRender()
 	DEVICE->SetRenderTarget(2, NULL);
 	DEVICE->SetRenderTarget(3, NULL);
 
-	DEVICE->GetDepthStencilSurface(&originStencilBuffer);
+	DEVICE->GetDepthStencilSurface(&originStencilBuffer);//스카이 박스에만이용
 	DEVICE->SetDepthStencilSurface(pStencilSurface);
 }
 
