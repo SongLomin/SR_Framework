@@ -22,7 +22,7 @@ CMesh_SongShip::CMesh_SongShip(const CMesh_SongShip& Prototype)
 HRESULT CMesh_SongShip::Initialize_Prototype()
 {
 
-	m_iNumVertices = 248;
+	m_iNumVertices = 248;     
 	m_iNumPrimitive = 104;
 	m_dwFVF = VTXDEFAULT::FVF;
 

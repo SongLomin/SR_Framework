@@ -172,10 +172,14 @@
     <ClInclude Include="..\Public\BulletUI.h" />
     <ClInclude Include="..\Public\AI_Friendly.h" />
     <ClInclude Include="..\Public\Default_Aim.h" />
+    <ClInclude Include="..\Public\Lazer_Bullet.h" />
+    <ClInclude Include="..\Public\Lazer_Turret.h" />
     <ClInclude Include="..\Public\Normal_Turret.h" />
     <ClInclude Include="..\Public\HpBar.h" />
     <ClInclude Include="..\Public\Level_SelectPlanet.h" />
     <ClInclude Include="..\Public\MovingCamera.h" />
+    <ClInclude Include="..\Public\Planet_Red.h" />
+    <ClInclude Include="..\Public\Planet_Sun.h" />
     <ClInclude Include="..\Public\Planet_Venus.h" />
     <ClInclude Include="..\public\Player_Body.h" />
     <ClInclude Include="..\Public\Cam_FPS.h" />
@@ -191,6 +195,7 @@
     <ClInclude Include="..\Public\MainApp.h" />
     <ClInclude Include="..\Public\Monster.h" />
     <ClInclude Include="..\Public\Rock.h" />
+    <ClInclude Include="..\Public\Roket_Bullet.h" />
     <ClInclude Include="..\Public\ShieldBar.h" />
     <ClInclude Include="..\Public\SkyBox.h" />
     <ClInclude Include="..\Public\StatusBar.h" />
@@ -212,10 +217,14 @@
     <ClCompile Include="..\Private\BulletUI.cpp" />
     <ClCompile Include="..\Private\AI_Friendly.cpp" />
     <ClCompile Include="..\Private\Default_Aim.cpp" />
+    <ClCompile Include="..\Private\Lazer_Bullet.cpp" />
+    <ClCompile Include="..\Private\Lazer_Turret.cpp" />
     <ClCompile Include="..\Private\Normal_Turret.cpp" />
     <ClCompile Include="..\Private\HpBar.cpp" />
     <ClCompile Include="..\Private\Level_SelectPlanet.cpp" />
     <ClCompile Include="..\Private\MovingCamera.cpp" />
+    <ClCompile Include="..\Private\Planet_Red.cpp" />
+    <ClCompile Include="..\Private\Planet_Sun.cpp" />
     <ClCompile Include="..\Private\Planet_Venus.cpp" />
     <ClCompile Include="..\private\Player_Body.cpp" />
     <ClCompile Include="..\Private\Normal_Bullet.cpp" />
@@ -230,6 +239,7 @@
     <ClCompile Include="..\Private\MainApp.cpp" />
     <ClCompile Include="..\Private\Monster.cpp" />
     <ClCompile Include="..\Private\Rock.cpp" />
+    <ClCompile Include="..\Private\Roket_Bullet.cpp" />
     <ClCompile Include="..\Private\ShieldBar.cpp" />
     <ClCompile Include="..\Private\SkyBox.cpp" />
     <ClCompile Include="..\Private\StatusBar.cpp" />

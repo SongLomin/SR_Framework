@@ -16,6 +16,8 @@
 #include "BulletUI.h"
 #include "BulletCountUI.h"
 #include "Planet_Venus.h"
+#include "Planet_Sun.h"
+#include "Planet_Red.h"
 
 CLevel_SelectPlanet::CLevel_SelectPlanet()
 {
@@ -53,35 +55,58 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_STATIC, TEXT("Aim")))
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_SELECTPLANET, TEXT("Aim")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_STATIC, TEXT("Status")))
+	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_SELECTPLANET, TEXT("Status")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_STATIC, TEXT("HP")))
+	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_SELECTPLANET, TEXT("HP")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_STATIC, TEXT("Booster")))
+	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_SELECTPLANET, TEXT("Booster")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_STATIC, TEXT("Shield")))
+	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_SELECTPLANET, TEXT("Shield")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_STATIC, TEXT("NormalBullet")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_SELECTPLANET, TEXT("NormalBullet")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_STATIC, TEXT("CBulletCountUI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_SELECTPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
+		return E_FAIL;
 	
-	
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
+		return E_FAIL;
+
 	return S_OK;
 }
 
 void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
+	
+
+	// Planet_Venus
+
+
+
+	// Planet_ ~
+
+
+
+	// Planet_ ~
+
+
+	// 
+
+
+	//
+	
+
 }
 
 HRESULT CLevel_SelectPlanet::Render()

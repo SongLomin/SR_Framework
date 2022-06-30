@@ -11,6 +11,7 @@
 #include "Normal_Bullet.h"
 #include "Math_Utillity.h"
 #include "HpBar.h"
+#include "Lazer_Turret.h"
 
 
 
@@ -211,7 +212,12 @@ HRESULT CPlayer_Body::SetUp_Components()
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 
 	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-3.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back());
+
+	CLazer_Turret* LazerPosin = static_cast<CLazer_Turret*>(GAMEINSTANCE->Add_GameObject<CLazer_Turret>(CURRENT_LEVEL, TEXT("Lazer_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, -0.5f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 

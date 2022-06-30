@@ -19,14 +19,15 @@ HRESULT CMesh_Test::Initialize_Prototype()
 
 HRESULT CMesh_Test::Initialize(void* pArg)
 {
-	D3DXCreateBox(DEVICE, 1, 1, 1, &m_pMesh, nullptr);
+	//D3DXCreateBox(DEVICE, 1, 1, 1, &m_pMesh, nullptr);
+	D3DXCreateSphere(DEVICE, 1, 20, 20, &m_pMesh, NULL);
 
     return S_OK;
 }
 
 HRESULT CMesh_Test::Render_Mesh()
 {
-	DEVICE->SetFVF(D3DFVF_XYZ | D3DFVF_NORMAL);
+	DEVICE->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE);
 	m_pMesh->DrawSubset(0);
 
 	return S_OK;

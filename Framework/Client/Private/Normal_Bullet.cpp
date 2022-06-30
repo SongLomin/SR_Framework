@@ -85,6 +85,8 @@ HRESULT CNormal_Bullet::Render()
 	//m_pRendererCom->Bind_Texture(1);
 	__super::Render();
 	m_pMeshCom->Render_Mesh();
+
+	
 	//m_pRendererCom->UnBind_Texture();
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
