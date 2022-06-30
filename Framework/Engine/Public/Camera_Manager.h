@@ -21,7 +21,9 @@ public:
     void Set_Target(CTransform* _Target = nullptr, const _tchar* _CameraTag = TEXT(""));
     CCamera* Get_Camera(const _tchar* _CameraTag = TEXT(""));
     void Set_Current_Camera(const _tchar* _CameraTag = TEXT(""));
+    void Add_Shaking(_float _fOffset, _float _fInclination);
 
+    
     void Update_MovingCam()
     {
         m_pTempCam = m_pCurrentCam;
@@ -48,6 +50,8 @@ public:
 
 private:
     void Clear_Empty_Camera();
+    void Shake(_float fTimeDelta);
+    void RandomVec(_float3* _vDir, float _flowBound, float _fHighBound);
 
 private:
     map<const _tchar*, class CCamera*>	m_Cams;
@@ -56,6 +60,10 @@ private:
 
     CCamera* m_pCurrentCam = nullptr;
     CCamera* m_pTempCam = nullptr;
+
+    _float  m_fOffset = 0.f;
+    _float  m_fInclination = 0.f;
+   // _float  m_fTime=0.f;
 
 public:
     virtual void Free() override;

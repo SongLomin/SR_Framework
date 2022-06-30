@@ -27,7 +27,7 @@ HRESULT CTest_Player::Initialize(void* pArg)
 		return E_FAIL;
 
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(5.f, 1.f, 0.f));
-
+	
 	return S_OK;
 }
 

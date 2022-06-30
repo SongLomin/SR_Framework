@@ -45,10 +45,6 @@ void CCam_TPS::Tick(_float fTimeDelta)
 	D3DXVec3Cross(&vRight, &vUp, &vLook);
 	D3DXVec3Cross(&vUp, &vLook, &vRight);
 
-	
-	
-
-	
 
 
 	if (GAMEINSTANCE->Get_Camera(CURRENT_CAMERA) == m_pCameraCom)
@@ -128,7 +124,7 @@ void CCam_TPS::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 	
-	}
+}
 
 HRESULT CCam_TPS::Render()
 {
