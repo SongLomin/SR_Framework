@@ -1,26 +1,26 @@
 #include "stdafx.h"
-#include "Normal_Bullet.h"
+#include "Lazer_Bullet.h"
 #include "GameInstance.h"
 #include "Collider_OBB.h"
 
 
-CNormal_Bullet::CNormal_Bullet()
+CLazer_Bullet::CLazer_Bullet()
 {
 }
 
-CNormal_Bullet::CNormal_Bullet(const CNormal_Bullet& Prototype)
+CLazer_Bullet::CLazer_Bullet(const CLazer_Bullet& Prototype)
 {
 	*this = Prototype;
-	//m_szName = L"Bullet";
+	
 	Add_Component<CTransform>();
 }
 
-HRESULT CNormal_Bullet::Initialize_Prototype()
+HRESULT CLazer_Bullet::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CNormal_Bullet::Initialize(void* pArg)
+HRESULT CLazer_Bullet::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
@@ -28,7 +28,7 @@ HRESULT CNormal_Bullet::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CNormal_Bullet::Tick(_float fTimeDelta)
+void CLazer_Bullet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
@@ -47,16 +47,16 @@ void CNormal_Bullet::Tick(_float fTimeDelta)
 
 }
 
-void CNormal_Bullet::LateTick(_float fTimeDelta)
+void CLazer_Bullet::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
 }
 
-HRESULT CNormal_Bullet::Render_Begin(ID3DXEffect** Shader)
+HRESULT CLazer_Bullet::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.2f, 0.1f, 3.0f), true);
+	m_pTransformCom->Scaling(_float3(0.2f, 0.1f, 5.f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -73,20 +73,18 @@ HRESULT CNormal_Bullet::Render_Begin(ID3DXEffect** Shader)
 	return S_OK;
 }
 
-HRESULT CNormal_Bullet::Render()
+HRESULT CLazer_Bullet::Render()
 {
 	//m_pColliderCom->Debug_Render();
 	//m_pPreColliderCom->Debug_Render();
 
-	
+
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	//m_pRendererCom->Bind_Texture(1);
 	__super::Render();
 	m_pMeshCom->Render_Mesh();
-
-	
 	//m_pRendererCom->UnBind_Texture();
 
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
@@ -96,7 +94,7 @@ HRESULT CNormal_Bullet::Render()
 
 
 
-void CNormal_Bullet::Link_PosinTransform(CTransform* _pTransform)
+void CLazer_Bullet::Link_PosinTransform(CTransform* _pTransform)
 {
 	m_pPosinTransformCom = _pTransform;
 
@@ -115,7 +113,7 @@ void CNormal_Bullet::Link_PosinTransform(CTransform* _pTransform)
 	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 }
 
-void CNormal_Bullet::On_Collision_Enter(CCollider* _Other_Collider)
+void CLazer_Bullet::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER)
 	{
@@ -124,16 +122,16 @@ void CNormal_Bullet::On_Collision_Enter(CCollider* _Other_Collider)
 
 }
 
-void CNormal_Bullet::On_Collision_Stay(CCollider* _Other_Collider)
+void CLazer_Bullet::On_Collision_Stay(CCollider* _Other_Collider)
 {
-	
+
 }
 
-void CNormal_Bullet::On_Collision_Exit(CCollider* _Other_Collider)
+void CLazer_Bullet::On_Collision_Exit(CCollider* _Other_Collider)
 {
 }
 
-inline HRESULT CNormal_Bullet::SetUp_Components()
+inline HRESULT CLazer_Bullet::SetUp_Components()
 {
 	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 
@@ -143,7 +141,7 @@ inline HRESULT CNormal_Bullet::SetUp_Components()
 	//m_pTransformCom->Scaling(_float3(0.2f, 10.0f, 0.2f));
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 150.f;
+	RigidBodyDesc.m_fOwnerSpeed = 200.f;
 	RigidBodyDesc.m_fOwnerAccel = 50.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
@@ -202,17 +200,17 @@ inline HRESULT CNormal_Bullet::SetUp_Components()
 
 
 
-CNormal_Bullet* CNormal_Bullet::Create()
+CLazer_Bullet* CLazer_Bullet::Create()
 {
-	CREATE_PIPELINE(CNormal_Bullet);
+	CREATE_PIPELINE(CLazer_Bullet);
 }
 
-CGameObject* CNormal_Bullet::Clone(void* pArg)
+CGameObject* CLazer_Bullet::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CNormal_Bullet);
+	CLONE_PIPELINE(CLazer_Bullet);
 }
 
-void CNormal_Bullet::Free()
+void CLazer_Bullet::Free()
 {
 	if (m_pPosinTransformCom)
 		m_pPosinTransformCom->Return_WeakPtr(&m_pPosinTransformCom);
@@ -227,7 +225,7 @@ void CNormal_Bullet::Free()
 
 	__super::Free();
 
-	
+
 
 
 	delete this;

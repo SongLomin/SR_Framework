@@ -130,6 +130,12 @@
     <Filter Include="02.GameObject\06. Planet\Magma">
       <UniqueIdentifier>{03a017cb-5c8d-4940-a682-01ff84257f89}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\03. Bullet\Lazer">
+      <UniqueIdentifier>{34446649-c742-4436-b72e-e67123087281}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\01. Turret\Lazer">
+      <UniqueIdentifier>{3c4a3ac0-59e4-4dd5-b9c7-3c686870072f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -254,6 +260,12 @@
     <ClInclude Include="SelectPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Lazer_Bullet.h">
+      <Filter>02.GameObject\03. Bullet\Lazer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Lazer_Turret.h">
+      <Filter>02.GameObject\01. Turret\Lazer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -368,6 +380,12 @@
     <ClCompile Include="Player_ProPeller.cpp" />
     <ClCompile Include="SelectPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Lazer_Bullet.cpp">
+      <Filter>02.GameObject\03. Bullet\Lazer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Lazer_Turret.cpp">
+      <Filter>02.GameObject\01. Turret\Lazer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
