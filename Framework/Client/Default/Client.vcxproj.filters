@@ -139,6 +139,9 @@
     <Filter Include="02.GameObject\06. Planet\Red">
       <UniqueIdentifier>{7add39bb-f3de-4479-86ed-a0a96ee2a31f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\03. Bullet\Roket">
+      <UniqueIdentifier>{4e1ddc4f-c212-49e2-b683-3ad8501e612c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -275,6 +278,9 @@
     <ClInclude Include="..\Public\Planet_Red.h">
       <Filter>02.GameObject\06. Planet\Red</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Roket_Bullet.h">
+      <Filter>02.GameObject\03. Bullet\Roket</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -401,6 +407,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Planet_Red.cpp">
       <Filter>02.GameObject\06. Planet\Red</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Roket_Bullet.cpp">
+      <Filter>02.GameObject\03. Bullet\Roket</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

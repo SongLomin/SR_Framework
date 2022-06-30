@@ -195,6 +195,7 @@
     <ClInclude Include="..\Public\MainApp.h" />
     <ClInclude Include="..\Public\Monster.h" />
     <ClInclude Include="..\Public\Rock.h" />
+    <ClInclude Include="..\Public\Roket_Bullet.h" />
     <ClInclude Include="..\Public\ShieldBar.h" />
     <ClInclude Include="..\Public\SkyBox.h" />
     <ClInclude Include="..\Public\StatusBar.h" />
@@ -239,6 +240,7 @@
     <ClCompile Include="..\Private\MainApp.cpp" />
     <ClCompile Include="..\Private\Monster.cpp" />
     <ClCompile Include="..\Private\Rock.cpp" />
+    <ClCompile Include="..\Private\Roket_Bullet.cpp" />
     <ClCompile Include="..\Private\ShieldBar.cpp" />
     <ClCompile Include="..\Private\SkyBox.cpp" />
     <ClCompile Include="..\Private\StatusBar.cpp" />

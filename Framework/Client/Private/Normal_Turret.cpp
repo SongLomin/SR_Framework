@@ -3,7 +3,7 @@
 #include "GameInstance.h"
 #include "Math_Utillity.h"
 #include "Normal_Bullet.h"
-
+#include "Roket_Bullet.h"
 
 
 
@@ -49,11 +49,18 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 			LookAt_Aim();
 		}
 
-		if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
+		if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
 		{
 			CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"));
 
 			((CNormal_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
+		}
+
+		if (KEY_INPUT(KEY::CTRL, KEY_STATE::HOLD))
+		{
+			CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CRoket_Bullet>(CURRENT_LEVEL, TEXT("Roket_Bullet"));
+
+			((CRoket_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
 		}
 	}
 

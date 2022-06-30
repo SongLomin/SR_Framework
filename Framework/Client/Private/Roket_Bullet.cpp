@@ -1,26 +1,25 @@
 #include "stdafx.h"
-#include "Lazer_Bullet.h"
+#include "Roket_Bullet.h"
 #include "GameInstance.h"
-#include "Collider_OBB.h"
 
 
-CLazer_Bullet::CLazer_Bullet()
+CRoket_Bullet::CRoket_Bullet()
 {
 }
 
-CLazer_Bullet::CLazer_Bullet(const CLazer_Bullet& Prototype)
+CRoket_Bullet::CRoket_Bullet(const CRoket_Bullet& Prototype)
 {
 	*this = Prototype;
-	
+
 	Add_Component<CTransform>();
 }
 
-HRESULT CLazer_Bullet::Initialize_Prototype()
+HRESULT CRoket_Bullet::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CLazer_Bullet::Initialize(void* pArg)
+HRESULT CRoket_Bullet::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
@@ -28,7 +27,7 @@ HRESULT CLazer_Bullet::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CLazer_Bullet::Tick(_float fTimeDelta)
+void CRoket_Bullet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
@@ -47,16 +46,16 @@ void CLazer_Bullet::Tick(_float fTimeDelta)
 
 }
 
-void CLazer_Bullet::LateTick(_float fTimeDelta)
+void CRoket_Bullet::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
 }
 
-HRESULT CLazer_Bullet::Render_Begin(ID3DXEffect** Shader)
+HRESULT CRoket_Bullet::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.2f, 0.2f, 100.f), true);
+	m_pTransformCom->Scaling(_float3(0.3f, 0.3f, 0.3f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -73,7 +72,7 @@ HRESULT CLazer_Bullet::Render_Begin(ID3DXEffect** Shader)
 	return S_OK;
 }
 
-HRESULT CLazer_Bullet::Render()
+HRESULT CRoket_Bullet::Render()
 {
 	//m_pColliderCom->Debug_Render();
 	//m_pPreColliderCom->Debug_Render();
@@ -94,7 +93,7 @@ HRESULT CLazer_Bullet::Render()
 
 
 
-void CLazer_Bullet::Link_PosinTransform(CTransform* _pTransform)
+void CRoket_Bullet::Link_PosinTransform(CTransform* _pTransform)
 {
 	m_pPosinTransformCom = _pTransform;
 
@@ -106,14 +105,15 @@ void CLazer_Bullet::Link_PosinTransform(CTransform* _pTransform)
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_POSITION, true));
 
 	//총알 시작 위치를 앞쪽으로 옮긴다.
-	m_pTransformCom->Go_BackAndForth(100.f, 1.f);
+	m_pTransformCom->Go_BackAndForth(2.f, 1.f);
 
 	m_pTransformCom->Update_WorldMatrix();
 	m_pRigidBodyCom->Set_DirVector();
 	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
+	m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
 }
 
-void CLazer_Bullet::On_Collision_Enter(CCollider* _Other_Collider)
+void CRoket_Bullet::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER)
 	{
@@ -122,16 +122,16 @@ void CLazer_Bullet::On_Collision_Enter(CCollider* _Other_Collider)
 
 }
 
-void CLazer_Bullet::On_Collision_Stay(CCollider* _Other_Collider)
+void CRoket_Bullet::On_Collision_Stay(CCollider* _Other_Collider)
 {
 
 }
 
-void CLazer_Bullet::On_Collision_Exit(CCollider* _Other_Collider)
+void CRoket_Bullet::On_Collision_Exit(CCollider* _Other_Collider)
 {
 }
 
-inline HRESULT CLazer_Bullet::SetUp_Components()
+inline HRESULT CRoket_Bullet::SetUp_Components()
 {
 	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 
@@ -141,12 +141,12 @@ inline HRESULT CLazer_Bullet::SetUp_Components()
 	//m_pTransformCom->Scaling(_float3(0.2f, 10.0f, 0.2f));
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 800.f;
+	RigidBodyDesc.m_fOwnerSpeed = 150.f;
 	RigidBodyDesc.m_fOwnerAccel = 80.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
-	//RigidBodyDesc.m_fOwnerJump = 0.f;
-	//RigidBodyDesc.m_fOwnerJumpScale = 1.f;
+	RigidBodyDesc.m_fOwnerJump = 0.f;
+	RigidBodyDesc.m_fOwnerJumpScale = 1.f;
 
 	RigidBodyDesc.m_fFrictional = 0.05f;
 	RigidBodyDesc.m_fRadFrictional = 0.02f;
@@ -167,10 +167,9 @@ inline HRESULT CLazer_Bullet::SetUp_Components()
 
 
 	m_pMeshCom = Add_Component<CMesh_Test>();
-	
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
-	
+
 
 	m_pPreColliderCom = Add_Component<CCollider_Pre>();
 	WEAK_PTR(m_pPreColliderCom);
@@ -201,17 +200,17 @@ inline HRESULT CLazer_Bullet::SetUp_Components()
 
 
 
-CLazer_Bullet* CLazer_Bullet::Create()
+CRoket_Bullet* CRoket_Bullet::Create()
 {
-	CREATE_PIPELINE(CLazer_Bullet);
+	CREATE_PIPELINE(CRoket_Bullet);
 }
 
-CGameObject* CLazer_Bullet::Clone(void* pArg)
+CGameObject* CRoket_Bullet::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CLazer_Bullet);
+	CLONE_PIPELINE(CRoket_Bullet);
 }
 
-void CLazer_Bullet::Free()
+void CRoket_Bullet::Free()
 {
 	if (m_pPosinTransformCom)
 		m_pPosinTransformCom->Return_WeakPtr(&m_pPosinTransformCom);
