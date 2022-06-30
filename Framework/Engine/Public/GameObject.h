@@ -48,6 +48,7 @@ public: /* For Event Function */
 protected:
 	map<const _char*, class CComponent*> m_pComs;
 
+
 private:
 	CONTROLLER	m_eController = CONTROLLER::CONTROLLER_END;
 	bool m_bDead = false;

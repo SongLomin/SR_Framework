@@ -107,12 +107,10 @@ void CState_Move::MoveTarget_Back(_float fTimeDelta)
 }
 //
 
-void CState_Move::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)
+void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 {
 
 	m_fCurTime -= fTimeDelta;
-
-	//GAMEINSTANCE->Add_Text(_point{ 100, 600 }, TEXT("m_fCurTime : %d"), 1, (int)m_fCurTime);
 
 	if (m_fCurTime <= 0.f)
 	{
@@ -148,6 +146,7 @@ void CState_Move::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)
 	case  STATE_MOVE::MOVE_JUMP_FRONT:
 		Move_Jump_Front();
 		break;
+
 	case  STATE_MOVE::MOVE_UPPER_RIGHT:
 		Move_Upper_Right();
 		break;
@@ -155,7 +154,7 @@ void CState_Move::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)
 
 }
 
-void CState_Move::State_Tagetting(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit)
+void CState_Move::State_Tagetting(CTransform* _TargetTransform, _float fTimeDelta, _float fLimit)
 {
 
 	m_fTargetCurTime -= fTimeDelta;
@@ -176,15 +175,15 @@ void CState_Move::State_Tagetting(CTransform* pTargetTransform, _float fTimeDelt
 	switch (m_eTargetCurState)
 	{
 	case  STATE_MOVETARGET::MOVETARGET_CHASE:
-		MoveTarget_Chase(pTargetTransform, fTimeDelta, fLimit);
+		MoveTarget_Chase(_TargetTransform, fTimeDelta, fLimit);
 		break;
 
 	case  STATE_MOVETARGET::MOVETARGET_LSPIN:
-		MoveTarget_LSpin(pTargetTransform, fTimeDelta, fLimit);
+		MoveTarget_LSpin(_TargetTransform, fTimeDelta, fLimit);
 		break;
 
 	case  STATE_MOVETARGET::MOVETARGET_RSPIN:
-		MoveTarget_RSpin(pTargetTransform, fTimeDelta, fLimit);
+		MoveTarget_RSpin(_TargetTransform, fTimeDelta, fLimit);
 		break;
 
 	case STATE_MOVETARGET::MOVETARGET_BACK:

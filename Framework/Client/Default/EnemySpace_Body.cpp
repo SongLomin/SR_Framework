@@ -47,7 +47,7 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 	
 	if (TargetList->empty())
 	{
-		m_pStateCom->State_Change(m_pTransformCom, fTimeDelta);
+		m_pStateCom->State_Tick(m_pTransformCom, fTimeDelta);
 	}
 	else
 	{

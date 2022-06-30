@@ -20,7 +20,7 @@ public:
 	virtual void Link_Object(CGameObject* _pObject);
 
 protected:
-	CGameObject*	m_pObject = nullptr;
+	CGameObject*	m_pMyObject = nullptr;
 
 public:
 	virtual	CComponent* Clone(void* pArg) PURE;

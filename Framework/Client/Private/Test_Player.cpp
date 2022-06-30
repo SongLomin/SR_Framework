@@ -48,7 +48,7 @@ void CTest_Player::LateTick(_float fTimeDelta)
 	if (m_fTime < 0.f)
 	{
 		m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom);
-		Update_PosinTarget();
+		Update_PosinTarget(m_pTargetingCom->Get_TargetMode());
 		m_fTime = 1.f;
 	}
 
@@ -209,7 +209,7 @@ HRESULT CTest_Player::SetUp_Components()
 	return S_OK;
 }
 
-void CTest_Player::Update_PosinTarget()
+void CTest_Player::Update_PosinTarget(TARGETMODE _TargetMode)
 {
 	map<_float, CGameObject*>* TargetList = m_pTargetingCom->Get_Targetting();
 	
@@ -238,7 +238,7 @@ void CTest_Player::Update_PosinTarget()
 	}
 
 	//¸ÖÆ¼ Å¸°Ù ¸ðµå
-	if (m_bTargetMode)
+	if (_TargetMode == TARGETMODE::TARGET_MULTIRAY)
 	{
 		_uint Index = 0;
 
@@ -257,7 +257,7 @@ void CTest_Player::Update_PosinTarget()
 	}
 
 	//½Ì±Û Å¸°Ù ¸ðµå
-	else
+	if (_TargetMode == TARGETMODE::TARGET_SINGLE)
 	{
 		for (auto iter = m_pMyPosinList.begin(); iter != m_pMyPosinList.end();)
 		{
@@ -272,6 +272,11 @@ void CTest_Player::Update_PosinTarget()
 			iter++;
 		}
 
+	}
+
+	if (_TargetMode == TARGETMODE::TARGET_MULTIWIDE)
+	{
+		// ÀüÃ¼ Å¸°ÙÆÃ ÄÚµå
 	}
 }
 

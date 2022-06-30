@@ -44,6 +44,8 @@ public:
 	virtual HRESULT Render_Begin(ID3DXEffect** Shader = nullptr) override;
 	virtual HRESULT Render() override;
 
+
+
 private:
 	CTransform*				m_pTransformCom = nullptr;
 	CRenderer*				m_pRendererCom = nullptr;
@@ -64,7 +66,6 @@ private:
 	CHpBar*                 m_pHpBar;
 
 private:
-
 	_uint					m_iCurrentCam = 0;
 	_bool					m_bMouse = false;
 	_float					m_fTime = 1.f;
@@ -81,7 +82,7 @@ public: /* For Event Function */
 
 private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 	HRESULT SetUp_Components();
-	void Update_PosinTarget();
+	void Update_PosinTarget(TARGETMODE _TargetMode);
 
 public:
 	static CPlayer_Body* Create();

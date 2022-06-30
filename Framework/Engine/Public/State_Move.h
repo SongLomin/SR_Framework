@@ -39,8 +39,8 @@ public:
 	void MoveTarget_Back(_float fTimeDelta);
 
 public:
-	void State_Change(CTransform* pPlayerTransform, _float fTimeDelta);
-	void State_Tagetting(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit);
+	void State_Tick(CTransform* _Transform, _float fTimeDelta);
+	void State_Tagetting(CTransform* _TargetTransform, _float fTimeDelta, _float fLimit);
 
 public:
 
