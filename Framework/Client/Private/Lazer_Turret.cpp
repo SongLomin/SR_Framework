@@ -49,7 +49,7 @@ void CLazer_Turret::Tick(_float fTimeDelta)
 			LookAt_Aim();
 		}
 
-		if (KEY_INPUT(KEY::RBUTTON, KEY_STATE::TAP))
+		if (KEY_INPUT(KEY::RBUTTON, KEY_STATE::HOLD))
 		{
 			CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CLazer_Bullet>(CURRENT_LEVEL, TEXT("Lazer_Bullet"));
 
