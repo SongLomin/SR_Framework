@@ -43,7 +43,8 @@ void CPlanet_Venus::Tick(_float fTimeDelta)
 	
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
 		{
-			int i = 10;
+			if (FAILED(GAMEINSTANCE->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_GAMEPLAY))))
+				return;
 		}
 
 	
@@ -105,7 +106,7 @@ HRESULT CPlanet_Venus::SetUp_Components()
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Venus"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Planet"), MEMORY_TYPE::MEMORY_STATIC);
 
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();

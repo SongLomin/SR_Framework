@@ -147,7 +147,7 @@ HRESULT CLoader::Loading_ForLogoLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Logo"), TEXT("../Bin/Resources/Textures/Logo/Logo.png"),
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Logo"), TEXT("../Bin/Resources/Textures/Logo/Logo.jpg"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
@@ -206,7 +206,7 @@ HRESULT CLoader::Loading_ForGamePlayLevel()
 HRESULT CLoader::Loading_ForSelectPlanet()
 {
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Venus"), TEXT("../Bin/Resources/Textures/Object/Planet1.png"),
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Planet"), TEXT("../Bin/Resources/Textures/Object/Planet%d.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 

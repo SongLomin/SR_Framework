@@ -127,14 +127,17 @@
     <Filter Include="02.GameObject\06. Planet\Venus">
       <UniqueIdentifier>{220c64e2-24e7-4cf6-9075-a59c15bc4946}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\06. Planet\Magma">
-      <UniqueIdentifier>{03a017cb-5c8d-4940-a682-01ff84257f89}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\03. Bullet\Lazer">
       <UniqueIdentifier>{34446649-c742-4436-b72e-e67123087281}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.GameObject\01. Turret\Lazer">
       <UniqueIdentifier>{3c4a3ac0-59e4-4dd5-b9c7-3c686870072f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\06. Planet\Sun">
+      <UniqueIdentifier>{96eed99b-c0d0-4c0b-88cd-44f63b7a1caf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\06. Planet\Red">
+      <UniqueIdentifier>{7add39bb-f3de-4479-86ed-a0a96ee2a31f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -266,6 +269,12 @@
     <ClInclude Include="..\Public\Lazer_Turret.h">
       <Filter>02.GameObject\01. Turret\Lazer</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Planet_Sun.h">
+      <Filter>02.GameObject\06. Planet\Sun</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Planet_Red.h">
+      <Filter>02.GameObject\06. Planet\Red</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -386,6 +395,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Lazer_Turret.cpp">
       <Filter>02.GameObject\01. Turret\Lazer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Planet_Sun.cpp">
+      <Filter>02.GameObject\06. Planet\Sun</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Planet_Red.cpp">
+      <Filter>02.GameObject\06. Planet\Red</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
