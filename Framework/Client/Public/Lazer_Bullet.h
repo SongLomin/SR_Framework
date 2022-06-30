@@ -11,6 +11,7 @@ class CRigid_Body;
 class CCollider_OBB;
 class CCollider_Pre;
 class CSpotLight;
+class CMesh_Test;
 END
 
 BEGIN(Client)
@@ -34,16 +35,16 @@ public:
 private:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
-    CMesh_Cube* m_pMeshCom = nullptr;
+    //CMesh_Cube* m_pMeshCom = nullptr;
     CRigid_Body* m_pRigidBodyCom = nullptr;
     CCollider_OBB* m_pColliderCom = nullptr;
     CCollider_Pre* m_pPreColliderCom = nullptr;
     CSpotLight* m_pLight = nullptr;
-
     CTransform* m_pPosinTransformCom = nullptr;
+    CMesh_Test* m_pMeshCom = nullptr;
 
 private:
-    _float  m_fLifeTime = 1.f;
+    _float  m_fLifeTime = 5.f;
 
 public:
     void Link_PosinTransform(CTransform* _pTransform);

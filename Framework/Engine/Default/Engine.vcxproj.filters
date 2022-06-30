@@ -208,6 +208,9 @@
     <Filter Include="01.Utility\03.Components\00. Model\Mesh\Mesh_Lazer">
       <UniqueIdentifier>{341e8e79-4292-411a-975d-601c9754fe34}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\Mesh\Mesh_Sphere">
+      <UniqueIdentifier>{f45c2ccf-a15d-428b-9067-a62ee93387de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -413,6 +416,9 @@
     <ClInclude Include="..\Public\Mesh_Lazer.h">
       <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_Lazer</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Mesh_Sphere.h">
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_Sphere</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -602,6 +608,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Mesh_Lazer.cpp">
       <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_Lazer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Mesh_Sphere.cpp">
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_Sphere</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
