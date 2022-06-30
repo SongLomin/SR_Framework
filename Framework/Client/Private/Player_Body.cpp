@@ -147,7 +147,7 @@ HRESULT CPlayer_Body::SetUp_Components()
 
 
 
-	m_pMeshCubeCom = Add_Component<CMesh_Test>();
+	m_pMeshCubeCom = Add_Component<CMesh_SongShip>();
 	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);
 	m_pMeshCubeCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
@@ -216,6 +216,56 @@ HRESULT CPlayer_Body::SetUp_Components()
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
+
+#pragma region sibal
+	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back());
+
+#pragma endregion sibal
 
 	m_pAIControllerCom = Add_Component<CAI_Controller>();
 	m_pAIControllerCom->Set_WeakPtr(&m_pAIControllerCom);
@@ -304,6 +354,20 @@ void CPlayer_Body::Update_PosinTarget(TARGETMODE _TargetMode)
 	if (_TargetMode == TARGETMODE::TARGET_MULTIWIDE)
 	{
 		// 전체 타겟팅 코드
+		_uint Index = 0;
+		for (auto iter = m_pMyPosinList.begin(); iter != m_pMyPosinList.end();)
+		{
+			if (!(*iter))
+			{
+				iter = m_pMyPosinList.erase(iter);
+				continue;
+			}
+
+			(*iter)->Set_Target(TargetVec[Index % TargetVec.size()]);
+			Index++;
+			iter++;
+		}
+		
 	}
 }
 

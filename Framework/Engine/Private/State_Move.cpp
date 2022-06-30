@@ -18,6 +18,8 @@ HRESULT CState_Move::Initialize(void* pArg)
 	m_fCurTime = m_fMaxTime;
 
 	m_fTargetCurTime = m_fTargetMaxTime;
+
+
 }
 
 
@@ -112,6 +114,37 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 
 	m_fCurTime -= fTimeDelta;
 
+	CTransform* pTransform = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform();
+	int i = 0;
+	//m_TargetWorldMat = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_CameraWorldMat();
+	
+	_float3 MyPos = _Transform->Get_World_State(CTransform::STATE_POSITION);
+	_float3 MyDir = _Transform->Get_World_State(CTransform::STATE_LOOK);
+	
+	//_float3 TargetPos = _float3(m_TargetWorldMat._41, m_TargetWorldMat._42, m_TargetWorldMat._43);
+	//_float3 TargetDir = _float3(m_TargetWorldMat._31, m_TargetWorldMat._32, m_TargetWorldMat._33);
+	
+	_float3 TargetPos = pTransform->Get_World_State(CTransform::STATE_POSITION);
+
+
+	_float3 Boundary = TargetPos - MyPos;
+
+	i = 0;
+	
+	_float3 TargetDir = Boundary;
+	
+	D3DXVec3Normalize(&TargetDir, &TargetDir);
+	
+	_float BoundaryLength = D3DXVec3Length(&Boundary);
+
+	if (BoundaryLength > m_fDefaultBoundary)
+	{
+		_Transform->Set_State(CTransform::STATE_LOOK, TargetDir);
+		m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
+		_Transform->Set_State(CTransform::STATE_LOOK, MyDir);
+
+	}
+
 	if (m_fCurTime <= 0.f)
 	{
 		m_eCurState = (STATE_MOVE)(rand() % (_uint)STATE_MOVE::STATE_END);
@@ -125,7 +158,7 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 		return;
 	}
 
-	switch (m_eCurState)
+	/*switch (m_eCurState)
 	{
 	case  STATE_MOVE::MOVE_UPPER_LEFT:
 		Move_Upper_Left();
@@ -150,7 +183,7 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 	case  STATE_MOVE::MOVE_UPPER_RIGHT:
 		Move_Upper_Right();
 		break;
-	}
+	}*/
 
 }
 

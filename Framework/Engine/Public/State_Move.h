@@ -52,6 +52,9 @@ public:
 	STATE_MOVETARGET m_eTargetPreState = STATE_MOVETARGET::MOVETARGET_END;
 	STATE_MOVETARGET m_eTargetCurState = STATE_MOVETARGET::MOVETARGET_CHASE;
 
+private:
+	_float4x4 m_TargetWorldMat;
+	_float		m_fDefaultBoundary = 10.f;
 
 public:
 	static CState_Move* Create();

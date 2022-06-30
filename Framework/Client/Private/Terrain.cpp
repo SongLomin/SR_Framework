@@ -62,7 +62,7 @@ HRESULT CTerrain::Render()
 	DEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILLMODE::D3DFILL_WIREFRAME);
 	m_pRendererCom->Bind_Texture(0);
 
-	//__super::Render();
+	__super::Render();
 	
 	
 	//m_pMeshCom->Render_Mesh();
