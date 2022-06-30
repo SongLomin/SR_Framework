@@ -47,8 +47,8 @@ public:
 private:
 	CTransform*				m_pTransformCom = nullptr;
 	CRenderer*				m_pRendererCom = nullptr;
-	//CMesh_SongShip*				m_pMeshCubeCom = nullptr;
-	CMesh_Test*				m_pMeshCubeCom = nullptr;
+	CMesh_SongShip*				m_pMeshCubeCom = nullptr;
+	//CMesh_Test*				m_pMeshCubeCom = nullptr;
 	CStatus*				m_pStatusCom = nullptr;
 	CRigid_Body*			m_pRigidBodyCom = nullptr;
 	CCollider_OBB*			m_pColliderCom = nullptr;

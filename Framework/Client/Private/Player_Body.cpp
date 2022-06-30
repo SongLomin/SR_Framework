@@ -147,7 +147,7 @@ HRESULT CPlayer_Body::SetUp_Components()
 
 
 
-	m_pMeshCubeCom = Add_Component<CMesh_Test>();
+	m_pMeshCubeCom = Add_Component<CMesh_SongShip>();
 	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);
 	m_pMeshCubeCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
