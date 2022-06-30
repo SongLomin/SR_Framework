@@ -75,11 +75,6 @@ Technique gbuffer
         VertexShader = compile vs_3_0 VS_Main();
         PixelShader = compile ps_3_0 PS_Main();
 
-        StencilEnable = true;
-        StencilRef = 1;
-        StencilFunc = ALWAYS;
-        StencilZFail = REPLACE;
-        StencilPass = REPLACE;
-        StencilMask = 0xFFFFFFFF;
+       
     }
 }

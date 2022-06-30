@@ -46,6 +46,10 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 		m_pObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::SPIN, fDirX * 0.1f);
 		m_pObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::DOWN, fDirY * 0.1f);
 
+		if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP))//testing Camera Shaking
+		{
+			GAMEINSTANCE->Add_Shaking(2.f, 0.01f);
+		}
 
 
 		if (KEY_INPUT(KEY::Z, KEY_STATE::TAP))

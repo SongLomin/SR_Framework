@@ -50,14 +50,14 @@ public:
 public:
 	//이동용 실질적인 이동용
 
-	void		Set_Camera()
+	void		Set_Camera(_bool _bCamera)
 	{
-		m_bCamera = !m_bCamera;
+		m_bCamera = _bCamera;
 	}
 
-	void		Set_Mouse()
+	void		Set_Mouse(_bool _bMouse)
 	{
-		m_bMouse = !m_bMouse;
+		m_bMouse = _bMouse;
 	}
 
 	void		Add_Dir(Func Dir, _float fDir =0.f);

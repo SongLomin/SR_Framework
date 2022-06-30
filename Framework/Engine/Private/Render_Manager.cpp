@@ -72,16 +72,9 @@ HRESULT CRender_Manager::Draw_RenderGroup()
 	DEVICE->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
 
 	Deferred_Pipeline();
-	DEVICE->SetRenderState(D3DRS_STENCILENABLE, true);
-	DEVICE->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_EQUAL);
-	DEVICE->SetRenderState(D3DRS_STENCILREF, 0x0);
-	DEVICE->SetRenderState(D3DRS_STENCILMASK, 0xffffffff);
-	DEVICE->SetRenderState(D3DRS_STENCILWRITEMASK, 0xffffffff);
-	DEVICE->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILOP_KEEP);
-	DEVICE->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILOP_REPLACE);
-	DEVICE->SetRenderState(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);
-	Priority_Pipeline();
-	DEVICE->SetRenderState(D3DRS_STENCILENABLE, false);
+
+	//Priority_Pipeline();
+
 
 	DEVICE->BeginScene();
 	//GAMEINSTANCE->Render_Begin();
@@ -106,7 +99,6 @@ void CRender_Manager::Priority_Pipeline()
 	if (pCamera)
 		pCamera->Bind_PipeLine();
 
-	//DEVICE->SetDepthStencilSurface(pStencilSurface);
 	for (auto iter = m_RenderObjects[(_uint)RENDERGROUP::RENDER_PRIORITY].begin(); iter != m_RenderObjects[(_uint)RENDERGROUP::RENDER_PRIORITY].end();)
 	{
 		if ((*iter))
@@ -119,7 +111,7 @@ void CRender_Manager::Priority_Pipeline()
 		iter = m_RenderObjects[(_uint)RENDERGROUP::RENDER_PRIORITY].erase(iter);
 	}
 
-	//DEVICE->SetDepthStencilSurface(originStencilBuffer);
+
 	DEVICE->EndScene();
 }
 

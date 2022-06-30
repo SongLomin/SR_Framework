@@ -27,7 +27,7 @@ HRESULT CTest_Player::Initialize(void* pArg)
 		return E_FAIL;
 
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(5.f, 1.f, 0.f));
-
+	
 	return S_OK;
 }
 
@@ -83,7 +83,7 @@ void CTest_Player::On_Change_Controller(const CONTROLLER& _IsAI)
 	{
 		m_pAIControllerCom->Set_Enable(false);
 		m_pPlayerController->Set_Enable(true);
-		m_pRigidBodyCom->Set_Mouse();
+		m_pRigidBodyCom->Set_Mouse(true);
 		//이 게임오브젝트가 플레이어라면, 카메라에게 이 게임 오브젝트를 보도록 하겠다.
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
@@ -91,7 +91,7 @@ void CTest_Player::On_Change_Controller(const CONTROLLER& _IsAI)
 	}
 	else
 	{
-		m_pRigidBodyCom->Set_Mouse();
+		m_pRigidBodyCom->Set_Mouse(false);
 		m_pAIControllerCom->Set_Enable(true);
 		m_pPlayerController->Set_Enable(false);
 	}

@@ -66,11 +66,11 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 
 	//m_pStateCom->State_Tagetting(m_pPlayerTransformCom, fTimeDelta, 1);
     
-	if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP))
+	/*if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP))
 	{
 		CMovingCamera* pMovingCam = (CMovingCamera*)GAMEINSTANCE->Get_MovingCam();
 		pMovingCam->Boss_Cinematic(m_pTransformCom);
-	}
+	}*/
 
  
 	//m_pStateCom->State_Change(m_pPlayerTransformCom,fTimeDelta);

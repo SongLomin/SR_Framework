@@ -205,6 +205,9 @@
     <Filter Include="01.Utility\99.SuperClass\ZFrustum">
       <UniqueIdentifier>{c7aa5309-df38-44c7-ae1b-d6f91366dd67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\Mesh\Mesh_HongShip">
+      <UniqueIdentifier>{69dad2e2-1f40-4158-a336-fa42a00153cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">

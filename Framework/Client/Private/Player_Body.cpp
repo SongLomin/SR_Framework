@@ -313,7 +313,7 @@ void CPlayer_Body::On_Change_Controller(const CONTROLLER& _IsAI)
 		{
 			m_pAIControllerCom->Set_Enable(false);
 			m_pPlayerController->Set_Enable(true);
-			m_pRigidBodyCom->Set_Mouse();
+			m_pRigidBodyCom->Set_Mouse(true);
 
 			if(pAiObect)
 				pAiObect->front()->Set_Controller(CONTROLLER::AI);
@@ -326,7 +326,7 @@ void CPlayer_Body::On_Change_Controller(const CONTROLLER& _IsAI)
 		{
 			m_pAIControllerCom->Set_Enable(true);
 			m_pPlayerController->Set_Enable(false);
-			m_pRigidBodyCom->Set_Mouse();
+			m_pRigidBodyCom->Set_Mouse(false);
 			if(pAiObect)
 				pAiObect->front()->Set_Controller(CONTROLLER::PLAYER);
 		}

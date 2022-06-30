@@ -117,6 +117,7 @@ public: /* For.Camera_Manager */
 	void Set_MovingCam(CGameObject* _pMovingCam);
 	CGameObject* Get_MovingCam();
 	void Swap_Camera();
+	void Add_Shaking(_float _fOffset, _float _fInclination);
 
 
 public: /* For.IMGUI_Manager */
