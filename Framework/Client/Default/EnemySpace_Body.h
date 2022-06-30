@@ -14,6 +14,7 @@ class CStatus;
 class CCollider_OBB;
 class CCollider_Pre;
 class CTargeting;
+class CMesh_ShinShip;
 END
 
 
@@ -37,7 +38,8 @@ public:
 private: /* For My Component*/
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
-    CMesh_Cube* m_pMeshCom = nullptr;
+    CMesh_ShinShip* m_pMeshCom = nullptr;
+    //CMesh_Cube* m_pMeshCom = nullptr;
     CRigid_Body* m_pRigidBodyCom = nullptr;
     CState_Move* m_pStateCom = nullptr;
     CTargeting* m_pTargetingCom = nullptr;

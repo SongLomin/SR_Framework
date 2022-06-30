@@ -86,7 +86,7 @@ void CPlayer_Body::LateTick(_float fTimeDelta)
 
 HRESULT CPlayer_Body::Render_Begin(ID3DXEffect** Shader)
 {
-	//m_pTransformCom->Scaling(_float3(0.03f, 0.03f, 0.03f), true);
+	m_pTransformCom->Scaling(_float3(1.0f, 1.0f, 1.0f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");

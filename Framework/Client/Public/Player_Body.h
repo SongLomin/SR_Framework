@@ -19,6 +19,7 @@ class CPlayer_Controller;
 class CState_Move;
 class CMesh_Test;
 class CDirectionalLight;
+class CMesh_ShinShip;
 END
 
 BEGIN(Client)
@@ -50,6 +51,7 @@ private:
 	CRenderer*				m_pRendererCom = nullptr;
 	CMesh_SongShip*				m_pMeshCubeCom = nullptr;
 	//CMesh_Test*				m_pMeshCubeCom = nullptr;
+	//CMesh_ShinShip* m_pMeshCubeCom = nullptr;
 	CStatus*				m_pStatusCom = nullptr;
 	CRigid_Body*			m_pRigidBodyCom = nullptr;
 	CCollider_OBB*			m_pColliderCom = nullptr;

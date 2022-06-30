@@ -165,7 +165,7 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	//m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
 
 
-	m_pMeshCom = Add_Component<CMesh_Cube>();
+	m_pMeshCom = Add_Component<CMesh_ShinShip>();
 	m_pMeshCom->Set_WeakPtr((void**)&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Red_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 

@@ -214,6 +214,9 @@
     <Filter Include="01.Utility\03.Components\07. Collider\02. Collider_Sphere">
       <UniqueIdentifier>{2b46dcf6-deb7-4e64-9be8-98787ad807d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\Mesh\Mesh_ShinShip">
+      <UniqueIdentifier>{e0942cc6-aa92-4c2b-8a01-ac6ee78e254b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -425,6 +428,9 @@
     <ClInclude Include="..\Public\Collier_Sphere.h">
       <Filter>01.Utility\03.Components\07. Collider\02. Collider_Sphere</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Mesh_ShinShip.h">
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_ShinShip</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -620,6 +626,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Render_Manager.cpp">
       <Filter>01.Utility\04.Manager\08. Render_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Mesh_ShinShip.cpp">
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_ShinShip</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
