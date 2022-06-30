@@ -49,6 +49,8 @@ void CDefault_Aim::Tick(_float fTimeDelta)
 	
 	SetRect(&m_rcAim, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
+
+	
 }
 
 void CDefault_Aim::LateTick(_float fTimeDelta)
@@ -66,11 +68,15 @@ HRESULT CDefault_Aim::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
-	m_pRendererCom->Bind_Texture(0);
+	m_pRendererCom->Bind_Texture(2);
 
-	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	DEVICE->SetRenderState(D3DRS_ALPHAREF, 10);
-	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	//DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	//DEVICE->SetRenderState(D3DRS_ALPHAREF, 1);
+	//DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+
+	DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	DEVICE->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	DEVICE->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
 	_float4x4 CurView, CurProj;
 	DEVICE->GetTransform(D3DTS_VIEW, &CurView);
@@ -86,9 +92,11 @@ HRESULT CDefault_Aim::Render()
 
 	m_pRendererCom->UnBind_Texture();
 
-	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+	//DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 	DEVICE->SetTransform(D3DTS_VIEW, &CurView);
 	DEVICE->SetTransform(D3DTS_PROJECTION, &CurProj);
+
+	DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 
 	return S_OK;
 }

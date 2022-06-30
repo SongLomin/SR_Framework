@@ -202,7 +202,6 @@
     <ClInclude Include="EnemySpace_Body.h" />
     <ClInclude Include="Logo.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="Player_ProPeller.h" />
     <ClInclude Include="SelectPlanet_SkyBox.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -241,7 +240,6 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="EnemySpace_Body.cpp" />
     <ClCompile Include="Logo.cpp" />
-    <ClCompile Include="Player_ProPeller.cpp" />
     <ClCompile Include="SelectPlanet_SkyBox.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

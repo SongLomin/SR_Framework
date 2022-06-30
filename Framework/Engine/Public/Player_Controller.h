@@ -21,6 +21,7 @@ public:
 private:
 	_uint	m_iCurrentCam = 0;
 	_float  m_fTime = 1.f;
+	_uint   m_iCurrent_TargetMode = 0;
 
 public:
 	static CPlayer_Controller* Create();

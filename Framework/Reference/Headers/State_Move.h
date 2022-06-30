@@ -39,8 +39,8 @@ public:
 	void MoveTarget_Back(_float fTimeDelta);
 
 public:
-	void State_Change(CTransform* pPlayerTransform, _float fTimeDelta);
-	void State_Tagetting(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit);
+	void State_Tick(CTransform* _Transform, _float fTimeDelta);
+	void State_Tagetting(CTransform* _TargetTransform, _float fTimeDelta, _float fLimit);
 
 public:
 
@@ -52,6 +52,9 @@ public:
 	STATE_MOVETARGET m_eTargetPreState = STATE_MOVETARGET::MOVETARGET_END;
 	STATE_MOVETARGET m_eTargetCurState = STATE_MOVETARGET::MOVETARGET_CHASE;
 
+private:
+	_float4x4 m_TargetWorldMat;
+	_float		m_fDefaultBoundary = 10.f;
 
 public:
 	static CState_Move* Create();

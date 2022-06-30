@@ -18,6 +18,8 @@ HRESULT CState_Move::Initialize(void* pArg)
 	m_fCurTime = m_fMaxTime;
 
 	m_fTargetCurTime = m_fTargetMaxTime;
+
+
 }
 
 
@@ -107,12 +109,41 @@ void CState_Move::MoveTarget_Back(_float fTimeDelta)
 }
 //
 
-void CState_Move::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)
+void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 {
 
 	m_fCurTime -= fTimeDelta;
 
-	//GAMEINSTANCE->Add_Text(_point{ 100, 600 }, TEXT("m_fCurTime : %d"), 1, (int)m_fCurTime);
+	CTransform* pTransform = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform();
+	int i = 0;
+	//m_TargetWorldMat = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_CameraWorldMat();
+	
+	_float3 MyPos = _Transform->Get_World_State(CTransform::STATE_POSITION);
+	_float3 MyDir = _Transform->Get_World_State(CTransform::STATE_LOOK);
+	
+	//_float3 TargetPos = _float3(m_TargetWorldMat._41, m_TargetWorldMat._42, m_TargetWorldMat._43);
+	//_float3 TargetDir = _float3(m_TargetWorldMat._31, m_TargetWorldMat._32, m_TargetWorldMat._33);
+	
+	_float3 TargetPos = pTransform->Get_World_State(CTransform::STATE_POSITION);
+
+
+	_float3 Boundary = TargetPos - MyPos;
+
+	i = 0;
+	
+	_float3 TargetDir = Boundary;
+	
+	D3DXVec3Normalize(&TargetDir, &TargetDir);
+	
+	_float BoundaryLength = D3DXVec3Length(&Boundary);
+
+	if (BoundaryLength > m_fDefaultBoundary)
+	{
+		_Transform->Set_State(CTransform::STATE_LOOK, TargetDir);
+		m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
+		_Transform->Set_State(CTransform::STATE_LOOK, MyDir);
+
+	}
 
 	if (m_fCurTime <= 0.f)
 	{
@@ -127,7 +158,7 @@ void CState_Move::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)
 		return;
 	}
 
-	switch (m_eCurState)
+	/*switch (m_eCurState)
 	{
 	case  STATE_MOVE::MOVE_UPPER_LEFT:
 		Move_Upper_Left();
@@ -148,14 +179,15 @@ void CState_Move::State_Change(CTransform* pPlayerTransform, _float fTimeDelta)
 	case  STATE_MOVE::MOVE_JUMP_FRONT:
 		Move_Jump_Front();
 		break;
+
 	case  STATE_MOVE::MOVE_UPPER_RIGHT:
 		Move_Upper_Right();
 		break;
-	}
+	}*/
 
 }
 
-void CState_Move::State_Tagetting(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit)
+void CState_Move::State_Tagetting(CTransform* _TargetTransform, _float fTimeDelta, _float fLimit)
 {
 
 	m_fTargetCurTime -= fTimeDelta;
@@ -176,15 +208,15 @@ void CState_Move::State_Tagetting(CTransform* pTargetTransform, _float fTimeDelt
 	switch (m_eTargetCurState)
 	{
 	case  STATE_MOVETARGET::MOVETARGET_CHASE:
-		MoveTarget_Chase(pTargetTransform, fTimeDelta, fLimit);
+		MoveTarget_Chase(_TargetTransform, fTimeDelta, fLimit);
 		break;
 
 	case  STATE_MOVETARGET::MOVETARGET_LSPIN:
-		MoveTarget_LSpin(pTargetTransform, fTimeDelta, fLimit);
+		MoveTarget_LSpin(_TargetTransform, fTimeDelta, fLimit);
 		break;
 
 	case  STATE_MOVETARGET::MOVETARGET_RSPIN:
-		MoveTarget_RSpin(pTargetTransform, fTimeDelta, fLimit);
+		MoveTarget_RSpin(_TargetTransform, fTimeDelta, fLimit);
 		break;
 
 	case STATE_MOVETARGET::MOVETARGET_BACK:

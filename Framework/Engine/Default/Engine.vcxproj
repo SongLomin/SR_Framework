@@ -251,7 +251,7 @@
     <ClCompile Include="..\Private\ZFrustum.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Private\AI_Controller.h" />
+    <ClInclude Include="..\Public\AI_Controller.h" />
     <ClInclude Include="..\Public\Base.h" />
     <ClInclude Include="..\Public\Camera.h" />
     <ClInclude Include="..\Public\Camera_Manager.h" />

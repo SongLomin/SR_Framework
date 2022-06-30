@@ -64,7 +64,7 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 	m_fTime -= fTimeDelta;
 	if (m_fTime < 0.f)
 	{
-		Update_PosinTarget();
+		Update_PosinTarget(m_pTargetingCom->Get_TargetMode());
 		m_fTime = 1.f;
 	}
 }
@@ -147,7 +147,7 @@ HRESULT CPlayer_Body::SetUp_Components()
 
 
 
-	m_pMeshCubeCom = Add_Component<CMesh_Test>();
+	m_pMeshCubeCom = Add_Component<CMesh_SongShip>();
 	m_pMeshCubeCom->Set_WeakPtr(&m_pMeshCubeCom);
 	m_pMeshCubeCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
@@ -173,7 +173,7 @@ HRESULT CPlayer_Body::SetUp_Components()
 
 	m_pTargetingCom = Add_Component<CTargeting>();
 	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
-
+	m_pTargetingCom->Set_TargetMode(TARGETMODE::TARGET_SINGLE);
 	
 
 	m_pPreColliderCom = Add_Component<CCollider_Pre>();
@@ -215,6 +215,56 @@ HRESULT CPlayer_Body::SetUp_Components()
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 
+#pragma region sibal
+	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back()); Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.8f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back());
+
+#pragma endregion sibal
+
 	m_pAIControllerCom = Add_Component<CAI_Controller>();
 	m_pAIControllerCom->Set_WeakPtr(&m_pAIControllerCom);
 	m_pAIControllerCom->Link_Object(this);
@@ -234,7 +284,7 @@ HRESULT CPlayer_Body::SetUp_Components()
 	return S_OK;
 }
 
-void CPlayer_Body::Update_PosinTarget()
+void CPlayer_Body::Update_PosinTarget(TARGETMODE _TargetMode)
 {
 	map<_float, CGameObject*>* TargetList = m_pTargetingCom->Get_Targetting();
 	
@@ -263,7 +313,7 @@ void CPlayer_Body::Update_PosinTarget()
 	}
 
 	//¸ÖÆ¼ Å¸°Ù ¸ðµå
-	if (m_bTargetMode)
+	if (_TargetMode == TARGETMODE::TARGET_MULTIRAY)
 	{
 		_uint Index = 0;
 
@@ -282,7 +332,7 @@ void CPlayer_Body::Update_PosinTarget()
 	}
 
 	//½Ì±Û Å¸°Ù ¸ðµå
-	else
+	if (_TargetMode == TARGETMODE::TARGET_SINGLE)
 	{
 		for (auto iter = m_pMyPosinList.begin(); iter != m_pMyPosinList.end();)
 		{
@@ -299,6 +349,24 @@ void CPlayer_Body::Update_PosinTarget()
 
 	}
 
+	if (_TargetMode == TARGETMODE::TARGET_MULTIWIDE)
+	{
+		// ÀüÃ¼ Å¸°ÙÆÃ ÄÚµå
+		_uint Index = 0;
+		for (auto iter = m_pMyPosinList.begin(); iter != m_pMyPosinList.end();)
+		{
+			if (!(*iter))
+			{
+				iter = m_pMyPosinList.erase(iter);
+				continue;
+			}
+
+			(*iter)->Set_Target(TargetVec[Index % TargetVec.size()]);
+			Index++;
+			iter++;
+		}
+		
+	}
 }
 
 void CPlayer_Body::On_Change_Controller(const CONTROLLER& _IsAI)

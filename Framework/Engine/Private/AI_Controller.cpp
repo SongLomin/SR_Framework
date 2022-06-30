@@ -25,13 +25,11 @@ void CAI_Controller::Tick(_float fTimeDelta)
 {
 	if (Get_Enable())
 	{
-		map<_float, CGameObject*>* TargetList = m_pObject->Get_Component<CTargeting>()->Get_Targetting();
+		map<_float, CGameObject*>* TargetList = m_pMyTargeting->Get_Targetting();
 
 		if (TargetList->empty())
 		{
-			CState_Move* State = m_pObject->Get_Component<CState_Move>();
-			CTransform* Transform = m_pObject->Get_Component<CTransform>();
-			State->State_Change(Transform, fTimeDelta);
+			m_pMyState_Move->State_Tick(m_pMyTransform, fTimeDelta);
 		}
 		else
 		{
@@ -40,13 +38,33 @@ void CAI_Controller::Tick(_float fTimeDelta)
 			{
 				return;
 			}
-			m_pObject->Get_Component<CState_Move>()->State_Tagetting(Target->Get_Component<CTransform>(), fTimeDelta, 7.f);
+			m_pMyState_Move->State_Tagetting(Target->Get_Component<CTransform>(), fTimeDelta, 7.f);
 		}
 	}
 }
 
 void CAI_Controller::LateTick(_float fTimeDelta)
 {
+}
+
+void CAI_Controller::OnEnable()
+{
+	m_pMyState_Move = m_pMyObject->Get_Component<CState_Move>();
+	WEAK_PTR(m_pMyState_Move);
+	m_pMyTransform = m_pMyObject->Get_Component<CTransform>();
+	WEAK_PTR(m_pMyTransform);
+	m_pMyTargeting = m_pMyObject->Get_Component<CTargeting>();
+	WEAK_PTR(m_pMyTargeting);
+}
+
+void CAI_Controller::OnDisable()
+{
+	RETURN_WEAKPTR(m_pMyState_Move);
+	m_pMyState_Move = nullptr;
+	RETURN_WEAKPTR(m_pMyTransform);
+	m_pMyTransform = nullptr;
+	RETURN_WEAKPTR(m_pMyTargeting);
+	m_pMyTargeting = nullptr;
 }
 
 CAI_Controller* CAI_Controller::Create()

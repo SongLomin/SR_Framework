@@ -76,6 +76,7 @@ void CNormal_Turret::LateTick(_float fTimeDelta)
 				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"));
 				((CNormal_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
 
+				m_fMaxTime = (_float)(rand() % 11 + 5) * 0.1f;
 				m_fCurTime = m_fMaxTime;
 			}
 		}
