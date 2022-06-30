@@ -205,6 +205,12 @@
     <Filter Include="01.Utility\99.SuperClass\ZFrustum">
       <UniqueIdentifier>{c7aa5309-df38-44c7-ae1b-d6f91366dd67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\08. Light\NewFilter1">
+      <UniqueIdentifier>{6cfa8adf-b8c2-4883-b574-9d0eb0e55ccc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\07. Collider\02. Collider_Sphere">
+      <UniqueIdentifier>{2b46dcf6-deb7-4e64-9be8-98787ad807d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -407,6 +413,12 @@
     <ClInclude Include="..\Public\ZFrustum.h">
       <Filter>01.Utility\99.SuperClass\ZFrustum</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\PointLight.h">
+      <Filter>01.Utility\03.Components\08. Light\02. PointLight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Collier_Sphere.h">
+      <Filter>01.Utility\03.Components\07. Collider\02. Collider_Sphere</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -593,6 +605,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\ZFrustum.cpp">
       <Filter>01.Utility\99.SuperClass\ZFrustum</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\PointLight.cpp">
+      <Filter>01.Utility\03.Components\08. Light\02. PointLight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Collier_Sphere.cpp">
+      <Filter>01.Utility\03.Components\07. Collider\02. Collider_Sphere</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

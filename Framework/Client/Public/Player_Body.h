@@ -19,7 +19,6 @@ class CPlayer_Controller;
 class CState_Move;
 class CMesh_Test;
 class CDirectionalLight;
-class CSpotLight;
 END
 
 BEGIN(Client)
@@ -57,7 +56,6 @@ private:
 	CAI_Controller*			m_pAIControllerCom = nullptr;
 	CPlayer_Controller*		m_pPlayerController = nullptr;
 	CState_Move*			m_pStateCom = nullptr;
-	CSpotLight*				m_pLight = nullptr;
 
 private:
 	list<CNormal_Turret*>	m_pMyPosinList;

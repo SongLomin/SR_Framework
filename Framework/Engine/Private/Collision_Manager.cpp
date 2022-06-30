@@ -370,6 +370,11 @@ bool CCollision_Manager::IsSphereCollision(CCollider* _pLeft, CCollider* _pRight
 	}
 }
 
+bool CCollision_Manager::IsOBB_To_SphereCollision(CCollider* _pLeft, CCollider* _pRight)
+{
+	return false;
+}
+
 void CCollision_Manager::Free()
 {
 	__super::Free();

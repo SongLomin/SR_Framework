@@ -43,7 +43,7 @@ void CNormal_Bullet::Tick(_float fTimeDelta)
 	_float3 Light_Look_Dir = -m_pTransformCom->Get_State(CTransform::STATE_LOOK, true);
 	D3DXVec3Normalize(&Light_Look_Dir, &Light_Look_Dir);
 
-	m_pLight->Set_LooK_Dir(Light_Look_Dir);
+	//m_pLight->Set_LooK_Dir(Light_Look_Dir);
 
 }
 
@@ -191,7 +191,7 @@ inline HRESULT CNormal_Bullet::SetUp_Components()
 
 	m_pColliderCom->Set_Collider_Size(ColliderSize);
 
-	m_pLight = Add_Component<CSpotLight>();
+	m_pLight = Add_Component<CPointLight>();
 	WEAK_PTR(m_pLight);
 	m_pLight->Set_LightRange(12.f);
 

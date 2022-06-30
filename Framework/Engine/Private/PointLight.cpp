@@ -1,20 +1,20 @@
-#include "SpotLight.h"
+#include "PointLight.h"
 #include "GameInstance.h"
 #include "GameObject.h"
 
-CSpotLight::CSpotLight(const CSpotLight& Prototype)
+CPointLight::CPointLight(const CPointLight& Prototype)
 {
-	*this = Prototype;
+    *this = Prototype;
 }
 
-HRESULT CSpotLight::Initialize_Prototype()
+HRESULT CPointLight::Initialize_Prototype()
 {
-	m_ppLightEffect = GAMEINSTANCE->Get_Shader_From_Key(TEXT("SpotLight"));
+	m_ppLightEffect = GAMEINSTANCE->Get_Shader_From_Key(TEXT("PointLight"));
 
-	return S_OK;
+    return S_OK;
 }
 
-HRESULT CSpotLight::Initialize(void* pArg)
+HRESULT CPointLight::Initialize(void* pArg)
 {
 	D3DXCreateSphere(DEVICE, 1, 50, 50, &m_pMesh, 0);
 
@@ -22,7 +22,7 @@ HRESULT CSpotLight::Initialize(void* pArg)
 	D3DXVECTOR3 position = D3DXVECTOR3(0.f, 0.f, 5.f);
 	D3DXVECTOR3 direction = D3DXVECTOR3(-1.f, -1.f, -1.f);
 
-	m_D3DLight.Type = D3DLIGHTTYPE::D3DLIGHT_SPOT;
+	m_D3DLight.Type = D3DLIGHTTYPE::D3DLIGHT_POINT;
 
 	m_D3DLight.Ambient = color * 0.5f * m_fColorScale;
 	m_D3DLight.Diffuse = color;
@@ -41,40 +41,29 @@ HRESULT CSpotLight::Initialize(void* pArg)
 	m_D3DLight.Theta = 1.f;
 	m_D3DLight.Phi = 2.f;
 
-	return S_OK;
+    return S_OK;
 }
 
-void CSpotLight::Tick(_float fTimeDelta)
+void CPointLight::Tick(_float fTimeDelta)
 {
-
-	if (m_fLifeTime < 0.f)
-	{
-		Set_Enable(false);
-	}
-
-	m_fLifeTime -= fTimeDelta;
 }
 
-void CSpotLight::LateTick(_float fTimeDelta)
+void CPointLight::LateTick(_float fTimeDelta)
 {
-	
 	m_D3DLight.Position = m_pOwner->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION, true);
-	
+
 	m_D3DLight.Position.x += m_Margin_Position.x;
 	m_D3DLight.Position.y += m_Margin_Position.y;
 	m_D3DLight.Position.z += m_Margin_Position.z;
 
 	GAMEINSTANCE->Add_Light(this);
+
+
 }
 
-void CSpotLight::Bind_ConstBuffer()
+void CPointLight::Bind_ConstBuffer()
 {
 	ISVALID(m_ppLightEffect, );
-
-	if (!Get_Enable())
-	{
-		return;
-	}
 
 	D3DXHANDLE worldHandle = (*m_ppLightEffect)->GetParameterByName(0, "world");
 	D3DXHANDLE projHandle = (*m_ppLightEffect)->GetParameterByName(0, "proj");
@@ -150,40 +139,31 @@ void CSpotLight::Bind_ConstBuffer()
 	(*m_ppLightEffect)->SetTechnique(hTech);
 
 	DEVICE->Clear(0, 0, D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
+
 }
 
-void CSpotLight::DrawLight()
+void CPointLight::DrawLight()
 {
 	ISVALID(m_ppLightEffect, );
-
-	if (!Get_Enable())
-	{
-		return;
-	}
 
 	DEVICE->SetFVF(D3DFVF_XYZ | D3DFVF_NORMAL);
 	m_pMesh->DrawSubset(0);
 }
 
-CSpotLight* CSpotLight::Create()
+CPointLight* CPointLight::Create()
 {
-	CREATE_PIPELINE(CSpotLight);
+    CREATE_PIPELINE(CPointLight);
 }
 
-CComponent* CSpotLight::Clone(void* pArg)
+CComponent* CPointLight::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CSpotLight);
+    CLONE_PIPELINE(CPointLight);
 }
 
-void CSpotLight::Free()
+void CPointLight::Free()
 {
-	__super::Free();
+    __super::Free();
 
-	if (m_pMesh)
-	{
-		m_pMesh->Release();
-		m_pMesh = nullptr;
-	}
+    delete this;
 
-	delete this;
 }

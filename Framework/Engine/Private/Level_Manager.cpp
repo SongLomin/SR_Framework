@@ -30,6 +30,28 @@ HRESULT CLevel_Manager::Open_Level(_uint iLevelID, CLevel * pLevel)
 	return S_OK;
 }
 
+HRESULT CLevel_Manager::Register_OpenLevelEvent(_uint iLevelID, CLevel* pLevel)
+{
+	m_iEventLevelID = iLevelID;
+	m_pEventLevel = pLevel;
+	m_bEvent = true;
+
+	return S_OK;
+}
+
+HRESULT CLevel_Manager::Call_OpenLevelEvent()
+{
+	if (m_bEvent)
+	{
+		Open_Level(m_iEventLevelID, m_pEventLevel);
+		m_bEvent = false;
+		m_pEventLevel = nullptr;
+		m_iEventLevelID = 0;
+	}
+
+	return S_OK;
+}
+
 void CLevel_Manager::Set_CurrentLevelIndex(_uint iLevelID)
 {
 	m_iCurrentLevelIndex = iLevelID;

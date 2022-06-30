@@ -79,11 +79,9 @@ HRESULT CGameInstance::Tick_Engine(_float fTimeDelta)
 	
 	m_pInput_Manager->Tick(fTimeDelta);
 
-
-
-
-
 	m_pObject_Manager->Remove_Dead_Object();
+
+	m_pLevel_Manager->Call_OpenLevelEvent();
 
 	return S_OK;
 }

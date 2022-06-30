@@ -21,12 +21,16 @@ public:
     void            Set_LightRange(const _float& _Range);
     void            Set_D3DLight(const _D3DLIGHT9& _D3DLight);
     
+public:
+    void            Set_Preset_PowLight();
+
 
 protected:
     ID3DXEffect**   m_ppLightEffect = nullptr;
     D3DLIGHT9       m_D3DLight;
     _float3         m_Margin_Position = _float3(0.f, 0.f, 0.f);
-    _float           m_fColorScale = 1.f;
+    _float          m_fColorScale = 1.f;
+    _float          m_fLifeTime = 300.f;
 
 };
 

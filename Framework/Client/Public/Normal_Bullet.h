@@ -11,6 +11,7 @@ class CRigid_Body;
 class CCollider_OBB;
 class CCollider_Pre;
 class CSpotLight;
+class CPointLight;
 END
 
 BEGIN(Client)
@@ -38,7 +39,7 @@ private:
     CRigid_Body* m_pRigidBodyCom = nullptr;
     CCollider_OBB* m_pColliderCom = nullptr;
     CCollider_Pre* m_pPreColliderCom = nullptr;
-    CSpotLight* m_pLight = nullptr;
+    CPointLight* m_pLight = nullptr;
 
     CTransform* m_pPosinTransformCom = nullptr;
 

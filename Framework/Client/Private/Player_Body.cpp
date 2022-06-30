@@ -171,8 +171,6 @@ HRESULT CPlayer_Body::SetUp_Components()
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
-
-
 	m_pTargetingCom = Add_Component<CTargeting>();
 	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
 
@@ -225,11 +223,11 @@ HRESULT CPlayer_Body::SetUp_Components()
 	m_pPlayerController = Add_Component<CPlayer_Controller>();
 	m_pPlayerController->Set_WeakPtr(&m_pPlayerController);
 	m_pPlayerController->Link_Object(this);
-	m_pPlayerController->Set_Enable(false);
+	m_pPlayerController->Set_Enable(false);/*
 
 	m_pLight = Add_Component<CSpotLight>();
 	WEAK_PTR(m_pLight);
-	m_pLight->Set_Margin_Position(_float3(0.f, 5.f, 0.f));
+	m_pLight->Set_Margin_Position(_float3(0.f, 5.f, 0.f));*/
 
 	Set_Controller(CONTROLLER::PLAYER);
 
@@ -313,7 +311,7 @@ void CPlayer_Body::On_Change_Controller(const CONTROLLER& _IsAI)
 		{
 			m_pAIControllerCom->Set_Enable(false);
 			m_pPlayerController->Set_Enable(true);
-			m_pRigidBodyCom->Set_Mouse();
+			m_pRigidBodyCom->Set_Mouse(true);
 
 			if(pAiObect)
 				pAiObect->front()->Set_Controller(CONTROLLER::AI);
@@ -326,7 +324,7 @@ void CPlayer_Body::On_Change_Controller(const CONTROLLER& _IsAI)
 		{
 			m_pAIControllerCom->Set_Enable(true);
 			m_pPlayerController->Set_Enable(false);
-			m_pRigidBodyCom->Set_Mouse();
+			m_pRigidBodyCom->Set_Mouse(false);
 			if(pAiObect)
 				pAiObect->front()->Set_Controller(CONTROLLER::PLAYER);
 		}

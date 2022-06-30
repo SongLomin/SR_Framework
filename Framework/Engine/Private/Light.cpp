@@ -34,3 +34,9 @@ void CLight::Set_D3DLight(const _D3DLIGHT9& _D3DLight)
 {
 	m_D3DLight = _D3DLight;
 }
+
+void CLight::Set_Preset_PowLight()
+{
+
+
+}

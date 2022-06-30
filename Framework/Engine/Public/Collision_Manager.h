@@ -30,7 +30,7 @@ private:
     bool Is3DCollision(CCollider* _pLeft, CCollider* _pRight);
     bool IsOBBCollision(CCollider* _pLeft, CCollider* _pRight);
     bool IsSphereCollision(CCollider* _pLeft, CCollider* _pRight);
-
+    bool IsOBB_To_SphereCollision(CCollider* _pLeft, CCollider* _pRight);
 
 private:
     list<CCollider*>	m_ColliderList[(UINT)COLLISION_TYPE::TYPE_END]; // 충돌 컴포넌트들만 충돌 타입별로 모아놓은 리스트

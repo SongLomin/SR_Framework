@@ -27,6 +27,7 @@
 #include "Light.h"
 #include "DirectionalLight.h"
 #include "SpotLight.h"
+#include "PointLight.h"
 
 BEGIN(Engine)
 

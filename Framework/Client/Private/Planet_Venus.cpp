@@ -97,6 +97,10 @@ HRESULT CPlanet_Venus::SetUp_Components()
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
+	m_pPointLightCom = Add_Component<CPointLight>();
+	m_pPointLightCom->Set_WeakPtr(&m_pPointLightCom);
+	m_pPointLightCom->Set_LightRange(500.f);
+
 	return S_OK;
 }
 

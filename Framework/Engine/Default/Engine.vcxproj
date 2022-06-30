@@ -173,6 +173,7 @@
     <ClCompile Include="..\Private\Collider.cpp" />
     <ClCompile Include="..\Private\Collider_OBB.cpp" />
     <ClCompile Include="..\Private\Collider_Pre.cpp" />
+    <ClCompile Include="..\Private\Collier_Sphere.cpp" />
     <ClCompile Include="..\Private\Collision_Manager.cpp" />
     <ClCompile Include="..\private\Component.cpp" />
     <ClCompile Include="..\private\Component_Manager.cpp" />
@@ -229,6 +230,7 @@
     <ClCompile Include="..\Private\Mesh_Test.cpp" />
     <ClCompile Include="..\private\Object_Manager.cpp" />
     <ClCompile Include="..\Private\Player_Controller.cpp" />
+    <ClCompile Include="..\Private\PointLight.cpp" />
     <ClCompile Include="..\private\Renderer.cpp" />
     <ClCompile Include="..\Private\Render_Manager.cpp" />
     <ClCompile Include="..\Private\Resource_Manager.cpp" />
@@ -256,6 +258,7 @@
     <ClInclude Include="..\Public\Collider.h" />
     <ClInclude Include="..\Public\Collider_OBB.h" />
     <ClInclude Include="..\Public\Collider_Pre.h" />
+    <ClInclude Include="..\Public\Collier_Sphere.h" />
     <ClInclude Include="..\Public\Collision_Manager.h" />
     <ClInclude Include="..\public\Component.h" />
     <ClInclude Include="..\public\Component_Manager.h" />
@@ -321,6 +324,7 @@
     <ClInclude Include="..\Public\Mesh_Test.h" />
     <ClInclude Include="..\public\Object_Manager.h" />
     <ClInclude Include="..\Public\Player_Controller.h" />
+    <ClInclude Include="..\Public\PointLight.h" />
     <ClInclude Include="..\public\Renderer.h" />
     <ClInclude Include="..\Public\Render_Manager.h" />
     <ClInclude Include="..\Public\Resource_Manager.h" />
