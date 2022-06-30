@@ -56,7 +56,7 @@ void CLazer_Bullet::LateTick(_float fTimeDelta)
 
 HRESULT CLazer_Bullet::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.2f, 0.1f, 30.f), true);
+	m_pTransformCom->Scaling(_float3(0.2f, 0.2f, 100.f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -106,7 +106,7 @@ void CLazer_Bullet::Link_PosinTransform(CTransform* _pTransform)
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_POSITION, true));
 
 	//총알 시작 위치를 앞쪽으로 옮긴다.
-	m_pTransformCom->Go_BackAndForth(30.f, 1.f);
+	m_pTransformCom->Go_BackAndForth(100.f, 1.f);
 
 	m_pTransformCom->Update_WorldMatrix();
 	m_pRigidBodyCom->Set_DirVector();
@@ -141,12 +141,12 @@ inline HRESULT CLazer_Bullet::SetUp_Components()
 	//m_pTransformCom->Scaling(_float3(0.2f, 10.0f, 0.2f));
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 200.f;
-	RigidBodyDesc.m_fOwnerAccel = 50.f;
+	RigidBodyDesc.m_fOwnerSpeed = 800.f;
+	RigidBodyDesc.m_fOwnerAccel = 80.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
-	RigidBodyDesc.m_fOwnerJump = 0.f;
-	RigidBodyDesc.m_fOwnerJumpScale = 1.f;
+	//RigidBodyDesc.m_fOwnerJump = 0.f;
+	//RigidBodyDesc.m_fOwnerJumpScale = 1.f;
 
 	RigidBodyDesc.m_fFrictional = 0.05f;
 	RigidBodyDesc.m_fRadFrictional = 0.02f;
@@ -194,7 +194,7 @@ inline HRESULT CLazer_Bullet::SetUp_Components()
 
 	m_pLight = Add_Component<CSpotLight>();
 	WEAK_PTR(m_pLight);
-	m_pLight->Set_LightRange(12.f);
+	m_pLight->Set_LightRange(70.f);
 
 	return S_OK;
 }

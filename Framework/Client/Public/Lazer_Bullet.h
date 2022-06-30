@@ -44,7 +44,7 @@ private:
     CMesh_Test* m_pMeshCom = nullptr;
 
 private:
-    _float  m_fLifeTime = 5.f;
+    _float  m_fLifeTime = 3.f;
 
 public:
     void Link_PosinTransform(CTransform* _pTransform);
