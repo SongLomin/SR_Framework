@@ -109,6 +109,7 @@ private:
 public:
 	void Set_Parent(CTransform* _pParent);
 	void Add_Child(CTransform* _pChild);
+	void Remove_Child(CTransform* _pChild);
 
 private:
 	CTransform*		m_pParent = nullptr;

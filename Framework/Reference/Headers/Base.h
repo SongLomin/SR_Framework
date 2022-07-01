@@ -35,12 +35,12 @@ public:
 
 public:
 	//해당 객체의 활성화 상태를 바꿉니다. 활성화 상태가 변한다면 OnEnable / OnDisable 이벤트 함수를 호출합니다.
-	void Set_Enable(_bool _Enable);
+	void Set_Enable(_bool _Enable, void* _Arg = nullptr);
 	bool Get_Enable();
 
 protected:
 	//객체의 상태가 활성화 상태로 변경될 때, 호출되는 이벤트입니다.
-	virtual void OnEnable() {};
+	virtual void OnEnable(void* _Arg = nullptr) {};
 
 	//객체의 상태가 비활성화 상태로 변경될 때, 호출되는 이벤트입니다.
 	virtual void OnDisable() {};

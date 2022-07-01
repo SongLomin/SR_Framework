@@ -25,6 +25,9 @@ void CAI_Controller::Tick(_float fTimeDelta)
 {
 	if (Get_Enable())
 	{
+		if (!m_pMyTargeting)
+			return;
+
 		map<_float, CGameObject*>* TargetList = m_pMyTargeting->Get_Targetting();
 
 		if (TargetList->empty())

@@ -51,7 +51,7 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 
 		if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
 		{
-			CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"));
+			CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"),nullptr, nullptr);
 
 			((CNormal_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
 
@@ -82,7 +82,7 @@ void CNormal_Turret::LateTick(_float fTimeDelta)
 
 			if (m_pTarget && m_fCurTime <= 0)
 			{
-				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"));
+				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, nullptr);
 				((CNormal_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
 
 				m_fMaxTime = (_float)(rand() % 11 + 5) * 0.1f;

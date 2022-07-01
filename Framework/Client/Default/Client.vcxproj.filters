@@ -85,9 +85,6 @@
     <Filter Include="02.GameObject\01. Turret">
       <UniqueIdentifier>{2a1ebd7d-3fbe-4fc8-9d9d-a5ed2a5d3922}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\01. Turret\Normal">
-      <UniqueIdentifier>{3f4d50fd-c3ce-41f2-8a20-2463fbb4f8c6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\06. Rock">
       <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
     </Filter>
@@ -141,6 +138,9 @@
     </Filter>
     <Filter Include="02.GameObject\03. Bullet\Roket">
       <UniqueIdentifier>{4e1ddc4f-c212-49e2-b683-3ad8501e612c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\01. Turret\Normal">
+      <UniqueIdentifier>{3f4d50fd-c3ce-41f2-8a20-2463fbb4f8c6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -262,7 +262,6 @@
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Rock.h" />
-    <ClInclude Include="Player_ProPeller.h" />
     <ClInclude Include="SelectPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClInclude>
@@ -280,7 +279,7 @@
     </ClInclude>
     <ClInclude Include="..\Public\Roket_Bullet.h">
       <Filter>02.GameObject\03. Bullet\Roket</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="..\Public\Planet_Venus.h">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClInclude>
@@ -397,7 +396,6 @@
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Rock.cpp" />
-    <ClCompile Include="Player_ProPeller.cpp" />
     <ClCompile Include="SelectPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClCompile>
@@ -415,7 +413,7 @@
     </ClCompile>
     <ClCompile Include="..\Private\Roket_Bullet.cpp">
       <Filter>02.GameObject\03. Bullet\Roket</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="..\Private\Planet_Venus.cpp">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClCompile>

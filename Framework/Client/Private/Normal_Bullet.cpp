@@ -36,7 +36,7 @@ void CNormal_Bullet::Tick(_float fTimeDelta)
 
 	if (m_fLifeTime < 0.f)
 	{
-		Set_Dead();
+		Set_Enable(false);
 	}
 
 	//불빛이 미사일 뒤로 나감
@@ -143,8 +143,8 @@ inline HRESULT CNormal_Bullet::SetUp_Components()
 	//m_pTransformCom->Scaling(_float3(0.2f, 10.0f, 0.2f));
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 150.f;
-	RigidBodyDesc.m_fOwnerAccel = 150.f;
+	RigidBodyDesc.m_fOwnerSpeed = 250.f;
+	RigidBodyDesc.m_fOwnerAccel = 250.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
 	RigidBodyDesc.m_fOwnerJump = 0.f;
@@ -196,6 +196,8 @@ inline HRESULT CNormal_Bullet::SetUp_Components()
 	m_pLight = Add_Component<CPointLight>();
 	WEAK_PTR(m_pLight);
 	m_pLight->Set_Preset_PowLight();
+	
+	//m_pLight->Set_Enable(false);
 
 	return S_OK;
 }

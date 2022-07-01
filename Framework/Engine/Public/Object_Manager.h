@@ -66,7 +66,7 @@ public: /* Template Function */
 	}
 	
 	template <typename T>
-	T* Add_GameObject(_uint iLevelIndex, const _tchar* pLayerTag, CTransform* pParent = nullptr ,void* pArg = nullptr)
+	T* Add_GameObject(_uint iLevelIndex, const _tchar* pLayerTag, CTransform* pParent = nullptr ,void* pArg = nullptr, _bool _bMemoryPool = false)
 	{
 		static_assert(is_base_of<CGameObject, T>::value, "T Isn't base of CGameObject");
 
@@ -92,6 +92,20 @@ public: /* Template Function */
 		{
 			pPrototype = Add_Prototype<T>();
 		}
+
+		if (_bMemoryPool)
+		{
+			for (auto& elem : m_pLayers[iLevelIndex][pLayerTag])
+			{
+				if (!elem->Get_Enable())
+				{
+					elem->Set_Enable(true, pArg);
+					
+					return static_cast<T*>(elem);
+				}
+			}
+		}
+
 
 		CGameObject* pCloneObject = pPrototype->Clone(pArg);
 

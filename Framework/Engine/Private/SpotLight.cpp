@@ -57,7 +57,10 @@ void CSpotLight::Tick(_float fTimeDelta)
 
 void CSpotLight::LateTick(_float fTimeDelta)
 {
-	
+	if (!Get_Enable())
+		return;
+
+
 	m_D3DLight.Position = m_pOwner->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION, true);
 	
 	m_D3DLight.Position.x += m_Margin_Position.x;

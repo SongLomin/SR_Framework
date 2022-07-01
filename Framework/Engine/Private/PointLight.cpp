@@ -49,6 +49,17 @@ void CPointLight::Tick(_float fTimeDelta)
 
 void CPointLight::LateTick(_float fTimeDelta)
 {
+	if (!Get_Enable())
+		return;
+
+	if (m_fLifeTime < 0.f)
+	{
+		Set_Enable(false);
+	}
+
+	m_fLifeTime -= fTimeDelta;
+
+
 	m_D3DLight.Position = m_pOwner->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION, true);
 
 	m_D3DLight.Position.x += m_Margin_Position.x;
@@ -63,6 +74,10 @@ void CPointLight::LateTick(_float fTimeDelta)
 void CPointLight::Bind_ConstBuffer()
 {
 	ISVALID(m_ppLightEffect, );
+
+	if (!Get_Enable())
+		return;
+
 
 	m_D3DLight.Ambient = m_Color * 0.5f * m_fColorScale;
 	m_D3DLight.Diffuse = m_Color;
@@ -149,6 +164,9 @@ void CPointLight::Bind_ConstBuffer()
 void CPointLight::DrawLight()
 {
 	ISVALID(m_ppLightEffect, );
+
+	if (!Get_Enable())
+		return;
 
 	DEVICE->SetFVF(D3DFVF_XYZ | D3DFVF_NORMAL);
 	m_pMesh->DrawSubset(0);

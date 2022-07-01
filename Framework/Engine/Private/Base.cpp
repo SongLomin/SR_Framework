@@ -42,13 +42,13 @@ void CBase::Free()
 	m_WeakList.clear();
 }
 
-void CBase::Set_Enable(_bool _Enable)
+void CBase::Set_Enable(_bool _Enable, void* _Arg)
 {
 	if (_Enable == m_bEnable)
 		return;
 
 	m_bEnable = _Enable;
-	m_bEnable ? OnEnable() : OnDisable();
+	m_bEnable ? OnEnable(_Arg) : OnDisable();
 }
 
 bool CBase::Get_Enable()

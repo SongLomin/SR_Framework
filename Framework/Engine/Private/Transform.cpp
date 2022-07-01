@@ -312,6 +312,11 @@ void CTransform::Chase(CTransform* pTargetTransform, _float fTimeDelta, _float f
 
 void CTransform::Set_Parent(CTransform* _pParent)
 {
+	if (m_pParent)
+	{
+		RETURN_WEAKPTR(m_pParent);
+	}
+
 	m_pParent = _pParent;
 	m_pParent->Set_WeakPtr(&m_pParent);
 }
@@ -320,6 +325,19 @@ void CTransform::Add_Child(CTransform* _pChild)
 {
 	m_pChildren.push_back(_pChild);
 	m_pChildren.back()->Set_WeakPtr(&m_pChildren.back());
+}
+
+void CTransform::Remove_Child(CTransform* _pChild)
+{
+	for (auto& elem : m_pChildren)
+	{
+		if (elem == _pChild)
+		{
+			RETURN_WEAKPTR(elem);
+			m_pChildren.remove(elem);
+			return;
+		}
+	}
 }
 
 CTransform* CTransform::Create()
