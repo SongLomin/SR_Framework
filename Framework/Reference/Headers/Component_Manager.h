@@ -28,6 +28,8 @@
 #include "DirectionalLight.h"
 #include "SpotLight.h"
 #include "PointLight.h"
+#include "Mesh_KangShip.h"
+#include "Mesh_EnemySpace.h"
 
 BEGIN(Engine)
 

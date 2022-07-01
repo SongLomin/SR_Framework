@@ -5,7 +5,7 @@
 
 BEGIN(Engine)
 class CRenderer;
-class CMesh_Cube;
+class CMesh_EnemySpace;
 class CTransform;
 class CRigid_Body;
 class CState_Move;
@@ -14,6 +14,7 @@ class CStatus;
 class CCollider_OBB;
 class CCollider_Pre;
 class CTargeting;
+class CAI_Controller;
 END
 
 
@@ -37,14 +38,14 @@ public:
 private: /* For My Component*/
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
-    CMesh_Cube* m_pMeshCom = nullptr;
+    CMesh_EnemySpace* m_pMeshCom = nullptr;
     CRigid_Body* m_pRigidBodyCom = nullptr;
     CState_Move* m_pStateCom = nullptr;
     CTargeting* m_pTargetingCom = nullptr;
     CStatus* m_pStatusCom = nullptr;
     CCollider_OBB* m_pColliderCom = nullptr;
     CCollider_Pre* m_pColliderPreCom = nullptr;
-
+    CAI_Controller* m_pAIControllerCom = nullptr;
 private:
     list<CNormal_Turret*> m_pPosinList;
     _float m_fTime = 1.f;
@@ -53,6 +54,8 @@ private:
     HRESULT SetUp_Components();
     void Update_Target();
 
+public:
+    virtual void On_Change_Controller(const CONTROLLER& _IsAI);
 
 public: /* For Event Function */
     virtual void On_Collision_Enter(CCollider* _Other_Collider) override;

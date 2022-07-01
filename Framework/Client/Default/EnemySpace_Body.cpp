@@ -6,7 +6,7 @@
 #include "MovingCamera.h"
 #include <TargetingBox.h>
 #include "Math_Utillity.h"
-
+#include "Mesh_EnemySpace.h"
 
 CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
 {
@@ -42,46 +42,7 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 
 	ISVALID(m_pTransformCom);
 
- 
-	map<_float, CGameObject*>* TargetList = m_pTargetingCom->Get_Targetting();
 	
-	if (TargetList->empty())
-	{
-		m_pStateCom->State_Tick(m_pTransformCom, fTimeDelta);
-	}
-	else
-	{
-		CGameObject* TargetCheck = TargetList->begin()->second;
-		if (!TargetCheck)
-		{
-			return;
-		}
-		m_pStateCom->State_Tagetting(TargetList->begin()->second->Get_Component<CTransform>(), fTimeDelta, 7.f);
-	}
-
-
-	/*m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
-	m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
-	m_pTransformCom->Set_State(CTransform::STATE_LOOK, m_pPlayerTransformCom->Get_State(CTransform::STATE_LOOK, true), true);*/
-
-	//m_pStateCom->State_Tagetting(m_pPlayerTransformCom, fTimeDelta, 1);
-    
-	/*if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP))
-	{
-		CMovingCamera* pMovingCam = (CMovingCamera*)GAMEINSTANCE->Get_MovingCam();
-		pMovingCam->Boss_Cinematic(m_pTransformCom);
-	}*/
-
- 
-	//m_pStateCom->State_Change(m_pPlayerTransformCom,fTimeDelta);
-
-
-	/*m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
-	m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
-
-	m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
-	m_pTransformCom->Chase(m_pPlayerTransformCom, fTimeDelta, 10);*/
-
 	_float3 MyScreenPos;
 	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE::STATE_POSITION, true), &MyScreenPos);
 
@@ -119,6 +80,7 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 
 HRESULT CEnemySpace_Body::Render_Begin(ID3DXEffect** Shader)
 {
+	m_pTransformCom->Scaling(_float3(0.05f, 0.05f, 0.05f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -165,7 +127,7 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	//m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
 
 
-	m_pMeshCom = Add_Component<CMesh_Cube>();
+	m_pMeshCom = Add_Component<CMesh_EnemySpace>();
 	m_pMeshCom->Set_WeakPtr((void**)&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Red_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
@@ -214,7 +176,12 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pPosinList.back());
 
+	m_pAIControllerCom = Add_Component<CAI_Controller>();
+	m_pAIControllerCom->Set_WeakPtr(&m_pAIControllerCom);
+	m_pAIControllerCom->Link_Object(this);
+	m_pAIControllerCom->Set_Enable(false);
 
+	
 
 	m_pColliderPreCom = Add_Component<CCollider_Pre>();
 	WEAK_PTR(m_pColliderPreCom);
@@ -230,7 +197,7 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pColliderCom->Set_Collider_Size(_float3(3.f, 3.f, 3.f));
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 
-
+	Set_Controller(CONTROLLER::AI);
 
 	return S_OK;
 }
@@ -262,6 +229,18 @@ void CEnemySpace_Body::Update_Target()
 		elem->Set_Target(TargetVec.front());
 	}
 
+}
+
+void CEnemySpace_Body::On_Change_Controller(const CONTROLLER& _IsAI)
+{
+	if (_IsAI == CONTROLLER::AI)
+	{
+		m_pAIControllerCom->Set_Enable(true);
+	}
+	else
+	{
+		return;
+	}
 }
 
 

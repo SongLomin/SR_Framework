@@ -249,9 +249,6 @@
     <ClInclude Include="..\Public\SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Rock.h">
-      <Filter>02.GameObject\06. Rock</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClInclude>
@@ -262,7 +259,6 @@
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Rock.h" />
-    <ClInclude Include="Player_ProPeller.h" />
     <ClInclude Include="SelectPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClInclude>
@@ -280,12 +276,15 @@
     </ClInclude>
     <ClInclude Include="..\Public\Roket_Bullet.h">
       <Filter>02.GameObject\03. Bullet\Roket</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="..\Public\Planet_Venus.h">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Rock.h" />
     <ClInclude Include="SelectPlanet_SkyBox.h" />
+    <ClInclude Include="..\Public\Rock.h">
+      <Filter>02.GameObject\06. Rock</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -384,9 +383,6 @@
     <ClCompile Include="..\Private\SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Rock.cpp">
-      <Filter>02.GameObject\06. Rock</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClCompile>
@@ -397,7 +393,6 @@
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Rock.cpp" />
-    <ClCompile Include="Player_ProPeller.cpp" />
     <ClCompile Include="SelectPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClCompile>
@@ -415,12 +410,15 @@
     </ClCompile>
     <ClCompile Include="..\Private\Roket_Bullet.cpp">
       <Filter>02.GameObject\03. Bullet\Roket</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="..\Private\Planet_Venus.cpp">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Rock.cpp" />
     <ClCompile Include="SelectPlanet_SkyBox.cpp" />
+    <ClCompile Include="..\Private\Rock.cpp">
+      <Filter>02.GameObject\06. Rock</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

@@ -214,6 +214,12 @@
     <Filter Include="01.Utility\03.Components\07. Collider\02. Collider_Sphere">
       <UniqueIdentifier>{2b46dcf6-deb7-4e64-9be8-98787ad807d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\Mesh\Mesh_KangShip">
+      <UniqueIdentifier>{babd8b4e-60f2-4bad-9a88-585a005ca151}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\Mesh\Mesh_EnemySpace">
+      <UniqueIdentifier>{50ea1e29-cfcc-495f-9187-5c5a4d7ce57d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -425,6 +431,12 @@
     <ClInclude Include="..\Public\Collier_Sphere.h">
       <Filter>01.Utility\03.Components\07. Collider\02. Collider_Sphere</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Mesh_KangShip.h">
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_KangShip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Mesh_EnemySpace.h">
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_EnemySpace</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -620,6 +632,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Render_Manager.cpp">
       <Filter>01.Utility\04.Manager\08. Render_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Mesh_KangShip.cpp">
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_KangShip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Mesh_EnemySpace.cpp">
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_EnemySpace</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

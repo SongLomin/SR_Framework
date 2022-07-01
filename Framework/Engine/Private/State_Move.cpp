@@ -28,7 +28,7 @@ void CState_Move::Move_Upper_Right()
 	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
 	m_pRigidBody->Add_Dir(CRigid_Body::RIGHT);
 	m_pRigidBody->Add_Dir(CRigid_Body::LIFT);
-	
+
 }
 
 
@@ -67,7 +67,7 @@ void CState_Move::Move_Jump_Front()
 	m_pRigidBody->Add_Dir(CRigid_Body::DOWN);
 	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
 }
-	
+
 
 void CState_Move::Move_Chase_Player(CTransform* pPlayerTransform, _float fTimeDelta)
 {
@@ -91,7 +91,7 @@ void CState_Move::MoveTarget_LSpin(CTransform* pTargetTransform, _float fTimeDel
 	m_pTransform->Go_Target(pTargetTransform, fTimeDelta);
 	m_pTransform->Chase(pTargetTransform, fTimeDelta, 10);
 
-	
+
 }
 
 void CState_Move::MoveTarget_RSpin(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit)
@@ -114,36 +114,42 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 
 	m_fCurTime -= fTimeDelta;
 
-	CTransform* pTransform = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform();
-	int i = 0;
-	//m_TargetWorldMat = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_CameraWorldMat();
-	
-	_float3 MyPos = _Transform->Get_World_State(CTransform::STATE_POSITION);
-	_float3 MyDir = _Transform->Get_World_State(CTransform::STATE_LOOK);
-	
-	//_float3 TargetPos = _float3(m_TargetWorldMat._41, m_TargetWorldMat._42, m_TargetWorldMat._43);
-	//_float3 TargetDir = _float3(m_TargetWorldMat._31, m_TargetWorldMat._32, m_TargetWorldMat._33);
-	
-	_float3 TargetPos = pTransform->Get_World_State(CTransform::STATE_POSITION);
+#pragma region 수정필요
+	//CTransform* pTransform = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform();
+	////m_TargetWorldMat = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_CameraWorldMat();
+
+	//_float3 MyPos = _Transform->Get_World_State(CTransform::STATE_POSITION);
+	//_float3 MyDir = _Transform->Get_World_State(CTransform::STATE_LOOK);
+
+	////_float3 TargetPos = _float3(m_TargetWorldMat._41, m_TargetWorldMat._42, m_TargetWorldMat._43);
+	////_float3 TargetDir = _float3(m_TargetWorldMat._31, m_TargetWorldMat._32, m_TargetWorldMat._33);
+
+	//_float3 TargetPos = pTransform->Get_World_State(CTransform::STATE_POSITION);
 
 
-	_float3 Boundary = TargetPos - MyPos;
+	//_float3 Boundary = TargetPos - MyPos;
 
-	i = 0;
-	
-	_float3 TargetDir = Boundary;
-	
-	D3DXVec3Normalize(&TargetDir, &TargetDir);
-	
-	_float BoundaryLength = D3DXVec3Length(&Boundary);
 
-	if (BoundaryLength > m_fDefaultBoundary)
-	{
-		_Transform->Set_State(CTransform::STATE_LOOK, TargetDir);
-		m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
-		_Transform->Set_State(CTransform::STATE_LOOK, MyDir);
+	//_float3 TargetDir = Boundary;
 
-	}
+	//D3DXVec3Normalize(&TargetDir, &TargetDir);
+
+
+
+	//_float BoundaryLength = D3DXVec3Length(&Boundary);
+
+	//if (BoundaryLength > m_fDefaultBoundary)
+	//{
+	//	_float3 vUp = _Transform->Get_World_State(CTransform::STATE_UP);
+	//	_float3 vRight = *D3DXVec3Cross(&vRight, &vUp, &TargetDir);
+
+	//	_Transform->Set_State(CTransform::STATE_LOOK, TargetDir);
+	//	_Transform->Set_State(CTransform::STATE_UP, vUp);
+	//	_Transform->Set_State(CTransform::STATE_RIGHT, vRight);
+	//	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
+	//	//_Transform->Set_State(CTransform::STATE_LOOK, MyDir);
+	//}
+#pragma endregion 수정필요
 
 	if (m_fCurTime <= 0.f)
 	{
@@ -158,7 +164,8 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 		return;
 	}
 
-	/*switch (m_eCurState)
+
+	switch (m_eCurState)
 	{
 	case  STATE_MOVE::MOVE_UPPER_LEFT:
 		Move_Upper_Left();
@@ -183,7 +190,7 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 	case  STATE_MOVE::MOVE_UPPER_RIGHT:
 		Move_Upper_Right();
 		break;
-	}*/
+	}
 
 }
 
