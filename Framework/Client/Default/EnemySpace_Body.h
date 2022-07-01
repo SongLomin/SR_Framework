@@ -40,7 +40,7 @@ private: /* For My Component*/
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
     CMesh_EnemySpace* m_pMeshCom = nullptr;
-    CMesh_ShinShip* m_pMeshCom = nullptr;
+    //CMesh_ShinShip* m_pMeshCom = nullptr;
     //CMesh_Cube* m_pMeshCom = nullptr;
     CRigid_Body* m_pRigidBodyCom = nullptr;
     CState_Move* m_pStateCom = nullptr;

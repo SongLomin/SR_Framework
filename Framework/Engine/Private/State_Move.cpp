@@ -138,10 +138,10 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 
 	//_float BoundaryLength = D3DXVec3Length(&Boundary);
 
-	if (BoundaryLength > m_fDefaultBoundary)
-	{
+	//if (BoundaryLength > m_fDefaultBoundary)
+	//{
 		
-		m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
+		//m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
 		//_Transform->Set_State(CTransform::STATE_LOOK, MyDir);
 
 	//	_Transform->Set_State(CTransform::STATE_LOOK, TargetDir);

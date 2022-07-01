@@ -42,9 +42,9 @@ void CLight::Set_D3DLight(const _D3DLIGHT9& _D3DLight)
 
 void CLight::Set_Preset_PowLight()
 {
-	m_Color = D3DCOLOR_RGBA(230, 0, 230, 255);
+	m_Color = D3DCOLOR_RGBA(250, 200, 50, 255);
 	m_D3DLight.Range = 11.f;
-	m_fLifeTime = 0.2f;
+	m_fLifeTime = 0.4f;
 
 }
 
