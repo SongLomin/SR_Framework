@@ -49,20 +49,30 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 			LookAt_Aim();
 		}
 
-		if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
+		if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
 		{
-			CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"),nullptr, nullptr);
+			if (m_fCurTime < 0.f)
+			{
+				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, nullptr);
 
-			((CNormal_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
+				((CNormal_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
 
-			GAMEINSTANCE->Add_Shaking(0.1f, 0.005f);
+				GAMEINSTANCE->Add_Shaking(0.1f, 0.005f);
+
+				m_fCurTime = 0.1f;
+			}
 		}
 
-		if (KEY_INPUT(KEY::CTRL, KEY_STATE::TAP))
+		if (KEY_INPUT(KEY::CTRL, KEY_STATE::HOLD))
 		{
-			CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CRoket_Bullet>(CURRENT_LEVEL, TEXT("Roket_Bullet"));
+			if (m_fCurTime < 0.f)
+			{
+				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CRoket_Bullet>(CURRENT_LEVEL, TEXT("Roket_Bullet"));
 
-			((CRoket_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
+				((CRoket_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
+
+				m_fCurTime = 0.3f;
+			}
 		}
 	}
 
@@ -101,9 +111,9 @@ HRESULT CNormal_Turret::Render_Begin(ID3DXEffect** Shader)
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
 
 	float floatArray[3];
-	floatArray[0] = 0.9f;
-	floatArray[1] = 0.5f;
-	floatArray[2] = 0.9f;
+	floatArray[0] = 0.2f;
+	floatArray[1] = 0.2f;
+	floatArray[2] = 0.2f;
 
 	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 
@@ -218,6 +228,12 @@ HRESULT CNormal_Turret::SetUp_Components()
 
 
 	return S_OK;
+}
+
+void CNormal_Turret::On_Change_Controller(const CONTROLLER& _eController)
+{
+	m_fMaxTime = m_fCurTime = 0.34f;
+
 }
 
 CNormal_Turret* CNormal_Turret::Create()

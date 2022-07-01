@@ -27,7 +27,7 @@ CPlayer_Body::CPlayer_Body(const CPlayer_Body & Prototype)
 	m_pTransformCom = Add_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
-	GAMEINSTANCE->Set_Current_Camera(TEXT("FPS"));
+	GAMEINSTANCE->Set_Current_Camera(TEXT("TPS"));
 }
 
 HRESULT CPlayer_Body::Initialize_Prototype()
@@ -92,9 +92,9 @@ HRESULT CPlayer_Body::Render_Begin(ID3DXEffect** Shader)
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
 
 	float floatArray[3];
-	floatArray[0] = 0.4f;
-	floatArray[1] = 0.4f;
-	floatArray[2] = 0.4f;
+	floatArray[0] = 0.3f;
+	floatArray[1] = 0.3f;
+	floatArray[2] = 0.3f;
 
 	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 

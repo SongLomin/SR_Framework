@@ -51,6 +51,9 @@ private:
 private:
     HRESULT SetUp_Components();
 
+protected: /* For Event Function */
+    virtual void On_Change_Controller(const CONTROLLER& _eController) override;
+
 public:
     // CGameObject을(를) 통해 상속됨
     static CNormal_Turret* Create();

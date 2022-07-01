@@ -78,11 +78,11 @@ HRESULT CLoader::Loading_ForLogoLevel()
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Planet"), TEXT("../Bin/Resources/Textures/Object/Planet%d.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
-	if (FAILED(pGameInstance->Load_Textures(TEXT("Test"), TEXT("../Bin/Resources/Textures/Default%d.jpg"),
+	/*if (FAILED(pGameInstance->Load_Textures(TEXT("Test"), TEXT("../Bin/Resources/Textures/Default%d.jpg"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
-		return E_FAIL;
+		return E_FAIL;*/
 	/*메쉬 텍스처 추가*/
-	if (FAILED(pGameInstance->Load_Textures(TEXT("Mesh_Cube"), TEXT("../Bin/Resources/Textures/Terrain/Filter.bmp"),
+	/*if (FAILED(pGameInstance->Load_Textures(TEXT("Mesh_Cube"), TEXT("../Bin/Resources/Textures/Terrain/Filter.bmp"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
@@ -108,7 +108,7 @@ HRESULT CLoader::Loading_ForLogoLevel()
 
 	if (FAILED(pGameInstance->Load_Textures(TEXT("Mesh_Cube"), TEXT("../Bin/Resources/Textures/Terrain/Spaceship.jpg"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
+		return E_FAIL;*/
 
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Booster"), TEXT("../Bin/Resources/Textures/UI/Booster.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
@@ -122,9 +122,9 @@ HRESULT CLoader::Loading_ForLogoLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Sky_Test"), TEXT("../Bin/Resources/Textures/SkyBox/Sky_%d.dds"),
+	/*if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Sky_Test"), TEXT("../Bin/Resources/Textures/SkyBox/Sky_%d.dds"),
 		TEXTURE_TYPE::TYPE_CUBE, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
+		return E_FAIL;*/
 
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Status"), TEXT("../Bin/Resources/Textures/UI/Status.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))

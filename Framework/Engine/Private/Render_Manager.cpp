@@ -62,7 +62,7 @@ HRESULT CRender_Manager::Draw_RenderGroup()
 	Priority_Pipeline();
 	Deferred_Pipeline();
 
-	DEVICE->BeginScene();
+	GAMEINSTANCE->Render_Begin();
 	//GAMEINSTANCE->Render_Begin();
 	Foward_Pipeline();
 	GAMEINSTANCE->Render_Engine();
