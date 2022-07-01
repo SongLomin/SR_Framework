@@ -115,7 +115,7 @@ HRESULT CLevel_SelectPlanet::Render()
 		return E_FAIL;
 
 
-	SetWindowText(g_hWnd, TEXT("행성 선택 레벨입니다. "));
+	SetWindowText(g_hWnd, TEXT("Select Planet 레벨입니다. "));
 
 	return S_OK;
 }

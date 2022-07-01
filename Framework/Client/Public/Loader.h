@@ -33,7 +33,7 @@ public:
 public:
 	HRESULT Initialize(LEVEL eNextLevel);
 	HRESULT Loading_ForLogoLevel();
-	HRESULT Loading_ForGamePlayLevel();
+	HRESULT Loading_ForRedPlanet();
 	HRESULT Loading_ForSelectPlanet();
 
 private:

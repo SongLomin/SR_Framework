@@ -2,7 +2,7 @@
 #include "..\Public\Level_Loading.h"
 #include "Loader.h"
 #include "Level_Logo.h"
-#include "Level_GamePlay.h"
+#include "Level_RedPlanet.h"
 #include "Level_SelectPlanet.h"
 #include "GameInstance.h"
 
@@ -40,8 +40,8 @@ void CLevel_Loading::Tick(_float fTimeDelta)
 			case LEVEL_LOGO:
 				pLevel = CLevel_Logo::Create();
 				break;
-			case LEVEL_GAMEPLAY:
-				pLevel = CLevel_GamePlay::Create();
+			case LEVEL_REDPLANET:
+				pLevel = CLevel_RedPlanet::Create();
 				break;
 			case LEVEL_SELECTPLANET:
 				pLevel = CLevel_SelectPlanet::Create();

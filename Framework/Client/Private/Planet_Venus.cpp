@@ -43,8 +43,7 @@ void CPlanet_Venus::Tick(_float fTimeDelta)
 	
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
 		{
-			if (FAILED(GAMEINSTANCE->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_GAMEPLAY))))
-				return;
+			
 		}
 
 	

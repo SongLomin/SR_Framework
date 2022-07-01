@@ -43,15 +43,23 @@ void CPlanet_Sun::Tick(_float fTimeDelta)
 	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
 	{
 
-		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
+		/*if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
 		{
 			if (FAILED(GAMEINSTANCE->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_GAMEPLAY))))
 				return;
-		}
+		}*/
 
 
 	}
 
+	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
+	_float3 MyWorldPos;
+	MyWorldPos.x = 200.f + CamWorldPos.x;
+	MyWorldPos.y = 100.f + CamWorldPos.y;
+	MyWorldPos.z = 400.f + CamWorldPos.z;
+
+
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);
 
 }
 

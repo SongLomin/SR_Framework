@@ -29,9 +29,9 @@ unsigned int APIENTRY LoadingMain(void* pArg)
 		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
 		hr = pLoader->Loading_ForSelectPlanet();
 		break;
-	case LEVEL_GAMEPLAY:
+	case LEVEL_REDPLANET:
 		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
-		hr = pLoader->Loading_ForGamePlayLevel();
+		hr = pLoader->Loading_ForRedPlanet();
 		break;
 	}	
 
@@ -170,7 +170,7 @@ HRESULT CLoader::Loading_ForLogoLevel()
 	return S_OK;
 }
 
-HRESULT CLoader::Loading_ForGamePlayLevel()
+HRESULT CLoader::Loading_ForRedPlanet()
 {
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
 

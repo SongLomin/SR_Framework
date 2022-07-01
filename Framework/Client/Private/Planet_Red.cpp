@@ -45,12 +45,21 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
 		{
-			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_GAMEPLAY))))
+			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_REDPLANET))))
 				return;
 		}
 
 
 	}
+
+	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
+	_float3 MyWorldPos;
+	MyWorldPos.x = -200.f + CamWorldPos.x;
+	MyWorldPos.y = 100.f + CamWorldPos.y;
+	MyWorldPos.z = 400.f + CamWorldPos.z;
+
+
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);
 
 
 }

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\Public\Level_GamePlay.h"
+#include "Level_RedPlanet.h"
 #include "GameInstance.h"
 #include "LEvel_Loading.h"
 #include "Player_Body.h"
@@ -31,12 +31,12 @@
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
 
-CLevel_GamePlay::CLevel_GamePlay()
+CLevel_RedPlanet::CLevel_RedPlanet()
 {
 
 }
 
-HRESULT CLevel_GamePlay::Initialize()
+HRESULT CLevel_RedPlanet::Initialize()
 {
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
@@ -59,21 +59,21 @@ HRESULT CLevel_GamePlay::Initialize()
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_GAMEPLAY, TEXT("Player_Body")))
+	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_REDPLANET, TEXT("Player_Body")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CTest_Player>(LEVEL_GAMEPLAY, TEXT("Test_Player")))
+	if (!GAMEINSTANCE->Add_GameObject<CTest_Player>(LEVEL_REDPLANET, TEXT("Test_Player")))
 		return E_FAIL;
 
 	for (int i = 0; i < 50; ++i)
 	{
-		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_GAMEPLAY, TEXT("EnemySpace_Body")))
+		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_REDPLANET, TEXT("EnemySpace_Body")))
 			return E_FAIL;
 	}
 
 	for (int i = 0; i < 50; ++i)
 	{
-		if (!GAMEINSTANCE->Add_GameObject<CAI_Friendly>(LEVEL_GAMEPLAY, TEXT("AI_Friendly")))
+		if (!GAMEINSTANCE->Add_GameObject<CAI_Friendly>(LEVEL_REDPLANET, TEXT("AI_Friendly")))
 			return E_FAIL;
 	}
 
@@ -84,40 +84,40 @@ HRESULT CLevel_GamePlay::Initialize()
 			->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(i * 5.f, 0.f, 0.f));
 	}*/
 
-	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_GAMEPLAY, TEXT("Terrain")))
+	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_REDPLANET, TEXT("Terrain")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVEL_GAMEPLAY, TEXT("SkyBox")))
+	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVEL_REDPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_GAMEPLAY, TEXT("Aim")))
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_REDPLANET, TEXT("Aim")))
 		return E_FAIL;
 
 	for (int i = 0; i < 30; ++i)
 	{
-		if (!GAMEINSTANCE->Add_GameObject<CRock>(LEVEL_GAMEPLAY, TEXT("Rock")))
+		if (!GAMEINSTANCE->Add_GameObject<CRock>(LEVEL_REDPLANET, TEXT("Rock")))
 			return E_FAIL;
 	}
 
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_GAMEPLAY, TEXT("Status")))
+	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_REDPLANET, TEXT("Status")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_GAMEPLAY, TEXT("HP")))
+	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_REDPLANET, TEXT("HP")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_GAMEPLAY, TEXT("Booster")))
+	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_REDPLANET, TEXT("Booster")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_GAMEPLAY, TEXT("Shield")))
+	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_REDPLANET, TEXT("Shield")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_GAMEPLAY, TEXT("NormalBullet")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_REDPLANET, TEXT("NormalBullet")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_GAMEPLAY, TEXT("CBulletCountUI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_REDPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
 
@@ -138,7 +138,7 @@ HRESULT CLevel_GamePlay::Initialize()
 	return S_OK;
 }
 
-void CLevel_GamePlay::Tick(_float fTimeDelta)
+void CLevel_RedPlanet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);		
 
@@ -156,38 +156,38 @@ void CLevel_GamePlay::Tick(_float fTimeDelta)
 	
 }
 
-HRESULT CLevel_GamePlay::Render()
+HRESULT CLevel_RedPlanet::Render()
 {
 	if (FAILED(__super::Render()))
 		return E_FAIL;
 
 
-	SetWindowText(g_hWnd, TEXT("게임 플레이 레벨입니다. "));
+	SetWindowText(g_hWnd, TEXT("Red Planet 레벨입니다. "));
 
 	return S_OK;
 }
 
-CLevel_GamePlay * CLevel_GamePlay::Create()
+CLevel_RedPlanet * CLevel_RedPlanet::Create()
 {
-	CLevel_GamePlay*		pInstance = new CLevel_GamePlay();
+	CLevel_RedPlanet*		pInstance = new CLevel_RedPlanet();
 
 	if (FAILED(pInstance->Initialize()))
 	{
-		MSG_BOX("Failed to Created : CLevel_GamePlay");
+		MSG_BOX("Failed to Created : CLevel_RedPlanet");
 		Safe_Release(pInstance);
 	}
 
 	return pInstance;
 }
 
-void CLevel_GamePlay::Free()
+void CLevel_RedPlanet::Free()
 {
 	__super::Free();
 
 	delete this;
 }
 
-void CLevel_GamePlay::Ai_Create(_float TimeDelta)
+void CLevel_RedPlanet::Ai_Create(_float TimeDelta)
 {
 	
 }
