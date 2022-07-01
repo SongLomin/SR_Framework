@@ -189,6 +189,11 @@ HRESULT CGameInstance::Open_Level(_uint iLevelID, CLevel * pLevel)
 	return m_pLevel_Manager->Open_Level(iLevelID, pLevel);
 }
 
+HRESULT CGameInstance::Register_OpenLevelEvent(_uint iLevelID, CLevel* pLevel)
+{
+	return m_pLevel_Manager->Register_OpenLevelEvent(iLevelID, pLevel);
+}
+
 void CGameInstance::Set_CurrentLevelIndex(_uint iLevelID)
 {
 	m_pLevel_Manager->Set_CurrentLevelIndex(iLevelID);

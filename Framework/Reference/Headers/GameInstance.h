@@ -48,6 +48,7 @@ public: /* For.Graphic_Device */
 
 public: /* For.Level_Manager */
 	HRESULT Open_Level(_uint iLevelID, class CLevel* pLevel);
+	HRESULT	Register_OpenLevelEvent(_uint iLevelID, CLevel* pLevel);
 	void	Set_CurrentLevelIndex(_uint iLevelID);
 	_uint	Get_CurrentLevelIndex();
 
