@@ -46,6 +46,8 @@ public:
 		memcpy(&m_WorldMatrix.m[eState][0], &vState, sizeof(_float3));
 	}
 
+	void Set_Scaled(const _float3& vScale);
+
 public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);

@@ -39,8 +39,6 @@ void CTerrain::Tick(_float fTimeDelta)
 	_float3		vPickedPos;
 
 
-
-
 	Safe_Release(pGameInstance);
 }
 
@@ -50,7 +48,7 @@ void CTerrain::LateTick(_float fTimeDelta)
 		return;
 
 	
-	m_pRendererCom->Add_RenderGroup(CRenderer::RENDER_PRIORITY, this);
+	m_pRendererCom->Add_RenderGroup(CRenderer::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CTerrain::Render()
@@ -58,13 +56,9 @@ HRESULT CTerrain::Render()
 	if (FAILED(m_pTextureCom->Bind_Texture(0)))
 		return E_FAIL;
 
-	m_pTransformCom->Bind_WorldMatrix();
-
-	m_pGraphic_Device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+	m_pTransformCom->Bind_WorldMatrix();	
 
 	m_pVIBufferCom->Render();
-
-	m_pGraphic_Device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 
 	return S_OK;
 }

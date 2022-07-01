@@ -32,6 +32,11 @@ namespace Engine
 		D3DXVECTOR2		vTexUV;
 	}VTXTEX;
 
+	typedef struct tagVertex_Cube_Texture
+	{
+		D3DXVECTOR3		vPosition;
+		D3DXVECTOR3		vTexUV;
+	}VTXCUBETEX;
 
 	typedef struct tagGraphicDesc
 	{

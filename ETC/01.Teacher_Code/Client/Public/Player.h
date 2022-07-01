@@ -12,12 +12,12 @@ END
 
 BEGIN(Client)
 
-class CBackGround final : public CGameObject
+class CPlayer final : public CGameObject
 {
 private:
-	CBackGround(LPDIRECT3DDEVICE9 pGraphic_Device);
-	CBackGround(const CBackGround& Prototype);
-	virtual ~CBackGround() = default;
+	CPlayer(LPDIRECT3DDEVICE9 pGraphic_Device);
+	CPlayer(const CPlayer& Prototype);
+	virtual ~CPlayer() = default;
 
 public:
 	virtual HRESULT Initialize_Prototype() override;
@@ -32,16 +32,13 @@ private:
 	CTransform*				m_pTransformCom = nullptr;
 	CVIBuffer_Rect*			m_pVIBufferCom = nullptr;
 
-private:
-	_float					m_fX, m_fY, m_fSizeX, m_fSizeY;
-	_float4x4				m_ProjMatrix;
-
 private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 	HRESULT SetUp_Components();
+	void Move(_float fTimeDelta);
 
 
 public:
-	static CBackGround* Create(LPDIRECT3DDEVICE9 pGraphic_Device);
+	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphic_Device);
 	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
 };

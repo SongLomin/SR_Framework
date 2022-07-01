@@ -1,5 +1,6 @@
 #include "..\Public\GameObject.h"
 #include "GameInstance.h"
+#include "Transform.h"
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: m_pGraphic_Device(pGraphic_Device)
@@ -38,6 +39,25 @@ void CGameObject::LateTick(_float fTimeDelta)
 
 HRESULT CGameObject::Render()
 {
+	return S_OK;
+}
+
+HRESULT CGameObject::Compute_CamDistance(CTransform* pTransform)
+{
+	CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
+	Safe_AddRef(pGameInstance);
+
+	_float4x4		ViewMatrix;
+
+	m_pGraphic_Device->GetTransform(D3DTS_VIEW, &ViewMatrix);
+	D3DXMatrixInverse(&ViewMatrix, nullptr, &ViewMatrix);
+
+	_float3		vCamDir = *(_float3*)&ViewMatrix.m[3][0] - pTransform->Get_State(CTransform::STATE_POSITION);
+
+	m_fCamDistance = D3DXVec3Length(&vCamDir);
+
+	Safe_Release(pGameInstance);
+
 	return S_OK;
 }
 

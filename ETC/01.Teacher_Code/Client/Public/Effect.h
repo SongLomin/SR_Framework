@@ -12,12 +12,12 @@ END
 
 BEGIN(Client)
 
-class CBackGround final : public CGameObject
+class CEffect final : public CGameObject
 {
 private:
-	CBackGround(LPDIRECT3DDEVICE9 pGraphic_Device);
-	CBackGround(const CBackGround& Prototype);
-	virtual ~CBackGround() = default;
+	CEffect(LPDIRECT3DDEVICE9 pGraphic_Device);
+	CEffect(const CEffect& Prototype);
+	virtual ~CEffect() = default;
 
 public:
 	virtual HRESULT Initialize_Prototype() override;
@@ -33,15 +33,15 @@ private:
 	CVIBuffer_Rect*			m_pVIBufferCom = nullptr;
 
 private:
-	_float					m_fX, m_fY, m_fSizeX, m_fSizeY;
-	_float4x4				m_ProjMatrix;
+	_float					m_fFrame = 0.f;
 
 private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 	HRESULT SetUp_Components();
+	void Move(_float fTimeDelta);
 
 
 public:
-	static CBackGround* Create(LPDIRECT3DDEVICE9 pGraphic_Device);
+	static CEffect* Create(LPDIRECT3DDEVICE9 pGraphic_Device);
 	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
 };

@@ -1,43 +1,40 @@
 #include "stdafx.h"
-#include "..\Public\Monster.h"
+#include "..\Public\Player.h"
 #include "GameInstance.h"
 
-CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphic_Device)
+CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: CGameObject(pGraphic_Device)
 {
 
 }
 
-CMonster::CMonster(const CMonster & Prototype)
+CPlayer::CPlayer(const CPlayer & Prototype)
 	: CGameObject(Prototype)
 {
 }
 
-HRESULT CMonster::Initialize_Prototype()
+HRESULT CPlayer::Initialize_Prototype()
 {
 	/* 백엔드로부터 값ㅇ를 어덩오낟. */
 
 	return S_OK;
 }
 
-HRESULT CMonster::Initialize(void* pArg)
+HRESULT CPlayer::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(rand() % 20, 0.f, rand() % 20));
-
-	
 	return S_OK;
 }
 
-void CMonster::Tick(_float fTimeDelta)
+void CPlayer::Tick(_float fTimeDelta)
 {
-	
 
+	Move(fTimeDelta);
 }
 
-void CMonster::LateTick(_float fTimeDelta)
+void CPlayer::LateTick(_float fTimeDelta)
 {
 	if (nullptr == m_pRendererCom)
 		return;
@@ -45,7 +42,7 @@ void CMonster::LateTick(_float fTimeDelta)
 	CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
 	Safe_AddRef(pGameInstance);
 
-	CVIBuffer_Terrain*			pVIBuffer_Terrain = (CVIBuffer_Terrain*)pGameInstance->Get_Component(LEVEL_GAMEPLAY, TEXT("Layer_BackGround"), TEXT("Com_VIBuffer"));
+ 	CVIBuffer_Terrain*			pVIBuffer_Terrain = (CVIBuffer_Terrain*)pGameInstance->Get_Component(LEVEL_GAMEPLAY, TEXT("Layer_BackGround"), TEXT("Com_VIBuffer"));
 	if (nullptr == pVIBuffer_Terrain)
 		return;
 
@@ -58,38 +55,29 @@ void CMonster::LateTick(_float fTimeDelta)
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, vWorldPos);
 
 	Safe_Release(pGameInstance);
-
-	Move(fTimeDelta);
 	
 	m_pRendererCom->Add_RenderGroup(CRenderer::RENDER_NONALPHABLEND, this);
+
+
 }
 
-HRESULT CMonster::Render()
+HRESULT CPlayer::Render()
 {
 	if (FAILED(m_pTextureCom->Bind_Texture(0)))
 		return E_FAIL;
 
 	m_pTransformCom->Bind_WorldMatrix();	
 
-	/*m_pGraphic_Device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	m_pGraphic_Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	m_pGraphic_Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	m_pGraphic_Device->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);*/
+	m_pGraphic_Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-	m_pGraphic_Device->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	m_pGraphic_Device->SetRenderState(D3DRS_ALPHAREF, 250);
-	m_pGraphic_Device->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	m_pVIBufferCom->Render();
 
-	m_pVIBufferCom->Render();	
-
-	m_pGraphic_Device->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
-
-	// m_pGraphic_Device->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+	m_pGraphic_Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	return S_OK;
 }
 
-HRESULT CMonster::SetUp_Components()
+HRESULT CPlayer::SetUp_Components()
 {
 	/* For.Com_Renderer */ 
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Renderer"), TEXT("Com_Renderer"), (CComponent**)&m_pRendererCom)))
@@ -100,12 +88,12 @@ HRESULT CMonster::SetUp_Components()
 		return E_FAIL;	
 
 	/* For.Com_Texture */
-	if (FAILED(__super::Add_Component(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_Monster"), TEXT("Com_Texture"), (CComponent**)&m_pTextureCom)))
+	if (FAILED(__super::Add_Component(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_Player"), TEXT("Com_Texture"), (CComponent**)&m_pTextureCom)))
 		return E_FAIL;
 
 	/* For.Com_Transform */
 	CTransform::TRANSFORMDESC		TransformDesc;
-	TransformDesc.fSpeedPerSec = 2.0f;
+	TransformDesc.fSpeedPerSec = 7.0f;
 	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f);
 
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Transform"), TEXT("Com_Transform"), (CComponent**)&m_pTransformCom, &TransformDesc)))
@@ -115,26 +103,31 @@ HRESULT CMonster::SetUp_Components()
 	return S_OK;
 }
 
-void CMonster::Move(_float fTimeDelta)
+void CPlayer::Move(_float fTimeDelta)
 {
 	CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
-	Safe_AddRef(pGameInstance);
+	Safe_AddRef(pGameInstance);	
 
-	_float4x4		ViewMatrix;
+	if (GetKeyState(VK_UP) & 0x8000)
+		m_pTransformCom->Go_Straight(fTimeDelta);
 
-	m_pGraphic_Device->GetTransform(D3DTS_VIEW, &ViewMatrix);
-	D3DXMatrixInverse(&ViewMatrix, nullptr, &ViewMatrix);
+	if (GetKeyState(VK_DOWN) & 0x8000)
+		m_pTransformCom->Go_Backward(fTimeDelta);
 
-	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, *(_float3*)&ViewMatrix.m[0][0]);
-	/*m_pTransformCom->Set_State(CTransform::STATE_UP, *(_float3*)&ViewMatrix.m[1][0]);*/
-	m_pTransformCom->Set_State(CTransform::STATE_LOOK, *(_float3*)&ViewMatrix.m[2][0]);
-	
+	if (GetKeyState(VK_RIGHT) & 0x8000)
+		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta);
+
+	if (GetKeyState(VK_LEFT) & 0x8000)
+		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * -1.f);
+
+
+
 	Safe_Release(pGameInstance);
 }
 
-CMonster * CMonster::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
+CPlayer * CPlayer::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
 {
-	CMonster*		pInstance = new CMonster(pGraphic_Device);
+	CPlayer*		pInstance = new CPlayer(pGraphic_Device);
 
 	if (FAILED(pInstance->Initialize_Prototype()))
 	{
@@ -145,9 +138,9 @@ CMonster * CMonster::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
 	return pInstance;
 }
 
-CGameObject * CMonster::Clone(void* pArg)
+CGameObject * CPlayer::Clone(void* pArg)
 {
-	CMonster*		pInstance = new CMonster(*this);
+	CPlayer*		pInstance = new CPlayer(*this);
 
 	if (FAILED(pInstance->Initialize(pArg)))
 	{
@@ -158,7 +151,7 @@ CGameObject * CMonster::Clone(void* pArg)
 	return pInstance;
 }
 
-void CMonster::Free()
+void CPlayer::Free()
 {
 	__super::Free();
 
