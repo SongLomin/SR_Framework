@@ -225,6 +225,7 @@
     <ClCompile Include="..\Private\Math_Utillity.cpp" />
     <ClCompile Include="..\private\Mesh.cpp" />
     <ClCompile Include="..\private\Mesh_Cube.cpp" />
+    <ClCompile Include="..\Private\Mesh_HongShip.cpp" />
     <ClCompile Include="..\Private\Mesh_SongShip.cpp" />
     <ClCompile Include="..\Private\Mesh_Sphere.cpp" />
     <ClCompile Include="..\Private\Mesh_Terrain.cpp" />
@@ -320,6 +321,7 @@
     <ClInclude Include="..\Public\Math_Utillity.h" />
     <ClInclude Include="..\public\Mesh.h" />
     <ClInclude Include="..\public\Mesh_Cube.h" />
+    <ClInclude Include="..\Public\Mesh_HongShip.h" />
     <ClInclude Include="..\Public\Mesh_SongShip.h" />
     <ClInclude Include="..\Public\Mesh_Sphere.h" />
     <ClInclude Include="..\Public\Mesh_Terrain.h" />
