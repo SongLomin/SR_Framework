@@ -2,6 +2,7 @@
 #include "Test_Player.h"
 #include "GameInstance.h"
 #include "Normal_Turret.h"
+#include "Mesh_KangShip.h"
 
 CTest_Player::CTest_Player()
 {
@@ -58,6 +59,7 @@ void CTest_Player::LateTick(_float fTimeDelta)
 
 HRESULT CTest_Player::Render_Begin(ID3DXEffect** Shader)
 {
+	m_pTransformCom->Scaling(_float3(2.f, 2.f, 2.f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -79,6 +81,7 @@ HRESULT CTest_Player::Render()
 
 	m_pTransformCom->Bind_WorldMatrix();*/
 
+	
 	__super::Render();
 
 
@@ -132,7 +135,7 @@ HRESULT CTest_Player::SetUp_Components()
 	m_pTargetingCom = Add_Component<CTargeting>();
 	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
 
-	m_pMeshCom = Add_Component<CMesh_SongShip>();
+	m_pMeshCom = Add_Component<CMesh_KangShip>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 

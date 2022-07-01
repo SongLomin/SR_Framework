@@ -249,9 +249,6 @@
     <ClInclude Include="..\Public\SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Rock.h">
-      <Filter>02.GameObject\06. Rock</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClInclude>
@@ -285,6 +282,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\Rock.h" />
     <ClInclude Include="SelectPlanet_SkyBox.h" />
+    <ClInclude Include="..\Public\Rock.h">
+      <Filter>02.GameObject\06. Rock</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -383,9 +383,6 @@
     <ClCompile Include="..\Private\SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Rock.cpp">
-      <Filter>02.GameObject\06. Rock</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClCompile>
@@ -419,6 +416,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Rock.cpp" />
     <ClCompile Include="SelectPlanet_SkyBox.cpp" />
+    <ClCompile Include="..\Private\Rock.cpp">
+      <Filter>02.GameObject\06. Rock</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
