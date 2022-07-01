@@ -139,9 +139,9 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 
 	if (BoundaryLength > m_fDefaultBoundary)
 	{
-		_Transform->Set_State(CTransform::STATE_LOOK, TargetDir);
+		
 		m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
-		_Transform->Set_State(CTransform::STATE_LOOK, MyDir);
+		//_Transform->Set_State(CTransform::STATE_LOOK, MyDir);
 
 	}
 
@@ -158,7 +158,7 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 		return;
 	}
 
-	/*switch (m_eCurState)
+	switch (m_eCurState)
 	{
 	case  STATE_MOVE::MOVE_UPPER_LEFT:
 		Move_Upper_Left();
@@ -183,7 +183,7 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 	case  STATE_MOVE::MOVE_UPPER_RIGHT:
 		Move_Upper_Right();
 		break;
-	}*/
+	}
 
 }
 

@@ -10,6 +10,7 @@ class ENGINE_DLL CRigid_Body final : public CComponent
 {
 public:
 	enum Func { LEFT,RIGHT,FRONT,BACK,LIFT,DOWN,SPIN};
+	enum State{ STATE_RIGHT,STATE_UP, STATE_LOOK,STATE_POSITION	};
 
 	typedef struct tagRigidbodyDesc
 	{
@@ -86,7 +87,46 @@ private:
 	void		Turn(_float fTimeDelta);
 	void		SubTurn();
 		
+public:
+	void Set_Direction(State eState, _float3 _Vec3)
+	{
+		switch (eState)
+		{
+		case STATE_RIGHT:
+			m_vRight = _Vec3;
+			break;
+		case STATE_UP:
+			m_vUp = _Vec3;
+			break;
 
+		case STATE_LOOK:
+			m_vLook = _Vec3;
+			break;
+
+		case STATE_POSITION:
+			m_vPos = _Vec3;
+			break;
+
+		}
+	}
+	_float3 Get_Direction(State eState)
+	{
+		switch (eState)
+		{
+		case STATE_RIGHT:
+			return m_vRight;
+			
+		case STATE_UP:
+			return m_vUp ;
+			
+		case STATE_LOOK:
+			return m_vLook;
+			
+		case STATE_POSITION:
+			return m_vPos;
+			
+		}
+	}
 	
 private:
 	CTransform*		m_pTransform;
