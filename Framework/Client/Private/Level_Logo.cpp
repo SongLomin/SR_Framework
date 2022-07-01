@@ -37,13 +37,8 @@ void CLevel_Logo::Tick(_float fTimeDelta)
 
 	if (GetKeyState(VK_SPACE) & 0x8000)
 	{
-		//CGameInstance* pGameInstance = CGameInstance::Get_Instance();
-	
-		//GAMEINSTANCE->Get_Instance();
 		if (FAILED(GAMEINSTANCE->Get_Instance()->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
 			return;
-
-		//Safe_Release(pGameInstance);
 	}
 
 	

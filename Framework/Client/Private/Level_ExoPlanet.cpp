@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Level_RedPlanet.h"
+#include "Level_ExoPlanet.h"
 #include "GameInstance.h"
 #include "LEvel_Loading.h"
 #include "Player_Body.h"
@@ -31,12 +31,12 @@
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
 
-CLevel_RedPlanet::CLevel_RedPlanet()
+CLevel_ExoPlanet::CLevel_ExoPlanet()
 {
 
 }
 
-HRESULT CLevel_RedPlanet::Initialize()
+HRESULT CLevel_ExoPlanet::Initialize()
 {
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
@@ -78,11 +78,6 @@ HRESULT CLevel_RedPlanet::Initialize()
 	}
 
 
-	/*for (int i = 0; i < 5; i++)
-	{
-		GAMEINSTANCE->Add_GameObject<CMonster>(LEVEL_GAMEPLAY, TEXT("Monster"))
-			->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(i * 5.f, 0.f, 0.f));
-	}*/
 
 	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_REDPLANET, TEXT("Terrain")))
 		return E_FAIL;
@@ -138,7 +133,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 	return S_OK;
 }
 
-void CLevel_RedPlanet::Tick(_float fTimeDelta)
+void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);		
 
@@ -156,7 +151,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	
 }
 
-HRESULT CLevel_RedPlanet::Render()
+HRESULT CLevel_ExoPlanet::Render()
 {
 	if (FAILED(__super::Render()))
 		return E_FAIL;
@@ -167,28 +162,25 @@ HRESULT CLevel_RedPlanet::Render()
 	return S_OK;
 }
 
-CLevel_RedPlanet * CLevel_RedPlanet::Create()
+CLevel_ExoPlanet* CLevel_ExoPlanet::Create()
 {
-	CLevel_RedPlanet*		pInstance = new CLevel_RedPlanet();
+	CLevel_ExoPlanet* pInstance = new CLevel_ExoPlanet();
 
 	if (FAILED(pInstance->Initialize()))
 	{
-		MSG_BOX("Failed to Created : CLevel_RedPlanet");
+		MSG_BOX("Failed to Created : CLevel_ExoPlanet");
 		Safe_Release(pInstance);
 	}
 
 	return pInstance;
 }
 
-void CLevel_RedPlanet::Free()
+void CLevel_ExoPlanet::Free()
 {
 	__super::Free();
 
 	delete this;
 }
 
-void CLevel_RedPlanet::Ai_Create(_float TimeDelta)
-{
-	
-}
+
 

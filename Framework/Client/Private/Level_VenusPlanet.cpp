@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Level_RedPlanet.h"
+#include "Level_VenusPlanet.h"
 #include "GameInstance.h"
 #include "LEvel_Loading.h"
 #include "Player_Body.h"
@@ -31,12 +31,12 @@
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
 
-CLevel_RedPlanet::CLevel_RedPlanet()
+CLevel_VenusPlanet::CLevel_VenusPlanet()
 {
 
 }
 
-HRESULT CLevel_RedPlanet::Initialize()
+HRESULT CLevel_VenusPlanet::Initialize()
 {
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
@@ -138,7 +138,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 	return S_OK;
 }
 
-void CLevel_RedPlanet::Tick(_float fTimeDelta)
+void CLevel_VenusPlanet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);		
 
@@ -156,20 +156,20 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	
 }
 
-HRESULT CLevel_RedPlanet::Render()
+HRESULT CLevel_VenusPlanet::Render()
 {
 	if (FAILED(__super::Render()))
 		return E_FAIL;
 
 
-	SetWindowText(g_hWnd, TEXT("Red Planet 레벨입니다. "));
+	SetWindowText(g_hWnd, TEXT("Venus Planet 레벨입니다. "));
 
 	return S_OK;
 }
 
-CLevel_RedPlanet * CLevel_RedPlanet::Create()
+CLevel_VenusPlanet* CLevel_VenusPlanet::Create()
 {
-	CLevel_RedPlanet*		pInstance = new CLevel_RedPlanet();
+	CLevel_VenusPlanet*		pInstance = new CLevel_VenusPlanet();
 
 	if (FAILED(pInstance->Initialize()))
 	{
@@ -180,15 +180,12 @@ CLevel_RedPlanet * CLevel_RedPlanet::Create()
 	return pInstance;
 }
 
-void CLevel_RedPlanet::Free()
+void CLevel_VenusPlanet::Free()
 {
 	__super::Free();
 
 	delete this;
 }
 
-void CLevel_RedPlanet::Ai_Create(_float TimeDelta)
-{
-	
-}
+
 

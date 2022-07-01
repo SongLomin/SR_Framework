@@ -5,11 +5,11 @@
 
 BEGIN(Client)
 
-class CLevel_SelectPlanet final : public CLevel
+class CLevel_MagmaPlanet final : public CLevel
 {
 public:
-	CLevel_SelectPlanet();
-	virtual ~CLevel_SelectPlanet() = default;
+	CLevel_MagmaPlanet();
+	virtual ~CLevel_MagmaPlanet() = default;
 
 public:
 	virtual HRESULT Initialize();
@@ -19,7 +19,7 @@ public:
 
 
 public:
-	static CLevel_SelectPlanet* Create();
+	static CLevel_MagmaPlanet* Create();
 	virtual void Free() override;
 };
 

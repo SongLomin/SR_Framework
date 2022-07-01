@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "Level_RedPlanet.h"
+#include "Level_MagmaPlanet.h"
 #include "GameInstance.h"
 #include "LEvel_Loading.h"
 #include "Player_Body.h"
@@ -31,12 +31,12 @@
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
 
-CLevel_RedPlanet::CLevel_RedPlanet()
+CLevel_MagmaPlanet::CLevel_MagmaPlanet()
 {
 
 }
 
-HRESULT CLevel_RedPlanet::Initialize()
+HRESULT CLevel_MagmaPlanet::Initialize()
 {
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
@@ -138,7 +138,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 	return S_OK;
 }
 
-void CLevel_RedPlanet::Tick(_float fTimeDelta)
+void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);		
 
@@ -156,39 +156,36 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	
 }
 
-HRESULT CLevel_RedPlanet::Render()
+HRESULT CLevel_MagmaPlanet::Render()
 {
 	if (FAILED(__super::Render()))
 		return E_FAIL;
 
 
-	SetWindowText(g_hWnd, TEXT("Red Planet 레벨입니다. "));
+	SetWindowText(g_hWnd, TEXT("Magma Planet 레벨입니다. "));
 
 	return S_OK;
 }
 
-CLevel_RedPlanet * CLevel_RedPlanet::Create()
+CLevel_MagmaPlanet* CLevel_MagmaPlanet::Create()
 {
-	CLevel_RedPlanet*		pInstance = new CLevel_RedPlanet();
+	CLevel_MagmaPlanet*		pInstance = new CLevel_MagmaPlanet();
 
 	if (FAILED(pInstance->Initialize()))
 	{
-		MSG_BOX("Failed to Created : CLevel_RedPlanet");
+		MSG_BOX("Failed to Created : CLevel_MagmaPlanet");
 		Safe_Release(pInstance);
 	}
 
 	return pInstance;
 }
 
-void CLevel_RedPlanet::Free()
+void CLevel_MagmaPlanet::Free()
 {
 	__super::Free();
 
 	delete this;
 }
 
-void CLevel_RedPlanet::Ai_Create(_float TimeDelta)
-{
-	
-}
+
 

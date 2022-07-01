@@ -115,9 +115,6 @@
     <Filter Include="02.GameObject\09. Box\SkyBox">
       <UniqueIdentifier>{c62e7395-293e-4448-9a84-cb8755b2214a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Levels\02.SelectPlanet">
-      <UniqueIdentifier>{549eec5f-3b33-4fcf-a38a-86d10ebaadf5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\06. Planet">
       <UniqueIdentifier>{da87416d-1441-4a2b-9e14-1774ec64dff8}</UniqueIdentifier>
     </Filter>
@@ -145,8 +142,20 @@
     <Filter Include="02.GameObject\06. Planet\Exo">
       <UniqueIdentifier>{3121850d-d0b5-4401-9762-560237b8968f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Levels\01.RedPlanet">
+    <Filter Include="01.Levels\02.Level_Red">
       <UniqueIdentifier>{682cbcc4-8369-43ae-97de-26b779b658b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\01.Level_Select">
+      <UniqueIdentifier>{549eec5f-3b33-4fcf-a38a-86d10ebaadf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\03.Level_Exo">
+      <UniqueIdentifier>{9682c7a5-d67f-414b-9e07-0ad9e2e40ffc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\04.Level_Magma">
+      <UniqueIdentifier>{d1b914fc-4239-4b51-95b9-0136eb022a44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\05.Level_Venus">
+      <UniqueIdentifier>{2f8e8cb4-bac1-4e55-af3b-8ca3d815bac4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -172,7 +181,7 @@
       <Filter>01.Levels\00.Logo</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Level_RedPlanet.h">
-      <Filter>01.Levels\01.RedPlanet</Filter>
+      <Filter>01.Levels\02.Level_Red</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Level_Loading.h">
       <Filter>01.Levels\99.Loading</Filter>
@@ -259,7 +268,7 @@
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Level_SelectPlanet.h">
-      <Filter>01.Levels\02.SelectPlanet</Filter>
+      <Filter>01.Levels\01.Level_Select</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Planet_Venus.h">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
@@ -297,6 +306,15 @@
     <ClInclude Include="..\Public\Planet_Exo.h">
       <Filter>02.GameObject\06. Planet\Exo</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Level_ExoPlanet.h">
+      <Filter>01.Levels\03.Level_Exo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Level_VenusPlanet.h">
+      <Filter>01.Levels\05.Level_Venus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Level_MagmaPlanet.h">
+      <Filter>01.Levels\04.Level_Magma</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -308,11 +326,8 @@
     <ClCompile Include="..\Private\MainApp.cpp">
       <Filter>00.MainApp</Filter>
     </ClCompile>
-    <ClCompile Include="..\private\Level_Logo.cpp">
-      <Filter>01.Levels\00.Logo</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\Level_RedPlanet.cpp">
-      <Filter>01.Levels\01.RedPlanet</Filter>
+      <Filter>01.Levels\02.Level_Red</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Level_Loading.cpp">
       <Filter>01.Levels\99.Loading</Filter>
@@ -399,7 +414,7 @@
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Level_SelectPlanet.cpp">
-      <Filter>01.Levels\02.SelectPlanet</Filter>
+      <Filter>01.Levels\01.Level_Select</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Planet_Venus.cpp">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
@@ -436,6 +451,18 @@
     </ClCompile>
     <ClCompile Include="..\Private\Planet_Exo.cpp">
       <Filter>02.GameObject\06. Planet\Exo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_ExoPlanet.cpp">
+      <Filter>01.Levels\03.Level_Exo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_VenusPlanet.cpp">
+      <Filter>01.Levels\05.Level_Venus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_MagmaPlanet.cpp">
+      <Filter>01.Levels\04.Level_Magma</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Level_Logo.cpp">
+      <Filter>01.Levels\05.Level_Venus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
