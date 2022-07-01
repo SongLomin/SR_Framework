@@ -168,6 +168,9 @@ HRESULT CPlayer_Body::SetUp_Components()
 	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;
+
+	RigidBodyDesc.m_fBoosterSpeed = 500.f;
+	RigidBodyDesc.m_fBoosterAccel = 50.f;
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);

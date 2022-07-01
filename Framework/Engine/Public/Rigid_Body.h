@@ -9,13 +9,13 @@ class CTransform;
 class ENGINE_DLL CRigid_Body final : public CComponent
 {
 public:
-	enum Func { LEFT,RIGHT,FRONT,BACK,LIFT,DOWN,SPIN};
+	enum Func { LEFT,RIGHT,FRONT,BACK,LIFT,DOWN,SPIN,BOOSTER};
 	enum State{ STATE_RIGHT,STATE_UP, STATE_LOOK,STATE_POSITION	};
 
 	typedef struct tagRigidbodyDesc
 	{
-		_float		m_fOwnerSpeed;
-		_float		m_fOwnerAccel;
+		_float		m_fOwnerSpeed; // 앞뒤 움직임 속도
+		_float		m_fOwnerAccel; // 앞뒤 움직임 가속도
 		_float		m_fOwnerRadSpeed;
 		_float		m_fOwnerRadAccel;
 
@@ -32,6 +32,11 @@ public:
 
 		_float		m_fRadDrag;
 		_float		m_fDirDrag;
+
+
+		_float		m_fBoosterSpeed; // 앞뒤 움직임 속도
+		_float		m_fBoosterAccel; // 앞뒤 움직임 가속도
+
 	}RIGIDBODYDESC;
 
 private:
@@ -59,6 +64,11 @@ public:
 	void		Set_Mouse(_bool _bMouse)
 	{
 		m_bMouse = _bMouse;
+	}
+
+	void		Set_Booster(_bool _bBooster)
+	{
+		m_bBooster = _bBooster;
 	}
 
 	void		Add_Dir(Func Dir, _float fDir =0.f);
@@ -132,6 +142,7 @@ private:
 	CTransform*		m_pTransform;
 	_bool			m_bFirst = true;
 
+	_bool		m_bBooster = false;
 
 	_bool		m_bLift = true;
 	_bool		m_bMouse = false;
@@ -167,7 +178,7 @@ private:
 	_float		m_fLiftAccel = 0;
 	_float		m_fLiftSpeed = 0;
 
-	
+	_float		m_fTimeCount = 2.f;
 
 
 public:
