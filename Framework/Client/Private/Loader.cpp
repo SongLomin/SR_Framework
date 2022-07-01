@@ -166,6 +166,10 @@ HRESULT CLoader::Loading_ForLogoLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Light_Moon"), TEXT("../Bin/Resources/Textures/Object/Light_Moon.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
 
 	lstrcpy(m_szLoadingText, TEXT("쉐이더를 로딩중 입니다. "));
 

@@ -85,9 +85,6 @@
     <Filter Include="02.GameObject\01. Turret\Normal">
       <UniqueIdentifier>{3f4d50fd-c3ce-41f2-8a20-2463fbb4f8c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\06. Rock">
-      <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\03. Bullet">
       <UniqueIdentifier>{26b96253-5e95-455b-89fc-fc1a7be41a8f}</UniqueIdentifier>
     </Filter>
@@ -156,6 +153,12 @@
     </Filter>
     <Filter Include="01.Levels\05.Level_Venus">
       <UniqueIdentifier>{2f8e8cb4-bac1-4e55-af3b-8ca3d815bac4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. Rock">
+      <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\11. Light">
+      <UniqueIdentifier>{3ad58ff7-fc3c-4713-a020-6a6d7bc5d31c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -315,6 +318,9 @@
     <ClInclude Include="..\Public\Level_MagmaPlanet.h">
       <Filter>01.Levels\04.Level_Magma</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Light_Moon.h">
+      <Filter>02.GameObject\11. Light</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -463,6 +469,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Level_Logo.cpp">
       <Filter>01.Levels\00.Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Light_Moon.cpp">
+      <Filter>02.GameObject\11. Light</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
 #include "Level_SelectPlanet.h"
 #include "GameInstance.h"
 #include "Level_Loading.h"
+#include <time.h>
 #include "Cam_FPS.h"
 #include "Cam_Shoulder.h"
 #include "Cam_TPS.h"
@@ -20,6 +21,7 @@
 #include "Planet_Red.h"
 #include "Planet_Magma.h"
 #include "Planet_Exo.h"
+#include "Light_Moon.h"
 
 CLevel_SelectPlanet::CLevel_SelectPlanet()
 {
@@ -54,9 +56,6 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
-		return E_FAIL;
-
 	/*if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_SELECTPLANET, TEXT("Aim")))
 		return E_FAIL;*/
 
@@ -78,42 +77,46 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_SELECTPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
+	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("CLight_Moon")))
 		return E_FAIL;
+
+	srand(unsigned(time(NULL)));
+
+	for (_uint i = 0; i < 2; ++i)
+	{
+		m_eCurLevel = (LEVEL)(rand() % (_uint)LEVEL::LEVEL_SELECTPLANET);
+
+		switch (m_eCurLevel)
+		{
+		case  LEVEL::LEVEL_REDPLANET:
+			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
+				return E_FAIL;
+			break;
+
+		case  LEVEL::LEVLE_EXOPLANET:
+			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Exo>(LEVEL_SELECTPLANET, TEXT("Exo")))
+				return E_FAIL;
+			break;
+
+		case  LEVEL::LEVEL_VENUSPLANET:
+			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
+				return E_FAIL;
+			break;
+
+		case  LEVEL::LEVEL_MAGMAPLANET:
+			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Magma>(LEVEL_SELECTPLANET, TEXT("Magma")))
+				return E_FAIL;
+			break;
+		}
+	}
 	
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
-		return E_FAIL;
-
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Magma>(LEVEL_SELECTPLANET, TEXT("Magma")))
-		return E_FAIL;
-
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Exo>(LEVEL_SELECTPLANET, TEXT("Exo")))
-		return E_FAIL;
-
 	return S_OK;
 }
 
 void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
-	
-
-	// Planet_Venus
-
-
-
-	// Planet_ ~
-
-
-
-	// Planet_ ~
-
-
-	// 
-
-
-	//
-	
+		
 
 }
 
@@ -127,6 +130,8 @@ HRESULT CLevel_SelectPlanet::Render()
 
 	return S_OK;
 }
+
+
 
 CLevel_SelectPlanet* CLevel_SelectPlanet::Create()
 {

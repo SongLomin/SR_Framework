@@ -1,70 +1,51 @@
 #include "stdafx.h"
-#include "Planet_Venus.h"
+#include "Light_Moon.h"
 #include "GameInstance.h"
 #include "Math_Utillity.h"
-#include "Level_Loading.h"
-CPlanet_Venus::CPlanet_Venus()
+
+CLight_Moon::CLight_Moon()
 {
 }
 
-CPlanet_Venus::CPlanet_Venus(const CPlanet_Venus& Prototype)
+CLight_Moon::CLight_Moon(const CLight_Moon& Prototype)
 {
 	*this = Prototype;
 }
 
-HRESULT CPlanet_Venus::Initialize_Prototype()
+HRESULT CLight_Moon::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CPlanet_Venus::Initialize(void* pArg)
+HRESULT CLight_Moon::Initialize(void* pArg)
 {
 
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1.f, 100.f, 300.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1.f, 1.f, 300.f));
 
 
 	return S_OK;
 }
 
-void CPlanet_Venus::Tick(_float fTimeDelta)
+void CLight_Moon::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	_float3 MouseEndPos;
-	RAY	MouseWorldPos;
-	MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
-	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 10000.f);
-
-	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
-	{
-	
-		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
-		{
-			if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
-			{
-				if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_VENUSPLANET))))
-					return;
-			}
-		}
-
-	
-	}
 
 	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
 	_float3 MyWorldPos;
 	MyWorldPos.x = 1.f + CamWorldPos.x;
-	MyWorldPos.y = 100.f + CamWorldPos.y;
+	MyWorldPos.y = 1.f + CamWorldPos.y;
 	MyWorldPos.z = 300.f + CamWorldPos.z;
 
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);
-	
+
 }
 
-void CPlanet_Venus::LateTick(_float fTimeDelta)
+void CLight_Moon::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
@@ -75,7 +56,7 @@ void CPlanet_Venus::LateTick(_float fTimeDelta)
 
 }
 
-HRESULT CPlanet_Venus::Render()
+HRESULT CLight_Moon::Render()
 {
 	m_pTransformCom->Scaling(_float3(80.f, 80.f, 50.f), true);
 
@@ -89,7 +70,7 @@ HRESULT CPlanet_Venus::Render()
 
 	/*GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);*/
 
-	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 20, (LONG)ScreenPos.y }, TEXT("Venus \n 저 위험 구역"), 0);
+	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 20, (LONG)ScreenPos.y }, TEXT("Light Test"), 0);
 
 	m_pRendererCom->Bind_Texture(0);
 
@@ -109,7 +90,7 @@ HRESULT CPlanet_Venus::Render()
 }
 
 
-HRESULT CPlanet_Venus::SetUp_Components()
+HRESULT CLight_Moon::SetUp_Components()
 {
 
 	Add_Component<CTransform>();
@@ -119,7 +100,7 @@ HRESULT CPlanet_Venus::SetUp_Components()
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Planet"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Light_Moon"), MEMORY_TYPE::MEMORY_STATIC);
 
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
@@ -132,7 +113,7 @@ HRESULT CPlanet_Venus::SetUp_Components()
 	return S_OK;
 }
 
-void CPlanet_Venus::LookAtCamera()
+void CLight_Moon::LookAtCamera()
 {
 	_float4x4		ViewMatrix;
 
@@ -145,17 +126,17 @@ void CPlanet_Venus::LookAtCamera()
 
 }
 
-CPlanet_Venus* CPlanet_Venus::Create()
+CLight_Moon* CLight_Moon::Create()
 {
-	CREATE_PIPELINE(CPlanet_Venus);
+	CREATE_PIPELINE(CLight_Moon);
 }
 
-CGameObject* CPlanet_Venus::Clone(void* pArg)
+CGameObject* CLight_Moon::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CPlanet_Venus);
+	CLONE_PIPELINE(CLight_Moon);
 }
 
-void CPlanet_Venus::Free()
+void CLight_Moon::Free()
 {
 	__super::Free();
 

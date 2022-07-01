@@ -25,7 +25,7 @@ HRESULT CPlanet_Exo::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(-250.f, 200.f, 300.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(-250.f, 200.f, 250.f));
 
 
 	return S_OK;
@@ -55,7 +55,7 @@ void CPlanet_Exo::Tick(_float fTimeDelta)
 	_float3 MyWorldPos;
 	MyWorldPos.x = -250.f + CamWorldPos.x;
 	MyWorldPos.y = 150.f + CamWorldPos.y;
-	MyWorldPos.z = 300.f + CamWorldPos.z;
+	MyWorldPos.z = 250.f + CamWorldPos.z;
 
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);
