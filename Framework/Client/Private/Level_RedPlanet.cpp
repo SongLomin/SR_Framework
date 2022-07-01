@@ -30,6 +30,7 @@
 #include <Test_Player.h>
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
+#include "Light_Moon.h"
 
 CLevel_RedPlanet::CLevel_RedPlanet()
 {
@@ -99,7 +100,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 			return E_FAIL;
 	}
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_REDPLANET, TEXT("Venus")))
+	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_REDPLANET, TEXT("Light_Moon")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_REDPLANET, TEXT("Status")))

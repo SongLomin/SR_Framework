@@ -30,6 +30,7 @@
 #include <Test_Player.h>
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
+#include "Light_Moon.h"
 
 CLevel_MagmaPlanet::CLevel_MagmaPlanet()
 {
@@ -68,7 +69,8 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_MAGMAPLANET, TEXT("Aim")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_MAGMAPLANET, TEXT("Venus")))
+
+	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_REDPLANET, TEXT("Light_Moon")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_MAGMAPLANET, TEXT("Status")))

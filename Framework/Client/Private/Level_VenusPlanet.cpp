@@ -30,6 +30,7 @@
 #include <Test_Player.h>
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
+#include "Light_Moon.h"
 
 CLevel_VenusPlanet::CLevel_VenusPlanet()
 {
@@ -59,6 +60,7 @@ HRESULT CLevel_VenusPlanet::Initialize()
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
+
 	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_VENUSPLANET, TEXT("Player_Body")))
 		return E_FAIL;
 
@@ -68,7 +70,7 @@ HRESULT CLevel_VenusPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_VENUSPLANET, TEXT("Aim")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_VENUSPLANET, TEXT("Venus")))
+	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_REDPLANET, TEXT("Light_Moon")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_VENUSPLANET, TEXT("Status")))
