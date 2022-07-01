@@ -18,6 +18,8 @@
 #include "Planet_Venus.h"
 #include "Planet_Sun.h"
 #include "Planet_Red.h"
+#include "Planet_Magma.h"
+#include "Planet_Exo.h"
 
 CLevel_SelectPlanet::CLevel_SelectPlanet()
 {
@@ -80,6 +82,12 @@ HRESULT CLevel_SelectPlanet::Initialize()
 		return E_FAIL;
 	
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Magma>(LEVEL_SELECTPLANET, TEXT("Magma")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Exo>(LEVEL_SELECTPLANET, TEXT("Exo")))
 		return E_FAIL;
 
 	return S_OK;

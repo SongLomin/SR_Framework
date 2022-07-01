@@ -85,7 +85,7 @@ HRESULT CPlanet_Venus::Render()
 
 	/*GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);*/
 
-	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 20, (LONG)ScreenPos.y }, TEXT("Venus \n 绊 困氰 备开"), 0);
+	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 20, (LONG)ScreenPos.y }, TEXT("Venus \n 历 困氰 备开"), 0);
 
 	m_pRendererCom->Bind_Texture(0);
 

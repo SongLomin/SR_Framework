@@ -16,9 +16,6 @@
     <Filter Include="01.Levels\00.Logo">
       <UniqueIdentifier>{aacaa929-73ad-4c80-bdec-1f1407800b7e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Levels\01.GamePlay">
-      <UniqueIdentifier>{682cbcc4-8369-43ae-97de-26b779b658b8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Levels\99.Loading">
       <UniqueIdentifier>{67e26c50-bb42-4fef-952d-8c870871c9cf}</UniqueIdentifier>
     </Filter>
@@ -142,6 +139,15 @@
     <Filter Include="02.GameObject\03. Bullet\Roket">
       <UniqueIdentifier>{4e1ddc4f-c212-49e2-b683-3ad8501e612c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\06. Planet\Magma">
+      <UniqueIdentifier>{94052d7d-a2b5-44dd-8102-97c4f7c87b1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\06. Planet\Exo">
+      <UniqueIdentifier>{3121850d-d0b5-4401-9762-560237b8968f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\01.RedPlanet">
+      <UniqueIdentifier>{682cbcc4-8369-43ae-97de-26b779b658b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -166,7 +172,7 @@
       <Filter>01.Levels\00.Logo</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Level_RedPlanet.h">
-      <Filter>01.Levels\01.GamePlay</Filter>
+      <Filter>01.Levels\01.RedPlanet</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Level_Loading.h">
       <Filter>01.Levels\99.Loading</Filter>
@@ -285,6 +291,12 @@
     <ClInclude Include="..\Public\Rock.h">
       <Filter>02.GameObject\06. Rock</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Planet_Magma.h">
+      <Filter>02.GameObject\06. Planet\Magma</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Planet_Exo.h">
+      <Filter>02.GameObject\06. Planet\Exo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -300,7 +312,7 @@
       <Filter>01.Levels\00.Logo</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Level_RedPlanet.cpp">
-      <Filter>01.Levels\01.GamePlay</Filter>
+      <Filter>01.Levels\01.RedPlanet</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Level_Loading.cpp">
       <Filter>01.Levels\99.Loading</Filter>
@@ -418,6 +430,12 @@
     <ClCompile Include="SelectPlanet_SkyBox.cpp" />
     <ClCompile Include="..\Private\Rock.cpp">
       <Filter>02.GameObject\06. Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Planet_Magma.cpp">
+      <Filter>02.GameObject\06. Planet\Magma</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Planet_Exo.cpp">
+      <Filter>02.GameObject\06. Planet\Exo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
