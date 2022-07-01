@@ -72,7 +72,11 @@ HRESULT CPlanet_Red::Render()
 
 	m_pTransformCom->Bind_WorldMatrix();
 
+	_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
 
+	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
+
+	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Red Planet \n 고 위험 구역"), 0);
 
 	m_pRendererCom->Bind_Texture(3);
 

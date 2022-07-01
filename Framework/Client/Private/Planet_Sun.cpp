@@ -72,13 +72,11 @@ HRESULT CPlanet_Sun::Render()
 
 	m_pTransformCom->Bind_WorldMatrix();
 
-	/*_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
+	_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
 
 	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
 
-	_float3 Look = m_pTransformCom->Get_State(CTransform::STATE_LOOK, true);
-
-	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);*/
+	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Sun \n 보스 구역"), 0);
 	
 	m_pRendererCom->Bind_Texture(4);
 

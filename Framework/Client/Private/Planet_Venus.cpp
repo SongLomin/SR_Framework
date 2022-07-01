@@ -38,7 +38,7 @@ void CPlanet_Venus::Tick(_float fTimeDelta)
 	MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
 	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 10000.f);
 
-	/*if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
+	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
 	{
 	
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
@@ -48,7 +48,7 @@ void CPlanet_Venus::Tick(_float fTimeDelta)
 		}
 
 	
-	}*/
+	}
 
 	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
 	_float3 MyWorldPos;
@@ -84,7 +84,9 @@ HRESULT CPlanet_Venus::Render()
 
 	_float3 Look = m_pTransformCom->Get_State(CTransform::STATE_LOOK, true);
 
-	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);
+	/*GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);*/
+
+	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 20, (LONG)ScreenPos.y }, TEXT("Venus \n 고 위험 구역"), 0);
 
 	m_pRendererCom->Bind_Texture(0);
 
