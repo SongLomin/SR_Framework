@@ -79,6 +79,7 @@ public:
 
 	HRESULT Bind_WorldMatrix(BYTE MyFlags = D3D_ALL, BYTE ParentFlags = D3D_ALL);
 	_float4x4 Get_WorldMatrix(BYTE MyFlags = D3D_ALL, BYTE ParentFlags = D3D_ALL);
+	void Set_LocalMatrix(_float4x4 _Mat);
 
 public:
 	void Go_Target(CTransform* _Trans, _float fTimeDelta, _bool _bWorld = false);

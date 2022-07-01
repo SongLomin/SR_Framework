@@ -29,8 +29,6 @@ HRESULT CLazer_Turret::Initialize(void* pArg)
 
 
 
-
-
 	m_fCurTime = m_fMaxTime;
 
 	return S_OK;
@@ -51,10 +49,10 @@ void CLazer_Turret::Tick(_float fTimeDelta)
 
 		if (KEY_INPUT(KEY::RBUTTON, KEY_STATE::HOLD))
 		{
-			CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CLazer_Bullet>(CURRENT_LEVEL, TEXT("Lazer_Bullet"));
-
-			((CLazer_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
-		}
+			COLLISION_TYPE eColType = COLLISION_TYPE::MONSTER_ATTACK;
+			CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CLazer_Bullet>(CURRENT_LEVEL, TEXT("Lazer_Bullet"), nullptr, &eColType);
+			static_cast<CLazer_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
+					}
 	}
 
 }
@@ -73,8 +71,9 @@ void CLazer_Turret::LateTick(_float fTimeDelta)
 
 			if (m_pTarget && m_fCurTime <= 0)
 			{
-				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CLazer_Bullet>(CURRENT_LEVEL, TEXT("Lazer_Bullet"));
-				((CLazer_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
+				COLLISION_TYPE eColType = COLLISION_TYPE::MONSTER_ATTACK;
+				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CLazer_Bullet>(CURRENT_LEVEL, TEXT("Lazer_Bullet"), nullptr, &eColType);
+				static_cast<CLazer_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
 
 				m_fCurTime = m_fMaxTime;
 			}

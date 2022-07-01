@@ -53,9 +53,10 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 		{
 			if (m_fCurTime < 0.f)
 			{
-				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, nullptr);
-
-				((CNormal_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
+				COLLISION_TYPE eColType = COLLISION_TYPE::MONSTER_ATTACK;
+				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &eColType);
+				static_cast<CNormal_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
+				//((CNormal_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
 
 				GAMEINSTANCE->Add_Shaking(0.1f, 0.005f);
 
@@ -67,9 +68,9 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 		{
 			if (m_fCurTime < 0.f)
 			{
-				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CRoket_Bullet>(CURRENT_LEVEL, TEXT("Roket_Bullet"));
-
-				((CRoket_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
+				COLLISION_TYPE eColType = COLLISION_TYPE::MONSTER_ATTACK;
+				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CRoket_Bullet>(CURRENT_LEVEL, TEXT("Roket_Bullet"), nullptr, &eColType);
+				static_cast<CRoket_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
 
 				m_fCurTime = 0.3f;
 			}
@@ -92,8 +93,9 @@ void CNormal_Turret::LateTick(_float fTimeDelta)
 
 			if (m_pTarget && m_fCurTime <= 0)
 			{
-				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, nullptr);
-				((CNormal_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
+				COLLISION_TYPE eColType = COLLISION_TYPE::MONSTER_ATTACK;
+				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &eColType);
+				static_cast<CNormal_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
 
 				m_fMaxTime = (_float)(rand() % 11 + 5) * 0.1f;
 				m_fCurTime = m_fMaxTime;

@@ -19,6 +19,7 @@ class CState_Move;
 class CMesh_Test;
 class CDirectionalLight;
 class CMesh_ShinShip;
+class CCollider_Shpere;
 END
 
 BEGIN(Client)
