@@ -90,7 +90,7 @@ HRESULT CGameInstance::Render_Engine()
 {
 	
 	if (nullptr == m_pLevel_Manager
-		//|| nullptr == m_pIMGUI_Manager
+		|| nullptr == m_pIMGUI_Manager
 		)
 		return E_FAIL;
 

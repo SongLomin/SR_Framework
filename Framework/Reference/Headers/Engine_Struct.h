@@ -92,6 +92,20 @@ namespace Engine
 		static const DWORD FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_TEX1;
 	}VTXDEFAULT;
 
+	typedef struct tagVertex_Sub
+	{
+		D3DXVECTOR3		vPosition;
+		D3DXVECTOR3		vNorm;
+
+		tagVertex_Sub(const D3DXVECTOR3& _Pos, const D3DXVECTOR3& _Norm)
+		{
+			vPosition = _Pos;
+			vNorm = _Norm;
+		}
+
+		static const DWORD FVF = D3DFVF_XYZ | D3DFVF_NORMAL ;
+	}VTXSUB;
+
 	typedef struct tagVertex_Normal
 	{
 		D3DXVECTOR3		vPosition;

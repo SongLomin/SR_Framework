@@ -272,6 +272,7 @@ void CRigid_Body::SubTurn()
 }
 
 
+
 //일반 좌우 회전
 void CRigid_Body::Compute_Rotation()
 {

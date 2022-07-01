@@ -6,7 +6,7 @@ BEGIN(Engine)
 
 class ENGINE_DLL CImguiMgr final : public CBase
 {
-DECLARE_SINGLETON(CImguiMgr)
+	DECLARE_SINGLETON(CImguiMgr)
 
 public:
 	CImguiMgr();
