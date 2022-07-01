@@ -13,7 +13,6 @@ class CRigid_Body;
 class CTargeting;
 class CMesh_SongShip;
 class CCollider_OBB;
-class CCollider_Pre;
 class CAI_Controller;
 class CPlayer_Controller;
 class CState_Move;
@@ -54,9 +53,8 @@ private:
 	//CMesh_ShinShip* m_pMeshCubeCom = nullptr;
 	CStatus*				m_pStatusCom = nullptr;
 	CRigid_Body*			m_pRigidBodyCom = nullptr;
-	CCollider_OBB*			m_pColliderCom = nullptr;
+	CCollider_Shpere*			m_pColliderCom = nullptr;
 	CTargeting*				m_pTargetingCom = nullptr;
-	CCollider_Pre*			m_pPreColliderCom = nullptr;
 	CAI_Controller*			m_pAIControllerCom = nullptr;
 	CPlayer_Controller*		m_pPlayerController = nullptr;
 	CState_Move*			m_pStateCom = nullptr;

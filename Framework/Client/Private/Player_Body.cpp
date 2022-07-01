@@ -175,20 +175,12 @@ HRESULT CPlayer_Body::SetUp_Components()
 	m_pTargetingCom = Add_Component<CTargeting>();
 	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
 	m_pTargetingCom->Set_TargetMode(TARGETMODE::TARGET_SINGLE);
-	
 
-	m_pPreColliderCom = Add_Component<CCollider_Pre>();
-	WEAK_PTR(m_pPreColliderCom);
-	m_pPreColliderCom->Link_Transform(m_pTransformCom);
-	//구체라서 x만 받는다.
-	m_pPreColliderCom->Set_Collider_Size(_float3(4.5f, 0.f, 0.f));
-
-	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER_ATTACK;
-	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
+	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER;
+	m_pColliderCom = Add_Component<CCollider_Shpere>(&eCollisionType);
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
-	m_pColliderCom->Set_Collider_Size(_float3(7.f, 1.5f, 1.f));
-	m_pColliderCom->Link_Pre_Collider(m_pPreColliderCom);
+	m_pColliderCom->Set_Collider_Size(_float3(5.f, 5.f, 5.f));
 
 	m_pStateCom = Add_Component<CState_Move>();
 	m_pStateCom->Set_WeakPtr(&m_pStateCom);
@@ -407,7 +399,10 @@ void CPlayer_Body::On_Change_Controller(const CONTROLLER& _IsAI)
 
 void CPlayer_Body::On_Collision_Enter(CCollider* _Other_Collider)
 {
-	int i = 0;
+	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER_ATTACK)
+	{
+		GAMEINSTANCE->Add_Shaking(2.f, 0.01f);
+	}
 }
 
 void CPlayer_Body::On_Collision_Stay(CCollider* _Other_Collider)

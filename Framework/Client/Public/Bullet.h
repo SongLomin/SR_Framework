@@ -1,8 +1,6 @@
 #pragma once
-
 #include "Client_Defines.h"
 #include "GameObject.h"
-
 BEGIN(Engine)
 class CRenderer;
 class CTransform;
@@ -15,12 +13,12 @@ END
 
 BEGIN(Client)
 
-class CNormal_Bullet final : public CGameObject
+class CBullet final : public CGameObject
 {
 private:
-    explicit CNormal_Bullet();
-    explicit CNormal_Bullet(const CNormal_Bullet& Prototype);
-    virtual ~CNormal_Bullet() = default;
+    explicit CBullet();
+    explicit CBullet(const CBullet& Prototype);
+    virtual ~CBullet() = default;
 
 public:
     // CGameObject을(를) 통해 상속됨
@@ -47,18 +45,7 @@ private:
 public:
     void Link_PosinTransform(CTransform* _pTransform);
 
-public: /* For Event Function */
-    virtual void On_Collision_Enter(CCollider* _Other_Collider) override;
-    virtual void On_Collision_Stay(CCollider* _Other_Collider) override;
-    virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
-
-private:
-    HRESULT SetUp_Components();
-
-
 public:
-    static CNormal_Bullet* Create();
-    virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 };
 

@@ -106,10 +106,10 @@ HRESULT CMonster::SetUp_Components()
 
 	//콜라이더 기본 틀
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
-	m_pCColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
+	m_pCColliderCom = Add_Component<CCollider_Shpere>(&eCollisionType);
 	m_pCColliderCom->Set_WeakPtr(&m_pCColliderCom);
 	m_pCColliderCom->Link_Transform(m_pTransformCom);
-	m_pCColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
+	m_pCColliderCom->Set_Collider_Size(_float3(2.f, 2.f, 2.f));
 	
 
 	//Safe_Release(pGameInstance);

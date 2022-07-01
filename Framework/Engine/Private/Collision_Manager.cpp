@@ -12,7 +12,9 @@ CCollision_Manager::CCollision_Manager()
 
 void CCollision_Manager::Initialize()
 {
-	//CheckGroup(COLLISION_TYPE::PLAYER_ATTACK, COLLISION_TYPE::MONSTER);
+	CheckGroup(COLLISION_TYPE::PLAYER_ATTACK, COLLISION_TYPE::MONSTER);
+	CheckGroup(COLLISION_TYPE::MONSTER_ATTACK, COLLISION_TYPE::PLAYER);
+
 	//CheckGroup(COLLISION_TYPE::PLAYER_ATTACK, COLLISION_TYPE::PLAYER_ATTACK);
 	//CheckGroup(COLLISION_TYPE::PLAYER, COLLISION_TYPE::MONSTER);
 	//CheckGroup(COLLISION_TYPE::MONSTER, COLLISION_TYPE::MONSTER);
@@ -176,21 +178,23 @@ void CCollision_Manager::CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_T
 bool CCollision_Manager::Is3DCollision(CCollider* _pLeft, CCollider* _pRight)
 {
 
-	if (!IsSphereCollision(_pLeft->Get_Pre_Collider(), _pRight->Get_Pre_Collider()))
+	/*if (!IsSphereCollision(_pLeft->Get_Pre_Collider(), _pRight->Get_Pre_Collider()))
 	{
 		return false;
-	}
+	}*/
 
 
-	if ((_pLeft->Get_Collider_Shape() == COLLIDER_SHAPE::OBB)
-		&& (_pRight->Get_Collider_Shape() == COLLIDER_SHAPE::OBB))
-	{
-		return IsOBBCollision(_pLeft, _pRight);
-	}// 사각 - 사각
-	else
-	{
-		return IsSphereCollision(_pLeft, _pRight);
-	}// 사각 - 원, 원 - 원
+	//if ((_pLeft->Get_Collider_Shape() == COLLIDER_SHAPE::OBB)
+	//	&& (_pRight->Get_Collider_Shape() == COLLIDER_SHAPE::OBB))
+	//{
+	//	return IsOBBCollision(_pLeft, _pRight);
+	//}// 사각 - 사각
+	//else
+	//{
+	//	return IsSphereCollision(_pLeft, _pRight);
+	//}// 사각 - 원, 원 - 원
+
+	return IsSphereCollision(_pLeft, _pRight);
 }
 
 bool CCollision_Manager::IsOBBCollision(CCollider* _pLeft, CCollider* _pRight)

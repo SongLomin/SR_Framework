@@ -285,6 +285,7 @@
     <ClInclude Include="..\Public\Rock.h">
       <Filter>02.GameObject\06. Rock</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Bullet.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -419,6 +420,7 @@
     <ClCompile Include="..\Private\Rock.cpp">
       <Filter>02.GameObject\06. Rock</Filter>
     </ClCompile>
+    <ClCompile Include="..\Private\Bullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
