@@ -92,7 +92,7 @@ public: /* Template Function*/
 		}
 		temp->Set_Owner(this);
 		m_pComs.emplace(typeid(T).name(), temp);
-
+		temp->OnEnable(pArg);
 		return temp;
 	}
 };

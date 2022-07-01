@@ -27,12 +27,12 @@ private:
 	CTransform* m_pMyTransform = nullptr;
 	CTargeting* m_pMyTargeting = nullptr;
 
-protected:
+public:
 	//객체의 상태가 활성화 상태로 변경될 때, 호출되는 이벤트입니다.
-	virtual void OnEnable();
+	virtual void OnEnable(void* pArg = nullptr) override;
 
 	//객체의 상태가 비활성화 상태로 변경될 때, 호출되는 이벤트입니다.
-	virtual void OnDisable();
+	virtual void OnDisable() override;
 
 public:
 	static CAI_Controller* Create();

@@ -92,9 +92,9 @@ HRESULT CPlayer_Body::Render_Begin(ID3DXEffect** Shader)
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
 
 	float floatArray[3];
-	floatArray[0] = 0.7f;
-	floatArray[1] = 0.f;
-	floatArray[2] = 0.7f;
+	floatArray[0] = 0.4f;
+	floatArray[1] = 0.4f;
+	floatArray[2] = 0.4f;
 
 	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 

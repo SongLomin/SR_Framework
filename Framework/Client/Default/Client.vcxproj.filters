@@ -85,6 +85,9 @@
     <Filter Include="02.GameObject\01. Turret">
       <UniqueIdentifier>{2a1ebd7d-3fbe-4fc8-9d9d-a5ed2a5d3922}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\01. Turret\Normal">
+      <UniqueIdentifier>{3f4d50fd-c3ce-41f2-8a20-2463fbb4f8c6}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02.GameObject\06. Rock">
       <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
     </Filter>
@@ -138,9 +141,6 @@
     </Filter>
     <Filter Include="02.GameObject\03. Bullet\Roket">
       <UniqueIdentifier>{4e1ddc4f-c212-49e2-b683-3ad8501e612c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\01. Turret\Normal">
-      <UniqueIdentifier>{3f4d50fd-c3ce-41f2-8a20-2463fbb4f8c6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

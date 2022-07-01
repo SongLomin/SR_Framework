@@ -43,7 +43,7 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 	ISVALID(m_pTransformCom);
 
 	
-	_float3 MyScreenPos;
+	/*_float3 MyScreenPos;
 	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE::STATE_POSITION, true), &MyScreenPos);
 
 	GAMEINSTANCE->Add_Text(
@@ -52,7 +52,7 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 		0.0f,
 		L"HP : %d / 10",
 		1,
-		(_int)m_pStatusCom->Get_Status().fHp);
+		(_int)m_pStatusCom->Get_Status().fHp);*/
     
 }
 

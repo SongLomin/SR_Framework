@@ -50,13 +50,13 @@ void CAI_Controller::LateTick(_float fTimeDelta)
 {
 }
 
-void CAI_Controller::OnEnable()
+void CAI_Controller::OnEnable(void* pArg)
 {
-	m_pMyState_Move = m_pMyObject->Get_Component<CState_Move>();
+	m_pMyState_Move = m_pOwner->Get_Component<CState_Move>();
 	WEAK_PTR(m_pMyState_Move);
-	m_pMyTransform = m_pMyObject->Get_Component<CTransform>();
+	m_pMyTransform = m_pOwner->Get_Component<CTransform>();
 	WEAK_PTR(m_pMyTransform);
-	m_pMyTargeting = m_pMyObject->Get_Component<CTargeting>();
+	m_pMyTargeting = m_pOwner->Get_Component<CTargeting>();
 	WEAK_PTR(m_pMyTargeting);
 }
 

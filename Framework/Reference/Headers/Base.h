@@ -38,7 +38,7 @@ public:
 	void Set_Enable(_bool _Enable, void* _Arg = nullptr);
 	bool Get_Enable();
 
-protected:
+public:
 	//객체의 상태가 활성화 상태로 변경될 때, 호출되는 이벤트입니다.
 	virtual void OnEnable(void* _Arg = nullptr) {};
 
