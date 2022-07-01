@@ -11,7 +11,7 @@
 #include "Camera_Manager.h"
 #include "Picking.h"
 #include "Collision_Manager.h"
-//#include "ImguiMgr.h"
+#include "ImguiMgr.h"
 #include "ZFrustum.h"
 
 /* 1. 게임내에 필요한 객체(매니져등)들을 모아서 보관한다. */
@@ -142,7 +142,7 @@ private:
 	CTime_Manager*					m_pTime_Manager = nullptr;
 	CInput_Manager*					m_pInput_Manager = nullptr;
 	CCamera_Manager*				m_pCamera_Manager = nullptr;
-	//CImguiMgr*						m_pIMGUI_Manager = nullptr;
+	CImguiMgr*						m_pIMGUI_Manager = nullptr;
 	CCollision_Manager*				m_pCollision_Manager = nullptr;
 	CZFrustum*						m_pZFrustum = nullptr;
 private:

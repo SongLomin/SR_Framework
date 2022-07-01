@@ -28,6 +28,7 @@
 #include "DirectionalLight.h"
 #include "SpotLight.h"
 #include "PointLight.h"
+#include "Mesh_ShinShip.h"
 
 BEGIN(Engine)
 
