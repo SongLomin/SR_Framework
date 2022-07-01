@@ -59,65 +59,34 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_REDPLANET, TEXT("Player_Body")))
+	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_STATIC, TEXT("Player_Body")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CTest_Player>(LEVEL_REDPLANET, TEXT("Test_Player")))
+	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVEL_MAGMAPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
-	for (int i = 0; i < 50; ++i)
-	{
-		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_REDPLANET, TEXT("EnemySpace_Body")))
-			return E_FAIL;
-	}
-
-	for (int i = 0; i < 50; ++i)
-	{
-		if (!GAMEINSTANCE->Add_GameObject<CAI_Friendly>(LEVEL_REDPLANET, TEXT("AI_Friendly")))
-			return E_FAIL;
-	}
-
-
-	/*for (int i = 0; i < 5; i++)
-	{
-		GAMEINSTANCE->Add_GameObject<CMonster>(LEVEL_GAMEPLAY, TEXT("Monster"))
-			->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(i * 5.f, 0.f, 0.f));
-	}*/
-
-	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_REDPLANET, TEXT("Terrain")))
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_MAGMAPLANET, TEXT("Aim")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVEL_REDPLANET, TEXT("SkyBox")))
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_MAGMAPLANET, TEXT("Venus")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_REDPLANET, TEXT("Aim")))
+	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_MAGMAPLANET, TEXT("Status")))
 		return E_FAIL;
 
-	for (int i = 0; i < 30; ++i)
-	{
-		if (!GAMEINSTANCE->Add_GameObject<CRock>(LEVEL_REDPLANET, TEXT("Rock")))
-			return E_FAIL;
-	}
-
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
+	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_MAGMAPLANET, TEXT("HP")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_REDPLANET, TEXT("Status")))
+	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_MAGMAPLANET, TEXT("Booster")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_REDPLANET, TEXT("HP")))
+	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_MAGMAPLANET, TEXT("Shield")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_REDPLANET, TEXT("Booster")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_MAGMAPLANET, TEXT("NormalBullet")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_REDPLANET, TEXT("Shield")))
-		return E_FAIL;
-
-	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_REDPLANET, TEXT("NormalBullet")))
-		return E_FAIL;
-
-	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_REDPLANET, TEXT("CBulletCountUI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_MAGMAPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
 

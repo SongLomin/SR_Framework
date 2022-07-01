@@ -84,7 +84,7 @@ HRESULT CPlanet_Sun::Render()
 
 	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
 
-	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Sun \n 焊胶 备开"), 0);
+	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Sun \n 焊胶 备开 \n [Warring]"), 0);
 	
 	m_pRendererCom->Bind_Texture(4);
 

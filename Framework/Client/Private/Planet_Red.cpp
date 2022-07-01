@@ -25,7 +25,7 @@ HRESULT CPlanet_Red::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 100.f, 400.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 200.f, 300.f));
 
 
 	return S_OK;
@@ -55,8 +55,8 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
 	_float3 MyWorldPos;
 	MyWorldPos.x = 0.f + CamWorldPos.x;
-	MyWorldPos.y = 100.f + CamWorldPos.y;
-	MyWorldPos.z = 400.f + CamWorldPos.z;
+	MyWorldPos.y = 200.f + CamWorldPos.y;
+	MyWorldPos.z = 300.f + CamWorldPos.z;
 
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);

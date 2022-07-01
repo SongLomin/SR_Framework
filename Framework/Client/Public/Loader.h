@@ -34,6 +34,9 @@ public:
 	HRESULT Initialize(LEVEL eNextLevel);
 	HRESULT Loading_ForLogoLevel();
 	HRESULT Loading_ForRedPlanet();
+	HRESULT Loading_ForMagmaPlanet();
+	HRESULT Loading_ForVenusPlanet();
+	HRESULT Loaidng_ForExoPlanet();
 	HRESULT Loading_ForSelectPlanet();
 
 private:

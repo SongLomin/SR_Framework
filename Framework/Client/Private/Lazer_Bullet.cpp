@@ -108,7 +108,7 @@ void CLazer_Bullet::Link_PosinTransform(CTransform* _pTransform)
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, m_pPosinTransformCom->Get_State(CTransform::STATE::STATE_POSITION, true));
 
 	//총알 시작 위치를 앞쪽으로 옮긴다.
-	m_pTransformCom->Go_BackAndForth(100.f, 1.f);
+	m_pTransformCom->Go_BackAndForth(105.f, 1.f);
 
 	m_pTransformCom->Update_WorldMatrix();
 	m_pRigidBodyCom->Set_DirVector();

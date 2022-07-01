@@ -59,7 +59,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_REDPLANET, TEXT("Player_Body")))
+	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_STATIC, TEXT("Player_Body")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CTest_Player>(LEVEL_REDPLANET, TEXT("Test_Player")))
@@ -99,7 +99,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 			return E_FAIL;
 	}
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_REDPLANET, TEXT("Venus")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_REDPLANET, TEXT("Status")))

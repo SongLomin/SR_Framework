@@ -59,60 +59,36 @@ HRESULT CLevel_ExoPlanet::Initialize()
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_REDPLANET, TEXT("Player_Body")))
+	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_STATIC, TEXT("Player_Body")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CTest_Player>(LEVEL_REDPLANET, TEXT("Test_Player")))
+	
+	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVLE_EXOPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
-	for (int i = 0; i < 50; ++i)
-	{
-		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_REDPLANET, TEXT("EnemySpace_Body")))
-			return E_FAIL;
-	}
-
-	for (int i = 0; i < 50; ++i)
-	{
-		if (!GAMEINSTANCE->Add_GameObject<CAI_Friendly>(LEVEL_REDPLANET, TEXT("AI_Friendly")))
-			return E_FAIL;
-	}
-
-
-
-	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_REDPLANET, TEXT("Terrain")))
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVLE_EXOPLANET, TEXT("Aim")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVEL_REDPLANET, TEXT("SkyBox")))
+
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVLE_EXOPLANET, TEXT("Venus")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_REDPLANET, TEXT("Aim")))
+	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVLE_EXOPLANET, TEXT("Status")))
 		return E_FAIL;
 
-	for (int i = 0; i < 30; ++i)
-	{
-		if (!GAMEINSTANCE->Add_GameObject<CRock>(LEVEL_REDPLANET, TEXT("Rock")))
-			return E_FAIL;
-	}
-
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
+	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVLE_EXOPLANET, TEXT("HP")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_REDPLANET, TEXT("Status")))
+	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVLE_EXOPLANET, TEXT("Booster")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_REDPLANET, TEXT("HP")))
+	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVLE_EXOPLANET, TEXT("Shield")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_REDPLANET, TEXT("Booster")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVLE_EXOPLANET, TEXT("NormalBullet")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_REDPLANET, TEXT("Shield")))
-		return E_FAIL;
-
-	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_REDPLANET, TEXT("NormalBullet")))
-		return E_FAIL;
-
-	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_REDPLANET, TEXT("CBulletCountUI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVLE_EXOPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
 
@@ -157,7 +133,7 @@ HRESULT CLevel_ExoPlanet::Render()
 		return E_FAIL;
 
 
-	SetWindowText(g_hWnd, TEXT("Red Planet 레벨입니다. "));
+	SetWindowText(g_hWnd, TEXT("Exo Planet 레벨입니다. "));
 
 	return S_OK;
 }

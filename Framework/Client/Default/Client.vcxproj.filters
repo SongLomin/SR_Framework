@@ -462,7 +462,7 @@
       <Filter>01.Levels\04.Level_Magma</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Level_Logo.cpp">
-      <Filter>01.Levels\05.Level_Venus</Filter>
+      <Filter>01.Levels\00.Logo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

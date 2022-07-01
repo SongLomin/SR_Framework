@@ -4,6 +4,9 @@
 #include "Level_Logo.h"
 #include "Level_RedPlanet.h"
 #include "Level_SelectPlanet.h"
+#include "Level_MagmaPlanet.h"
+#include "Level_VenusPlanet.h"
+#include "Level_ExoPlanet.h"
 #include "GameInstance.h"
 
 CLevel_Loading::CLevel_Loading()
@@ -40,11 +43,20 @@ void CLevel_Loading::Tick(_float fTimeDelta)
 			case LEVEL_LOGO:
 				pLevel = CLevel_Logo::Create();
 				break;
+			case LEVEL_SELECTPLANET:
+				pLevel = CLevel_SelectPlanet::Create();
+				break;
 			case LEVEL_REDPLANET:
 				pLevel = CLevel_RedPlanet::Create();
 				break;
-			case LEVEL_SELECTPLANET:
-				pLevel = CLevel_SelectPlanet::Create();
+			case LEVLE_EXOPLANET:
+				pLevel = CLevel_ExoPlanet::Create();
+				break;
+			case LEVEL_VENUSPLANET:
+				pLevel = CLevel_VenusPlanet::Create();
+				break;
+			case LEVEL_MAGMAPLANET:
+				pLevel = CLevel_MagmaPlanet::Create();
 				break;
 			}
 

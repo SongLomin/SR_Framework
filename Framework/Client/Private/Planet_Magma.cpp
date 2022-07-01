@@ -25,7 +25,7 @@ HRESULT CPlanet_Magma::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(-300.f, 150.f, 400.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(300.f, 150.f, 400.f));
 
 
 	return S_OK;
@@ -45,7 +45,7 @@ void CPlanet_Magma::Tick(_float fTimeDelta)
 
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
 		{
-			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_REDPLANET))))
+			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_MAGMAPLANET))))
 				return;
 		}
 
@@ -54,7 +54,7 @@ void CPlanet_Magma::Tick(_float fTimeDelta)
 
 	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
 	_float3 MyWorldPos;
-	MyWorldPos.x = -300.f + CamWorldPos.x;
+	MyWorldPos.x = 300.f + CamWorldPos.x;
 	MyWorldPos.y = 150.f + CamWorldPos.y;
 	MyWorldPos.z = 400.f + CamWorldPos.z;
 

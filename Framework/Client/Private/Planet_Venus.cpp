@@ -43,7 +43,11 @@ void CPlanet_Venus::Tick(_float fTimeDelta)
 	
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
 		{
-			
+			if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
+			{
+				if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_VENUSPLANET))))
+					return;
+			}
 		}
 
 	
@@ -73,7 +77,7 @@ void CPlanet_Venus::LateTick(_float fTimeDelta)
 
 HRESULT CPlanet_Venus::Render()
 {
-	m_pTransformCom->Scaling(_float3(50.f, 50.f, 50.f), true);
+	m_pTransformCom->Scaling(_float3(80.f, 80.f, 50.f), true);
 
 	m_pTransformCom->Bind_WorldMatrix();
 
