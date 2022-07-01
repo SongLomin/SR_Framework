@@ -178,6 +178,7 @@
     <ClInclude Include="..\Public\Level_MagmaPlanet.h" />
     <ClInclude Include="..\Public\Level_VenusPlanet.h" />
     <ClInclude Include="..\Public\Light_Moon.h" />
+    <ClInclude Include="..\Public\Loading.h" />
     <ClInclude Include="..\Public\Normal_Turret.h" />
     <ClInclude Include="..\Public\HpBar.h" />
     <ClInclude Include="..\Public\Level_SelectPlanet.h" />
@@ -229,6 +230,7 @@
     <ClCompile Include="..\Private\Level_MagmaPlanet.cpp" />
     <ClCompile Include="..\Private\Level_VenusPlanet.cpp" />
     <ClCompile Include="..\Private\Light_Moon.cpp" />
+    <ClCompile Include="..\Private\Loading.cpp" />
     <ClCompile Include="..\Private\Normal_Turret.cpp" />
     <ClCompile Include="..\Private\HpBar.cpp" />
     <ClCompile Include="..\Private\Level_SelectPlanet.cpp" />

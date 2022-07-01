@@ -160,6 +160,9 @@
     <Filter Include="02.GameObject\11. Light">
       <UniqueIdentifier>{3ad58ff7-fc3c-4713-a020-6a6d7bc5d31c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="97. UITest\Loading">
+      <UniqueIdentifier>{91d6ac50-951a-4727-b597-ac9edfcafe02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -321,6 +324,9 @@
     <ClInclude Include="..\Public\Light_Moon.h">
       <Filter>02.GameObject\11. Light</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Loading.h">
+      <Filter>97. UITest\Loading</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -472,6 +478,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Light_Moon.cpp">
       <Filter>02.GameObject\11. Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Loading.cpp">
+      <Filter>97. UITest\Loading</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

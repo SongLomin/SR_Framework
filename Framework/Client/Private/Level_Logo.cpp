@@ -13,7 +13,8 @@
 
 CLevel_Logo::CLevel_Logo()
 {
-
+	
+		
 }
 
 HRESULT CLevel_Logo::Initialize()
