@@ -143,7 +143,7 @@ private:
 	CTime_Manager*					m_pTime_Manager = nullptr;
 	CInput_Manager*					m_pInput_Manager = nullptr;
 	CCamera_Manager*				m_pCamera_Manager = nullptr;
-	CImguiMgr*						m_pIMGUI_Manager = nullptr;
+	//CImguiMgr*						m_pIMGUI_Manager = nullptr;
 	CCollision_Manager*				m_pCollision_Manager = nullptr;
 	CZFrustum*						m_pZFrustum = nullptr;
 private:

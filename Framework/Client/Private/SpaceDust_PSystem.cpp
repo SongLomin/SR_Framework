@@ -9,7 +9,6 @@ CSpaceDust_PSystem::CSpaceDust_PSystem(const CSpaceDust_PSystem& Prototype)
 
 HRESULT CSpaceDust_PSystem::Initialize_Prototype()
 {
-	__super::Initialize_Prototype();
 
 	return S_OK;
 }

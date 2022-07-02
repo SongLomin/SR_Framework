@@ -9,7 +9,6 @@ CTrajectory_PSystem::CTrajectory_PSystem(const CTrajectory_PSystem& Prototype)
 
 HRESULT CTrajectory_PSystem::Initialize_Prototype()
 {
-	__super::Initialize_Prototype();
 
 	return S_OK;
 }

@@ -84,11 +84,22 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	// 青己 2俺 罚待 积己
 	srand(unsigned(time(NULL)));
 
+	LEVEL m_eNextPlanet = LEVEL_STATIC;
+	LEVEL m_ePreNextPlanet = m_eNextPlanet;
+
 	for (_uint i = 0; i < 2; ++i)
 	{
-		m_eCurLevel = (LEVEL)(rand() % (_uint)LEVEL::LEVEL_SELECTPLANET);
+		
 
-		switch (m_eCurLevel)
+		m_eNextPlanet = (LEVEL)(rand() % (_uint)LEVEL::LEVEL_SELECTPLANET);
+
+		if (m_eNextPlanet == m_ePreNextPlanet)
+		{
+			--i;
+			continue;
+		}
+		
+		switch (m_eNextPlanet)
 		{
 		case  LEVEL::LEVEL_REDPLANET:
 			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
@@ -110,6 +121,8 @@ HRESULT CLevel_SelectPlanet::Initialize()
 				return E_FAIL;
 			break;
 		}
+
+		m_ePreNextPlanet = m_eNextPlanet;
 	}
 
 	/// <summary>
