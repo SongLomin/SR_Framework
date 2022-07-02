@@ -11,19 +11,19 @@ CRender_Manager::CRender_Manager()
 HRESULT CRender_Manager::Initialize()
 {
 	if (!SetupTexture(&normalTex, &normalSurface)) {
-		return false;
+		return E_FAIL;
 	}
 	if (!SetupTexture(&depthTex, &depthSurface)) {
-		return false;
+		return E_FAIL;
 	}
 	if (!SetupTexture(&diffuseTex, &diffuseSurface)) {
-		return false;
+		return E_FAIL;
 	}
 	if (!SetupTexture(&specularTex, &specularSurface)) {
-		return false;
+		return E_FAIL;
 	}
 	if (!SetupTexture(&stashTex, &stashSurface)) {
-		return false;
+		return E_FAIL;
 	}
 
 
@@ -167,7 +167,7 @@ void CRender_Manager::Deferred_Pipeline()
 			//(*G_Buffer)->SetFloatArray(ColorHandle, floatArray, 3);
 
 			(*G_Buffer)->Begin(&numPasses, 0);
-			for (int i = 0; i < numPasses; i++)
+			for (_uint i = 0; i < numPasses; i++)
 			{
 				(*G_Buffer)->BeginPass(i);
 
@@ -227,7 +227,7 @@ void CRender_Manager::Deferred_Pipeline()
 			numPasses = 0;
 			(*LightShader)->Begin(&numPasses, 0);
 
-			for (int i = 0; i < numPasses; i++)
+			for (_uint i = 0; i < numPasses; i++)
 			{
 				(*LightShader)->BeginPass(i);
 

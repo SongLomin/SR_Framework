@@ -142,6 +142,15 @@
     <Filter Include="02.GameObject\03. Bullet\Roket">
       <UniqueIdentifier>{4e1ddc4f-c212-49e2-b683-3ad8501e612c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem">
+      <UniqueIdentifier>{99ed4003-2a43-468d-ba0c-c80dd79c519d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem\01. SpaceDust_PSystem">
+      <UniqueIdentifier>{90a1cca8-a95f-415d-a387-2fb49cacdd72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem\00. Trajectory_PSystem">
+      <UniqueIdentifier>{13c5497c-ff42-4c4d-98d8-57b96494ae1e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -288,6 +297,12 @@
     <ClInclude Include="..\Public\Bullet.h">
       <Filter>02.GameObject\03. Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Trajectory_PSystem.h">
+      <Filter>02.GameObject\10. ParticleSystem\00. Trajectory_PSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\SpaceDust_PSystem.h">
+      <Filter>02.GameObject\10. ParticleSystem\01. SpaceDust_PSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -424,6 +439,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Bullet.cpp">
       <Filter>02.GameObject\03. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Trajectory_PSystem.cpp">
+      <Filter>02.GameObject\10. ParticleSystem\00. Trajectory_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\SpaceDust_PSystem.cpp">
+      <Filter>02.GameObject\10. ParticleSystem\01. SpaceDust_PSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

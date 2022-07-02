@@ -121,7 +121,7 @@ void CMesh_Terrain::Bake_Terrain_Mesh()
 	DWORD* attributeBuffer = 0;
 	m_pMesh->LockAttributeBuffer(0, &attributeBuffer);
 
-	for (int i = 0; i < m_iNumPrimitive; ++i)
+	for (_uint i = 0; i < m_iNumPrimitive; ++i)
 	{
 		attributeBuffer[i] = 0;
 	}

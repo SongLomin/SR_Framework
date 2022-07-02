@@ -126,6 +126,8 @@ public:
 			return m_vPos;
 			
 		}
+
+		return _float3();
 	}
 	
 private:

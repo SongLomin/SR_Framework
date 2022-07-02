@@ -223,6 +223,12 @@
     <Filter Include="01.Utility\03.Components\00. Model\Mesh\Mesh_ShinShip">
       <UniqueIdentifier>{e0942cc6-aa92-4c2b-8a01-ac6ee78e254b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\04.Manager\10. Particle_Manager">
+      <UniqueIdentifier>{5b628df3-6835-4a6a-be21-1b838c743928}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\02.GameObject\01. ParticleSystem">
+      <UniqueIdentifier>{aacee7c2-9aa6-4ba3-85eb-7d68c5b20c09}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -446,6 +452,12 @@
     <ClInclude Include="..\Public\Mesh_ShinShip.h">
       <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_ShinShip</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Particle_Manager.h">
+      <Filter>01.Utility\04.Manager\10. Particle_Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\ParticleSystem.h">
+      <Filter>01.Utility\02.GameObject\01. ParticleSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -653,6 +665,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Mesh_ShinShip.cpp">
       <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_ShinShip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Particle_Manager.cpp">
+      <Filter>01.Utility\04.Manager\10. Particle_Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ParticleSystem.cpp">
+      <Filter>01.Utility\02.GameObject\01. ParticleSystem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

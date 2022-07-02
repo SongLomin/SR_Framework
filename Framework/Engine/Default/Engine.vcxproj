@@ -234,6 +234,8 @@
     <ClCompile Include="..\Private\Mesh_Terrain.cpp" />
     <ClCompile Include="..\Private\Mesh_Test.cpp" />
     <ClCompile Include="..\private\Object_Manager.cpp" />
+    <ClCompile Include="..\Private\ParticleSystem.cpp" />
+    <ClCompile Include="..\Private\Particle_Manager.cpp" />
     <ClCompile Include="..\Private\Player_Controller.cpp" />
     <ClCompile Include="..\Private\PointLight.cpp" />
     <ClCompile Include="..\private\Renderer.cpp" />
@@ -333,6 +335,8 @@
     <ClInclude Include="..\Public\Mesh_Terrain.h" />
     <ClInclude Include="..\Public\Mesh_Test.h" />
     <ClInclude Include="..\public\Object_Manager.h" />
+    <ClInclude Include="..\Public\ParticleSystem.h" />
+    <ClInclude Include="..\Public\Particle_Manager.h" />
     <ClInclude Include="..\Public\Player_Controller.h" />
     <ClInclude Include="..\Public\PointLight.h" />
     <ClInclude Include="..\public\Renderer.h" />

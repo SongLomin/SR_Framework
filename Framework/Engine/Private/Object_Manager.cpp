@@ -16,7 +16,7 @@ HRESULT CObject_Manager::Reserve_Container(_uint iNumLevels)
 
 	m_iNumLevels = iNumLevels;
 
-	for(int i=0; i<iNumLevels; i++)
+	for(_uint i=0; i<iNumLevels; i++)
 		m_pLayers.push_back({});
 	
 	return S_OK;

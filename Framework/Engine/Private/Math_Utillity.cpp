@@ -169,7 +169,7 @@ _bool CMath_Utillity::Picking_VIBuffer(CVIBuffer* pVIBuffer, CTransform* pTransf
 
 		_float3		vPickedPos;
 
-		if (true == D3DXIntersectTri(&pVerticesPos[iIndices.ix], &pVerticesPos[iIndices.iy], &pVerticesPos[iIndices.iz], &vRayPos, &vRayDir, &fU, &fV, &fDist))
+		if (TRUE == D3DXIntersectTri(&pVerticesPos[iIndices.ix], &pVerticesPos[iIndices.iy], &pVerticesPos[iIndices.iz], &vRayPos, &vRayDir, &fU, &fV, &fDist))
 		{
 			if (fDist < _Ray.fLength)
 			{
@@ -225,7 +225,7 @@ _bool CMath_Utillity::Picking_Mesh(LPD3DXBASEMESH pMesh, CTransform* pTransform,
 		*pCountOfHits = CountOfHits;
 
 
-	if (true == bIsHit)
+	if (TRUE == bIsHit)
 	{
 		if (fDist > _Ray.fLength && fabs(_Ray.fLength) > DBL_EPSILON)
 		{
