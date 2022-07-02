@@ -25,53 +25,41 @@ HRESULT CBackGround::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 1.f, 0.f));
+	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinCX, g_iWinCY, 0.0f, 1.f);	
 
+	m_fX = g_iWinCX >> 1;
+	m_fY = g_iWinCY - 100.0f;
+	m_fSizeX = 800.0f;
+	m_fSizeY = 50.0f;
 	
 	return S_OK;
 }
 
 void CBackGround::Tick(_float fTimeDelta)
-{
-	if (GetKeyState(VK_UP) & 0x8000)
-		m_pTransformCom->Go_Straight(fTimeDelta);	
+{	
+	POINT		ptMouse;
+	GetCursorPos(&ptMouse);
+	ScreenToClient(g_hWnd, &ptMouse);
 
-	if (GetKeyState(VK_DOWN) & 0x8000)
-		m_pTransformCom->Go_Backward(fTimeDelta);
-
-	if (GetKeyState(VK_RIGHT) & 0x8000)
-		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta);		
-
-	if (GetKeyState(VK_LEFT) & 0x8000)
-		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * -1.f);
-
-	CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
-
-	Safe_AddRef(pGameInstance);
-
-	_float3		vPickedPos;
-
-
-	if (GetKeyState(VK_LBUTTON) < 0)
+	RECT		rcUI;
+	SetRect(&rcUI, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
+		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
+/*
+	if (PtInRect(&rcUI, ptMouse))
 	{
-		if (true == pGameInstance->Picking(m_pVIBufferCom, m_pTransformCom, &vPickedPos))
-		{
-			int a = 10;
-		}
-	}
+		MSG_BOX("Ãæµ¹");
+	}*/
 
 
-	Safe_Release(pGameInstance);
-
-	
-
-	
 }
 
 void CBackGround::LateTick(_float fTimeDelta)
 {
 	if (nullptr == m_pRendererCom)
 		return;
+
+	m_pTransformCom->Set_Scaled(_float3(m_fSizeX, m_fSizeY, 1.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(m_fX - (g_iWinCX >> 1), -m_fY + (g_iWinCY >> 1), 0.f));
 
 	
 	m_pRendererCom->Add_RenderGroup(CRenderer::RENDER_PRIORITY, this);
@@ -84,11 +72,15 @@ HRESULT CBackGround::Render()
 
 	m_pTransformCom->Bind_WorldMatrix();
 
-	m_pGraphic_Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	_float4x4	ViewMatrix;
+	D3DXMatrixIdentity(&ViewMatrix);
+
+	m_pGraphic_Device->SetTransform(D3DTS_VIEW, &ViewMatrix);
+	m_pGraphic_Device->SetTransform(D3DTS_PROJECTION, &m_ProjMatrix);
 
 	m_pVIBufferCom->Render();
 
-	m_pGraphic_Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+
 
 	return S_OK;
 }

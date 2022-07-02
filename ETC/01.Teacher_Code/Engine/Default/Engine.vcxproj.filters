@@ -82,6 +82,9 @@
     <Filter Include="01.Utility\04.Picking">
       <UniqueIdentifier>{1057a5a3-4441-4da7-b7f3-4883ff23f164}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\Model\Cube">
+      <UniqueIdentifier>{82503524-7daf-479e-b612-e8aa082b948e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -165,6 +168,9 @@
     <ClInclude Include="..\public\Picking.h">
       <Filter>01.Utility\04.Picking</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\VIBuffer_Cube.h">
+      <Filter>01.Utility\03.Components\Model\Cube</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -229,6 +235,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Picking.cpp">
       <Filter>01.Utility\04.Picking</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\VIBuffer_Cube.cpp">
+      <Filter>01.Utility\03.Components\Model\Cube</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

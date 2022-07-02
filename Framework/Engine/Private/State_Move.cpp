@@ -1,6 +1,7 @@
 #include "State_Move.h"
 #include "GameInstance.h"
 
+
 CState_Move::CState_Move(const CState_Move& Prototype)
 {
 	*this = Prototype;
@@ -114,43 +115,47 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 
 	m_fCurTime -= fTimeDelta;
 
-#pragma region 수정필요
-	//CTransform* pTransform = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform();
-	////m_TargetWorldMat = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_CameraWorldMat();
+	CTransform* pTransform = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform();
+	
+	_float3 MyPos = _Transform->Get_World_State(CTransform::STATE_POSITION);
+	_float3 MyDir = _Transform->Get_World_State(CTransform::STATE_LOOK);
 
-	//_float3 MyPos = _Transform->Get_World_State(CTransform::STATE_POSITION);
-	//_float3 MyDir = _Transform->Get_World_State(CTransform::STATE_LOOK);
+	_float3 TargetPos = pTransform->Get_World_State(CTransform::STATE_POSITION);
 
-	////_float3 TargetPos = _float3(m_TargetWorldMat._41, m_TargetWorldMat._42, m_TargetWorldMat._43);
-	////_float3 TargetDir = _float3(m_TargetWorldMat._31, m_TargetWorldMat._32, m_TargetWorldMat._33);
+	_float3 Boundary = TargetPos - MyPos;
+	_float3 TargetDir = Boundary;
 
-	//_float3 TargetPos = pTransform->Get_World_State(CTransform::STATE_POSITION);
+	D3DXVec3Normalize(&TargetDir, &TargetDir);
 
+	_float BoundaryLength = D3DXVec3Length(&Boundary);
 
-	//_float3 Boundary = TargetPos - MyPos;
+	if (BoundaryLength > m_fDefaultBoundary)
+	{
+		_float3 vRight;
+		_float3 vUp;
+		D3DXVec3Cross(&vRight, &_float3(0.f, 1.f, 0.f), &TargetDir);
+		D3DXVec3Cross(&vUp, &TargetDir, &vRight);
 
+		m_pRigidBody->Set_Direction(CRigid_Body::STATE_RIGHT, vRight);
+		m_pRigidBody->Set_Direction(CRigid_Body::STATE_UP, vUp);
+		m_pRigidBody->Set_Direction(CRigid_Body::STATE_LOOK, TargetDir);
 
-	//_float3 TargetDir = Boundary;
+		m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
 
-	//D3DXVec3Normalize(&TargetDir, &TargetDir);
-
-
-
-	//_float BoundaryLength = D3DXVec3Length(&Boundary);
-
-	//if (BoundaryLength > m_fDefaultBoundary)
-	//{
-		
+		//m_pRigidBody->Set_Booster(true);
+		// 
+		//m_pRigidBody->Set_Direction(CRigid_Body::STATE_LOOK, TargetDir);
 		//m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
-		//_Transform->Set_State(CTransform::STATE_LOOK, MyDir);
+		//m_pRigidBody->Set_Direction(CRigid_Body::STATE_LOOK, MyDir);
 
-	//	_Transform->Set_State(CTransform::STATE_LOOK, TargetDir);
-	//	_Transform->Set_State(CTransform::STATE_UP, vUp);
-	//	_Transform->Set_State(CTransform::STATE_RIGHT, vRight);
-	//	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
-	//	//_Transform->Set_State(CTransform::STATE_LOOK, MyDir);
+	}
+	//else
+	//{
+	//	m_pRigidBody->Set_Booster(false);
 	//}
-#pragma endregion 수정필요
+
+
+
 
 	if (m_fCurTime <= 0.f)
 	{
@@ -196,6 +201,8 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 
 void CState_Move::State_Tagetting(CTransform* _TargetTransform, _float fTimeDelta, _float fLimit)
 {
+
+
 
 	m_fTargetCurTime -= fTimeDelta;
 

@@ -76,6 +76,20 @@ namespace Engine
 		static const DWORD FVF = D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE;
 	}VTXCOLOR;
 
+	typedef struct tagVertex_OnlyColor
+	{
+		D3DXVECTOR3		vPosition;
+		D3DCOLOR		DColor;
+
+		tagVertex_OnlyColor(const D3DXVECTOR3& _Pos, const D3DCOLOR& _Color)
+		{
+			vPosition = _Pos;
+			DColor = _Color;
+		}
+
+		static const DWORD FVF = D3DFVF_XYZ | D3DFVF_DIFFUSE;
+	}VTXONLYCOLOR;
+
 	typedef struct tagVertex_Default
 	{
 		D3DXVECTOR3		vPosition;

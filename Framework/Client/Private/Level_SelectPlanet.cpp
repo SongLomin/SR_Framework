@@ -2,6 +2,7 @@
 #include "Level_SelectPlanet.h"
 #include "GameInstance.h"
 #include "Level_Loading.h"
+#include <time.h>
 #include "Cam_FPS.h"
 #include "Cam_Shoulder.h"
 #include "Cam_TPS.h"
@@ -18,6 +19,9 @@
 #include "Planet_Venus.h"
 #include "Planet_Sun.h"
 #include "Planet_Red.h"
+#include "Planet_Magma.h"
+#include "Planet_Exo.h"
+#include "Light_Moon.h"
 
 CLevel_SelectPlanet::CLevel_SelectPlanet()
 {
@@ -31,28 +35,25 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	
 
 	CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(CURRENT_LEVEL, TEXT("Camera"));
-	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("FPS"), FPS_Cam->Get_Component<CCamera>());
 
 	CGameObject* Shoulder_Cam = GAMEINSTANCE->Add_GameObject<CCam_Shoulder>(CURRENT_LEVEL, TEXT("Camera"));
-	Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Shoulder"), Shoulder_Cam->Get_Component<CCamera>());
 
 	CGameObject* TPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera"));
-	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
 
 	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(CURRENT_LEVEL, TEXT("Camera"));
-	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
 	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_SELECTPLANET, TEXT("Player_Body")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
-		return E_FAIL;
-
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
 		return E_FAIL;
 
 	/*if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_SELECTPLANET, TEXT("Aim")))
@@ -76,36 +77,66 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_SELECTPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
-		return E_FAIL;
-	
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
+	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("CLight_Moon")))
 		return E_FAIL;
 
+
+	// 행성 2개 랜덤 생성
+	srand(unsigned(time(NULL)));
+
+	LEVEL m_eNextPlanet = LEVEL_STATIC;
+	LEVEL m_ePreNextPlanet = m_eNextPlanet;
+
+	for (_uint i = 0; i < 2; ++i)
+	{
+		
+
+		m_eNextPlanet = (LEVEL)(rand() % (_uint)LEVEL::LEVEL_SELECTPLANET);
+
+		if (m_eNextPlanet == m_ePreNextPlanet)
+		{
+			--i;
+			continue;
+		}
+		
+		switch (m_eNextPlanet)
+		{
+		case  LEVEL::LEVEL_REDPLANET:
+			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
+				return E_FAIL;
+			break;
+
+		case  LEVEL::LEVLE_EXOPLANET:
+			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Exo>(LEVEL_SELECTPLANET, TEXT("Exo")))
+				return E_FAIL;
+			break;
+
+		case  LEVEL::LEVEL_VENUSPLANET:
+			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
+				return E_FAIL;
+			break;
+
+		case  LEVEL::LEVEL_MAGMAPLANET:
+			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Magma>(LEVEL_SELECTPLANET, TEXT("Magma")))
+				return E_FAIL;
+			break;
+		}
+
+		m_ePreNextPlanet = m_eNextPlanet;
+	}
+
+	/// <summary>
+	/// ////////////////
+	/// </summary>
+	/// <returns></returns>
+	
 	return S_OK;
 }
 
 void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
-	
-
-	// Planet_Venus
-
-
-
-	// Planet_ ~
-
-
-
-	// Planet_ ~
-
-
-	// 
-
-
-	//
-	
+		
 
 }
 
@@ -115,10 +146,12 @@ HRESULT CLevel_SelectPlanet::Render()
 		return E_FAIL;
 
 
-	SetWindowText(g_hWnd, TEXT("행성 선택 레벨입니다. "));
+	SetWindowText(g_hWnd, TEXT("Select Planet 레벨입니다. "));
 
 	return S_OK;
 }
+
+
 
 CLevel_SelectPlanet* CLevel_SelectPlanet::Create()
 {

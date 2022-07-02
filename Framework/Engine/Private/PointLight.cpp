@@ -24,8 +24,8 @@ HRESULT CPointLight::Initialize(void* pArg)
 	m_D3DLight.Type = D3DLIGHTTYPE::D3DLIGHT_POINT;
 
 	m_D3DLight.Ambient = m_Color * 0.5f * m_fColorScale;
-	m_D3DLight.Diffuse = m_Color;
-	m_D3DLight.Specular = m_Color * 0.6f;
+	m_D3DLight.Diffuse = m_Color * 0.7f;
+	m_D3DLight.Specular = m_Color * 0.9f;
 
 	m_D3DLight.Position = position;
 	m_D3DLight.Direction = direction;

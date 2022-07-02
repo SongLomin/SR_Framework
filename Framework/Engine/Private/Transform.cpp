@@ -95,6 +95,11 @@ _float4x4 CTransform::Get_WorldMatrix(BYTE MyFlags, BYTE ParentFlags)
 	return m_WorldMatrix;
 }
 
+void CTransform::Set_LocalMatrix(_float4x4 _Mat)
+{
+	m_LocalMatrix = _Mat;
+}
+
 void CTransform::Go_Target(CTransform* _Trans, _float fTimeDelta, _bool _bWorld)
 {
 	_float3 vPlayerPos = _Trans->Get_State(CTransform::STATE_POSITION, _bWorld);

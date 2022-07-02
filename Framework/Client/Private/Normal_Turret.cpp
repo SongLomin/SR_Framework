@@ -53,9 +53,10 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 		{
 			if (m_fCurTime < 0.f)
 			{
-				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, nullptr);
-
-				((CNormal_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
+				COLLISION_TYPE eColType = COLLISION_TYPE::MONSTER_ATTACK;
+				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &eColType);
+				static_cast<CNormal_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
+				//((CNormal_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
 
 				GAMEINSTANCE->Add_Shaking(0.1f, 0.005f);
 
@@ -67,9 +68,9 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 		{
 			if (m_fCurTime < 0.f)
 			{
-				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CRoket_Bullet>(CURRENT_LEVEL, TEXT("Roket_Bullet"));
-
-				((CRoket_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
+				COLLISION_TYPE eColType = COLLISION_TYPE::MONSTER_ATTACK;
+				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CRoket_Bullet>(CURRENT_LEVEL, TEXT("Roket_Bullet"), nullptr, &eColType);
+				static_cast<CRoket_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
 
 				m_fCurTime = 0.3f;
 			}
@@ -92,8 +93,9 @@ void CNormal_Turret::LateTick(_float fTimeDelta)
 
 			if (m_pTarget && m_fCurTime <= 0)
 			{
-				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, nullptr);
-				((CNormal_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
+				COLLISION_TYPE eColType = COLLISION_TYPE::MONSTER_ATTACK;
+				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &eColType);
+				static_cast<CNormal_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
 
 				m_fMaxTime = (_float)(rand() % 11 + 5) * 0.1f;
 				m_fCurTime = m_fMaxTime;
@@ -105,7 +107,7 @@ void CNormal_Turret::LateTick(_float fTimeDelta)
 
 HRESULT CNormal_Turret::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.4f, 0.30f, 1.6f), true);
+	m_pTransformCom->Scaling(_float3(0.01f, 0.01f, 0.01f), true);
 	m_pTransformCom->Bind_WorldMatrix(D3D_ALL, D3D_ALL);
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -162,7 +164,8 @@ void CNormal_Turret::Set_Target(CGameObject* _Target)
 	//기존에 타겟 인스턴스가 살아 있는데 바뀐 경우는
 	if (m_pTarget)
 	{
-		m_pBoxObject->Set_Enable(false);
+		if(m_pBoxObject)
+			m_pBoxObject->Set_Enable(false);
 	}
 
 	if (!_Target)
@@ -179,6 +182,9 @@ void CNormal_Turret::Set_Target(CGameObject* _Target)
 
 
 	list<CGameObject*> Targetings = m_pTarget->Get_Children_From_Key(TEXT("Targeting"));
+	if (Targetings.empty())
+		return;
+
 	m_pBoxObject = Targetings.front();
 	WEAK_PTR(m_pBoxObject);
 
@@ -219,7 +225,7 @@ HRESULT CNormal_Turret::SetUp_Components()
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
 
-	m_pMeshCom = Add_Component<CMesh_Cube>();
+	m_pMeshCom = Add_Component<CMesh_Canon>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 

@@ -1,4 +1,5 @@
 #include "..\Public\VIBuffer_Terrain.h"
+#include "Transform.h"
 
 CVIBuffer_Terrain::CVIBuffer_Terrain(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: CVIBuffer(pGraphic_Device)
@@ -190,6 +191,45 @@ HRESULT CVIBuffer_Terrain::Initialize_Prototype(const _tchar * pHeightMapFilePat
 HRESULT CVIBuffer_Terrain::Initialize(void * pArg)
 {
 	return S_OK;
+}
+
+_float3 CVIBuffer_Terrain::SetUp_OnTerrain(const _float3 * pWorldPos, CTransform * pTransform)
+{
+	_float4x4		WorldMatrix = pTransform->Get_WorldMatrix();
+	_float4x4		WorldMatrixInv;
+	D3DXMatrixInverse(&WorldMatrixInv, nullptr, &WorldMatrix);
+
+	_float3			vLocalPos;
+	D3DXVec3TransformCoord(&vLocalPos, pWorldPos, &WorldMatrixInv);
+
+	_uint			iIndex = _uint(vLocalPos.z) * m_iNumVerticesX + _uint(vLocalPos.x);
+
+	_uint			iIndices[] = {
+		iIndex + m_iNumVerticesX, 
+		iIndex + m_iNumVerticesX + 1,
+		iIndex + 1, 
+		iIndex
+	};
+
+	_float		fWidth = vLocalPos.x - m_pVerticesPos[iIndices[0]].x;
+	_float		fDepth = m_pVerticesPos[iIndices[0]].z - vLocalPos.z;
+
+	D3DXPLANE		Plane;
+
+	/* 오른쪽 위 */
+	if (fWidth > fDepth)	
+		D3DXPlaneFromPoints(&Plane, &m_pVerticesPos[iIndices[0]], &m_pVerticesPos[iIndices[1]], &m_pVerticesPos[iIndices[2]]);
+	
+	/* 왼쪽 하단 */
+	else
+		D3DXPlaneFromPoints(&Plane, &m_pVerticesPos[iIndices[0]], &m_pVerticesPos[iIndices[2]], &m_pVerticesPos[iIndices[3]]);
+
+	/* ax + by + cz + d = 0 */
+	vLocalPos.y = (-Plane.a * vLocalPos.x - Plane.c * vLocalPos.z - Plane.d) / Plane.b;
+
+	D3DXVec3TransformCoord(&vLocalPos, &vLocalPos, &WorldMatrix);	
+	
+	return vLocalPos;
 }
 
 CVIBuffer_Terrain * CVIBuffer_Terrain::Create(LPDIRECT3DDEVICE9 pGraphic_Device, _uint iNumVerticesX, _uint iNumVerticesZ)

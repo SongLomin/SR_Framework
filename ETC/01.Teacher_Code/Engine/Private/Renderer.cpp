@@ -34,6 +34,14 @@ HRESULT CRenderer::Draw_RenderGroup()
 {
 	for (_uint i = 0; i < RENDER_END; ++i)
 	{
+		if (i == RENDER_ALPHABLEND)
+		{
+			m_RenderObjects[i].sort([](CGameObject* pSour, CGameObject* pDest)
+			{
+				return pSour->Get_CamDistance() > pDest->Get_CamDistance();
+			});			
+		}
+
 		for (auto& pGameObject : m_RenderObjects[i])
 		{
 			if (nullptr != pGameObject)

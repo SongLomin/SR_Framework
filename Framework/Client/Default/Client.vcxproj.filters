@@ -16,9 +16,6 @@
     <Filter Include="01.Levels\00.Logo">
       <UniqueIdentifier>{aacaa929-73ad-4c80-bdec-1f1407800b7e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Levels\01.GamePlay">
-      <UniqueIdentifier>{682cbcc4-8369-43ae-97de-26b779b658b8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Levels\99.Loading">
       <UniqueIdentifier>{67e26c50-bb42-4fef-952d-8c870871c9cf}</UniqueIdentifier>
     </Filter>
@@ -88,9 +85,6 @@
     <Filter Include="02.GameObject\01. Turret\Normal">
       <UniqueIdentifier>{3f4d50fd-c3ce-41f2-8a20-2463fbb4f8c6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\06. Rock">
-      <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\03. Bullet">
       <UniqueIdentifier>{26b96253-5e95-455b-89fc-fc1a7be41a8f}</UniqueIdentifier>
     </Filter>
@@ -118,9 +112,6 @@
     <Filter Include="02.GameObject\09. Box\SkyBox">
       <UniqueIdentifier>{c62e7395-293e-4448-9a84-cb8755b2214a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Levels\02.SelectPlanet">
-      <UniqueIdentifier>{549eec5f-3b33-4fcf-a38a-86d10ebaadf5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\06. Planet">
       <UniqueIdentifier>{da87416d-1441-4a2b-9e14-1774ec64dff8}</UniqueIdentifier>
     </Filter>
@@ -141,6 +132,45 @@
     </Filter>
     <Filter Include="02.GameObject\03. Bullet\Roket">
       <UniqueIdentifier>{4e1ddc4f-c212-49e2-b683-3ad8501e612c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\06. Planet\Magma">
+      <UniqueIdentifier>{94052d7d-a2b5-44dd-8102-97c4f7c87b1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\06. Planet\Exo">
+      <UniqueIdentifier>{3121850d-d0b5-4401-9762-560237b8968f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\02.Level_Red">
+      <UniqueIdentifier>{682cbcc4-8369-43ae-97de-26b779b658b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\01.Level_Select">
+      <UniqueIdentifier>{549eec5f-3b33-4fcf-a38a-86d10ebaadf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\03.Level_Exo">
+      <UniqueIdentifier>{9682c7a5-d67f-414b-9e07-0ad9e2e40ffc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\04.Level_Magma">
+      <UniqueIdentifier>{d1b914fc-4239-4b51-95b9-0136eb022a44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\05.Level_Venus">
+      <UniqueIdentifier>{2f8e8cb4-bac1-4e55-af3b-8ca3d815bac4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. Rock">
+      <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\11. Light">
+      <UniqueIdentifier>{3ad58ff7-fc3c-4713-a020-6a6d7bc5d31c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97. UITest\Loading">
+      <UniqueIdentifier>{91d6ac50-951a-4727-b597-ac9edfcafe02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem">
+      <UniqueIdentifier>{99ed4003-2a43-468d-ba0c-c80dd79c519d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem\01. SpaceDust_PSystem">
+      <UniqueIdentifier>{90a1cca8-a95f-415d-a387-2fb49cacdd72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem\00. Trajectory_PSystem">
+      <UniqueIdentifier>{13c5497c-ff42-4c4d-98d8-57b96494ae1e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -165,8 +195,8 @@
     <ClInclude Include="..\public\Level_Logo.h">
       <Filter>01.Levels\00.Logo</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Level_GamePlay.h">
-      <Filter>01.Levels\01.GamePlay</Filter>
+    <ClInclude Include="..\Public\Level_RedPlanet.h">
+      <Filter>01.Levels\02.Level_Red</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Level_Loading.h">
       <Filter>01.Levels\99.Loading</Filter>
@@ -253,12 +283,11 @@
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Level_SelectPlanet.h">
-      <Filter>01.Levels\02.SelectPlanet</Filter>
+      <Filter>01.Levels\01.Level_Select</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Planet_Venus.h">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Rock.h" />
     <ClInclude Include="SelectPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClInclude>
@@ -285,6 +314,39 @@
     <ClInclude Include="..\Public\Rock.h">
       <Filter>02.GameObject\06. Rock</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Planet_Magma.h">
+      <Filter>02.GameObject\06. Planet\Magma</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Planet_Exo.h">
+      <Filter>02.GameObject\06. Planet\Exo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Level_ExoPlanet.h">
+      <Filter>01.Levels\03.Level_Exo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Level_VenusPlanet.h">
+      <Filter>01.Levels\05.Level_Venus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Level_MagmaPlanet.h">
+      <Filter>01.Levels\04.Level_Magma</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Light_Moon.h">
+      <Filter>02.GameObject\11. Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Loading.h">
+      <Filter>97. UITest\Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h">
+      <Filter>02.GameObject\10. Rock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Bullet.h">
+      <Filter>02.GameObject\03. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Trajectory_PSystem.h">
+      <Filter>02.GameObject\10. ParticleSystem\00. Trajectory_PSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\SpaceDust_PSystem.h">
+      <Filter>02.GameObject\10. ParticleSystem\01. SpaceDust_PSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -296,11 +358,8 @@
     <ClCompile Include="..\Private\MainApp.cpp">
       <Filter>00.MainApp</Filter>
     </ClCompile>
-    <ClCompile Include="..\private\Level_Logo.cpp">
-      <Filter>01.Levels\00.Logo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\Level_GamePlay.cpp">
-      <Filter>01.Levels\01.GamePlay</Filter>
+    <ClCompile Include="..\Private\Level_RedPlanet.cpp">
+      <Filter>01.Levels\02.Level_Red</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Level_Loading.cpp">
       <Filter>01.Levels\99.Loading</Filter>
@@ -387,12 +446,11 @@
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Level_SelectPlanet.cpp">
-      <Filter>01.Levels\02.SelectPlanet</Filter>
+      <Filter>01.Levels\01.Level_Select</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Planet_Venus.cpp">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Rock.cpp" />
     <ClCompile Include="SelectPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClCompile>
@@ -418,6 +476,42 @@
     <ClCompile Include="SelectPlanet_SkyBox.cpp" />
     <ClCompile Include="..\Private\Rock.cpp">
       <Filter>02.GameObject\06. Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Planet_Magma.cpp">
+      <Filter>02.GameObject\06. Planet\Magma</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Planet_Exo.cpp">
+      <Filter>02.GameObject\06. Planet\Exo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_ExoPlanet.cpp">
+      <Filter>01.Levels\03.Level_Exo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_VenusPlanet.cpp">
+      <Filter>01.Levels\05.Level_Venus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_MagmaPlanet.cpp">
+      <Filter>01.Levels\04.Level_Magma</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Level_Logo.cpp">
+      <Filter>01.Levels\00.Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Light_Moon.cpp">
+      <Filter>02.GameObject\11. Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Loading.cpp">
+      <Filter>97. UITest\Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp">
+      <Filter>02.GameObject\10. Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Bullet.cpp">
+      <Filter>02.GameObject\03. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Trajectory_PSystem.cpp">
+      <Filter>02.GameObject\10. ParticleSystem\00. Trajectory_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\SpaceDust_PSystem.cpp">
+      <Filter>02.GameObject\10. ParticleSystem\01. SpaceDust_PSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

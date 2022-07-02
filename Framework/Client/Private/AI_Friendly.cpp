@@ -125,7 +125,7 @@ HRESULT CAI_Friendly::SetUp_Components()
 	m_pTargetingCom = Add_Component<CTargeting>();
 	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
 
-	m_pMeshCom = Add_Component<CMesh_Cube>();
+	m_pMeshCom = Add_Component<CMesh_ShinShip>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 

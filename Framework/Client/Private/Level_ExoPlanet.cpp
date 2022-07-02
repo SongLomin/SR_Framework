@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "..\Public\Level_GamePlay.h"
+#include "Level_ExoPlanet.h"
 #include "GameInstance.h"
 #include "LEvel_Loading.h"
 #include "Player_Body.h"
@@ -30,13 +30,14 @@
 #include <Test_Player.h>
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
+#include "Light_Moon.h"
 
-CLevel_GamePlay::CLevel_GamePlay()
+CLevel_ExoPlanet::CLevel_ExoPlanet()
 {
 
 }
 
-HRESULT CLevel_GamePlay::Initialize()
+HRESULT CLevel_ExoPlanet::Initialize()
 {
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
@@ -55,69 +56,40 @@ HRESULT CLevel_GamePlay::Initialize()
 	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
 
-	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(LEVEL_STATIC, TEXT("Camera"));
+	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(CURRENT_LEVEL, TEXT("Camera"));
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_GAMEPLAY, TEXT("Player_Body")))
+	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVLE_EXOPLANET, TEXT("Player_Body")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CTest_Player>(LEVEL_GAMEPLAY, TEXT("Test_Player")))
+	
+	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVLE_EXOPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
-	for (int i = 0; i < 50; ++i)
-	{
-		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_GAMEPLAY, TEXT("EnemySpace_Body")))
-			return E_FAIL;
-	}
-
-	for (int i = 0; i < 50; ++i)
-	{
-		if (!GAMEINSTANCE->Add_GameObject<CAI_Friendly>(LEVEL_GAMEPLAY, TEXT("AI_Friendly")))
-			return E_FAIL;
-	}
-
-
-	/*for (int i = 0; i < 5; i++)
-	{
-		GAMEINSTANCE->Add_GameObject<CMonster>(LEVEL_GAMEPLAY, TEXT("Monster"))
-			->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(i * 5.f, 0.f, 0.f));
-	}*/
-
-	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_GAMEPLAY, TEXT("Terrain")))
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVLE_EXOPLANET, TEXT("Aim")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVEL_GAMEPLAY, TEXT("SkyBox")))
+
+	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVLE_EXOPLANET , TEXT("Light_Moon")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_GAMEPLAY, TEXT("Aim")))
+	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVLE_EXOPLANET, TEXT("Status")))
 		return E_FAIL;
 
-	for (int i = 0; i < 30; ++i)
-	{
-		if (!GAMEINSTANCE->Add_GameObject<CRock>(LEVEL_GAMEPLAY, TEXT("Rock")))
-			return E_FAIL;
-	}
-
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
+	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVLE_EXOPLANET, TEXT("HP")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_GAMEPLAY, TEXT("Status")))
+	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVLE_EXOPLANET, TEXT("Booster")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_GAMEPLAY, TEXT("HP")))
+	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVLE_EXOPLANET, TEXT("Shield")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_GAMEPLAY, TEXT("Booster")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVLE_EXOPLANET, TEXT("NormalBullet")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_GAMEPLAY, TEXT("Shield")))
-		return E_FAIL;
-
-	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_GAMEPLAY, TEXT("NormalBullet")))
-		return E_FAIL;
-
-	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_GAMEPLAY, TEXT("CBulletCountUI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVLE_EXOPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
 
@@ -138,57 +110,49 @@ HRESULT CLevel_GamePlay::Initialize()
 	return S_OK;
 }
 
-void CLevel_GamePlay::Tick(_float fTimeDelta)
+void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);		
 
 
-	// 1
-
-
-
-	// 2
-	
-
-
-	// 3
-	 
+	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
+	{
+		if (FAILED(GAMEINSTANCE->Get_Instance()->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
+			return;
+	}
 	
 }
 
-HRESULT CLevel_GamePlay::Render()
+HRESULT CLevel_ExoPlanet::Render()
 {
 	if (FAILED(__super::Render()))
 		return E_FAIL;
 
 
-	SetWindowText(g_hWnd, TEXT("게임 플레이 레벨입니다. "));
+	SetWindowText(g_hWnd, TEXT("Exo Planet 레벨입니다. "));
 
 	return S_OK;
 }
 
-CLevel_GamePlay * CLevel_GamePlay::Create()
+CLevel_ExoPlanet* CLevel_ExoPlanet::Create()
 {
-	CLevel_GamePlay*		pInstance = new CLevel_GamePlay();
+	CLevel_ExoPlanet* pInstance = new CLevel_ExoPlanet();
 
 	if (FAILED(pInstance->Initialize()))
 	{
-		MSG_BOX("Failed to Created : CLevel_GamePlay");
+		MSG_BOX("Failed to Created : CLevel_ExoPlanet");
 		Safe_Release(pInstance);
 	}
 
 	return pInstance;
 }
 
-void CLevel_GamePlay::Free()
+void CLevel_ExoPlanet::Free()
 {
 	__super::Free();
 
 	delete this;
 }
 
-void CLevel_GamePlay::Ai_Create(_float TimeDelta)
-{
-	
-}
+
 

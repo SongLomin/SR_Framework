@@ -108,6 +108,11 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 			}
 			m_iCurrent_TargetMode = (m_iCurrent_TargetMode + 1) % 3;
 		}
+		if (KEY_INPUT(KEY::LSHIFT, KEY_STATE::HOLD))
+		{
+			m_pMyObject->Get_Component<CRigid_Body>()->Set_Booster(true);
+			GAMEINSTANCE->Add_Shaking(0.3f, 0.00005f);
+		}
 	}
 }
 

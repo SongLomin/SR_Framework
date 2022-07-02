@@ -32,6 +32,7 @@ HRESULT CTexture::Initialize_Prototype(TYPE eType, const _tchar * pTextureFilePa
 
 		switch (eType)
 		{
+			/* dds photoshop plugin */
 		case TYPE_CUBE:
 			hr = D3DXCreateCubeTextureFromFile(m_pGraphic_Device, szTextureFullPath, (LPDIRECT3DCUBETEXTURE9*)&pTexture);
 			break;

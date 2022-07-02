@@ -13,13 +13,14 @@ class CRigid_Body;
 class CTargeting;
 class CMesh_SongShip;
 class CCollider_OBB;
-class CCollider_Pre;
 class CAI_Controller;
 class CPlayer_Controller;
 class CState_Move;
 class CMesh_Test;
 class CDirectionalLight;
 class CMesh_ShinShip;
+class CDirectionalLight;
+class CCollider_Shpere;
 END
 
 BEGIN(Client)
@@ -44,7 +45,11 @@ public:
 	virtual HRESULT Render_Begin(ID3DXEffect** Shader = nullptr) override;
 	virtual HRESULT Render() override;
 
-
+//public:
+//	_float3		Get_MaterialAmbient()
+//	{
+//		return m_vMaterialAmbient;
+//	}
 
 private:
 	CTransform*				m_pTransformCom = nullptr;
@@ -54,9 +59,8 @@ private:
 	//CMesh_ShinShip* m_pMeshCubeCom = nullptr;
 	CStatus*				m_pStatusCom = nullptr;
 	CRigid_Body*			m_pRigidBodyCom = nullptr;
-	CCollider_OBB*			m_pColliderCom = nullptr;
+	CCollider_Shpere*			m_pColliderCom = nullptr;
 	CTargeting*				m_pTargetingCom = nullptr;
-	CCollider_Pre*			m_pPreColliderCom = nullptr;
 	CAI_Controller*			m_pAIControllerCom = nullptr;
 	CPlayer_Controller*		m_pPlayerController = nullptr;
 	CState_Move*			m_pStateCom = nullptr;
@@ -71,6 +75,7 @@ private:
 	_float					m_fTime = 1.f;
 
 	_bool					m_bTargetMode = false;
+
 
 protected: /* For Event Function */
 	virtual void On_Change_Controller(const CONTROLLER& _IsAI) override;

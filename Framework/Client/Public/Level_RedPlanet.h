@@ -5,11 +5,11 @@
 
 BEGIN(Client)
 
-class CLevel_GamePlay final : public CLevel
+class CLevel_RedPlanet final : public CLevel
 {
 public:
-	CLevel_GamePlay();
-	virtual ~CLevel_GamePlay() = default;
+	CLevel_RedPlanet();
+	virtual ~CLevel_RedPlanet() = default;
 
 public:
 	virtual HRESULT Initialize();
@@ -17,7 +17,7 @@ public:
 	virtual HRESULT Render();
 
 public:
-	static CLevel_GamePlay* Create();
+	static CLevel_RedPlanet* Create();
 	virtual void Free() override;
 
 private:
@@ -26,6 +26,8 @@ private:
 private:
 	_ulong	m_lPage[10];
 	bool	m_bWaveCheck[10];
+
+	_float  m_fSpawnTime = 2.f;
 };
 
 END

@@ -16,6 +16,8 @@ HRESULT CVIBuffer_Rect::Initialize_Prototype()
 	m_iNumVertices = 4;
 	m_dwFVF = D3DFVF_XYZ | D3DFVF_TEX1; /* | D3DFVF_TEXCOORDSIZE2(0) */
 	m_iNumPrimitive = 2;
+
+	//D3DXMatrixOrthoLH()
 	
 	/* 정점배열이 할당된다. */
 	if (FAILED(__super::Create_VertexBuffer()))
@@ -31,13 +33,13 @@ HRESULT CVIBuffer_Rect::Initialize_Prototype()
 	pVertices[0].vTexUV = _float2(0.0f, 0.f);
 
 	pVertices[1].vPosition = m_pVerticesPos[1] = _float3(0.5f, 0.5f, 0.f);
-	pVertices[1].vTexUV = _float2(2.f, 0.f);
+	pVertices[1].vTexUV = _float2(1.0f, 0.f);
 
 	pVertices[2].vPosition = m_pVerticesPos[2] = _float3(0.5f, -0.5f, 0.f);
-	pVertices[2].vTexUV = _float2(2.f, 2.f);
+	pVertices[2].vTexUV = _float2(1.0f, 1.0f);
 
 	pVertices[3].vPosition = m_pVerticesPos[3] = _float3(-0.5f, -0.5f, 0.f);
-	pVertices[3].vTexUV = _float2(0.f, 2.f);
+	pVertices[3].vTexUV = _float2(0.f, 1.0f);
 	
 	m_pVB->Unlock();
 

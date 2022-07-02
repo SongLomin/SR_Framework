@@ -19,7 +19,6 @@ public:
 private:
 	HRESULT Ready_Layer_Camera(const _tchar* pLayerTag);
 	HRESULT Ready_Layer_BackGround(const _tchar* pLayerTag);
-	HRESULT Ready_Layer_Monster(const _tchar* pLayerTag);
 
 public:
 	static CLevel_Logo* Create(LPDIRECT3DDEVICE9 pGraphic_Device);

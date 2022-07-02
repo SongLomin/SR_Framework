@@ -43,15 +43,23 @@ void CPlanet_Sun::Tick(_float fTimeDelta)
 	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
 	{
 
-		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
+		/*if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
 		{
 			if (FAILED(GAMEINSTANCE->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_GAMEPLAY))))
 				return;
-		}
+		}*/
 
 
 	}
 
+	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
+	_float3 MyWorldPos;
+	MyWorldPos.x = 200.f + CamWorldPos.x;
+	MyWorldPos.y = 100.f + CamWorldPos.y;
+	MyWorldPos.z = 400.f + CamWorldPos.z;
+
+
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);
 
 }
 
@@ -72,13 +80,11 @@ HRESULT CPlanet_Sun::Render()
 
 	m_pTransformCom->Bind_WorldMatrix();
 
-	/*_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
+	_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
 
 	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
 
-	_float3 Look = m_pTransformCom->Get_State(CTransform::STATE_LOOK, true);
-
-	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);*/
+	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Sun \n 보스 구역 \n [Warring]   \n 보상 : XXX"), 0);
 	
 	m_pRendererCom->Bind_Texture(4);
 

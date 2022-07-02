@@ -23,6 +23,9 @@ public:
 	virtual HRESULT Initialize_Prototype(const _tchar* pHeightMapFilePath);
 	virtual HRESULT Initialize(void* pArg) override;
 
+public:
+	_float3 SetUp_OnTerrain(const _float3* pWorldPos, class CTransform* pTransform);
+
 private:
 	_uint			m_iNumVerticesX = 0;
 	_uint			m_iNumVerticesZ = 0;

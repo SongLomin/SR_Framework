@@ -14,6 +14,10 @@ protected:
 public:
 	class CComponent* Get_Component(const _tchar* pComponentTag);
 
+	_float Get_CamDistance() {
+		return m_fCamDistance;
+	}
+
 public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);
@@ -21,8 +25,12 @@ public:
 	virtual void LateTick(_float fTimeDelta);
 	virtual HRESULT Render();
 
+public:
+	HRESULT Compute_CamDistance(class CTransform* pTransform);
+
 protected:
 	LPDIRECT3DDEVICE9			m_pGraphic_Device = nullptr;
+	_float						m_fCamDistance = 0.f;
 
 protected:
 	map<const _tchar*, class CComponent*>			m_Components;

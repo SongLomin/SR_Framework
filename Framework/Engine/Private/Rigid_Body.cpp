@@ -13,7 +13,18 @@ CRigid_Body::CRigid_Body(const CRigid_Body& Prototype)
 
 void CRigid_Body::Tick(_float fTimeDelta)
 {
+	
+	if (m_bBooster)
+	{
+		if (m_fTimeCount < 0.f)
+		{
+			m_fTimeCount = 0.f;
+			m_bBooster = false;
+		}
 
+		m_fTimeCount -= fTimeDelta;
+		
+	}
 }
 
 void CRigid_Body::LateTick(_float fTimeDelta)
@@ -84,6 +95,7 @@ void CRigid_Body::Add_Dir(Func Dir, _float fDir)//fDir에 마우스 이동량을 전달
 		case RIGHT:
 			m_vAccel += m_vRight;
 			break;
+
 		}
 
 
@@ -194,13 +206,28 @@ void CRigid_Body::Compute_Camera()
 void CRigid_Body::Compute_Dir()
 {
 	D3DXVec3Normalize(&m_vAccel, &m_vAccel);
-	m_vSpeed += m_vAccel * m_RigidbodyDesc.m_fOwnerAccel;
 
-	if (m_RigidbodyDesc.m_fOwnerSpeed < fabs(D3DXVec3Length(&m_vSpeed)))
+	if (m_bBooster)
 	{
-		D3DXVec3Normalize(&m_vSpeed, &m_vSpeed);
-		m_vSpeed *= m_RigidbodyDesc.m_fOwnerSpeed;
+		m_vSpeed += m_vAccel * m_RigidbodyDesc.m_fBoosterAccel;
+		if (m_RigidbodyDesc.m_fBoosterSpeed < fabs(D3DXVec3Length(&m_vSpeed)))
+		{
+			D3DXVec3Normalize(&m_vSpeed, &m_vSpeed);
+			m_vSpeed *= m_RigidbodyDesc.m_fBoosterSpeed;
+
+		}
+
 	}
+	if(!m_bBooster && fabs(D3DXVec3Length(&m_vSpeed) < m_RigidbodyDesc.m_fOwnerSpeed))
+	{
+		m_vSpeed += m_vAccel * m_RigidbodyDesc.m_fOwnerAccel;
+		if (m_RigidbodyDesc.m_fOwnerSpeed < fabs(D3DXVec3Length(&m_vSpeed)))
+		{
+			D3DXVec3Normalize(&m_vSpeed, &m_vSpeed);
+			m_vSpeed *= m_RigidbodyDesc.m_fOwnerSpeed;
+		}
+	}
+	
 
 }
 
@@ -217,6 +244,23 @@ void CRigid_Body::Friction()
 
 		if (m_RigidbodyDesc.m_fFrictional > fabs(D3DXVec3Length(&m_vSpeed)))
 			m_vSpeed = _float3(0.f, 0.f, 0.f);
+	}
+
+	if (!m_bBooster)
+	{
+		if (m_RigidbodyDesc.m_fOwnerSpeed < fabs(D3DXVec3Length(&m_vSpeed)))
+		{
+			_float3 vFriction;
+			D3DXVec3Normalize(&vFriction, &m_vSpeed);
+
+
+			m_vSpeed -= vFriction * (m_RigidbodyDesc.m_fBoosterAccel * 0.3f);
+
+			if (m_RigidbodyDesc.m_fOwnerSpeed > fabs(D3DXVec3Length(&m_vSpeed)))
+			{
+				m_vSpeed = (*D3DXVec3Normalize(&m_vSpeed, &m_vSpeed) * m_RigidbodyDesc.m_fOwnerSpeed);
+			}
+		}
 	}
 
 
