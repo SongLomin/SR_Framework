@@ -68,6 +68,7 @@ HRESULT CDirectionalLight::Initialize(void* pArg)
 	D3DXCOLOR color = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);       // white
 	D3DXVECTOR3 position = D3DXVECTOR3(0.f, 0.f, 5.f);
 	D3DXVECTOR3 direction = D3DXVECTOR3(-1.f, -1.f, -1.f);
+	D3DXVec3Normalize(&direction, &direction);
 
 	m_D3DLight.Type = D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL;
 
@@ -187,8 +188,9 @@ void CDirectionalLight::DrawLight()
 {
     ISVALID(m_ppLightEffect, );
 
+	DEVICE->SetRenderState(D3DRS_ZWRITEENABLE, false);
 	DEVICE->SetStreamSource(0, vb, 0, sizeof(VTX));
 	DEVICE->SetFVF(D3DFVF_XYZ);
 	DEVICE->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2);
-
+	DEVICE->SetRenderState(D3DRS_ZWRITEENABLE, true);
 }
