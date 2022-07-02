@@ -48,9 +48,10 @@ void CPlanet_Magma::Tick(_float fTimeDelta)
 			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_MAGMAPLANET))))
 				return;
 		}
-
-
 	}
+
+
+
 
 	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
 	_float3 MyWorldPos;

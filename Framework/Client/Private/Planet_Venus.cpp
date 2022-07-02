@@ -40,18 +40,17 @@ void CPlanet_Venus::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
 	{
-	
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
 		{
-			if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
-			{
-				if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_VENUSPLANET))))
-					return;
-			}
+			
+		if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_VENUSPLANET))))
+			return;
 		}
 
-	
 	}
+
+	
+
 
 	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
 	_float3 MyWorldPos;

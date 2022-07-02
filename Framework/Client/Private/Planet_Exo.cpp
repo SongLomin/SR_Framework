@@ -51,6 +51,9 @@ void CPlanet_Exo::Tick(_float fTimeDelta)
 
 	}
 
+
+
+
 	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
 	_float3 MyWorldPos;
 	MyWorldPos.x = -250.f + CamWorldPos.x;
