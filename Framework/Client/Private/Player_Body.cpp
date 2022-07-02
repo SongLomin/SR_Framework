@@ -65,7 +65,16 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 	m_fTime -= fTimeDelta;
 	if (m_fTime < 0.f)
 	{
-		Update_PosinTarget(m_pTargetingCom->Get_TargetMode());
+		if (Get_Controller() == CONTROLLER::PLAYER)
+		{
+			Update_PosinTarget(m_pTargetingCom->Get_TargetMode());
+		}
+		else
+		{
+			m_pTargetingCom->Set_TargetMode(TARGETMODE::TARGET_MULTIRAY);
+			m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom);
+			Update_PosinTarget(m_pTargetingCom->Get_TargetMode());
+		}
 		m_fTime = 1.f;
 	}
 }
@@ -77,7 +86,6 @@ void CPlayer_Body::LateTick(_float fTimeDelta)
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 
 	
-
 	ISVALID(m_pRendererCom, );
 
 	
@@ -168,6 +176,9 @@ HRESULT CPlayer_Body::SetUp_Components()
 	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;
+
+	RigidBodyDesc.m_fBoosterSpeed = 500.f;
+	RigidBodyDesc.m_fBoosterAccel = 50.f;
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);

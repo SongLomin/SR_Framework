@@ -26,7 +26,7 @@ public:
 
 public:
 	void Make_Player_TargetList(list<CGameObject*>* pLayer, CTransform* pTransform, _float fDist = 20.f);
-	void Make_AI_TargetList(list<CGameObject*>* pTarget, CTransform* pTransform, _float fDist = 7.f);
+	void Make_AI_TargetList(list<CGameObject*>* pTarget, CTransform* pTransform, _float fDist = 40.f);
 
 
 private:

@@ -25,6 +25,8 @@ void CAI_Controller::Tick(_float fTimeDelta)
 {
 	if (Get_Enable())
 	{
+
+
 		if (!m_pMyTargeting)
 			return;
 
