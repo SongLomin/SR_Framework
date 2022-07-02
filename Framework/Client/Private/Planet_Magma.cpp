@@ -25,7 +25,7 @@ HRESULT CPlanet_Magma::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(300.f, 150.f, 400.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(300.f, 150.f, 200.f));
 
 
 	return S_OK;
@@ -57,7 +57,7 @@ void CPlanet_Magma::Tick(_float fTimeDelta)
 	_float3 MyWorldPos;
 	MyWorldPos.x = 300.f + CamWorldPos.x;
 	MyWorldPos.y = 150.f + CamWorldPos.y;
-	MyWorldPos.z = 400.f + CamWorldPos.z;
+	MyWorldPos.z = 200.f + CamWorldPos.z;
 
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);
