@@ -23,7 +23,7 @@ HRESULT CPlanet_Venus::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1.f, 1.f, 300.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1.f, 100.f, 300.f));
 
 
 	return S_OK;
@@ -38,22 +38,20 @@ void CPlanet_Venus::Tick(_float fTimeDelta)
 	MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
 	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 10000.f);
 
-	/*if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
+	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
 	{
-	
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
 		{
-			if (FAILED(GAMEINSTANCE->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_GAMEPLAY))))
+			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_VENUSPLANET))))
 				return;
 		}
 
-	
-	}*/
+	}
 
 	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
 	_float3 MyWorldPos;
 	MyWorldPos.x = 1.f + CamWorldPos.x;
-	MyWorldPos.y = 1.f + CamWorldPos.y;
+	MyWorldPos.y = 100.f + CamWorldPos.y;
 	MyWorldPos.z = 300.f + CamWorldPos.z;
 
 
@@ -74,7 +72,7 @@ void CPlanet_Venus::LateTick(_float fTimeDelta)
 
 HRESULT CPlanet_Venus::Render()
 {
-	m_pTransformCom->Scaling(_float3(50.f, 50.f, 50.f), true);
+	m_pTransformCom->Scaling(_float3(80.f, 80.f, 50.f), true);
 
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -84,7 +82,9 @@ HRESULT CPlanet_Venus::Render()
 
 	_float3 Look = m_pTransformCom->Get_State(CTransform::STATE_LOOK, true);
 
-	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);
+	/*GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);*/
+
+	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 20, (LONG)ScreenPos.y }, TEXT("Venus Planet \n 저 위험 구역 \n 임무 : 기체 조작연습  \n 난이도 :『★』 \n 보상 : XXX"), 0);
 
 	m_pRendererCom->Bind_Texture(0);
 
@@ -120,9 +120,7 @@ HRESULT CPlanet_Venus::SetUp_Components()
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
-	m_pPointLightCom = Add_Component<CPointLight>();
-	m_pPointLightCom->Set_WeakPtr(&m_pPointLightCom);
-	m_pPointLightCom->Set_Preset_SunLight();
+
 
 	return S_OK;
 }

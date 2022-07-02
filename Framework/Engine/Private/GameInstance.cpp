@@ -394,7 +394,7 @@ _bool CGameInstance::Draw_Frustum()
 HRESULT CGameInstance::ImGuiImplHandle(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
 
-	if (FAILED(m_pIMGUI_Manager->ImGuiImplHandle(hWnd, msg, wParam, lParam)))
+	(FAILED(m_pIMGUI_Manager->ImGuiImplHandle(hWnd, msg, wParam, lParam)));
 		return E_FAIL;
 
 	return S_OK;

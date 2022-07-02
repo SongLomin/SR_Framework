@@ -1,70 +1,51 @@
 #include "stdafx.h"
-#include "Planet_Red.h"
+#include "Light_Moon.h"
 #include "GameInstance.h"
 #include "Math_Utillity.h"
-#include "Level_Loading.h"
 
-
-CPlanet_Red::CPlanet_Red()
+CLight_Moon::CLight_Moon()
 {
 }
 
-CPlanet_Red::CPlanet_Red(const CPlanet_Red& Prototype)
+CLight_Moon::CLight_Moon(const CLight_Moon& Prototype)
 {
 	*this = Prototype;
 }
 
-HRESULT CPlanet_Red::Initialize_Prototype()
+HRESULT CLight_Moon::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CPlanet_Red::Initialize(void* pArg)
+HRESULT CLight_Moon::Initialize(void* pArg)
 {
 
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 200.f, 300.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1.f, 1.f, 300.f));
 
 
 	return S_OK;
 }
 
-void CPlanet_Red::Tick(_float fTimeDelta)
+void CLight_Moon::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	_float3 MouseEndPos;
-	RAY	MouseWorldPos;
-	MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
-	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 10000.f);
-
-	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
-	{
-
-		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
-		{
-			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_REDPLANET))))
-				return;
-		}
-
-
-	}
 
 	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
 	_float3 MyWorldPos;
-	MyWorldPos.x = 0.f + CamWorldPos.x;
-	MyWorldPos.y = 200.f + CamWorldPos.y;
+	MyWorldPos.x = 1.f + CamWorldPos.x;
+	MyWorldPos.y = 1.f + CamWorldPos.y;
 	MyWorldPos.z = 300.f + CamWorldPos.z;
 
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);
 
-
 }
 
-void CPlanet_Red::LateTick(_float fTimeDelta)
+void CLight_Moon::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
@@ -75,9 +56,9 @@ void CPlanet_Red::LateTick(_float fTimeDelta)
 
 }
 
-HRESULT CPlanet_Red::Render()
+HRESULT CLight_Moon::Render()
 {
-	m_pTransformCom->Scaling(_float3(100.f, 100.f, 50.f), true);
+	m_pTransformCom->Scaling(_float3(80.f, 80.f, 50.f), true);
 
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -85,9 +66,13 @@ HRESULT CPlanet_Red::Render()
 
 	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
 
-	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Red Planet \n 고 위험 구역 \n 임무 : 모든 기체 파괴 \n 난이도 :『★★★★』  \n 보상 : XXX"), 0);
+	_float3 Look = m_pTransformCom->Get_State(CTransform::STATE_LOOK, true);
 
-	m_pRendererCom->Bind_Texture(3);
+	/*GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);*/
+
+	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 20, (LONG)ScreenPos.y }, TEXT("Light Test"), 0);
+
+	m_pRendererCom->Bind_Texture(0);
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 	DEVICE->SetRenderState(D3DRS_ALPHAREF, 253);
@@ -105,7 +90,7 @@ HRESULT CPlanet_Red::Render()
 }
 
 
-HRESULT CPlanet_Red::SetUp_Components()
+HRESULT CLight_Moon::SetUp_Components()
 {
 
 	Add_Component<CTransform>();
@@ -115,16 +100,20 @@ HRESULT CPlanet_Red::SetUp_Components()
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Planet"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Light_Moon"), MEMORY_TYPE::MEMORY_STATIC);
 
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
+	m_pPointLightCom = Add_Component<CPointLight>();
+	m_pPointLightCom->Set_WeakPtr(&m_pPointLightCom);
+	m_pPointLightCom->Set_Preset_SunLight();
+
 	return S_OK;
 }
 
-void CPlanet_Red::LookAtCamera()
+void CLight_Moon::LookAtCamera()
 {
 	_float4x4		ViewMatrix;
 
@@ -137,17 +126,17 @@ void CPlanet_Red::LookAtCamera()
 
 }
 
-CPlanet_Red* CPlanet_Red::Create()
+CLight_Moon* CLight_Moon::Create()
 {
-	CREATE_PIPELINE(CPlanet_Red);
+	CREATE_PIPELINE(CLight_Moon);
 }
 
-CGameObject* CPlanet_Red::Clone(void* pArg)
+CGameObject* CLight_Moon::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CPlanet_Red);
+	CLONE_PIPELINE(CLight_Moon);
 }
 
-void CPlanet_Red::Free()
+void CLight_Moon::Free()
 {
 	__super::Free();
 
@@ -157,4 +146,3 @@ void CPlanet_Red::Free()
 
 	delete this;
 }
-

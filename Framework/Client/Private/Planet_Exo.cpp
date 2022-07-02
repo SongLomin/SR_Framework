@@ -1,37 +1,37 @@
 #include "stdafx.h"
-#include "Planet_Red.h"
+#include "Planet_Exo.h"
 #include "GameInstance.h"
 #include "Math_Utillity.h"
 #include "Level_Loading.h"
 
 
-CPlanet_Red::CPlanet_Red()
+CPlanet_Exo::CPlanet_Exo()
 {
 }
 
-CPlanet_Red::CPlanet_Red(const CPlanet_Red& Prototype)
+CPlanet_Exo::CPlanet_Exo(const CPlanet_Exo& Prototype)
 {
 	*this = Prototype;
 }
 
-HRESULT CPlanet_Red::Initialize_Prototype()
+HRESULT CPlanet_Exo::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CPlanet_Red::Initialize(void* pArg)
+HRESULT CPlanet_Exo::Initialize(void* pArg)
 {
 
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 200.f, 300.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(-250.f, 200.f, 250.f));
 
 
 	return S_OK;
 }
 
-void CPlanet_Red::Tick(_float fTimeDelta)
+void CPlanet_Exo::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
@@ -45,18 +45,20 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
 		{
-			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_REDPLANET))))
+			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVLE_EXOPLANET))))
 				return;
 		}
 
-
 	}
+
+
+
 
 	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
 	_float3 MyWorldPos;
-	MyWorldPos.x = 0.f + CamWorldPos.x;
-	MyWorldPos.y = 200.f + CamWorldPos.y;
-	MyWorldPos.z = 300.f + CamWorldPos.z;
+	MyWorldPos.x = -250.f + CamWorldPos.x;
+	MyWorldPos.y = 150.f + CamWorldPos.y;
+	MyWorldPos.z = 250.f + CamWorldPos.z;
 
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);
@@ -64,7 +66,7 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 
 }
 
-void CPlanet_Red::LateTick(_float fTimeDelta)
+void CPlanet_Exo::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
@@ -75,7 +77,7 @@ void CPlanet_Red::LateTick(_float fTimeDelta)
 
 }
 
-HRESULT CPlanet_Red::Render()
+HRESULT CPlanet_Exo::Render()
 {
 	m_pTransformCom->Scaling(_float3(100.f, 100.f, 50.f), true);
 
@@ -85,9 +87,9 @@ HRESULT CPlanet_Red::Render()
 
 	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
 
-	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Red Planet \n 고 위험 구역 \n 임무 : 모든 기체 파괴 \n 난이도 :『★★★★』  \n 보상 : XXX"), 0);
+	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Exo Planet \n 고 위험 구역 \n \n 임무 : 생존 \n 난이도 :『★★★★★』  \n 보상 : XXX"), 0);
 
-	m_pRendererCom->Bind_Texture(3);
+	m_pRendererCom->Bind_Texture(1);
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 	DEVICE->SetRenderState(D3DRS_ALPHAREF, 253);
@@ -105,7 +107,7 @@ HRESULT CPlanet_Red::Render()
 }
 
 
-HRESULT CPlanet_Red::SetUp_Components()
+HRESULT CPlanet_Exo::SetUp_Components()
 {
 
 	Add_Component<CTransform>();
@@ -124,7 +126,7 @@ HRESULT CPlanet_Red::SetUp_Components()
 	return S_OK;
 }
 
-void CPlanet_Red::LookAtCamera()
+void CPlanet_Exo::LookAtCamera()
 {
 	_float4x4		ViewMatrix;
 
@@ -137,17 +139,17 @@ void CPlanet_Red::LookAtCamera()
 
 }
 
-CPlanet_Red* CPlanet_Red::Create()
+CPlanet_Exo* CPlanet_Exo::Create()
 {
-	CREATE_PIPELINE(CPlanet_Red);
+	CREATE_PIPELINE(CPlanet_Exo);
 }
 
-CGameObject* CPlanet_Red::Clone(void* pArg)
+CGameObject* CPlanet_Exo::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CPlanet_Red);
+	CLONE_PIPELINE(CPlanet_Exo);
 }
 
-void CPlanet_Red::Free()
+void CPlanet_Exo::Free()
 {
 	__super::Free();
 
@@ -157,4 +159,3 @@ void CPlanet_Red::Free()
 
 	delete this;
 }
-

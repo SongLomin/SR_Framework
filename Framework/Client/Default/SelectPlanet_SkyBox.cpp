@@ -64,11 +64,13 @@ HRESULT CSelectPlanet_SkyBox::Render()
 
 	__super::Render();
 
+
 	DEVICE->SetRenderState(D3DRS_ZENABLE, TRUE);
 	DEVICE->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	m_pRendererCom->UnBind_Texture();
+
 	return S_OK;
 }
 

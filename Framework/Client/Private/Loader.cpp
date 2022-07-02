@@ -3,7 +3,7 @@
 #include "GameInstance.h"
 #include "Player_Body.h"
 #include "Monster.h"
-
+#include "Loading.h"
 
 CLoader::CLoader(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: m_pGraphic_Device(pGraphic_Device)
@@ -29,9 +29,21 @@ unsigned int APIENTRY LoadingMain(void* pArg)
 		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
 		hr = pLoader->Loading_ForSelectPlanet();
 		break;
-	case LEVEL_GAMEPLAY:
+	case LEVEL_REDPLANET:
 		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
-		hr = pLoader->Loading_ForGamePlayLevel();
+		hr = pLoader->Loading_ForRedPlanet();
+		break;
+	case LEVLE_EXOPLANET:
+		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
+		hr = pLoader->Loaidng_ForExoPlanet();
+		break;
+	case LEVEL_VENUSPLANET:
+		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
+		hr = pLoader->Loading_ForVenusPlanet();
+		break;
+	case LEVEL_MAGMAPLANET:
+		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
+		hr = pLoader->Loading_ForMagmaPlanet();
 		break;
 	}	
 
@@ -48,6 +60,7 @@ HRESULT CLoader::Initialize(LEVEL eNextLevel)
 	m_eNextLevel = eNextLevel;
 
 	InitializeCriticalSection(&m_CriticalSection);
+
 
 	m_hThread = (HANDLE)_beginthreadex(nullptr, 0, LoadingMain, this, 0, nullptr);
 	if (0 == m_hThread)
@@ -70,6 +83,7 @@ HRESULT CLoader::Loading_ForLogoLevel()
 
 	//if (FAILED(pGameInstance->Add_Prototype_GameObject<CMonster>()))
 	//	return E_FAIL;
+	
 
 #pragma endregion
 
@@ -154,6 +168,17 @@ HRESULT CLoader::Loading_ForLogoLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Loading"), TEXT("../Bin/Resources/Textures/Logo/Loading.jpg"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Light_Moon"), TEXT("../Bin/Resources/Textures/Object/Light_Moon.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
+		return E_FAIL;
+
 
 	lstrcpy(m_szLoadingText, TEXT("쉐이더를 로딩중 입니다. "));
 
@@ -163,14 +188,20 @@ HRESULT CLoader::Loading_ForLogoLevel()
 	GAMEINSTANCE->Load_Shader(TEXT("PointLight"), TEXT("PointLight.hlsl"));
 
 	
+	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
+		return E_FAIL;
+
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
+
+	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
+		return E_FAIL;
 
 	m_isFinished = true;
 
 	return S_OK;
 }
 
-HRESULT CLoader::Loading_ForGamePlayLevel()
+HRESULT CLoader::Loading_ForRedPlanet()
 {
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
 
@@ -187,18 +218,12 @@ HRESULT CLoader::Loading_ForGamePlayLevel()
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Rock"), TEXT("../Bin/Resources/Textures/Object/Rock.png"), TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Aim_Default"), TEXT("../Bin/Resources/Textures/UI/Aim_Default%d.png"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
-
-	
-
-	
 
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
 
-
+	
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));	
+
 
 	m_isFinished = true;
 
@@ -207,19 +232,91 @@ HRESULT CLoader::Loading_ForGamePlayLevel()
 	return S_OK;
 }
 
+HRESULT CLoader::Loading_ForMagmaPlanet()
+{
+	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
+
+
+
+	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
+
+
+
+	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
+
+
+
+	m_isFinished = true;
+
+
+	return S_OK;
+}
+
+HRESULT CLoader::Loading_ForVenusPlanet()
+{
+
+	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
+
+	
+
+	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
+
+	
+
+	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
+
+
+
+	m_isFinished = true;
+
+
+	return S_OK;
+}
+
+HRESULT CLoader::Loaidng_ForExoPlanet()
+{
+
+	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
+
+	
+
+	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
+
+
+	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
+
+
+
+	m_isFinished = true;
+
+
+	return S_OK;
+}
+
+
 
 
 HRESULT CLoader::Loading_ForSelectPlanet()
 {
+
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
+
+	
+
+	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
+	
 	
 
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
+
+	
 
 	m_isFinished = true;
 
 	return S_OK;
 }
+
+
 
 CLoader* CLoader::Create(LPDIRECT3DDEVICE9 pGraphic_Device, LEVEL eNextLevel)
 {

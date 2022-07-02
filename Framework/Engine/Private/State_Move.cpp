@@ -1,6 +1,7 @@
 #include "State_Move.h"
 #include "GameInstance.h"
 
+
 CState_Move::CState_Move(const CState_Move& Prototype)
 {
 	*this = Prototype;
@@ -152,6 +153,8 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 	//}
 #pragma endregion 수정필요
 
+
+
 	if (m_fCurTime <= 0.f)
 	{
 		m_eCurState = (STATE_MOVE)(rand() % (_uint)STATE_MOVE::STATE_END);
@@ -196,6 +199,8 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 
 void CState_Move::State_Tagetting(CTransform* _TargetTransform, _float fTimeDelta, _float fLimit)
 {
+
+
 
 	m_fTargetCurTime -= fTimeDelta;
 

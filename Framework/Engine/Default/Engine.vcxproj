@@ -224,6 +224,7 @@
     <ClCompile Include="..\Private\Light.cpp" />
     <ClCompile Include="..\Private\Math_Utillity.cpp" />
     <ClCompile Include="..\private\Mesh.cpp" />
+    <ClCompile Include="..\Private\Mesh_Canon.cpp" />
     <ClCompile Include="..\private\Mesh_Cube.cpp" />
     <ClCompile Include="..\Private\Mesh_HongShip.cpp" />
     <ClCompile Include="..\Private\Mesh_EnemySpace.cpp" />
@@ -325,6 +326,7 @@
     <ClInclude Include="..\Public\Light.h" />
     <ClInclude Include="..\Public\Math_Utillity.h" />
     <ClInclude Include="..\public\Mesh.h" />
+    <ClInclude Include="..\Public\Mesh_Canon.h" />
     <ClInclude Include="..\public\Mesh_Cube.h" />
     <ClInclude Include="..\Public\Mesh_HongShip.h" />
     <ClInclude Include="..\Public\Mesh_EnemySpace.h" />
