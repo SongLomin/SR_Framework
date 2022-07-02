@@ -11,10 +11,11 @@
 CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
 {
 	*this = Prototype;
+
 	m_pTransformCom = Add_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(rand()% 100, rand() % 20, rand() % 100));
-	m_pTransformCom->Update_WorldMatrix();
+	//m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(rand()% 100, rand() % 20, rand() % 100));
+	//m_pTransformCom->Update_WorldMatrix();
 }
 
 HRESULT CEnemySpace_Body::Initialize_Prototype()
@@ -27,8 +28,14 @@ HRESULT CEnemySpace_Body::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
+#pragma region 초기 위치 설정
 
-	
+
+	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(rand() % 100, rand() % 20, 900.f + 20.f));
+	m_pTransformCom->Update_WorldMatrix();
+
+#pragma endregion 초기 위치 설정
+
 	GAMEINSTANCE->Add_GameObject<CTargetingBox>(CURRENT_LEVEL,
 		TEXT("Targeting"), m_pTransformCom)->Set_Enable(false);
 
@@ -64,7 +71,7 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 	m_fTime -= fTimeDelta;
 	if (m_fTime < 0.f)
 	{
-		m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("")), m_pTransformCom);
+		m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player_Body")), m_pTransformCom);
 		Update_Target();
 		m_fTime = 1.f;
 	}

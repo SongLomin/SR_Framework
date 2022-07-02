@@ -162,7 +162,8 @@ void CNormal_Turret::Set_Target(CGameObject* _Target)
 	//기존에 타겟 인스턴스가 살아 있는데 바뀐 경우는
 	if (m_pTarget)
 	{
-		m_pBoxObject->Set_Enable(false);
+		if(m_pBoxObject)
+			m_pBoxObject->Set_Enable(false);
 	}
 
 	if (!_Target)
@@ -179,6 +180,9 @@ void CNormal_Turret::Set_Target(CGameObject* _Target)
 
 
 	list<CGameObject*> Targetings = m_pTarget->Get_Children_From_Key(TEXT("Targeting"));
+	if (Targetings.empty())
+		return;
+
 	m_pBoxObject = Targetings.front();
 	WEAK_PTR(m_pBoxObject);
 

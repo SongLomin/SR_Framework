@@ -26,6 +26,8 @@ private:
 private:
 	_ulong	m_lPage[10];
 	bool	m_bWaveCheck[10];
+
+	_float  m_fSpawnTime = 2.f;
 };
 
 END

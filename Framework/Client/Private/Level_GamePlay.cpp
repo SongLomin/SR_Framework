@@ -44,19 +44,19 @@ HRESULT CLevel_GamePlay::Initialize()
 
 
 	CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(CURRENT_LEVEL, TEXT("Camera"));
-	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("FPS"), FPS_Cam->Get_Component<CCamera>());
 
 	CGameObject* Shoulder_Cam = GAMEINSTANCE->Add_GameObject<CCam_Shoulder>(CURRENT_LEVEL, TEXT("Camera"));
-	Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Shoulder"), Shoulder_Cam->Get_Component<CCamera>());
 
 	CGameObject* TPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera"));
-	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
 
 	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(LEVEL_STATIC, TEXT("Camera"));
-	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
+	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
 	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_GAMEPLAY, TEXT("Player_Body")))
@@ -65,17 +65,15 @@ HRESULT CLevel_GamePlay::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CTest_Player>(LEVEL_GAMEPLAY, TEXT("Test_Player")))
 		return E_FAIL;
 
-	for (int i = 0; i < 50; ++i)
-	{
-		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_GAMEPLAY, TEXT("EnemySpace_Body")))
-			return E_FAIL;
-	}
 
-	for (int i = 0; i < 50; ++i)
+	if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_GAMEPLAY, TEXT("EnemySpace_Body")))
+		return E_FAIL;
+
+	/*for (int i = 0; i < 50; ++i)
 	{
 		if (!GAMEINSTANCE->Add_GameObject<CAI_Friendly>(LEVEL_GAMEPLAY, TEXT("AI_Friendly")))
 			return E_FAIL;
-	}
+	}*/
 
 
 	/*for (int i = 0; i < 5; i++)
@@ -125,7 +123,7 @@ HRESULT CLevel_GamePlay::Initialize()
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
 	//	return E_FAIL;
 
-	
+
 
 
 	/*TEXTINFO Info;
@@ -140,20 +138,26 @@ HRESULT CLevel_GamePlay::Initialize()
 
 void CLevel_GamePlay::Tick(_float fTimeDelta)
 {
-	__super::Tick(fTimeDelta);		
+	__super::Tick(fTimeDelta);
 
 
 	// 1
+	m_fSpawnTime -= fTimeDelta;
+	if (m_fSpawnTime < 0.f)
+	{
+		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body")))
+			return;
 
-
+		m_fSpawnTime = 5.f;
+	}
 
 	// 2
-	
+
 
 
 	// 3
-	 
-	
+
+
 }
 
 HRESULT CLevel_GamePlay::Render()
@@ -167,9 +171,9 @@ HRESULT CLevel_GamePlay::Render()
 	return S_OK;
 }
 
-CLevel_GamePlay * CLevel_GamePlay::Create()
+CLevel_GamePlay* CLevel_GamePlay::Create()
 {
-	CLevel_GamePlay*		pInstance = new CLevel_GamePlay();
+	CLevel_GamePlay* pInstance = new CLevel_GamePlay();
 
 	if (FAILED(pInstance->Initialize()))
 	{
@@ -189,6 +193,6 @@ void CLevel_GamePlay::Free()
 
 void CLevel_GamePlay::Ai_Create(_float TimeDelta)
 {
-	
+
 }
 
