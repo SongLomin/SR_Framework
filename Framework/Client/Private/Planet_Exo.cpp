@@ -87,7 +87,7 @@ HRESULT CPlanet_Exo::Render()
 
 	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
 
-	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Exo Planet \n 고 위험 구역"), 0);
+	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Exo Planet \n 고 위험 구역 \n \n 임무 : 생존 \n 난이도 :『★★★★★』  \n 보상 : XXX"), 0);
 
 	m_pRendererCom->Bind_Texture(1);
 

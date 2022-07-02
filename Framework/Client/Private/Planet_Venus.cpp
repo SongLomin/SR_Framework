@@ -84,7 +84,7 @@ HRESULT CPlanet_Venus::Render()
 
 	/*GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);*/
 
-	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 20, (LONG)ScreenPos.y }, TEXT("Venus \n 저 위험 구역"), 0);
+	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 20, (LONG)ScreenPos.y }, TEXT("Venus Planet \n 저 위험 구역 \n 임무 : 기체 조작연습  \n 난이도 :『★』 \n 보상 : XXX"), 0);
 
 	m_pRendererCom->Bind_Texture(0);
 
