@@ -68,25 +68,26 @@ HRESULT CDirectionalLight::Initialize(void* pArg)
 	D3DXCOLOR color = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);       // white
 	D3DXVECTOR3 position = D3DXVECTOR3(0.f, 0.f, 5.f);
 	D3DXVECTOR3 direction = D3DXVECTOR3(-1.f, -1.f, -1.f);
+	D3DXVec3Normalize(&direction, &direction);
 
 	m_D3DLight.Type = D3DLIGHTTYPE::D3DLIGHT_DIRECTIONAL;
 
-	m_D3DLight.Ambient = color * 0.1f;
+	m_D3DLight.Ambient = color * 0.5f;
 	m_D3DLight.Diffuse = color;
-	m_D3DLight.Specular = color * 0.6f;
+	m_D3DLight.Specular = color * 0.9f;
 
-	m_D3DLight.Position = position;
+//	m_D3DLight.Position = position;
 	m_D3DLight.Direction = direction;
 
-	m_D3DLight.Range = 8.0f;
-	m_D3DLight.Falloff = 4.0f;
+	//m_D3DLight.Range = 8.0f;
+	//m_D3DLight.Falloff = 4.0f;
 
-	m_D3DLight.Attenuation0 = 0.2f;
-	m_D3DLight.Attenuation1 = 0.4f;
-	m_D3DLight.Attenuation2 = 0.8f;
+	//m_D3DLight.Attenuation0 = 0.2f;
+	//m_D3DLight.Attenuation1 = 0.4f;
+	//m_D3DLight.Attenuation2 = 0.8f;
 
-	m_D3DLight.Theta = 1.f;
-	m_D3DLight.Phi = 2.f;
+	//m_D3DLight.Theta = 1.f;
+	//m_D3DLight.Phi = 2.f;
 
     return S_OK;
 }
@@ -125,10 +126,10 @@ void CDirectionalLight::Bind_ConstBuffer()
 	D3DXHANDLE lightDiffuseHandle = (*m_ppLightEffect)->GetParameterByName(0, "light_diffuse");
 	D3DXHANDLE lightSpecularHandle = (*m_ppLightEffect)->GetParameterByName(0, "light_specular");
 
-	D3DXHANDLE lightPositionHandle = (*m_ppLightEffect)->GetParameterByName(0, "light_position");
+	//D3DXHANDLE lightPositionHandle = (*m_ppLightEffect)->GetParameterByName(0, "light_position");
 	D3DXHANDLE lightDirectionHandle = (*m_ppLightEffect)->GetParameterByName(0, "light_direction");
 
-	D3DXHANDLE lightRangeHandle = (*m_ppLightEffect)->GetParameterByName(0, "light_range");
+	/*D3DXHANDLE lightRangeHandle = (*m_ppLightEffect)->GetParameterByName(0, "light_range");
 	D3DXHANDLE lightFalloffHandle = (*m_ppLightEffect)->GetParameterByName(0, "light_falloff");
 
 	D3DXHANDLE lightAttenuation0Handle = (*m_ppLightEffect)->GetParameterByName(0, "light_attenuation0");
@@ -136,7 +137,7 @@ void CDirectionalLight::Bind_ConstBuffer()
 	D3DXHANDLE lightAttenuation2Handle = (*m_ppLightEffect)->GetParameterByName(0, "light_attenuation2");
 
 	D3DXHANDLE lightThetaHandle = (*m_ppLightEffect)->GetParameterByName(0, "light_theta");
-	D3DXHANDLE lightPhiHandle = (*m_ppLightEffect)->GetParameterByName(0, "light_phi");
+	D3DXHANDLE lightPhiHandle = (*m_ppLightEffect)->GetParameterByName(0, "light_phi");*/
 
 	float floatArray[3];
 
@@ -155,17 +156,17 @@ void CDirectionalLight::Bind_ConstBuffer()
 	floatArray[2] = m_D3DLight.Specular.b;
 	(*m_ppLightEffect)->SetFloatArray(lightSpecularHandle, floatArray, 3);
 
-	floatArray[0] = m_D3DLight.Position.x;
+	/*floatArray[0] = m_D3DLight.Position.x;
 	floatArray[1] = m_D3DLight.Position.y;
 	floatArray[2] = m_D3DLight.Position.z;
-	(*m_ppLightEffect)->SetFloatArray(lightPositionHandle, floatArray, 3);
+	(*m_ppLightEffect)->SetFloatArray(lightPositionHandle, floatArray, 3);*/
 
 	floatArray[0] = m_D3DLight.Direction.x;
 	floatArray[1] = m_D3DLight.Direction.y;
 	floatArray[2] = m_D3DLight.Direction.z;
 	(*m_ppLightEffect)->SetFloatArray(lightDirectionHandle, floatArray, 3);
 
-	(*m_ppLightEffect)->SetFloat(lightRangeHandle, m_D3DLight.Range);
+	/*(*m_ppLightEffect)->SetFloat(lightRangeHandle, m_D3DLight.Range);
 	(*m_ppLightEffect)->SetFloat(lightFalloffHandle, m_D3DLight.Falloff);
 
 	(*m_ppLightEffect)->SetFloat(lightAttenuation0Handle, m_D3DLight.Attenuation0);
@@ -173,7 +174,7 @@ void CDirectionalLight::Bind_ConstBuffer()
 	(*m_ppLightEffect)->SetFloat(lightAttenuation2Handle, m_D3DLight.Attenuation2);
 
 	(*m_ppLightEffect)->SetFloat(lightThetaHandle, m_D3DLight.Theta);
-	(*m_ppLightEffect)->SetFloat(lightPhiHandle, m_D3DLight.Phi);
+	(*m_ppLightEffect)->SetFloat(lightPhiHandle, m_D3DLight.Phi);*/
 
 
 
@@ -187,8 +188,9 @@ void CDirectionalLight::DrawLight()
 {
     ISVALID(m_ppLightEffect, );
 
+	DEVICE->SetRenderState(D3DRS_ZWRITEENABLE, false);
 	DEVICE->SetStreamSource(0, vb, 0, sizeof(VTX));
 	DEVICE->SetFVF(D3DFVF_XYZ);
 	DEVICE->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2);
-
+	DEVICE->SetRenderState(D3DRS_ZWRITEENABLE, true);
 }

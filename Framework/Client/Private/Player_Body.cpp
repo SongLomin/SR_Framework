@@ -98,13 +98,22 @@ HRESULT CPlayer_Body::Render_Begin(ID3DXEffect** Shader)
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
+	D3DXHANDLE DiffuseHandle = (*Shader)->GetParameterByName(0, "Diffuse");
+	D3DXHANDLE SpecularHandle = (*Shader)->GetParameterByName(0, "Specular");
+
 
 	float floatArray[3];
-	floatArray[0] = 0.3f;
-	floatArray[1] = 0.3f;
-	floatArray[2] = 0.3f;
+	floatArray[0] = 0.5f;
+	floatArray[1] = 0.5f;
+	floatArray[2] = 0.5f;
+
+
+	float Specular = 1.f;
+	float Diffuse = 0.5f;
 
 	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
+	(*Shader)->SetFloat(DiffuseHandle, Diffuse);
+	(*Shader)->SetFloat(SpecularHandle, Specular);
 
 
 	return S_OK;
@@ -287,6 +296,8 @@ HRESULT CPlayer_Body::SetUp_Components()
 	m_pLight = Add_Component<CSpotLight>();
 	WEAK_PTR(m_pLight);
 	m_pLight->Set_Margin_Position(_float3(0.f, 5.f, 0.f));*/
+	
+
 
 	Set_Controller(CONTROLLER::PLAYER);
 
