@@ -20,6 +20,7 @@ class CState_Move;
 class CMesh_Test;
 class CDirectionalLight;
 class CMesh_ShinShip;
+class CDirectionalLight;
 END
 
 BEGIN(Client)
@@ -44,7 +45,11 @@ public:
 	virtual HRESULT Render_Begin(ID3DXEffect** Shader = nullptr) override;
 	virtual HRESULT Render() override;
 
-
+//public:
+//	_float3		Get_MaterialAmbient()
+//	{
+//		return m_vMaterialAmbient;
+//	}
 
 private:
 	CTransform*				m_pTransformCom = nullptr;
@@ -71,6 +76,7 @@ private:
 	_float					m_fTime = 1.f;
 
 	_bool					m_bTargetMode = false;
+
 
 protected: /* For Event Function */
 	virtual void On_Change_Controller(const CONTROLLER& _IsAI) override;

@@ -124,6 +124,10 @@ HRESULT CPlanet_Venus::SetUp_Components()
 	m_pPointLightCom->Set_WeakPtr(&m_pPointLightCom);
 	m_pPointLightCom->Set_Preset_SunLight();
 
+	/*m_pDirectionalLightCom = Add_Component<CDirectionalLight>();
+	m_pDirectionalLightCom->Set_WeakPtr(&m_pDirectionalLightCom);
+	m_pDirectionalLightCom->Set_Preset_SunLight();*/
+
 	return S_OK;
 }
 

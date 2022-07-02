@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CRenderer;
 class CTransform;
 class CVIBuffer_Rect;
+class CDirectionalLight;
 class CPointLight;
 class CSpotLight;
 END
@@ -31,7 +32,8 @@ public:
 	CTransform* m_pTransformCom = nullptr;
 	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
 	CPointLight* m_pPointLightCom = nullptr;
-
+	CDirectionalLight* m_pDirectionalLightCom = nullptr;
+	
 
 
 private:
