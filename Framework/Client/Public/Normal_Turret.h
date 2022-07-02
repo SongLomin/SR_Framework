@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CRenderer;
 class CTransform;
 class CMesh_Cube;
+class CMesh_Canon;
 END
 
 BEGIN(Client)
@@ -35,7 +36,8 @@ public:
 private:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
-    CMesh_Cube* m_pMeshCom = nullptr;
+   // CMesh_Cube* m_pMeshCom = nullptr;
+    CMesh_Canon* m_pMeshCom = nullptr;
     CTransform* m_pPlayerTransformCom = nullptr;
 
 private:

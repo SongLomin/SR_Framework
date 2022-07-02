@@ -85,7 +85,7 @@ void CLazer_Turret::LateTick(_float fTimeDelta)
 
 HRESULT CLazer_Turret::Render()
 {
-	m_pTransformCom->Scaling(_float3(0.4f, 0.30f, 1.6f), true);
+	m_pTransformCom->Scaling(_float3(0.4f, 0.30f, 0.1f), true);
 
 	m_pTransformCom->Bind_WorldMatrix(D3D_ALL, D3D_ALL);
 
