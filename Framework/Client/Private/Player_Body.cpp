@@ -65,7 +65,16 @@ void CPlayer_Body::Tick(_float fTimeDelta)
 	m_fTime -= fTimeDelta;
 	if (m_fTime < 0.f)
 	{
-		Update_PosinTarget(m_pTargetingCom->Get_TargetMode());
+		if (Get_Controller() == CONTROLLER::PLAYER)
+		{
+			Update_PosinTarget(m_pTargetingCom->Get_TargetMode());
+		}
+		else
+		{
+			m_pTargetingCom->Set_TargetMode(TARGETMODE::TARGET_MULTIRAY);
+			m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom);
+			Update_PosinTarget(m_pTargetingCom->Get_TargetMode());
+		}
 		m_fTime = 1.f;
 	}
 }
