@@ -188,6 +188,9 @@ HRESULT CLoader::Loading_ForLogoLevel()
 	GAMEINSTANCE->Load_Shader(TEXT("PointLight"), TEXT("PointLight.hlsl"));
 
 	
+	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
+		return E_FAIL;
+
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
 	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
@@ -216,22 +219,11 @@ HRESULT CLoader::Loading_ForRedPlanet()
 		return E_FAIL;
 
 
-
-
-	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
-		return E_FAIL;
-
-	
-
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
 
-	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
-		return E_FAIL;
-
+	
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));	
 
-	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
-		return E_FAIL;
 
 	m_isFinished = true;
 
@@ -244,18 +236,15 @@ HRESULT CLoader::Loading_ForMagmaPlanet()
 {
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
 
-	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
-		return E_FAIL;
+
 
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
 
-	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
-		return E_FAIL;
+
 
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
-	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
-		return E_FAIL;
+
 
 	m_isFinished = true;
 
@@ -268,18 +257,15 @@ HRESULT CLoader::Loading_ForVenusPlanet()
 
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
 
-	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
-		return E_FAIL;
+	
 
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
 
-	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
-		return E_FAIL;
+	
 
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
-	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
-		return E_FAIL;
+
 
 	m_isFinished = true;
 
@@ -292,18 +278,14 @@ HRESULT CLoader::Loaidng_ForExoPlanet()
 
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
 
-	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
-		return E_FAIL;
+	
 
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
 
-	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
-		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
-	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
-		return E_FAIL;
+
 
 	m_isFinished = true;
 
@@ -319,18 +301,15 @@ HRESULT CLoader::Loading_ForSelectPlanet()
 
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
 
-	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
-		return E_FAIL;
+	
 
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
 	
-	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
-		return E_FAIL;
+	
 
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
-	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
-		return E_FAIL;
+	
 
 	m_isFinished = true;
 

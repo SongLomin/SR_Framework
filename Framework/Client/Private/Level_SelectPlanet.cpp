@@ -80,6 +80,8 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("CLight_Moon")))
 		return E_FAIL;
 
+
+	// 青己 2俺 罚待 积己
 	srand(unsigned(time(NULL)));
 
 	for (_uint i = 0; i < 2; ++i)
@@ -109,6 +111,11 @@ HRESULT CLevel_SelectPlanet::Initialize()
 			break;
 		}
 	}
+
+	/// <summary>
+	/// ////////////////
+	/// </summary>
+	/// <returns></returns>
 	
 	return S_OK;
 }

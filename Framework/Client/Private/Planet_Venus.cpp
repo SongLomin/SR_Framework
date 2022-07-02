@@ -42,15 +42,11 @@ void CPlanet_Venus::Tick(_float fTimeDelta)
 	{
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
 		{
-			
-		if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_VENUSPLANET))))
-			return;
+			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_VENUSPLANET))))
+				return;
 		}
 
 	}
-
-	
-
 
 	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
 	_float3 MyWorldPos;
@@ -124,9 +120,7 @@ HRESULT CPlanet_Venus::SetUp_Components()
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
-	m_pPointLightCom = Add_Component<CPointLight>();
-	m_pPointLightCom->Set_WeakPtr(&m_pPointLightCom);
-	m_pPointLightCom->Set_Preset_SunLight();
+
 
 	return S_OK;
 }
