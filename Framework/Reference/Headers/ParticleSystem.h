@@ -15,9 +15,9 @@ public:
 		D3DXVECTOR3 position;
 		D3DXVECTOR3 velocity = D3DXVECTOR3(0.f, 0.f, 0.f);
 		D3DXVECTOR3 acceleration;
-		float       lifeTime;     // how long the particle lives for before dying  
+		float       lifeTime = 100.f;     // how long the particle lives for before dying  
 		float       age = 0.f;          // current age of the particle  
-		D3DXCOLOR   color;        // current color of the particle   
+		D3DXCOLOR   color = D3DCOLOR_ARGB(255,255,255,255);        // current color of the particle   
 		D3DXCOLOR   colorFade;    // how the color fades with respect to time
 		bool        isAlive = true;
 	};
@@ -38,7 +38,7 @@ public:
 public:
 	virtual void Reset();
 	virtual void ResetParticle(ParticleDesc* attribute) = 0;
-	virtual void AddParticle();
+	void AddParticle(int num = 1);
 
 	bool IsEmpty();
 	bool IsDead();
@@ -59,7 +59,7 @@ protected:
 	std::list<ParticleDesc> m_particles;
 	int                     m_maxParticles; // max allowed particles system can have
 
-private:
+protected:
 	DWORD m_vbSize;      // size of vb
 	DWORD m_vbOffset;    // offset in vb to lock   
 	DWORD m_vbBatchSize; // number of vertices to lock starting at _vbOffset

@@ -22,6 +22,7 @@
 #include "Planet_Magma.h"
 #include "Planet_Exo.h"
 #include "Light_Moon.h"
+#include "SpaceDust_PSystem.h"
 
 CLevel_SelectPlanet::CLevel_SelectPlanet()
 {
@@ -79,6 +80,8 @@ HRESULT CLevel_SelectPlanet::Initialize()
 
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("CLight_Moon")))
 		return E_FAIL;
+
+	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(50);
 
 
 	// 青己 2俺 罚待 积己

@@ -35,7 +35,8 @@ public:
 	static _float4x4 Get_Scale_Matrix(const _float4x4& _Mat);
 	static _float4x4 Get_Position_Matrix(const _float4x4& _Mat);
 
-
+public:
+	static DWORD FtoDw(float f);
 
 };
 
