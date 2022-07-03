@@ -203,6 +203,7 @@
     <ClInclude Include="..\public\Loader.h" />
     <ClInclude Include="..\Public\MainApp.h" />
     <ClInclude Include="..\Public\Monster.h" />
+    <ClInclude Include="..\Public\Quest.h" />
     <ClInclude Include="..\Public\Rock.h" />
     <ClInclude Include="..\Public\Roket_Bullet.h" />
     <ClInclude Include="..\Public\ShieldBar.h" />
@@ -258,6 +259,7 @@
     <ClCompile Include="..\private\Loader.cpp" />
     <ClCompile Include="..\Private\MainApp.cpp" />
     <ClCompile Include="..\Private\Monster.cpp" />
+    <ClCompile Include="..\Private\Quest.cpp" />
     <ClCompile Include="..\Private\Rock.cpp" />
     <ClCompile Include="..\Private\Roket_Bullet.cpp" />
     <ClCompile Include="..\Private\ShieldBar.cpp" />

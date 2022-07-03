@@ -31,11 +31,13 @@
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
+#include "Quest.h"
 
 CLevel_RedPlanet::CLevel_RedPlanet()
 {
 
 }
+
 
 HRESULT CLevel_RedPlanet::Initialize()
 {
@@ -118,6 +120,10 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_REDPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_REDPLANET, TEXT("Quest")))
+		return E_FAIL;
+
+
 
 
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
@@ -141,7 +147,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	__super::Tick(fTimeDelta);
 
 
-	// 1
+	
 	m_fSpawnTime -= fTimeDelta;
 	if (m_fSpawnTime < 0.f)
 	{
@@ -151,15 +157,22 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 		m_fSpawnTime = 5.f;
 	}
 
-	// 2
 
-
-
-	// 3
 
 
 
 	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
+	{
+		if (FAILED(GAMEINSTANCE->Get_Instance()->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
+			return;
+	}
+
+	GAMEINSTANCE->Add_Text(_point{ (LONG)1075, (LONG)90 }, TEXT(" %d"), 1, (_uint)m_fMaxTime);
+
+
+	m_fMaxTime -= fTimeDelta;
+
+	if (m_fMaxTime <= 0)
 	{
 		if (FAILED(GAMEINSTANCE->Get_Instance()->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
 			return;
@@ -174,6 +187,9 @@ HRESULT CLevel_RedPlanet::Render()
 
 
 	SetWindowText(g_hWnd, TEXT("Red Planet 레벨입니다. "));
+
+	GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, TEXT("            -임무-  \n   제한시간동안 생존하기 "), 0);
+	GAMEINSTANCE->Add_Text(_point{ (LONG)1100, (LONG)90 }, TEXT("  / 180"), 0);
 
 	return S_OK;
 }
