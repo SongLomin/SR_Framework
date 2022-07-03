@@ -2,7 +2,7 @@
 #include "Level_ExoPlanet.h"
 #include "GameInstance.h"
 #include "LEvel_Loading.h"
-#include "Player_Body.h"
+#include "Song_Ship_Body.h"
 #include "Monster.h"
 #include "Terrain.h"
 #include "Cam_Free.h"
@@ -27,7 +27,7 @@
 #include "Rock.h"
 #include "MovingCamera.h"
 #include "../Default/EnemySpace_Body.h"
-#include <Test_Player.h>
+#include "Kang_Ship_Body.h"
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
@@ -58,7 +58,7 @@ HRESULT CLevel_ExoPlanet::Initialize()
 
 
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVLE_EXOPLANET, TEXT("Player_Body")))
+	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVLE_EXOPLANET, TEXT("Player")))
 		return E_FAIL;
 
 	

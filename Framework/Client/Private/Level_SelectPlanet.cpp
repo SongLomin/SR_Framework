@@ -7,7 +7,7 @@
 #include "Cam_Shoulder.h"
 #include "Cam_TPS.h"
 #include "MovingCamera.h"
-#include "Player_Body.h"
+#include "Song_Ship_Body.h"
 #include "SelectPlanet_SkyBox.h"
 #include "Default_Aim.h"
 #include "BoosterBar.h"
@@ -51,7 +51,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_SELECTPLANET, TEXT("Player_Body")))
+	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_SELECTPLANET, TEXT("Player")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))

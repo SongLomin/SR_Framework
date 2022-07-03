@@ -189,7 +189,8 @@
     <ClInclude Include="..\Public\Planet_Red.h" />
     <ClInclude Include="..\Public\Planet_Sun.h" />
     <ClInclude Include="..\Public\Planet_Venus.h" />
-    <ClInclude Include="..\public\Player_Body.h" />
+    <ClInclude Include="..\Public\Player.h" />
+    <ClInclude Include="..\public\Song_Ship_Body.h" />
     <ClInclude Include="..\Public\Cam_FPS.h" />
     <ClInclude Include="..\Public\Normal_Bullet.h" />
     <ClInclude Include="..\Public\Cam_Free.h" />
@@ -210,7 +211,7 @@
     <ClInclude Include="..\Public\StatusBar.h" />
     <ClInclude Include="..\Public\TargetingBox.h" />
     <ClInclude Include="..\Public\Terrain.h" />
-    <ClInclude Include="..\Public\Test_Player.h" />
+    <ClInclude Include="..\Public\Kang_Ship_Body.h" />
     <ClInclude Include="..\Public\Trajectory_PSystem.h" />
     <ClInclude Include="..\Public\UITest.h" />
     <ClInclude Include="Client.h" />
@@ -244,7 +245,8 @@
     <ClCompile Include="..\Private\Planet_Red.cpp" />
     <ClCompile Include="..\Private\Planet_Sun.cpp" />
     <ClCompile Include="..\Private\Planet_Venus.cpp" />
-    <ClCompile Include="..\private\Player_Body.cpp" />
+    <ClCompile Include="..\Private\Player.cpp" />
+    <ClCompile Include="..\private\Song_Ship_Body.cpp" />
     <ClCompile Include="..\Private\Normal_Bullet.cpp" />
     <ClCompile Include="..\Private\Cam_FPS.cpp" />
     <ClCompile Include="..\Private\Cam_Free.cpp" />
@@ -264,7 +266,7 @@
     <ClCompile Include="..\Private\StatusBar.cpp" />
     <ClCompile Include="..\Private\TargetingBox.cpp" />
     <ClCompile Include="..\Private\Terrain.cpp" />
-    <ClCompile Include="..\Private\Test_Player.cpp" />
+    <ClCompile Include="..\Private\Kang_Ship_Body.cpp" />
     <ClCompile Include="..\Private\Trajectory_PSystem.cpp" />
     <ClCompile Include="..\Private\UITest.cpp" />
     <ClCompile Include="Client.cpp" />
