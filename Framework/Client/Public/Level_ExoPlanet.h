@@ -16,7 +16,8 @@ public:
 	virtual void Tick(_float fTimeDelta);
 	virtual HRESULT Render();
 
-
+private:
+	_float  fMaxTime = 180;
 
 public:
 	static CLevel_ExoPlanet* Create();

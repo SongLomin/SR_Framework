@@ -65,7 +65,7 @@ HRESULT CQuest::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
-
+	
 
 	m_pRendererCom->Bind_Texture(0);
 
@@ -85,11 +85,16 @@ HRESULT CQuest::Render()
 
 	m_pVIBufferCom->Render();
 
+
 	m_pRendererCom->UnBind_Texture();
+
+	
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 	DEVICE->SetTransform(D3DTS_VIEW, &CurView);
 	DEVICE->SetTransform(D3DTS_PROJECTION, &CurProj);
+
+	
 
 	return S_OK;
 }

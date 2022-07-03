@@ -130,12 +130,9 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	}
 
 
-	/*TEXTINFO Info;
-	Info.color = D3DCOLOR_ARGB(255, 0, 255, 0);
-	Info.rcTemp = { 600, 300, 600 + 200, 300 + 300 };
-	wsprintf(Info.szBuff, L"10초동안 출력");
-	if (FAILED(GAMEINSTANCE->Add_Text(&Info, 10.f)))
-		return E_FAIL;*/
+	
+
+
 	
 	return S_OK;
 }
@@ -154,6 +151,8 @@ HRESULT CLevel_SelectPlanet::Render()
 
 
 	SetWindowText(g_hWnd, TEXT("Select Planet 레벨입니다. "));
+
+	GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, TEXT("            -임무-  \n   행성을 선택해 점령하라. \n             0 / 5"), 0);
 
 	return S_OK;
 }

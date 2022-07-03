@@ -139,6 +139,12 @@ void CGraphic_Device::Render_Begin(void)
 	//
 	//m_pSprite->SetTransform(&world);
 
+	
+}
+
+void CGraphic_Device::Render_End(HWND hWnd)
+{
+
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);//2D
 
 	if (!m_Text.empty())
@@ -162,10 +168,8 @@ void CGraphic_Device::Render_Begin(void)
 
 
 	m_pSprite->End();
-}
 
-void CGraphic_Device::Render_End(HWND hWnd)
-{
+
 	m_pDevice->EndScene();
 
 	// 후면버퍼에 연결되어 있는 서피스와 전면 버퍼에 연결된 서피스를 교환하는 과정

@@ -38,6 +38,7 @@ CLevel_RedPlanet::CLevel_RedPlanet()
 
 }
 
+
 HRESULT CLevel_RedPlanet::Initialize()
 {
 	if (FAILED(__super::Initialize()))
@@ -122,8 +123,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_REDPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_REDPLANET, TEXT("Quest")))
-		return E_FAIL;
+
 
 
 

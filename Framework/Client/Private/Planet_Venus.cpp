@@ -80,9 +80,11 @@ HRESULT CPlanet_Venus::Render()
 
 	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
 
+
+
 	_float3 Look = m_pTransformCom->Get_State(CTransform::STATE_LOOK, true);
 
-	/*GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);*/
+	//GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);
 
 	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 20, (LONG)ScreenPos.y }, TEXT("Venus Planet \n 저 위험 구역 \n 임무 : 기체 조작연습  \n 난이도 :『★』 \n 보상 : XXX"), 0);
 
