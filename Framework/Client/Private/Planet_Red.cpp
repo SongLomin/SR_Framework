@@ -45,8 +45,8 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
 		{
-			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_REDPLANET))))
-				return;
+			GAMEINSTANCE->Get_CurrentLevel()->Change_Level();
+			return;
 		}
 
 
@@ -84,6 +84,8 @@ HRESULT CPlanet_Red::Render()
 	_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
 
 	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
+
+	
 
 	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Red Planet \n 고 위험 구역 \n 임무 : 모든 기체 파괴 \n 난이도 :『★★★★』  \n 보상 : XXX"), 0);
 

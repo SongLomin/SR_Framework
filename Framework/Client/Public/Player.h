@@ -4,57 +4,54 @@
 BEGIN(Engine)
 class CRenderer;
 class CTransform;
-class CCollider_OBB;
+class CAI_Controller;
+class CPlayer_Controller;
 class CRigid_Body;
 class CTargeting;
 class CStatus;
-class CMesh_KangShip;
-class CCollider_Pre;
 class CState_Move;
-class CAI_Controller;
-class CPlayer_Controller;
+class CCollider_Shpere;
+class CDirectionalLight;
 END
 
 BEGIN(Client)
-class CNormal_Turret;
 
-class CTest_Player final : public CGameObject
+class CNormal_Turret;
+class CCameraPosin;
+class CPlayer_Posin;
+
+class CPlayer abstract : public CGameObject
 {
-private:
-	CTest_Player();
-	CTest_Player(const CTest_Player& Prototype);
-	virtual ~CTest_Player() = default;
+protected:
+	CPlayer();
+	virtual ~CPlayer() = default;
 
 
 public:
 	virtual HRESULT Initialize_Prototype() override;
-	virtual HRESULT Initialize(void* pArg) override;
+	virtual HRESULT Initialize(void* pArg)override;
 	virtual void Tick(_float fTimeDelta) override;
 	virtual void LateTick(_float fTimeDelta) override;
 	virtual HRESULT Render_Begin(ID3DXEffect** Shader = nullptr) override;
 	virtual HRESULT Render() override;
 
 
-
-private:
+protected:
 	CRenderer* m_pRendererCom = nullptr;
 	CTransform* m_pTransformCom = nullptr;
-	CCollider_OBB* m_pColliderCom = nullptr;
-	CRigid_Body* m_pRigidBodyCom = nullptr;
+	CAI_Controller* m_pAI_ControllerCom = nullptr;
+	CPlayer_Controller* m_pPlayer_ControllerCom = nullptr;
+	CRigid_Body* m_pRigid_BodyCom = nullptr;
 	CTargeting* m_pTargetingCom = nullptr;
 	CStatus* m_pStatusCom = nullptr;
-	CMesh_KangShip* m_pMeshCom = nullptr;
-	CCollider_Pre* m_pPreColliderCom = nullptr;
 	CState_Move* m_pStateCom = nullptr;
-	CAI_Controller* m_pAIControllerCom = nullptr;
-	CPlayer_Controller* m_pPlayerController = nullptr;
+	CCollider_Shpere* m_pColliderCom = nullptr;
 
-
-private:
+protected:
 	list<CNormal_Turret*>	m_pMyPosinList;
 	_bool					m_bTargetMode = false;
 	_float					m_fTime = 1.f;
-
+	_bool					m_bMouse = false;
 
 protected: /* For Event Function */
 	virtual void On_Change_Controller(const CONTROLLER& _IsAI) override;
@@ -64,18 +61,13 @@ public: /* For Event Function */
 	virtual void On_Collision_Stay(CCollider* _Other_Collider) override;
 	virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
 
-private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
+protected:
 	HRESULT SetUp_Components();
-	void Update_PosinTarget(TARGETMODE _TargetMode);
-
-
-
+	virtual void SetUp_Components_For_Child() PURE;
+	virtual void Update_PosinTarget(TARGETMODE _TargetMode);
 
 public:
-	static CTest_Player* Create();
-	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
-
 };
 
 END

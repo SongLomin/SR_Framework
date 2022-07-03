@@ -19,6 +19,9 @@ public:
 	virtual HRESULT Initialize(LEVEL eNextLevel);
 	virtual void Tick(_float TimeDelta);
 	virtual HRESULT Render();
+	virtual void Change_Level() {}
+	virtual HRESULT Complete_Condition() { return S_OK; }
+
 
 private:
 	LEVEL			m_eNextLevel = LEVEL_END;

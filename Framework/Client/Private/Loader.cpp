@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "..\Public\Loader.h"
 #include "GameInstance.h"
-#include "Player_Body.h"
+#include "Song_Ship_Body.h"
 #include "Monster.h"
 #include "Loading.h"
 
@@ -173,6 +173,10 @@ HRESULT CLoader::Loading_ForLogoLevel()
 		return E_FAIL;
 
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Light_Moon"), TEXT("../Bin/Resources/Textures/Object/Light_Moon.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Quest"), TEXT("../Bin/Resources/Textures/UI/Quest.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 

@@ -204,6 +204,11 @@ _uint CGameInstance::Get_CurrentLevelIndex()
 	return m_pLevel_Manager->Get_CurrentLevelIndex();
 }
 
+CLevel* CGameInstance::Get_CurrentLevel()
+{
+	return m_pLevel_Manager->Get_CurrentLevel();
+}
+
 CGameObject* CGameInstance::Get_Player_GameObject()
 {
 	return m_pObject_Manager->Get_Player();

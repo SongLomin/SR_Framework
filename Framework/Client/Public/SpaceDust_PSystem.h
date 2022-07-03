@@ -30,7 +30,7 @@ public:
     virtual HRESULT Render();
 
 public:
-    virtual void ResetParticle(ParticleDesc* attribute) override;
+    virtual void ResetParticle(ParticleDesc* Desc) override;
 
 private:
 

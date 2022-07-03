@@ -118,6 +118,14 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 
 void CPlayer_Controller::LateTick(_float fTimeDelta)
 {
+	if (Get_Enable())
+	{
+		if (KEY_INPUT(KEY::LSHIFT, KEY_STATE::AWAY))
+		{
+			m_pMyObject->Get_Component<CRigid_Body>()->Set_Booster(false);
+
+		}
+	}
 }
 
 

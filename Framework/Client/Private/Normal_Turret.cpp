@@ -58,7 +58,7 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 				static_cast<CNormal_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
 				//((CNormal_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
 
-				GAMEINSTANCE->Add_Shaking(0.1f, 0.005f);
+				//GAMEINSTANCE->Add_Shaking(0.1f, 0.005f);
 
 				m_fCurTime = 0.1f;
 			}

@@ -62,6 +62,11 @@ _uint CLevel_Manager::Get_CurrentLevelIndex()
 	return m_iCurrentLevelIndex;
 }
 
+CLevel* CLevel_Manager::Get_CurrentLevel()
+{
+	return m_pCurrentLevel;
+}
+
 void CLevel_Manager::Tick(_float fTimeDelta)
 {
 	if (nullptr == m_pCurrentLevel)

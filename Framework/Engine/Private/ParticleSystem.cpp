@@ -1,5 +1,6 @@
 #include "ParticleSystem.h"
 #include "GameInstance.h"
+#include "Math_Utillity.h"
 
 
 
@@ -176,13 +177,16 @@ void CParticleSystem::Reset()
 	}
 }
 
-void CParticleSystem::AddParticle()
+void CParticleSystem::AddParticle(int num)
 {
 	ParticleDesc Desc;
 
-	ResetParticle(&Desc);
+	for (_int i = 0; i < num; i++)
+	{
+		ResetParticle(&Desc);
 
-	m_particles.push_back(Desc);
+		m_particles.push_back(Desc);
+	}
 }
 
 bool CParticleSystem::IsEmpty()

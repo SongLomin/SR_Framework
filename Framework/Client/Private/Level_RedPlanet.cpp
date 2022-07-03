@@ -2,7 +2,7 @@
 #include "Level_RedPlanet.h"
 #include "GameInstance.h"
 #include "LEvel_Loading.h"
-#include "Player_Body.h"
+#include "Song_Ship_Body.h"
 #include "Monster.h"
 #include "Terrain.h"
 #include "Cam_Free.h"
@@ -27,15 +27,17 @@
 #include "Rock.h"
 #include "MovingCamera.h"
 #include "../Default/EnemySpace_Body.h"
-#include <Test_Player.h>
+#include "Kang_Ship_Body.h"
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
+#include "Quest.h"
 
 CLevel_RedPlanet::CLevel_RedPlanet()
 {
 
 }
+
 
 HRESULT CLevel_RedPlanet::Initialize()
 {
@@ -56,14 +58,11 @@ HRESULT CLevel_RedPlanet::Initialize()
 	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
 
-	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(LEVEL_STATIC, TEXT("Camera"));
-	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_REDPLANET, TEXT("Player_Body")))
+	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CTest_Player>(LEVEL_REDPLANET, TEXT("Test_Player")))
+	if (!GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
 		return E_FAIL;
 
 	for (int i = 0; i < 50; ++i)
@@ -121,6 +120,10 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_REDPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_REDPLANET, TEXT("Quest")))
+		return E_FAIL;
+
+
 
 
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
@@ -144,7 +147,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	__super::Tick(fTimeDelta);
 
 
-	// 1
+	
 	m_fSpawnTime -= fTimeDelta;
 	if (m_fSpawnTime < 0.f)
 	{
@@ -154,15 +157,22 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 		m_fSpawnTime = 5.f;
 	}
 
-	// 2
 
-
-
-	// 3
 
 
 
 	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
+	{
+		if (FAILED(GAMEINSTANCE->Get_Instance()->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
+			return;
+	}
+
+	GAMEINSTANCE->Add_Text(_point{ (LONG)1075, (LONG)90 }, TEXT(" %d"), 1, (_uint)m_fMaxTime);
+
+
+	m_fMaxTime -= fTimeDelta;
+
+	if (m_fMaxTime <= 0)
 	{
 		if (FAILED(GAMEINSTANCE->Get_Instance()->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
 			return;
@@ -177,6 +187,9 @@ HRESULT CLevel_RedPlanet::Render()
 
 
 	SetWindowText(g_hWnd, TEXT("Red Planet 레벨입니다. "));
+
+	GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, TEXT("            -임무-  \n   제한시간동안 생존하기 "), 0);
+	GAMEINSTANCE->Add_Text(_point{ (LONG)1100, (LONG)90 }, TEXT("  / 180"), 0);
 
 	return S_OK;
 }

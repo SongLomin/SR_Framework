@@ -2,7 +2,7 @@
 #include "Level_ExoPlanet.h"
 #include "GameInstance.h"
 #include "LEvel_Loading.h"
-#include "Player_Body.h"
+#include "Song_Ship_Body.h"
 #include "Monster.h"
 #include "Terrain.h"
 #include "Cam_Free.h"
@@ -27,10 +27,11 @@
 #include "Rock.h"
 #include "MovingCamera.h"
 #include "../Default/EnemySpace_Body.h"
-#include <Test_Player.h>
+#include "Kang_Ship_Body.h"
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
+#include "Quest.h"
 
 CLevel_ExoPlanet::CLevel_ExoPlanet()
 {
@@ -56,11 +57,9 @@ HRESULT CLevel_ExoPlanet::Initialize()
 	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
 
-	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(CURRENT_LEVEL, TEXT("Camera"));
-	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
-	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVLE_EXOPLANET, TEXT("Player_Body")))
+
+	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVLE_EXOPLANET, TEXT("Player")))
 		return E_FAIL;
 
 	
@@ -92,7 +91,8 @@ HRESULT CLevel_ExoPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVLE_EXOPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
-
+	if (!GAMEINSTANCE->Add_GameObject<CQuest>(LEVLE_EXOPLANET, TEXT("Quest")))
+		return E_FAIL;
 
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
 	//	return E_FAIL;
@@ -121,6 +121,20 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 			return;
 	}
 	
+	m_fMaxTime -= fTimeDelta;
+
+	/*GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);*/
+
+	
+	GAMEINSTANCE->Add_Text(_point{ (LONG)1075, (LONG)90 }, TEXT(" %d"), 1, (_uint)m_fMaxTime);
+
+
+	if (m_fMaxTime <= 0)
+	{
+		if (FAILED(GAMEINSTANCE->Get_Instance()->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
+			return;
+	}
+
 }
 
 HRESULT CLevel_ExoPlanet::Render()
@@ -130,6 +144,10 @@ HRESULT CLevel_ExoPlanet::Render()
 
 
 	SetWindowText(g_hWnd, TEXT("Exo Planet 레벨입니다. "));
+
+	GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, TEXT("            -임무-  \n   제한시간동안 생존하기 "), 0);
+	GAMEINSTANCE->Add_Text(_point{ (LONG)1100, (LONG)90 }, TEXT("  / 180"), 0);
+	
 
 	return S_OK;
 }

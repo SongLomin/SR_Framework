@@ -51,6 +51,7 @@ public: /* For.Level_Manager */
 	HRESULT	Register_OpenLevelEvent(_uint iLevelID, CLevel* pLevel);
 	void	Set_CurrentLevelIndex(_uint iLevelID);
 	_uint	Get_CurrentLevelIndex();
+	CLevel* Get_CurrentLevel();
 
 public: /* For.Object_Manager */
 	template <typename T>

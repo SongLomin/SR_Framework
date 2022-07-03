@@ -2,7 +2,7 @@
 #include "Level_MagmaPlanet.h"
 #include "GameInstance.h"
 #include "LEvel_Loading.h"
-#include "Player_Body.h"
+#include "Song_Ship_Body.h"
 #include "Monster.h"
 #include "Terrain.h"
 #include "Cam_Free.h"
@@ -27,10 +27,11 @@
 #include "Rock.h"
 #include "MovingCamera.h"
 #include "../Default/EnemySpace_Body.h"
-#include <Test_Player.h>
+#include "Kang_Ship_Body.h"
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
+#include "Quest.h"
 
 CLevel_MagmaPlanet::CLevel_MagmaPlanet()
 {
@@ -56,11 +57,9 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
 
-	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(CURRENT_LEVEL, TEXT("Camera"));
-	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
-	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_MAGMAPLANET, TEXT("Player_Body")))
+
+	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_MAGMAPLANET, TEXT("Player")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVEL_MAGMAPLANET, TEXT("SkyBox")))
@@ -91,6 +90,8 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_MAGMAPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_MAGMAPLANET, TEXT("Quest")))
+		return E_FAIL;
 
 
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
@@ -99,12 +100,7 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	
 
 
-	/*TEXTINFO Info;
-	Info.color = D3DCOLOR_ARGB(255, 0, 255, 0);
-	Info.rcTemp = { 600, 300, 600 + 200, 300 + 300 };
-	wsprintf(Info.szBuff, L"10초동안 출력");
-	if (FAILED(GAMEINSTANCE->Add_Text(&Info, 10.f)))
-		return E_FAIL;*/
+
 
 	return S_OK;
 }

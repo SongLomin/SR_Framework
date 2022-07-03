@@ -23,6 +23,7 @@ public:
 	
 	void Set_CurrentLevelIndex(_uint iLevelID);
 	_uint Get_CurrentLevelIndex();
+	CLevel* Get_CurrentLevel();
 	void Tick(_float fTimeDelta);
 	HRESULT Render();
 
