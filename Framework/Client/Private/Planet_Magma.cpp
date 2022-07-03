@@ -45,8 +45,8 @@ void CPlanet_Magma::Tick(_float fTimeDelta)
 
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
 		{
-			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_MAGMAPLANET))))
-				return;
+			GAMEINSTANCE->Get_CurrentLevel()->Change_Level();
+			return;
 		}
 	}
 

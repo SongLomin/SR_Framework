@@ -13,18 +13,17 @@ BEGIN(Client)
 class CMovingCamera final : public CGameObject
 {
 public:
-	enum class CAMERAMOVING { CAMERA_MOVE = 0, CAMERA_STAY, CAMERA_END };
-	enum class CAMERALOOK {FACE, UPSIDE, DOWNSIDE, LOOK_END };
-
+	
 	typedef struct
 	{
 		_float fTime;
-		CAMERAMOVING	eMoveType;
-		CAMERALOOK		eLookType;
 		_float	fAngle;
 
 		_float3 m_vSpeed;
 		_float3 m_vAccel;
+
+		_float  m_fShakeOffset;
+		_float  m_fShakeInclination;
 
 		CTransform* m_pStartTransform;
 		CTransform* m_pEndTransform;
@@ -47,7 +46,7 @@ public:
 
 public:
 	void	Add_Movement(CTransform* _pStartTarget, CTransform* _pEndTarget,CAMERAROUTE _tagRoute);//유동적인 카메라 연출용
-
+	void	Add_Movement(_float _fTime, _float _fAngle,_float3 _vSpeed, _float3 _vAccel, CTransform* _pEndTransform, CTransform* _pStartTransform,_float _fShakeOffSet, _float _fShakeInclination);
 	void	Boss_Cinematic(CTransform* _pBossTarget);//이미 만들어져 있는 루트로 그냥 보여줌
 	void	Monster_Cinematic(CTransform* _pBossTarget);
 

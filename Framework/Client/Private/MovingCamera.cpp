@@ -39,28 +39,36 @@ void CMovingCamera::Tick(_float fTimeDelta)
 	if (!m_bFlag)
 		return;
 
-	if (0.f > m_CameraRoute.fTime && m_listRoute.empty() )
+	if (0.f > m_CameraRoute.fTime)
 	{
-		GAMEINSTANCE->Swap_Camera();
-		m_bFlag = false;
+		if (!m_listRoute.empty())
+		{
+			m_CameraRoute = m_listRoute.front();
+			m_listRoute.pop_front();
+			GAMEINSTANCE->Add_Shaking(m_CameraRoute.m_fShakeOffset, m_CameraRoute.m_fShakeInclination);
+		}
+		else
+		{
+			GAMEINSTANCE->Swap_Camera();
+			m_bFlag = false;
+		}
 	}
 
-	if (!m_listRoute.empty())
-	{
-		m_CameraRoute = m_listRoute.front();
-		m_listRoute.pop_front();
-	}
-
+	
 
 	m_CameraRoute.fTime -= fTimeDelta;
 	m_pTransformCom->Update_WorldMatrix();
-	
+	/*if (CAMERAMOVING::CAMERA_STAY == m_CameraRoute.eMoveType)
+	{
+		return;
+	}*/
 	_float3 vPosition = m_pTransformCom->Get_State(CTransform::STATE_POSITION);
 	m_CameraRoute.m_vSpeed += m_CameraRoute.m_vAccel; 
 	vPosition += m_CameraRoute.m_vSpeed*fTimeDelta;
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, vPosition);
-	m_pTransformCom->LookAt(m_CameraRoute.m_pEndTransform, true);
+	if(m_CameraRoute.m_pEndTransform)
+		m_pTransformCom->LookAt(m_CameraRoute.m_pEndTransform, true);
 
 }
 
@@ -90,23 +98,43 @@ void CMovingCamera::Add_Movement(CTransform* _pStartTarget, CTransform* _pEndTar
 	_tagRoute.m_pEndTransform = _pEndTarget;
 	_tagRoute.m_pStartTransform = _pStartTarget;
 
-	if (CMovingCamera::CAMERAMOVING::CAMERA_MOVE == _tagRoute.eMoveType)
-	{
-		_float3 vecStartPos = _pStartTarget->Get_World_State(CTransform::STATE_POSITION);
-		_float3 vecEndPos = _pEndTarget->Get_World_State(CTransform::STATE_POSITION);
+	//if (CMovingCamera::CAMERAMOVING::CAMERA_MOVE == _tagRoute.eMoveType)
+	//{
+	//	_float3 vecStartPos = _pStartTarget->Get_World_State(CTransform::STATE_POSITION);
+	//	_float3 vecEndPos = _pEndTarget->Get_World_State(CTransform::STATE_POSITION);
 
-		_float3 vRoute = vecEndPos - vecStartPos;
+	//	_float3 vRoute = vecEndPos - vecStartPos;
 
-		_tagRoute.m_vSpeed = -1.f * vRoute * 2 / (_tagRoute.fTime);
-		_tagRoute.m_vAccel = 2 * vRoute / (_tagRoute.fTime * _tagRoute.fTime);
-	}
+	//	_tagRoute.m_vSpeed = -1.f * vRoute * 2 / (_tagRoute.fTime);
+	//	_tagRoute.m_vAccel = 2 * vRoute / (_tagRoute.fTime * _tagRoute.fTime);
+	//}
 
-	else if (CMovingCamera::CAMERAMOVING::CAMERA_STAY == _tagRoute.eMoveType)
-	{
-		_tagRoute.m_vSpeed = _tagRoute.m_vAccel = _float3(0.f, 0.f, 0.f);
-	}
+	//else if (CMovingCamera::CAMERAMOVING::CAMERA_STAY == _tagRoute.eMoveType)
+	//{
+
+	//	m_pTransformCom->Set_World_State(CTransform::STATE_POSITION,_pStartTarget->Get_World_State(CTransform::STATE_POSITION));
+	//	_tagRoute.m_vSpeed = _tagRoute.m_vAccel = _float3(0.f, 0.f, 0.f);
+	//}
 
 	m_listRoute.push_back(_tagRoute);
+}
+
+void CMovingCamera::Add_Movement(_float _fTime, _float _fAngle,_float3 _vSpeed, _float3 _vAccel, CTransform* _pEndTransform, CTransform* _pStartTransform, _float _fShakeOffSet, _float _fShakeInclination)
+{
+	CAMERAROUTE	tagCameraroute;
+	tagCameraroute.fTime = _fTime;
+	tagCameraroute.fAngle = _fAngle;
+
+	tagCameraroute.m_vSpeed = _vSpeed;
+	tagCameraroute.m_vAccel = _vAccel;
+
+	tagCameraroute.m_pEndTransform = _pEndTransform;
+	tagCameraroute.m_pStartTransform = _pStartTransform;
+
+	tagCameraroute.m_fShakeOffset = _fShakeOffSet;
+	tagCameraroute.m_fShakeInclination = _fShakeInclination;
+	m_listRoute.push_back(tagCameraroute);
+	m_bFlag = true;
 }
 
 void CMovingCamera::Boss_Cinematic(CTransform* _pBossTarget)
@@ -129,9 +157,6 @@ void CMovingCamera::Boss_Cinematic(CTransform* _pBossTarget)
 
 	m_CameraRoute.fTime = 5.f;
 	m_CameraRoute.fAngle = D3DXToRadian(30.f);
-
-	m_CameraRoute.eMoveType = CAMERAMOVING::CAMERA_END;
-	m_CameraRoute.eLookType = CAMERALOOK::LOOK_END;
 
 	m_CameraRoute.m_vAccel =  _float3(0.f, 0.f, 0.f);
 	m_CameraRoute.m_vSpeed = vRight;

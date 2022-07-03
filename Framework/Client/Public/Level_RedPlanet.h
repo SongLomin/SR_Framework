@@ -16,6 +16,9 @@ public:
 	virtual void Tick(_float TimeDelta);
 	virtual HRESULT Render();
 
+	virtual void Change_Level() {}
+	virtual HRESULT Complete_Condition() { return S_OK; }
+
 public:
 	static CLevel_RedPlanet* Create();
 	virtual void Free() override;
