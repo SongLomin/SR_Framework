@@ -73,9 +73,6 @@
     <Filter Include="02.GameObject\05. Camera_Object\04. Cam_Moving">
       <UniqueIdentifier>{0d73d39a-9716-4db9-913c-cc8991ef9d9b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\00. Player\Test_Player">
-      <UniqueIdentifier>{1f606b71-6312-4c75-8d94-bb43e7d2f5bf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\00. Player\AI_Friendly">
       <UniqueIdentifier>{9f84a888-4e75-4ca0-bda1-90ac50b954b7}</UniqueIdentifier>
     </Filter>
@@ -172,6 +169,12 @@
     <Filter Include="02.GameObject\10. ParticleSystem\00. Trajectory_PSystem">
       <UniqueIdentifier>{13c5497c-ff42-4c4d-98d8-57b96494ae1e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\00. Player\Kang_Ship">
+      <UniqueIdentifier>{1f606b71-6312-4c75-8d94-bb43e7d2f5bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\00. Player\Song_Ship">
+      <UniqueIdentifier>{9bafb749-24b4-4141-88d8-028af94e5998}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -225,9 +228,6 @@
     <ClInclude Include="..\Public\UITest.h">
       <Filter>97. UITest</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\Player_Body.h">
-      <Filter>02.GameObject\00. Player</Filter>
-    </ClInclude>
     <ClInclude Include="EnemySpace_Body.h">
       <Filter>02.GameObject\02. Monster\EnemySpace</Filter>
     </ClInclude>
@@ -267,8 +267,8 @@
     <ClInclude Include="..\Public\MovingCamera.h">
       <Filter>02.GameObject\05. Camera_Object\04. Cam_Moving</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Test_Player.h">
-      <Filter>02.GameObject\00. Player\Test_Player</Filter>
+    <ClInclude Include="..\Public\Kang_Ship_Body.h">
+      <Filter>02.GameObject\00. Player\Kang_Ship</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Normal_Bullet.h">
       <Filter>02.GameObject\03. Bullet\Normal</Filter>
@@ -347,6 +347,12 @@
     <ClInclude Include="..\Public\SpaceDust_PSystem.h">
       <Filter>02.GameObject\10. ParticleSystem\01. SpaceDust_PSystem</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Player.h">
+      <Filter>02.GameObject\00. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Song_Ship_Body.h">
+      <Filter>02.GameObject\00. Player\Song_Ship</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -388,9 +394,6 @@
     <ClCompile Include="..\Private\UITest.cpp">
       <Filter>97. UITest</Filter>
     </ClCompile>
-    <ClCompile Include="..\private\Player_Body.cpp">
-      <Filter>02.GameObject\00. Player</Filter>
-    </ClCompile>
     <ClCompile Include="EnemySpace_Body.cpp">
       <Filter>02.GameObject\02. Monster\EnemySpace</Filter>
     </ClCompile>
@@ -430,8 +433,8 @@
     <ClCompile Include="..\Private\MovingCamera.cpp">
       <Filter>02.GameObject\05. Camera_Object\04. Cam_Moving</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Test_Player.cpp">
-      <Filter>02.GameObject\00. Player\Test_Player</Filter>
+    <ClCompile Include="..\Private\Kang_Ship_Body.cpp">
+      <Filter>02.GameObject\00. Player\Kang_Ship</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Normal_Bullet.cpp">
       <Filter>02.GameObject\03. Bullet\Normal</Filter>
@@ -512,6 +515,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\SpaceDust_PSystem.cpp">
       <Filter>02.GameObject\10. ParticleSystem\01. SpaceDust_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Player.cpp">
+      <Filter>02.GameObject\00. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Song_Ship_Body.cpp">
+      <Filter>02.GameObject\00. Player\Song_Ship</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

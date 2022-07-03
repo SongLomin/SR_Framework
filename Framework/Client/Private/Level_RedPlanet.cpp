@@ -2,7 +2,7 @@
 #include "Level_RedPlanet.h"
 #include "GameInstance.h"
 #include "LEvel_Loading.h"
-#include "Player_Body.h"
+#include "Song_Ship_Body.h"
 #include "Monster.h"
 #include "Terrain.h"
 #include "Cam_Free.h"
@@ -27,7 +27,7 @@
 #include "Rock.h"
 #include "MovingCamera.h"
 #include "../Default/EnemySpace_Body.h"
-#include <Test_Player.h>
+#include "Kang_Ship_Body.h"
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
@@ -60,10 +60,10 @@ HRESULT CLevel_RedPlanet::Initialize()
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_REDPLANET, TEXT("Player_Body")))
+	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CTest_Player>(LEVEL_REDPLANET, TEXT("Test_Player")))
+	if (!GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
 		return E_FAIL;
 
 	for (int i = 0; i < 50; ++i)

@@ -2,7 +2,7 @@
 #include "Level_VenusPlanet.h"
 #include "GameInstance.h"
 #include "LEvel_Loading.h"
-#include "Player_Body.h"
+#include "Song_Ship_Body.h"
 #include "Monster.h"
 #include "Terrain.h"
 #include "Cam_Free.h"
@@ -27,7 +27,7 @@
 #include "Rock.h"
 #include "MovingCamera.h"
 #include "../Default/EnemySpace_Body.h"
-#include <Test_Player.h>
+#include "Kang_Ship_Body.h"
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
@@ -61,7 +61,7 @@ HRESULT CLevel_VenusPlanet::Initialize()
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlayer_Body>(LEVEL_VENUSPLANET, TEXT("Player_Body")))
+	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_VENUSPLANET, TEXT("Player")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVEL_VENUSPLANET, TEXT("SkyBox")))
