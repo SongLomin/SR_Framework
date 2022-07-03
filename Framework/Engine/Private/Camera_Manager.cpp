@@ -50,7 +50,7 @@ void CCamera_Manager::Shake(_float fTimeDelta)
 	m_pCurrentCam->Get_Transform()->Set_World_State(CTransform::STATE_POSITION,camPosition);
 
 
-	m_fOffset -= 0.01f;
+	m_fOffset -= m_fInclination;
 	if (m_fInclination > fabs(m_fOffset))
 	{
 		m_fOffset = 0.f;

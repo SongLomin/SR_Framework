@@ -137,6 +137,17 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 		
+	if (m_bCinematic)
+	{
+		m_fTime -= fTimeDelta;
+		if (0.f > m_fTime)
+		{
+			m_bCinematic = false;
+			GAMEINSTANCE->Swap_Camera();
+			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_REDPLANET))))
+				return;
+		}
+	}
 
 }
 
@@ -149,6 +160,37 @@ HRESULT CLevel_SelectPlanet::Render()
 	SetWindowText(g_hWnd, TEXT("Select Planet 레벨입니다. "));
 
 	return S_OK;
+}
+
+void CLevel_SelectPlanet::Change_Level()
+{
+	m_fTime = 7.f;
+	m_bCinematic = true;
+
+	CGameObject* Camera_Origin = GAMEINSTANCE->Get_Camera()->Get_Owner();
+	CTransform* pCameraTransform = Camera_Origin->Get_Component<CTransform>();
+	GAMEINSTANCE->Update_MovingCam();
+	CGameObject* Camera_Moving = GAMEINSTANCE->Get_Camera()->Get_Owner();
+	CTransform* pCameraMovingTransform = Camera_Moving->Get_Component<CTransform>();
+
+	_float3	vUp, vLook, vRight,vSpeed;
+
+	pCameraMovingTransform->Set_State(CTransform::STATE_RIGHT, vRight= pCameraTransform->Get_State(CTransform::STATE_RIGHT));
+	pCameraMovingTransform->Set_State(CTransform::STATE_UP, vUp= pCameraTransform->Get_State(CTransform::STATE_UP));
+	pCameraMovingTransform->Set_State(CTransform::STATE_LOOK, vLook= pCameraTransform->Get_State(CTransform::STATE_LOOK));
+	pCameraMovingTransform->Set_State(CTransform::STATE_POSITION, pCameraTransform->Get_State(CTransform::STATE_POSITION));
+
+
+
+	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(3.f, 0.f,
+		*D3DXVec3Normalize(&vSpeed, &(-vLook)), _float3(0.f, 0.f, 0.f),
+		nullptr, nullptr, 0.05f, 0.f
+	);
+
+	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(4.f, 0.f,
+		_float3(0.f, 0.f, 0.f), *D3DXVec3Normalize(&vSpeed, &(-vLook)) * 4.f,
+		nullptr, nullptr, 0.01f, 0.5f
+	);
 }
 
 
