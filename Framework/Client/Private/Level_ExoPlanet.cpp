@@ -129,6 +129,14 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 
 	
 	GAMEINSTANCE->Add_Text(_point{ (LONG)1075, (LONG)90 }, TEXT(" %d"), 1, (_uint)fMaxTime);
+
+
+	if (fMaxTime <= 0)
+	{
+		if (FAILED(GAMEINSTANCE->Get_Instance()->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
+			return;
+	}
+
 }
 
 HRESULT CLevel_ExoPlanet::Render()

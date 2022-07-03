@@ -17,7 +17,7 @@ public:
 	virtual HRESULT Render();
 
 private:
-	_float  fMaxTime = 180;
+	_float  fMaxTime = 5;
 
 public:
 	static CLevel_ExoPlanet* Create();
