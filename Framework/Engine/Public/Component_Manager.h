@@ -33,6 +33,7 @@
 #include "Mesh_EnemySpace.h"
 #include "Mesh_ShinShip.h"
 #include "Mesh_Canon.h"
+#include "Mesh_HongShip.h"
 
 
 BEGIN(Engine)

@@ -32,6 +32,8 @@
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
 #include "Quest.h"
+#include "Hong_Ship_Body.h"
+#include "Shin_Ship_Body.h"
 
 CLevel_RedPlanet::CLevel_RedPlanet()
 {
@@ -63,6 +65,12 @@ HRESULT CLevel_RedPlanet::Initialize()
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CHong_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CShin_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
 		return E_FAIL;
 
 	for (int i = 0; i < 50; ++i)

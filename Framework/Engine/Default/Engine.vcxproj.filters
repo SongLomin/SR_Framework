@@ -88,9 +88,6 @@
     <Filter Include="01.Utility\03.Components\04. Status">
       <UniqueIdentifier>{f547740d-ddc5-4402-979c-2e4a0ede3a70}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Utility\03.Components\05. Font">
-      <UniqueIdentifier>{d2ef3aa8-8655-4c52-9cda-c6cd5e7dde3f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Utility\03.Components\00. Model\Mesh">
       <UniqueIdentifier>{5dcfe90f-c1ce-40b1-ace7-176812048b65}</UniqueIdentifier>
     </Filter>
@@ -144,9 +141,6 @@
     </Filter>
     <Filter Include="01.Utility\03.Components\05. State\State_Move">
       <UniqueIdentifier>{939c6abc-2fa8-4529-8134-e6ce0b042e27}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="99.Headers\05.Picking">
-      <UniqueIdentifier>{89700394-3094-4d7d-9623-87ccf4bd784d}</UniqueIdentifier>
     </Filter>
     <Filter Include="01.Utility\03.Components\00. Model\Mesh\Mesh_Test">
       <UniqueIdentifier>{5308598a-0759-42a9-b22b-0088d2f5f65c}</UniqueIdentifier>
@@ -231,6 +225,9 @@
     </Filter>
     <Filter Include="01.Utility\02.GameObject\01. ParticleSystem">
       <UniqueIdentifier>{aacee7c2-9aa6-4ba3-85eb-7d68c5b20c09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\10. Font">
+      <UniqueIdentifier>{d2ef3aa8-8655-4c52-9cda-c6cd5e7dde3f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -319,7 +316,7 @@
       <Filter>01.Utility\03.Components\04. Status</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Font.h">
-      <Filter>01.Utility\03.Components\05. Font</Filter>
+      <Filter>01.Utility\03.Components\10. Font</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Mesh_Cube.h">
       <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_Cube</Filter>
@@ -530,7 +527,7 @@
       <Filter>01.Utility\03.Components\04. Status</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Font.cpp">
-      <Filter>01.Utility\03.Components\05. Font</Filter>
+      <Filter>01.Utility\03.Components\10. Font</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Mesh_Cube.cpp">
       <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_Cube</Filter>

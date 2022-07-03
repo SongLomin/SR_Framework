@@ -173,6 +173,7 @@
     <ClInclude Include="..\Public\BulletUI.h" />
     <ClInclude Include="..\Public\AI_Friendly.h" />
     <ClInclude Include="..\Public\Default_Aim.h" />
+    <ClInclude Include="..\Public\Hong_Ship_Body.h" />
     <ClInclude Include="..\Public\Lazer_Bullet.h" />
     <ClInclude Include="..\Public\Lazer_Turret.h" />
     <ClInclude Include="..\Public\Level_ExoPlanet.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="..\Public\Planet_Sun.h" />
     <ClInclude Include="..\Public\Planet_Venus.h" />
     <ClInclude Include="..\Public\Player.h" />
+    <ClInclude Include="..\Public\Shin_Ship_Body.h" />
     <ClInclude Include="..\public\Song_Ship_Body.h" />
     <ClInclude Include="..\Public\Cam_FPS.h" />
     <ClInclude Include="..\Public\Normal_Bullet.h" />
@@ -230,6 +232,7 @@
     <ClCompile Include="..\Private\BulletUI.cpp" />
     <ClCompile Include="..\Private\AI_Friendly.cpp" />
     <ClCompile Include="..\Private\Default_Aim.cpp" />
+    <ClCompile Include="..\Private\Hong_Ship_Body.cpp" />
     <ClCompile Include="..\Private\Lazer_Bullet.cpp" />
     <ClCompile Include="..\Private\Lazer_Turret.cpp" />
     <ClCompile Include="..\Private\Level_ExoPlanet.cpp" />
@@ -247,6 +250,7 @@
     <ClCompile Include="..\Private\Planet_Sun.cpp" />
     <ClCompile Include="..\Private\Planet_Venus.cpp" />
     <ClCompile Include="..\Private\Player.cpp" />
+    <ClCompile Include="..\Private\Shin_Ship_Body.cpp" />
     <ClCompile Include="..\private\Song_Ship_Body.cpp" />
     <ClCompile Include="..\Private\Normal_Bullet.cpp" />
     <ClCompile Include="..\Private\Cam_FPS.cpp" />
