@@ -31,6 +31,7 @@
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
+#include "Quest.h"
 
 CLevel_MagmaPlanet::CLevel_MagmaPlanet()
 {
@@ -91,6 +92,8 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_MAGMAPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_MAGMAPLANET, TEXT("Quest")))
+		return E_FAIL;
 
 
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
@@ -99,12 +102,7 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	
 
 
-	/*TEXTINFO Info;
-	Info.color = D3DCOLOR_ARGB(255, 0, 255, 0);
-	Info.rcTemp = { 600, 300, 600 + 200, 300 + 300 };
-	wsprintf(Info.szBuff, L"10초동안 출력");
-	if (FAILED(GAMEINSTANCE->Add_Text(&Info, 10.f)))
-		return E_FAIL;*/
+
 
 	return S_OK;
 }

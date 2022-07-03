@@ -123,15 +123,15 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 			return;
 	}
 	
-	fMaxTime -= fTimeDelta;
+	m_fMaxTime -= fTimeDelta;
 
 	/*GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);*/
 
 	
-	GAMEINSTANCE->Add_Text(_point{ (LONG)1075, (LONG)90 }, TEXT(" %d"), 1, (_uint)fMaxTime);
+	GAMEINSTANCE->Add_Text(_point{ (LONG)1075, (LONG)90 }, TEXT(" %d"), 1, (_uint)m_fMaxTime);
 
 
-	if (fMaxTime <= 0)
+	if (m_fMaxTime <= 0)
 	{
 		if (FAILED(GAMEINSTANCE->Get_Instance()->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
 			return;

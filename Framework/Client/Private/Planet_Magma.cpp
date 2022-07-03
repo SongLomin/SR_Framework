@@ -83,7 +83,7 @@ HRESULT CPlanet_Magma::Render()
 
 	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
 
-	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Margma Planet \n 고 위험 구역 \n 임무 : 모든 기체 파괴 / 생존 \n 난이도 :『★★★★★★』 \n 보상 : XXX"), 0);
+	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Margma Planet \n 고 위험 구역 \n 임무 : 제한 시간 내 모든 기체 파괴  \n 난이도 :『★★★★★★』 \n 보상 : XXX"), 0);
 
 	m_pRendererCom->Bind_Texture(2);
 

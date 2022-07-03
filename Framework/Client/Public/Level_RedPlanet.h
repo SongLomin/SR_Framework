@@ -28,6 +28,8 @@ private:
 	bool	m_bWaveCheck[10];
 
 	_float  m_fSpawnTime = 2.f;
+
+	_float m_fMaxTime = 180;
 };
 
 END
