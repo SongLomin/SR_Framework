@@ -22,6 +22,7 @@
 #include "Planet_Magma.h"
 #include "Planet_Exo.h"
 #include "Light_Moon.h"
+#include "Quest.h"
 
 CLevel_SelectPlanet::CLevel_SelectPlanet()
 {
@@ -80,6 +81,9 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("CLight_Moon")))
 		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest")))
+		return E_FAIL;
+
 
 	// 행성 2개 랜덤 생성
 	srand(unsigned(time(NULL)));
@@ -125,10 +129,13 @@ HRESULT CLevel_SelectPlanet::Initialize()
 		m_ePreNextPlanet = m_eNextPlanet;
 	}
 
-	/// <summary>
-	/// ////////////////
-	/// </summary>
-	/// <returns></returns>
+
+	/*TEXTINFO Info;
+	Info.color = D3DCOLOR_ARGB(255, 0, 255, 0);
+	Info.rcTemp = { 600, 300, 600 + 200, 300 + 300 };
+	wsprintf(Info.szBuff, L"10초동안 출력");
+	if (FAILED(GAMEINSTANCE->Add_Text(&Info, 10.f)))
+		return E_FAIL;*/
 	
 	return S_OK;
 }

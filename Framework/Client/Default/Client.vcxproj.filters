@@ -55,9 +55,6 @@
     <Filter Include="02.GameObject\02. Monster\EnemySpace">
       <UniqueIdentifier>{9b1b7ac5-60c7-490d-89a3-5ebd8a68bc87}</UniqueIdentifier>
     </Filter>
-    <Filter Include="97. UITest\Logo">
-      <UniqueIdentifier>{6bb5c36a-72de-4ccf-81d5-8849cacc2d18}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\07. UI">
       <UniqueIdentifier>{0490002b-9b52-4a93-b9fe-323e9753bc8b}</UniqueIdentifier>
     </Filter>
@@ -160,9 +157,6 @@
     <Filter Include="02.GameObject\11. Light">
       <UniqueIdentifier>{3ad58ff7-fc3c-4713-a020-6a6d7bc5d31c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="97. UITest\Loading">
-      <UniqueIdentifier>{91d6ac50-951a-4727-b597-ac9edfcafe02}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\10. ParticleSystem">
       <UniqueIdentifier>{99ed4003-2a43-468d-ba0c-c80dd79c519d}</UniqueIdentifier>
     </Filter>
@@ -171,6 +165,15 @@
     </Filter>
     <Filter Include="02.GameObject\10. ParticleSystem\00. Trajectory_PSystem">
       <UniqueIdentifier>{13c5497c-ff42-4c4d-98d8-57b96494ae1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\07. UI\Loading">
+      <UniqueIdentifier>{91d6ac50-951a-4727-b597-ac9edfcafe02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\07. UI\Logo">
+      <UniqueIdentifier>{6bb5c36a-72de-4ccf-81d5-8849cacc2d18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\07. UI\Quest">
+      <UniqueIdentifier>{7db25916-24a3-4d33-9c54-a60e01581cd7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -238,7 +241,7 @@
       <Filter>02.GameObject\09. Box\TargetingBox</Filter>
     </ClInclude>
     <ClInclude Include="Logo.h">
-      <Filter>97. UITest\Logo</Filter>
+      <Filter>02.GameObject\07. UI\Logo</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\AI_Friendly.h">
       <Filter>02.GameObject\00. Player\AI_Friendly</Filter>
@@ -333,7 +336,7 @@
       <Filter>02.GameObject\11. Light</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Loading.h">
-      <Filter>97. UITest\Loading</Filter>
+      <Filter>02.GameObject\07. UI\Loading</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Rock.h">
       <Filter>02.GameObject\10. Rock</Filter>
@@ -346,6 +349,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\SpaceDust_PSystem.h">
       <Filter>02.GameObject\10. ParticleSystem\01. SpaceDust_PSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Quest.h">
+      <Filter>02.GameObject\07. UI\Quest</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -401,7 +407,7 @@
       <Filter>02.GameObject\09. Box\TargetingBox</Filter>
     </ClCompile>
     <ClCompile Include="Logo.cpp">
-      <Filter>97. UITest\Logo</Filter>
+      <Filter>02.GameObject\07. UI\Logo</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\AI_Friendly.cpp">
       <Filter>02.GameObject\00. Player\AI_Friendly</Filter>
@@ -499,7 +505,7 @@
       <Filter>02.GameObject\11. Light</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Loading.cpp">
-      <Filter>97. UITest\Loading</Filter>
+      <Filter>02.GameObject\07. UI\Loading</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Rock.cpp">
       <Filter>02.GameObject\10. Rock</Filter>
@@ -512,6 +518,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\SpaceDust_PSystem.cpp">
       <Filter>02.GameObject\10. ParticleSystem\01. SpaceDust_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Quest.cpp">
+      <Filter>02.GameObject\07. UI\Quest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -31,6 +31,7 @@
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
+#include "Quest.h"
 
 CLevel_RedPlanet::CLevel_RedPlanet()
 {
@@ -121,6 +122,9 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_REDPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_REDPLANET, TEXT("Quest")))
+		return E_FAIL;
+
 
 
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
@@ -144,7 +148,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	__super::Tick(fTimeDelta);
 
 
-	// 1
+	
 	m_fSpawnTime -= fTimeDelta;
 	if (m_fSpawnTime < 0.f)
 	{
@@ -154,11 +158,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 		m_fSpawnTime = 5.f;
 	}
 
-	// 2
 
-
-
-	// 3
 
 
 
