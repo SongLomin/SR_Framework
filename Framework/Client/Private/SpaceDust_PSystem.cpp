@@ -61,7 +61,8 @@ void CSpaceDust_PSystem::Tick(_float fTimeDelta)
 
 		if (iter->lifeTime < iter->age)
 		{
-			ResetParticle(&(*iter));
+			iter->isAlive = false;
+			//ResetParticle(&(*iter));
 			continue;
 		}
 		
