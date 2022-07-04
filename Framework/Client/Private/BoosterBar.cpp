@@ -52,10 +52,17 @@ void CBoosterBar::Tick(_float fTimeDelta)
 		{
 			m_fX -= 0.5f;
 			m_fSizeX -= 0.5f;
+
+			if (m_fX <= 0 || m_fSizeX <= 0)
+			{
+				m_fX = 71;
+				m_fSizeX = 1;
+			}
 		}
 
 		if (KEY_INPUT(KEY::LSHIFT, KEY_STATE::NONE))
 		{
+			
 
 			if (m_fX >= 220.f)
 			{
@@ -67,14 +74,7 @@ void CBoosterBar::Tick(_float fTimeDelta)
 				m_fSizeX == 150.f;
 			}
 
-			else if (0 >= m_fSizeX)
-			{
-				m_fX += 0.5f;
-				m_fSizeX += 0.5f;
-				
-			}
-
-			else
+			else 
 			{
 				m_fX += 0.5f;
 				m_fSizeX += 0.5f;
