@@ -116,6 +116,8 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 	{
 		GAMEINSTANCE->Add_Shaking(2.f, 0.01f);
 	}
+
+
 }
 
 void CPlayer::On_Collision_Stay(CCollider* _Other_Collider)

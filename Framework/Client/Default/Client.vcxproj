@@ -173,6 +173,7 @@
     <ClInclude Include="..\Public\BulletUI.h" />
     <ClInclude Include="..\Public\AI_Friendly.h" />
     <ClInclude Include="..\Public\Default_Aim.h" />
+    <ClInclude Include="..\Public\Fire_PSystem.h" />
     <ClInclude Include="..\Public\Hong_Ship_Body.h" />
     <ClInclude Include="..\Public\Lazer_Bullet.h" />
     <ClInclude Include="..\Public\Lazer_Turret.h" />
@@ -232,6 +233,7 @@
     <ClCompile Include="..\Private\BulletUI.cpp" />
     <ClCompile Include="..\Private\AI_Friendly.cpp" />
     <ClCompile Include="..\Private\Default_Aim.cpp" />
+    <ClCompile Include="..\Private\Fire_PSystem.cpp" />
     <ClCompile Include="..\Private\Hong_Ship_Body.cpp" />
     <ClCompile Include="..\Private\Lazer_Bullet.cpp" />
     <ClCompile Include="..\Private\Lazer_Turret.cpp" />
