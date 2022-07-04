@@ -6,7 +6,7 @@ class CRenderer;
 class CTransform;
 class CMesh_Cube;
 class CRigid_Body;
-class CCollider_Shpere;
+class CCollider_Sphere;
 class CSpotLight;
 class CPointLight;
 END
@@ -27,7 +27,7 @@ protected:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
     CRigid_Body* m_pRigidBodyCom = nullptr;
-    CCollider_Shpere* m_pColliderCom = nullptr;
+    CCollider_Sphere* m_pColliderCom = nullptr;
 
 protected:
     _float  m_fLifeTime = 1.f;
@@ -37,7 +37,7 @@ protected:
     virtual HRESULT SetUp_Components_For_Child() PURE;
 
 public:
-    void Init_BulletPosition(_float4x4* _pWorldMat);
+    virtual void Init_BulletPosition(_float4x4* _pWorldMat);
 
 public:
     virtual void Free() override;

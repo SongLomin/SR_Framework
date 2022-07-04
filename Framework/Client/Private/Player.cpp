@@ -23,6 +23,9 @@ void CPlayer::Tick(_float fTimeDelta)
 	list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player"));
 	_uint i = 0;
 
+	if (!pAiObect)
+		return;
+
 	for (auto& elem : *pAiObect)
 	{
 		if (KEY_INPUT((KEY)((_uint)KEY::NUM1 + i), KEY_STATE::TAP))
@@ -68,6 +71,7 @@ HRESULT CPlayer::Render_Begin(ID3DXEffect** Shader)
 HRESULT CPlayer::Render()
 {
 	__super::Render();
+	m_pColliderCom->Debug_Render();
 
 	return S_OK;
 }
@@ -114,7 +118,7 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER_ATTACK)
 	{
-		GAMEINSTANCE->Add_Shaking(2.f, 0.01f);
+		GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
 	}
 }
 
@@ -139,7 +143,7 @@ HRESULT CPlayer::SetUp_Components()
 	m_pTargetingCom->Set_TargetMode(TARGETMODE::TARGET_SINGLE);
 
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER;
-	m_pColliderCom = Add_Component<CCollider_Shpere>(&eCollisionType);
+	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
 

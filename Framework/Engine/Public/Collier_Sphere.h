@@ -3,13 +3,13 @@
 
 BEGIN(Engine)
 
-class ENGINE_DLL CCollider_Shpere :
+class ENGINE_DLL CCollider_Sphere :
     public CCollider
 {
 protected:
-    explicit CCollider_Shpere() = default;
-    CCollider_Shpere(const CCollider_Shpere& Prototype);
-    virtual ~CCollider_Shpere() = default;
+    explicit CCollider_Sphere() = default;
+    CCollider_Sphere(const CCollider_Sphere& Prototype);
+    virtual ~CCollider_Sphere() = default;
 
 public:
     virtual HRESULT Initialize_Prototype();
@@ -37,7 +37,7 @@ private: /* For Debug Mesh */
 
 
 public:
-    static CCollider_Shpere* Create();
+    static CCollider_Sphere* Create();
     virtual	CComponent* Clone(void* pArg) override;
     virtual void Free() override;
 

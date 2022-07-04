@@ -52,7 +52,7 @@ void CLazer_Turret::Tick(_float fTimeDelta)
 			COLLISION_TYPE eColType = COLLISION_TYPE::MONSTER_ATTACK;
 			CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CLazer_Bullet>(CURRENT_LEVEL, TEXT("Lazer_Bullet"), nullptr, &eColType);
 			static_cast<CLazer_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
-					}
+		}
 	}
 
 }

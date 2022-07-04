@@ -10,7 +10,7 @@ class CRigid_Body;
 class CTargeting;
 class CStatus;
 class CState_Move;
-class CCollider_Shpere;
+class CCollider_Sphere;
 class CDirectionalLight;
 END
 
@@ -45,7 +45,7 @@ protected:
 	CTargeting* m_pTargetingCom = nullptr;
 	CStatus* m_pStatusCom = nullptr;
 	CState_Move* m_pStateCom = nullptr;
-	CCollider_Shpere* m_pColliderCom = nullptr;
+	CCollider_Sphere* m_pColliderCom = nullptr;
 
 protected:
 	list<CNormal_Turret*>	m_pMyPosinList;

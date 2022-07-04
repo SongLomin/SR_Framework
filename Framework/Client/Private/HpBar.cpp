@@ -56,7 +56,7 @@ void CHpBar::Tick(_float fTimeDelta)
 	}
 
 	//몬스터의 스테이터스를 가져올 수 있다.
-	CStatus* pMonsterStatusCom = m_pTransformCom->Get_Parent()->Get_Owner()->Get_Component<CStatus>();
+	//CStatus* pMonsterStatusCom = m_pTransformCom->Get_Parent()->Get_Owner()->Get_Component<CStatus>();
 	
 	
 
