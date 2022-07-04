@@ -21,7 +21,12 @@ public:
 	void	Set_WeakPtr(T** WeakPtr)
 	{
 		m_WeakList.push_back((void**)WeakPtr);
-	}
+
+		if (m_iLastWeakCnt + 100 <= m_WeakList.size())
+		{
+			printf("Warning! the instance had too many weakptrs\t %s : \t%d\n", typeid(*this).name(), m_WeakList.size());
+			m_iLastWeakCnt += 100;
+		}
 
 	//참조 포인터의 인스턴스가 원본보다 먼저 삭제되는 경우 사용 해제를 해줘야 합니다.
 	//예) 몬스터가 플레이어를 참조한다. 몬스터가 먼저 삭제된 경우엔 플레이어 참조 포인터를 사용 해제함.
