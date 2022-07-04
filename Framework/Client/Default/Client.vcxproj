@@ -213,6 +213,7 @@
     <ClInclude Include="..\Public\TargetingBox.h" />
     <ClInclude Include="..\Public\Terrain.h" />
     <ClInclude Include="..\Public\Kang_Ship_Body.h" />
+    <ClInclude Include="..\Public\TextBox.h" />
     <ClInclude Include="..\Public\Trajectory_PSystem.h" />
     <ClInclude Include="..\Public\UITest.h" />
     <ClInclude Include="Client.h" />
@@ -269,6 +270,7 @@
     <ClCompile Include="..\Private\TargetingBox.cpp" />
     <ClCompile Include="..\Private\Terrain.cpp" />
     <ClCompile Include="..\Private\Kang_Ship_Body.cpp" />
+    <ClCompile Include="..\Private\TextBox.cpp" />
     <ClCompile Include="..\Private\Trajectory_PSystem.cpp" />
     <ClCompile Include="..\Private\UITest.cpp" />
     <ClCompile Include="Client.cpp" />

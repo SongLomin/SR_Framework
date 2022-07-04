@@ -44,11 +44,17 @@ void CHpBar::Tick(_float fTimeDelta)
 
 	CTransform* TransformCom =  GAMEINSTANCE->Get_Camera()->Get_Target();
 
-	// HP 10  fx = 220, 22  m_fSizeX = 150  15
+	
 	if (TransformCom)
 	{
 		CStatus* pPlayerStatusCom = TransformCom->Get_Owner()->Get_Component<CStatus>();
 
+		
+	/*	if (pPlayerStatusCom->Get_Status().fHp != pPlayerStatusCom->Get_Status().fMaxHp)
+		{
+				m_fX = m_fX * pPlayerStatusCom->Get_Status().fHp / pPlayerStatusCom->Get_Status().fMaxHp;
+				m_fSizeX = m_fSizeX * pPlayerStatusCom->Get_Status().fHp / pPlayerStatusCom->Get_Status().fMaxHp;
+		}*/
 
 
 		if (pPlayerStatusCom->Get_Status().fHp == 10)

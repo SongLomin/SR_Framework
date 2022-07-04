@@ -13,6 +13,7 @@ public:
 	typedef struct tagSTATUS
 	{
 		_float fHp;
+		_float fMaxHp;
 		_float fAttack;
 		_float fArmor;
 		_float fBooster;

@@ -13,8 +13,7 @@ END
 
 BEGIN(Client)
 
-class CMonster final :
-    public CGameObject
+class CMonster final : public CGameObject
 {
 private:
     CMonster() = default;

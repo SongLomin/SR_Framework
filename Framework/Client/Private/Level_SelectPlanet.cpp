@@ -24,6 +24,7 @@
 #include "Light_Moon.h"
 #include "Quest.h"
 #include "SpaceDust_PSystem.h"
+#include "TextBox.h"
 
 CLevel_SelectPlanet::CLevel_SelectPlanet()
 {
@@ -84,6 +85,9 @@ HRESULT CLevel_SelectPlanet::Initialize()
 
 	if (!GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest")))
 		return E_FAIL;
+
+
+	
 
 	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(50);
 
@@ -155,6 +159,18 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 				return;
 		}
 	}
+
+
+	m_fTextBoxTime -= fTimeDelta;
+
+
+	if (m_fTextBoxTime <= 98.f)
+	{
+		if (!GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang")));
+		GAMEINSTANCE->Add_Text(_point{ (LONG)530, (LONG)620 }, TEXT("반갑네, 나는 자네 직속상관 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
+	}
+
+	
 
 }
 

@@ -178,6 +178,9 @@
     <Filter Include="02.GameObject\00. Player\Song_Ship">
       <UniqueIdentifier>{9bafb749-24b4-4141-88d8-028af94e5998}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\07. UI\TextBox">
+      <UniqueIdentifier>{b03a9ea0-5a43-4826-96ff-ddab3c3d0cdb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -359,6 +362,9 @@
     <ClInclude Include="..\public\Song_Ship_Body.h">
       <Filter>02.GameObject\00. Player\Song_Ship</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\TextBox.h">
+      <Filter>02.GameObject\07. UI\TextBox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -530,6 +536,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Song_Ship_Body.cpp">
       <Filter>02.GameObject\00. Player\Song_Ship</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\TextBox.cpp">
+      <Filter>02.GameObject\07. UI\TextBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
