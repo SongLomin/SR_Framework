@@ -33,7 +33,7 @@ void CCamera_Manager::Set_Current_Camera(const _tchar* _CameraTag)
 void CCamera_Manager::Add_Shaking(_float _fOffset, _float _fInclination)
 {
 	m_fOffset = _fOffset;
-	m_fInclination = _fInclination;
+	m_fInclination =_fOffset* _fInclination;
 
 }
 

@@ -198,7 +198,7 @@ void CLevel_SelectPlanet::Change_Level()
 
 	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(4.f, 0.f,
 		_float3(0.f, 0.f, 0.f), *D3DXVec3Normalize(&vSpeed, &(-vLook)) * 4.f,
-		nullptr, nullptr, 0.01f, 0.5f
+		nullptr, nullptr, 1.f, 0.05f
 	);
 }
 
