@@ -63,7 +63,6 @@ void CBoosterBar::Tick(_float fTimeDelta)
 		if (KEY_INPUT(KEY::LSHIFT, KEY_STATE::NONE))
 		{
 			
-
 			if (m_fX >= 220.f)
 			{
 				m_fX = 220.f;
