@@ -43,6 +43,15 @@ void CHpBar::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+	CTransform* TransformCom =  GAMEINSTANCE->Get_Camera()->Get_Target();
+
+
+	if (TransformCom)
+	{
+		CStatus* pPlayerStatusCom = TransformCom->Get_Owner()->Get_Component<CStatus>();
+		int i = 0;
+	}
+
 	
 
 	GetCursorPos(&m_ptMouse);
