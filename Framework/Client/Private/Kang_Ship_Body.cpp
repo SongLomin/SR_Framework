@@ -68,6 +68,11 @@ void CKang_Ship_Body::SetUp_Components_For_Child()
 {
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
 
+#pragma region Collider Setting
+	m_pColliderCom->Set_Collider_Size(_float3(3.f, 0.f, 0.f));
+
+#pragma endregion Collider Setting
+
 #pragma region Mesh Setting
 
 	m_pMeshCom = Add_Component<CMesh_KangShip>();

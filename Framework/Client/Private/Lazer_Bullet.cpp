@@ -48,15 +48,15 @@ void CLazer_Bullet::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CLazer_Bullet::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.2f, 0.2f, 100.f), true);
+	m_pTransformCom->Scaling(_float3(0.8f, 0.8f, 100.f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
-	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
+	/*D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
 
 
 	float floatArray[3];
@@ -64,7 +64,7 @@ HRESULT CLazer_Bullet::Render_Begin(ID3DXEffect** Shader)
 	floatArray[1] = 1.0f;
 	floatArray[2] = 0.0f;
 
-	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
+	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);*/
 
 
 	return S_OK;
@@ -87,6 +87,18 @@ HRESULT CLazer_Bullet::Render()
 	//DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
 	return S_OK;
+}
+
+void CLazer_Bullet::Init_BulletPosition(_float4x4* _pWorldMat)
+{
+	__super::Init_BulletPosition(_pWorldMat);
+
+	m_pTransformCom->Go_BackAndForth(100.f, 1.f);
+
+	m_pTransformCom->Update_WorldMatrix();
+	m_pRigidBodyCom->Set_DirVector();
+	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
+
 }
 
 void CLazer_Bullet::On_Collision_Enter(CCollider* _Other_Collider)

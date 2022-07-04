@@ -27,6 +27,8 @@ public:
     virtual HRESULT Render_Begin(ID3DXEffect** Shader = nullptr) override;
     virtual HRESULT Render() override;
 
+    virtual void Init_BulletPosition(_float4x4* _pWorldMat) override;
+
 private:
     CMesh_Cube* m_pMeshCom = nullptr;
     CPointLight* m_pLight = nullptr;

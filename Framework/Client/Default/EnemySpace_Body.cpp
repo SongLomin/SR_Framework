@@ -71,7 +71,7 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 	m_fTime -= fTimeDelta;
 	if (m_fTime < 0.f)
 	{
-		m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player_Body")), m_pTransformCom);
+		m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player")), m_pTransformCom);
 		Update_Target();
 		m_fTime = 1.f;
 	}
@@ -188,19 +188,10 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pAIControllerCom->Link_Object(this);
 	m_pAIControllerCom->Set_Enable(false);
 
-	
-
-	m_pColliderPreCom = Add_Component<CCollider_Pre>();
-	WEAK_PTR(m_pColliderPreCom);
-	m_pColliderPreCom->Link_Transform(m_pTransformCom);
-	//구체라서 x만 받는다.
-	m_pColliderPreCom->Set_Collider_Size(_float3(4.5f, 0.f, 0.f));
-
 
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
-	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
+	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
-	m_pColliderCom->Link_Pre_Collider(m_pColliderPreCom);
 	m_pColliderCom->Set_Collider_Size(_float3(3.f, 3.f, 3.f));
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 

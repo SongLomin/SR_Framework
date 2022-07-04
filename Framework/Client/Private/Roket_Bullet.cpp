@@ -86,6 +86,18 @@ HRESULT CRoket_Bullet::Render()
 	return S_OK;
 }
 
+void CRoket_Bullet::Init_BulletPosition(_float4x4* _pWorldMat)
+{
+	__super::Init_BulletPosition(_pWorldMat);
+
+	m_pTransformCom->Go_BackAndForth(10.f, 1.f);
+
+	m_pTransformCom->Update_WorldMatrix();
+	m_pRigidBodyCom->Set_DirVector();
+	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
+
+}
+
 void CRoket_Bullet::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER)

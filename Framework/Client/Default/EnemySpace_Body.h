@@ -11,11 +11,10 @@ class CRigid_Body;
 class CState_Move;
 class CTargeting;
 class CStatus;
-class CCollider_OBB;
-class CCollider_Pre;
 class CTargeting;
 class CAI_Controller;
 class CMesh_ShinShip;
+class CCollider_Sphere;
 END
 
 
@@ -46,8 +45,7 @@ private: /* For My Component*/
     CState_Move* m_pStateCom = nullptr;
     CTargeting* m_pTargetingCom = nullptr;
     CStatus* m_pStatusCom = nullptr;
-    CCollider_OBB* m_pColliderCom = nullptr;
-    CCollider_Pre* m_pColliderPreCom = nullptr;
+    CCollider_Sphere* m_pColliderCom = nullptr;
     CAI_Controller* m_pAIControllerCom = nullptr;
 private:
     list<CNormal_Turret*> m_pPosinList;

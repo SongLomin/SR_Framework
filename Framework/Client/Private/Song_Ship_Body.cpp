@@ -91,7 +91,7 @@ HRESULT CSong_Ship_Body::Render()
 	__super::Render();
 
 
-
+	
 	m_pMeshCom->Render_Mesh();
 
 
@@ -122,6 +122,11 @@ void CSong_Ship_Body::On_Collision_Exit(CCollider* _Other_Collider)
 
 void CSong_Ship_Body::SetUp_Components_For_Child()
 {
+#pragma region Collider Setting
+	m_pColliderCom->Set_Collider_Size(_float3(3.f, 0.f, 0.f));
+
+#pragma endregion Collider Setting
+
 
 #pragma region Status Setting
 
