@@ -22,17 +22,18 @@ void CPlayer::Tick(_float fTimeDelta)
 	__super::Tick(fTimeDelta);
 	list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player"));
 	_uint i = 0;
-
-	for (auto& elem : *pAiObect)
+	if (pAiObect)
 	{
-		if (KEY_INPUT((KEY)((_uint)KEY::NUM1 + i), KEY_STATE::TAP))
+		for (auto& elem : *pAiObect)
 		{
-			elem->Set_Controller(CONTROLLER::PLAYER);
+			if (KEY_INPUT((KEY)((_uint)KEY::NUM1 + i), KEY_STATE::TAP))
+			{
+				elem->Set_Controller(CONTROLLER::PLAYER);
+			}
+
+			++i;
 		}
-
-		++i;
 	}
-
 }
 
 void CPlayer::LateTick(_float fTimeDelta)

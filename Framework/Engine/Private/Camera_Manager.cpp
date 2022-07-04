@@ -51,7 +51,7 @@ void CCamera_Manager::Shake(_float fTimeDelta)
 
 
 	m_fOffset -= m_fInclination;
-	if (m_fInclination > fabs(m_fOffset))
+	if (DBL_EPSILON > m_fOffset)
 	{
 		m_fOffset = 0.f;
 		m_fInclination = 0.f;

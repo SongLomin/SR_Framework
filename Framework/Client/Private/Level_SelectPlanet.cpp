@@ -171,9 +171,9 @@ HRESULT CLevel_SelectPlanet::Render()
 	return S_OK;
 }
 
-void CLevel_SelectPlanet::Change_Level()
+void CLevel_SelectPlanet::Change_Level(void* pArg)
 {
-	m_fTime = 7.f;
+	m_fTime = 5.f;
 	m_bCinematic = true;
 
 	CGameObject* Camera_Origin = GAMEINSTANCE->Get_Camera()->Get_Owner();
@@ -191,15 +191,33 @@ void CLevel_SelectPlanet::Change_Level()
 
 
 
-	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(3.f, 0.f,
-		*D3DXVec3Normalize(&vSpeed, &(-vLook)), _float3(0.f, 0.f, 0.f),
-		nullptr, nullptr, 0.05f, 0.f
+	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(2.f, 0.f,
+		*D3DXVec3Normalize(&vSpeed, &(-vLook))*1.5f, _float3(0.f, 0.f, 0.f),
+		nullptr, nullptr, 0.1f, 0.f
 	);
 
-	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(4.f, 0.f,
+	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(3.f, 0.f,
 		_float3(0.f, 0.f, 0.f), *D3DXVec3Normalize(&vSpeed, &(-vLook)) * 4.f,
 		nullptr, nullptr, 1.f, 0.05f
 	);
+
+	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player"));
+	for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)
+	{
+		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
+		{
+			CComponent* Temp = (*iter)->Get_Component<CPlayer_Controller>();
+			Temp->Set_Enable(false);
+			Temp = (*iter)->Get_Component<CRigid_Body>();
+			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::SPIN, 0.f);
+			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::DOWN, 0.f);
+			if (pArg)
+			{
+				Temp = (*iter)->Get_Component<CTransform>();
+				static_cast<CTransform*>(Temp)->LookAt((CTransform*)pArg, true);
+			}
+		}
+	}
 }
 
 

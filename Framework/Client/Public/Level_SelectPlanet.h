@@ -16,7 +16,7 @@ public:
 	virtual void Tick(_float fTimeDelta);
 	virtual HRESULT Render();
 
-	virtual void	Change_Level() override;
+	virtual void	Change_Level(void* pArg) ;
 	virtual HRESULT Complete_Condition() { return S_OK; }
 
 public:
