@@ -89,9 +89,7 @@ HRESULT CLoader::Loading_ForLogoLevel()
 
 
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Planet"), TEXT("../Bin/Resources/Textures/Object/Planet%d.png"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
+	
 	/*if (FAILED(pGameInstance->Load_Textures(TEXT("Test"), TEXT("../Bin/Resources/Textures/Default%d.jpg"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
 		return E_FAIL;*/
@@ -304,7 +302,9 @@ HRESULT CLoader::Loading_ForSelectPlanet()
 {
 
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
-
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Planet"), TEXT("../Bin/Resources/Textures/Object/Planet%d.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
 	
 
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));

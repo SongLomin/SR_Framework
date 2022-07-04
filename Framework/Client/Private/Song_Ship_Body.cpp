@@ -46,6 +46,10 @@ void CSong_Ship_Body::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+	if (KEY_INPUT(KEY::Z, KEY_STATE::TAP))
+	{
+		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+	}
 
 }
 
@@ -125,6 +129,7 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 	Status.fHp = 10.f;
 	Status.fAttack = 7.f;
 	Status.fArmor = 5.f;
+	Status.fBooster = 10.f;
 
 	m_pStatusCom = Add_Component<CStatus>(&Status);
 	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);

@@ -15,7 +15,7 @@ public:
 		_float fHp;
 		_float fAttack;
 		_float fArmor;
-
+		_float fBooster;
 	}STATUS;
 
 public:

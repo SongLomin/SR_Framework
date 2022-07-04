@@ -33,8 +33,7 @@ HRESULT CHpBar::Initialize(void* pArg)
 	m_fSizeX = 150.0f;
 	m_fSizeY = 5.0f;
 
-	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f) * 2);
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(m_fX - (g_iWinCX >> 1), -m_fY + (g_iWinCY >> 1), 0.f));
+	
 
 	return S_OK;
 }
@@ -45,18 +44,91 @@ void CHpBar::Tick(_float fTimeDelta)
 
 	CTransform* TransformCom =  GAMEINSTANCE->Get_Camera()->Get_Target();
 
-
+	// HP 10  fx = 220, 22  m_fSizeX = 150  15
 	if (TransformCom)
 	{
 		CStatus* pPlayerStatusCom = TransformCom->Get_Owner()->Get_Component<CStatus>();
-		int i = 0;
-		//부모: 몬스터
-		//자식: HP바
+
+
+
+		if (pPlayerStatusCom->Get_Status().fHp == 10)
+		{
+			m_fX = 220;
+			m_fSizeX = 150;
+		}
+
+		 if (pPlayerStatusCom->Get_Status().fHp == 9)
+		{
+			m_fX = 205;
+			m_fSizeX = 135;
+		}
+
+		 if (pPlayerStatusCom->Get_Status().fHp == 8)
+		 {
+			 m_fX = 190;
+			 m_fSizeX = 120;
+		 }
+
+		 if (pPlayerStatusCom->Get_Status().fHp == 7)
+		 {
+			 m_fX = 175;
+			 m_fSizeX = 105;
+		 }
+
+		 if (pPlayerStatusCom->Get_Status().fHp == 6)
+		 {
+			 m_fX = 160;
+			 m_fSizeX = 90;
+		 }
+
+		 if (pPlayerStatusCom->Get_Status().fHp == 5)
+		 {
+			 m_fX = 145;
+			 m_fSizeX = 75;
+		 }
+
+		 if (pPlayerStatusCom->Get_Status().fHp == 4)
+		 {
+			 m_fX = 130;
+			 m_fSizeX = 60;
+		 }
+
+		 if (pPlayerStatusCom->Get_Status().fHp == 3)
+		 {
+			 m_fX = 115;
+			 m_fSizeX = 45;
+		 }
+
+		 if (pPlayerStatusCom->Get_Status().fHp == 2)
+		 {
+			 m_fX = 100;
+			 m_fSizeX = 30;
+		 }
+
+		 if (pPlayerStatusCom->Get_Status().fHp == 1)
+		 {
+			 m_fX = 85;
+			 m_fSizeX = 15;
+		 }
+
+		 if (pPlayerStatusCom->Get_Status().fHp == 0)
+		 {
+			 m_fX = 70;
+			 m_fSizeX = 0;
+		 }
+
+
 		
 	}
 
+	
+	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f) * 2);
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(m_fX - (g_iWinCX >> 1), -m_fY + (g_iWinCY >> 1), 0.f));
+
+	
+
 	//몬스터의 스테이터스를 가져올 수 있다.
-	CStatus* pMonsterStatusCom = m_pTransformCom->Get_Parent()->Get_Owner()->Get_Component<CStatus>();
+	//CStatus* pMonsterStatusCom = m_pTransformCom->Get_Parent()->Get_Owner()->Get_Component<CStatus>();
 	
 	
 

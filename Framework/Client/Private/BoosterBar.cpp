@@ -40,13 +40,59 @@ void CBoosterBar::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+
+	CTransform* TransformCom = GAMEINSTANCE->Get_Camera()->Get_Target();
+
+	// HP 10  fx = 220, 22  m_fSizeX = 150  15
+	if (TransformCom)
+	{
+		CStatus* pPlayerStatusCom = TransformCom->Get_Owner()->Get_Component<CStatus>();
+
+		if (KEY_INPUT(KEY::LSHIFT, KEY_STATE::HOLD))
+		{
+			m_fX -= 0.5f;
+			m_fSizeX -= 0.5f;
+		}
+
+		if (KEY_INPUT(KEY::LSHIFT, KEY_STATE::NONE))
+		{
+
+			if (m_fX >= 220.f)
+			{
+				m_fX = 220.f;
+			}
+
+			if (m_fSizeX >= 150.f)
+			{
+				m_fSizeX == 150.f;
+			}
+
+			else if (0 >= m_fSizeX)
+			{
+				m_fX += 0.5f;
+				m_fSizeX += 0.5f;
+				
+			}
+
+			else
+			{
+				m_fX += 0.5f;
+				m_fSizeX += 0.5f;
+			}
+			
+		}
+	}
+
+
 	GetCursorPos(&m_ptMouse);
 	ScreenToClient(g_hWnd, &m_ptMouse);
-
-
-
 	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
+
+
+
+	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f) * 2);
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(m_fX - (g_iWinCX >> 1), -m_fY + (g_iWinCY >> 1), 0.f));
 }
 
 void CBoosterBar::LateTick(_float fTimeDelta)
