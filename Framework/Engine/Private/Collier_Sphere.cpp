@@ -50,7 +50,7 @@ HRESULT CCollider_Sphere::Debug_Render()
 	MatColliderWorld._43 = m_vColliderPosition.z;
 
 	DEVICE->SetTransform(D3DTS_WORLD, &MatColliderWorld);
-	m_pMesh->DrawSubset(0);
+	//m_pMesh->DrawSubset(0);
 
 	DEVICE->SetRenderState(D3DRS_FILLMODE, _D3DFILLMODE::D3DFILL_SOLID);
 	DEVICE->SetTransform(D3DTS_WORLD, &MatBindedWorld);
@@ -61,7 +61,7 @@ HRESULT CCollider_Sphere::Debug_Render()
 void CCollider_Sphere::Set_Collider_Size(const _float3& _Size)
 {
 	m_fSize = _Size.x;
-	D3DXCreateSphere(DEVICE, m_fSize, 10, 10, &m_pMesh, nullptr);
+	//D3DXCreateSphere(DEVICE, m_fSize, 10, 10, &m_pMesh, nullptr);
 }
 
 _float3 CCollider_Sphere::Get_Collider_Size()

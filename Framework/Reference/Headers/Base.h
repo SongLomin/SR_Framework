@@ -21,6 +21,15 @@ public:
 	void	Set_WeakPtr(T** WeakPtr)
 	{
 		m_WeakList.push_back((void**)WeakPtr);
+
+		if (m_iLastWeakCnt + 200 <= m_WeakList.size())
+		{
+			printf("Warning! the instance had too many weakptrs\t %s : \t%d\n", typeid(*this).name(), m_WeakList.size());
+			m_iLastWeakCnt += 200;
+		}
+
+		
+
 	}
 
 	//참조 포인터의 인스턴스가 원본보다 먼저 삭제되는 경우 사용 해제를 해줘야 합니다.
@@ -48,6 +57,7 @@ public:
 private:
 	list<void**>	m_WeakList;
 	_bool			m_bEnable = true;
+	_uint			m_iLastWeakCnt = 0;
 };
 
 END

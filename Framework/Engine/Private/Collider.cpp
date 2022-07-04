@@ -34,8 +34,14 @@ void CCollider::Free()
     __super::Free();
     
     if (m_pMesh)
-        m_pMesh->Release();
-    m_pMesh = nullptr;
+    {
+        while (m_pMesh != 0)
+        {
+            m_pMesh->Release();
+        }
+
+        m_pMesh = nullptr;
+    }
 
     RETURN_WEAKPTR(m_pMyTransformCom);
     RETURN_WEAKPTR(m_pPreCollider);

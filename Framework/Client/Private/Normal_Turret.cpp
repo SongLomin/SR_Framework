@@ -27,7 +27,8 @@ HRESULT CNormal_Turret::Initialize(void* pArg)
 		return E_FAIL;
 
 
-
+	if(pArg)
+		m_eBulletCollisionType = *(COLLISION_TYPE*)pArg;
 
 
 
@@ -53,8 +54,7 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 		{
 			if (m_fCurTime < 0.f)
 			{
-				COLLISION_TYPE eColType = COLLISION_TYPE::MONSTER_ATTACK;
-				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &eColType);
+				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &m_eBulletCollisionType);
 				static_cast<CNormal_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
 				//((CNormal_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
 
@@ -68,8 +68,7 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 		{
 			if (m_fCurTime < 0.f)
 			{
-				COLLISION_TYPE eColType = COLLISION_TYPE::MONSTER_ATTACK;
-				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CRoket_Bullet>(CURRENT_LEVEL, TEXT("Roket_Bullet"), nullptr, &eColType);
+				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CRoket_Bullet>(CURRENT_LEVEL, TEXT("Roket_Bullet"), nullptr, &m_eBulletCollisionType);
 				static_cast<CRoket_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
 
 				m_fCurTime = 0.3f;
@@ -93,14 +92,22 @@ void CNormal_Turret::LateTick(_float fTimeDelta)
 
 			if (m_pTarget && m_fCurTime <= 0)
 			{
-				COLLISION_TYPE eColType = COLLISION_TYPE::MONSTER_ATTACK;
-				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &eColType);
+				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &m_eBulletCollisionType);
 				static_cast<CNormal_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
 
 				m_fMaxTime = (_float)(rand() % 11 + 5) * 0.1f;
 				m_fCurTime = m_fMaxTime;
 			}
 		}
+
+		/*if (m_fCurTime <= 0)
+		{
+			CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &m_eBulletCollisionType);
+			static_cast<CNormal_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
+
+			m_fMaxTime = (_float)(rand() % 11 + 5) * 0.1f;
+			m_fCurTime = m_fMaxTime;
+		}*/
 	}
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
 }
@@ -164,8 +171,16 @@ void CNormal_Turret::Set_Target(CGameObject* _Target)
 	//기존에 타겟 인스턴스가 살아 있는데 바뀐 경우는
 	if (m_pTarget)
 	{
-		if(m_pBoxObject)
-			m_pBoxObject->Set_Enable(false);
+		m_pTarget->Return_WeakPtr(&m_pTarget);
+		m_pTarget = nullptr;
+
+	}
+
+	if (m_pBoxObject)
+	{
+		m_pBoxObject->Set_Enable(false);
+		m_pBoxObject->Return_WeakPtr(&m_pBoxObject);
+		m_pBoxObject = nullptr;
 	}
 
 	if (!_Target)

@@ -115,7 +115,7 @@ void CTargeting::Make_AI_TargetList(list<CGameObject*>* pTarget, CTransform* pTr
 	if (!m_pTargeting.empty())
 		return;
 
-	//Clear_Targeting();
+	Clear_Targeting();
 
 	_float3 ObjectLook = pTransform->Get_World_State(CTransform::STATE_LOOK);
 	_float3 ObjectPos = pTransform->Get_World_State(CTransform::STATE_POSITION);
@@ -159,6 +159,15 @@ void CTargeting::Make_AI_TargetList(list<CGameObject*>* pTarget, CTransform* pTr
 void CTargeting::Clear_Targeting()
 {
 	//return_Weakptr
+
+	/*for (auto iter = m_pTargeting.begin(); iter != m_pTargeting.end();)
+	{
+		if (iter->second)
+		{
+			iter->second->Return_WeakPtr(&m_pTargeting[iter->first]);
+		}
+	}*/
+
 	for (auto& elem : m_pTargeting)
 	{
 		if (elem.second)

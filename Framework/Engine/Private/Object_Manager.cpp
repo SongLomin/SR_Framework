@@ -40,8 +40,11 @@ void CObject_Manager::Tick(_float fTimeDelta)
 			for(auto& elem_GameObject : Pair.second) 
 			{
 				//게임오브젝트가 활성화 상태면 Tick을 돌린다.
-				if(elem_GameObject->Get_Enable())
-					elem_GameObject->Tick(fTimeDelta);		
+				if (elem_GameObject->Get_Enable())
+				{
+					elem_GameObject->Tick(fTimeDelta);
+				}
+					
 			}
 		}
 	}

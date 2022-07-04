@@ -33,6 +33,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
+    FILE* ConsoleStream;
+
+    AllocConsole();
+    AttachConsole(GetCurrentProcessId());
+    freopen_s(&ConsoleStream, "CON", "w", stdout);
+
+    printf("HELLO!!! I AM THE CONSOLE!\n");
+
     // TODO: 여기에 코드를 입력합니다.
 	CMainApp*		pMainApp = nullptr;
 
@@ -111,7 +119,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	}
 
 	Safe_Release(pMainApp);    
-
+    fclose(ConsoleStream);
     return (int) msg.wParam;
 }
 

@@ -172,13 +172,14 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
 
 	
+	COLLISION_TYPE eBulletCollisionType = COLLISION_TYPE::MONSTER_ATTACK;
 
-	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
 	m_pPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pPosinList.back());
 
-	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
 	m_pPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pPosinList.back());
@@ -206,25 +207,18 @@ void CEnemySpace_Body::Update_Target()
 
 	if (TargetList->empty())
 	{
-		for (auto iter = m_pPosinList.begin(); iter != m_pPosinList.end();)
+		/*for (auto iter = m_pPosinList.begin(); iter != m_pPosinList.end();)
 		{
 			(*iter)->Set_Target(nullptr);
 			++iter;
-		}
+		}*/
 		return;
-	}
-
-	vector<CGameObject*> TargetVec;
-
-	for (auto& elem : *TargetList)
-	{
-		TargetVec.push_back(elem.second);
 	}
 
 	for (auto& elem : m_pPosinList)
 	{
 		
-		elem->Set_Target(TargetVec.front());
+		elem->Set_Target((*TargetList->begin()).second);
 	}
 
 }

@@ -186,6 +186,21 @@ void CPointLight::Free()
 {
     __super::Free();
 
+	if (m_pMesh)
+	{
+		_ulong refcnt = m_pMesh->Release();
+
+		if (refcnt > 0)
+		{
+			while (refcnt != 0)
+			{
+				refcnt = m_pMesh->Release();
+			}
+		}
+
+		m_pMesh = nullptr;
+	}
+
     delete this;
 
 }

@@ -131,11 +131,13 @@ CGameObject* CNormal_Bullet::Clone(void* pArg)
 
 void CNormal_Bullet::Free()
 {
-	if (m_pMeshCom)
-		m_pMeshCom->Return_WeakPtr(&m_pMeshCom);
+	
 
 	if (m_pRendererCom)
 		m_pRendererCom->Return_WeakPtr(&m_pRendererCom);
+
+	if (m_pMeshCom)
+		m_pMeshCom->Return_WeakPtr(&m_pMeshCom);
 
 	RETURN_WEAKPTR(m_pLight);
 
