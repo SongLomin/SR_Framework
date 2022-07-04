@@ -18,9 +18,14 @@ HRESULT CSpaceDust_PSystem::Initialize(void* pArg)
 {
 	//버텍스 크기를 미리 정해놓은 뒤에 부모의 Initialize를 호출해서 버텍스를 생성한다.
 	m_size = 0.1f;
+
+
 	m_vbSize = 2048;
 	m_vbOffset = 0;
 	m_vbBatchSize = 512;
+
+	m_BeginColor = _float3(1.f, 0.6f, 0.f);
+	m_EndColor = _float3(1.f, 0.f, 0.f);
 
 	__super::Initialize(pArg);
 
@@ -34,11 +39,18 @@ void CSpaceDust_PSystem::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	std::list<ParticleDesc>::iterator i;
-	for (i = m_particles.begin(); i != m_particles.end(); i++)
+	//수명 진행상황 퍼센트 0 ~ 1
+	_float fAge_ratio;
+	_float3 CurrentColor;
+	std::list<ParticleDesc>::iterator iter;
+	for (iter = m_particles.begin(); iter != m_particles.end(); iter++)
 	{
-		i->position += i->velocity * fTimeDelta;
-
+		iter->position += iter->velocity * fTimeDelta;
+		fAge_ratio = iter->age / iter->lifeTime;
+		
+		CurrentColor = m_BeginColor * (1.f - fAge_ratio) + m_EndColor * (fAge_ratio);
+		iter->color = D3DCOLOR_ARGB(255, (_uint)(CurrentColor.x * 255), (_uint)(CurrentColor.y * 255), (_uint)(CurrentColor.z * 255));
+		
 		//// is the point outside bounds?
 		//if (_boundingBox.isPointInside(i->_position) == false)
 		//{
@@ -46,6 +58,14 @@ void CSpaceDust_PSystem::Tick(_float fTimeDelta)
 		//	// particles, so respawn it instead.
 		//	resetParticle(&(*i));
 		//}
+
+		if (iter->lifeTime < iter->age)
+		{
+			ResetParticle(&(*iter));
+			continue;
+		}
+		
+		iter->age += fTimeDelta;
 	}
 }
 
@@ -93,6 +113,8 @@ HRESULT CSpaceDust_PSystem::Render_Begin(ID3DXEffect** Shader)
 
 HRESULT CSpaceDust_PSystem::Render()
 {
+	//m_pRenderer->Bind_Texture();
+
 	__super::Render();
 
 	DEVICE->SetRenderState(D3DRS_LIGHTING, false);
@@ -100,6 +122,7 @@ HRESULT CSpaceDust_PSystem::Render()
 	DEVICE->SetRenderState(D3DRS_POINTSCALEENABLE, false);
 	DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 
+	//언바인드
 	return S_OK;
 }
 
@@ -111,17 +134,24 @@ void CSpaceDust_PSystem::ResetParticle(ParticleDesc* Desc)
 	m_size = (_float)((rand() % 5 + 10) * 0.01f);
 	// no randomness for height (y-coordinate).  Snow flake
 	// always starts at the top of bounding box.
-	Desc->position.x = (_float)(rand() % 10 + 10);
+	/*Desc->position.x = (_float)(rand() % 10 + 10);
 	Desc->position.y = (_float)(rand() % 10 + 10);
-	Desc->position.z = (_float)(rand() % 10 + 10);
+	Desc->position.z = (_float)(rand() % 10 + 10);*/
+
+	Desc->position.x = (_float)(rand() % 30 + 10) * 0.1f;
+	Desc->position.y = 0.f;
+	Desc->position.z = (_float)(rand() % 30 + 10) * 0.1f;
 
 	// snow flakes fall downwards and slightly to the left
-	Desc->velocity.x = -0.f;
-	Desc->velocity.y = -0.f;
+	Desc->velocity.x = 0.f;
+	Desc->velocity.y = 1.f;
 	Desc->velocity.z = 0.0f;
 
 	// white snow flake
-	Desc->color = D3DCOLOR_RGBA(255, 255, 255, 255);
+	Desc->color = D3DCOLOR_ARGB(255, (_uint)(m_BeginColor.x * 255), (_uint)(m_BeginColor.y * 255), (_uint)(m_BeginColor.z * 255));
+	//Desc->colorFade = D3DCOLOR_RGBA(255, 0, 0, 255);
+	Desc->age = 0.f;
+	Desc->lifeTime = 3.f;
 
 }
 

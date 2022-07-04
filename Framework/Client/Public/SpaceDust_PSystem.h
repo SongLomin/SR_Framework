@@ -33,6 +33,9 @@ public:
     virtual void ResetParticle(ParticleDesc* Desc) override;
 
 private:
+    _float3     m_BeginColor;
+    _float3     m_EndColor;
+
 
 public:
 
