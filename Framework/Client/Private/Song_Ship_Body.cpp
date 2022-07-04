@@ -45,8 +45,6 @@ HRESULT CSong_Ship_Body::Initialize(void* pArg)
 void CSong_Ship_Body::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
-
-
 }
 
 void CSong_Ship_Body::LateTick(_float fTimeDelta)
