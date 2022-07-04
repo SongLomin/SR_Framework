@@ -28,6 +28,11 @@ list<CTransform*>* CTransform::Get_Children()
 	return &m_pChildren;
 }
 
+CTransform* CTransform::Get_Parent()
+{
+	return m_pParent;
+}
+
 HRESULT CTransform::Initialize_Prototype()
 {
 	if (FAILED(__super::Initialize_Prototype()))

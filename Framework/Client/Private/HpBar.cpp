@@ -50,8 +50,14 @@ void CHpBar::Tick(_float fTimeDelta)
 	{
 		CStatus* pPlayerStatusCom = TransformCom->Get_Owner()->Get_Component<CStatus>();
 		int i = 0;
+		//부모: 몬스터
+		//자식: HP바
+		
 	}
 
+	//몬스터의 스테이터스를 가져올 수 있다.
+	CStatus* pMonsterStatusCom = m_pTransformCom->Get_Parent()->Get_Owner()->Get_Component<CStatus>();
+	
 	
 
 	GetCursorPos(&m_ptMouse);

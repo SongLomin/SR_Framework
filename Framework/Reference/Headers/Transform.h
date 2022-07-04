@@ -69,6 +69,7 @@ public:
 
 public:
 	list<CTransform*>* Get_Children();
+	CTransform* Get_Parent();
 
 public:
 	virtual HRESULT Initialize_Prototype();
