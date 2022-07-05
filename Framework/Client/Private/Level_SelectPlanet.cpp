@@ -91,7 +91,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 
 	
 
-	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(50);
+	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(500);
 
 
 	// 青己 2俺 罚待 积己

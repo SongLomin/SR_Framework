@@ -20,7 +20,7 @@ public:
 	template<typename T>
 	void	Set_WeakPtr(T** WeakPtr)
 	{
-		m_WeakList.push_back((void**)WeakPtr);
+		m_WeakList.push_back((CBase**)WeakPtr);
 
 		if (m_iLastWeakCnt + 200 <= m_WeakList.size())
 		{
@@ -37,7 +37,7 @@ public:
 	template<typename T>
 	void	Return_WeakPtr(T** WeakPtr)
 	{
-		m_WeakList.remove((void**)WeakPtr);
+		m_WeakList.remove((CBase**)WeakPtr);
 	}
 
 	virtual void Free();
@@ -55,7 +55,7 @@ public:
 	virtual void OnDisable() {};
 
 private:
-	list<void**>	m_WeakList;
+	list<CBase**>	m_WeakList;
 	_bool			m_bEnable = true;
 	_uint			m_iLastWeakCnt = 0;
 };

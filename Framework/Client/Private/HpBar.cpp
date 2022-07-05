@@ -42,7 +42,11 @@ void CHpBar::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	CTransform* TransformCom =  GAMEINSTANCE->Get_Camera()->Get_Target();
+	CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
+
+	ISVALID(pCurrentCam, );
+
+	CTransform* TransformCom = pCurrentCam->Get_Target();
 
 	
 	if (TransformCom)
@@ -57,13 +61,13 @@ void CHpBar::Tick(_float fTimeDelta)
 		}*/
 
 
-		if (pPlayerStatusCom->Get_Status().fHp == 10)
+		if ((_int)(pPlayerStatusCom->Get_Status().fHp) == 10)
 		{
 			m_fX = 220;
 			m_fSizeX = 150;
 		}
-
-		 if (pPlayerStatusCom->Get_Status().fHp == 9)
+		//float은 오차값이 생기기때문에 == 비교르 ㄹ 하면 안돼.
+		 if ((_int)(pPlayerStatusCom->Get_Status().fHp) == 9)
 		{
 
 		 if (m_fX <= 205 || m_fSizeX <= 135)
@@ -77,7 +81,7 @@ void CHpBar::Tick(_float fTimeDelta)
 			 m_fSizeX -= 0.3;
 		}
 
-		 if (pPlayerStatusCom->Get_Status().fHp == 8)
+		 if ((_int)(pPlayerStatusCom->Get_Status().fHp) == 8)
 		 {
 			 if (m_fX <= 190 || m_fSizeX <= 120)
 			 {
@@ -90,7 +94,7 @@ void CHpBar::Tick(_float fTimeDelta)
 			 m_fSizeX -= 0.3;
 		 }
 
-		 if (pPlayerStatusCom->Get_Status().fHp == 7)
+		 if ((_int)(pPlayerStatusCom->Get_Status().fHp) == 7)
 		 {
 
 			 if (m_fX <= 175 || m_fSizeX <= 105)
@@ -105,7 +109,7 @@ void CHpBar::Tick(_float fTimeDelta)
 		
 		 }
 
-		 if (pPlayerStatusCom->Get_Status().fHp == 6)
+		 if ((_int)(pPlayerStatusCom->Get_Status().fHp) == 6)
 		 {
 			 if (m_fX <= 160 || m_fSizeX <= 90)
 			 {
@@ -119,7 +123,7 @@ void CHpBar::Tick(_float fTimeDelta)
 
 		 }
 
-		 if (pPlayerStatusCom->Get_Status().fHp == 5)
+		 if ((_int)(pPlayerStatusCom->Get_Status().fHp) == 5)
 		 {
 
 			 if (m_fX <= 145 || m_fSizeX <= 75)
@@ -134,7 +138,7 @@ void CHpBar::Tick(_float fTimeDelta)
 		
 		 }
 
-		 if (pPlayerStatusCom->Get_Status().fHp == 4)
+		 if ((_int)(pPlayerStatusCom->Get_Status().fHp) == 4)
 		 {
 
 			 if (m_fX <= 130 || m_fSizeX <= 60)
@@ -149,7 +153,7 @@ void CHpBar::Tick(_float fTimeDelta)
 		
 		 }
 
-		 if (pPlayerStatusCom->Get_Status().fHp == 3)
+		 if ((_int)(pPlayerStatusCom->Get_Status().fHp) == 3)
 		 {
 			 if (m_fX <= 115 || m_fSizeX <= 45)
 			 {
@@ -162,7 +166,7 @@ void CHpBar::Tick(_float fTimeDelta)
 			 m_fSizeX -= 0.3;
 		 }
 
-		 if (pPlayerStatusCom->Get_Status().fHp == 2)
+		 if ((_int)(pPlayerStatusCom->Get_Status().fHp) == 2)
 		 {
 			 if (m_fX <= 100 || m_fSizeX <= 30)
 			 {
@@ -175,7 +179,7 @@ void CHpBar::Tick(_float fTimeDelta)
 			 m_fSizeX -= 0.3;
 		 }
 
-		 if (pPlayerStatusCom->Get_Status().fHp == 1)
+		 if ((_int)(pPlayerStatusCom->Get_Status().fHp) == 1)
 		 {
 			 if (m_fX <= 85 || m_fSizeX <= 15)
 			 {
@@ -188,7 +192,7 @@ void CHpBar::Tick(_float fTimeDelta)
 			 m_fSizeX -= 0.3;
 		 }
 
-		 if (pPlayerStatusCom->Get_Status().fHp == 0)
+		 if ((_int)(pPlayerStatusCom->Get_Status().fHp) <= 0)
 		 {
 			 if (m_fX <= 70 || m_fSizeX <= 0)
 			 {

@@ -39,6 +39,8 @@ public:
 	virtual void Reset();
 	virtual void ResetParticle(ParticleDesc* attribute) = 0;
 	void AddParticle(int num = 1);
+	void AddParticle(int num, CTransform* _pTransformCom);
+	void AddParticle(int num, _float3 _Pos);
 
 	bool IsEmpty();
 	bool IsDead();

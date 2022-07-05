@@ -40,8 +40,11 @@ void CBoosterBar::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+	CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
 
-	CTransform* TransformCom = GAMEINSTANCE->Get_Camera()->Get_Target();
+	ISVALID(pCurrentCam, );
+
+	CTransform* TransformCom = pCurrentCam->Get_Target();
 
 	// HP 10  fx = 220, 22  m_fSizeX = 150  15
 	if (TransformCom)

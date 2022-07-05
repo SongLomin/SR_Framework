@@ -22,7 +22,7 @@ HRESULT CFire_PSystem::Initialize(void* pArg)
 	m_vbOffset = 0;
 	m_vbBatchSize = 512;
 
-	m_BeginColor = _float3(1.f, 0.6f, 0.f);
+	m_BeginColor = _float3(1.f, 0.9f, 0.f);
 	m_EndColor = _float3(1.f, 0.f, 0.f);
 
 	__super::Initialize(pArg);
@@ -45,14 +45,6 @@ void CFire_PSystem::Tick(_float fTimeDelta)
 
 		CurrentColor = m_BeginColor * (1.f - fAge_ratio) + m_EndColor * (fAge_ratio);
 		iter->color = D3DCOLOR_ARGB(255, (_uint)(CurrentColor.x * 255), (_uint)(CurrentColor.y * 255), (_uint)(CurrentColor.z * 255));
-
-		//// is the point outside bounds?
-		//if (_boundingBox.isPointInside(i->_position) == false)
-		//{
-		//	// nope so kill it, but we want to recycle dead 
-		//	// particles, so respawn it instead.
-		//	resetParticle(&(*i));
-		//}
 
 		iter->position += iter->velocity * fTimeDelta;
 
@@ -82,10 +74,6 @@ void CFire_PSystem::LateTick(_float fTimeDelta)
 
 HRESULT CFire_PSystem::Render_Begin(ID3DXEffect** Shader)
 {
-
-	_float3 CurrentPlayer_Pos = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Target()->Get_World_State(CTransform::STATE_POSITION);
-	m_pTransform->Set_World_State(CTransform::STATE_POSITION, CurrentPlayer_Pos);
-	//m_pTransform->Set_State(CTransform::STATE_POSITION, CurrentPlayer_Pos, true);
 	m_pTransform->Bind_WorldMatrix();
 
 	DEVICE->SetRenderState(D3DRS_LIGHTING, false);
@@ -135,31 +123,14 @@ void CFire_PSystem::ResetParticle(ParticleDesc* Desc)
 
 
 	m_size = (_float)((rand() % 5 + 10) * 0.01f);
-	// no randomness for height (y-coordinate).  Snow flake
-	// always starts at the top of bounding box.
-	/*Desc->position.x = (_float)(rand() % 10 + 10);
-	Desc->position.y = (_float)(rand() % 10 + 10);
-	Desc->position.z = (_float)(rand() % 10 + 10);*/
-
-	/*Desc->position.x = (_float)(rand() % 30 + 10) * 0.1f;
-	Desc->position.y = 0.f;
-	Desc->position.z = (_float)(rand() % 30 + 10) * 0.1f;*/
-
-	_float3 CurrentPlayer_Pos = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Target()->Get_World_State(CTransform::STATE_POSITION);
 	
-	//Desc->position.x = CurrentPlayer_Pos.x + (_float)((rand() % 30) * 0.5f);
-	//Desc->position.y = CurrentPlayer_Pos.y + (_float)((rand() % 30) * 0.5f);
-	//Desc->position.z = CurrentPlayer_Pos.z + (_float)((rand() % 30) * 0.5f);
-	
-	// snow flakes fall downwards and slightly to the left
-	
-	Desc->position.x = CurrentPlayer_Pos.x;
-	Desc->position.y = CurrentPlayer_Pos.y + 1.f;
-	Desc->position.z = CurrentPlayer_Pos.z;
+	Desc->position.x = 0.f;
+	Desc->position.y = 0.f + 1.f;
+	Desc->position.z = 0.f;
 
-	Desc->velocity.x = 1.f+ (_float)((rand() % 30) * 0.5f);
-	Desc->velocity.y = 1.f+ (_float)((rand() % 30) * 0.5f);
-	Desc->velocity.z = 1.f+ (_float)((rand() % 5) * 0.5f);
+	Desc->velocity.x = (_float)((rand() % 31) * 0.5f) - 7.5f;
+	Desc->velocity.y = (_float)((rand() % 31) * 0.5f);
+	Desc->velocity.z = (_float)((rand() % 7) * 0.5f) - 1.5f;
 
 	//Desc->velocity.x = 1.f;
 	//Desc->velocity.y = 1.f;

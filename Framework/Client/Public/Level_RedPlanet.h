@@ -3,6 +3,11 @@
 #include "Client_Defines.h"
 #include "Level.h"
 
+BEGIN(Engine)
+class CGameObject;
+
+END
+
 BEGIN(Client)
 
 class CLevel_RedPlanet final : public CLevel
@@ -33,6 +38,10 @@ private:
 	_float  m_fSpawnTime = 2.f;
 
 	_float m_fMaxTime = 180;
+
+	CGameObject* m_pTextBoxObject = nullptr;
+	CGameObject* m_pQuestBoxObject = nullptr;
+
 };
 
 END

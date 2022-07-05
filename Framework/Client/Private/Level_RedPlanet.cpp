@@ -35,6 +35,7 @@
 #include "TextBox.h"
 #include "Hong_Ship_Body.h"
 #include "Shin_Ship_Body.h"
+#include <SpaceDust_PSystem.h>
 
 CLevel_RedPlanet::CLevel_RedPlanet()
 {
@@ -61,20 +62,20 @@ HRESULT CLevel_RedPlanet::Initialize()
 	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
 
-
+	//CURRENT_LEVEL이게 LEVEL_STATIC이 아님. 그래서 터짐.
 	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CHong_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
+	/*if (!GAMEINSTANCE->Add_GameObject<CHong_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CShin_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
-		return E_FAIL;
+		return E_FAIL;*/
 
-	for (int i = 0; i < 50; ++i)
+	for (int i = 0; i < 15; ++i)
 	{
 		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_REDPLANET, TEXT("EnemySpace_Body")))
 			return E_FAIL;
@@ -129,10 +130,13 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_REDPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
+	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(500);
 
+	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
+	m_pTextBoxObject->Set_Enable(false);
 
-
-
+	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest"));
+	m_pQuestBoxObject->Set_Enable(false);
 
 
 
@@ -191,14 +195,14 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 298.f)
 	{
-		if (!GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang")));
+		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)530, (LONG)620 }, TEXT("제길, 적군 기체가 몰려오고있어!\n지원병력이 올떄까지 조금만 버텨주게! "), 0);
 	}
 
 
 	if (m_fTextBoxTime <= 297.f)
 	{
-		if (!GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest")));
+		m_pQuestBoxObject->Set_Enable(true);
 
 		GAMEINSTANCE->Add_Text(_point{ (LONG)1135, (LONG)88 }, TEXT(" %d"), 1, (_uint)m_fMaxTime);
 

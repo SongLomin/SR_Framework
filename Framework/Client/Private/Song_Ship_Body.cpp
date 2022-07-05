@@ -12,6 +12,7 @@
 #include "Math_Utillity.h"
 #include "HpBar.h"
 #include "Lazer_Turret.h"
+#include <Fire_PSystem.h>
 
 
 
@@ -49,6 +50,12 @@ void CSong_Ship_Body::Tick(_float fTimeDelta)
 	if (KEY_INPUT(KEY::Z, KEY_STATE::TAP))
 	{
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+	}
+
+	if (KEY_INPUT(KEY::M, KEY_STATE::TAP))
+	{
+		//메모리 풀 사용
+		((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom);
 	}
 
 }

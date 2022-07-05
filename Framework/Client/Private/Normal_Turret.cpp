@@ -50,12 +50,6 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 			LookAt_Aim();
 		}
 
-		if (KEY_INPUT(KEY::M, KEY_STATE::TAP))
-		{
-			//메모리 풀 사용
-			((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle"), nullptr, nullptr, true))->AddParticle(50);
-		}
-
 		if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
 		{
 			if (m_fCurTime < 0.f)
@@ -277,6 +271,9 @@ CGameObject* CNormal_Turret::Clone(void* pArg)
 void CNormal_Turret::Free()
 {
 	__super::Free();
+
+	RETURN_WEAKPTR(m_pTarget);
+	RETURN_WEAKPTR(m_pBoxObject);
 
 	delete this;
 }

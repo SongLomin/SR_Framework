@@ -296,6 +296,18 @@ _float4x4 CMath_Utillity::Get_Position_Matrix(const _float4x4& _Mat)
 	return ResultMat;
 }
 
+_float3 CMath_Utillity::Rotate_Vec3(const _float3& _Rotation, const _float3& _Vec3)
+{
+	D3DXMATRIX RotateMat;
+	_float3 _ResultVec;
+
+	D3DXMatrixRotationYawPitchRoll(&RotateMat, _Rotation.y, _Rotation.x, _Rotation.z);
+
+	D3DXVec3TransformCoord(&_ResultVec, &_Vec3, &RotateMat);
+
+	return _ResultVec;
+}
+
 DWORD CMath_Utillity::FtoDw(float f)
 {
 	return *((DWORD*)&f);

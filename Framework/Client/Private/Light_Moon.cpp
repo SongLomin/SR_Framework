@@ -33,7 +33,11 @@ void CLight_Moon::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
+	CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
+
+	ISVALID(pCurrentCam, );
+
+	_float3 CamWorldPos = pCurrentCam->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
 	_float3 MyWorldPos;
 	MyWorldPos.x = 1.f + CamWorldPos.x;
 	MyWorldPos.y = 1.f + CamWorldPos.y;

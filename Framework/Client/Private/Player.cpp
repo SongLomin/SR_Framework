@@ -117,7 +117,8 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER_ATTACK && Get_Controller() == CONTROLLER::PLAYER)
 	{
-		GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
+		GAMEINSTANCE->Add_Shaking(0.4f, 0.1f);
+		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
 	}
 
 

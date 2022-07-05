@@ -7,6 +7,7 @@
 #include <TargetingBox.h>
 #include "Math_Utillity.h"
 #include "Mesh_EnemySpace.h"
+#include <Fire_PSystem.h>
 
 CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
 {
@@ -258,6 +259,7 @@ void CEnemySpace_Body::On_Collision_Enter(CCollider* _Other_Collider)
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::PLAYER_ATTACK)
 	{
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+		((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
 
 		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
 		{
