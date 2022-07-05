@@ -49,13 +49,45 @@ void CSkyBox::LateTick(_float fTimeDelta)
 
 }
 
-HRESULT CSkyBox::Render()
+HRESULT CSkyBox::Render_Begin(ID3DXEffect** Shader)
 {
-
 	m_pTransformCom->Bind_WorldMatrix();
 
+	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
+	D3DXHANDLE DiffuseHandle = (*Shader)->GetParameterByName(0, "Diffuse");
+	D3DXHANDLE SpecularHandle = (*Shader)->GetParameterByName(0, "Specular");
+
+
+	float ColorArray[3];
+	ColorArray[0] = 1.f;
+	ColorArray[1] = 0.f;
+	ColorArray[2] = 0.f;
+
+
+	float Specular = 1.f;
+	float Diffuse = 0.5f;
+
+	(*Shader)->SetFloatArray(ColorHandle, ColorArray, 3);
+	(*Shader)->SetFloat(DiffuseHandle, Diffuse);
+	(*Shader)->SetFloat(SpecularHandle, Specular);
+
+
+	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
+	DEVICE->SetRenderState(D3DRS_ZENABLE, FALSE);
+	DEVICE->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
+
+	return S_OK;
+}
+
+HRESULT CSkyBox::Render()
+{
+	m_pVIBufferCom->Render();
+
+	DEVICE->SetRenderState(D3DRS_ZENABLE, TRUE);
+	DEVICE->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 	
-	m_pRendererCom->Bind_Texture(7);
+	/*m_pRendererCom->Bind_Texture(7);
 	
 
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
@@ -70,7 +102,7 @@ HRESULT CSkyBox::Render()
 	DEVICE->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 	DEVICE->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 
-	m_pRendererCom->UnBind_Texture();
+	m_pRendererCom->UnBind_Texture();*/
 	return S_OK;
 }
 

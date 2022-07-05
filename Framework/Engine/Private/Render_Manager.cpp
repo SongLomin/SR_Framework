@@ -59,7 +59,7 @@ HRESULT CRender_Manager::Draw_RenderGroup()
 {
 	DEVICE->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
 
-	Priority_Pipeline();
+	//Priority_Pipeline();
 	Deferred_Pipeline();
 
 	GAMEINSTANCE->Render_Begin();
@@ -91,7 +91,7 @@ void CRender_Manager::Priority_Pipeline()
 		if ((*iter))
 		{
 			(*iter)->Render_Begin();
-			(*iter)->Render();
+ 			(*iter)->Render();
 			(*iter)->Return_WeakPtr(&(*iter));
 		}
 
@@ -123,6 +123,7 @@ void CRender_Manager::Deferred_Pipeline()
 	SetMRT();
 	DEVICE->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
 	DEVICE->BeginScene();
+	//DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, true);
 
 	
 	_float ViewAspect = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Aspect();
@@ -144,6 +145,40 @@ void CRender_Manager::Deferred_Pipeline()
 
 	D3DXHANDLE hTech = 0;
 	UINT numPasses = 0;
+
+	hTech = (*G_Buffer)->GetTechniqueByName("gbufferskybox");
+	(*G_Buffer)->SetTechnique(hTech);
+
+	for (auto iter = m_RenderObjects[(_uint)RENDERGROUP::RENDER_PRIORITY].begin(); iter != m_RenderObjects[(_uint)RENDERGROUP::RENDER_PRIORITY].end();)
+	{
+		if ((*iter))
+		{
+			(*iter)->Render_Begin(G_Buffer);
+
+			DEVICE->GetTransform(D3DTS_WORLD, &world);
+
+			(*G_Buffer)->SetMatrix(worldHandle, &world);
+
+			(*G_Buffer)->Begin(&numPasses, 0);
+			for (_uint i = 0; i < numPasses; i++)
+			{
+				(*G_Buffer)->BeginPass(i);
+
+				(*iter)->Render();
+
+				(*G_Buffer)->EndPass();
+			}
+			(*G_Buffer)->End();
+
+			(*iter)->Return_WeakPtr(&(*iter));
+		}
+
+		iter = m_RenderObjects[(_uint)RENDERGROUP::RENDER_PRIORITY].erase(iter);
+	}
+
+	DEVICE->EndScene();
+
+	DEVICE->BeginScene();
 
 	hTech = (*G_Buffer)->GetTechniqueByName("gbuffer");
 	(*G_Buffer)->SetTechnique(hTech);
@@ -187,7 +222,7 @@ void CRender_Manager::Deferred_Pipeline()
 
 	/* deferred shading stage */
 	ResumeOriginRender();
-	DEVICE->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
+	//DEVICE->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
 	DEVICE->ColorFill(stashSurface, NULL, D3DXCOLOR(0.f, 0.f, 0.f, 0.f));
 
 	DEVICE->BeginScene();

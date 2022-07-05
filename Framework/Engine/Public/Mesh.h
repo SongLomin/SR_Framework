@@ -15,6 +15,7 @@ public:
 	virtual HRESULT Initialize_Prototype();
 	virtual HRESULT Initialize(void* pArg);
 	virtual HRESULT Render_Mesh();
+	HRESULT	Render_Mesh_From_FVF(_ulong _FVF);
 
 public:
 	virtual HRESULT Set_Texture(const _tchar* _Str_Key, MEMORY_TYPE _eType);

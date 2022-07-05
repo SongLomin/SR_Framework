@@ -49,6 +49,11 @@ HRESULT CRenderer::UnBind_Texture()
 	return DEVICE->SetTexture(0, 0);
 }
 
+LPDIRECT3DBASETEXTURE9 CRenderer::Get_Texture(_uint _iIndex)
+{
+	return (*m_ppTextures)[_iIndex];
+}
+
 HRESULT CRenderer::Initialize_Prototype()
 {
 	return S_OK;

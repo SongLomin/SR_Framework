@@ -29,6 +29,22 @@ namespace Engine
 	typedef struct tagVertex_XYZ
 	{
 		float		x, y, z;
+
+		tagVertex_XYZ(const D3DXVECTOR3& _Pos)
+		{
+			x = _Pos.x;
+			y = _Pos.y;
+			z = _Pos.z;
+		}
+
+		tagVertex_XYZ(const float& _x, const float& _y, const float& _z)
+		{
+			x = _x;
+			y = _y;
+			z = _z;
+		}
+
+		static const DWORD FVF = D3DFVF_XYZ;
 	}VTX;
 
 
@@ -253,7 +269,7 @@ namespace Engine
 	};
 
 
-	enum class RENDERGROUP { RENDER_DEFERRED = 0, RENDER_PRIORITY, RENDER_NONALPHABLEND, RENDER_ALPHABLEND, RENDER_UI, RENDER_END };
+	enum class RENDERGROUP { RENDER_PRIORITY = 0, RENDER_DEFERRED, RENDER_NONALPHABLEND, RENDER_ALPHABLEND, RENDER_UI, RENDER_END };
 
 	enum class TEXTURE_TYPE { TYPE_DEFAULT = 0, TYPE_CUBE, TYPE_END };
 	enum class MEMORY_TYPE { MEMORY_STATIC = 0, MEMORY_DYNAMIC, MEMORY_END };

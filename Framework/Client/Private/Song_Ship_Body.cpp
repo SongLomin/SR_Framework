@@ -88,6 +88,7 @@ HRESULT CSong_Ship_Body::Render_Begin(ID3DXEffect** Shader)
 	(*Shader)->SetFloat(DiffuseHandle, Diffuse);
 	(*Shader)->SetFloat(SpecularHandle, Specular);
 
+	
 
 	return S_OK;
 }
@@ -101,6 +102,7 @@ HRESULT CSong_Ship_Body::Render()
 	
 	m_pMeshCom->Render_Mesh();
 
+	
 
 	return S_OK;
 }

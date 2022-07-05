@@ -134,9 +134,9 @@ HRESULT CLoader::Loading_ForLogoLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	/*if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Sky_Test"), TEXT("../Bin/Resources/Textures/SkyBox/Sky_%d.dds"),
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Sky_Test"), TEXT("../Bin/Resources/Textures/SkyBox/Sky_%d.dds"),
 		TEXTURE_TYPE::TYPE_CUBE, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;*/
+		return E_FAIL;
 
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Status"), TEXT("../Bin/Resources/Textures/UI/Status.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))

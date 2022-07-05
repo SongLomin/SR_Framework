@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CRenderer;
 class CTransform;
 class CVIBuffer_Cube;
+class CMesh_Cube;
 END
 
 BEGIN(Client)
@@ -22,12 +23,15 @@ public:
 	virtual HRESULT Initialize(void* pArg) override;
 	virtual void Tick(_float fTimeDelta) override;
 	virtual void LateTick(_float fTimeDelta) override;
-	virtual HRESULT Render() override;
+	virtual HRESULT Render_Begin(ID3DXEffect** Shader) override;
+	virtual HRESULT Render
+	() override;
 
 private:
 	CRenderer* m_pRendererCom = nullptr;
 	CTransform* m_pTransformCom = nullptr;
-	CVIBuffer_Cube* m_pVIBufferCom = nullptr;
+	//CVIBuffer_Cube* m_pVIBufferCom = nullptr;
+	CMesh_Cube* m_pMeshCom = nullptr;
 
 
 private:

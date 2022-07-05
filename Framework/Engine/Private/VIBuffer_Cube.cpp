@@ -18,9 +18,11 @@ HRESULT CVIBuffer_Cube::Initialize_Prototype()
 
 HRESULT CVIBuffer_Cube::Initialize(void* pArg)
 {
-	m_iStride = sizeof(VTXCUBETEX);
+	//m_iStride = sizeof(VTXCUBETEX);
+	m_iStride = sizeof(VTX);
 	m_iNumVertices = 8;
-	m_dwFVF = VTXCUBETEX::SKY; /* | D3DFVF_TEXCOORDSIZE2(0) */
+	//m_dwFVF = VTXCUBETEX::SKY; /* | D3DFVF_TEXCOORDSIZE2(0) */
+	m_dwFVF = VTX::FVF; /* | D3DFVF_TEXCOORDSIZE2(0) */
 	m_iNumPrimitive = 12;
 
 	/* 정점배열이 할당된다. */
@@ -31,63 +33,29 @@ HRESULT CVIBuffer_Cube::Initialize(void* pArg)
 
 	m_pVB->Lock(0, m_iStride * m_iNumVertices, (void**)&pVertices, 0);
 
-	pVertices[0].vPosition = _float3(-0.5f, 0.5f, -0.5f);
-	pVertices[0].vTexUV = pVertices[0].vPosition;
+	pVertices[0].vPosition = _float3(-0.5f, 0.5f, -0.5f) * 50.f;
+	//pVertices[0].vTexUV = pVertices[0].vPosition;
 
-	pVertices[1].vPosition = _float3(0.5f, 0.5f, -0.5f);
-	pVertices[1].vTexUV = pVertices[1].vPosition;
+	pVertices[1].vPosition = _float3(0.5f, 0.5f, -0.5f) * 50.f;
+	//pVertices[1].vTexUV = pVertices[1].vPosition;
 
-	pVertices[2].vPosition = _float3(0.5f, -0.5f, -0.5f);
-	pVertices[2].vTexUV = pVertices[2].vPosition;
+	pVertices[2].vPosition = _float3(0.5f, -0.5f, -0.5f) * 50.f;
+	//pVertices[2].vTexUV = pVertices[2].vPosition;
 
-	pVertices[3].vPosition = _float3(-0.5f, -0.5f, -0.5f);
-	pVertices[3].vTexUV = pVertices[3].vPosition;
+	pVertices[3].vPosition = _float3(-0.5f, -0.5f, -0.5f) * 50.f;
+	//pVertices[3].vTexUV = pVertices[3].vPosition;
 
-	pVertices[4].vPosition = _float3(-0.5f, 0.5f, 0.5f);
-	pVertices[4].vTexUV = pVertices[4].vPosition;
+	pVertices[4].vPosition = _float3(-0.5f, 0.5f, 0.5f) * 50.f;
+	//pVertices[4].vTexUV = pVertices[4].vPosition;
 
-	pVertices[5].vPosition = _float3(0.5f, 0.5f, 0.5f);
-	pVertices[5].vTexUV = pVertices[5].vPosition;
+	pVertices[5].vPosition = _float3(0.5f, 0.5f, 0.5f) * 50.f;
+	//pVertices[5].vTexUV = pVertices[5].vPosition;
 
-	pVertices[6].vPosition = _float3(0.5f, -0.5f, 0.5f);
-	pVertices[6].vTexUV = pVertices[6].vPosition;
+	pVertices[6].vPosition = _float3(0.5f, -0.5f, 0.5f) * 50.f;
+	//pVertices[6].vTexUV = pVertices[6].vPosition;
 
-	pVertices[7].vPosition = _float3(-0.5f, -0.5f, 0.5f);
-	pVertices[7].vTexUV = pVertices[7].vPosition;
-	//v[0] = VTXTEX({ -1.0f, -1.0f, -1.0f }, { 0.0f, 0.0f });
-	//v[1] = VTXTEX({ -1.0f, 1.0f, -1.0f }, { 0.0f, 1.0f });
-	//v[2] = VTXTEX({ 1.0f, 1.0f, -1.0f }, { 1.0f, 1.0f });
-	//v[3] = VTXTEX({ 1.0f, -1.0f, -1.0f }, { 1.0f, 0.0f });
-
-	//// fill in the back face vertex data
-	//v[4] = VTXTEX({ -1.0f, -1.0f, 1.0f }, { 0.0f, 0.0f });
-	//v[5] = VTXTEX({ 1.0f, -1.0f, 1.0f }, { 0.0f, 1.0f });
-	//v[6] = VTXTEX({ 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f });
-	//v[7] = VTXTEX({ -1.0f, 1.0f, 1.0f }, { 1.0f, 0.0f });
-
-	//// fill in the top face VTXTEX data
-	//v[8] = VTXTEX({ -1.0f, 1.0f, -1.0f }, { 0.0f, 0.0f });
-	//v[9] = VTXTEX({ -1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f });
-	//v[10] = VTXTEX({ 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f });
-	//v[11] = VTXTEX({ 1.0f, 1.0f, -1.0f }, { 1.0f, 0.0f });
-
-	//// fill in the bottom face VTXTEX data
-	//v[12] = VTXTEX({ -1.0f,-1.0f, -1.0f }, { 0.0f, 0.0f });
-	//v[13] = VTXTEX({ 1.0f, -1.0f, -1.0f }, { 0.0f, 1.0f });
-	//v[14] = VTXTEX({ 1.0f, -1.0f, 1.0f }, { 1.0f, 1.0f });
-	//v[15] = VTXTEX({ -1.0f, -1.0f, 1.0f }, { 1.0f, 0.0f });
-
-	//// fill in the left face VTXTEX data
-	//v[16] = VTXTEX({ -1.0f, -1.0f, 1.0f }, { 0.0f, 0.0f });
-	//v[17] = VTXTEX({ -1.0f, 1.0f, 1.0f }, { 0.0f, 1.0f });
-	//v[18] = VTXTEX({ -1.0f, 1.0f, -1.0f }, { 1.0f, 1.0f });
-	//v[19] = VTXTEX({ -1.0f, -1.0f, -1.0f }, { 1.0f, 0.0f });
-
-	//// fill in the right face VTXTEX data
-	//v[20] = VTXTEX({ 1.0f, -1.0f, -1.0f }, { 0.0f, 0.0f });
-	//v[21] = VTXTEX({ 1.0f, 1.0f, -1.0f }, { 0.0f, 1.0f });
-	//v[22] = VTXTEX({ 1.0f, 1.0f, 1.0f }, { 1.0f, 1.0f });
-	//v[23] = VTXTEX({ 1.0f, -1.0f, 1.0f }, { 1.0f, 0.0f });
+	pVertices[7].vPosition = _float3(-0.5f, -0.5f, 0.5f) * 50.f;
+	//pVertices[7].vTexUV = pVertices[7].vPosition;
 
 	m_pVB->Unlock();
 
