@@ -27,9 +27,11 @@ public:
 	static CLevel_SelectPlanet* Create();
 	virtual void Free() override;
 
-
 private:
-	CGameObject* m_pTextObject = nullptr;
+	void SelectPlanet_Event(float fTimeDelta);
+
+
+
 
 };
 

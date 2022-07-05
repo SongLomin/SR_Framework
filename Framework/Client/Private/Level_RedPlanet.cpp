@@ -238,10 +238,10 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	if (m_fTextBoxTime <= 295.f && !m_bTextBoxCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)530, (LONG)620 }, D3DCOLOR_ARGB(255, 255, 0, 40), 0.f, TEXT("제길, 적군 기체가 몰려오고있어!\n지원병력이 올떄까지 조금만 버텨주게! "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이쪽 행성은 왠지 빨갛고 불길한 기분이 드는군... "), 0);
 	}
 
-	if (m_fTextBoxTime <= 293.f && !m_bTextBoxCheck[0])
+	if (m_fTextBoxTime <= 292.f && !m_bTextBoxCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bTextBoxCheck[0] = true;
@@ -250,16 +250,36 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	if (m_fTextBoxTime <= 290.f && !m_bTextBoxCheck[1])
 	{
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)530, (LONG)620 }, D3DCOLOR_ARGB(255, 255, 0, 40), 0.f, TEXT("자네 제정신인가? "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("젠장! 전방에 적 함체들이 몰려오고있어!"), 0);
+	}
+
+	if (m_fTextBoxTime <= 287.f && !m_bTextBoxCheck[1])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bTextBoxCheck[1] = true;
 	}
 
 
-	if (m_fTextBoxTime <= 293.f)
+	if (m_fTextBoxTime <= 284.f && !m_bTextBoxCheck[2])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("지금바로 지원병력을 보낼테니 조금만 버텨주게!"), 0);
+	}
+
+
+	if (m_fTextBoxTime <= 281.f && !m_bTextBoxCheck[2])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bTextBoxCheck[2] = true;
+	}
+
+
+	if (m_fTextBoxTime <= 279.f)
 	{
 		m_pQuestBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, TEXT("            -임무-  \n  지원병력 도착까지 생존하기 \n  남은시간 (초) : "), 0);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)1135, (LONG)88 }, TEXT(" %d"), 1, (_uint)m_fMaxTime);
 
+		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            -임무-  \n  지원병력 도착까지 생존하기 \n  남은시간 (초) : "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)1140, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("%d"), 1, (_uint)m_fMaxTime);
 		m_fMaxTime -= fTimeDelta;
 	}
 }

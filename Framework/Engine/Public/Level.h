@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Base.h"
+#include "GameObject.h"
 
 BEGIN(Engine)
 
@@ -23,6 +24,10 @@ protected:
 	_float      m_fTextBoxTime = 300.f;
 	_bool		m_bCinematic = false;
 	_bool       m_bTextBoxCheck[10] = { false };
+
+protected:
+	CGameObject* m_pTextBoxObject = nullptr;
+	CGameObject* m_pQuestBoxObject = nullptr;
 	
 
 public:

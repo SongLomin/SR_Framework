@@ -3,10 +3,7 @@
 #include "Client_Defines.h"
 #include "Level.h"
 
-BEGIN(Engine)
-class CGameObject;
 
-END
 
 BEGIN(Client)
 
@@ -32,15 +29,10 @@ private:
 	void RedPlanet_Event(float fTimeDelta);
 
 private:
-	_ulong	m_lPage[10];
-	bool	m_bWaveCheck[10];
-
 	_float  m_fSpawnTime = 2.f;
+	_float m_fMaxTime = 100;
 
-	_float m_fMaxTime = 180;
-
-	CGameObject* m_pTextBoxObject = nullptr;
-	CGameObject* m_pQuestBoxObject = nullptr;
+	
 
 };
 
