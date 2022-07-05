@@ -122,12 +122,6 @@ HRESULT CPlanet_Venus::SetUp_Components()
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
-
-
-	m_pDirectionalLightCom = Add_Component<CDirectionalLight>();
-	m_pDirectionalLightCom->Set_WeakPtr(&m_pDirectionalLightCom);
-	m_pDirectionalLightCom->Set_Preset_SunLight();
-
 	return S_OK;
 }
 

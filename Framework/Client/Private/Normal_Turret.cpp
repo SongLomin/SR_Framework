@@ -114,7 +114,7 @@ void CNormal_Turret::LateTick(_float fTimeDelta)
 
 HRESULT CNormal_Turret::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.01f, 0.01f, 0.01f), true);
+	m_pTransformCom->Scaling(_float3(0.1f, 0.4f, 3.f), true);
 	m_pTransformCom->Bind_WorldMatrix(D3D_ALL, D3D_ALL);
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -240,7 +240,7 @@ HRESULT CNormal_Turret::SetUp_Components()
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
 
-	m_pMeshCom = Add_Component<CMesh_Canon>();
+	m_pMeshCom = Add_Component<CMesh_Cube>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 

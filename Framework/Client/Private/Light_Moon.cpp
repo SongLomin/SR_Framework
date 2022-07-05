@@ -105,9 +105,9 @@ HRESULT CLight_Moon::SetUp_Components()
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
-	m_pPointLightCom = Add_Component<CPointLight>();
-	m_pPointLightCom->Set_WeakPtr(&m_pPointLightCom);
-	m_pPointLightCom->Set_Preset_SunLight();
+	m_pDirectionalLightCom = Add_Component<CDirectionalLight>();
+	m_pDirectionalLightCom->Set_WeakPtr(&m_pDirectionalLightCom);
+	m_pDirectionalLightCom->Set_Preset_SunLight();
 
 	return S_OK;
 }
