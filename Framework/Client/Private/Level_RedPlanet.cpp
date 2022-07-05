@@ -162,14 +162,14 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 
 
 	
-	/*m_fSpawnTime -= fTimeDelta;
+	m_fSpawnTime -= fTimeDelta;
 	if (m_fSpawnTime < 0.f)
 	{
 		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body")))
 			return;
 
 		m_fSpawnTime = 5.f;
-	}*/
+	}
 
 
 
@@ -238,9 +238,12 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	if (m_fTextBoxTime <= 295.f)
 	{
 		m_pTextBoxObject->Set_Enable(true);
-
-		if (m_fTextBoxTime == 295.f)
 		GAMEINSTANCE->Add_Text(_point{ (LONG)530, (LONG)620 }, D3DCOLOR_ARGB(255, 255, 0, 40), 0.f, TEXT("제길, 적군 기체가 몰려오고있어!\n지원병력이 올떄까지 조금만 버텨주게! "), 0);
+	}
+
+	if (m_fTextBoxTime <= 294.f)
+	{
+		m_pTextBoxObject->Set_Enable(false);
 	}
 
 
