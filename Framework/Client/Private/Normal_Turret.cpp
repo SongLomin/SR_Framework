@@ -4,7 +4,7 @@
 #include "Math_Utillity.h"
 #include "Normal_Bullet.h"
 #include "Roket_Bullet.h"
-
+#include "Fire_PSystem.h"
 
 
 CNormal_Turret::CNormal_Turret(const CNormal_Turret& Prototype)
@@ -47,6 +47,11 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 		if (!LookAt_Targeting())
 		{
 			LookAt_Aim();
+		}
+
+		if (KEY_INPUT(KEY::M, KEY_STATE::TAP))
+		{
+			((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle")))->AddParticle(50);
 		}
 
 		if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
@@ -97,6 +102,7 @@ void CNormal_Turret::LateTick(_float fTimeDelta)
 				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &eColType);
 				static_cast<CNormal_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
 
+				
 				m_fMaxTime = (_float)(rand() % 11 + 5) * 0.1f;
 				m_fCurTime = m_fMaxTime;
 			}

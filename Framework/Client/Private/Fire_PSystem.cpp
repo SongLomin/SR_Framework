@@ -54,6 +54,8 @@ void CFire_PSystem::Tick(_float fTimeDelta)
 		//	resetParticle(&(*i));
 		//}
 
+		iter->position += iter->velocity * fTimeDelta;
+
 		if (iter->lifeTime < iter->age)
 		{
 			iter->isAlive = false;
@@ -75,9 +77,9 @@ void CFire_PSystem::LateTick(_float fTimeDelta)
 HRESULT CFire_PSystem::Render_Begin(ID3DXEffect** Shader)
 {
 
-	//스카이 박스처럼 카메라를 따라다닌다.
-	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
-	m_pTransform->Set_State(CTransform::STATE_POSITION, CamWorldPos, true);
+	_float3 CurrentPlayer_Pos = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Target()->Get_World_State(CTransform::STATE_POSITION);
+	m_pTransform->Set_World_State(CTransform::STATE_POSITION, CurrentPlayer_Pos);
+	//m_pTransform->Set_State(CTransform::STATE_POSITION, CurrentPlayer_Pos, true);
 	m_pTransform->Bind_WorldMatrix();
 
 	DEVICE->SetRenderState(D3DRS_LIGHTING, false);
@@ -139,20 +141,31 @@ void CFire_PSystem::ResetParticle(ParticleDesc* Desc)
 
 	_float3 CurrentPlayer_Pos = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Target()->Get_World_State(CTransform::STATE_POSITION);
 	
-	Desc->position.x = CurrentPlayer_Pos.x + (_float)((rand() % 30) * 0.05f);
-	Desc->position.y = CurrentPlayer_Pos.y;
-	Desc->position.z = CurrentPlayer_Pos.z + (_float)((rand() % 30) * 0.05f);
+	//Desc->position.x = CurrentPlayer_Pos.x + (_float)((rand() % 30) * 0.5f);
+	//Desc->position.y = CurrentPlayer_Pos.y + (_float)((rand() % 30) * 0.5f);
+	//Desc->position.z = CurrentPlayer_Pos.z + (_float)((rand() % 30) * 0.5f);
 	
 	// snow flakes fall downwards and slightly to the left
-	Desc->velocity.x = 0.f;
-	Desc->velocity.y = 1.f;
-	Desc->velocity.z = 0.0f;
+	
+	Desc->position.x = CurrentPlayer_Pos.x;
+	Desc->position.y = CurrentPlayer_Pos.y + 1.f;
+	Desc->position.z = CurrentPlayer_Pos.z;
+
+	Desc->velocity.x = 1.f+ (_float)((rand() % 30) * 0.5f);
+	Desc->velocity.y = 1.f+ (_float)((rand() % 30) * 0.5f);
+	Desc->velocity.z = 1.f+ (_float)((rand() % 5) * 0.5f);
+
+	//Desc->velocity.x = 1.f;
+	//Desc->velocity.y = 1.f;
+	//Desc->velocity.z = 1.f;
+
+	//Desc->velocity *= 10.f;
 
 	// white snow flake
 	Desc->color = D3DCOLOR_ARGB(255, (_uint)(m_BeginColor.x * 255), (_uint)(m_BeginColor.y * 255), (_uint)(m_BeginColor.z * 255));
 	//Desc->colorFade = D3DCOLOR_RGBA(255, 0, 0, 255);
 	Desc->age = 0.f;
-	Desc->lifeTime = 3.f;
+	Desc->lifeTime = 0.5f;
 }
 
 CFire_PSystem* CFire_PSystem::Create()
