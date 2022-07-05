@@ -40,12 +40,15 @@ void CPlanet_Magma::Tick(_float fTimeDelta)
 	MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
 	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 10000.f);
 
-	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
+	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD) && !m_bLevelChange)
 	{
 
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
 		{
 			GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this);
+			m_bLevelChange = true;
+
+
 			return;
 		}
 	}

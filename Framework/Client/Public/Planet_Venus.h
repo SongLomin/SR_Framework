@@ -39,6 +39,9 @@ private:
 	HRESULT SetUp_Components();
 	void LookAtCamera();
 
+private:
+	_bool m_bLevelChange = false;
+
 public:
 	static CPlanet_Venus* Create();
 	virtual CGameObject* Clone(void* pArg) override;

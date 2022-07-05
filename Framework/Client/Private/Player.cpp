@@ -34,7 +34,6 @@ void CPlayer::Tick(_float fTimeDelta)
 		}
 
 			++i;
-		}
 	}
 }
 

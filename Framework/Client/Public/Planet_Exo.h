@@ -32,6 +32,8 @@ public:
 private:
 	HRESULT SetUp_Components();
 	void LookAtCamera();
+	_bool m_bLevelChange = false;
+
 
 public:
 	static CPlanet_Exo* Create();
