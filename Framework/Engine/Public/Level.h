@@ -22,6 +22,7 @@ protected:
 	_float		m_fTime = 0.f;
 	_float      m_fTextBoxTime = 300.f;
 	_bool		m_bCinematic = false;
+	_bool       m_bTextBoxCheck[10] = { false };
 	
 
 public:

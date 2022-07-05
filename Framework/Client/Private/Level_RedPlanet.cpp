@@ -235,13 +235,23 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	m_fTextBoxTime -= fTimeDelta;
 
 
-	if (m_fTextBoxTime <= 295.f)
+	if (m_fTextBoxTime <= 295.f && !m_bTextBoxCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)530, (LONG)620 }, D3DCOLOR_ARGB(255, 255, 0, 40), 0.f, TEXT("제길, 적군 기체가 몰려오고있어!\n지원병력이 올떄까지 조금만 버텨주게! "), 0);
 	}
 
-	
+	if (m_fTextBoxTime <= 293.f && !m_bTextBoxCheck[0])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bTextBoxCheck[0] = true;
+	}
+
+	if (m_fTextBoxTime <= 290.f && !m_bTextBoxCheck[1])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)530, (LONG)620 }, D3DCOLOR_ARGB(255, 255, 0, 40), 0.f, TEXT("자네 제정신인가? "), 0);
+	}
 
 
 	if (m_fTextBoxTime <= 293.f)
