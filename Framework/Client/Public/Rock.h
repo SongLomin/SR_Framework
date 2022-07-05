@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CRenderer;
 class CTransform;
 class CVIBuffer_Rect;
+class CRigid_Body;
 END
 
 BEGIN(Client)
@@ -28,6 +29,7 @@ private:
 	CRenderer* m_pRendererCom = nullptr;
 	CTransform* m_pTransformCom = nullptr;
 	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
+	CRigid_Body* m_pRigidBodyCom = nullptr;
 
 private:
 	HRESULT SetUp_Components();

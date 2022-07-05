@@ -50,7 +50,7 @@ void CRoket_Bullet::LateTick(_float fTimeDelta)
 
 HRESULT CRoket_Bullet::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.3f, 0.3f, 0.3f), true);
+	m_pTransformCom->Scaling(_float3(0.3f, 0.3f, 2.0f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -119,8 +119,8 @@ void CRoket_Bullet::On_Collision_Exit(CCollider* _Other_Collider)
 HRESULT CRoket_Bullet::SetUp_Components_For_Child()
 {
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 150.f;
-	RigidBodyDesc.m_fOwnerAccel = 80.f;
+	RigidBodyDesc.m_fOwnerSpeed = 250.f;
+	RigidBodyDesc.m_fOwnerAccel = 250.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
 	RigidBodyDesc.m_fOwnerJump = 0.f;

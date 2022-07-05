@@ -33,7 +33,8 @@ void CRock::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	m_pTransformCom->Turn(_float3(0.f, 0.f, 1.f), 3, fTimeDelta, true);
+
+	
 }
 
 void CRock::LateTick(_float fTimeDelta)
@@ -88,6 +89,29 @@ HRESULT CRock::SetUp_Components()
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
+
+	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
+	RigidBodyDesc.m_fOwnerSpeed = 10.f;
+	RigidBodyDesc.m_fOwnerAccel = 0.5f;
+	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
+	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
+	RigidBodyDesc.m_fOwnerJump = 5.f;
+	RigidBodyDesc.m_fOwnerJumpScale = 1.f;
+
+	RigidBodyDesc.m_fFrictional = 0.05f;
+	RigidBodyDesc.m_fRadFrictional = 0.02f;
+	RigidBodyDesc.m_fRadZ = 0.01f;
+
+
+	RigidBodyDesc.m_fOwnerLiftSpeed = 10.f;
+	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
+	RigidBodyDesc.m_fRadDrag = 1.f;
+	RigidBodyDesc.m_fDirDrag = 0.05f;
+	RigidBodyDesc.m_fOwnerAccel = 0.1f;
+
+	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
+	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
+	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
 	return S_OK;
 }
