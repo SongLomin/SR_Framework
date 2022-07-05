@@ -51,17 +51,17 @@ void CHpBar::Tick(_float fTimeDelta)
 
 		if (pPlayerStatusCom->Get_Status().fHp != pPlayerStatusCom->Get_Status().fMaxHp)
 		{
-			_float Damage = pPlayerStatusCom->Get_Status().fMaxHp - pPlayerStatusCom->Get_Status().fHp;  // 1
+			_int Damage = pPlayerStatusCom->Get_Status().fMaxHp - pPlayerStatusCom->Get_Status().fHp;  
 
-			_float AfterHp = pPlayerStatusCom->Get_Status().fMaxHp - Damage;                             // 9
+			_int AfterHp = pPlayerStatusCom->Get_Status().fMaxHp - Damage;                            
 
-			if (pPlayerStatusCom->Get_Status().fHp == AfterHp)                     // 9 = 9
+			if (((_int)pPlayerStatusCom->Get_Status().fHp) == AfterHp)                    
 			{
-				if (m_fX <= 220 * AfterHp / pPlayerStatusCom->Get_Status().fMaxHp ||
-					m_fSizeX <= 150 * AfterHp / pPlayerStatusCom->Get_Status().fMaxHp)
+				if (m_fX <= 220 * AfterHp / ((_int)pPlayerStatusCom->Get_Status().fMaxHp) ||
+					m_fSizeX <= 150 * AfterHp / ((_int)pPlayerStatusCom->Get_Status().fMaxHp))
 				{
-					m_fX = 220 * AfterHp / pPlayerStatusCom->Get_Status().fMaxHp;
-					m_fSizeX = 150 * AfterHp / pPlayerStatusCom->Get_Status().fMaxHp;
+					m_fX -= 15;
+					m_fSizeX = 150 * AfterHp / ((_int)pPlayerStatusCom->Get_Status().fMaxHp);
 				}
 
 				else
