@@ -502,17 +502,17 @@ void CRigid_Body::Update_Transform(_float fTimeDelta)
 		SubTurn();
 
 
-		D3DXVec3Normalize(&m_vSubLook, &m_vSubLook);
-		D3DXVec3Normalize(&m_vSubUp, &m_vSubUp);
-		D3DXVec3Normalize(&m_vSubRight, &m_vSubRight);
+		D3DXVec3Normalize(&m_vLook, &m_vLook);
+		D3DXVec3Normalize(&m_vUp, &m_vUp);
+		D3DXVec3Normalize(&m_vRight, &m_vRight);
 
-		m_vSubLook *= m_vScale.z;
-		m_vSubUp *= m_vScale.y;
-		m_vSubRight *= m_vScale.x;
+		m_vLook *= m_vScale.z;
+		m_vUp *= m_vScale.y;
+		m_vRight *= m_vScale.x;
 
-		m_pTransform->Set_State(CTransform::STATE_LOOK, m_vSubLook);
-		m_pTransform->Set_State(CTransform::STATE_UP, m_vSubUp);
-		m_pTransform->Set_State(CTransform::STATE_RIGHT, m_vSubRight);
+		m_pTransform->Set_State(CTransform::STATE_LOOK, m_vLook);
+		m_pTransform->Set_State(CTransform::STATE_UP, m_vUp);
+		m_pTransform->Set_State(CTransform::STATE_RIGHT, m_vRight);
 		m_pTransform->Set_State(CTransform::STATE_POSITION, m_vPos);
 	}
 	m_vAccel = _float3(0.f, 0.f, 0.f);
@@ -532,9 +532,9 @@ void CRigid_Body::Set_DirVector()
 		m_bFirst = false;
 	}
 
-	m_vSubLook = m_pTransform->Get_State(CTransform::STATE_LOOK);
-	m_vSubRight = m_pTransform->Get_State(CTransform::STATE_RIGHT);
-	m_vSubUp = _float3(0.f, 1.f, 0.f);
+	m_vLook = m_pTransform->Get_State(CTransform::STATE_LOOK);
+	m_vRight = m_pTransform->Get_State(CTransform::STATE_RIGHT);
+	m_vUp = m_pTransform->Get_State(CTransform::STATE_UP);
 	m_vPos = m_pTransform->Get_State(CTransform::STATE_POSITION);
 	m_vScale = m_pTransform->Get_Scaled();
 }

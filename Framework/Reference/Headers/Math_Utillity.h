@@ -36,6 +36,9 @@ public:
 	static _float4x4 Get_Position_Matrix(const _float4x4& _Mat);
 
 public:
+	static _float3 Rotate_Vec3(const _float3& _Rotation, const _float3& _Vec3);
+
+public:
 	static DWORD FtoDw(float f);
 
 };

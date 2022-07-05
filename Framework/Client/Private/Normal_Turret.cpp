@@ -64,12 +64,13 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 			}
 		}
 
-		if (KEY_INPUT(KEY::CTRL, KEY_STATE::HOLD))
+		if (KEY_INPUT(KEY::CTRL, KEY_STATE::TAP))
 		{
 			if (m_fCurTime < 0.f)
 			{
-				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CRoket_Bullet>(CURRENT_LEVEL, TEXT("Roket_Bullet"), nullptr, &m_eBulletCollisionType);
-				static_cast<CRoket_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
+				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CRocket_Bullet>(CURRENT_LEVEL, TEXT("Roket_Bullet"), nullptr, &m_eBulletCollisionType);
+				static_cast<CRocket_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
+				static_cast<CRocket_Bullet*>(Bullet)->Set_Target(m_pTarget);
 
 				m_fCurTime = 0.3f;
 			}

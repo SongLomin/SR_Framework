@@ -7,16 +7,17 @@ BEGIN(Engine)
 class CMesh_Cube;
 class CSpotLight;
 class CMesh_Test;
+class CTargeting;
 END
 
 BEGIN(Client)
 
-class CRoket_Bullet final : public CBullet
+class CRocket_Bullet final : public CBullet
 {
 private:
-    explicit CRoket_Bullet();
-    explicit CRoket_Bullet(const CRoket_Bullet& Prototype);
-    virtual ~CRoket_Bullet() = default;
+    explicit CRocket_Bullet();
+    explicit CRocket_Bullet(const CRocket_Bullet& Prototype);
+    virtual ~CRocket_Bullet() = default;
 
 public:
     // CGameObject을(를) 통해 상속됨
@@ -27,13 +28,19 @@ public:
     virtual HRESULT Render_Begin(ID3DXEffect** Shader = nullptr) override;
     virtual HRESULT Render() override;
 
-    virtual void Init_BulletPosition(_float4x4* _pWorldMat) override;
+    virtual void Init_BulletPosition(_float4x4* _pWorldMat);
+
+    void    Set_Target(CGameObject* _pTarget);
+private:
+    void    Find_Way();
 
 private:
     CSpotLight* m_pLight = nullptr;
     CMesh_Test* m_pMeshCom = nullptr;
+    CTargeting* m_pTargetingCom = nullptr;
 
-
+private:
+    CGameObject* m_pTarget = nullptr;
 
 public: /* For Event Function */
     virtual void On_Collision_Enter(CCollider* _Other_Collider) override;
@@ -46,7 +53,7 @@ protected:
 
 
 public:
-    static CRoket_Bullet* Create();
+    static CRocket_Bullet* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 

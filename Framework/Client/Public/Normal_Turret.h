@@ -42,7 +42,7 @@ private:
 
 private:
     CGameObject* m_pBoxObject = nullptr;
-    CGameObject* m_pTarget = nullptr;
+    CGameObject* m_pTarget = nullptr;//Rocket bullet을 만들 때 넘겨주기
 
     COLLISION_TYPE m_eBulletCollisionType = COLLISION_TYPE::PLAYER_ATTACK;
 

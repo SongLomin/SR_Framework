@@ -54,7 +54,7 @@ public:
 	void	Link_TransformCom(CTransform* _pTransform);
 
 public:
-	//이동용 실질적인 이동용
+
 
 	void		Set_Camera(_bool _bCamera)
 	{
@@ -73,7 +73,7 @@ public:
 
 	void		Add_Dir(Func Dir, _float fDir =0.f);
 	void		Add_Camera(Func Dir, _float fDir = 0.f);
-	//실질적인건 아닌데 연출용
+
 	
 	void		Update_Transform(_float fTimeDelta);
 	void		Set_DirVector();
@@ -137,7 +137,6 @@ public:
 			
 		}
 
-		return _float3();
 	}
 	
 private:
