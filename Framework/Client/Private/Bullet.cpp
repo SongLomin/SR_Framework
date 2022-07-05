@@ -15,6 +15,7 @@ void CBullet::Tick(_float fTimeDelta)
 	if (m_fLifeTime < 0.f)
 	{
 		Set_Dead();
+		//Set_Enable(false);
 	}
 }
 

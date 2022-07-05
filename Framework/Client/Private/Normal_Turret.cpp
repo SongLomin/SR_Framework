@@ -52,7 +52,8 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 
 		if (KEY_INPUT(KEY::M, KEY_STATE::TAP))
 		{
-			((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle")))->AddParticle(50);
+			//메모리 풀 사용
+			((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle"), nullptr, nullptr, true))->AddParticle(50);
 		}
 
 		if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))

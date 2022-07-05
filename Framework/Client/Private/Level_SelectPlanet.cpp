@@ -86,6 +86,8 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest")))
 		return E_FAIL;
 
+	m_pTextObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
+	m_pTextObject->Set_Enable(false);
 
 	
 
@@ -166,7 +168,7 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 98.f)
 	{
-		if (!GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang")));
+		m_pTextObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)520, (LONG)620 }, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
 	}
 

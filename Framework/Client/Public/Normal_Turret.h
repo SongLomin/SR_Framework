@@ -44,7 +44,7 @@ private:
     CGameObject* m_pBoxObject = nullptr;
     CGameObject* m_pTarget = nullptr;
 
-    COLLISION_TYPE m_eBulletCollisionType = COLLISION_TYPE::PLAYER;
+    COLLISION_TYPE m_eBulletCollisionType = COLLISION_TYPE::PLAYER_ATTACK;
 
 private:
     _float	 m_fCurTime = 0.f;

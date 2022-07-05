@@ -50,7 +50,7 @@ void CLazer_Turret::Tick(_float fTimeDelta)
 		if (KEY_INPUT(KEY::RBUTTON, KEY_STATE::HOLD))
 		{
 			COLLISION_TYPE eColType = COLLISION_TYPE::MONSTER_ATTACK;
-			CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CLazer_Bullet>(CURRENT_LEVEL, TEXT("Lazer_Bullet"), nullptr, &eColType);
+			CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CLazer_Bullet>(CURRENT_LEVEL, TEXT("Lazer_Bullet"), nullptr, &eColType, true);
 			static_cast<CLazer_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
 		}
 	}

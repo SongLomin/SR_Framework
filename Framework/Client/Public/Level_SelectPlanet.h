@@ -3,6 +3,10 @@
 #include "Client_Defines.h"
 #include "Level.h"
 
+BEGIN(Engine)
+class CGameObject;
+END
+
 BEGIN(Client)
 
 class CLevel_SelectPlanet final : public CLevel
@@ -25,6 +29,7 @@ public:
 
 private:
 	_float m_fTextBoxTime = 100;
+	CGameObject* m_pTextObject = nullptr;
 
 };
 

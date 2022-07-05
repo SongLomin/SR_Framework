@@ -106,6 +106,7 @@ void CNormal_Bullet::On_Collision_Enter(CCollider* _Other_Collider)
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER)
 	{
 		Set_Dead();
+		//Set_Enable(false);
 	}
 
 }
