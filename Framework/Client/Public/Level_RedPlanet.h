@@ -29,7 +29,7 @@ public:
 	virtual void Free() override;
 
 private:
-	void Ai_Create(_float TimeDelta);
+	void RedPlanet_Event(float fTimeDelta);
 
 private:
 	_ulong	m_lPage[10];

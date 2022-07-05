@@ -190,26 +190,9 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	}
 
 
-	m_fTextBoxTime -= fTimeDelta;
-
-
-	if (m_fTextBoxTime <= 298.f)
-	{
-		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)530, (LONG)620 }, TEXT("제길, 적군 기체가 몰려오고있어!\n지원병력이 올떄까지 조금만 버텨주게! "), 0);
-	}
-
-
-	if (m_fTextBoxTime <= 297.f)
-	{
-		m_pQuestBoxObject->Set_Enable(true);
-
-		GAMEINSTANCE->Add_Text(_point{ (LONG)1135, (LONG)88 }, TEXT(" %d"), 1, (_uint)m_fMaxTime);
-
-		m_fMaxTime -= fTimeDelta;
-	}
-
 	
+
+	RedPlanet_Event(fTimeDelta);
 
 
 	
@@ -223,12 +206,6 @@ HRESULT CLevel_RedPlanet::Render()
 
 
 	SetWindowText(g_hWnd, TEXT("Red Planet 레벨입니다. "));
-
-	if (m_fTextBoxTime <= 297.f)
-	{
-		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, TEXT("            -임무-  \n  지원병력 도착까지 생존하기 \n  남은시간 (초) : "), 0);
-		//GAMEINSTANCE->Add_Text(_point{ (LONG)1050, (LONG)90 }, D3DCOLOR_ARGB(255, 255, 0, 40), 10.f, TEXT("            -임무-  \n  지원병력 도착까지 생존하기 "), 0);
-	}
 
 	return S_OK;
 }
@@ -253,8 +230,27 @@ void CLevel_RedPlanet::Free()
 	delete this;
 }
 
-void CLevel_RedPlanet::Ai_Create(_float TimeDelta)
+void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 {
+	m_fTextBoxTime -= fTimeDelta;
 
+
+	if (m_fTextBoxTime <= 295.f)
+	{
+		m_pTextBoxObject->Set_Enable(true);
+
+		if (m_fTextBoxTime == 295.f)
+		GAMEINSTANCE->Add_Text(_point{ (LONG)530, (LONG)620 }, D3DCOLOR_ARGB(255, 255, 0, 40), 0.f, TEXT("제길, 적군 기체가 몰려오고있어!\n지원병력이 올떄까지 조금만 버텨주게! "), 0);
+	}
+
+
+	if (m_fTextBoxTime <= 293.f)
+	{
+		m_pQuestBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, TEXT("            -임무-  \n  지원병력 도착까지 생존하기 \n  남은시간 (초) : "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)1135, (LONG)88 }, TEXT(" %d"), 1, (_uint)m_fMaxTime);
+
+		m_fMaxTime -= fTimeDelta;
+	}
 }
 

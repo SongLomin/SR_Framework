@@ -54,11 +54,35 @@ void CHpBar::Tick(_float fTimeDelta)
 		CStatus* pPlayerStatusCom = TransformCom->Get_Owner()->Get_Component<CStatus>();
 
 		
-	/*	if (pPlayerStatusCom->Get_Status().fHp != pPlayerStatusCom->Get_Status().fMaxHp)
-		{
-				m_fX = m_fX * pPlayerStatusCom->Get_Status().fHp / pPlayerStatusCom->Get_Status().fMaxHp;
-				m_fSizeX = m_fSizeX * pPlayerStatusCom->Get_Status().fHp / pPlayerStatusCom->Get_Status().fMaxHp;
-		}*/
+
+		//if (pPlayerStatusCom->Get_Status().fHp != pPlayerStatusCom->Get_Status().fMaxHp)
+		//{
+		//	_int Damage = pPlayerStatusCom->Get_Status().fMaxHp - pPlayerStatusCom->Get_Status().fHp;
+
+		//	_int AfterHp = pPlayerStatusCom->Get_Status().fMaxHp - Damage;
+
+		//	if (((_int)pPlayerStatusCom->Get_Status().fHp) <= AfterHp)
+		//	{
+		//		if (m_fX <= 220 * AfterHp / ((_int)pPlayerStatusCom->Get_Status().fMaxHp) ||
+		//			m_fSizeX <= 150 * AfterHp / ((_int)pPlayerStatusCom->Get_Status().fMaxHp))
+		//		{
+		//			m_fX = 220 * AfterHp / ((_int)pPlayerStatusCom->Get_Status().fMaxHp);
+		//			m_fSizeX = 150 * AfterHp / ((_int)pPlayerStatusCom->Get_Status().fMaxHp);
+		//		}
+
+		//		if (m_fX <= 70 || m_fSizeX <= 0)
+		//		{
+		//			m_fX = 70;
+		//			m_fSizeX = 0;
+		//		}
+
+		//		else
+		//			m_fX -= 0.3;
+		//		m_fSizeX -= 0.3;
+
+		//	}
+		//}
+	
 
 
 		if ((_int)(pPlayerStatusCom->Get_Status().fHp) == 10)
@@ -66,7 +90,7 @@ void CHpBar::Tick(_float fTimeDelta)
 			m_fX = 220;
 			m_fSizeX = 150;
 		}
-		//float은 오차값이 생기기때문에 == 비교르 ㄹ 하면 안돼.
+		
 		 if ((_int)(pPlayerStatusCom->Get_Status().fHp) == 9)
 		{
 
