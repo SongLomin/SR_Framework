@@ -176,6 +176,24 @@ void CLevel_SelectPlanet::Change_Level(void* pArg)
 	m_fTime = 5.f;
 	m_bCinematic = true;
 
+	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player"));
+	for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)
+	{
+		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
+		{
+			CComponent* Temp = (*iter)->Get_Component<CPlayer_Controller>();
+			Temp->Set_Enable(false);
+			Temp = (*iter)->Get_Component<CRigid_Body>();
+			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::SPIN, 0.f);
+			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::DOWN, 0.f);
+			if (pArg)
+			{
+				Temp = (*iter)->Get_Component<CTransform>();
+				static_cast<CTransform*>(Temp)->LookAt((CTransform*)pArg, true);
+			}
+		}
+	}
+
 	CGameObject* Camera_Origin = GAMEINSTANCE->Get_Camera()->Get_Owner();
 	CTransform* pCameraTransform = Camera_Origin->Get_Component<CTransform>();
 	GAMEINSTANCE->Update_MovingCam();
@@ -201,23 +219,7 @@ void CLevel_SelectPlanet::Change_Level(void* pArg)
 		nullptr, nullptr, 1.f, 0.05f
 	);
 
-	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player"));
-	for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)
-	{
-		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
-		{
-			CComponent* Temp = (*iter)->Get_Component<CPlayer_Controller>();
-			Temp->Set_Enable(false);
-			Temp = (*iter)->Get_Component<CRigid_Body>();
-			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::SPIN, 0.f);
-			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::DOWN, 0.f);
-			if (pArg)
-			{
-				Temp = (*iter)->Get_Component<CTransform>();
-				static_cast<CTransform*>(Temp)->LookAt((CTransform*)pArg, true);
-			}
-		}
-	}
+	
 }
 
 
