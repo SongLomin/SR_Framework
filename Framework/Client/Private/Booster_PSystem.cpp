@@ -32,7 +32,7 @@ HRESULT CBooster_PSystem::Initialize(void* pArg)
 	__super::Initialize(pArg);
 
 	//m_pRenderer = Get_Component<CRenderer>();
-	m_pRenderer->Set_Textures_From_Key(TEXT("Booster"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRenderer->Set_Textures_From_Key(TEXT("Booster_Particle"), MEMORY_TYPE::MEMORY_STATIC);
 
 
 	return S_OK;
@@ -145,7 +145,7 @@ void CBooster_PSystem::ResetParticle(ParticleDesc* Desc)
 
 
 	//m_size = (_float)((rand() % 5 + 10) * 0.01f);
-	m_size = 50.f;
+	m_size = 2.f;
 
 	Desc->position.x = 0.f;
 	Desc->position.y = 0.f;

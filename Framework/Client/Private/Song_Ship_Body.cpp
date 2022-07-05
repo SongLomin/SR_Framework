@@ -55,8 +55,8 @@ void CSong_Ship_Body::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::M, KEY_STATE::TAP))
 	{
-		//메모리 풀 사용
-		//((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom);
+		((CBooster_PSystem*)GAMEINSTANCE->Add_GameObject<CBooster_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"), nullptr, nullptr, true))->AddParticle(1, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
+
 	}
 
 }

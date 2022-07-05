@@ -37,11 +37,7 @@ void CPlayer::Tick(_float fTimeDelta)
 			++i;
 	}
 
-	if (KEY_INPUT(KEY::M, KEY_STATE::TAP))
-	{
-		((CBooster_PSystem*)GAMEINSTANCE->Add_GameObject<CBooster_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom);
 
-	}
 
 	if (m_pRigid_BodyCom->Get_Booster())
 	{

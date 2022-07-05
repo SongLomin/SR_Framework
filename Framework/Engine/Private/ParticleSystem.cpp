@@ -202,6 +202,8 @@ void CParticleSystem::AddParticle(int num, CTransform* _pTransformCom)
 
 		m_particles.push_back(Desc);
 	}
+	
+	//printf("%s 파티클 소환\n", typeid(*(_pTransformCom->Get_Owner())).name());
 
 }
 
