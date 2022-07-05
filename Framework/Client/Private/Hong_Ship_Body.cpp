@@ -1,42 +1,43 @@
 #include "stdafx.h"
-#include "Kang_Ship_Body.h"
+#include "Hong_Ship_Body.h"
 #include "GameInstance.h"
 #include "Normal_Turret.h"
-#include "Mesh_KangShip.h"
 
-CKang_Ship_Body::CKang_Ship_Body()
+CHong_Ship_Body::CHong_Ship_Body()
 {
 }
 
-CKang_Ship_Body::CKang_Ship_Body(const CKang_Ship_Body& Prototype)
+CHong_Ship_Body::CHong_Ship_Body(const CHong_Ship_Body& Prototype)
 {
 	*this = Prototype;
+
 }
 
-HRESULT CKang_Ship_Body::Initialize_Prototype()
+HRESULT CHong_Ship_Body::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CKang_Ship_Body::Initialize(void* pArg)
+HRESULT CHong_Ship_Body::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
+
 	return S_OK;
 }
 
-void CKang_Ship_Body::Tick(_float fTimeDelta)
+void CHong_Ship_Body::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 }
 
-void CKang_Ship_Body::LateTick(_float fTimeDelta)
+void CHong_Ship_Body::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 }
 
-HRESULT CKang_Ship_Body::Render_Begin(ID3DXEffect** Shader)
+HRESULT CHong_Ship_Body::Render_Begin(ID3DXEffect** Shader)
 {
 	m_pTransformCom->Scaling(_float3(2.f, 2.f, 2.f), true);
 	m_pTransformCom->Bind_WorldMatrix();
@@ -53,7 +54,7 @@ HRESULT CKang_Ship_Body::Render_Begin(ID3DXEffect** Shader)
 	return S_OK;
 }
 
-HRESULT CKang_Ship_Body::Render()
+HRESULT CHong_Ship_Body::Render()
 {	
 	__super::Render();
 
@@ -62,18 +63,13 @@ HRESULT CKang_Ship_Body::Render()
 	return S_OK;
 }
 
-void CKang_Ship_Body::SetUp_Components_For_Child()
+void CHong_Ship_Body::SetUp_Components_For_Child()
 {
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
 
-#pragma region Collider Setting
-	m_pColliderCom->Set_Collider_Size(_float3(3.f, 0.f, 0.f));
-
-#pragma endregion Collider Setting
-
 #pragma region Mesh Setting
 
-	m_pMeshCom = Add_Component<CMesh_KangShip>();
+	m_pMeshCom = Add_Component<CMesh_HongShip>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
@@ -84,7 +80,6 @@ void CKang_Ship_Body::SetUp_Components_For_Child()
 	Status.fHp = 10.f;
 	Status.fAttack = 7.f;
 	Status.fArmor = 5.f;
-	Status.fBooster = 10.f;
 
 	m_pStatusCom = Add_Component<CStatus>(&Status);
 	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
@@ -148,37 +143,37 @@ void CKang_Ship_Body::SetUp_Components_For_Child()
 
 }
 
-void CKang_Ship_Body::On_Change_Controller(const CONTROLLER& _IsAI)
+void CHong_Ship_Body::On_Change_Controller(const CONTROLLER& _IsAI)
 {
 	__super::On_Change_Controller(_IsAI);
 }
 
-void CKang_Ship_Body::On_Collision_Enter(CCollider* _Other_Collider)
+void CHong_Ship_Body::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Enter(_Other_Collider);
 }
 
-void CKang_Ship_Body::On_Collision_Stay(CCollider* _Other_Collider)
+void CHong_Ship_Body::On_Collision_Stay(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Stay(_Other_Collider);
 }
 
-void CKang_Ship_Body::On_Collision_Exit(CCollider* _Other_Collider)
+void CHong_Ship_Body::On_Collision_Exit(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Exit(_Other_Collider);
 }
 
-CKang_Ship_Body* CKang_Ship_Body::Create()
+CHong_Ship_Body* CHong_Ship_Body::Create()
 {
-	CREATE_PIPELINE(CKang_Ship_Body);
+	CREATE_PIPELINE(CHong_Ship_Body);
 }
 
-CGameObject* CKang_Ship_Body::Clone(void* pArg)
+CGameObject* CHong_Ship_Body::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CKang_Ship_Body);
+	CLONE_PIPELINE(CHong_Ship_Body);
 }
 
-void CKang_Ship_Body::Free()
+void CHong_Ship_Body::Free()
 {
 	__super::Free();
 

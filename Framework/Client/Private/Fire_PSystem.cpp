@@ -1,22 +1,20 @@
 #include "stdafx.h"
-#include "SpaceDust_PSystem.h"
+#include "Fire_PSystem.h"
 #include "GameInstance.h"
 #include "Math_Utillity.h"
 
-CSpaceDust_PSystem::CSpaceDust_PSystem(const CSpaceDust_PSystem& Prototype)
+CFire_PSystem::CFire_PSystem(const CFire_PSystem& Prototype)
 {
 	*this = Prototype;
 }
 
-HRESULT CSpaceDust_PSystem::Initialize_Prototype()
+HRESULT CFire_PSystem::Initialize_Prototype()
 {
-
 	return S_OK;
 }
 
-HRESULT CSpaceDust_PSystem::Initialize(void* pArg)
+HRESULT CFire_PSystem::Initialize(void* pArg)
 {
-	//버텍스 크기를 미리 정해놓은 뒤에 부모의 Initialize를 호출해서 버텍스를 생성한다.
 	m_size = 0.1f;
 
 
@@ -29,13 +27,10 @@ HRESULT CSpaceDust_PSystem::Initialize(void* pArg)
 
 	__super::Initialize(pArg);
 
-	/*for (int i = 0; i < numParticles; i++)
-		AddParticle();*/
-
 	return S_OK;
 }
 
-void CSpaceDust_PSystem::Tick(_float fTimeDelta)
+void CFire_PSystem::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
@@ -47,10 +42,10 @@ void CSpaceDust_PSystem::Tick(_float fTimeDelta)
 	{
 		iter->position += iter->velocity * fTimeDelta;
 		fAge_ratio = iter->age / iter->lifeTime;
-		
+
 		CurrentColor = m_BeginColor * (1.f - fAge_ratio) + m_EndColor * (fAge_ratio);
 		iter->color = D3DCOLOR_ARGB(255, (_uint)(CurrentColor.x * 255), (_uint)(CurrentColor.y * 255), (_uint)(CurrentColor.z * 255));
-		
+
 		//// is the point outside bounds?
 		//if (_boundingBox.isPointInside(i->_position) == false)
 		//{
@@ -59,31 +54,32 @@ void CSpaceDust_PSystem::Tick(_float fTimeDelta)
 		//	resetParticle(&(*i));
 		//}
 
+		iter->position += iter->velocity * fTimeDelta;
+
 		if (iter->lifeTime < iter->age)
 		{
 			iter->isAlive = false;
 			//ResetParticle(&(*iter));
 			continue;
 		}
-		
+
 		iter->age += fTimeDelta;
 	}
 }
 
-void CSpaceDust_PSystem::LateTick(_float fTimeDelta)
+void CFire_PSystem::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
 	m_pRenderer->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
-HRESULT CSpaceDust_PSystem::Render_Begin(ID3DXEffect** Shader)
+HRESULT CFire_PSystem::Render_Begin(ID3DXEffect** Shader)
 {
-	__super::Render_Begin(Shader);
 
-	//스카이 박스처럼 카메라를 따라다닌다.
-	_float3 CamWorldPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
-	m_pTransform->Set_State(CTransform::STATE_POSITION, CamWorldPos, true);
+	_float3 CurrentPlayer_Pos = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Target()->Get_World_State(CTransform::STATE_POSITION);
+	m_pTransform->Set_World_State(CTransform::STATE_POSITION, CurrentPlayer_Pos);
+	//m_pTransform->Set_State(CTransform::STATE_POSITION, CurrentPlayer_Pos, true);
 	m_pTransform->Bind_WorldMatrix();
 
 	DEVICE->SetRenderState(D3DRS_LIGHTING, false);
@@ -97,7 +93,7 @@ HRESULT CSpaceDust_PSystem::Render_Begin(ID3DXEffect** Shader)
 	DEVICE->SetRenderState(D3DRS_POINTSCALE_B, CMath_Utillity::FtoDw(0.0f));
 	DEVICE->SetRenderState(D3DRS_POINTSCALE_C, CMath_Utillity::FtoDw(1.0f));
 
-	
+
 
 	//DEVICE->SetTransform(D3DTS_WORLD, &I);
 
@@ -112,7 +108,7 @@ HRESULT CSpaceDust_PSystem::Render_Begin(ID3DXEffect** Shader)
 	return S_OK;
 }
 
-HRESULT CSpaceDust_PSystem::Render()
+HRESULT CFire_PSystem::Render()
 {
 	//m_pRenderer->Bind_Texture();
 
@@ -127,11 +123,11 @@ HRESULT CSpaceDust_PSystem::Render()
 	return S_OK;
 }
 
-void CSpaceDust_PSystem::ResetParticle(ParticleDesc* Desc)
+void CFire_PSystem::ResetParticle(ParticleDesc* Desc)
 {
 	Desc->isAlive = true;
 
-	
+
 	m_size = (_float)((rand() % 5 + 10) * 0.01f);
 	// no randomness for height (y-coordinate).  Snow flake
 	// always starts at the top of bounding box.
@@ -139,44 +135,60 @@ void CSpaceDust_PSystem::ResetParticle(ParticleDesc* Desc)
 	Desc->position.y = (_float)(rand() % 10 + 10);
 	Desc->position.z = (_float)(rand() % 10 + 10);*/
 
-	Desc->position.x = (_float)(rand() % 30 + 10) * 0.1f;
+	/*Desc->position.x = (_float)(rand() % 30 + 10) * 0.1f;
 	Desc->position.y = 0.f;
-	Desc->position.z = (_float)(rand() % 30 + 10) * 0.1f;
+	Desc->position.z = (_float)(rand() % 30 + 10) * 0.1f;*/
 
+	_float3 CurrentPlayer_Pos = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Target()->Get_World_State(CTransform::STATE_POSITION);
+	
+	//Desc->position.x = CurrentPlayer_Pos.x + (_float)((rand() % 30) * 0.5f);
+	//Desc->position.y = CurrentPlayer_Pos.y + (_float)((rand() % 30) * 0.5f);
+	//Desc->position.z = CurrentPlayer_Pos.z + (_float)((rand() % 30) * 0.5f);
+	
 	// snow flakes fall downwards and slightly to the left
-	Desc->velocity.x = 0.f;
-	Desc->velocity.y = 1.f;
-	Desc->velocity.z = 0.0f;
+	
+	Desc->position.x = CurrentPlayer_Pos.x;
+	Desc->position.y = CurrentPlayer_Pos.y + 1.f;
+	Desc->position.z = CurrentPlayer_Pos.z;
+
+	Desc->velocity.x = 1.f+ (_float)((rand() % 30) * 0.5f);
+	Desc->velocity.y = 1.f+ (_float)((rand() % 30) * 0.5f);
+	Desc->velocity.z = 1.f+ (_float)((rand() % 5) * 0.5f);
+
+	//Desc->velocity.x = 1.f;
+	//Desc->velocity.y = 1.f;
+	//Desc->velocity.z = 1.f;
+
+	//Desc->velocity *= 10.f;
 
 	// white snow flake
 	Desc->color = D3DCOLOR_ARGB(255, (_uint)(m_BeginColor.x * 255), (_uint)(m_BeginColor.y * 255), (_uint)(m_BeginColor.z * 255));
 	//Desc->colorFade = D3DCOLOR_RGBA(255, 0, 0, 255);
 	Desc->age = 0.f;
-	Desc->lifeTime = 3.f;
-
+	Desc->lifeTime = 0.5f;
 }
 
-CSpaceDust_PSystem* CSpaceDust_PSystem::Create()
+CFire_PSystem* CFire_PSystem::Create()
 {
-	CREATE_PIPELINE(CSpaceDust_PSystem);
+	CREATE_PIPELINE(CFire_PSystem);
 }
 
-CGameObject* CSpaceDust_PSystem::Clone(void* pArg)
+CGameObject* CFire_PSystem::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CSpaceDust_PSystem);
+	CLONE_PIPELINE(CFire_PSystem);
 }
 
-void CSpaceDust_PSystem::Free()
+void CFire_PSystem::Free()
 {
 	__super::Free();
 
 	delete this;
 }
 
-void CSpaceDust_PSystem::OnEnable(void* _Arg)
+void CFire_PSystem::OnEnable(void* _Arg)
 {
 }
 
-void CSpaceDust_PSystem::OnDisable()
+void CFire_PSystem::OnDisable()
 {
 }

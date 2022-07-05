@@ -148,9 +148,6 @@
     <Filter Include="01.Levels\05.Level_Venus">
       <UniqueIdentifier>{2f8e8cb4-bac1-4e55-af3b-8ca3d815bac4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\10. Rock">
-      <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\11. Light">
       <UniqueIdentifier>{3ad58ff7-fc3c-4713-a020-6a6d7bc5d31c}</UniqueIdentifier>
     </Filter>
@@ -180,6 +177,18 @@
     </Filter>
     <Filter Include="02.GameObject\07. UI\TextBox">
       <UniqueIdentifier>{b03a9ea0-5a43-4826-96ff-ddab3c3d0cdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\00. Player\Hong_Ship">
+      <UniqueIdentifier>{a39c5264-5429-4ff8-88d9-2c3f55dcf10b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\00. Player\Shin_Ship">
+      <UniqueIdentifier>{77e76612-f35f-4f28-9df1-632015c131ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. Rock">
+      <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem\Fire_PSystem">
+      <UniqueIdentifier>{0912303c-d4de-443f-bd2e-c029a038e879}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -365,6 +374,15 @@
     <ClInclude Include="..\Public\TextBox.h">
       <Filter>02.GameObject\07. UI\TextBox</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Hong_Ship_Body.h">
+      <Filter>02.GameObject\00. Player\Hong_Ship</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Shin_Ship_Body.h">
+      <Filter>02.GameObject\00. Player\Shin_Ship</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Fire_PSystem.h">
+      <Filter>02.GameObject\10. ParticleSystem\Fire_PSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -539,6 +557,15 @@
     </ClCompile>
     <ClCompile Include="..\Private\TextBox.cpp">
       <Filter>02.GameObject\07. UI\TextBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Hong_Ship_Body.cpp">
+      <Filter>02.GameObject\00. Player\Hong_Ship</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Shin_Ship_Body.cpp">
+      <Filter>02.GameObject\00. Player\Shin_Ship</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Fire_PSystem.cpp">
+      <Filter>02.GameObject\10. ParticleSystem\Fire_PSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
