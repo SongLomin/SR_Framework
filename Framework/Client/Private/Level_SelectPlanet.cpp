@@ -260,16 +260,16 @@ void CLevel_SelectPlanet::SelectPlanet_Event(float fTimeDelta)
 	m_fTextBoxTime -= fTimeDelta;
 
 
-	if (m_fTextBoxTime <= 297.f && !m_bTextBoxCheck[0])
+	if (m_fTextBoxTime <= 297.f && !m_bEventCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
 	}
 
-	if (m_fTextBoxTime <= 293.f && !m_bTextBoxCheck[0])
+	if (m_fTextBoxTime <= 293.f && !m_bEventCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(false);
-		m_bTextBoxCheck[0] = true;
+		m_bEventCheck[0] = true;
 	}
 
 	if (m_fTextBoxTime <= 291.f)
