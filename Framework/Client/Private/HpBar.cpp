@@ -49,160 +49,183 @@ void CHpBar::Tick(_float fTimeDelta)
 	{
 		CStatus* pPlayerStatusCom = TransformCom->Get_Owner()->Get_Component<CStatus>();
 
-		
-	/*	if (pPlayerStatusCom->Get_Status().fHp != pPlayerStatusCom->Get_Status().fMaxHp)
+		if (pPlayerStatusCom->Get_Status().fHp != pPlayerStatusCom->Get_Status().fMaxHp)
 		{
-				m_fX = m_fX * pPlayerStatusCom->Get_Status().fHp / pPlayerStatusCom->Get_Status().fMaxHp;
-				m_fSizeX = m_fSizeX * pPlayerStatusCom->Get_Status().fHp / pPlayerStatusCom->Get_Status().fMaxHp;
-		}*/
+			_float Damage = pPlayerStatusCom->Get_Status().fMaxHp - pPlayerStatusCom->Get_Status().fHp;  // 1
+
+			_float AfterHp = pPlayerStatusCom->Get_Status().fMaxHp - Damage;                             // 9
+
+			if (pPlayerStatusCom->Get_Status().fHp == AfterHp)                     // 9 = 9
+			{
+				if (m_fX <= 220 * AfterHp / pPlayerStatusCom->Get_Status().fMaxHp ||
+					m_fSizeX <= 150 * AfterHp / pPlayerStatusCom->Get_Status().fMaxHp)
+				{
+					m_fX = 220 * AfterHp / pPlayerStatusCom->Get_Status().fMaxHp;
+					m_fSizeX = 150 * AfterHp / pPlayerStatusCom->Get_Status().fMaxHp;
+				}
+
+				else
+					m_fX -= 0.3;
+				m_fSizeX -= 0.3;
+			}
 
 
-		if (pPlayerStatusCom->Get_Status().fHp == 10)
-		{
-			m_fX = 220;
-			m_fSizeX = 150;
+
+			//    	}
+				  /*m_fX = m_fX * pPlayerStatusCom->Get_Status().fHp / pPlayerStatusCom->Get_Status().fMaxHp;
+				  m_fSizeX = m_fSizeX * pPlayerStatusCom->Get_Status().fHp / pPlayerStatusCom->Get_Status().fMaxHp;*/
+
+
+
+
+
+				  //if (pPlayerStatusCom->Get_Status().fHp == 10)
+				  //{
+				  //	m_fX = 220;
+				  //	m_fSizeX = 150;
+				  //}
+
+				  // if (pPlayerStatusCom->Get_Status().fHp == 9)
+				  //{
+
+				  // if (m_fX <= 205 || m_fSizeX <= 135)
+				  //	 {
+				  //		 m_fX = 205;
+				  //		 m_fSizeX = 135;
+				  //	 }
+				  //	
+				  // else
+				  //	 m_fX -= 0.3;
+				  //	 m_fSizeX -= 0.3;
+				  //}
+
+				  // if (pPlayerStatusCom->Get_Status().fHp == 8)
+				  // {
+				  //	 if (m_fX <= 190 || m_fSizeX <= 120)
+				  //	 {
+				  //		 m_fX = 190;
+				  //		 m_fSizeX = 120;
+				  //	 }
+
+				  //	 else
+				  //		 m_fX -= 0.3;
+				  //	 m_fSizeX -= 0.3;
+				  // }
+
+				  // if (pPlayerStatusCom->Get_Status().fHp == 7)
+				  // {
+
+				  //	 if (m_fX <= 175 || m_fSizeX <= 105)
+				  //	 {
+				  //		 m_fX = 175;
+				  //		 m_fSizeX = 105;
+				  //	 }
+
+				  //	 else
+				  //		 m_fX -= 0.3;
+				  //	 m_fSizeX -= 0.3;
+				  //
+				  // }
+
+				  // if (pPlayerStatusCom->Get_Status().fHp == 6)
+				  // {
+				  //	 if (m_fX <= 160 || m_fSizeX <= 90)
+				  //	 {
+				  //		 m_fX = 160;
+				  //		 m_fSizeX = 90;
+				  //	 }
+
+				  //	 else
+				  //		 m_fX -= 0.3;
+				  //	 m_fSizeX -= 0.3;
+
+				  // }
+
+				  // if (pPlayerStatusCom->Get_Status().fHp == 5)
+				  // {
+
+				  //	 if (m_fX <= 145 || m_fSizeX <= 75)
+				  //	 {
+				  //		 m_fX = 145;
+				  //		 m_fSizeX = 75;
+				  //	 }
+
+				  //	 else
+				  //		 m_fX -= 0.3;
+				  //	 m_fSizeX -= 0.3;
+				  //
+				  // }
+
+				  // if (pPlayerStatusCom->Get_Status().fHp == 4)
+				  // {
+
+				  //	 if (m_fX <= 130 || m_fSizeX <= 60)
+				  //	 {
+				  //		 m_fX = 130;
+				  //		 m_fSizeX = 60;
+				  //	 }
+
+				  //	 else
+				  //		 m_fX -= 0.3;
+				  //	 m_fSizeX -= 0.3;
+				  //
+				  // }
+
+				  // if (pPlayerStatusCom->Get_Status().fHp == 3)
+				  // {
+				  //	 if (m_fX <= 115 || m_fSizeX <= 45)
+				  //	 {
+				  //		 m_fX = 115;
+				  //		 m_fSizeX = 45;
+				  //	 }
+
+				  //	 else
+				  //		 m_fX -= 0.3;
+				  //	 m_fSizeX -= 0.3;
+				  // }
+
+				  // if (pPlayerStatusCom->Get_Status().fHp == 2)
+				  // {
+				  //	 if (m_fX <= 100 || m_fSizeX <= 30)
+				  //	 {
+				  //		 m_fX = 100;
+				  //		 m_fSizeX = 30;
+				  //	 }
+
+				  //	 else
+				  //		 m_fX -= 0.3;
+				  //	 m_fSizeX -= 0.3;
+				  // }
+
+				  // if (pPlayerStatusCom->Get_Status().fHp == 1)
+				  // {
+				  //	 if (m_fX <= 85 || m_fSizeX <= 15)
+				  //	 {
+				  //		 m_fX = 85;
+				  //		 m_fSizeX = 15;
+				  //	 }
+
+				  //	 else
+				  //		 m_fX -= 0.3;
+				  //	 m_fSizeX -= 0.3;
+				  // }
+
+				  // if (pPlayerStatusCom->Get_Status().fHp == 0)
+				  // {
+				  //	 if (m_fX <= 70 || m_fSizeX <= 0)
+				  //	 {
+				  //		 m_fX = 70;
+				  //		 m_fSizeX = 0;
+				  //	 }
+
+				  //	 else
+				  //		 m_fX -= 0.3;
+				  //	 m_fSizeX -= 0.3;
+				  // }
+
+
+
 		}
-
-		 if (pPlayerStatusCom->Get_Status().fHp == 9)
-		{
-
-		 if (m_fX <= 205 || m_fSizeX <= 135)
-			 {
-				 m_fX = 205;
-				 m_fSizeX = 135;
-			 }
-			
-		 else
-			 m_fX -= 0.3;
-			 m_fSizeX -= 0.3;
-		}
-
-		 if (pPlayerStatusCom->Get_Status().fHp == 8)
-		 {
-			 if (m_fX <= 190 || m_fSizeX <= 120)
-			 {
-				 m_fX = 190;
-				 m_fSizeX = 120;
-			 }
-
-			 else
-				 m_fX -= 0.3;
-			 m_fSizeX -= 0.3;
-		 }
-
-		 if (pPlayerStatusCom->Get_Status().fHp == 7)
-		 {
-
-			 if (m_fX <= 175 || m_fSizeX <= 105)
-			 {
-				 m_fX = 175;
-				 m_fSizeX = 105;
-			 }
-
-			 else
-				 m_fX -= 0.3;
-			 m_fSizeX -= 0.3;
-		
-		 }
-
-		 if (pPlayerStatusCom->Get_Status().fHp == 6)
-		 {
-			 if (m_fX <= 160 || m_fSizeX <= 90)
-			 {
-				 m_fX = 160;
-				 m_fSizeX = 90;
-			 }
-
-			 else
-				 m_fX -= 0.3;
-			 m_fSizeX -= 0.3;
-
-		 }
-
-		 if (pPlayerStatusCom->Get_Status().fHp == 5)
-		 {
-
-			 if (m_fX <= 145 || m_fSizeX <= 75)
-			 {
-				 m_fX = 145;
-				 m_fSizeX = 75;
-			 }
-
-			 else
-				 m_fX -= 0.3;
-			 m_fSizeX -= 0.3;
-		
-		 }
-
-		 if (pPlayerStatusCom->Get_Status().fHp == 4)
-		 {
-
-			 if (m_fX <= 130 || m_fSizeX <= 60)
-			 {
-				 m_fX = 130;
-				 m_fSizeX = 60;
-			 }
-
-			 else
-				 m_fX -= 0.3;
-			 m_fSizeX -= 0.3;
-		
-		 }
-
-		 if (pPlayerStatusCom->Get_Status().fHp == 3)
-		 {
-			 if (m_fX <= 115 || m_fSizeX <= 45)
-			 {
-				 m_fX = 115;
-				 m_fSizeX = 45;
-			 }
-
-			 else
-				 m_fX -= 0.3;
-			 m_fSizeX -= 0.3;
-		 }
-
-		 if (pPlayerStatusCom->Get_Status().fHp == 2)
-		 {
-			 if (m_fX <= 100 || m_fSizeX <= 30)
-			 {
-				 m_fX = 100;
-				 m_fSizeX = 30;
-			 }
-
-			 else
-				 m_fX -= 0.3;
-			 m_fSizeX -= 0.3;
-		 }
-
-		 if (pPlayerStatusCom->Get_Status().fHp == 1)
-		 {
-			 if (m_fX <= 85 || m_fSizeX <= 15)
-			 {
-				 m_fX = 85;
-				 m_fSizeX = 15;
-			 }
-
-			 else
-				 m_fX -= 0.3;
-			 m_fSizeX -= 0.3;
-		 }
-
-		 if (pPlayerStatusCom->Get_Status().fHp == 0)
-		 {
-			 if (m_fX <= 70 || m_fSizeX <= 0)
-			 {
-				 m_fX = 70;
-				 m_fSizeX = 0;
-			 }
-
-			 else
-				 m_fX -= 0.3;
-			 m_fSizeX -= 0.3;
-		 }
-
-
-		
 	}
 
 	

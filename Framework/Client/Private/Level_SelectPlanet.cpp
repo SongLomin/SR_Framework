@@ -144,6 +144,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	return S_OK;
 }
 
+
 void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
@@ -162,13 +163,13 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 
 
 	 m_fTextBoxTime -= fTimeDelta;
-
+	
 
 	if (m_fTextBoxTime <= 298.f)
 	{
 		if (!GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang")));
-		GAMEINSTANCE->Add_Text(_point{ (LONG)520, (LONG)620 }, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
-		//GAMEINSTANCE->Add_Text(_point{ (LONG)520, (LONG)620 }, D3DCOLOR_ARGB(255, 255, 0, 40), 1.f, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
+		//GAMEINSTANCE->Add_Text(_point{ (LONG)520, (LONG)620 }, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)520, (LONG)620 }, D3DCOLOR_ARGB(255, 255, 0, 40), 0.f, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
 	}
 
 	
