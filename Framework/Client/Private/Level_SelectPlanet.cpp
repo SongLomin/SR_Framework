@@ -83,6 +83,9 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("CLight_Moon")))
 		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
+		return E_FAIL;
+
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);
@@ -90,6 +93,8 @@ HRESULT CLevel_SelectPlanet::Initialize()
 
 	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest"));
 	m_pQuestBoxObject->Set_Enable(false);
+
+
 
 
 	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(500);
