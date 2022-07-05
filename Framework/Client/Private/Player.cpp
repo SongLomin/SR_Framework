@@ -33,9 +33,9 @@ void CPlayer::Tick(_float fTimeDelta)
 			elem->Set_Controller(CONTROLLER::PLAYER);
 		}
 
-		++i;
+			++i;
+		}
 	}
-
 }
 
 void CPlayer::LateTick(_float fTimeDelta)
