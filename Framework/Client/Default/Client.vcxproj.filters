@@ -324,7 +324,6 @@
     <ClInclude Include="..\Public\Planet_Venus.h">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Rock.h" />
     <ClInclude Include="SelectPlanet_SkyBox.h" />
     <ClInclude Include="..\Public\Rock.h">
       <Filter>02.GameObject\06. Rock</Filter>
@@ -382,6 +381,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\Fire_PSystem.h">
       <Filter>02.GameObject\10. ParticleSystem\Fire_PSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h">
+      <Filter>02.GameObject\12. Rock</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -505,7 +507,6 @@
     <ClCompile Include="..\Private\Planet_Venus.cpp">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Rock.cpp" />
     <ClCompile Include="SelectPlanet_SkyBox.cpp" />
     <ClCompile Include="..\Private\Rock.cpp">
       <Filter>02.GameObject\06. Rock</Filter>
@@ -569,6 +570,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Fire_PSystem.cpp">
       <Filter>02.GameObject\10. ParticleSystem\Fire_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp">
+      <Filter>02.GameObject\12. Rock</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
