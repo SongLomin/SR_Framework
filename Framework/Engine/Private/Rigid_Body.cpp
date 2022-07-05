@@ -170,6 +170,12 @@ void CRigid_Body::Add_Camera(Func Dir, _float fDir)
 	}
 }
 
+void CRigid_Body::Add_Speed(_float3 fDir)
+{
+	m_vSpeed += fDir;
+}
+
+
 
 void CRigid_Body::Compute_Force()
 {

@@ -157,7 +157,7 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 		{
 			m_bCinematic = false;
 			GAMEINSTANCE->Swap_Camera();
-			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_REDPLANET))))
+			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
 				return;
 		}
 	}
@@ -190,10 +190,11 @@ HRESULT CLevel_SelectPlanet::Render()
 	return S_OK;
 }
 
-void CLevel_SelectPlanet::Change_Level(void* pArg)
+void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 {
 	m_fTime = 5.f;
 	m_bCinematic = true;
+	m_iNextLevel = _iNextLevel;
 
 	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player"));
 	for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)

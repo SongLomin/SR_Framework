@@ -131,16 +131,17 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 
 	if (BoundaryLength > m_fDefaultBoundary)
 	{
-		_float3 vRight;
+		/*_float3 vRight;
 		_float3 vUp;
 		D3DXVec3Cross(&vRight, &_float3(0.f, 1.f, 0.f), &TargetDir);
 		D3DXVec3Cross(&vUp, &TargetDir, &vRight);
 
 		m_pRigidBody->Set_Direction(CRigid_Body::STATE_RIGHT, vRight);
 		m_pRigidBody->Set_Direction(CRigid_Body::STATE_UP, vUp);
-		m_pRigidBody->Set_Direction(CRigid_Body::STATE_LOOK, TargetDir);
+		m_pRigidBody->Set_Direction(CRigid_Body::STATE_LOOK, TargetDir);*/
 
-		m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
+		m_pTransform->LookAt(pTransform);
+		m_pTransform->Go_BackAndForth(100.f, fTimeDelta);
 
 		//m_pRigidBody->Set_Booster(true);
 		// 

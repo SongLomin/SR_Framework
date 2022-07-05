@@ -42,7 +42,7 @@ void CPlanet_Venus::Tick(_float fTimeDelta)
 	{
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
 		{
-			GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this);
+			GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this,LEVEL::LEVEL_VENUSPLANET);
 			m_bLevelChange = true;
 			return;
 		}

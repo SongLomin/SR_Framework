@@ -73,10 +73,11 @@ public:
 
 	void		Add_Dir(Func Dir, _float fDir =0.f);
 	void		Add_Camera(Func Dir, _float fDir = 0.f);
-
+	void		Add_Speed(_float3 fDir);
 	
 	void		Update_Transform(_float fTimeDelta);
 	void		Set_DirVector();
+
 private:
 	void		Compute_Force();
 	void		Compute_Camera();

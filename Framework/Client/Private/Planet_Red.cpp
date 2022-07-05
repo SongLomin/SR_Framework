@@ -45,7 +45,7 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldRay, &MouseEndPos))
 		{
-			GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this);
+			GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this,LEVEL::LEVEL_REDPLANET);
 			m_bLevelChange = true;
 			return;
 		}

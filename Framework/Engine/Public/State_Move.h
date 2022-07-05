@@ -54,7 +54,7 @@ public:
 
 private:
 	_float4x4 m_TargetWorldMat;
-	_float		m_fDefaultBoundary = 100.f;
+	_float		m_fDefaultBoundary = 50.f;
 
 public:
 	static CState_Move* Create();
