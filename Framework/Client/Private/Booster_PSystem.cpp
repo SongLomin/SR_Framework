@@ -1,46 +1,62 @@
 #include "stdafx.h"
-#include "Fire_PSystem.h"
-#include "GameInstance.h"
+#include "Booster_PSystem.h"
 #include "Math_Utillity.h"
+#include "GameInstance.h"
 
-CFire_PSystem::CFire_PSystem(const CFire_PSystem& Prototype)
+CBooster_PSystem::CBooster_PSystem(const CBooster_PSystem& Prototype)
 {
 	*this = Prototype;
 }
 
-HRESULT CFire_PSystem::Initialize_Prototype()
+HRESULT CBooster_PSystem::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CFire_PSystem::Initialize(void* pArg)
+HRESULT CBooster_PSystem::Initialize(void* pArg)
 {
-	m_size = 0.1f;
+	m_size = 1.f;
 
 
 	m_vbSize = 2048;
 	m_vbOffset = 0;
 	m_vbBatchSize = 512;
 
-	m_BeginColor = _float3(1.f, 0.9f, 0.f);
-	m_EndColor = _float3(1.f, 0.f, 0.f);
+	
+
+	m_fCurSpeed = 0.f;
+	m_fMaxSpeed = 1.f;
+	m_BeginColor = _float3(1.f, 1.f, 1.f);
+	m_EndColor = _float3(0.f, 0.1f, 0.8f);
 
 	__super::Initialize(pArg);
+
+	//m_pRenderer = Get_Component<CRenderer>();
+	m_pRenderer->Set_Textures_From_Key(TEXT("Booster"), MEMORY_TYPE::MEMORY_STATIC);
+
 
 	return S_OK;
 }
 
-void CFire_PSystem::Tick(_float fTimeDelta)
+void CBooster_PSystem::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
 	//수명 진행상황 퍼센트 0 ~ 1
 	_float fAge_ratio;
+	//_float fSpeed_ratio;
 	_float3 CurrentColor;
 	std::list<ParticleDesc>::iterator iter;
 	for (iter = m_particles.begin(); iter != m_particles.end(); iter++)
 	{
-		iter->position += iter->velocity * fTimeDelta;
+
+		//m_fCurSpeed += 0.002f;
+		//if (m_fCurSpeed >= 1.f)
+		//{
+		//	m_fCurSpeed = m_fMaxSpeed;
+		//}
+		//fSpeed_ratio = m_fCurSpeed / m_fMaxSpeed;
+
 		fAge_ratio = iter->age / iter->lifeTime;
 
 		CurrentColor = m_BeginColor * (1.f - fAge_ratio) + m_EndColor * (fAge_ratio);
@@ -57,22 +73,16 @@ void CFire_PSystem::Tick(_float fTimeDelta)
 
 		iter->age += fTimeDelta;
 	}
-
-	if (IsDead())
-	{
-		Set_Enable(false);
-		printf("%s : Set_Enable(false).\n", typeid(*this).name());
-	}
 }
 
-void CFire_PSystem::LateTick(_float fTimeDelta)
+void CBooster_PSystem::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
 	m_pRenderer->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
-HRESULT CFire_PSystem::Render_Begin(ID3DXEffect** Shader)
+HRESULT CBooster_PSystem::Render_Begin(ID3DXEffect** Shader)
 {
 	m_pTransform->Bind_WorldMatrix();
 
@@ -102,70 +112,77 @@ HRESULT CFire_PSystem::Render_Begin(ID3DXEffect** Shader)
 	return S_OK;
 }
 
-HRESULT CFire_PSystem::Render()
+HRESULT CBooster_PSystem::Render()
 {
-	//m_pRenderer->Bind_Texture();
+	m_pRenderer->Bind_Texture(1);
+
+
+
+	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	DEVICE->SetRenderState(D3DRS_ALPHAREF, 253);
+	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 
 	__super::Render();
+
+	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+
 
 	DEVICE->SetRenderState(D3DRS_LIGHTING, false);
 	DEVICE->SetRenderState(D3DRS_POINTSPRITEENABLE, false);
 	DEVICE->SetRenderState(D3DRS_POINTSCALEENABLE, false);
 	DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 
+
+
 	//언바인드
+	m_pRenderer->UnBind_Texture();
 	return S_OK;
 }
 
-void CFire_PSystem::ResetParticle(ParticleDesc* Desc)
+void CBooster_PSystem::ResetParticle(ParticleDesc* Desc)
 {
 	Desc->isAlive = true;
 
 
-	m_size = (_float)((rand() % 5 + 10) * 0.01f);
-	
+	//m_size = (_float)((rand() % 5 + 10) * 0.01f);
+	m_size = 50.f;
+
 	Desc->position.x = 0.f;
-	Desc->position.y = 0.f + 1.f;
-	Desc->position.z = 0.f;
+	Desc->position.y = 0.f;
+	Desc->position.z = -7.f;
 
-	Desc->velocity.x = (_float)((rand() % 31) * 0.5f) - 10.5f;
-	Desc->velocity.y = (_float)((rand() % 31) * 0.5f) - 7.5f;
-	Desc->velocity.z = (_float)((rand() % 7) * 0.5f) - 1.5f;
+	Desc->velocity.x = (_float)((rand() % 21) * 0.5f) - 5.f;
+	Desc->velocity.y = (_float)((rand() % 21) * 0.5f) - 11.f;
+	Desc->velocity.z = (_float)((rand() % 21) * 0.5f) - 5.f;
 
-	//Desc->velocity.x = 1.f;
-	//Desc->velocity.y = 1.f;
-	//Desc->velocity.z = 1.f;
 
-	//Desc->velocity *= 10.f;
-
-	// white snow flake
 	Desc->color = D3DCOLOR_ARGB(255, (_uint)(m_BeginColor.x * 255), (_uint)(m_BeginColor.y * 255), (_uint)(m_BeginColor.z * 255));
-	//Desc->colorFade = D3DCOLOR_RGBA(255, 0, 0, 255);
+
 	Desc->age = 0.f;
-	Desc->lifeTime = 1.f;
+	Desc->lifeTime = 0.5f;
 }
 
-CFire_PSystem* CFire_PSystem::Create()
+CBooster_PSystem* CBooster_PSystem::Create()
 {
-	CREATE_PIPELINE(CFire_PSystem);
+	CREATE_PIPELINE(CBooster_PSystem);
 }
 
-CGameObject* CFire_PSystem::Clone(void* pArg)
+CGameObject* CBooster_PSystem::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CFire_PSystem);
+	CLONE_PIPELINE(CBooster_PSystem);
 }
 
-void CFire_PSystem::Free()
+void CBooster_PSystem::Free()
 {
 	__super::Free();
 
 	delete this;
 }
 
-void CFire_PSystem::OnEnable(void* _Arg)
+void CBooster_PSystem::OnEnable(void* _Arg)
 {
 }
 
-void CFire_PSystem::OnDisable()
+void CBooster_PSystem::OnDisable()
 {
 }

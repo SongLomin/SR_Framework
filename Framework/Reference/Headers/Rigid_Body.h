@@ -139,6 +139,11 @@ public:
 
 		return _float3();
 	}
+
+	_bool Get_Booster()
+	{
+		return m_bBooster;
+	}
 	
 private:
 	CTransform*		m_pTransform;

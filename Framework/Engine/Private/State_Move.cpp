@@ -118,7 +118,9 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 	CTransform* pTransform = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform();
 	
 	_float3 MyPos = _Transform->Get_World_State(CTransform::STATE_POSITION);
-	_float3 MyDir = _Transform->Get_World_State(CTransform::STATE_LOOK);
+	_float3 MyLook = _Transform->Get_World_State(CTransform::STATE_LOOK);
+	_float3 MyRight = _Transform->Get_World_State(CTransform::STATE_RIGHT);
+	_float3 MyUp = _Transform->Get_World_State(CTransform::STATE_UP);
 
 	_float3 TargetPos = pTransform->Get_World_State(CTransform::STATE_POSITION);
 
@@ -140,7 +142,12 @@ void CState_Move::State_Tick(CTransform* _Transform, _float fTimeDelta)
 		m_pRigidBody->Set_Direction(CRigid_Body::STATE_UP, vUp);
 		m_pRigidBody->Set_Direction(CRigid_Body::STATE_LOOK, TargetDir);
 
-		m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
+		//m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
+		m_pTransform->Go_BackAndForth(8.f, fTimeDelta);
+
+		/*m_pRigidBody->Set_Direction(CRigid_Body::STATE_RIGHT, MyRight);
+		m_pRigidBody->Set_Direction(CRigid_Body::STATE_UP, MyUp);
+		m_pRigidBody->Set_Direction(CRigid_Body::STATE_LOOK, MyLook);*/
 
 		//m_pRigidBody->Set_Booster(true);
 		// 

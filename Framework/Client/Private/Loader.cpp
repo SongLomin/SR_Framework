@@ -178,6 +178,10 @@ HRESULT CLoader::Loading_ForLogoLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Booster"), TEXT("../Bin/Resources/Textures/Particle/Booster.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
 	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
 		return E_FAIL;
 

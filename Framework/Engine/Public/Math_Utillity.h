@@ -40,7 +40,7 @@ public:
 
 public:
 	static DWORD FtoDw(float f);
-
+	static _float Get_RandomFloat(_float LowBound, _float HighBound);
 };
 
 END

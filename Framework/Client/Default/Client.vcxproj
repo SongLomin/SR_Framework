@@ -168,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\BoosterBar.h" />
+    <ClInclude Include="..\Public\Booster_PSystem.h" />
     <ClInclude Include="..\Public\Bullet.h" />
     <ClInclude Include="..\Public\BulletCountUI.h" />
     <ClInclude Include="..\Public\BulletUI.h" />
@@ -229,6 +230,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\BoosterBar.cpp" />
+    <ClCompile Include="..\Private\Booster_PSystem.cpp" />
     <ClCompile Include="..\Private\Bullet.cpp" />
     <ClCompile Include="..\Private\BulletCountUI.cpp" />
     <ClCompile Include="..\Private\BulletUI.cpp" />

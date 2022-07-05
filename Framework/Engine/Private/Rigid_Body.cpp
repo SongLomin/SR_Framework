@@ -14,17 +14,7 @@ CRigid_Body::CRigid_Body(const CRigid_Body& Prototype)
 void CRigid_Body::Tick(_float fTimeDelta)
 {
 	
-	if (m_bBooster)
-	{
-		if (m_fTimeCount < 0.f)
-		{
-			m_fTimeCount = 0.f;
-			m_bBooster = false;
-		}
-
-		m_fTimeCount -= fTimeDelta;
-		
-	}
+	
 }
 
 void CRigid_Body::LateTick(_float fTimeDelta)

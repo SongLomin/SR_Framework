@@ -11,6 +11,7 @@ HRESULT CParticleSystem::Initialize(void* pArg)
 	m_pRenderer = Add_Component<CRenderer>();
 	WEAK_PTR(m_pRenderer);
 
+
 	HRESULT hr = 0;
 
 	hr = DEVICE->CreateVertexBuffer(

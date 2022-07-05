@@ -187,8 +187,14 @@
     <Filter Include="02.GameObject\12. Rock">
       <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\10. ParticleSystem\Fire_PSystem">
+    <Filter Include="02.GameObject\10. ParticleSystem\02. Fire_PSystem">
       <UniqueIdentifier>{0912303c-d4de-443f-bd2e-c029a038e879}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem\03. Booster_PSystem">
+      <UniqueIdentifier>{787a83de-c61c-4b15-b499-fd128322e05a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem\04.">
+      <UniqueIdentifier>{54bf25db-7a05-4d2d-9cfe-28c75a274a32}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -381,7 +387,10 @@
       <Filter>02.GameObject\00. Player\Shin_Ship</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Fire_PSystem.h">
-      <Filter>02.GameObject\10. ParticleSystem\Fire_PSystem</Filter>
+      <Filter>02.GameObject\10. ParticleSystem\02. Fire_PSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Booster_PSystem.h">
+      <Filter>02.GameObject\10. ParticleSystem\03. Booster_PSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -568,7 +577,10 @@
       <Filter>02.GameObject\00. Player\Shin_Ship</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Fire_PSystem.cpp">
-      <Filter>02.GameObject\10. ParticleSystem\Fire_PSystem</Filter>
+      <Filter>02.GameObject\10. ParticleSystem\02. Fire_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Booster_PSystem.cpp">
+      <Filter>02.GameObject\10. ParticleSystem\03. Booster_PSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

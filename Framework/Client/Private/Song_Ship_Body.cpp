@@ -13,6 +13,7 @@
 #include "HpBar.h"
 #include "Lazer_Turret.h"
 #include <Fire_PSystem.h>
+#include "Booster_PSystem.h"
 
 
 
@@ -55,7 +56,7 @@ void CSong_Ship_Body::Tick(_float fTimeDelta)
 	if (KEY_INPUT(KEY::M, KEY_STATE::TAP))
 	{
 		//메모리 풀 사용
-		((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom);
+		//((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom);
 	}
 
 }
@@ -160,7 +161,7 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 #pragma region Rigid_Body Setting
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 40.f;
+	RigidBodyDesc.m_fOwnerSpeed = 20.f;
 	RigidBodyDesc.m_fOwnerAccel = 0.5f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
@@ -172,13 +173,13 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 	RigidBodyDesc.m_fRadZ = 0.01f;
 
 
-	RigidBodyDesc.m_fOwnerLiftSpeed = 40.f;
+	RigidBodyDesc.m_fOwnerLiftSpeed = 20.f;
 	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;
 
-	RigidBodyDesc.m_fBoosterSpeed = 500.f;
-	RigidBodyDesc.m_fBoosterAccel = 50.f;
+	RigidBodyDesc.m_fBoosterSpeed = 50.f;
+	RigidBodyDesc.m_fBoosterAccel = 0.1f;
 	m_pRigid_BodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigid_BodyCom->Set_WeakPtr(&m_pRigid_BodyCom);
 	m_pRigid_BodyCom->Link_TransformCom(m_pTransformCom);
