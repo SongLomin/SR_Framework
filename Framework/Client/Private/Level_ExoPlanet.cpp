@@ -121,12 +121,6 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 			return;
 	}
 	
-	m_fMaxTime -= fTimeDelta;
-
-	/*GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);*/
-
-	
-	GAMEINSTANCE->Add_Text(_point{ (LONG)1075, (LONG)90 }, TEXT(" %d"), 1, (_uint)m_fMaxTime);
 
 
 	if (m_fMaxTime <= 0)
@@ -145,9 +139,7 @@ HRESULT CLevel_ExoPlanet::Render()
 
 	SetWindowText(g_hWnd, TEXT("Exo Planet 레벨입니다. "));
 
-	GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, TEXT("            -임무-  \n   제한시간동안 생존하기 "), 0);
-	GAMEINSTANCE->Add_Text(_point{ (LONG)1100, (LONG)90 }, TEXT("  / 180"), 0);
-	
+
 
 	return S_OK;
 }

@@ -183,11 +183,11 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 
 
 
-	if (m_fMaxTime <= 0)
+	/*if (m_fMaxTime <= 0)
 	{
 		if (FAILED(GAMEINSTANCE->Get_Instance()->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
 			return;
-	}
+	}*/
 
 
 	
@@ -273,14 +273,63 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 		m_bTextBoxCheck[2] = true;
 	}
 
+	if (m_fTextBoxTime <= 229.f && !m_bTextBoxCheck[3])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("지원병력이 거의 다 와가네! 조금만 더 버텨주게나!"), 0);
+	}
 
-	if (m_fTextBoxTime <= 279.f)
+	if (m_fTextBoxTime <= 225.f && !m_bTextBoxCheck[3])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bTextBoxCheck[3] = true;
+	}
+
+	if (m_fTextBoxTime <= 179.f && !m_bTextBoxCheck[4])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("고생 많았네 모조리 쓸어보자고!"), 0);
+
+		m_fSpawnTime -= fTimeDelta;
+		if (m_fSpawnTime < 0.f)
+		{
+			if (!GAMEINSTANCE->Add_GameObject<CAI_Friendly>(CURRENT_LEVEL, TEXT("AI_Friendly")))
+				return;
+
+			m_fSpawnTime = 0.1f;
+		}
+
+	}
+
+
+	if (m_fTextBoxTime <= 174.f && !m_bTextBoxCheck[4])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bTextBoxCheck[4] = true;
+	}
+
+
+	if (m_fTextBoxTime <= 279.f && !m_bTextBoxCheck[8])
 	{
 		m_pQuestBoxObject->Set_Enable(true);
 
 		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n  지원병력 도착까지 생존하기 \n  남은시간 (초) : "), 0);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)1145, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("%d"), 1, (_uint)m_fMaxTime);
 		m_fMaxTime -= fTimeDelta;
+	}
+
+
+	if (m_fTextBoxTime <= 179 && !m_bTextBoxCheck[8])
+	{
+		m_pQuestBoxObject->Set_Enable(false);
+		m_bTextBoxCheck[8] = true;
+	}
+
+
+	if (m_fTextBoxTime <= 175 && !m_bTextBoxCheck[9])
+	{
+		m_pQuestBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n  모든 적 비행선 섬멸 "), 0);
 	}
 }
 
