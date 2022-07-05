@@ -250,7 +250,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	if (m_fTextBoxTime <= 290.f && !m_bTextBoxCheck[1])
 	{
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("젠장! 전방에 적 함체들이 몰려오고있어!"), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이봐 저기 달쪽에 무언가 빨간색이 보이지않나?"), 0);
 	}
 
 	if (m_fTextBoxTime <= 287.f && !m_bTextBoxCheck[1])
@@ -263,7 +263,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	if (m_fTextBoxTime <= 284.f && !m_bTextBoxCheck[2])
 	{
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("지금바로 지원병력을 보낼테니 조금만 버텨주게!"), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("젠장! 전방에 적 함체들이 몰려오고있어! \n 지금바로 지원병력을 보낼테니 조금만 버텨주게!"), 0);
 	}
 
 
@@ -279,7 +279,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 		m_pQuestBoxObject->Set_Enable(true);
 
 		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            -임무-  \n  지원병력 도착까지 생존하기 \n  남은시간 (초) : "), 0);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)1140, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("%d"), 1, (_uint)m_fMaxTime);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)1145, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("%d"), 1, (_uint)m_fMaxTime);
 		m_fMaxTime -= fTimeDelta;
 	}
 }
