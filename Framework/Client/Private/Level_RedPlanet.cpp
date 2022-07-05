@@ -167,7 +167,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 			return;
 	}
 
-	GAMEINSTANCE->Add_Text(_point{ (LONG)1075, (LONG)90 }, TEXT(" %d"), 1, (_uint)m_fMaxTime);
+	GAMEINSTANCE->Add_Text(_point{ (LONG)1135, (LONG)90 }, TEXT(" %d"), 1, (_uint)m_fMaxTime);
 
 
 	m_fMaxTime -= fTimeDelta;
@@ -188,8 +188,8 @@ HRESULT CLevel_RedPlanet::Render()
 
 	SetWindowText(g_hWnd, TEXT("Red Planet 레벨입니다. "));
 
-	GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, TEXT("            -임무-  \n   제한시간동안 생존하기 "), 0);
-	GAMEINSTANCE->Add_Text(_point{ (LONG)1100, (LONG)90 }, TEXT("  / 180"), 0);
+	GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, TEXT("            -임무-  \n  지원병력 도착까지 생존하기. "), 0);
+	GAMEINSTANCE->Add_Text(_point{ (LONG)1050, (LONG)90 }, TEXT("남은시간 (초) :"), 0);
 
 	return S_OK;
 }
