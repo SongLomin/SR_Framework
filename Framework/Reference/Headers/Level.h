@@ -20,7 +20,9 @@ public:
 
 protected:
 	_float		m_fTime = 0.f;
+	_float      m_fTextBoxTime = 300.f;
 	_bool		m_bCinematic = false;
+	
 
 public:
 	virtual void Free() override;

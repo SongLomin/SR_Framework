@@ -552,6 +552,9 @@
     <ClCompile Include="..\Private\Player.cpp">
       <Filter>02.GameObject\00. Player</Filter>
     </ClCompile>
+    <ClCompile Include="..\Private\TextBox.cpp">
+      <Filter>02.GameObject\07. UI\TextBox</Filter>
+    </ClCompile>
     <ClCompile Include="..\private\Song_Ship_Body.cpp">
       <Filter>02.GameObject\00. Player\Song_Ship</Filter>
     </ClCompile>
