@@ -25,6 +25,7 @@
 #include "Quest.h"
 #include "SpaceDust_PSystem.h"
 #include "TextBox.h"
+#include "Warring.h"
 
 CLevel_SelectPlanet::CLevel_SelectPlanet()
 {
@@ -84,6 +85,10 @@ HRESULT CLevel_SelectPlanet::Initialize()
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
+		return E_FAIL;
+
+
+	if (!GAMEINSTANCE->Add_GameObject<CWarring>(LEVEL_SELECTPLANET, TEXT("Warring")))
 		return E_FAIL;
 
 

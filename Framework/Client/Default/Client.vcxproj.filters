@@ -190,6 +190,9 @@
     <Filter Include="02.GameObject\07. UI\Loading\Logo">
       <UniqueIdentifier>{6bb5c36a-72de-4ccf-81d5-8849cacc2d18}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\07. UI\Warring">
+      <UniqueIdentifier>{6e8e4125-5748-4dfb-a1e5-3d5936265b4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -346,9 +349,6 @@
     <ClInclude Include="..\Public\Loading.h">
       <Filter>02.GameObject\07. UI\Loading</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Rock.h">
-      <Filter>02.GameObject\10. Rock</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\Bullet.h">
       <Filter>02.GameObject\03. Bullet</Filter>
     </ClInclude>
@@ -385,6 +385,10 @@
     <ClInclude Include="..\Public\Rock.h" />
     <ClInclude Include="..\Public\UI.h">
       <Filter>02.GameObject\07. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h" />
+    <ClInclude Include="..\Public\Warring.h">
+      <Filter>02.GameObject\07. UI\Warring</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -533,9 +537,6 @@
     <ClCompile Include="..\Private\Loading.cpp">
       <Filter>02.GameObject\07. UI\Loading</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Rock.cpp">
-      <Filter>02.GameObject\10. Rock</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\Bullet.cpp">
       <Filter>02.GameObject\03. Bullet</Filter>
     </ClCompile>
@@ -575,6 +576,10 @@
     <ClCompile Include="..\Private\Rock.cpp" />
     <ClCompile Include="..\Private\UI.cpp">
       <Filter>02.GameObject\07. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp" />
+    <ClCompile Include="..\Private\Warring.cpp">
+      <Filter>02.GameObject\07. UI\Warring</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
