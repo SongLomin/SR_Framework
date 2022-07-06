@@ -195,6 +195,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 298.f)
 	{
+		/*스테이지 클리어 시, Set_Enable에서 터짐*/
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)530, (LONG)620 }, TEXT("제길, 적군 기체가 몰려오고있어!\n지원병력이 올떄까지 조금만 버텨주게! "), 0);
 	}

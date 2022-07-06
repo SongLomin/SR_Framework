@@ -117,40 +117,48 @@ void CRocket_Bullet::Find_Way()
 		}
 		if (m_pTarget)
 		{
-			/*_float3 vDir = m_pTarget->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION) - m_pTransformCom->Get_State(CTransform::STATE_POSITION);
-			_float3 vLook = m_pRigidBodyCom->Get_Direction(CRigid_Body::STATE_LOOK);
-			D3DXVec3Normalize(&vDir, &vDir);
-			D3DXVec3Normalize(&vLook, &vLook);
+			_float fDistance = D3DXVec3Length(&(m_pTransformCom->Get_World_State(CTransform::STATE_POSITION) - m_pTarget->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION)));
+			if (40.f > fDistance)
+			{
+				m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>());
+				m_pTransformCom->Go_BackAndForth(1.f, 0.5f);
+				m_pTransformCom->Update_WorldMatrix();
+			}
+			else
+			{
+				_float3 vDir = m_pTarget->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION) - m_pTransformCom->Get_State(CTransform::STATE_POSITION);
+				_float3 vLook = m_pRigidBodyCom->Get_Direction(CRigid_Body::STATE_LOOK);
+				D3DXVec3Normalize(&vDir, &vDir);
+				D3DXVec3Normalize(&vLook, &vLook);
 
-			m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>());
+				_float fDotProduct = D3DXVec3Dot(&vDir, &vLook);
+				if (0.f > fDotProduct)
+				{
+					_float3 fCrossProduct;
+					D3DXVec3Cross(&fCrossProduct, &vLook, &vDir);
+					if (0.f > D3DXVec3Length(&fCrossProduct))
+					{
+						m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
+					}
+					else if (0.f < D3DXVec3Length(&fCrossProduct))
+					{
+						m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
+					}
+				}
+				else
+				{
+					_float3 vVec = fDotProduct * vDir;
+					D3DXVec3Normalize(&vVec, &vVec);
 
-			_float fDotProduct = D3DXVec3Dot(&vDir, &vLook);
-			_float3 vVec = fDotProduct * vDir;
-			D3DXVec3Normalize(&vVec, &vVec);
+					_float3 vProj = vVec + vLook;
+					D3DXVec3Normalize(&vProj, &vProj);
 
-			_float3 vProj = vVec + vLook;
-			D3DXVec3Normalize(&vProj, &vProj);
-
-			m_pRigidBodyCom->Set_Direction(CRigid_Body::STATE_LOOK, vProj);*/
-
-			
-			m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>());
-			m_pTransformCom->Go_BackAndForth(1.f, 0.5f);
-			m_pTransformCom->Update_WorldMatrix();
-
-			//대체왜사라짐?
-		
+					m_pRigidBodyCom->Set_Direction(CRigid_Body::STATE_LOOK, vProj);
+				}
+			}
 		}
 	}
-	//else
-	//{
-	//	if (m_pTarget)
-	//	{
-	//		m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>());
-	//		m_pTransformCom->Go_BackAndForth(1.f, 0.5f);
-	//		m_pTransformCom->Update_WorldMatrix();
-	//	}
-	//}
+
 	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 }
 
