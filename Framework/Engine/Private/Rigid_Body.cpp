@@ -170,7 +170,7 @@ void CRigid_Body::Add_Camera(Func Dir, _float fDir)
 	}
 }
 
-void CRigid_Body::Add_Speed(_float3 fDir)
+void CRigid_Body::Add_Force(_float3 fDir)
 {
 	m_vSpeed += fDir;
 }
@@ -543,6 +543,19 @@ void CRigid_Body::Set_DirVector()
 	m_vUp = m_pTransform->Get_State(CTransform::STATE_UP);
 	m_vPos = m_pTransform->Get_State(CTransform::STATE_POSITION);
 	m_vScale = m_pTransform->Get_Scaled();
+}
+
+_float3 CRigid_Body::Get_Vector(RIGID_BODY eType)
+{
+	switch (eType)
+	{
+	case RIGID_BODY::ACCEL:
+		return m_vAccel;
+	
+	case RIGID_BODY::SPEED:
+		return m_vSpeed;
+		//받아오고 싶은 물리량 알아서 추가
+	}
 }
 
 CRigid_Body* CRigid_Body::Create()

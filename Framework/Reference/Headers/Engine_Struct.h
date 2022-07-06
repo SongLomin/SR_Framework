@@ -258,6 +258,7 @@ namespace Engine
 	enum class TEXTURE_TYPE { TYPE_DEFAULT = 0, TYPE_CUBE, TYPE_END };
 	enum class MEMORY_TYPE { MEMORY_STATIC = 0, MEMORY_DYNAMIC, MEMORY_END };
 
+	enum class RIGID_BODY { ACCEL=0, SPEED};
 
 	enum class KEY_STATE {
 		TAP, // 막 누른 시점
