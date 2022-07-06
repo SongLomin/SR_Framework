@@ -32,6 +32,7 @@
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
 #include "Quest.h"
+#include <SelectPlanet_SkyBox.h>
 
 CLevel_MagmaPlanet::CLevel_MagmaPlanet()
 {
@@ -57,12 +58,19 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
 
+	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(CURRENT_LEVEL, TEXT("Camera"));
+	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
+	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
+
+	/*CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_Free>(CURRENT_LEVEL, TEXT("Camera"));
+	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
+	GAMEINSTANCE->Register_Camera(TEXT("Free"), Moving_Cam->Get_Component<CCamera>());*/
 
 
 	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_MAGMAPLANET, TEXT("Player")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVEL_MAGMAPLANET, TEXT("SkyBox")))
+	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_MAGMAPLANET, TEXT("Aim")))

@@ -7,6 +7,7 @@
 #include "Cam_Shoulder.h"
 #include "Cam_TPS.h"
 #include "MovingCamera.h"
+#include "Cam_Free.h"
 #include "Song_Ship_Body.h"
 #include "SelectPlanet_SkyBox.h"
 #include "Default_Aim.h"
@@ -25,6 +26,8 @@
 #include "Quest.h"
 #include "SpaceDust_PSystem.h"
 #include "TextBox.h"
+#include <Bomb_Effect.h>
+#include "Warring.h"
 
 CLevel_SelectPlanet::CLevel_SelectPlanet()
 {
@@ -52,6 +55,11 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(CURRENT_LEVEL, TEXT("Camera"));
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
+
+	/*CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_Free>(CURRENT_LEVEL, TEXT("Camera"));
+	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
+	GAMEINSTANCE->Register_Camera(TEXT("Free"), Moving_Cam->Get_Component<CCamera>());
+*/
 
 	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_SELECTPLANET, TEXT("Player")))
 		return E_FAIL;
@@ -83,13 +91,23 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("CLight_Moon")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest")))
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
 		return E_FAIL;
 
-	m_pTextObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
-	m_pTextObject->Set_Enable(false);
 
-	
+	if (!GAMEINSTANCE->Add_GameObject<CWarring>(LEVEL_SELECTPLANET, TEXT("Warring")))
+		return E_FAIL;
+
+
+	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
+	m_pTextBoxObject->Set_Enable(false);
+
+
+	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest"));
+	m_pQuestBoxObject->Set_Enable(false);
+
+
+
 
 	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(500);
 
@@ -100,7 +118,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	LEVEL m_eNextPlanet = LEVEL_STATIC;
 	LEVEL m_ePreNextPlanet = m_eNextPlanet;
 
-	for (_uint i = 0; i < 2; ++i)
+	for (_uint i = 0; i < 4; ++i)
 	{
 		
 
@@ -157,22 +175,14 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 		{
 			m_bCinematic = false;
 			GAMEINSTANCE->Swap_Camera();
-			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_REDPLANET))))
+			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
 				return;
 		}
 	}
 
 
-	 m_fTextBoxTime -= fTimeDelta;
-
-
-	if (m_fTextBoxTime <= 298.f)
-	{
-		m_pTextObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)520, (LONG)620 }, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
-		//GAMEINSTANCE->Add_Text(_point{ (LONG)520, (LONG)620 }, D3DCOLOR_ARGB(255, 255, 0, 40), 1.f, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
-	}
-
+	 
+	SelectPlanet_Event(fTimeDelta);
 	
 
 }
@@ -184,16 +194,20 @@ HRESULT CLevel_SelectPlanet::Render()
 
 
 	SetWindowText(g_hWnd, TEXT("Select Planet 레벨입니다. "));
-
-	GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, TEXT("            -임무-  \n   행성을 선택해 점령하라. \n             0 / 5"), 0);
+	
 
 	return S_OK;
 }
 
-void CLevel_SelectPlanet::Change_Level(void* pArg)
+void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 {
+	if (m_bCinematic)
+		return;
+
+
 	m_fTime = 5.f;
 	m_bCinematic = true;
+	m_iNextLevel = _iNextLevel;
 
 	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player"));
 	for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)
@@ -201,6 +215,7 @@ void CLevel_SelectPlanet::Change_Level(void* pArg)
 		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
 		{
 			CComponent* Temp = (*iter)->Get_Component<CPlayer_Controller>();
+
 			Temp->Set_Enable(false);
 			Temp = (*iter)->Get_Component<CRigid_Body>();
 			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::SPIN, 0.f);
@@ -238,7 +253,6 @@ void CLevel_SelectPlanet::Change_Level(void* pArg)
 		nullptr, nullptr, 1.f, 0.05f
 	);
 
-	
 }
 
 
@@ -261,4 +275,42 @@ void CLevel_SelectPlanet::Free()
 	__super::Free();
 
 	delete this;
+}
+
+void CLevel_SelectPlanet::SelectPlanet_Event(float fTimeDelta)
+{
+	m_fTextBoxTime -= fTimeDelta;
+
+
+	if (m_fTextBoxTime <= 297.f && !m_bEventCheck[0])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
+	}
+
+	if (m_fTextBoxTime <= 293.f && !m_bEventCheck[0])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[0] = true;
+	}
+
+	if (m_fTextBoxTime <= 291.f && !m_bEventCheck[1])
+	{
+		m_pQuestBoxObject->Set_Enable(true);
+
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)60 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n행성들을 정복해 비행선 강화하기"), 0);
+	  
+		m_iFontiX -= 0.8;
+
+		if (m_iFontiX <= 1040)
+		{
+			m_iFontiX = 1040;
+		}
+	}
+
+	if (m_bCinematic)
+	{
+		m_pQuestBoxObject->Set_Enable(false);
+		m_bEventCheck[1] = true;
+	}
 }

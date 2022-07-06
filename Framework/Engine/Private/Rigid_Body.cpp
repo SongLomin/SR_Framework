@@ -14,17 +14,7 @@ CRigid_Body::CRigid_Body(const CRigid_Body& Prototype)
 void CRigid_Body::Tick(_float fTimeDelta)
 {
 	
-	if (m_bBooster)
-	{
-		if (m_fTimeCount < 0.f)
-		{
-			m_fTimeCount = 0.f;
-			m_bBooster = false;
-		}
-
-		m_fTimeCount -= fTimeDelta;
-		
-	}
+	
 }
 
 void CRigid_Body::LateTick(_float fTimeDelta)
@@ -169,6 +159,12 @@ void CRigid_Body::Add_Camera(Func Dir, _float fDir)
 
 	}
 }
+
+void CRigid_Body::Add_Force(_float3 fDir)
+{
+	m_vSpeed += fDir;
+}
+
 
 
 void CRigid_Body::Compute_Force()
@@ -502,17 +498,17 @@ void CRigid_Body::Update_Transform(_float fTimeDelta)
 		SubTurn();
 
 
-		D3DXVec3Normalize(&m_vSubLook, &m_vSubLook);
-		D3DXVec3Normalize(&m_vSubUp, &m_vSubUp);
-		D3DXVec3Normalize(&m_vSubRight, &m_vSubRight);
+		D3DXVec3Normalize(&m_vLook, &m_vLook);
+		D3DXVec3Normalize(&m_vUp, &m_vUp);
+		D3DXVec3Normalize(&m_vRight, &m_vRight);
 
-		m_vSubLook *= m_vScale.z;
-		m_vSubUp *= m_vScale.y;
-		m_vSubRight *= m_vScale.x;
+		m_vLook *= m_vScale.z;
+		m_vUp *= m_vScale.y;
+		m_vRight *= m_vScale.x;
 
-		m_pTransform->Set_State(CTransform::STATE_LOOK, m_vSubLook);
-		m_pTransform->Set_State(CTransform::STATE_UP, m_vSubUp);
-		m_pTransform->Set_State(CTransform::STATE_RIGHT, m_vSubRight);
+		m_pTransform->Set_State(CTransform::STATE_LOOK, m_vLook);
+		m_pTransform->Set_State(CTransform::STATE_UP, m_vUp);
+		m_pTransform->Set_State(CTransform::STATE_RIGHT, m_vRight);
 		m_pTransform->Set_State(CTransform::STATE_POSITION, m_vPos);
 	}
 	m_vAccel = _float3(0.f, 0.f, 0.f);
@@ -532,11 +528,24 @@ void CRigid_Body::Set_DirVector()
 		m_bFirst = false;
 	}
 
-	m_vSubLook = m_pTransform->Get_State(CTransform::STATE_LOOK);
-	m_vSubRight = m_pTransform->Get_State(CTransform::STATE_RIGHT);
-	m_vSubUp = _float3(0.f, 1.f, 0.f);
+	m_vLook = m_pTransform->Get_State(CTransform::STATE_LOOK);
+	m_vRight = m_pTransform->Get_State(CTransform::STATE_RIGHT);
+	m_vUp = m_pTransform->Get_State(CTransform::STATE_UP);
 	m_vPos = m_pTransform->Get_State(CTransform::STATE_POSITION);
 	m_vScale = m_pTransform->Get_Scaled();
+}
+
+_float3 CRigid_Body::Get_Vector(RIGID_BODY eType)
+{
+	switch (eType)
+	{
+	case RIGID_BODY::ACCEL:
+		return m_vAccel;
+	
+	case RIGID_BODY::SPEED:
+		return m_vSpeed;
+		//받아오고 싶은 물리량 알아서 추가
+	}
 }
 
 CRigid_Body* CRigid_Body::Create()

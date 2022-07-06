@@ -29,6 +29,22 @@ namespace Engine
 	typedef struct tagVertex_XYZ
 	{
 		float		x, y, z;
+
+		tagVertex_XYZ(const D3DXVECTOR3& _Pos)
+		{
+			x = _Pos.x;
+			y = _Pos.y;
+			z = _Pos.z;
+		}
+
+		tagVertex_XYZ(const float& _x, const float& _y, const float& _z)
+		{
+			x = _x;
+			y = _y;
+			z = _z;
+		}
+
+		static const DWORD FVF = D3DFVF_XYZ;
 	}VTX;
 
 
@@ -253,11 +269,12 @@ namespace Engine
 	};
 
 
-	enum class RENDERGROUP { RENDER_DEFERRED = 0, RENDER_PRIORITY, RENDER_NONALPHABLEND, RENDER_ALPHABLEND, RENDER_UI, RENDER_END };
+	enum class RENDERGROUP { RENDER_PRIORITY = 0, RENDER_DEFERRED, RENDER_NONALPHABLEND, RENDER_ALPHABLEND, RENDER_UI, RENDER_END };
 
 	enum class TEXTURE_TYPE { TYPE_DEFAULT = 0, TYPE_CUBE, TYPE_END };
 	enum class MEMORY_TYPE { MEMORY_STATIC = 0, MEMORY_DYNAMIC, MEMORY_END };
 
+	enum class RIGID_BODY { ACCEL=0, SPEED};
 
 	enum class KEY_STATE {
 		TAP, // 막 누른 시점
@@ -320,33 +337,23 @@ namespace Engine
 		SHAPE_END
 	};
 
-	enum class STATE_MOVE 
+
+	// 각 행동 종류 분류는 100단위다. 즉, 행동 종류마다 최대 100개까지 정의할 수 있다.
+	// 최대 행동 종류는 900번대까지 쓸 수 있다. (컨트롤러에서 늘릴 수 있음)
+	enum class STATE
 	{ 
-		MOVE_UPPER_LEFT, 
+		MOVE_UPPER_LEFT = 0, 
 		MOVE_DOWN_FRONT, 
 		MOVE_LIFT_FRONT, 
 		MOVE_LIFT_BACK, 
 		MOVE_JUMP_FRONT, 
 		MOVE_UPPER_RIGHT,
-		STATE_END
-	};
-
-
-	enum class STATE_MOVETARGET
-	{
-		MOVETARGET_CHASE,
+		MOVETARGET_CHASE = 100,
 		MOVETARGET_RSPIN,
 		MOVETARGET_LSPIN,
 		MOVETARGET_BACK,
-		MOVETARGET_END
-	};
-
-
-	enum class STATE
-	{
-		STATE_MOVE,
-		STATE_ATTACK,
-		STATE_DEAD,
+		ATTACK_TAP = 200, //Fire를 한 번만 호출하고, 정해진 시간동안 대기
+		ATTACK_HOLD, //정해진 시간동안 계속 Fire를 호출
 		STATE_END
 	};
 

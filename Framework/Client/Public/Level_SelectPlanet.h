@@ -20,17 +20,22 @@ public:
 	virtual void Tick(_float fTimeDelta);
 	virtual HRESULT Render();
 
-	virtual void	Change_Level(void* pArg) ;
+	virtual void	Change_Level(void* pArg, _uint _iNextLevel) ;
 	virtual HRESULT Complete_Condition() { return S_OK; }
 
 public:
 	static CLevel_SelectPlanet* Create();
 	virtual void Free() override;
 
+private:
+	void SelectPlanet_Event(float fTimeDelta);
 
 private:
-	_float m_fTextBoxTime = 100;
-	CGameObject* m_pTextObject = nullptr;
+	
+
+
+
+
 
 };
 

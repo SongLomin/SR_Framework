@@ -29,9 +29,10 @@ public:
 
 
 public:
-    void     Set_Target(CGameObject* _Target);
-    _bool    LookAt_Targeting();
-    void     LookAt_Aim();
+    void        Set_Target(CGameObject* _Target);
+    _bool       LookAt_Targeting();
+    void        LookAt_Aim();
+    void        Command_Fire();
 
 private:
     CTransform* m_pTransformCom = nullptr;
@@ -42,19 +43,20 @@ private:
 
 private:
     CGameObject* m_pBoxObject = nullptr;
-    CGameObject* m_pTarget = nullptr;
+    CGameObject* m_pTarget = nullptr;//Rocket bullet을 만들 때 넘겨주기
 
     COLLISION_TYPE m_eBulletCollisionType = COLLISION_TYPE::PLAYER_ATTACK;
 
 private:
     _float	 m_fCurTime = 0.f;
-    _float	 m_fMaxTime = 1.f;
+    _float	 m_fMaxTime = 0.1f;
 
 private:
     HRESULT SetUp_Components();
 
 protected: /* For Event Function */
     virtual void On_Change_Controller(const CONTROLLER& _eController) override;
+    virtual void On_EventMessage(void* _Arg) override;
 
 public:
     // CGameObject을(를) 통해 상속됨

@@ -6,6 +6,13 @@ BEGIN(Engine)
 class ENGINE_DLL CController abstract : public CComponent
 {
 protected:
+	enum STATE_TYPE
+	{
+		STATE_MOVE = 0,
+		STATE_MOVETARGET,
+		STATE_ATTACK
+	};
+
 	CController();
 	CController(const CController& Prototype);
 	virtual ~CController() = default;

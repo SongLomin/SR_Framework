@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "GameInstance.h"
 #include "Normal_Turret.h"
+#include <Booster_PSystem.h>
 
 CPlayer::CPlayer()
 {
@@ -34,6 +35,13 @@ void CPlayer::Tick(_float fTimeDelta)
 		}
 
 			++i;
+	}
+
+
+
+	if (m_pRigid_BodyCom->Get_Booster())
+	{
+		((CBooster_PSystem*)GAMEINSTANCE->Add_GameObject<CBooster_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom);
 	}
 }
 

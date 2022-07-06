@@ -167,12 +167,16 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Public\Bomb_Effect.h" />
+    <ClInclude Include="..\Public\AI_TransportShip.h" />
     <ClInclude Include="..\Public\BoosterBar.h" />
+    <ClInclude Include="..\Public\Booster_PSystem.h" />
     <ClInclude Include="..\Public\Bullet.h" />
     <ClInclude Include="..\Public\BulletCountUI.h" />
     <ClInclude Include="..\Public\BulletUI.h" />
     <ClInclude Include="..\Public\AI_Friendly.h" />
     <ClInclude Include="..\Public\Default_Aim.h" />
+    <ClInclude Include="..\Public\Effect.h" />
     <ClInclude Include="..\Public\Fire_PSystem.h" />
     <ClInclude Include="..\Public\Hong_Ship_Body.h" />
     <ClInclude Include="..\Public\Lazer_Bullet.h" />
@@ -182,6 +186,7 @@
     <ClInclude Include="..\Public\Level_VenusPlanet.h" />
     <ClInclude Include="..\Public\Light_Moon.h" />
     <ClInclude Include="..\Public\Loading.h" />
+    <ClInclude Include="..\Public\Move_PSystem.h" />
     <ClInclude Include="..\Public\Normal_Turret.h" />
     <ClInclude Include="..\Public\HpBar.h" />
     <ClInclude Include="..\Public\Level_SelectPlanet.h" />
@@ -193,6 +198,7 @@
     <ClInclude Include="..\Public\Planet_Venus.h" />
     <ClInclude Include="..\Public\Player.h" />
     <ClInclude Include="..\Public\Shin_Ship_Body.h" />
+    <ClInclude Include="..\Public\Smoke_PSystem.h" />
     <ClInclude Include="..\public\Song_Ship_Body.h" />
     <ClInclude Include="..\Public\Cam_FPS.h" />
     <ClInclude Include="..\Public\Normal_Bullet.h" />
@@ -218,7 +224,9 @@
     <ClInclude Include="..\Public\Kang_Ship_Body.h" />
     <ClInclude Include="..\Public\TextBox.h" />
     <ClInclude Include="..\Public\Trajectory_PSystem.h" />
+    <ClInclude Include="..\Public\UI.h" />
     <ClInclude Include="..\Public\UITest.h" />
+    <ClInclude Include="..\Public\Warring.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="EnemySpace_Body.h" />
     <ClInclude Include="Logo.h" />
@@ -228,12 +236,16 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Private\AI_TransportShip.cpp" />
+    <ClCompile Include="..\Private\Bomb_Effect.cpp" />
     <ClCompile Include="..\Private\BoosterBar.cpp" />
+    <ClCompile Include="..\Private\Booster_PSystem.cpp" />
     <ClCompile Include="..\Private\Bullet.cpp" />
     <ClCompile Include="..\Private\BulletCountUI.cpp" />
     <ClCompile Include="..\Private\BulletUI.cpp" />
     <ClCompile Include="..\Private\AI_Friendly.cpp" />
     <ClCompile Include="..\Private\Default_Aim.cpp" />
+    <ClCompile Include="..\Private\Effect.cpp" />
     <ClCompile Include="..\Private\Fire_PSystem.cpp" />
     <ClCompile Include="..\Private\Hong_Ship_Body.cpp" />
     <ClCompile Include="..\Private\Lazer_Bullet.cpp" />
@@ -243,6 +255,7 @@
     <ClCompile Include="..\Private\Level_VenusPlanet.cpp" />
     <ClCompile Include="..\Private\Light_Moon.cpp" />
     <ClCompile Include="..\Private\Loading.cpp" />
+    <ClCompile Include="..\Private\Move_PSystem.cpp" />
     <ClCompile Include="..\Private\Normal_Turret.cpp" />
     <ClCompile Include="..\Private\HpBar.cpp" />
     <ClCompile Include="..\Private\Level_SelectPlanet.cpp" />
@@ -254,6 +267,7 @@
     <ClCompile Include="..\Private\Planet_Venus.cpp" />
     <ClCompile Include="..\Private\Player.cpp" />
     <ClCompile Include="..\Private\Shin_Ship_Body.cpp" />
+    <ClCompile Include="..\Private\Smoke_PSystem.cpp" />
     <ClCompile Include="..\private\Song_Ship_Body.cpp" />
     <ClCompile Include="..\Private\Normal_Bullet.cpp" />
     <ClCompile Include="..\Private\Cam_FPS.cpp" />
@@ -278,7 +292,9 @@
     <ClCompile Include="..\Private\Kang_Ship_Body.cpp" />
     <ClCompile Include="..\Private\TextBox.cpp" />
     <ClCompile Include="..\Private\Trajectory_PSystem.cpp" />
+    <ClCompile Include="..\Private\UI.cpp" />
     <ClCompile Include="..\Private\UITest.cpp" />
+    <ClCompile Include="..\Private\Warring.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="EnemySpace_Body.cpp" />
     <ClCompile Include="Logo.cpp" />

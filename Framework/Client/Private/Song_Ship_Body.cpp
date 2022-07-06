@@ -13,6 +13,9 @@
 #include "HpBar.h"
 #include "Lazer_Turret.h"
 #include <Fire_PSystem.h>
+#include "Booster_PSystem.h"
+#include "Smoke_PSystem.h"
+#include <Move_PSystem.h>
 
 
 
@@ -52,11 +55,21 @@ void CSong_Ship_Body::Tick(_float fTimeDelta)
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
 	}
 
-	if (KEY_INPUT(KEY::M, KEY_STATE::TAP))
+	if (KEY_INPUT(KEY::M, KEY_STATE::HOLD))
 	{
-		//메모리 풀 사용
-		((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom);
+		((CMove_PSystem*)GAMEINSTANCE->Add_GameObject<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"), nullptr, nullptr, true))->AddParticle(10, m_pTransformCom);
 	}
+
+	/*if (Get_Controller() == CONTROLLER::PLAYER)
+	{
+		if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
+		{
+			for (auto& elem : m_pMyPosinList)
+			{
+				elem->Command_Fire();
+			}
+		}
+	}*/
 
 }
 
@@ -88,6 +101,7 @@ HRESULT CSong_Ship_Body::Render_Begin(ID3DXEffect** Shader)
 	(*Shader)->SetFloat(DiffuseHandle, Diffuse);
 	(*Shader)->SetFloat(SpecularHandle, Specular);
 
+	
 
 	return S_OK;
 }
@@ -101,6 +115,7 @@ HRESULT CSong_Ship_Body::Render()
 	
 	m_pMeshCom->Render_Mesh();
 
+	
 
 	return S_OK;
 }
@@ -160,7 +175,7 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 #pragma region Rigid_Body Setting
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 40.f;
+	RigidBodyDesc.m_fOwnerSpeed = 20.f;
 	RigidBodyDesc.m_fOwnerAccel = 0.5f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
@@ -172,13 +187,13 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 	RigidBodyDesc.m_fRadZ = 0.01f;
 
 
-	RigidBodyDesc.m_fOwnerLiftSpeed = 40.f;
+	RigidBodyDesc.m_fOwnerLiftSpeed = 20.f;
 	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;
 
-	RigidBodyDesc.m_fBoosterSpeed = 500.f;
-	RigidBodyDesc.m_fBoosterAccel = 50.f;
+	RigidBodyDesc.m_fBoosterSpeed = 50.f;
+	RigidBodyDesc.m_fBoosterAccel = 0.1f;
 	m_pRigid_BodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigid_BodyCom->Set_WeakPtr(&m_pRigid_BodyCom);
 	m_pRigid_BodyCom->Link_TransformCom(m_pTransformCom);

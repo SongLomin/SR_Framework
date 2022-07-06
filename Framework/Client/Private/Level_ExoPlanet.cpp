@@ -32,6 +32,7 @@
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
 #include "Quest.h"
+#include <SelectPlanet_SkyBox.h>
 
 CLevel_ExoPlanet::CLevel_ExoPlanet()
 {
@@ -57,13 +58,20 @@ HRESULT CLevel_ExoPlanet::Initialize()
 	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
 
+	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(CURRENT_LEVEL, TEXT("Camera"));
+	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
+	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
+
+	/*CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_Free>(CURRENT_LEVEL, TEXT("Camera"));
+	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
+	GAMEINSTANCE->Register_Camera(TEXT("Free"), Moving_Cam->Get_Component<CCamera>());*/
 
 
 	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVLE_EXOPLANET, TEXT("Player")))
 		return E_FAIL;
 
 	
-	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVLE_EXOPLANET, TEXT("SkyBox")))
+	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVLE_EXOPLANET, TEXT("Aim")))
@@ -121,12 +129,6 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 			return;
 	}
 	
-	m_fMaxTime -= fTimeDelta;
-
-	/*GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);*/
-
-	
-	GAMEINSTANCE->Add_Text(_point{ (LONG)1075, (LONG)90 }, TEXT(" %d"), 1, (_uint)m_fMaxTime);
 
 
 	if (m_fMaxTime <= 0)
@@ -145,9 +147,7 @@ HRESULT CLevel_ExoPlanet::Render()
 
 	SetWindowText(g_hWnd, TEXT("Exo Planet 레벨입니다. "));
 
-	GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, TEXT("            -임무-  \n   제한시간동안 생존하기 "), 0);
-	GAMEINSTANCE->Add_Text(_point{ (LONG)1100, (LONG)90 }, TEXT("  / 180"), 0);
-	
+
 
 	return S_OK;
 }

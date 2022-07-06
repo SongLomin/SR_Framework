@@ -31,6 +31,7 @@
 #include "Planet_Venus.h"
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
+#include <SelectPlanet_SkyBox.h>
 
 CLevel_VenusPlanet::CLevel_VenusPlanet()
 {
@@ -60,11 +61,15 @@ HRESULT CLevel_VenusPlanet::Initialize()
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
+	/*CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_Free>(CURRENT_LEVEL, TEXT("Camera"));
+	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
+	GAMEINSTANCE->Register_Camera(TEXT("Free"), Moving_Cam->Get_Component<CCamera>());*/
+
 
 	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_VENUSPLANET, TEXT("Player")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVEL_VENUSPLANET, TEXT("SkyBox")))
+	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_VENUSPLANET, TEXT("Aim")))

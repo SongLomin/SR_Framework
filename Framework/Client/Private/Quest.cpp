@@ -25,7 +25,7 @@ HRESULT CQuest::Initialize(void* pArg)
 
 	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinCX, g_iWinCY, 0.0f, 1.f);
 
-	m_fX = 1120.f;
+	m_fX = 1380.f;
 	m_fY = 80.f;
 
 	m_fSizeX = 160.0f;
@@ -43,6 +43,13 @@ void CQuest::Tick(_float fTimeDelta)
 
 	
 
+	m_fX -= 0.8f;
+
+	if (m_fX <= 1120.f)
+	{
+		m_fX = 1120.f;
+	}
+
 	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
 
@@ -55,7 +62,7 @@ void CQuest::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
-	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f) * 2);
+	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f) * 2);  
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(m_fX - (g_iWinCX >> 1), -m_fY + (g_iWinCY >> 1), 0.f));
 
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_UI, this);

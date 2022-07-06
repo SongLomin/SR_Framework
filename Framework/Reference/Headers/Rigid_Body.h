@@ -12,6 +12,7 @@ public:
 	enum Func { LEFT,RIGHT,FRONT,BACK,LIFT,DOWN,SPIN,BOOSTER};
 	enum State{ STATE_RIGHT,STATE_UP, STATE_LOOK,STATE_POSITION	};
 
+
 	typedef struct tagRigidbodyDesc
 	{
 		_float		m_fOwnerSpeed; // 앞뒤 움직임 속도
@@ -54,7 +55,7 @@ public:
 	void	Link_TransformCom(CTransform* _pTransform);
 
 public:
-	//이동용 실질적인 이동용
+
 
 	void		Set_Camera(_bool _bCamera)
 	{
@@ -73,11 +74,15 @@ public:
 
 	void		Add_Dir(Func Dir, _float fDir =0.f);
 	void		Add_Camera(Func Dir, _float fDir = 0.f);
-	//실질적인건 아닌데 연출용
+	void		Add_Force(_float3 fDir);
 	
 	void		Update_Transform(_float fTimeDelta);
 	void		Set_DirVector();
+
+	_float3		Get_Vector(RIGID_BODY	eType);
+
 private:
+
 	void		Compute_Force();
 	void		Compute_Camera();
 
@@ -137,7 +142,11 @@ public:
 			
 		}
 
-		return _float3();
+	}
+
+	_bool Get_Booster()
+	{
+		return m_bBooster;
 	}
 	
 private:
@@ -181,6 +190,7 @@ private:
 	_float		m_fLiftSpeed = 0;
 
 	_float		m_fTimeCount = 2.f;
+
 
 
 public:

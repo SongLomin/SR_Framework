@@ -27,6 +27,25 @@ void CGameObject::Free()
 	//delete this;
 }
 
+void CGameObject::Broadcast_EventMessage(void* _Arg)
+{
+	On_EventMessage(_Arg);
+
+	CTransform* myTransform = Get_Component<CTransform>();
+
+	//자식 트랜스폼 리스트
+	list<CTransform*>* Children = myTransform->Get_Children();
+
+	ISVALID(Children, );
+
+	//걔네 for문
+	for (auto& elem : *Children)
+	{
+		//소유자(GameObject) -> Set_Controller
+		elem->Get_Owner()->Broadcast_EventMessage(_Arg);
+	}
+}
+
 void CGameObject::Tick(_float fTimeDelta)
 {
 	for (auto& elem : m_pComs)

@@ -163,7 +163,18 @@ PS_OUTPUT PS_Main(VS_OUTPUT input)
     float3 I_amb = diffuse.rgb * light_ambient;
     float3 I_tot = I_amb + lighting(diffuse.rgb, normal.xyz, position.xyz, specular.rgb, shininess);
 
-    output.color = float4(I_tot + stash.rgb, 1);
+    //output.color = float4(I_tot + stash.rgb, 1);
+
+    
+    if(depth.z > 0)
+    {
+        output.color = float4(I_tot + stash.rgb, 1);
+    }
+    else
+    {
+        output.color = float4(diffuse.xyz, 1);
+    }
+    
     return output;
 }
 

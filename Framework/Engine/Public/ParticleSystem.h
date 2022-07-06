@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CTransform;
 class CRenderer;
 
+
 class ENGINE_DLL CParticleSystem :
     public CGameObject
 {
@@ -51,7 +52,6 @@ protected:
 protected:
 	CTransform*				m_pTransform = nullptr;
 	CRenderer*				m_pRenderer = nullptr;
-
 
 protected:
 	D3DXVECTOR3             m_origin;

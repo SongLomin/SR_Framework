@@ -163,9 +163,6 @@
     <Filter Include="02.GameObject\07. UI\Loading">
       <UniqueIdentifier>{91d6ac50-951a-4727-b597-ac9edfcafe02}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\07. UI\Logo">
-      <UniqueIdentifier>{6bb5c36a-72de-4ccf-81d5-8849cacc2d18}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\07. UI\Quest">
       <UniqueIdentifier>{7db25916-24a3-4d33-9c54-a60e01581cd7}</UniqueIdentifier>
     </Filter>
@@ -187,8 +184,32 @@
     <Filter Include="02.GameObject\12. Rock">
       <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\10. ParticleSystem\Fire_PSystem">
+    <Filter Include="02.GameObject\10. ParticleSystem\02. Fire_PSystem">
       <UniqueIdentifier>{0912303c-d4de-443f-bd2e-c029a038e879}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem\03. Booster_PSystem">
+      <UniqueIdentifier>{787a83de-c61c-4b15-b499-fd128322e05a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\13. Effect">
+      <UniqueIdentifier>{94ce4f5c-7777-4b1d-b68c-2be3a302ece6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\13. Effect\Bomb_Effect">
+      <UniqueIdentifier>{023f9a23-e29e-4fc5-b70a-91bb1dc32678}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem\04. Smoke_PSystem">
+      <UniqueIdentifier>{54bf25db-7a05-4d2d-9cfe-28c75a274a32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem\05. Move_PSystem">
+      <UniqueIdentifier>{5b396ea5-9178-4a3f-bbb2-b940fe1fc62d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\07. UI\Loading\Logo">
+      <UniqueIdentifier>{6bb5c36a-72de-4ccf-81d5-8849cacc2d18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\07. UI\Warring">
+      <UniqueIdentifier>{6e8e4125-5748-4dfb-a1e5-3d5936265b4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\00. Player\AI_TransportShip">
+      <UniqueIdentifier>{1141a8dd-26b4-43f2-982a-c7e2c58c8f63}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -253,7 +274,7 @@
       <Filter>02.GameObject\09. Box\TargetingBox</Filter>
     </ClInclude>
     <ClInclude Include="Logo.h">
-      <Filter>02.GameObject\07. UI\Logo</Filter>
+      <Filter>02.GameObject\07. UI\Loading\Logo</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\AI_Friendly.h">
       <Filter>02.GameObject\00. Player\AI_Friendly</Filter>
@@ -324,11 +345,7 @@
     <ClInclude Include="..\Public\Planet_Venus.h">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Rock.h" />
     <ClInclude Include="SelectPlanet_SkyBox.h" />
-    <ClInclude Include="..\Public\Rock.h">
-      <Filter>02.GameObject\06. Rock</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\Planet_Magma.h">
       <Filter>02.GameObject\06. Planet\Magma</Filter>
     </ClInclude>
@@ -349,9 +366,6 @@
     </ClInclude>
     <ClInclude Include="..\Public\Loading.h">
       <Filter>02.GameObject\07. UI\Loading</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\Rock.h">
-      <Filter>02.GameObject\10. Rock</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Bullet.h">
       <Filter>02.GameObject\03. Bullet</Filter>
@@ -381,7 +395,41 @@
       <Filter>02.GameObject\00. Player\Shin_Ship</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Fire_PSystem.h">
-      <Filter>02.GameObject\10. ParticleSystem\Fire_PSystem</Filter>
+      <Filter>02.GameObject\10. ParticleSystem\02. Fire_PSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Booster_PSystem.h">
+      <Filter>02.GameObject\10. ParticleSystem\03. Booster_PSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Effect.h">
+      <Filter>02.GameObject\13. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h">
+      <Filter>02.GameObject\12. Rock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Bomb_Effect.h">
+      <Filter>02.GameObject\13. Effect\Bomb_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h" />
+    <ClInclude Include="..\Public\Smoke_PSystem.h">
+      <Filter>02.GameObject\10. ParticleSystem\04. Smoke_PSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h" />
+    <ClInclude Include="..\Public\Move_PSystem.h">
+      <Filter>02.GameObject\10. ParticleSystem\05. Move_PSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h">
+      <Filter>02.GameObject\12. Rock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h" />
+    <ClInclude Include="..\Public\UI.h">
+      <Filter>02.GameObject\07. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h" />
+    <ClInclude Include="..\Public\Warring.h">
+      <Filter>02.GameObject\07. UI\Warring</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\AI_TransportShip.h">
+      <Filter>02.GameObject\00. Player\AI_TransportShip</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -434,7 +482,7 @@
       <Filter>02.GameObject\09. Box\TargetingBox</Filter>
     </ClCompile>
     <ClCompile Include="Logo.cpp">
-      <Filter>02.GameObject\07. UI\Logo</Filter>
+      <Filter>02.GameObject\07. UI\Loading\Logo</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\AI_Friendly.cpp">
       <Filter>02.GameObject\00. Player\AI_Friendly</Filter>
@@ -505,11 +553,7 @@
     <ClCompile Include="..\Private\Planet_Venus.cpp">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Rock.cpp" />
     <ClCompile Include="SelectPlanet_SkyBox.cpp" />
-    <ClCompile Include="..\Private\Rock.cpp">
-      <Filter>02.GameObject\06. Rock</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\Planet_Magma.cpp">
       <Filter>02.GameObject\06. Planet\Magma</Filter>
     </ClCompile>
@@ -533,9 +577,6 @@
     </ClCompile>
     <ClCompile Include="..\Private\Loading.cpp">
       <Filter>02.GameObject\07. UI\Loading</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\Rock.cpp">
-      <Filter>02.GameObject\10. Rock</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Bullet.cpp">
       <Filter>02.GameObject\03. Bullet</Filter>
@@ -568,7 +609,41 @@
       <Filter>02.GameObject\00. Player\Shin_Ship</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Fire_PSystem.cpp">
-      <Filter>02.GameObject\10. ParticleSystem\Fire_PSystem</Filter>
+      <Filter>02.GameObject\10. ParticleSystem\02. Fire_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Booster_PSystem.cpp">
+      <Filter>02.GameObject\10. ParticleSystem\03. Booster_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Effect.cpp">
+      <Filter>02.GameObject\13. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp">
+      <Filter>02.GameObject\12. Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Bomb_Effect.cpp">
+      <Filter>02.GameObject\13. Effect\Bomb_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp" />
+    <ClCompile Include="..\Private\Smoke_PSystem.cpp">
+      <Filter>02.GameObject\10. ParticleSystem\04. Smoke_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp" />
+    <ClCompile Include="..\Private\Move_PSystem.cpp">
+      <Filter>02.GameObject\10. ParticleSystem\05. Move_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp">
+      <Filter>02.GameObject\12. Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp" />
+    <ClCompile Include="..\Private\UI.cpp">
+      <Filter>02.GameObject\07. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp" />
+    <ClCompile Include="..\Private\Warring.cpp">
+      <Filter>02.GameObject\07. UI\Warring</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\AI_TransportShip.cpp">
+      <Filter>02.GameObject\00. Player\AI_TransportShip</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -46,7 +46,7 @@ void CBoosterBar::Tick(_float fTimeDelta)
 
 	CTransform* TransformCom = pCurrentCam->Get_Target();
 
-	// HP 10  fx = 220, 22  m_fSizeX = 150  15
+
 	if (TransformCom)
 	{
 		CStatus* pPlayerStatusCom = TransformCom->Get_Owner()->Get_Component<CStatus>();

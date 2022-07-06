@@ -1,0 +1,178 @@
+#include "stdafx.h"
+#include "AI_TransportShip.h"
+#include "GameInstance.h"
+#include "Normal_Turret.h"
+
+CAI_TransportShip::CAI_TransportShip()
+{
+}
+
+CAI_TransportShip::CAI_TransportShip(const CAI_TransportShip& Prototype)
+{
+    *this = Prototype;
+
+    Add_Component<CTransform>();
+
+}
+
+HRESULT CAI_TransportShip::Initialize_Prototype()
+{
+    SetUp_Components();
+
+    return S_OK;
+}
+
+HRESULT CAI_TransportShip::Initialize(void* pArg)
+{
+    return S_OK;
+}
+
+void CAI_TransportShip::Tick(_float fTimeDelta)
+{
+    __super::Tick(fTimeDelta);
+
+}
+
+void CAI_TransportShip::LateTick(_float fTimeDelta)
+{
+    __super::LateTick(fTimeDelta);
+
+}
+
+HRESULT CAI_TransportShip::Render_Begin(ID3DXEffect** Shader)
+{
+    __super::Render_Begin(Shader);
+
+    return S_OK;
+}
+
+HRESULT CAI_TransportShip::Render()
+{
+    __super::Render();
+
+    return S_OK;
+}
+
+void CAI_TransportShip::On_Change_Controller(const CONTROLLER& _IsAI)
+{
+}
+
+void CAI_TransportShip::On_Collision_Enter(CCollider* _Other_Collider)
+{
+}
+
+void CAI_TransportShip::On_Collision_Stay(CCollider* _Other_Collider)
+{
+}
+
+void CAI_TransportShip::On_Collision_Exit(CCollider* _Other_Collider)
+{
+}
+
+HRESULT CAI_TransportShip::SetUp_Components()
+{
+    m_pTransformCom = Get_Component<CTransform>();
+    m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
+    m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(rand() % 20, rand() % 20, rand() % 20));
+
+    m_pRendererCom = Add_Component<CRenderer>();
+    m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
+
+    m_pTargetingCom = Add_Component<CTargeting>();
+    m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
+
+    m_pMeshCom = Add_Component<CMesh_ShinShip>();
+    m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
+
+#pragma region Status Setting
+	CStatus::STATUS		Status;
+	Status.fHp = 10.f;
+	Status.fAttack = 7.f;
+	Status.fArmor = 5.f;
+
+	m_pStatusCom = Add_Component<CStatus>(&Status);
+	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
+#pragma endregion Status Setting
+
+#pragma region Rigid_Body Setting
+	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
+	RigidBodyDesc.m_fOwnerSpeed = 20.f;
+	RigidBodyDesc.m_fOwnerAccel = 0.5f;
+	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
+	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
+	RigidBodyDesc.m_fOwnerJump = 5.f;
+	RigidBodyDesc.m_fOwnerJumpScale = 1.f;
+
+	RigidBodyDesc.m_fFrictional = 0.05f;
+	RigidBodyDesc.m_fRadFrictional = 0.02f;
+	RigidBodyDesc.m_fRadZ = 0.01f;
+
+	RigidBodyDesc.m_fOwnerLiftSpeed = 20.f;
+	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
+	RigidBodyDesc.m_fRadDrag = 1.f;
+	RigidBodyDesc.m_fDirDrag = 0.05f;
+	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
+	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
+	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
+
+#pragma endregion Rigid_Body Setting
+
+#pragma region Collider Setting
+
+	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER;
+	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
+	m_pColliderCom->Link_Transform(m_pTransformCom);
+	m_pColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
+	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
+
+
+#pragma endregion Collider Setting
+
+#pragma region Posin Setting
+
+	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back());
+
+
+#pragma endregion Posin Setting
+
+	m_pStateCom = Add_Component<CState_Move>();
+	m_pStateCom->Set_WeakPtr(&m_pStateCom);
+	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
+	m_pStateCom->Link_AI_Transform(m_pTransformCom);
+
+
+	m_pAIControllerCom = Add_Component<CAI_Controller>();
+	m_pAIControllerCom->Set_WeakPtr(&m_pAIControllerCom);
+	m_pAIControllerCom->Link_Object(this);
+	m_pAIControllerCom->Set_Enable(true);
+
+	Set_Controller(CONTROLLER::AI);
+
+
+    return S_OK;
+}
+
+void CAI_TransportShip::Update_PosinTarget()
+{
+}
+
+CAI_TransportShip* CAI_TransportShip::Create()
+{
+    CREATE_PIPELINE(CAI_TransportShip);
+}
+
+CGameObject* CAI_TransportShip::Clone(void* pArg)
+{
+    CLONE_PIPELINE(CAI_TransportShip);
+}
+
+void CAI_TransportShip::Free()
+{
+    __super::Free();
+
+    delete this;
+
+}

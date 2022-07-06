@@ -134,9 +134,9 @@ HRESULT CLoader::Loading_ForLogoLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	/*if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Sky_Test"), TEXT("../Bin/Resources/Textures/SkyBox/Sky_%d.dds"),
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Sky_Test"), TEXT("../Bin/Resources/Textures/SkyBox/Sky_%d.dds"),
 		TEXTURE_TYPE::TYPE_CUBE, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;*/
+		return E_FAIL;
 
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Status"), TEXT("../Bin/Resources/Textures/UI/Status.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
@@ -177,6 +177,9 @@ HRESULT CLoader::Loading_ForLogoLevel()
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Quest"), TEXT("../Bin/Resources/Textures/UI/Quest.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
+
+
+
 
 	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
 		return E_FAIL;
@@ -308,6 +311,21 @@ HRESULT CLoader::Loading_ForSelectPlanet()
 		return E_FAIL;
 
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("TextBox_Yang"), TEXT("../Bin/Resources/Textures/UI/TextBox_Yang.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Booster_Particle"), TEXT("../Bin/Resources/Textures/Particle/Booster%d.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Bomb_Effect"), TEXT("../Bin/Resources/Textures/Effect/Bomb_%d.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+
+	
+
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Warring"), TEXT("../Bin/Resources/Textures/UI/Warring.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 	

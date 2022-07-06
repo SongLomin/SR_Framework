@@ -43,6 +43,7 @@ public: /* For.Graphic_Device */
 	//void		Deferred_Begin();
 	//void		
 	LPDIRECT3DDEVICE9* Get_Device(void);
+	HRESULT		Add_Text(_point _Pos, _point _AfterPos, _float _Speed, D3DXCOLOR _Color, _float _CountTime, _tchar* _tString, int _iParamCnt, ...);
 	HRESULT		Add_Text(_point _Pos, D3DXCOLOR _Color, _float _CountTime, _tchar* _tString, int _iParamCnt, ...);
 	HRESULT		Add_Text(_point _Pos, _tchar* _tString, int _iParamCnt, ...);
 

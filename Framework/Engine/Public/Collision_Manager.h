@@ -4,6 +4,7 @@
 BEGIN(Engine)
 
 class CCollider;
+class CGameObject;
 
 class CCollision_Manager final :
     public CBase
@@ -23,6 +24,7 @@ public:
 public:
     void Add_Collider(CCollider* pCollider);
     void Erase_Collider(CCollider* pCollider);
+    list<CCollider*>* Get_ColliderList(COLLISION_TYPE _eType);
 
 private:
     void CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_TYPE _eRight);
