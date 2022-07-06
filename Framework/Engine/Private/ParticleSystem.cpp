@@ -11,6 +11,7 @@ HRESULT CParticleSystem::Initialize(void* pArg)
 	m_pRenderer = Add_Component<CRenderer>();
 	WEAK_PTR(m_pRenderer);
 
+
 	HRESULT hr = 0;
 
 	hr = DEVICE->CreateVertexBuffer(
@@ -201,6 +202,8 @@ void CParticleSystem::AddParticle(int num, CTransform* _pTransformCom)
 
 		m_particles.push_back(Desc);
 	}
+	
+	//printf("%s 파티클 소환\n", typeid(*(_pTransformCom->Get_Owner())).name());
 
 }
 

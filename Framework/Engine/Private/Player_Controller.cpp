@@ -84,7 +84,7 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 		m_fTime -= fTimeDelta;
 		if (m_fTime < 0.f)
 		{
-			m_pMyObject->Get_Component<CTargeting>()->Make_Player_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")),m_pMyObject->Get_Component<CTransform>());
+			m_pMyObject->Get_Component<CTargeting>()->Make_Player_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pMyObject->Get_Component<CTransform>());
 			m_fTime = 1.f;
 		}
 
@@ -111,18 +111,18 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 			m_pMyObject->Get_Component<CRigid_Body>()->Set_Booster(true);
 			GAMEINSTANCE->Add_Shaking(0.3f, 0.01f);
 		}
+		else
+		{
+			m_pMyObject->Get_Component<CRigid_Body>()->Set_Booster(false);
+		}
 	}
 }
 
 void CPlayer_Controller::LateTick(_float fTimeDelta)
 {
-	if (Get_Enable())
+	if (!Get_Enable())
 	{
-		if (KEY_INPUT(KEY::LSHIFT, KEY_STATE::AWAY))
-		{
-			m_pMyObject->Get_Component<CRigid_Body>()->Set_Booster(false);
-
-		}
+		m_pMyObject->Get_Component<CRigid_Body>()->Set_Booster(false);
 	}
 }
 

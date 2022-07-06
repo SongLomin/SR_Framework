@@ -313,3 +313,15 @@ DWORD CMath_Utillity::FtoDw(float f)
 	return *((DWORD*)&f);
 }
 
+_float CMath_Utillity::Get_RandomFloat(_float LowBound, _float HighBound)
+{
+	if (LowBound >= HighBound)
+		return LowBound;
+
+	_float f = (rand() % 10000) * 0.0001f;
+
+
+
+	return (f * (HighBound - LowBound)) + LowBound;
+}
+

@@ -184,8 +184,23 @@
     <Filter Include="02.GameObject\12. Rock">
       <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\10. ParticleSystem\Fire_PSystem">
+    <Filter Include="02.GameObject\10. ParticleSystem\02. Fire_PSystem">
       <UniqueIdentifier>{0912303c-d4de-443f-bd2e-c029a038e879}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem\03. Booster_PSystem">
+      <UniqueIdentifier>{787a83de-c61c-4b15-b499-fd128322e05a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\13. Effect">
+      <UniqueIdentifier>{94ce4f5c-7777-4b1d-b68c-2be3a302ece6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\13. Effect\Bomb_Effect">
+      <UniqueIdentifier>{023f9a23-e29e-4fc5-b70a-91bb1dc32678}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem\04. Smoke_PSystem">
+      <UniqueIdentifier>{54bf25db-7a05-4d2d-9cfe-28c75a274a32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem\05. Move_PSystem">
+      <UniqueIdentifier>{5b396ea5-9178-4a3f-bbb2-b940fe1fc62d}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.GameObject\07. UI\Loading\Logo">
       <UniqueIdentifier>{6bb5c36a-72de-4ccf-81d5-8849cacc2d18}</UniqueIdentifier>
@@ -380,7 +395,27 @@
       <Filter>02.GameObject\00. Player\Shin_Ship</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Fire_PSystem.h">
-      <Filter>02.GameObject\10. ParticleSystem\Fire_PSystem</Filter>
+      <Filter>02.GameObject\10. ParticleSystem\02. Fire_PSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Booster_PSystem.h">
+      <Filter>02.GameObject\10. ParticleSystem\03. Booster_PSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Effect.h">
+      <Filter>02.GameObject\13. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h">
+      <Filter>02.GameObject\12. Rock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Bomb_Effect.h">
+      <Filter>02.GameObject\13. Effect\Bomb_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h" />
+    <ClInclude Include="..\Public\Smoke_PSystem.h">
+      <Filter>02.GameObject\10. ParticleSystem\04. Smoke_PSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h" />
+    <ClInclude Include="..\Public\Move_PSystem.h">
+      <Filter>02.GameObject\10. ParticleSystem\05. Move_PSystem</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Rock.h">
       <Filter>02.GameObject\12. Rock</Filter>
@@ -574,7 +609,27 @@
       <Filter>02.GameObject\00. Player\Shin_Ship</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Fire_PSystem.cpp">
-      <Filter>02.GameObject\10. ParticleSystem\Fire_PSystem</Filter>
+      <Filter>02.GameObject\10. ParticleSystem\02. Fire_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Booster_PSystem.cpp">
+      <Filter>02.GameObject\10. ParticleSystem\03. Booster_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Effect.cpp">
+      <Filter>02.GameObject\13. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp">
+      <Filter>02.GameObject\12. Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Bomb_Effect.cpp">
+      <Filter>02.GameObject\13. Effect\Bomb_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp" />
+    <ClCompile Include="..\Private\Smoke_PSystem.cpp">
+      <Filter>02.GameObject\10. ParticleSystem\04. Smoke_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp" />
+    <ClCompile Include="..\Private\Move_PSystem.cpp">
+      <Filter>02.GameObject\10. ParticleSystem\05. Move_PSystem</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Rock.cpp">
       <Filter>02.GameObject\12. Rock</Filter>

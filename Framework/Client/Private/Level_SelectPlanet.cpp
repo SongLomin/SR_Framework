@@ -25,6 +25,7 @@
 #include "Quest.h"
 #include "SpaceDust_PSystem.h"
 #include "TextBox.h"
+#include <Bomb_Effect.h>
 #include "Warring.h"
 
 CLevel_SelectPlanet::CLevel_SelectPlanet()

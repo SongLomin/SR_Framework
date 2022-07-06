@@ -128,8 +128,8 @@ void CFire_PSystem::ResetParticle(ParticleDesc* Desc)
 	Desc->position.y = 0.f + 1.f;
 	Desc->position.z = 0.f;
 
-	Desc->velocity.x = (_float)((rand() % 31) * 0.5f) - 7.5f;
-	Desc->velocity.y = (_float)((rand() % 31) * 0.5f);
+	Desc->velocity.x = (_float)((rand() % 31) * 0.5f) - 10.5f;
+	Desc->velocity.y = (_float)((rand() % 31) * 0.5f) - 7.5f;
 	Desc->velocity.z = (_float)((rand() % 7) * 0.5f) - 1.5f;
 
 	//Desc->velocity.x = 1.f;
@@ -142,7 +142,7 @@ void CFire_PSystem::ResetParticle(ParticleDesc* Desc)
 	Desc->color = D3DCOLOR_ARGB(255, (_uint)(m_BeginColor.x * 255), (_uint)(m_BeginColor.y * 255), (_uint)(m_BeginColor.z * 255));
 	//Desc->colorFade = D3DCOLOR_RGBA(255, 0, 0, 255);
 	Desc->age = 0.f;
-	Desc->lifeTime = 0.5f;
+	Desc->lifeTime = 1.f;
 }
 
 CFire_PSystem* CFire_PSystem::Create()

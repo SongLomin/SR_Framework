@@ -8,6 +8,8 @@
 #include "Math_Utillity.h"
 #include "Mesh_EnemySpace.h"
 #include <Fire_PSystem.h>
+#include <Bomb_Effect.h>
+#include <Smoke_PSystem.h>
 
 CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
 {
@@ -77,6 +79,10 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 		m_fTime = 1.f;
 	}
 
+	if (m_pStatusCom->Get_Status().fHp < m_pStatusCom->Get_Status().fMaxHp / 2.f)
+	{
+		((CSmoke_PSystem*)GAMEINSTANCE->Add_GameObject<CSmoke_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke"), nullptr, nullptr, true))->AddParticle(1, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
+	}
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
@@ -122,9 +128,10 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 {
 
 	CStatus::STATUS Status;
-	Status.fHp = 20.f;
 	Status.fAttack = 1.f;
 	Status.fArmor = 5.f;
+	Status.fMaxHp = 20.f;
+	Status.fHp = Status.fMaxHp;
 
 	m_pStatusCom = Add_Component<CStatus>(&Status);
 	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
@@ -260,11 +267,14 @@ void CEnemySpace_Body::On_Collision_Enter(CCollider* _Other_Collider)
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::PLAYER_ATTACK)
 	{
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
-		((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
-
+		((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle_Fire"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
+		
 		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
 		{
-			Set_Dead();	
+			Set_Dead();
+			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
+
 		}
 	}
 }
