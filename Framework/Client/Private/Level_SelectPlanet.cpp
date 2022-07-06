@@ -280,6 +280,10 @@ void CLevel_SelectPlanet::SelectPlanet_Event(float fTimeDelta)
 	if (m_fTextBoxTime <= 291.f)
 	{
 		m_pQuestBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)60 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n행성들을 정복해 비행선 강화하기"), 0);
+
+		
+
+		
+		GAMEINSTANCE->Add_Text(_point{ (LONG)1160, (LONG)60 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n행성들을 정복해 비행선 강화하기"), 0);
 	}
 }

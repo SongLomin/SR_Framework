@@ -30,6 +30,9 @@ public:
 private:
 	void SelectPlanet_Event(float fTimeDelta);
 
+private:
+
+
 
 
 

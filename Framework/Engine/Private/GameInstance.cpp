@@ -135,6 +135,33 @@ LPDIRECT3DDEVICE9* CGameInstance::Get_Device(void)
 	return m_pGraphic_Device->Get_Device();
 }
 
+HRESULT CGameInstance::Add_Text(_point _Pos, _point _AfterPos, _float _Speed, D3DXCOLOR _Color, _float _CountTime, _tchar* _tString, int _iParamCnt, ...)
+{
+	if (nullptr == m_pGraphic_Device)
+		return E_FAIL;
+
+
+	TEXTINFO Info;
+	Info.rcTemp = { _Pos.x -= _Speed, _Pos.y, _Pos.x  -= _Speed + 3000 , _Pos.y + 3000 };
+
+	if (_Pos.x <= _AfterPos.x)
+	{
+		_Pos.x = _AfterPos.x;
+	}
+
+
+	Info.color = _Color;
+
+	va_list args;
+	va_start(args, _iParamCnt);
+
+	vswprintf(Info.szBuff, MAX_PATH, _tString, args);
+
+	va_end(args);
+
+	return m_pGraphic_Device->Add_Text(Info, _CountTime);
+}
+
 HRESULT CGameInstance::Add_Text(_point _Pos, D3DXCOLOR _Color, _float _CountTime, _tchar* _tString, int _iParamCnt, ...)
 {
 	if (nullptr == m_pGraphic_Device)
