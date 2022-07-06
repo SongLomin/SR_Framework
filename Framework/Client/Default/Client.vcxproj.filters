@@ -163,9 +163,6 @@
     <Filter Include="02.GameObject\07. UI\Loading">
       <UniqueIdentifier>{91d6ac50-951a-4727-b597-ac9edfcafe02}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\07. UI\Logo">
-      <UniqueIdentifier>{6bb5c36a-72de-4ccf-81d5-8849cacc2d18}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\07. UI\Quest">
       <UniqueIdentifier>{7db25916-24a3-4d33-9c54-a60e01581cd7}</UniqueIdentifier>
     </Filter>
@@ -189,6 +186,9 @@
     </Filter>
     <Filter Include="02.GameObject\10. ParticleSystem\Fire_PSystem">
       <UniqueIdentifier>{0912303c-d4de-443f-bd2e-c029a038e879}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\07. UI\Loading\Logo">
+      <UniqueIdentifier>{6bb5c36a-72de-4ccf-81d5-8849cacc2d18}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -253,7 +253,7 @@
       <Filter>02.GameObject\09. Box\TargetingBox</Filter>
     </ClInclude>
     <ClInclude Include="Logo.h">
-      <Filter>02.GameObject\07. UI\Logo</Filter>
+      <Filter>02.GameObject\07. UI\Loading\Logo</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\AI_Friendly.h">
       <Filter>02.GameObject\00. Player\AI_Friendly</Filter>
@@ -437,7 +437,7 @@
       <Filter>02.GameObject\09. Box\TargetingBox</Filter>
     </ClCompile>
     <ClCompile Include="Logo.cpp">
-      <Filter>02.GameObject\07. UI\Logo</Filter>
+      <Filter>02.GameObject\07. UI\Loading\Logo</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\AI_Friendly.cpp">
       <Filter>02.GameObject\00. Player\AI_Friendly</Filter>

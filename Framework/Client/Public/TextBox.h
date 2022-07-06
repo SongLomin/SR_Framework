@@ -2,11 +2,7 @@
 #include "Client_Defines.h"
 #include "UI.h"
 
-BEGIN(Engine)
-class CRenderer;
-class CTransform;
-class CVIBuffer_Rect;
-END
+
 
 
 BEGIN(Client)
@@ -25,10 +21,6 @@ public:
 	virtual void LateTick(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
-private:
-	CRenderer* m_pRendererCom = nullptr;
-	CTransform* m_pTransformCom = nullptr;
-	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
 
 
 
