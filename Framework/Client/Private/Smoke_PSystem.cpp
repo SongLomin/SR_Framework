@@ -1,66 +1,37 @@
 #include "stdafx.h"
-#include "Booster_PSystem.h"
-#include "Math_Utillity.h"
+#include "Smoke_PSystem.h"
 #include "GameInstance.h"
+#include "Math_Utillity.h"
 
-CBooster_PSystem::CBooster_PSystem(const CBooster_PSystem& Prototype)
+CSmoke_PSystem::CSmoke_PSystem(const CSmoke_PSystem& Prototype)
 {
 	*this = Prototype;
 }
 
-HRESULT CBooster_PSystem::Initialize_Prototype()
+HRESULT CSmoke_PSystem::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CBooster_PSystem::Initialize(void* pArg)
+HRESULT CSmoke_PSystem::Initialize(void* pArg)
 {
-	m_size = 1.f;
-
-
 	m_vbSize = 2048;
 	m_vbOffset = 0;
 	m_vbBatchSize = 512;
 
-	
-
-	m_fCurSpeed = 0.f;
-	m_fMaxSpeed = 1.f;
-	m_BeginColor = _float3(1.f, 1.f, 1.f);
-	m_EndColor = _float3(0.f, 0.1f, 0.8f);
-
 	__super::Initialize(pArg);
-
-	//m_pRenderer = Get_Component<CRenderer>();
 	m_pRenderer->Set_Textures_From_Key(TEXT("Booster_Particle"), MEMORY_TYPE::MEMORY_STATIC);
-
 
 	return S_OK;
 }
 
-void CBooster_PSystem::Tick(_float fTimeDelta)
+void CSmoke_PSystem::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	//수명 진행상황 퍼센트 0 ~ 1
-	_float fAge_ratio;
-	//_float fSpeed_ratio;
-	_float3 CurrentColor;
 	std::list<ParticleDesc>::iterator iter;
 	for (iter = m_particles.begin(); iter != m_particles.end(); iter++)
 	{
-
-		//m_fCurSpeed += 0.002f;
-		//if (m_fCurSpeed >= 1.f)
-		//{
-		//	m_fCurSpeed = m_fMaxSpeed;
-		//}
-		//fSpeed_ratio = m_fCurSpeed / m_fMaxSpeed;
-
-		fAge_ratio = iter->age / iter->lifeTime;
-
-		CurrentColor = m_BeginColor * (1.f - fAge_ratio) + m_EndColor * (fAge_ratio);
-		iter->color = D3DCOLOR_ARGB(255, (_uint)(CurrentColor.x * 255), (_uint)(CurrentColor.y * 255), (_uint)(CurrentColor.z * 255));
 
 		iter->position += iter->velocity * fTimeDelta;
 
@@ -75,14 +46,14 @@ void CBooster_PSystem::Tick(_float fTimeDelta)
 	}
 }
 
-void CBooster_PSystem::LateTick(_float fTimeDelta)
+void CSmoke_PSystem::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
 	m_pRenderer->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
-HRESULT CBooster_PSystem::Render_Begin(ID3DXEffect** Shader)
+HRESULT CSmoke_PSystem::Render_Begin(ID3DXEffect** Shader)
 {
 	m_pTransform->Bind_WorldMatrix();
 
@@ -112,7 +83,7 @@ HRESULT CBooster_PSystem::Render_Begin(ID3DXEffect** Shader)
 	return S_OK;
 }
 
-HRESULT CBooster_PSystem::Render()
+HRESULT CSmoke_PSystem::Render()
 {
 	m_pRenderer->Bind_Texture(0);
 
@@ -139,50 +110,47 @@ HRESULT CBooster_PSystem::Render()
 	return S_OK;
 }
 
-void CBooster_PSystem::ResetParticle(ParticleDesc* Desc)
+void CSmoke_PSystem::ResetParticle(ParticleDesc* Desc)
 {
 	Desc->isAlive = true;
 
-
-	//m_size = (_float)((rand() % 5 + 10) * 0.01f);
-	m_size = 2.f;
+	m_size = 3.f;
 
 	Desc->position.x = 0.f;
-	Desc->position.y = 0.f;
-	Desc->position.z = -7.f;
+	Desc->position.y = 1.f;
+	Desc->position.z = 0.f;
 
 	Desc->velocity.x = (_float)((rand() % 21) * 0.5f) - 5.f;
-	Desc->velocity.y = (_float)((rand() % 21) * 0.5f) - 11.f;
+	Desc->velocity.y = (_float)((rand() % 21) * 0.5f) + 11.f;
 	Desc->velocity.z = (_float)((rand() % 21) * 0.5f) - 5.f;
 
-
-	Desc->color = D3DCOLOR_ARGB(255, (_uint)(m_BeginColor.x * 255), (_uint)(m_BeginColor.y * 255), (_uint)(m_BeginColor.z * 255));
+	Desc->color = D3DCOLOR_ARGB(255, 220, 220, 220);
 
 	Desc->age = 0.f;
-	Desc->lifeTime = 0.5f;
+	Desc->lifeTime = 0.1f;
 }
 
-CBooster_PSystem* CBooster_PSystem::Create()
+CSmoke_PSystem* CSmoke_PSystem::Create()
 {
-	CREATE_PIPELINE(CBooster_PSystem);
+	CREATE_PIPELINE(CSmoke_PSystem);
 }
 
-CGameObject* CBooster_PSystem::Clone(void* pArg)
+CGameObject* CSmoke_PSystem::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CBooster_PSystem);
+	CLONE_PIPELINE(CSmoke_PSystem);
 }
 
-void CBooster_PSystem::Free()
+void CSmoke_PSystem::Free()
 {
 	__super::Free();
 
 	delete this;
 }
 
-void CBooster_PSystem::OnEnable(void* _Arg)
+void CSmoke_PSystem::OnEnable(void* _Arg)
 {
 }
 
-void CBooster_PSystem::OnDisable()
+void CSmoke_PSystem::OnDisable()
 {
 }

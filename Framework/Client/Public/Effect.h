@@ -24,6 +24,9 @@ public:
 	virtual HRESULT Render_Begin(ID3DXEffect** Shader = nullptr) override;
 	virtual HRESULT Render() override;
 
+public:
+	void Set_Pos(_float3 _Pos);
+
 
 protected:
 	CTransform* m_pTransformCom = nullptr;
@@ -33,6 +36,10 @@ protected:
 protected:
 	_uint	m_iTexture_Min = 0;
 	_uint	m_iTexture_Max = 0;
+
+	
+protected:
+	virtual void LookAtCamera();
 
 protected:
 	HRESULT SetUp_Components();

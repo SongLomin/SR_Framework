@@ -14,6 +14,8 @@
 #include "Lazer_Turret.h"
 #include <Fire_PSystem.h>
 #include "Booster_PSystem.h"
+#include "Smoke_PSystem.h"
+#include <Move_PSystem.h>
 
 
 
@@ -53,10 +55,9 @@ void CSong_Ship_Body::Tick(_float fTimeDelta)
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
 	}
 
-	if (KEY_INPUT(KEY::M, KEY_STATE::TAP))
+	if (KEY_INPUT(KEY::M, KEY_STATE::HOLD))
 	{
-		((CBooster_PSystem*)GAMEINSTANCE->Add_GameObject<CBooster_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"), nullptr, nullptr, true))->AddParticle(1, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
-
+		((CMove_PSystem*)GAMEINSTANCE->Add_GameObject<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"), nullptr, nullptr, true))->AddParticle(10, m_pTransformCom);
 	}
 
 }

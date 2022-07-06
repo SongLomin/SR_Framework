@@ -33,13 +33,16 @@ void CBomb_Effect::Tick(_float fTimeDelta)
 
 	if (m_iTexture_Min == m_iTexture_Max)
 	{
-		Set_Dead();
+		Set_Enable(false);
+		m_iTexture_Min = 0;
 	}
 }
 
 void CBomb_Effect::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
+
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CBomb_Effect::Render_Begin(ID3DXEffect** Shader)
@@ -49,16 +52,18 @@ HRESULT CBomb_Effect::Render_Begin(ID3DXEffect** Shader)
 
 HRESULT CBomb_Effect::Render()
 {
+	m_pTransformCom->Scaling(_float3(15.f, 15.f, 15.f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 
 	m_pRendererCom->Bind_Texture(m_iTexture_Min);
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	DEVICE->SetRenderState(D3DRS_ALPHAREF, 253);
+	DEVICE->SetRenderState(D3DRS_ALPHAREF, 0);
 	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 
 	__super::Render();
+
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 
@@ -70,6 +75,9 @@ HRESULT CBomb_Effect::Render()
 void CBomb_Effect::SetUp_Components_For_Child()
 {
 	m_pRendererCom->Set_Textures_From_Key(TEXT("Bomb_Effect"), MEMORY_TYPE::MEMORY_STATIC);
+
+	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
+	WEAK_PTR(m_pVIBufferCom);
 }
 
 CBomb_Effect* CBomb_Effect::Create()

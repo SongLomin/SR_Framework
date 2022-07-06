@@ -3,7 +3,7 @@
 #include "Client_Defines.h"
 
 BEGIN(Engine)
-
+class CVIBuffer_Rect;
 END
 
 BEGIN(Client)
@@ -24,6 +24,9 @@ public:
 	virtual HRESULT Render_Begin(ID3DXEffect** Shader = nullptr) override;
 	virtual HRESULT Render() override;
 
+
+private:
+	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
 
 
 public:

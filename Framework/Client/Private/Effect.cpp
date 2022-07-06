@@ -13,15 +13,21 @@ HRESULT CEffect::Initialize_Prototype()
 
 HRESULT CEffect::Initialize(void* pArg)
 {
+
+
 	return S_OK;
 }
 
 void CEffect::Tick(_float fTimeDelta)
 {
+	__super::Tick(fTimeDelta);
+
+	LookAtCamera();
 }
 
 void CEffect::LateTick(_float fTimeDelta)
 {
+	__super::LateTick(fTimeDelta);
 }
 
 HRESULT CEffect::Render_Begin(ID3DXEffect** Shader)
@@ -31,7 +37,36 @@ HRESULT CEffect::Render_Begin(ID3DXEffect** Shader)
 
 HRESULT CEffect::Render()
 {
+	__super::Render();
+
 	return S_OK;
+}
+
+void CEffect::Set_Pos(_float3 _Pos)
+{
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _Pos);
+}
+
+void CEffect::LookAtCamera()
+{
+
+	_float4x4		ViewMatrix;
+
+	DEVICE->GetTransform(D3DTS_VIEW, &ViewMatrix);
+	D3DXMatrixInverse(&ViewMatrix, nullptr, &ViewMatrix);
+
+	_float3 Scaled = m_pTransformCom->Get_Scaled();
+
+	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, *(_float3*)&ViewMatrix.m[0][0], true);
+	m_pTransformCom->Set_State(CTransform::STATE_UP, *(_float3*)&ViewMatrix.m[1][0], true);
+	m_pTransformCom->Set_State(CTransform::STATE_LOOK, *(_float3*)&ViewMatrix.m[2][0], true);
+
+	_float3 vWorldPos = m_pTransformCom->Get_State(CTransform::STATE_POSITION, true);
+
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, *(_float3*)&ViewMatrix.m[2][0] * -1.f + vWorldPos, true);
+
+	m_pTransformCom->Scaling(Scaled * 3.5f, true);
+
 }
 
 HRESULT CEffect::SetUp_Components()
