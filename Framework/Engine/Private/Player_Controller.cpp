@@ -62,7 +62,9 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 			switch (m_iCurrentCam)
 			{
 			case 0:
-				GAMEINSTANCE->Set_Current_Camera(TEXT("Shoulder"));
+
+				GAMEINSTANCE->Set_Current_Camera(TEXT("Free"));
+				//GAMEINSTANCE->Get_Camera(TEXT("Free"))->
 				break;
 
 			case 1:
@@ -72,9 +74,13 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 			case 2:
 				GAMEINSTANCE->Set_Current_Camera(TEXT("TPS"));
 				break;
+
+			/*case 3:
+				GAMEINSTANCE->Set_Current_Camera(TEXT("Free"));
+				break;*/
 			}
 
-			m_iCurrentCam = (m_iCurrentCam + 1) % 3;
+			m_iCurrentCam = (m_iCurrentCam + 1) % 4;
 		}
 
 
