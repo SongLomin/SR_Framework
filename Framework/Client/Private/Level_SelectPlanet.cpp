@@ -201,6 +201,10 @@ HRESULT CLevel_SelectPlanet::Render()
 
 void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 {
+	if (m_bCinematic)
+		return;
+
+
 	m_fTime = 5.f;
 	m_bCinematic = true;
 	m_iNextLevel = _iNextLevel;
@@ -211,6 +215,7 @@ void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
 		{
 			CComponent* Temp = (*iter)->Get_Component<CPlayer_Controller>();
+
 			Temp->Set_Enable(false);
 			Temp = (*iter)->Get_Component<CRigid_Body>();
 			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::SPIN, 0.f);

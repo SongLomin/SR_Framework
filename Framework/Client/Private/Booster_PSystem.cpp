@@ -73,6 +73,12 @@ void CBooster_PSystem::Tick(_float fTimeDelta)
 
 		iter->age += fTimeDelta;
 	}
+
+	if (IsDead())
+	{
+		Set_Enable(false);
+		printf("%s : Set_Enable(false).\n", typeid(*this).name());
+	}
 }
 
 void CBooster_PSystem::LateTick(_float fTimeDelta)

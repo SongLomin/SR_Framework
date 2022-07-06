@@ -30,6 +30,8 @@ protected:
 	_uint       m_iFontiXCount = 1470;
 	_uint       m_iEnemyCount = 0;
 
+	_uint		m_iNextLevel = 8;
+
 protected:
 	CGameObject* m_pTextBoxObject = nullptr;
 	CGameObject* m_pQuestBoxObject = nullptr;
