@@ -53,6 +53,12 @@ HRESULT CCamera::Bind_PipeLine()
 	_float4x4		WorldMatrix = Get_CameraWorldMat();
 	_float4x4		ViewMatrix;
 
+	if (m_fOffset)
+	{
+		Shake();
+		*(_float3*)&WorldMatrix.m[3] += m_vOffSetDir;
+	}
+
 	D3DXMatrixInverse(&ViewMatrix, nullptr, &WorldMatrix);
 	DEVICE->SetTransform(D3DTS_VIEW, &ViewMatrix);
 
@@ -62,6 +68,50 @@ HRESULT CCamera::Bind_PipeLine()
 	DEVICE->SetTransform(D3DTS_PROJECTION, &ProjMatrix);
 
 	return S_OK;
+}
+
+void CCamera::Add_Shaking(_float _fOffset, _float _fInclination)
+{
+	m_fOffset = _fOffset;
+	m_fInclination = _fOffset * _fInclination;
+
+}
+
+void CCamera::Shake()
+{
+	m_vOffSetDir = _float3(0.f, 0.f, 0.f);
+	_float3 vShakeDir;
+	RandomVec(&vShakeDir, -1.f, 1.f);
+	D3DXVec3Normalize(&vShakeDir, &vShakeDir);
+
+	m_vOffSetDir += m_fOffset * vShakeDir;
+
+	
+	m_fOffset -= m_fInclination;
+	if (DBL_EPSILON > m_fOffset)
+	{
+		m_fOffset = 0.f;
+		m_fInclination = 0.f;
+		return;
+	}
+}
+
+
+void CCamera::RandomVec(_float3* _vDir, float _flowBound, float _fHighBound)
+{
+	if (_flowBound > _fHighBound)
+	{
+		float fTemp = _flowBound;
+		_flowBound = _fHighBound;
+		_fHighBound = fTemp;
+	}
+	float fX = (rand() % 10000) * 0.0001f;
+	float fY = (rand() % 10000) * 0.0001f;
+	float fZ = (rand() % 10000) * 0.0001f;
+
+	_vDir->x = (fX * (_fHighBound - _flowBound)) + _flowBound;
+	_vDir->y = (fY * (_fHighBound - _flowBound)) + _flowBound;
+	_vDir->z = (fZ * (_fHighBound - _flowBound)) + _flowBound;
 }
 
 CCamera* CCamera::Create()

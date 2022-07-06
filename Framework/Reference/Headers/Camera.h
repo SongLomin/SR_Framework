@@ -44,11 +44,22 @@ public:
     _float Get_Far() const { return m_CamDesc.fFar; }
 
     HRESULT Bind_PipeLine();
+    void Add_Shaking(_float _fOffset, _float _fInclination);
+
+private:
+    void Shake();
+    void RandomVec(_float3* _vDir, float _flowBound, float _fHighBound);
+
 
 private:
     CTransform* m_pTransform = nullptr;
     CTransform* m_pTarget_Transform = nullptr;
     Desc m_CamDesc;
+
+    _float  m_fOffset = 0.f;
+    _float  m_fInclination = 0.f;
+    _float3 m_vOffSetDir;
+
 
 public:
     static CCamera* Create();
