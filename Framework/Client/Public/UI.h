@@ -1,6 +1,6 @@
-#pragma once
+#include "stdafx.h"
 #include "Client_Defines.h"
-#include "UI.h"
+#include "GameObject.h"
 
 BEGIN(Engine)
 class CRenderer;
@@ -11,12 +11,11 @@ END
 
 BEGIN(Client)
 
-class CTextBox final : public CUI
+class CUI abstract : public CGameObject
 {
-public:
-	CTextBox() = default;
-	CTextBox(const CTextBox& Prototype);
-	virtual ~CTextBox() = default;
+protected:
+    explicit CUI();
+	virtual ~CUI() = default;
 
 public:
 	virtual HRESULT Initialize_Prototype() override;
@@ -25,20 +24,24 @@ public:
 	virtual void LateTick(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
-private:
+protected:
 	CRenderer* m_pRendererCom = nullptr;
 	CTransform* m_pTransformCom = nullptr;
 	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
 
+protected:
+	_float					m_fX, m_fY, m_fSizeX, m_fSizeY;
+	_point					m_ptMouse;
+	_float4x4				m_ProjMatrix;
+	RECT					m_rcRect;
+	_bool                   m_bChangeWeapon = false;
 
-
-private:
+protected:
 	HRESULT SetUp_Components();
 
 public:
-	static CTextBox* Create();
-	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
 };
 
 END
+

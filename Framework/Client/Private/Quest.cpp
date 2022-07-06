@@ -25,7 +25,7 @@ HRESULT CQuest::Initialize(void* pArg)
 
 	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinCX, g_iWinCY, 0.0f, 1.f);
 
-	m_fX = 1400.f;
+	m_fX = 1380.f;
 	m_fY = 80.f;
 
 	m_fSizeX = 160.0f;
@@ -41,7 +41,9 @@ void CQuest::Tick(_float fTimeDelta)
 	GetCursorPos(&m_ptMouse);
 	ScreenToClient(g_hWnd, &m_ptMouse);
 
-	m_fX -= 0.9f;
+	
+
+	m_fX -= 0.8f;
 
 	if (m_fX <= 1120.f)
 	{

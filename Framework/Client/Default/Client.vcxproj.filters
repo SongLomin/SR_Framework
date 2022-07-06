@@ -325,9 +325,6 @@
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClInclude>
     <ClInclude Include="SelectPlanet_SkyBox.h" />
-    <ClInclude Include="..\Public\Rock.h">
-      <Filter>02.GameObject\06. Rock</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\Planet_Magma.h">
       <Filter>02.GameObject\06. Planet\Magma</Filter>
     </ClInclude>
@@ -384,6 +381,10 @@
     </ClInclude>
     <ClInclude Include="..\Public\Rock.h">
       <Filter>02.GameObject\12. Rock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h" />
+    <ClInclude Include="..\Public\UI.h">
+      <Filter>02.GameObject\07. UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -508,9 +509,6 @@
       <Filter>02.GameObject\06. Planet\Venus</Filter>
     </ClCompile>
     <ClCompile Include="SelectPlanet_SkyBox.cpp" />
-    <ClCompile Include="..\Private\Rock.cpp">
-      <Filter>02.GameObject\06. Rock</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\Planet_Magma.cpp">
       <Filter>02.GameObject\06. Planet\Magma</Filter>
     </ClCompile>
@@ -573,6 +571,10 @@
     </ClCompile>
     <ClCompile Include="..\Private\Rock.cpp">
       <Filter>02.GameObject\12. Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp" />
+    <ClCompile Include="..\Private\UI.cpp">
+      <Filter>02.GameObject\07. UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
