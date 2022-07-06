@@ -167,6 +167,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Public\AI_TransportShip.h" />
     <ClInclude Include="..\Public\BoosterBar.h" />
     <ClInclude Include="..\Public\Bullet.h" />
     <ClInclude Include="..\Public\BulletCountUI.h" />
@@ -228,6 +229,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Private\AI_TransportShip.cpp" />
     <ClCompile Include="..\Private\BoosterBar.cpp" />
     <ClCompile Include="..\Private\Bullet.cpp" />
     <ClCompile Include="..\Private\BulletCountUI.cpp" />

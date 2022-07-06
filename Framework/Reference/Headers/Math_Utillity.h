@@ -39,6 +39,18 @@ public:
 	static _float3 Rotate_Vec3(const _float3& _Rotation, const _float3& _Vec3);
 
 public:
+	template<typename T>
+	static T Get_Random_Value_In_Vector(vector<T> _Vector)
+	{
+		if (_Vector.empty())
+			return T();
+
+		_uint _index = rand() % _Vector.size();
+
+		return _Vector[_index];
+	}
+
+public:
 	static DWORD FtoDw(float f);
 
 };

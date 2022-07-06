@@ -82,6 +82,11 @@ void CCollision_Manager::Erase_Collider(CCollider* pCollider)
 	}
 }
 
+list<CCollider*>* CCollision_Manager::Get_ColliderList(COLLISION_TYPE _eType)
+{
+	return &m_ColliderList[(_uint)_eType];
+}
+
 void CCollision_Manager::CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_TYPE _eRight)
 {
 

@@ -73,7 +73,7 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 	if (m_fTime < 0.f)
 	{
 		m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player")), m_pTransformCom);
-		Update_Target();
+		//Update_Target();
 		m_fTime = 1.f;
 	}
 
@@ -189,6 +189,7 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pAIControllerCom->Set_WeakPtr(&m_pAIControllerCom);
 	m_pAIControllerCom->Link_Object(this);
 	m_pAIControllerCom->Set_Enable(false);
+	m_pAIControllerCom->Set_UsableStates(m_pAIControllerCom->Get_States_Preset_AI_Default());
 
 
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
@@ -216,11 +217,11 @@ void CEnemySpace_Body::Update_Target()
 		return;
 	}
 
-	for (auto& elem : m_pPosinList)
+	/*for (auto& elem : m_pPosinList)
 	{
 		
 		elem->Set_Target((*TargetList->begin()).second);
-	}
+	}*/
 
 }
 

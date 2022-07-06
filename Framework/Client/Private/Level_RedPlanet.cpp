@@ -36,6 +36,7 @@
 #include "Hong_Ship_Body.h"
 #include "Shin_Ship_Body.h"
 #include <SpaceDust_PSystem.h>
+#include <SelectPlanet_SkyBox.h>
 
 CLevel_RedPlanet::CLevel_RedPlanet()
 {
@@ -97,7 +98,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_REDPLANET, TEXT("Terrain")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVEL_REDPLANET, TEXT("SkyBox")))
+	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_REDPLANET, TEXT("Aim")))

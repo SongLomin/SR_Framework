@@ -43,37 +43,23 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 
 	m_fCurTime -= fTimeDelta;
 
+	_bool m_bTarget = LookAt_Targeting();
+
+	// 타겟을 성공적으로 쳐다봤다면 이대로 Tick을 종료한다.
+	if (m_bTarget)
+		return;
+
+
+	// 타겟이 없는 경우 플레이어는 Aim을 바라본다.
 	if (Get_Controller() == CONTROLLER::PLAYER)
 	{
-		if (!LookAt_Targeting())
-		{
-			LookAt_Aim();
-		}
+		LookAt_Aim();
+	}
 
-		if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
-		{
-			if (m_fCurTime < 0.f)
-			{
-				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &m_eBulletCollisionType);
-				static_cast<CNormal_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
-				//((CNormal_Bullet*)Bullet)->Link_PosinTransform(m_pTransformCom);
-
-				//GAMEINSTANCE->Add_Shaking(0.1f, 0.005f);
-
-				m_fCurTime = 0.1f;
-			}
-		}
-
-		if (KEY_INPUT(KEY::CTRL, KEY_STATE::HOLD))
-		{
-			if (m_fCurTime < 0.f)
-			{
-				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CRoket_Bullet>(CURRENT_LEVEL, TEXT("Roket_Bullet"), nullptr, &m_eBulletCollisionType);
-				static_cast<CRoket_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
-
-				m_fCurTime = 0.3f;
-			}
-		}
+	// AI는 정면을 바라본다.
+	else if (Get_Controller() == CONTROLLER::AI)
+	{
+		m_pTransformCom->LookAt(_float3(0.f, 0.f, 1.f));
 	}
 
 }
@@ -83,33 +69,23 @@ void CNormal_Turret::LateTick(_float fTimeDelta)
 	__super::LateTick(fTimeDelta);
 
 	// 타겟 체크
-	if (Get_Controller() == CONTROLLER::AI)
-	{
-		if (m_pTarget)
-		{
-			_float3 TargetPos = m_pTarget->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
-			m_pTransformCom->LookAt(TargetPos, true);
+	//if (Get_Controller() == CONTROLLER::AI)
+	//{
+	//	if (m_pTarget)
+	//	{
+	//		_float3 TargetPos = m_pTarget->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
+	//		m_pTransformCom->LookAt(TargetPos, true);
+	//	}
 
-			if (m_pTarget && m_fCurTime <= 0)
-			{
-				CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &m_eBulletCollisionType);
-				static_cast<CNormal_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
+	//	/*if (m_fCurTime <= 0)
+	//	{
+	//		CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &m_eBulletCollisionType);
+	//		static_cast<CNormal_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
 
-				
-				m_fMaxTime = (_float)(rand() % 11 + 5) * 0.1f;
-				m_fCurTime = m_fMaxTime;
-			}
-		}
-
-		/*if (m_fCurTime <= 0)
-		{
-			CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &m_eBulletCollisionType);
-			static_cast<CNormal_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
-
-			m_fMaxTime = (_float)(rand() % 11 + 5) * 0.1f;
-			m_fCurTime = m_fMaxTime;
-		}*/
-	}
+	//		m_fMaxTime = (_float)(rand() % 11 + 5) * 0.1f;
+	//		m_fCurTime = m_fMaxTime;
+	//	}*/
+	//}
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
 }
 
@@ -133,41 +109,14 @@ HRESULT CNormal_Turret::Render_Begin(ID3DXEffect** Shader)
 
 HRESULT CNormal_Turret::Render()
 {
-	
-
-
-
 	__super::Render();
 	m_pMeshCom->Render_Mesh();
-
-
 
 	return S_OK;
 }
 
 void CNormal_Turret::Set_Target(CGameObject* _Target)
 {
-
-	//if (m_pTargetObject != _Object)
-	//{
-	//	if (m_pTargetObject)
-	//	{
-	//		m_pTargetObject->Return_WeakPtr(&m_pTargetObject);
-	//	}
-
-
-	//	m_pTargetObject = _Object;		
-	//}
-
-	//if (nullptr == m_pTargetObject)
-	//{
-	//	//m_pTransformCom->LookAt(_float3(0.f, 1.f, 0.f), true);
-	//	return;
-	//}
-	//else
-	//{
-	//	m_pTargetObject->Set_WeakPtr(&m_pTargetObject);
-	//}
 
 	//기존에 타겟 인스턴스가 살아 있는데 바뀐 경우는
 	if (m_pTarget)
@@ -215,7 +164,9 @@ _bool CNormal_Turret::LookAt_Targeting()
 
 	m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>(), true);
 
-	m_pBoxObject->Set_Enable(true);
+
+	if(m_pBoxObject)
+		m_pBoxObject->Set_Enable(true);
 
 	return true;
 }
@@ -228,6 +179,20 @@ void CNormal_Turret::LookAt_Aim()
 	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 1000.f);
 
 	m_pTransformCom->LookAt(MouseEndPos, true);
+}
+
+void CNormal_Turret::Command_Fire()
+{
+	if (m_fCurTime <= 0)
+	{
+		CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &m_eBulletCollisionType);
+		static_cast<CNormal_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
+
+		//m_fMaxTime = (_float)(rand() % 11 + 5) * 0.1f;
+		m_fCurTime = m_fMaxTime;
+	}
+
+
 }
 
 
@@ -254,8 +219,19 @@ HRESULT CNormal_Turret::SetUp_Components()
 
 void CNormal_Turret::On_Change_Controller(const CONTROLLER& _eController)
 {
-	m_fMaxTime = m_fCurTime = 0.34f;
+	//m_fMaxTime = m_fCurTime = 0.34f;
 
+}
+
+void CNormal_Turret::On_EventMessage(void* _Arg)
+{
+	wstring* Message = reinterpret_cast<wstring*>(_Arg);
+
+	//발사 명령
+	if (lstrcmpW(Message->c_str(), TEXT("Fire")) == 0)
+	{
+		Command_Fire();
+	}
 }
 
 CNormal_Turret* CNormal_Turret::Create()

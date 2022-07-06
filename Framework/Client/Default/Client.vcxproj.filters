@@ -190,6 +190,9 @@
     <Filter Include="02.GameObject\10. ParticleSystem\Fire_PSystem">
       <UniqueIdentifier>{0912303c-d4de-443f-bd2e-c029a038e879}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\00. Player\AI_TransportShip">
+      <UniqueIdentifier>{1141a8dd-26b4-43f2-982a-c7e2c58c8f63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -383,6 +386,9 @@
     <ClInclude Include="..\Public\Fire_PSystem.h">
       <Filter>02.GameObject\10. ParticleSystem\Fire_PSystem</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\AI_TransportShip.h">
+      <Filter>02.GameObject\00. Player\AI_TransportShip</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -569,6 +575,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Fire_PSystem.cpp">
       <Filter>02.GameObject\10. ParticleSystem\Fire_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\AI_TransportShip.cpp">
+      <Filter>02.GameObject\00. Player\AI_TransportShip</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

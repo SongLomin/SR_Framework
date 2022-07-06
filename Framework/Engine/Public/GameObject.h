@@ -34,6 +34,11 @@ public:
 public:
 	list<CGameObject*> Get_Children_From_Key(const _tchar* _Key);
 
+public:
+	//나 포함 내 자식 오브젝트들에게 메세지를 일괄적으로 보낸다.
+	//OnEventMessage 함수를 호출한다.
+	void Broadcast_EventMessage(void* _Arg = nullptr);
+
 private:
 	void Add_List_Child_From_Key(const _tchar* _Key, list<CGameObject*>& _List);
 
@@ -44,6 +49,9 @@ public: /* For Event Function */
 	virtual void On_Collision_Enter(CCollider* _Other_Collider);
 	virtual void On_Collision_Stay(CCollider* _Other_Collider);
 	virtual void On_Collision_Exit(CCollider* _Other_Collider);
+
+	//이벤트 메세지가 도착하면 호출됩니다.
+	virtual void On_EventMessage(void* _Arg) {};
 
 protected:
 	map<const _char*, class CComponent*> m_pComs;
@@ -95,6 +103,10 @@ public: /* Template Function*/
 		temp->OnEnable(pArg);
 		return temp;
 	}
+
+	
+	
+	
 };
 
 

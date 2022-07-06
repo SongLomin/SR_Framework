@@ -336,33 +336,23 @@ namespace Engine
 		SHAPE_END
 	};
 
-	enum class STATE_MOVE 
+
+	// 각 행동 종류 분류는 100단위다. 즉, 행동 종류마다 최대 100개까지 정의할 수 있다.
+	// 최대 행동 종류는 900번대까지 쓸 수 있다. (컨트롤러에서 늘릴 수 있음)
+	enum class STATE
 	{ 
-		MOVE_UPPER_LEFT, 
+		MOVE_UPPER_LEFT = 0, 
 		MOVE_DOWN_FRONT, 
 		MOVE_LIFT_FRONT, 
 		MOVE_LIFT_BACK, 
 		MOVE_JUMP_FRONT, 
 		MOVE_UPPER_RIGHT,
-		STATE_END
-	};
-
-
-	enum class STATE_MOVETARGET
-	{
-		MOVETARGET_CHASE,
+		MOVETARGET_CHASE = 100,
 		MOVETARGET_RSPIN,
 		MOVETARGET_LSPIN,
 		MOVETARGET_BACK,
-		MOVETARGET_END
-	};
-
-
-	enum class STATE
-	{
-		STATE_MOVE,
-		STATE_ATTACK,
-		STATE_DEAD,
+		ATTACK_TAP = 200, //Fire를 한 번만 호출하고, 정해진 시간동안 대기
+		ATTACK_HOLD, //정해진 시간동안 계속 Fire를 호출
 		STATE_END
 	};
 

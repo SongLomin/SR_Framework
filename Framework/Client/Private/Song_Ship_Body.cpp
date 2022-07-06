@@ -58,6 +58,17 @@ void CSong_Ship_Body::Tick(_float fTimeDelta)
 		((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom);
 	}
 
+	/*if (Get_Controller() == CONTROLLER::PLAYER)
+	{
+		if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
+		{
+			for (auto& elem : m_pMyPosinList)
+			{
+				elem->Command_Fire();
+			}
+		}
+	}*/
+
 }
 
 void CSong_Ship_Body::LateTick(_float fTimeDelta)

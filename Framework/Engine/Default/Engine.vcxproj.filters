@@ -229,6 +229,9 @@
     <Filter Include="01.Utility\03.Components\10. Font">
       <UniqueIdentifier>{d2ef3aa8-8655-4c52-9cda-c6cd5e7dde3f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\09. Controller\AI_Transport_Controller">
+      <UniqueIdentifier>{777883d1-7c4a-4c99-a242-c770a64e2534}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">

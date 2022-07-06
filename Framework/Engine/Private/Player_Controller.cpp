@@ -33,8 +33,6 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 			m_pMyObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::RIGHT);
 		if (KEY_INPUT(KEY::A, KEY_STATE::HOLD))
 			m_pMyObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::LEFT);
-
-
 		
 
 		POINT pt{};
@@ -77,10 +75,10 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 			m_iCurrentCam = (m_iCurrentCam + 1) % 3;
 		}
 
-
-		if (KEY_INPUT(KEY::TAB, KEY_STATE::TAP))
+		if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
 		{
-			//m_bTargetMode = !m_bTargetMode;
+			wstring Message = TEXT("Fire");
+			Get_Owner()->Broadcast_EventMessage(&Message);
 		}
 
 		m_fTime -= fTimeDelta;
