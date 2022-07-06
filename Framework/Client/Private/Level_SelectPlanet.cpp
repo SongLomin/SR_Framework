@@ -277,22 +277,23 @@ void CLevel_SelectPlanet::SelectPlanet_Event(float fTimeDelta)
 		m_bEventCheck[0] = true;
 	}
 
-	if (m_fTextBoxTime <= 291.f)
+	if (m_fTextBoxTime <= 291.f && !m_bEventCheck[1])
 	{
 		m_pQuestBoxObject->Set_Enable(true);
 
-		
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)60 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n행성들을 정복해 비행선 강화하기"), 0);
+	  
+		m_iFontiX -= 0.8;
 
-		GAMEINSTANCE->Add_Text(_point{ (LONG)iX, (LONG)60 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n행성들을 정복해 비행선 강화하기"), 0);
-		//GAMEINSTANCE->Add_Text(_point{ (LONG)iX, (LONG)60 }, _point{ (LONG)500, (LONG)60 }, 1.f, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n행성들을 정복해 비행선 강화하기"), 0);
-		
-		iX -= 0.8;
-
-		if (iX <= 1040)
+		if (m_iFontiX <= 1040)
 		{
-			iX = 1040;
+			m_iFontiX = 1040;
 		}
+	}
 
-	
+	if (m_bCinematic)
+	{
+		m_pQuestBoxObject->Set_Enable(false);
+		m_bEventCheck[1] = true;
 	}
 }

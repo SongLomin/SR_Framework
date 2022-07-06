@@ -22,8 +22,13 @@ public:
 protected:
 	_float		m_fTime = 0.f;
 	_float      m_fTextBoxTime = 300.f;
+
 	_bool		m_bCinematic = false;
 	_bool       m_bEventCheck[10] = { false };
+
+	_uint       m_iFontiX = 1360;
+	_uint       m_iFontiXCount = 1470;
+	_uint       m_iEnemyCount = 0;
 
 protected:
 	CGameObject* m_pTextBoxObject = nullptr;

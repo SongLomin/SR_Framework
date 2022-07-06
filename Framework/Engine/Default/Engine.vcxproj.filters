@@ -34,9 +34,6 @@
     <Filter Include="01.Utility\01.Levels">
       <UniqueIdentifier>{1bf2ad12-0d15-436f-aebe-0230fb243843}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Utility\02.GameObject">
-      <UniqueIdentifier>{f6e51264-8528-49f4-895e-357f3053cbc6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Utility\03.Components">
       <UniqueIdentifier>{7a250bc6-4593-4a9d-b563-84d152f89dd8}</UniqueIdentifier>
     </Filter>
@@ -126,9 +123,6 @@
     </Filter>
     <Filter Include="01.Utility\03.Components\07. Collider\00. Collider_OBB">
       <UniqueIdentifier>{14405e89-68e0-4ca9-a15f-f969a731b894}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01.Utility\02.GameObject\00. CursorObject">
-      <UniqueIdentifier>{ba0ad428-977c-4716-a701-157b12ff5b11}</UniqueIdentifier>
     </Filter>
     <Filter Include="01.Utility\03.Components\00. Model\Mesh\Mesh_Test">
       <UniqueIdentifier>{5308598a-0759-42a9-b22b-0088d2f5f65c}</UniqueIdentifier>
@@ -223,11 +217,17 @@
     <Filter Include="01.Utility\04.Manager\10. Particle_Manager">
       <UniqueIdentifier>{5b628df3-6835-4a6a-be21-1b838c743928}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Utility\02.GameObject\01. ParticleSystem">
-      <UniqueIdentifier>{aacee7c2-9aa6-4ba3-85eb-7d68c5b20c09}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Utility\03.Components\10. Font">
       <UniqueIdentifier>{d2ef3aa8-8655-4c52-9cda-c6cd5e7dde3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\02.GameObject">
+      <UniqueIdentifier>{f6e51264-8528-49f4-895e-357f3053cbc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\02.GameObject\00. CursorObject">
+      <UniqueIdentifier>{ba0ad428-977c-4716-a701-157b12ff5b11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\02.GameObject\01. ParticleSystem">
+      <UniqueIdentifier>{aacee7c2-9aa6-4ba3-85eb-7d68c5b20c09}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

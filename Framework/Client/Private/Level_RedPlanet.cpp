@@ -79,6 +79,8 @@ HRESULT CLevel_RedPlanet::Initialize()
 	{
 		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_REDPLANET, TEXT("EnemySpace_Body")))
 			return E_FAIL;
+
+		m_iEnemyCount++;
 	}
 
 	/*for (int i = 0; i < 50; ++i)
@@ -168,6 +170,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body")))
 			return;
 
+		m_iEnemyCount++;
 		m_fSpawnTime = 5.f;
 	}
 
@@ -314,8 +317,21 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	{
 		m_pQuestBoxObject->Set_Enable(true);
 
-		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n  지원병력 도착까지 생존하기 \n  남은시간 (초) : "), 0);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)1145, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("%d"), 1, (_uint)m_fMaxTime);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n  지원병력 도착까지 생존하기 \n  남은시간 (초) : "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("%d"), 1, (_uint)m_fMaxTime);
+
+		if (m_iFontiX <= 1040)
+		{
+			m_iFontiX = 1040;
+		}
+
+		if (m_iFontiXCount <= 1150)
+		{
+			m_iFontiXCount = 1150;
+		}
+ 
+		m_iFontiX -= 0.8;
+		m_iFontiXCount -= 0.8;
 		m_fMaxTime -= fTimeDelta;
 	}
 
@@ -331,6 +347,19 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	{
 		m_pQuestBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n    모든 적 함체 섬멸 "), 0);
+
+		if (m_iFontiX <= 1040)
+		{
+			m_iFontiX = 1040;
+		}
+
+		m_iFontiX -= 0.8;
+	}
+
+	if (m_iEnemyCount <= 0 && !m_bEventCheck[9])
+	{
+		m_pQuestBoxObject->Set_Enable(false);
+		m_bEventCheck[9] = true;
 	}
 }
 
