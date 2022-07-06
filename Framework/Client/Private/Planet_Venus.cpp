@@ -3,6 +3,9 @@
 #include "GameInstance.h"
 #include "Math_Utillity.h"
 #include "Level_Loading.h"
+#include "Dive.h"
+
+
 CPlanet_Venus::CPlanet_Venus()
 {
 }
@@ -25,6 +28,9 @@ HRESULT CPlanet_Venus::Initialize(void* pArg)
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1.f, 100.f, 300.f));
 
+	m_pDiveUi = GAMEINSTANCE->Add_GameObject<CDive>(LEVEL_SELECTPLANET, TEXT("Dive"));
+	m_pDiveUi->Set_Enable(false);
+
 
 	return S_OK;
 }
@@ -38,7 +44,20 @@ void CPlanet_Venus::Tick(_float fTimeDelta)
 	MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
 	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 10000.f);
 
-	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD) && !m_bLevelChange)
+
+	_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
+
+	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
+
+
+	if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
+	{
+		GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 20, (LONG)ScreenPos.y }, TEXT("Venus Planet \n 저 위험 구역 \n 임무 : 기체 조작연습  \n 난이도 :『★』 \n 보상 : XXX"), 0);
+		m_pDiveUi->Set_Enable(true);
+	}
+
+
+	if (KEY_INPUT(KEY::F, KEY_STATE::HOLD) && !m_bLevelChange)
 	{
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
 		{
@@ -81,9 +100,7 @@ HRESULT CPlanet_Venus::Render()
 
 	m_pTransformCom->Bind_WorldMatrix();
 
-	_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
 
-	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
 
 
 
@@ -91,7 +108,7 @@ HRESULT CPlanet_Venus::Render()
 
 	//GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);
 
-	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 20, (LONG)ScreenPos.y }, TEXT("Venus Planet \n 저 위험 구역 \n 임무 : 기체 조작연습  \n 난이도 :『★』 \n 보상 : XXX"), 0);
+
 
 	m_pRendererCom->Bind_Texture(0);
 

@@ -1,8 +1,9 @@
 #include "stdafx.h"
-#include "BulletUI.h"
+#include "Dive.h"
 #include "GameInstance.h"
+#include "Math_Utillity.h"
 
-CBulletUI::CBulletUI(const CBulletUI& Prototype)
+CDive::CDive(const CDive& Prototype)
 {
 	*this = Prototype;
 
@@ -11,50 +12,45 @@ CBulletUI::CBulletUI(const CBulletUI& Prototype)
 
 }
 
-HRESULT CBulletUI::Initialize_Prototype()
+HRESULT CDive::Initialize_Prototype()
 {
 
 	return S_OK;
 }
 
-HRESULT CBulletUI::Initialize(void* pArg)
+HRESULT CDive::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
 	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinCX, g_iWinCY, 0.0f, 1.f);
 
-	m_fX = 80.f;
-	m_fY = 630.f;
+	m_fX = 1130.f;
+	m_fY = 160.f;
 
-	m_fSizeX = 43.0f;
-	m_fSizeY = 50.0f;
+	m_fSizeX = 100.0f;
+	m_fSizeY = 30.0f;
 
 	return S_OK;
 }
 
-void CBulletUI::Tick(_float fTimeDelta)
+void CDive::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
 	GetCursorPos(&m_ptMouse);
 	ScreenToClient(g_hWnd, &m_ptMouse);
 
-	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
-	{
-		m_pRendererCom->Set_Textures_From_Key(TEXT("MainWeapon"), MEMORY_TYPE::MEMORY_STATIC);
-	}
-
-	if (KEY_INPUT(KEY::RBUTTON, KEY_STATE::TAP))
-	{
-		m_pRendererCom->Set_Textures_From_Key(TEXT("SubWeapon"), MEMORY_TYPE::MEMORY_STATIC);
-	}
 
 	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
+
+
+
+
 }
 
-void CBulletUI::LateTick(_float fTimeDelta)
+void CDive::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
@@ -64,9 +60,11 @@ void CBulletUI::LateTick(_float fTimeDelta)
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_UI, this);
 }
 
-HRESULT CBulletUI::Render()
+HRESULT CDive::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
+
+
 
 	m_pRendererCom->Bind_Texture(0);
 
@@ -86,17 +84,22 @@ HRESULT CBulletUI::Render()
 
 	m_pVIBufferCom->Render();
 
+
 	m_pRendererCom->UnBind_Texture();
+
+
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 	DEVICE->SetTransform(D3DTS_VIEW, &CurView);
 	DEVICE->SetTransform(D3DTS_PROJECTION, &CurProj);
 
+
+
 	return S_OK;
 }
 
 
-HRESULT CBulletUI::SetUp_Components()
+HRESULT CDive::SetUp_Components()
 {
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
@@ -104,7 +107,7 @@ HRESULT CBulletUI::SetUp_Components()
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
-	m_pRendererCom->Set_Textures_From_Key(TEXT("MainWeapon"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Dive"), MEMORY_TYPE::MEMORY_STATIC);
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
@@ -113,20 +116,19 @@ HRESULT CBulletUI::SetUp_Components()
 	return S_OK;
 }
 
-CBulletUI* CBulletUI::Create()
+CDive* CDive::Create()
 {
-	CREATE_PIPELINE(CBulletUI);
+	CREATE_PIPELINE(CDive);
 }
 
-CGameObject* CBulletUI::Clone(void* pArg)
+CGameObject* CDive::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CBulletUI);
+	CLONE_PIPELINE(CDive);
 }
 
-void CBulletUI::Free()
+void CDive::Free()
 {
 	__super::Free();
 
 	delete this;
 }
-
