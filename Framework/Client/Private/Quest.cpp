@@ -25,7 +25,7 @@ HRESULT CQuest::Initialize(void* pArg)
 
 	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinCX, g_iWinCY, 0.0f, 1.f);
 
-	m_fX = 1280.f;
+	m_fX = 1360.f;
 	m_fY = 80.f;
 
 	m_fSizeX = 160.0f;

@@ -268,7 +268,7 @@ void CLevel_SelectPlanet::SelectPlanet_Event(float fTimeDelta)
 	if (m_fTextBoxTime <= 297.f && !m_bEventCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
 	}
 
 	if (m_fTextBoxTime <= 293.f && !m_bEventCheck[0])
@@ -283,7 +283,16 @@ void CLevel_SelectPlanet::SelectPlanet_Event(float fTimeDelta)
 
 		
 
+		GAMEINSTANCE->Add_Text(_point{ (LONG)iX, (LONG)60 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n행성들을 정복해 비행선 강화하기"), 0);
+		//GAMEINSTANCE->Add_Text(_point{ (LONG)iX, (LONG)60 }, _point{ (LONG)500, (LONG)60 }, 1.f, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n행성들을 정복해 비행선 강화하기"), 0);
 		
-		GAMEINSTANCE->Add_Text(_point{ (LONG)1160, (LONG)60 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n행성들을 정복해 비행선 강화하기"), 0);
+		iX -= 0.8;
+
+		if (iX <= 1040)
+		{
+			iX = 1040;
+		}
+
+	
 	}
 }

@@ -31,6 +31,7 @@ private:
 	void SelectPlanet_Event(float fTimeDelta);
 
 private:
+	_uint iX = 1360;
 
 
 

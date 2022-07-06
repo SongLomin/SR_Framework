@@ -142,8 +142,10 @@ HRESULT CGameInstance::Add_Text(_point _Pos, _point _AfterPos, _float _Speed, D3
 
 
 	TEXTINFO Info;
-	Info.rcTemp = { _Pos.x -= _Speed, _Pos.y, _Pos.x  -= _Speed + 3000 , _Pos.y + 3000 };
+	Info.rcTemp = { _Pos.x , _Pos.y, _Pos.x  + 3000 , _Pos.y + 3000 };
 
+	_Pos.x -= _Speed;
+	
 	if (_Pos.x <= _AfterPos.x)
 	{
 		_Pos.x = _AfterPos.x;
