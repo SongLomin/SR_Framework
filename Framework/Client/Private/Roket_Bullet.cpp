@@ -136,11 +136,13 @@ void CRocket_Bullet::Find_Way()
 				{
 					_float3 fCrossProduct;
 					D3DXVec3Cross(&fCrossProduct, &vLook, &vDir);
-					if (0.f > D3DXVec3Length(&fCrossProduct))
+					_float3 vUp = m_pRigidBodyCom->Get_Direction(CRigid_Body::STATE_UP);
+					_float  fDotProduct = D3DXVec3Dot(&fCrossProduct, &vUp);
+					if (0.f > fDotProduct)
 					{
 						m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
 					}
-					else if (0.f < D3DXVec3Length(&fCrossProduct))
+					else if (0.f < fDotProduct)
 					{
 						m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
 					}
