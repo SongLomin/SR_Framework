@@ -25,6 +25,7 @@
 #include "Quest.h"
 #include "SpaceDust_PSystem.h"
 #include "TextBox.h"
+#include "Warring.h"
 
 CLevel_SelectPlanet::CLevel_SelectPlanet()
 {
@@ -83,13 +84,23 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("CLight_Moon")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest")))
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
 		return E_FAIL;
 
-	m_pTextObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
-	m_pTextObject->Set_Enable(false);
 
-	
+	if (!GAMEINSTANCE->Add_GameObject<CWarring>(LEVEL_SELECTPLANET, TEXT("Warring")))
+		return E_FAIL;
+
+
+	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
+	m_pTextBoxObject->Set_Enable(false);
+
+
+	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest"));
+	m_pQuestBoxObject->Set_Enable(false);
+
+
+
 
 	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(500);
 
@@ -163,16 +174,8 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 	}
 
 
-	 m_fTextBoxTime -= fTimeDelta;
-
-
-	if (m_fTextBoxTime <= 298.f)
-	{
-		m_pTextObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)520, (LONG)620 }, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
-		//GAMEINSTANCE->Add_Text(_point{ (LONG)520, (LONG)620 }, D3DCOLOR_ARGB(255, 255, 0, 40), 1.f, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
-	}
-
+	 
+	SelectPlanet_Event(fTimeDelta);
 	
 
 }
@@ -184,8 +187,7 @@ HRESULT CLevel_SelectPlanet::Render()
 
 
 	SetWindowText(g_hWnd, TEXT("Select Planet 레벨입니다. "));
-
-	GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, TEXT("            -임무-  \n   행성을 선택해 점령하라. \n             0 / 5"), 0);
+	
 
 	return S_OK;
 }
@@ -260,4 +262,42 @@ void CLevel_SelectPlanet::Free()
 	__super::Free();
 
 	delete this;
+}
+
+void CLevel_SelectPlanet::SelectPlanet_Event(float fTimeDelta)
+{
+	m_fTextBoxTime -= fTimeDelta;
+
+
+	if (m_fTextBoxTime <= 297.f && !m_bEventCheck[0])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
+	}
+
+	if (m_fTextBoxTime <= 293.f && !m_bEventCheck[0])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[0] = true;
+	}
+
+	if (m_fTextBoxTime <= 291.f && !m_bEventCheck[1])
+	{
+		m_pQuestBoxObject->Set_Enable(true);
+
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)60 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n행성들을 정복해 비행선 강화하기"), 0);
+	  
+		m_iFontiX -= 0.8;
+
+		if (m_iFontiX <= 1040)
+		{
+			m_iFontiX = 1040;
+		}
+	}
+
+	if (m_bCinematic)
+	{
+		m_pQuestBoxObject->Set_Enable(false);
+		m_bEventCheck[1] = true;
+	}
 }

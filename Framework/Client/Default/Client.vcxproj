@@ -219,7 +219,9 @@
     <ClInclude Include="..\Public\Kang_Ship_Body.h" />
     <ClInclude Include="..\Public\TextBox.h" />
     <ClInclude Include="..\Public\Trajectory_PSystem.h" />
+    <ClInclude Include="..\Public\UI.h" />
     <ClInclude Include="..\Public\UITest.h" />
+    <ClInclude Include="..\Public\Warring.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="EnemySpace_Body.h" />
     <ClInclude Include="Logo.h" />
@@ -280,7 +282,9 @@
     <ClCompile Include="..\Private\Kang_Ship_Body.cpp" />
     <ClCompile Include="..\Private\TextBox.cpp" />
     <ClCompile Include="..\Private\Trajectory_PSystem.cpp" />
+    <ClCompile Include="..\Private\UI.cpp" />
     <ClCompile Include="..\Private\UITest.cpp" />
+    <ClCompile Include="..\Private\Warring.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="EnemySpace_Body.cpp" />
     <ClCompile Include="Logo.cpp" />

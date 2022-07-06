@@ -28,6 +28,10 @@ HRESULT CStatus::Set_Status(STATUSID StatusID, _float value)
 		m_tStatus.fHp = value;
 		break;
 
+	case STATUS_MAXHP:
+		m_tStatus.fMaxHp = value;
+		break;
+
 	case STATUS_ATTACK:
 		m_tStatus.fAttack = value;
 		break;
@@ -49,6 +53,10 @@ HRESULT CStatus::Add_Status(STATUSID StatusID, _float value)
 	{
 	case STATUS_HP:
 		m_tStatus.fHp += value;
+		break;
+
+	case STATUS_MAXHP:
+		m_tStatus.fMaxHp += value;
 		break;
 
 	case STATUS_ATTACK:

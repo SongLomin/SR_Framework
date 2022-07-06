@@ -1,84 +1,69 @@
 #include "stdafx.h"
-#include "Quest.h"
+#include "Warring.h"
 #include "GameInstance.h"
-#include "Math_Utillity.h"
 
-CQuest::CQuest(const CQuest& Prototype)
+CWarring::CWarring(const CWarring& Prototype)
 {
 	*this = Prototype;
-
 	m_pTransformCom = Add_Component<CTransform>();
-
-
 }
 
-HRESULT CQuest::Initialize_Prototype()
+HRESULT CWarring::Initialize_Prototype()
 {
-
 	return S_OK;
 }
 
-HRESULT CQuest::Initialize(void* pArg)
+HRESULT CWarring::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
 	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinCX, g_iWinCY, 0.0f, 1.f);
 
-	m_fX = 1380.f;
-	m_fY = 80.f;
+	m_fX = 640.f;
+	m_fY = 130.f;
 
-	m_fSizeX = 160.0f;
-	m_fSizeY = 50.0f;
+	m_fSizeX = 300.0f;
+	m_fSizeY = 70.0f;
 
 	return S_OK;
 }
 
-void CQuest::Tick(_float fTimeDelta)
+void CWarring::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
 	GetCursorPos(&m_ptMouse);
 	ScreenToClient(g_hWnd, &m_ptMouse);
 
-	
-
-	m_fX -= 0.8f;
-
-	if (m_fX <= 1120.f)
-	{
-		m_fX = 1120.f;
-	}
-
 	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
 
-
-
-
 }
 
-void CQuest::LateTick(_float fTimeDelta)
+void CWarring::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
-	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f) * 2);  
+	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f) * 2);
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(m_fX - (g_iWinCX >> 1), -m_fY + (g_iWinCY >> 1), 0.f));
 
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_UI, this);
 }
 
-HRESULT CQuest::Render()
+HRESULT CWarring::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
-	
+
 
 	m_pRendererCom->Bind_Texture(0);
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	DEVICE->SetRenderState(D3DRS_ALPHAREF, 120);
+	DEVICE->SetRenderState(D3DRS_ALPHAREF, 200);
 	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	DEVICE->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
+	//DEVICE->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_ONE);
 
 	_float4x4 CurView, CurProj;
 	DEVICE->GetTransform(D3DTS_VIEW, &CurView);
@@ -95,19 +80,18 @@ HRESULT CQuest::Render()
 
 	m_pRendererCom->UnBind_Texture();
 
-	
+
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 	DEVICE->SetTransform(D3DTS_VIEW, &CurView);
 	DEVICE->SetTransform(D3DTS_PROJECTION, &CurProj);
 
-	
+
 
 	return S_OK;
 }
 
-
-HRESULT CQuest::SetUp_Components()
+HRESULT CWarring::SetUp_Components()
 {
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
@@ -115,7 +99,7 @@ HRESULT CQuest::SetUp_Components()
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Quest"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Warring"), MEMORY_TYPE::MEMORY_STATIC);
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
@@ -124,20 +108,19 @@ HRESULT CQuest::SetUp_Components()
 	return S_OK;
 }
 
-CQuest* CQuest::Create()
+CWarring* CWarring::Create()
 {
-	CREATE_PIPELINE(CQuest);
+	CREATE_PIPELINE(CWarring);
 }
 
-CGameObject* CQuest::Clone(void* pArg)
+CGameObject* CWarring::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CQuest);
+	CLONE_PIPELINE(CWarring);
 }
 
-void CQuest::Free()
+void CWarring::Free()
 {
 	__super::Free();
 
 	delete this;
 }
-

@@ -264,7 +264,7 @@ void CEnemySpace_Body::On_Collision_Enter(CCollider* _Other_Collider)
 
 		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
 		{
-			Set_Dead();
+			Set_Dead();	
 		}
 	}
 }
