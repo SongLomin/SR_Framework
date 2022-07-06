@@ -155,6 +155,45 @@ void CTargeting::Make_AI_TargetList(list<CGameObject*>* pTarget, CTransform* pTr
 
 }
 
+void CTargeting::Make_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _vPosition, _float _fRange)
+{//À¯µµÅº ¿ë
+	if (nullptr == pTarget)
+		return;
+
+	for (auto& iter = m_pTargeting.begin(); iter != m_pTargeting.end();)
+	{
+
+		if (iter->second == nullptr)
+		{
+			iter = m_pTargeting.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
+	}
+
+	if (!m_pTargeting.empty())
+		return;
+
+	Clear_Targeting();
+
+
+	for (auto iter = pTarget->begin();
+		iter != pTarget->end();
+		++iter)
+	{
+		_float3 vTargetPos = (*iter)->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
+
+		_float fDistance = D3DXVec3Length(&(vTargetPos - _vPosition));
+		if (_fRange > fDistance)
+		{
+			m_pTargeting.emplace(fDistance, (*iter));
+			(*iter)->Set_WeakPtr(&m_pTargeting[fDistance]);
+		}
+	}
+}
+
 
 
 void CTargeting::Clear_Targeting()

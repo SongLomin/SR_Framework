@@ -19,7 +19,7 @@ public:
 	virtual HRESULT Initialize(LEVEL eNextLevel);
 	virtual void Tick(_float TimeDelta);
 	virtual HRESULT Render();
-	virtual void Change_Level(void* pArg) {}
+	virtual void Change_Level(void* pArg, _uint _iNextLevel) {}
 	virtual HRESULT Complete_Condition() { return S_OK; }
 
 

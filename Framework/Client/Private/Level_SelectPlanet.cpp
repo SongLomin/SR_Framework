@@ -7,6 +7,7 @@
 #include "Cam_Shoulder.h"
 #include "Cam_TPS.h"
 #include "MovingCamera.h"
+#include "Cam_Free.h"
 #include "Song_Ship_Body.h"
 #include "SelectPlanet_SkyBox.h"
 #include "Default_Aim.h"
@@ -54,6 +55,11 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(CURRENT_LEVEL, TEXT("Camera"));
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
+
+	/*CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_Free>(CURRENT_LEVEL, TEXT("Camera"));
+	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
+	GAMEINSTANCE->Register_Camera(TEXT("Free"), Moving_Cam->Get_Component<CCamera>());
+*/
 
 	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_SELECTPLANET, TEXT("Player")))
 		return E_FAIL;
@@ -112,7 +118,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	LEVEL m_eNextPlanet = LEVEL_STATIC;
 	LEVEL m_ePreNextPlanet = m_eNextPlanet;
 
-	for (_uint i = 0; i < 2; ++i)
+	for (_uint i = 0; i < 4; ++i)
 	{
 		
 
@@ -169,7 +175,7 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 		{
 			m_bCinematic = false;
 			GAMEINSTANCE->Swap_Camera();
-			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_REDPLANET))))
+			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
 				return;
 		}
 	}
@@ -193,10 +199,11 @@ HRESULT CLevel_SelectPlanet::Render()
 	return S_OK;
 }
 
-void CLevel_SelectPlanet::Change_Level(void* pArg)
+void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 {
 	m_fTime = 5.f;
 	m_bCinematic = true;
+	m_iNextLevel = _iNextLevel;
 
 	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player"));
 	for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)

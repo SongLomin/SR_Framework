@@ -160,7 +160,7 @@ HRESULT CNormal_Bullet::SetUp_Components_For_Child()
 	RigidBodyDesc.m_fOwnerJump = 0.f;
 	RigidBodyDesc.m_fOwnerJumpScale = 1.f;
 
-	RigidBodyDesc.m_fFrictional = 0.05f;
+	RigidBodyDesc.m_fFrictional = 0.f;
 	RigidBodyDesc.m_fRadFrictional = 0.02f;
 	RigidBodyDesc.m_fRadZ = 0.01f;
 
