@@ -45,6 +45,10 @@ void CCam_Free::Tick(_float fTimeDelta)
 	m_vRight+= m_vdRight;
 	m_vPos += m_vdPos;
 
+	D3DXVec3Normalize(&m_vLook, &m_vLook);
+	D3DXVec3Normalize(&m_vUp, &m_vUp);
+	D3DXVec3Normalize(&m_vRight, &m_vRight);
+
 	m_pTransformCom->Set_State(CTransform::STATE_LOOK, m_vLook);
 	m_pTransformCom->Set_State(CTransform::STATE_UP, m_vUp);
 	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, m_vRight);

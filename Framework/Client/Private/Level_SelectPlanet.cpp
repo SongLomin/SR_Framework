@@ -54,10 +54,10 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
-	CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_Free>(CURRENT_LEVEL, TEXT("Camera"));
+	/*CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_Free>(CURRENT_LEVEL, TEXT("Camera"));
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Free"), Moving_Cam->Get_Component<CCamera>());
-
+*/
 
 	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_SELECTPLANET, TEXT("Player")))
 		return E_FAIL;
@@ -106,7 +106,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	LEVEL m_eNextPlanet = LEVEL_STATIC;
 	LEVEL m_ePreNextPlanet = m_eNextPlanet;
 
-	for (_uint i = 0; i < 2; ++i)
+	for (_uint i = 0; i < 4; ++i)
 	{
 		
 

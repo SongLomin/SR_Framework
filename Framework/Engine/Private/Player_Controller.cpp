@@ -64,7 +64,6 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 			case 0:
 
 				GAMEINSTANCE->Set_Current_Camera(TEXT("Free"));
-				//GAMEINSTANCE->Get_Camera(TEXT("Free"))->
 				break;
 
 			case 1:
