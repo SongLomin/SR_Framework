@@ -238,7 +238,6 @@ void CLevel_SelectPlanet::Change_Level(void* pArg)
 		nullptr, nullptr, 1.f, 0.05f
 	);
 
-	
 }
 
 

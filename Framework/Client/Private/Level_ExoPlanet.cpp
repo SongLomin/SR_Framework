@@ -32,6 +32,7 @@
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
 #include "Quest.h"
+#include <SelectPlanet_SkyBox.h>
 
 CLevel_ExoPlanet::CLevel_ExoPlanet()
 {
@@ -63,7 +64,7 @@ HRESULT CLevel_ExoPlanet::Initialize()
 		return E_FAIL;
 
 	
-	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVLE_EXOPLANET, TEXT("SkyBox")))
+	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVLE_EXOPLANET, TEXT("Aim")))

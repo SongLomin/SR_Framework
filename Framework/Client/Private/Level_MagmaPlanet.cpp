@@ -32,6 +32,7 @@
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
 #include "Quest.h"
+#include <SelectPlanet_SkyBox.h>
 
 CLevel_MagmaPlanet::CLevel_MagmaPlanet()
 {
@@ -62,7 +63,7 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_MAGMAPLANET, TEXT("Player")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CSkyBox>(LEVEL_MAGMAPLANET, TEXT("SkyBox")))
+	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_MAGMAPLANET, TEXT("Aim")))

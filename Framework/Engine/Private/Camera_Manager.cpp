@@ -45,9 +45,9 @@ void CCamera_Manager::Shake(_float fTimeDelta)
 	RandomVec(&vShakeDir, -1.f, 1.f);
 	D3DXVec3Normalize(&vShakeDir, &vShakeDir);
 
-	camPosition += m_fOffset*vShakeDir;
+	camPosition += m_fOffset * vShakeDir;
 
-	m_pCurrentCam->Get_Transform()->Set_World_State(CTransform::STATE_POSITION,camPosition);
+	m_pCurrentCam->Get_Transform()->Set_World_State(CTransform::STATE_POSITION, camPosition);
 
 
 	m_fOffset -= m_fInclination;
