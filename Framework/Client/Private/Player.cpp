@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Normal_Turret.h"
 #include <Booster_PSystem.h>
+#include <Move_PSystem.h>
 
 CPlayer::CPlayer()
 {
@@ -38,11 +39,21 @@ void CPlayer::Tick(_float fTimeDelta)
 	}
 
 
-
 	if (m_pRigid_BodyCom->Get_Booster())
 	{
 		//GAMEINSTANCE->Get_ParticleSystem<CBooster_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"));
 		((CBooster_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CBooster_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"), nullptr, nullptr))->AddParticle(900 * fTimeDelta, m_pTransformCom);
+	}
+	else if (m_pRigid_BodyCom->Get_Booster() == false)
+	{
+		_float3 Speed = m_pRigid_BodyCom->Get_Vector(RIGID_BODY::SPEED);
+		
+		_float vNow = fabs(D3DXVec3Length(&Speed)) / 100.f;
+		if (vNow > 0.9f)
+		{
+			D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 0, 0);
+			((CMove_PSystem*)GAMEINSTANCE->Add_GameObject<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke"), nullptr, nullptr, true))->AddParticle(10, m_pTransformCom, color);
+		}
 	}
 }
 

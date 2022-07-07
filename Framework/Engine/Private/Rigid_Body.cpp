@@ -167,7 +167,7 @@ void CRigid_Body::Add_Force(_float3 fDir)
 
 
 
-void CRigid_Body::Compute_Force()
+void CRigid_Body::Compute_Force(_float fTimeDelta)
 {
 	if (m_bCamera)
 	{
@@ -176,7 +176,7 @@ void CRigid_Body::Compute_Force()
 	}
 	else
 	{
-		Compute_Dir();
+		Compute_Dir(fTimeDelta);
 		Compute_Rotation();
 		if (m_bLift)
 		{
@@ -184,7 +184,7 @@ void CRigid_Body::Compute_Force()
 			Compute_RotDirection();
 		}
 
-		Friction();
+		Friction(fTimeDelta);
 		//Compute_Ground();
 	}
 }
@@ -199,13 +199,13 @@ void CRigid_Body::Compute_Camera()
 	m_vSpeed = _float3(0.f, 0.f, 0.f);
 }
 
-void CRigid_Body::Compute_Dir()
+void CRigid_Body::Compute_Dir(_float fTimeDelta)
 {
 	D3DXVec3Normalize(&m_vAccel, &m_vAccel);
 
 	if (m_bBooster)
 	{
-		m_vSpeed += m_vAccel * m_RigidbodyDesc.m_fBoosterAccel;
+		m_vSpeed += m_vAccel * m_RigidbodyDesc.m_fBoosterAccel * fTimeDelta;
 		if (m_RigidbodyDesc.m_fBoosterSpeed < fabs(D3DXVec3Length(&m_vSpeed)))
 		{
 			D3DXVec3Normalize(&m_vSpeed, &m_vSpeed);
@@ -216,7 +216,7 @@ void CRigid_Body::Compute_Dir()
 	}
 	if(!m_bBooster && fabs(D3DXVec3Length(&m_vSpeed) < m_RigidbodyDesc.m_fOwnerSpeed))
 	{
-		m_vSpeed += m_vAccel * m_RigidbodyDesc.m_fOwnerAccel;
+		m_vSpeed += m_vAccel * m_RigidbodyDesc.m_fOwnerAccel * fTimeDelta;
 		if (m_RigidbodyDesc.m_fOwnerSpeed < fabs(D3DXVec3Length(&m_vSpeed)))
 		{
 			D3DXVec3Normalize(&m_vSpeed, &m_vSpeed);
@@ -227,7 +227,7 @@ void CRigid_Body::Compute_Dir()
 
 }
 
-void CRigid_Body::Friction()
+void CRigid_Body::Friction(_float fTimeDelta)
 {
 
 	if (DBL_EPSILON < fabs(D3DXVec3Length(&m_vSpeed)))
@@ -236,9 +236,9 @@ void CRigid_Body::Friction()
 		D3DXVec3Normalize(&vFriction, &m_vSpeed);
 
 
-		m_vSpeed -= vFriction * m_RigidbodyDesc.m_fFrictional;
-
-		if (m_RigidbodyDesc.m_fFrictional > fabs(D3DXVec3Length(&m_vSpeed)))
+		m_vSpeed -= vFriction * m_RigidbodyDesc.m_fFrictional ;
+		_float fLength = D3DXVec3Length(&m_vSpeed);
+		if (m_RigidbodyDesc.m_fFrictional > fabs(fLength))
 			m_vSpeed = _float3(0.f, 0.f, 0.f);
 	}
 
@@ -250,7 +250,7 @@ void CRigid_Body::Friction()
 			D3DXVec3Normalize(&vFriction, &m_vSpeed);
 
 
-			m_vSpeed -= vFriction * (m_RigidbodyDesc.m_fBoosterAccel * 0.3f);
+			m_vSpeed -= vFriction * (m_RigidbodyDesc.m_fBoosterAccel * 0.3f) ;
 
 			if (m_RigidbodyDesc.m_fOwnerSpeed > fabs(D3DXVec3Length(&m_vSpeed)))
 			{
@@ -474,7 +474,7 @@ void CRigid_Body::Compute_Ground()
 
 void CRigid_Body::Update_Transform(_float fTimeDelta)
 {
-	Compute_Force();
+	Compute_Force(fTimeDelta);
 	if (m_bCamera)
 	{
 		SubTurn();

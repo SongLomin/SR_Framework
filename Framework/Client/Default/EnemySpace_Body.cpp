@@ -10,6 +10,7 @@
 #include <Fire_PSystem.h>
 #include <Bomb_Effect.h>
 #include <Smoke_PSystem.h>
+#include "Move_PSystem.h"
 
 CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
 {
@@ -102,6 +103,15 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 	{
 		((CSmoke_PSystem*)GAMEINSTANCE->Add_GameObject<CSmoke_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke"), nullptr, nullptr, true))->AddParticle(1, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
 	}*/
+
+	_float3 Speed = m_pRigidBodyCom->Get_Vector(RIGID_BODY::SPEED);
+
+	if (fabs(D3DXVec3Length(&Speed)) > 5.f)
+	{
+		D3DCOLOR color = D3DCOLOR_ARGB(255, 0, 255, 0);
+		((CMove_PSystem*)GAMEINSTANCE->Add_GameObject<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke"), nullptr, nullptr, true))->AddParticle(10, m_pTransformCom, color);
+	}
+
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);

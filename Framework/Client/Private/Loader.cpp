@@ -13,7 +13,7 @@ CLoader::CLoader(LPDIRECT3DDEVICE9 pGraphic_Device)
 
 unsigned int APIENTRY LoadingMain(void* pArg)
 {
-	CLoader*		pLoader = (CLoader*)pArg;
+	CLoader* pLoader = (CLoader*)pArg;
 
 	EnterCriticalSection(&pLoader->Get_CS());
 
@@ -45,7 +45,7 @@ unsigned int APIENTRY LoadingMain(void* pArg)
 		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
 		hr = pLoader->Loading_ForMagmaPlanet();
 		break;
-	}	
+	}
 
 	if (FAILED(hr))
 		MSG_BOX("Failed to Loading");
@@ -71,9 +71,9 @@ HRESULT CLoader::Initialize(LEVEL eNextLevel)
 
 HRESULT CLoader::Loading_ForLogoLevel()
 {
-	CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
+	CGameInstance* pGameInstance = CGameInstance::Get_Instance();
 	//Safe_AddRef(pGameInstance);
-	
+
 #pragma region PROTOTYPE_GAMEOBJECT
 
 	lstrcpy(m_szLoadingText, TEXT("객체를 생성중입니다."));
@@ -83,7 +83,7 @@ HRESULT CLoader::Loading_ForLogoLevel()
 
 	//if (FAILED(pGameInstance->Add_Prototype_GameObject<CMonster>()))
 	//	return E_FAIL;
-	
+
 
 #pragma endregion
 
@@ -161,7 +161,7 @@ HRESULT CLoader::Loading_ForLogoLevel()
 	GAMEINSTANCE->Load_Shader(TEXT("SpotLight"), TEXT("SpotLight.hlsl"));
 	GAMEINSTANCE->Load_Shader(TEXT("PointLight"), TEXT("PointLight.hlsl"));
 
-	
+
 	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
 		return E_FAIL;
 
@@ -183,7 +183,7 @@ HRESULT CLoader::Loading_ForRedPlanet()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
 		return E_FAIL;
 
-	
+
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Tex_Terrain"), TEXT("../Bin/Resources/Textures/Terrain/SpaceStation.jpg"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
 		return E_FAIL;
@@ -195,8 +195,8 @@ HRESULT CLoader::Loading_ForRedPlanet()
 
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
 
-	
-	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));	
+
+	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
 
 	m_isFinished = true;
@@ -231,11 +231,11 @@ HRESULT CLoader::Loading_ForVenusPlanet()
 
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
 
-	
+
 
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
 
-	
+
 
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
@@ -252,7 +252,7 @@ HRESULT CLoader::Loaidng_ForExoPlanet()
 
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
 
-	
+
 
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
 
@@ -284,9 +284,18 @@ HRESULT CLoader::Loading_ForSelectPlanet()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Bomb_Effect"), TEXT("../Bin/Resources/Textures/Effect/Bomb_%d.png"),
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Smoke_Particle"), TEXT("../Bin/Resources/Textures/Particle/Smoke.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Bomb_Effect"), TEXT("../Bin/Resources/Textures/Effect/Bomb/Bomb_%d.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Teleport_Effect"), TEXT("../Bin/Resources/Textures/Effect/Teleport/Teleport_%d.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
 
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Warring"), TEXT("../Bin/Resources/Textures/UI/Warring.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
@@ -301,12 +310,12 @@ HRESULT CLoader::Loading_ForSelectPlanet()
 		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
-	
-	
+
+
 
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
-	
+
 
 	m_isFinished = true;
 
@@ -317,7 +326,7 @@ HRESULT CLoader::Loading_ForSelectPlanet()
 
 CLoader* CLoader::Create(LPDIRECT3DDEVICE9 pGraphic_Device, LEVEL eNextLevel)
 {
-	CLoader*		pInstance = new CLoader(pGraphic_Device);
+	CLoader* pInstance = new CLoader(pGraphic_Device);
 
 	if (FAILED(pInstance->Initialize(eNextLevel)))
 	{

@@ -192,6 +192,7 @@
     <ClInclude Include="..\Public\HpBar.h" />
     <ClInclude Include="..\Public\Level_SelectPlanet.h" />
     <ClInclude Include="..\Public\MovingCamera.h" />
+    <ClInclude Include="..\Public\Planet.h" />
     <ClInclude Include="..\Public\Planet_Exo.h" />
     <ClInclude Include="..\Public\Planet_Magma.h" />
     <ClInclude Include="..\Public\Planet_Red.h" />
@@ -220,6 +221,9 @@
     <ClInclude Include="..\Public\SpaceDust_PSystem.h" />
     <ClInclude Include="..\Public\StatusBar.h" />
     <ClInclude Include="..\Public\TargetingBox.h" />
+    <ClInclude Include="..\Public\Teleport_Effect.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\Public\Terrain.h" />
     <ClInclude Include="..\Public\Kang_Ship_Body.h" />
     <ClInclude Include="..\Public\TextBox.h" />
@@ -261,6 +265,7 @@
     <ClCompile Include="..\Private\HpBar.cpp" />
     <ClCompile Include="..\Private\Level_SelectPlanet.cpp" />
     <ClCompile Include="..\Private\MovingCamera.cpp" />
+    <ClCompile Include="..\Private\Planet.cpp" />
     <ClCompile Include="..\Private\Planet_Exo.cpp" />
     <ClCompile Include="..\Private\Planet_Magma.cpp" />
     <ClCompile Include="..\Private\Planet_Red.cpp" />
@@ -288,6 +293,9 @@
     <ClCompile Include="..\Private\SpaceDust_PSystem.cpp" />
     <ClCompile Include="..\Private\StatusBar.cpp" />
     <ClCompile Include="..\Private\TargetingBox.cpp" />
+    <ClCompile Include="..\Private\Teleport_Effect.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\Private\Terrain.cpp" />
     <ClCompile Include="..\Private\Kang_Ship_Body.cpp" />
     <ClCompile Include="..\Private\TextBox.cpp" />

@@ -127,16 +127,16 @@ public:
 
 private:
 
-	void		Compute_Force();
+	void		Compute_Force(_float fTimeDelta);
 	void		Compute_Camera();
 
-	void		Compute_Dir();
+	void		Compute_Dir(_float fTimeDelta);
 	void		Compute_Rotation();
 
 	void		Compute_RotDirection();//비행기 회전용
 	void		Compute_Lift();
 
-	void		Friction();//마찰력
+	void		Friction(_float fTimeDelta);//마찰력
 
 	void		Compute_Ground();
 

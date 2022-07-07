@@ -20,7 +20,7 @@ HRESULT CMove_PSystem::Initialize(void* pArg)
 	m_vbBatchSize = 512;
 
 	__super::Initialize(pArg);
-	m_pRenderer->Set_Textures_From_Key(TEXT("Booster_Particle"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRenderer->Set_Textures_From_Key(TEXT("Smoke_Particle"), MEMORY_TYPE::MEMORY_STATIC);
 
 	return S_OK;
 }
@@ -91,7 +91,7 @@ HRESULT CMove_PSystem::Render()
 
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	DEVICE->SetRenderState(D3DRS_ALPHAREF, 253);
+	DEVICE->SetRenderState(D3DRS_ALPHAREF, 250);
 	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 
 	__super::Render();
@@ -119,15 +119,15 @@ void CMove_PSystem::ResetParticle(ParticleDesc* Desc)
 
 	Desc->position.x = 0.f;
 	Desc->position.y = 0.f;
-	Desc->position.z = 0.f;
+	Desc->position.z = -7.f;
 
-	Desc->position -= m_pTransform->Get_World_State(CTransform::STATE_LOOK) * 50.f;
+	//Desc->position -= m_pTransform->Get_World_State(CTransform::STATE_LOOK) * 50.f;
 
 	Desc->velocity.x = 0.f;
 	Desc->velocity.y = 0.f;
 	Desc->velocity.z = 0.f;
 
-	Desc->color = D3DCOLOR_ARGB(255, 255, 0, 0);
+	//Desc->color = D3DCOLOR_ARGB(255, 255, 0, 0);
 
 	Desc->age = 0.f;
 	Desc->lifeTime = 3.f;

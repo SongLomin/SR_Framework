@@ -41,7 +41,9 @@ public:
 	virtual void ResetParticle(ParticleDesc* attribute) = 0;
 	void AddParticle(int num = 1);
 	void AddParticle(int num, CTransform* _pTransformCom);
+	void AddParticle(int num, CTransform* _pTransformCom, D3DCOLOR _color);
 	void AddParticle(int num, _float3 _Pos);
+	void AddParticle(int num, _float3 _Pos, D3DCOLOR _color);
 
 	bool IsEmpty();
 	bool IsDead();

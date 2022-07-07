@@ -15,18 +15,19 @@ CPlanet_Sun::CPlanet_Sun(const CPlanet_Sun& Prototype)
 	*this = Prototype;
 }
 
-HRESULT CPlanet_Sun::Initialize_Prototype()
-{
-	return S_OK;
-}
-
 HRESULT CPlanet_Sun::Initialize(void* pArg)
 {
 
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
+	_float3 StartPos = { 200.f, 100.f, 400.f };
+	_tchar* PontText = TEXT("Sun \n 보스 구역 \n [Warring]   \n 보상 : XXX");
+	_point PontPos = { (LONG)m_vScreenPos.x + 40, (LONG)m_vScreenPos.y - 10 };
+	_float3 MyScale = _float3(100.f, 100.f, 50.f);
+	_uint TextureIndex = 4;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(200.f, 100.f, 400.f));
+	// 레벨 추가 안되있음
+	SetUp_Varialbes_For_Child(StartPos, PontText, PontPos, TextureIndex, LEVEL::LEVEL_END, MyScale);
 
 
 	m_pDiveUi = GAMEINSTANCE->Add_GameObject<CDive>(LEVEL_SELECTPLANET, TEXT("Dive"));
@@ -36,10 +37,8 @@ HRESULT CPlanet_Sun::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CPlanet_Sun::Tick(_float fTimeDelta)
-{
-	__super::Tick(fTimeDelta);
 
+void CPlanet_Sun::SetUp_Components_For_Child()
 	_float3 MouseEndPos;
 	RAY	MouseWorldPos;
 	MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
@@ -88,13 +87,6 @@ void CPlanet_Sun::Tick(_float fTimeDelta)
 
 void CPlanet_Sun::LateTick(_float fTimeDelta)
 {
-	__super::LateTick(fTimeDelta);
-
-
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
-
-	LookAtCamera();
-
 }
 
 HRESULT CPlanet_Sun::Render()
@@ -168,10 +160,6 @@ CGameObject* CPlanet_Sun::Clone(void* pArg)
 void CPlanet_Sun::Free()
 {
 	__super::Free();
-
-	RETURN_WEAKPTR(m_pTransformCom);
-	RETURN_WEAKPTR(m_pRendererCom);
-	RETURN_WEAKPTR(m_pVIBufferCom);
 
 	delete this;
 }

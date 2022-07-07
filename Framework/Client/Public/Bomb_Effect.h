@@ -10,7 +10,7 @@ BEGIN(Client)
 
 class CBomb_Effect final : public CEffect
 {
-protected:
+private:
 	CBomb_Effect();
 	CBomb_Effect(const CBomb_Effect& Prototype);
 	virtual ~CBomb_Effect() = default;

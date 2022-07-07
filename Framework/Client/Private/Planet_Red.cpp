@@ -14,10 +14,6 @@ CPlanet_Red::CPlanet_Red(const CPlanet_Red& Prototype)
 	*this = Prototype;
 }
 
-HRESULT CPlanet_Red::Initialize_Prototype()
-{
-	return S_OK;
-}
 
 HRESULT CPlanet_Red::Initialize(void* pArg)
 {
@@ -25,8 +21,13 @@ HRESULT CPlanet_Red::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 200.f, 300.f));
+	_float3 StartPos = { 0.f, 200.f, 300.f };
+	_tchar* PontText = TEXT("Red Planet \n 고 위험 구역 \n 임무 : 모든 기체 파괴 \n 난이도 :『★★★★』  \n 보상 : XXX");
+	_point PontPos = { (LONG)m_vScreenPos.x + 40, (LONG)m_vScreenPos.y - 10 };
+	_float3 MyScale = _float3(100.f, 100.f, 50.f);
+	_uint TextureIndex = 3;
 
+	SetUp_Varialbes_For_Child(StartPos, PontText, PontPos, TextureIndex, LEVEL::LEVEL_REDPLANET, MyScale);
 	m_pDiveUi = GAMEINSTANCE->Add_GameObject<CDive>(LEVEL_SELECTPLANET, TEXT("Dive"));
 	m_pDiveUi->Set_Enable(false);
 
@@ -34,10 +35,10 @@ HRESULT CPlanet_Red::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CPlanet_Red::Tick(_float fTimeDelta)
-{
-	__super::Tick(fTimeDelta);
 
+void CPlanet_Red::SetUp_Components_For_Child()
+{
+}
 
 	//CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
 
@@ -197,10 +198,6 @@ CGameObject* CPlanet_Red::Clone(void* pArg)
 void CPlanet_Red::Free()
 {
 	__super::Free();
-
-	RETURN_WEAKPTR(m_pTransformCom);
-	RETURN_WEAKPTR(m_pRendererCom);
-	RETURN_WEAKPTR(m_pVIBufferCom);
 
 	delete this;
 }

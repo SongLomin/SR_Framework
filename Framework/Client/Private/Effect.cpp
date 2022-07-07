@@ -37,7 +37,22 @@ HRESULT CEffect::Render_Begin(ID3DXEffect** Shader)
 
 HRESULT CEffect::Render()
 {
+	m_pTransformCom->Scaling(_float3(15.f, 15.f, 15.f), true);
+	m_pTransformCom->Bind_WorldMatrix();
+
+
+	m_pRendererCom->Bind_Texture(m_iTexture_Min);
+
+	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	DEVICE->SetRenderState(D3DRS_ALPHAREF, 0);
+	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+
 	__super::Render();
+
+
+	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+
+	m_pRendererCom->UnBind_Texture();
 
 	return S_OK;
 }

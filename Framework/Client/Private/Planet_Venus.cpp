@@ -15,19 +15,19 @@ CPlanet_Venus::CPlanet_Venus(const CPlanet_Venus& Prototype)
 	*this = Prototype;
 }
 
-HRESULT CPlanet_Venus::Initialize_Prototype()
-{
-	return S_OK;
-}
-
 HRESULT CPlanet_Venus::Initialize(void* pArg)
 {
 
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1.f, 100.f, 300.f));
+	_float3 StartPos = { 1.f, 100.f, 300.f };
+	_tchar* PontText = TEXT("Sun \n 보스 구역 \n [Warring]   \n 보상 : XXX");
+	_point PontPos = { (LONG)m_vScreenPos.x + 40, (LONG)m_vScreenPos.y - 10 };
+	_float3 MyScale = _float3(80.f, 80.f, 50.f);
+	_uint TextureIndex = 0;
 
+	SetUp_Varialbes_For_Child(StartPos, PontText, PontPos, TextureIndex, LEVEL::LEVEL_VENUSPLANET, MyScale);
 	m_pDiveUi = GAMEINSTANCE->Add_GameObject<CDive>(LEVEL_SELECTPLANET, TEXT("Dive"));
 	m_pDiveUi->Set_Enable(false);
 
@@ -130,34 +130,6 @@ HRESULT CPlanet_Venus::Render()
 
 HRESULT CPlanet_Venus::SetUp_Components()
 {
-
-	Add_Component<CTransform>();
-
-	m_pTransformCom = Get_Component<CTransform>();
-	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
-
-	m_pRendererCom = Add_Component<CRenderer>();
-	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Planet"), MEMORY_TYPE::MEMORY_STATIC);
-
-
-	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
-	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
-
-	return S_OK;
-}
-
-void CPlanet_Venus::LookAtCamera()
-{
-	_float4x4		ViewMatrix;
-
-	DEVICE->GetTransform(D3DTS_VIEW, &ViewMatrix);
-	D3DXMatrixInverse(&ViewMatrix, nullptr, &ViewMatrix);
-
-	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, *(_float3*)&ViewMatrix.m[0][0], true);
-	m_pTransformCom->Set_State(CTransform::STATE_UP, *(_float3*)&ViewMatrix.m[1][0], true);
-	m_pTransformCom->Set_State(CTransform::STATE_LOOK, *(_float3*)&ViewMatrix.m[2][0], true);
-
 }
 
 CPlanet_Venus* CPlanet_Venus::Create()
@@ -173,10 +145,6 @@ CGameObject* CPlanet_Venus::Clone(void* pArg)
 void CPlanet_Venus::Free()
 {
 	__super::Free();
-
-	RETURN_WEAKPTR(m_pTransformCom);
-	RETURN_WEAKPTR(m_pRendererCom);
-	RETURN_WEAKPTR(m_pVIBufferCom);
 
 	delete this;
 }
