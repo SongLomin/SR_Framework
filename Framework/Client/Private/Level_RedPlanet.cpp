@@ -142,12 +142,12 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_REDPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
-	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(500);
+	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_REDPLANET, TEXT("Particle")))->AddParticle(500);
 
-	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
+	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_REDPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);
 
-	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest"));
+	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_REDPLANET, TEXT("Quest"));
 	m_pQuestBoxObject->Set_Enable(false);
 
 
@@ -158,12 +158,6 @@ HRESULT CLevel_RedPlanet::Initialize()
 
 
 
-	/*TEXTINFO Info;
-	Info.color = D3DCOLOR_ARGB(255, 0, 255, 0);
-	Info.rcTemp = { 600, 300, 600 + 200, 300 + 300 };
-	wsprintf(Info.szBuff, L"10초동안 출력");
-	if (FAILED(GAMEINSTANCE->Add_Text(&Info, 10.f)))
-		return E_FAIL;*/
 
 	return S_OK;
 }
@@ -173,7 +167,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	__super::Tick(fTimeDelta);
 
 
-	
+	/*
 	m_fSpawnTime -= fTimeDelta;
 	if (m_fSpawnTime < 0.f)
 	{
@@ -182,7 +176,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 
 		m_iEnemyCount++;
 		m_fSpawnTime = 5.f;
-	}
+	}*/
 
 
 
