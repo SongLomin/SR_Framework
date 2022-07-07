@@ -127,6 +127,9 @@ public: /* For.Camera_Manager */
 	CGameObject* Get_MovingCam();
 	void Swap_Camera();
 	void Add_Shaking(_float _fOffset, _float _fInclination);
+	void Switch_Camera(const _tchar* _CameraTag, _float _fTime);
+	void Switch_Player(CTransform* _pCurCamera, CTransform* _pNextCamera, const _tchar* _NextCameraTag, _float fTime);
+
 
 
 public: /* For.IMGUI_Manager */

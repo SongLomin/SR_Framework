@@ -235,6 +235,9 @@
     <Filter Include="01.Utility\03.Components\09. Controller\AI_Transport_Controller">
       <UniqueIdentifier>{777883d1-7c4a-4c99-a242-c770a64e2534}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\04.Manager\07. Camera_Manager\00. Cam_Free">
+      <UniqueIdentifier>{d0a5bfba-63aa-4563-a2e3-a1f32681b1d3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -470,6 +473,9 @@
     <ClInclude Include="..\Public\ParticleSystem.h">
       <Filter>01.Utility\02.GameObject\01. ParticleSystem</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Cam_Free.h">
+      <Filter>01.Utility\04.Manager\07. Camera_Manager\00. Cam_Free</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -686,6 +692,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\ParticleSystem.cpp">
       <Filter>01.Utility\02.GameObject\01. ParticleSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Cam_Free.cpp">
+      <Filter>01.Utility\04.Manager\07. Camera_Manager\00. Cam_Free</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

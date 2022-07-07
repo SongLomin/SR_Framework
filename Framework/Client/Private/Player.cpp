@@ -93,10 +93,21 @@ void CPlayer::On_Change_Controller(const CONTROLLER& _IsAI)
 		m_pAI_ControllerCom->Set_Enable(false);
 		m_pPlayer_ControllerCom->Set_Enable(true);
 		m_pRigid_BodyCom->Set_Mouse(true);
+
+		CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
+		CTransform* pCurCameraTransform = nullptr;//이게맞냐
+		if(pCurCamera)
+			pCurCameraTransform = GAMEINSTANCE->Get_Camera()->Get_Transform();
+
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
+		if (pCurCameraTransform)
+		{
+			//CTransform* pNextCameraTransform = GAMEINSTANCE->Get_Camera(TEXT("TPS"))->Get_Transform();
 
+			GAMEINSTANCE->Switch_Player(pCurCameraTransform, m_pTransformCom, TEXT("TPS"), 0.7f);
+		}
 		list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player"));
 
 		if (pAiObect == nullptr)

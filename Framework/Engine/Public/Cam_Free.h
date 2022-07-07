@@ -1,13 +1,13 @@
 #pragma once
 #include "GameObject.h"
-#include "Client_Defines.h"
+
 
 BEGIN(Engine)
 class CTransform;
 class CCamera;
-END
 
-BEGIN(Client)
+
+
 class CCam_Free :
     public CGameObject
 {
@@ -24,8 +24,9 @@ public:
     virtual void LateTick(_float fTimeDelta) override;
     virtual HRESULT Render() override;
 
-    void    Set_RouteCamera(CCamera* _pCurCamera, _tchar* _NextCameraTag, _float _fTime);
-
+    void    Set_RouteCamera(CCamera* _pCurCamera, const _tchar* _NextCameraTag, _float _fTime);
+    void    Switch_Player(CTransform* _pCurCamera, CTransform* _pNextCamera, const _tchar* _NextCameraTag, _float fTime);
+    //바꾼 후에는 무조건 3인칭으로
 private:
     void    Make_Route();
 
@@ -34,7 +35,7 @@ private:
     CCamera* m_pCameraCom = nullptr;
 
     //루트 생성에만 쓰임
-    _tchar* m_NextCameraTag = L"";
+    const _tchar* m_NextCameraTag = L"";
     CTransform* m_pNextCameraTransform = nullptr;
     CTransform* m_pCurCameraTransform = nullptr;
 
@@ -51,6 +52,8 @@ private:
 
     _float      m_fTime=0.f;
 
+    _bool       m_bFlag = false;
+    _bool       m_bSwitchPlayer = false;
   
 
 public:

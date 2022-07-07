@@ -41,7 +41,7 @@ void CPlanet_Exo::Tick(_float fTimeDelta)
 	_float3 MouseEndPos;
 	RAY	MouseWorldPos;
 	MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
-	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 10000.f);
+	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * MouseWorldPos.fLength);//얘는 왜 있는거임?
 
 	_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
 

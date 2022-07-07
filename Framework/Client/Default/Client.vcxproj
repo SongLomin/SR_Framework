@@ -203,7 +203,6 @@
     <ClInclude Include="..\public\Song_Ship_Body.h" />
     <ClInclude Include="..\Public\Cam_FPS.h" />
     <ClInclude Include="..\Public\Normal_Bullet.h" />
-    <ClInclude Include="..\Public\Cam_Free.h" />
     <ClInclude Include="..\Public\Cam_Shoulder.h" />
     <ClInclude Include="..\Public\Cam_TPS.h" />
     <ClInclude Include="..\Public\Client_Defines.h" />
@@ -273,7 +272,6 @@
     <ClCompile Include="..\private\Song_Ship_Body.cpp" />
     <ClCompile Include="..\Private\Normal_Bullet.cpp" />
     <ClCompile Include="..\Private\Cam_FPS.cpp" />
-    <ClCompile Include="..\Private\Cam_Free.cpp" />
     <ClCompile Include="..\Private\Cam_Shoulder.cpp" />
     <ClCompile Include="..\Private\Cam_TPS.cpp" />
     <ClCompile Include="..\Private\Level_RedPlanet.cpp" />
