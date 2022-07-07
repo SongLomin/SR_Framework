@@ -119,7 +119,7 @@ void CMove_PSystem::ResetParticle(ParticleDesc* Desc)
 
 	Desc->position.x = 0.f;
 	Desc->position.y = 0.f;
-	Desc->position.z = 0.f;
+	Desc->position.z = -7.f;
 
 	Desc->position -= m_pTransform->Get_World_State(CTransform::STATE_LOOK) * 50.f;
 

@@ -220,6 +220,7 @@
     <ClInclude Include="..\Public\SpaceDust_PSystem.h" />
     <ClInclude Include="..\Public\StatusBar.h" />
     <ClInclude Include="..\Public\TargetingBox.h" />
+    <ClInclude Include="..\Public\Teleport_Effect.h" />
     <ClInclude Include="..\Public\Terrain.h" />
     <ClInclude Include="..\Public\Kang_Ship_Body.h" />
     <ClInclude Include="..\Public\TextBox.h" />
@@ -288,6 +289,7 @@
     <ClCompile Include="..\Private\SpaceDust_PSystem.cpp" />
     <ClCompile Include="..\Private\StatusBar.cpp" />
     <ClCompile Include="..\Private\TargetingBox.cpp" />
+    <ClCompile Include="..\Private\Teleport_Effect.cpp" />
     <ClCompile Include="..\Private\Terrain.cpp" />
     <ClCompile Include="..\Private\Kang_Ship_Body.cpp" />
     <ClCompile Include="..\Private\TextBox.cpp" />

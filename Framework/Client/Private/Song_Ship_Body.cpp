@@ -16,6 +16,7 @@
 #include "Booster_PSystem.h"
 #include "Smoke_PSystem.h"
 #include <Move_PSystem.h>
+#include "Teleport_Effect.h"
 
 
 
@@ -57,7 +58,8 @@ void CSong_Ship_Body::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::M, KEY_STATE::HOLD))
 	{
-		((CMove_PSystem*)GAMEINSTANCE->Add_GameObject<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"), nullptr, nullptr, true))->AddParticle(10, m_pTransformCom);
+		GAMEINSTANCE->Add_GameObject<CTeleport_Effect>(CURRENT_LEVEL, TEXT("Teleport"), nullptr, nullptr, true);
+		//((CMove_PSystem*)GAMEINSTANCE->Add_GameObject<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"), nullptr, nullptr, true))->AddParticle(10, m_pTransformCom);
 	}
 
 	/*if (Get_Controller() == CONTROLLER::PLAYER)

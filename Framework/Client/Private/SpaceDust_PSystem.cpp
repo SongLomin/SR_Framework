@@ -28,7 +28,7 @@ HRESULT CSpaceDust_PSystem::Initialize(void* pArg)
 	m_EndColor = _float3(1.f, 0.f, 0.f);*/
 
 	__super::Initialize(pArg);
-
+	//m_pRenderer->Set_Textures_From_Key(TEXT("Particles"), MEMORY_TYPE::MEMORY_STATIC);
 	/*for (int i = 0; i < numParticles; i++)
 		AddParticle();*/
 
@@ -124,6 +124,7 @@ HRESULT CSpaceDust_PSystem::Render()
 	DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 
 	//언바인드
+	//m_pRenderer->UnBind_Texture();
 	return S_OK;
 }
 
@@ -131,6 +132,7 @@ void CSpaceDust_PSystem::ResetParticle(ParticleDesc* Desc)
 {
 	Desc->isAlive = true;
 
+	
 	
 	m_size = (_float)((rand() % 5 + 10) * 0.15f);
 	// no randomness for height (y-coordinate).  Snow flake
