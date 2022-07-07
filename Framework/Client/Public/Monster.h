@@ -12,6 +12,7 @@ class CStatus;
 class CTargeting;
 class CAI_Controller;
 class CCollider_Sphere;
+class CNormal_Turret;
 END
 
 BEGIN(Client)
@@ -42,10 +43,13 @@ protected: /* For My Component*/
 
 protected:
     list<CNormal_Turret*> m_pPosinList;
-    _float m_fTime = 1.f;
+    _float m_fTime = 3.f;
 
 public:
     virtual void On_Change_Controller(const CONTROLLER& _IsAI);
+
+private:
+    void Update_Target(CGameObject* _Target);
 
 protected:
     HRESULT SetUp_Components();

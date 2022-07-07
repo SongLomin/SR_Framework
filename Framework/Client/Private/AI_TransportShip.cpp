@@ -138,8 +138,8 @@ HRESULT CAI_TransportShip::SetUp_Components()
 
 #pragma region Rigid_Body Setting
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 7.f;
-	RigidBodyDesc.m_fOwnerAccel = 0.5f;
+	RigidBodyDesc.m_fOwnerSpeed = 4.5f;
+	RigidBodyDesc.m_fOwnerAccel = 1.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
 	RigidBodyDesc.m_fOwnerJump = 5.f;
@@ -211,7 +211,7 @@ void CAI_TransportShip::Spawn_SpaceShip()
 	CAI_Controller* pController_Friendly = pAI_Friendly->Get_Component<CAI_Controller>();
 
 	//pController_Friendly->Push_Front_Command(STATE::MOVE_LIFT_FRONT);
-	pController_Friendly->Push_Front_Command(STATE::MOVE_FORWARD);
+	pController_Friendly->Push_Front_Command(STATE::MOVE_FORWARD, 6.f);
 
 	
 

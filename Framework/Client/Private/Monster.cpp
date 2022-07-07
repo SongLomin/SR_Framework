@@ -5,6 +5,7 @@
 #include "Bomb_Effect.h"
 #include "Fire_PSystem.h"
 #include "Smoke_PSystem.h"
+#include "Normal_Turret.h"
 
 
 HRESULT CMonster::Initialize_Prototype()
@@ -31,13 +32,31 @@ void CMonster::LateTick(_float fTimeDelta)
 	m_fTime -= fTimeDelta;
 	if (m_fTime < 0.f)
 	{
-		m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player")), m_pTransformCom);
-		m_fTime = 1.f;
+		int RandomTarget = rand() % 2;
+
+		if (0 == RandomTarget)
+		{
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+		}
+
+		else
+		{
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("AI_Friendly")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+		}
+
+		auto TargetList = m_pTargetingCom->Get_Targetting();
+
+		if (!TargetList->empty())
+		{
+			Update_Target(TargetList->begin()->second);
+		}
+
+		m_fTime = 3.f;
 	}
 
 	if (m_pStatusCom->Get_Status().fHp < m_pStatusCom->Get_Status().fMaxHp / 2.f)
 	{
-		((CSmoke_PSystem*)GAMEINSTANCE->Add_GameObject<CSmoke_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke"), nullptr, nullptr, true))->AddParticle(1, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
+		((CSmoke_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CSmoke_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(1, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
 	}
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
@@ -74,6 +93,18 @@ void CMonster::On_Change_Controller(const CONTROLLER& _IsAI)
 	{
 		return;
 	}
+}
+
+void CMonster::Update_Target(CGameObject* _Target)
+{
+	if (!_Target)
+		return;
+
+	for (auto& elem : m_pPosinList)
+	{
+		elem->Set_AI_Target(_Target);
+	}
+
 }
 
 HRESULT CMonster::SetUp_Components()

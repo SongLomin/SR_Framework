@@ -44,6 +44,11 @@ void CMove_PSystem::Tick(_float fTimeDelta)
 
 		iter->age += fTimeDelta;
 	}
+
+	if (IsDead())
+	{
+		Set_Enable(false);
+	}
 }
 
 void CMove_PSystem::LateTick(_float fTimeDelta)
@@ -86,7 +91,7 @@ HRESULT CMove_PSystem::Render_Begin(ID3DXEffect** Shader)
 HRESULT CMove_PSystem::Render()
 {
 
-	m_pRenderer->Bind_Texture(0);
+	//m_pRenderer->Bind_Texture(0);
 
 
 
@@ -107,7 +112,7 @@ HRESULT CMove_PSystem::Render()
 
 
 	//언바인드
-	m_pRenderer->UnBind_Texture();
+	//m_pRenderer->UnBind_Texture();
 	return S_OK;
 }
 
@@ -115,11 +120,13 @@ void CMove_PSystem::ResetParticle(ParticleDesc* Desc)
 {
 	Desc->isAlive = true;
 
-	m_size = 1.f;
+	m_size = 0.3f;
 
 	Desc->position.x = 0.f;
 	Desc->position.y = 0.f;
 	Desc->position.z = -7.f;
+
+	D3DXVec3TransformCoord(&Desc->position, &Desc->position, &m_WorldMat);
 
 	//Desc->position -= m_pTransform->Get_World_State(CTransform::STATE_LOOK) * 50.f;
 

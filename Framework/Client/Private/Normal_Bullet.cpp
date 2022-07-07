@@ -153,8 +153,8 @@ void CNormal_Bullet::Free()
 HRESULT CNormal_Bullet::SetUp_Components_For_Child()
 {
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 250.f;
-	RigidBodyDesc.m_fOwnerAccel = 250.f;
+	RigidBodyDesc.m_fOwnerSpeed = 10000.f;
+	RigidBodyDesc.m_fOwnerAccel = 10000.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
 	RigidBodyDesc.m_fOwnerJump = 0.f;

@@ -48,13 +48,12 @@ private:
 private:
 	_bool m_bLevelChange = false;
 
-	_float3 m_vMouseEndPos;
-	RAY		m_eMouseWorldRay;
+	RAY		m_MouseWorldRay;
 
 protected:
 	HRESULT SetUp_Components();
 	virtual void SetUp_Components_For_Child() PURE;
-	void SetUp_Varialbes_For_Child(_float3 _StartPos, _tchar* PontText, _point PontPos, _uint TextureIndex, LEVEL _Level, _float3 Scale = _float3(1.f,1.f,1.f));
+	void SetUp_Varialbes_For_Child(_float3 _StartPos, _tchar* FontText, _point PontPos, _uint TextureIndex, LEVEL _Level, _float3 Scale = _float3(1.f,1.f,1.f));
 
 private:
 	void Set_ScreenPos();

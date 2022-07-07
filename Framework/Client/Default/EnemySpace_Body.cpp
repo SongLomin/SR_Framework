@@ -54,7 +54,7 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 
 	m_fTime -= fTimeDelta;
 
-	if (m_fTime < 0.f)
+	/*if (m_fTime < 0.f)
 	{
 		int RandomTarget = rand() % 2;
 
@@ -76,12 +76,6 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 		}
 
 		m_fTime = 3.f;
-	}
-
-	//¾ó±¼¿¡ ÃÄ¹ÚÈû..
-	/*if (m_pStatusCom->Get_Status().fHp < m_pStatusCom->Get_Status().fMaxHp / 2.f)
-	{
-		((CSmoke_PSystem*)GAMEINSTANCE->Add_GameObject<CSmoke_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke"), nullptr, nullptr, true))->AddParticle(1, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
 	}*/
 
 	_float3 Speed = m_pRigidBodyCom->Get_Vector(RIGID_BODY::SPEED);
@@ -89,7 +83,7 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 	if (fabs(D3DXVec3Length(&Speed)) > 5.f)
 	{
 		D3DCOLOR color = D3DCOLOR_ARGB(255, 0, 255, 0);
-		((CMove_PSystem*)GAMEINSTANCE->Add_GameObject<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke"), nullptr, nullptr, true))->AddParticle(10, m_pTransformCom, color);
+		((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(10, m_pTransformCom, color);
 	}
 
 
@@ -185,17 +179,17 @@ void CEnemySpace_Body::SetUp_Components_For_Child()
 	Set_Controller(CONTROLLER::AI);
 }
 
-void CEnemySpace_Body::Update_Target(CGameObject* _Target)
-{
-	if (!_Target)
-		return;
-
-	for (auto& elem : m_pPosinList)
-	{
-		elem->Set_AI_Target(_Target);
-	}
-
-}
+//void CEnemySpace_Body::Update_Target(CGameObject* _Target)
+//{
+//	if (!_Target)
+//		return;
+//
+//	for (auto& elem : m_pPosinList)
+//	{
+//		elem->Set_AI_Target(_Target);
+//	}
+//
+//}
 
 void CEnemySpace_Body::On_Change_Controller(const CONTROLLER& _IsAI)
 {

@@ -222,9 +222,22 @@ void CParticleSystem::AddParticle(int num, CTransform* _pTransformCom)
 
 void CParticleSystem::AddParticle(int num, CTransform* _pTransformCom, D3DCOLOR _color)
 {
+	RemoveDeadParticles();
+
 	ParticleDesc Desc;
 
-	m_pTransform->Set_LocalMatrix(_pTransformCom->Get_WorldMatrix());
+	//m_pTransform->Set_LocalMatrix(_pTransformCom->Get_WorldMatrix());
+
+	_float4x4 TransformCom_WorldMatrix = _pTransformCom->Get_WorldMatrix();
+
+	D3DXMatrixIdentity(&m_WorldMat);
+
+	//스케일을 제외한 행렬을 가져온다.
+	m_WorldMat = CMath_Utillity::Get_Rotation_Matrix(TransformCom_WorldMatrix);
+	m_WorldMat._41 = TransformCom_WorldMatrix._41;
+	m_WorldMat._42 = TransformCom_WorldMatrix._42;
+	m_WorldMat._43 = TransformCom_WorldMatrix._43;
+
 	Desc.color = _color;
 	for (_int i = 0; i < num; i++)
 	{
@@ -243,7 +256,9 @@ void CParticleSystem::AddParticle(int num, _float3 _Pos)
 	//m_pTransform->Set_State(CTransform::STATE_POSITION, _Pos);
 	D3DXMatrixIdentity(&m_WorldMat);
 
-	m_origin = _Pos;
+	m_WorldMat._41 = _Pos.x;
+	m_WorldMat._42 = _Pos.y;
+	m_WorldMat._43 = _Pos.z;
 
 	for (_int i = 0; i < num; i++)
 	{
@@ -255,9 +270,17 @@ void CParticleSystem::AddParticle(int num, _float3 _Pos)
 
 void CParticleSystem::AddParticle(int num, _float3 _Pos, D3DCOLOR _color)
 {
+	RemoveDeadParticles();
+
 	ParticleDesc Desc;
 
-	m_pTransform->Set_State(CTransform::STATE_POSITION, _Pos);
+	//m_pTransform->Set_State(CTransform::STATE_POSITION, _Pos);
+	D3DXMatrixIdentity(&m_WorldMat);
+
+	m_WorldMat._41 = _Pos.x;
+	m_WorldMat._42 = _Pos.y;
+	m_WorldMat._43 = _Pos.z;
+
 	Desc.color = _color;
 
 	for (_int i = 0; i < num; i++)

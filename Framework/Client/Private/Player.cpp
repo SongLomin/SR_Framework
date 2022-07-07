@@ -52,7 +52,7 @@ void CPlayer::Tick(_float fTimeDelta)
 		if (vNow > 0.9f)
 		{
 			D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 0, 0);
-			((CMove_PSystem*)GAMEINSTANCE->Add_GameObject<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke"), nullptr, nullptr, true))->AddParticle(10, m_pTransformCom, color);
+			((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(10, m_pTransformCom, color);
 		}
 	}
 }

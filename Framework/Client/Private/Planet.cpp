@@ -52,8 +52,9 @@ void CPlanet::Tick(_float fTimeDelta)
 
     if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD) && !m_bLevelChange)
     {
+        _float3 PickedPosition;
 
-        if (true == CMath_Utillity::Picking_VIBuffer(m_pVI_BufferCom, m_pTransformCom, m_eMouseWorldRay, &m_vMouseEndPos))
+        if (true == CMath_Utillity::Picking_VIBuffer(m_pVI_BufferCom, m_pTransformCom, m_MouseWorldRay, &PickedPosition))
         {
             GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this, m_eMyLevel);
             m_bLevelChange = true;
@@ -114,10 +115,10 @@ HRESULT CPlanet::SetUp_Components()
     return S_OK;
 }
 
-void CPlanet::SetUp_Varialbes_For_Child(_float3 _StartPos, _tchar* PontText, _point PontPos, _uint TextureIndex, LEVEL _Level, _float3 Scale)
+void CPlanet::SetUp_Varialbes_For_Child(_float3 _StartPos, _tchar* FontText, _point PontPos, _uint TextureIndex, LEVEL _Level, _float3 Scale)
 {
     m_lPontPos = PontPos;
-    m_szPontText = PontText;
+    m_szPontText = FontText;
     m_iTextueIndex = TextureIndex;
 
     m_vMyScale = Scale;
@@ -144,8 +145,7 @@ void CPlanet::LookAtCamera()
 
 void CPlanet::Update_Ray()
 {
-    m_eMouseWorldRay = CMath_Utillity::Get_MouseRayInWorldSpace();
-    m_vMouseEndPos = m_eMouseWorldRay.Pos + (m_eMouseWorldRay.Dir * 10000.f);
+    m_MouseWorldRay = CMath_Utillity::Get_MouseRayInWorldSpace();
 }
 
 void CPlanet::Free()

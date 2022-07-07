@@ -40,8 +40,8 @@ public:
 
 		void Set_Preset_EnemySpace_Body()
 		{
-			m_fOwnerSpeed = 10.f;
-			m_fOwnerAccel = 0.5f;
+			m_fOwnerSpeed = 30.f;
+			m_fOwnerAccel = 15.f;
 			m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 			m_fOwnerRadAccel = 0.3f;
 			m_fOwnerJump = 5.f;
@@ -61,8 +61,8 @@ public:
 
 		void Set_Preset_Kang_Ship()
 		{
-			m_fOwnerSpeed = 20.f;
-			m_fOwnerAccel = 0.5f;
+			m_fOwnerSpeed = 30.f;
+			m_fOwnerAccel = 3.f;
 			m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 			m_fOwnerRadAccel = 0.3f;
 			m_fOwnerJump = 5.f;
@@ -78,8 +78,8 @@ public:
 			m_fRadDrag = 1.f;
 			m_fDirDrag = 0.05f;
 
-			m_fBoosterSpeed = 50.f;
-			m_fBoosterAccel = 0.1f;
+			m_fBoosterSpeed = 60.f;
+			m_fBoosterAccel = 6.f;
 		}
 
 	}RIGIDBODYDESC;

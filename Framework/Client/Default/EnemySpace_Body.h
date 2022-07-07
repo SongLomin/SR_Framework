@@ -30,9 +30,13 @@ private: /* For My Component*/
     CMesh_EnemySpace* m_pMeshCom = nullptr;
 
 private:
-    HRESULT SetUp_Components();
-    virtual void SetUp_Components_For_Child();
+    //HRESULT SetUp_Components();
+    
     void Update_Target(CGameObject* _Target);
+
+protected:
+    virtual void SetUp_Components_For_Child();
+
 
 public:
     virtual void On_Change_Controller(const CONTROLLER& _IsAI);
