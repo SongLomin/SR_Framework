@@ -45,7 +45,7 @@ void CCam_Free::Tick(_float fTimeDelta)
 		m_bSwitchPlayer = false;
 		return;
 	}
-
+#pragma region 원본
 	_float3 vLook = m_pNextCameraTransform->Get_World_State(CTransform::STATE_LOOK);
 	_float3 vUp = m_pNextCameraTransform->Get_World_State(CTransform::STATE_UP);
 
@@ -74,7 +74,9 @@ void CCam_Free::Tick(_float fTimeDelta)
 	m_pTransformCom->Set_State(CTransform::STATE_UP, m_vUp);
 	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, m_vRight);
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vPos);
-
+#pragma endregion 원본
+	
+	
 }
 
 void CCam_Free::LateTick(_float fTimeDelta)

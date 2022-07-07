@@ -176,7 +176,7 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 20.f;
-	RigidBodyDesc.m_fOwnerAccel = 0.5f;
+	RigidBodyDesc.m_fOwnerAccel = 0.1f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
 	RigidBodyDesc.m_fOwnerJump = 5.f;
@@ -193,7 +193,7 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 	RigidBodyDesc.m_fDirDrag = 0.05f;
 
 	RigidBodyDesc.m_fBoosterSpeed = 50.f;
-	RigidBodyDesc.m_fBoosterAccel = 0.1f;
+	RigidBodyDesc.m_fBoosterAccel = 1.f;
 	m_pRigid_BodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigid_BodyCom->Set_WeakPtr(&m_pRigid_BodyCom);
 	m_pRigid_BodyCom->Link_TransformCom(m_pTransformCom);

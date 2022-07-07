@@ -397,9 +397,6 @@
     <ClInclude Include="..\Public\Effect.h">
       <Filter>02.GameObject\13. Effect</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Rock.h">
-      <Filter>02.GameObject\12. Rock</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\Bomb_Effect.h">
       <Filter>02.GameObject\13. Effect\Bomb_Effect</Filter>
     </ClInclude>
@@ -424,6 +421,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\AI_TransportShip.h">
       <Filter>02.GameObject\00. Player\AI_TransportShip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h">
+      <Filter>02.GameObject\12. Rock</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -608,9 +608,6 @@
     <ClCompile Include="..\Private\Effect.cpp">
       <Filter>02.GameObject\13. Effect</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Rock.cpp">
-      <Filter>02.GameObject\12. Rock</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\Bomb_Effect.cpp">
       <Filter>02.GameObject\13. Effect\Bomb_Effect</Filter>
     </ClCompile>
@@ -635,6 +632,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\AI_TransportShip.cpp">
       <Filter>02.GameObject\00. Player\AI_TransportShip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp">
+      <Filter>02.GameObject\12. Rock</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
