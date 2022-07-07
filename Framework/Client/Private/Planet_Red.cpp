@@ -26,7 +26,7 @@ HRESULT CPlanet_Red::Initialize(void* pArg)
 		return E_FAIL;
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 20.f, 30.f));
-
+	m_pDiveUi = GAMEINSTANCE->Add_GameObject<CDive>(LEVEL_SELECTPLANET, TEXT("Dive"));
 
 	return S_OK;
 }
@@ -67,10 +67,6 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 		GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Red Planet \n 고 위험 구역 \n 임무 : 모든 기체 파괴 \n 난이도 :『★★★★』  \n 보상 : XXX"), 0);
 	}
 
-	else
-	{
-
-
 	if (KEY_INPUT(KEY::RBUTTON, KEY_STATE::TAP))
 	{
 		system("cls");
@@ -92,16 +88,16 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 	//MouseEndPos = MouseWorldRay.Pos + (MouseWorldRay.Dir * 10000.f);
 
 
-	
-	
-	
+
+
+
 
 	if (KEY_INPUT(KEY::F, KEY_STATE::HOLD) && !m_bLevelChange)
 	{
 
 		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldRay, &PickedPos))
 		{
-			GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this,LEVEL::LEVEL_REDPLANET);
+			GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this, LEVEL::LEVEL_REDPLANET);
 			m_bLevelChange = true;
 			return;
 		}
@@ -109,20 +105,24 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 
 	}
 
-	CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
+	else
+	{
 
-	ISVALID(pCurrentCam, );
+		/*CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
 
-	_float3 CamWorldPos = pCurrentCam->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
-	_float3 MyWorldPos;
-	MyWorldPos.x = 0.f + CamWorldPos.x;
-	MyWorldPos.y = 200.f + CamWorldPos.y;
-	MyWorldPos.z = 300.f + CamWorldPos.z;
+		ISVALID(pCurrentCam, );
+
+		_float3 CamWorldPos = pCurrentCam->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
+		_float3 MyWorldPos;
+		MyWorldPos.x = 0.f + CamWorldPos.x;
+		MyWorldPos.y = 200.f + CamWorldPos.y;
+		MyWorldPos.z = 300.f + CamWorldPos.z;
 
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);
+		m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);*/
 
 
+	}
 }
 
 void CPlanet_Red::LateTick(_float fTimeDelta)

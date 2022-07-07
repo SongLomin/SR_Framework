@@ -34,6 +34,7 @@ private:
 	void LookAtCamera();
 private:
 	_bool m_bLevelChange = false;
+	CGameObject* m_pDiveUi = nullptr;
 
 public:
 	static CPlanet_Red* Create();
