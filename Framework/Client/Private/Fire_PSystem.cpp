@@ -61,7 +61,6 @@ void CFire_PSystem::Tick(_float fTimeDelta)
 	if (IsDead())
 	{
 		Set_Enable(false);
-		printf("%s : Set_Enable(false).\n", typeid(*this).name());
 	}
 }
 

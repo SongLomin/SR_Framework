@@ -25,7 +25,7 @@ HRESULT CPlanet_Red::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 200.f, 300.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 20.f, 30.f));
 
 
 	return S_OK;
@@ -35,15 +35,71 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	_float3 MouseEndPos;
+
+	//CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
+
+	//ISVALID(pCurrentCam, );
+
+	//_float3 CamWorldPos = pCurrentCam->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
+	//_float3 MyWorldPos;
+	//MyWorldPos.x = 0.f + CamWorldPos.x;
+	//MyWorldPos.y = 200.f + CamWorldPos.y;
+	//MyWorldPos.z = 300.f + CamWorldPos.z;
+
+
+	//m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);
+
+
+	LookAtCamera();
+
+	//m_pTransformCom->Scaling(_float3(100.f, 100.f, 50.f), true);
+
+	_float3 PickedPos = _float3(0.f, 0.f, 0.f);
 	RAY	MouseWorldRay;
 	MouseWorldRay = CMath_Utillity::Get_MouseRayInWorldSpace();
-	MouseEndPos = MouseWorldRay.Pos + (MouseWorldRay.Dir * 10000.f);
+	_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
 
-	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD) && !m_bLevelChange)
+	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
+
+	if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldRay, &PickedPos))
+	{
+		m_pDiveUi->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Red Planet \n 고 위험 구역 \n 임무 : 모든 기체 파괴 \n 난이도 :『★★★★』  \n 보상 : XXX"), 0);
+	}
+
+	else
 	{
 
-		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldRay, &MouseEndPos))
+
+	if (KEY_INPUT(KEY::RBUTTON, KEY_STATE::TAP))
+	{
+		system("cls");
+
+		printf("마우스 레이 좌표: %f, %f, %f /  Dir: %f, %f, %f\n", MouseWorldRay.Pos.x, MouseWorldRay.Pos.y, MouseWorldRay.Pos.z, MouseWorldRay.Dir.x, MouseWorldRay.Dir.y, MouseWorldRay.Dir.z);
+
+		_float4x4 CamWorld = GAMEINSTANCE->Get_Camera()->Get_CameraWorldMat();
+
+		printf("카메라 월드 좌표: %f, %f, %f /  Dir: %f, %f, %f\n", CamWorld._41, CamWorld._42, CamWorld._43, CamWorld._31, CamWorld._32, CamWorld._33);
+		printf("Picked Position: %f, %f, %f\n", PickedPos.x, PickedPos.y, PickedPos.z);
+
+		PickedPos.x -= CamWorld._41;
+		PickedPos.y -= CamWorld._42;
+		PickedPos.z -= CamWorld._43;
+		printf("Picked Position - CamPos : %f, %f, %f\n", PickedPos.x, PickedPos.y, PickedPos.z);
+	}
+
+
+	//MouseEndPos = MouseWorldRay.Pos + (MouseWorldRay.Dir * 10000.f);
+
+
+	
+	
+	
+
+	if (KEY_INPUT(KEY::F, KEY_STATE::HOLD) && !m_bLevelChange)
+	{
+
+		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldRay, &PickedPos))
 		{
 			GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this,LEVEL::LEVEL_REDPLANET);
 			m_bLevelChange = true;
@@ -94,17 +150,18 @@ HRESULT CPlanet_Red::Render()
 
 	GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Red Planet \n 고 위험 구역 \n 임무 : 모든 기체 파괴 \n 난이도 :『★★★★』  \n 보상 : XXX"), 0);
 
-	m_pRendererCom->Bind_Texture(3);
+	//m_pRendererCom->Bind_Texture(3);
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 	DEVICE->SetRenderState(D3DRS_ALPHAREF, 253);
-	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);*/
+	
 
 	m_pVIBufferCom->Render();
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 
-	m_pRendererCom->UnBind_Texture();
+	//m_pRendererCom->UnBind_Texture();
 
 
 

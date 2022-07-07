@@ -144,6 +144,7 @@ RAY CMath_Utillity::Get_MouseRayInWorldSpace()
 	D3DXVec3TransformNormal(&MouseRay.Dir, &vRayDir, &ViewMatrixInv);
 	D3DXVec3TransformCoord(&MouseRay.Pos, &vRayPos, &ViewMatrixInv);
 	MouseRay.fLength = 10000.0f; //¹«ÇÑ
+
 	return MouseRay;
 }
 
