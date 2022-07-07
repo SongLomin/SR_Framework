@@ -406,9 +406,6 @@
     <ClInclude Include="..\Public\Effect.h">
       <Filter>02.GameObject\13. Effect</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Rock.h">
-      <Filter>02.GameObject\12. Rock</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\Bomb_Effect.h">
       <Filter>02.GameObject\13. Effect\Bomb_Effect</Filter>
     </ClInclude>
@@ -436,6 +433,12 @@
     </ClInclude>
     <ClInclude Include="..\Public\Teleport_Effect.h">
       <Filter>02.GameObject\13. Effect\Teleport_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h">
+      <Filter>02.GameObject\12. Rock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Planet.h">
+      <Filter>02.GameObject\06. Planet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -623,9 +626,6 @@
     <ClCompile Include="..\Private\Effect.cpp">
       <Filter>02.GameObject\13. Effect</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Rock.cpp">
-      <Filter>02.GameObject\12. Rock</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\Bomb_Effect.cpp">
       <Filter>02.GameObject\13. Effect\Bomb_Effect</Filter>
     </ClCompile>
@@ -653,6 +653,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Teleport_Effect.cpp">
       <Filter>02.GameObject\13. Effect\Teleport_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp">
+      <Filter>02.GameObject\12. Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Planet.cpp">
+      <Filter>02.GameObject\06. Planet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

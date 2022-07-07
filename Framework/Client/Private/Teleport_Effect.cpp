@@ -60,7 +60,7 @@ HRESULT CTeleport_Effect::Render()
 	m_pRendererCom->Bind_Texture(m_iTexture_Min);
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	DEVICE->SetRenderState(D3DRS_ALPHAREF, 0);
+	DEVICE->SetRenderState(D3DRS_ALPHAREF, 250);
 	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 
 	__super::Render();

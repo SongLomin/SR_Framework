@@ -207,11 +207,40 @@ void CParticleSystem::AddParticle(int num, CTransform* _pTransformCom)
 
 }
 
+void CParticleSystem::AddParticle(int num, CTransform* _pTransformCom, D3DCOLOR _color)
+{
+	ParticleDesc Desc;
+
+	m_pTransform->Set_LocalMatrix(_pTransformCom->Get_WorldMatrix());
+	Desc.color = _color;
+	for (_int i = 0; i < num; i++)
+	{
+		ResetParticle(&Desc);
+
+		m_particles.push_back(Desc);
+	}
+}
+
 void CParticleSystem::AddParticle(int num, _float3 _Pos)
 {
 	ParticleDesc Desc;
 
 	m_pTransform->Set_State(CTransform::STATE_POSITION, _Pos);
+
+	for (_int i = 0; i < num; i++)
+	{
+		ResetParticle(&Desc);
+
+		m_particles.push_back(Desc);
+	}
+}
+
+void CParticleSystem::AddParticle(int num, _float3 _Pos, D3DCOLOR _color)
+{
+	ParticleDesc Desc;
+
+	m_pTransform->Set_State(CTransform::STATE_POSITION, _Pos);
+	Desc.color = _color;
 
 	for (_int i = 0; i < num; i++)
 	{
