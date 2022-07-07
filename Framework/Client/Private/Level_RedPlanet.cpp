@@ -180,7 +180,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 		pEnemyTransform->Set_State( CTransform::STATE_POSITION, SpawnPos);
 
 		m_iEnemyCount++;
-		m_fSpawnTime = 3.f;
+		m_fSpawnTime = 8.f;
 	}
 
 

@@ -221,8 +221,8 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 	RigidBodyDesc.m_fOwnerLiftAccel = 10.f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;
-	RigidBodyDesc.m_fBoosterSpeed = 60.f;
-	RigidBodyDesc.m_fBoosterAccel = 6.f;
+	RigidBodyDesc.m_fBoosterSpeed = 200.f;
+	RigidBodyDesc.m_fBoosterAccel = 20.f;
 
 	m_pRigid_BodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigid_BodyCom->Set_WeakPtr(&m_pRigid_BodyCom);

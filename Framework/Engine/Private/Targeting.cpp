@@ -194,6 +194,32 @@ void CTargeting::Make_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _
 	}
 }
 
+void CTargeting::Add_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _vPosition, _float _fRange, _bool _bIsClear)
+{
+
+	if (_bIsClear)
+	{
+		Clear_Targeting();
+	}
+
+	if (!pTarget)
+		return;
+
+	for (auto iter = pTarget->begin();
+		iter != pTarget->end();
+		++iter)
+	{
+		_float3 vTargetPos = (*iter)->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
+
+		_float fDistance = D3DXVec3Length(&(vTargetPos - _vPosition));
+		if (_fRange > fDistance)
+		{
+			m_pTargeting.emplace(fDistance, (*iter));
+			(*iter)->Set_WeakPtr(&m_pTargeting[fDistance]);
+		}
+	}
+}
+
 bool CTargeting::IsTargetEmpty()
 {
 	for (auto& iter = m_pTargeting.begin(); iter != m_pTargeting.end();)

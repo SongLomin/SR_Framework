@@ -31,7 +31,7 @@ void CMonster::LateTick(_float fTimeDelta)
 
 	m_fTime -= fTimeDelta;
 	if (m_fTime < 0.f)
-	{
+	{/*
 		int RandomTarget = rand() % 2;
 
 		if (0 == RandomTarget)
@@ -42,7 +42,10 @@ void CMonster::LateTick(_float fTimeDelta)
 		else
 		{
 			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("AI_Friendly")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
-		}
+		}*/
+
+		m_pTargetingCom->Add_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("AI_Friendly")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f, true);
+		m_pTargetingCom->Add_TargetList_Distance(GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f, false);
 
 		auto TargetList = m_pTargetingCom->Get_Targetting();
 
