@@ -45,6 +45,9 @@ public:
     }
 
 public:
+    void    Switch_Camera(const _tchar* _CameraTag);
+
+public:
     void Tick(_float fTimeDelta);
     void LateTick(_float fTimeDelta);
 
@@ -55,6 +58,7 @@ private:
     map<const _tchar*, class CCamera*>	m_Cams;
 
     CGameObject* m_pMovingCam = nullptr;
+    CGameObject* m_pFreeCam = nullptr;
 
     CCamera* m_pCurrentCam = nullptr;
     CCamera* m_pTempCam = nullptr;
