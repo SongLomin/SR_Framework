@@ -45,6 +45,10 @@ private:
 	_point  m_lPontPos;
 	_uint m_iTextueIndex;
 	_uint m_iAlphaValue = 250;
+
+
+	
+
 private:
 	_bool m_bLevelChange = false;
 
@@ -54,12 +58,12 @@ protected:
 	HRESULT SetUp_Components();
 	virtual void SetUp_Components_For_Child() PURE;
 	void SetUp_Varialbes_For_Child(_float3 _StartPos, _tchar* FontText, _point PontPos, _uint TextureIndex, LEVEL _Level, _float3 Scale = _float3(1.f,1.f,1.f));
-
+	
 private:
-	void Set_ScreenPos();
 	void LookAtCamera();
 	void Update_Ray();
 	void Set_MyWorldPos(_float3 _Pos);
+	void Set_ScreenPos();
 
 public:
 	virtual void Free() override;

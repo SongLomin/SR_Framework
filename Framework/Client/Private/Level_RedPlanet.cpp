@@ -241,7 +241,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	if (m_fTextBoxTime <= 295.f && !m_bEventCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이쪽 행성은 왠지 빨갛고 불길한 기분이 드는군... "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("Red Planet 에서 화물선을 안전하게 옮기기 위해\n 용병들을 고용한다고 하는구만.\n 옆에 보이는 화물선을 목적지까지 호위해주게. "), 0);
 	}
 
 	if (m_fTextBoxTime <= 292.f && !m_bEventCheck[0])
@@ -253,7 +253,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[1])
 	{
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이봐 저기 달쪽에 무언가 빨간색이 보이지않나?"), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("뭔가 빨갛고 기분이 나쁜 행성이구만."), 0);
 	}
 
 	if (m_fTextBoxTime <= 287.f && !m_bEventCheck[1])
@@ -290,11 +290,12 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 
 
 	//////////////지원병력 생존 퀘스트 카운트 0 될시 아군AI생성/////////////////// 
+
 	if (m_fTextBoxTime <= 179.f && !m_bEventCheck[4])
 	{
 		
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("고생 많았네 모조리 쓸어보자고!"), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("지원군들이 도착했네! \n 고생 많았네 모조리 쓸어보자고!"), 0);
 
 		m_fSpawnTime -= fTimeDelta;
 
@@ -307,6 +308,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 		}
 
 	}
+
 	/////////////////////////////////////////////////////////////////////////
 
 
@@ -321,8 +323,8 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	{
 		m_pQuestBoxObject->Set_Enable(true);
 
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n  지원병력 도착까지 생존하기 \n  남은시간 (초) : "), 0);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("%d"), 1, (_uint)m_fMaxTime);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n지원병력 도착까지 생존 / 화물선 호위 \n      남은시간 (초) : "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("    %d"), 1, (_uint)m_fMaxTime);
 
 		if (m_iFontiX <= 1040)
 		{
@@ -352,7 +354,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	{
 		m_bSpawnCheck = false;
 		m_pQuestBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n    모든 적 함체 섬멸 "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n    모든 적 함체 섬멸 / 화물선 호위 "), 0);
 
 		if (m_iFontiX <= 1040)
 		{

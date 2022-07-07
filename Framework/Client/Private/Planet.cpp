@@ -3,6 +3,8 @@
 #include "GameInstance.h"
 #include <Math_Utillity.h>
 #include "Level_Loading.h"
+#include "Dive.h"
+
 
 CPlanet::CPlanet()
 {
@@ -12,6 +14,8 @@ void CPlanet::Set_ScreenPos()
 {
     CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &m_vScreenPos);
 
+    m_lPontPos.x = (_long)m_vScreenPos.x;
+    m_lPontPos.y = (_long)m_vScreenPos.y;
 }
 
 void CPlanet::Set_MyWorldPos(_float3 _Pos)
@@ -40,29 +44,51 @@ HRESULT CPlanet::Initialize_Prototype()
 
 HRESULT CPlanet::Initialize(void* pArg)
 {
+    m_pDiveUi = GAMEINSTANCE->Add_GameObject<CDive>(LEVEL_SELECTPLANET, TEXT("Dive"));
+    m_pDiveUi->Set_Enable(false);
+
+
     return S_OK;
+  
 }
 
 void CPlanet::Tick(_float fTimeDelta)
 {
     __super::Tick(fTimeDelta);
 
+    Set_MyWorldPos(m_vStartPos);
+
+    LookAtCamera();
+
+    m_pTransformCom->Scaling(m_vMyScale, true);
+
     Update_Ray();
+
     Set_ScreenPos();
 
-    if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD) && !m_bLevelChange)
-    {
-        _float3 PickedPosition;
 
-        if (true == CMath_Utillity::Picking_VIBuffer(m_pVI_BufferCom, m_pTransformCom, m_MouseWorldRay, &PickedPosition))
+    _float3 PickedPosition;
+
+    // 마우스 움직임 충돌시
+    if (true == CMath_Utillity::Picking_VIBuffer(m_pVI_BufferCom, m_pTransformCom, m_MouseWorldRay, &PickedPosition))
+    {
+        m_pDiveUi->Set_Enable(true);
+        GAMEINSTANCE->Add_Text(m_lPontPos, m_szPontText, 0);
+
+         // 충돌하고 키 입력시
+        if (KEY_INPUT(KEY::F, KEY_STATE::HOLD) && !m_bLevelChange)
         {
+
             GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this, m_eMyLevel);
             m_bLevelChange = true;
             return;
         }
     }
 
-    Set_MyWorldPos(m_vStartPos);
+    else
+    {
+        m_pDiveUi->Set_Enable(false);
+    }
 
 }
 
@@ -72,16 +98,14 @@ void CPlanet::LateTick(_float fTimeDelta)
 
     m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 
-    LookAtCamera();
+ 
 }
 
 HRESULT CPlanet::Render()
 {
-    m_pTransformCom->Scaling(m_vMyScale, true);
 
     m_pTransformCom->Bind_WorldMatrix();
 
-    GAMEINSTANCE->Add_Text(m_lPontPos, m_szPontText, 0);
 
     m_pRendererCom->Bind_Texture(m_iTextueIndex);
 
@@ -111,6 +135,8 @@ HRESULT CPlanet::SetUp_Components()
     WEAK_PTR(m_pVI_BufferCom);
     m_pRendererCom->Set_Textures_From_Key(TEXT("Planet"), MEMORY_TYPE::MEMORY_STATIC);
 
+    Set_ScreenPos();
+
     SetUp_Components_For_Child();
     return S_OK;
 }
@@ -127,8 +153,8 @@ void CPlanet::SetUp_Varialbes_For_Child(_float3 _StartPos, _tchar* FontText, _po
     m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vStartPos);
 
     m_eMyLevel = _Level;
-
 }
+
 
 
 void CPlanet::LookAtCamera()
