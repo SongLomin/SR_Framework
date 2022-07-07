@@ -5,16 +5,7 @@
 #include "Monster.h"
 
 BEGIN(Engine)
-class CRenderer;
 class CMesh_EnemySpace;
-class CTransform;
-class CRigid_Body;
-class CState_Move;
-class CTargeting;
-class CStatus;
-class CTargeting;
-class CAI_Controller;
-class CCollider_Sphere;
 END
 
 
@@ -36,21 +27,9 @@ public:
     virtual HRESULT Render() override;
 
 private: /* For My Component*/
-    CTransform* m_pTransformCom = nullptr;
-    CRenderer* m_pRendererCom = nullptr;
     CMesh_EnemySpace* m_pMeshCom = nullptr;
-    CRigid_Body* m_pRigidBodyCom = nullptr;
-    CState_Move* m_pStateCom = nullptr;
-    CTargeting* m_pTargetingCom = nullptr;
-    CStatus* m_pStatusCom = nullptr;
-    CCollider_Sphere* m_pColliderCom = nullptr;
-    CAI_Controller* m_pAIControllerCom = nullptr;
-private:
-    list<CNormal_Turret*> m_pPosinList;
-    _float m_fTime = 1.f;
 
-private:
-    HRESULT SetUp_Components();
+public:
     virtual void SetUp_Components_For_Child();
     void Update_Target();
 

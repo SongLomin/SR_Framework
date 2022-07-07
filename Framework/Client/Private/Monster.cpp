@@ -62,56 +62,18 @@ HRESULT CMonster::Render()
 	return S_OK;
 }
 
-void CMonster::On_Change_Controller(const CONTROLLER& _IsAI)
-{
-	if (_IsAI == CONTROLLER::AI)
-	{
-		m_pAIControllerCom->Set_Enable(true);
-	}
-	else
-	{
-		return;
-	}
-}
 
-void CMonster::Update_Target()
-{
-	map<_float, CGameObject*>* TargetList = m_pTargetingCom->Get_Targetting();
-
-	if (TargetList->empty())
-	{
-		return;
-	}
-}
 
 HRESULT CMonster::SetUp_Components()
 {
-	m_pTransformCom = Add_Component<CTransform>();
+    m_pTransformCom = Add_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr((void**)&m_pRendererCom);
-	
-	m_pStateCom = Add_Component<CState_Move>();
-	m_pStateCom->Set_WeakPtr((void**)m_pStateCom);
-	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
-	m_pStateCom->Link_AI_Transform(m_pTransformCom);
 
 	m_pTargetingCom = Add_Component<CTargeting>();
 	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
-
-	m_pAIControllerCom = Add_Component<CAI_Controller>();
-	m_pAIControllerCom->Set_WeakPtr(&m_pAIControllerCom);
-	m_pAIControllerCom->Link_Object(this);
-	m_pAIControllerCom->Set_Enable(false);
-	m_pAIControllerCom->Set_UsableStates(m_pAIControllerCom->Get_States_Preset_AI_Default());
-
-
-	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
-	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
-	m_pColliderCom->Link_Transform(m_pTransformCom);
-	m_pColliderCom->Set_Collider_Size(_float3(3.f, 3.f, 3.f));
-	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 
 	SetUp_Components_For_Child();
 
