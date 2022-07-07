@@ -39,54 +39,11 @@ void CPlanet_Exo::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+	Enter_Planet();
 	_float3 MouseEndPos;
 	RAY	MouseWorldPos;
 	MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
 	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * MouseWorldPos.fLength);//얘는 왜 있는거임?
-
-	_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
-
-	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
-
-
-
-	if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
-	{
-		GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Exo Planet \n 고 위험 구역 \n \n 임무 : 생존 \n 난이도 :『★★★★★』  \n 보상 : XXX"), 0);
-		m_pDiveUi->Set_Enable(true);
-	}
-
-
-
-
-	if (KEY_INPUT(KEY::F, KEY_STATE::HOLD) && !m_bLevelChange)
-	{
-
-		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
-		{
-			GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this,LEVEL::LEVLE_EXOPLANET);
-			m_bLevelChange = true;
-			return;
-		}
-
-	}
-
-
-
-
-	CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
-
-	ISVALID(pCurrentCam, );
-
-	_float3 CamWorldPos = pCurrentCam->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
-	_float3 MyWorldPos;
-	MyWorldPos.x = -250.f + CamWorldPos.x;
-	MyWorldPos.y = 150.f + CamWorldPos.y;
-	MyWorldPos.z = 250.f + CamWorldPos.z;
-
-
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);
-
 
 }
 
@@ -97,17 +54,13 @@ void CPlanet_Exo::LateTick(_float fTimeDelta)
 
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 
-	LookAtCamera();
 
 }
 
 HRESULT CPlanet_Exo::Render()
 {
-	m_pTransformCom->Scaling(_float3(100.f, 100.f, 50.f), true);
 
 	m_pTransformCom->Bind_WorldMatrix();
-
-
 
 
 	m_pRendererCom->Bind_Texture(1);

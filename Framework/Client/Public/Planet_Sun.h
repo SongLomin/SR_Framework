@@ -18,6 +18,19 @@ public:
 	virtual HRESULT Initialize(void* pArg) override;
 
 public:
+	CRenderer* m_pRendererCom = nullptr;
+	CTransform* m_pTransformCom = nullptr;
+	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
+
+
+
+private:
+	HRESULT SetUp_Components();
+	void LookAtCamera();
+	void Enter_Planet();
+
+private:
+	_bool m_bLevelChange = false;
 	virtual void SetUp_Components_For_Child();
 
 public:

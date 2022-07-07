@@ -39,48 +39,8 @@ void CPlanet_Venus::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	_float3 MouseEndPos;
-	RAY	MouseWorldPos;
-	MouseWorldPos = CMath_Utillity::Get_MouseRayInWorldSpace();
-	MouseEndPos = MouseWorldPos.Pos + (MouseWorldPos.Dir * 10000.f);
 
-
-	_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
-
-	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
-
-
-	if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
-	{
-		GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 20, (LONG)ScreenPos.y }, TEXT("Venus Planet \n 저 위험 구역 \n 임무 : 기체 조작연습  \n 난이도 :『★』 \n 보상 : XXX"), 0);
-		m_pDiveUi->Set_Enable(true);
-	}
-
-
-	if (KEY_INPUT(KEY::F, KEY_STATE::HOLD) && !m_bLevelChange)
-	{
-		if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldPos, &MouseEndPos))
-		{
-			GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this,LEVEL::LEVEL_VENUSPLANET);
-			m_bLevelChange = true;
-			return;
-		}
-
-	}
-
-	CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
-
-	ISVALID(pCurrentCam, );
-
-	_float3 CamWorldPos = pCurrentCam->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
-	_float3 MyWorldPos;
-	MyWorldPos.x = 1.f + CamWorldPos.x;
-	MyWorldPos.y = 100.f + CamWorldPos.y;
-	MyWorldPos.z = 300.f + CamWorldPos.z;
-
-
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);
-	
+	Enter_Planet();
 }
 
 void CPlanet_Venus::LateTick(_float fTimeDelta)
@@ -90,25 +50,15 @@ void CPlanet_Venus::LateTick(_float fTimeDelta)
 
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 
-	LookAtCamera();
+
 
 }
 
 HRESULT CPlanet_Venus::Render()
 {
-	m_pTransformCom->Scaling(_float3(80.f, 80.f, 50.f), true);
+	
 
 	m_pTransformCom->Bind_WorldMatrix();
-
-
-
-
-
-	_float3 Look = m_pTransformCom->Get_State(CTransform::STATE_LOOK, true);
-
-	//GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x, (LONG)ScreenPos.y }, TEXT("%d, %d, %d"), 3, (_uint)Look.x, (_uint)Look.y, (_uint)Look.z);
-
-
 
 	m_pRendererCom->Bind_Texture(0);
 
@@ -130,6 +80,55 @@ HRESULT CPlanet_Venus::Render()
 
 HRESULT CPlanet_Venus::SetUp_Components()
 {
+}
+
+void CPlanet_Venus::Enter_Planet()
+{
+
+	CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
+
+	ISVALID(pCurrentCam, );
+
+	_float3 CamWorldPos = pCurrentCam->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
+	_float3 MyWorldPos;
+	MyWorldPos.x = 1.f + CamWorldPos.x;
+	MyWorldPos.y = 100.f + CamWorldPos.y;
+	MyWorldPos.z = 300.f + CamWorldPos.z;
+
+
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);
+
+
+	LookAtCamera();
+
+	m_pTransformCom->Scaling(_float3(100.f, 100.f, 50.f), true);
+
+	_float3 MouseEndPos;
+	RAY	MouseWorldRay;
+	MouseWorldRay = CMath_Utillity::Get_MouseRayInWorldSpace();
+	MouseEndPos = MouseWorldRay.Pos + (MouseWorldRay.Dir * 10000.f);
+
+	_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
+
+	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
+
+	if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldRay, &MouseEndPos))
+	{
+		m_pDiveUi->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 20, (LONG)ScreenPos.y }, TEXT("Venus Planet \n 저 위험 구역 \n 임무 : 기체 조작연습  \n 난이도 :『★』 \n 보상 : XXX"), 0);
+
+		if (KEY_INPUT(KEY::F, KEY_STATE::HOLD) && !m_bLevelChange)
+		{
+			GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this, LEVEL::LEVEL_VENUSPLANET);
+			m_bLevelChange = true;
+			return;
+		}
+	}
+
+	else
+	{
+		m_pDiveUi->Set_Enable(false);
+	}
 }
 
 CPlanet_Venus* CPlanet_Venus::Create()

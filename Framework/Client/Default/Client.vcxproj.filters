@@ -385,9 +385,6 @@
     <ClInclude Include="..\Public\Quest.h">
       <Filter>02.GameObject\07. UI\Quest</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Player.h">
-      <Filter>02.GameObject\00. Player</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\Song_Ship_Body.h">
       <Filter>02.GameObject\00. Player\Song_Ship</Filter>
     </ClInclude>
@@ -445,6 +442,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\Dive.h">
       <Filter>02.GameObject\07. UI\Dive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Player.h">
+      <Filter>02.GameObject\00. Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

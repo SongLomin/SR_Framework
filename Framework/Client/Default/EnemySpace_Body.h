@@ -2,25 +2,16 @@
 
 #include "Client_Defines.h"
 #include "GameObject.h"
+#include "Monster.h"
 
 BEGIN(Engine)
-class CRenderer;
 class CMesh_EnemySpace;
-class CTransform;
-class CRigid_Body;
-class CState_Move;
-class CTargeting;
-class CStatus;
-class CTargeting;
-class CAI_Controller;
-class CMesh_ShinShip;
-class CCollider_Sphere;
 END
 
 
 BEGIN(Client)
 class CNormal_Turret;
-class CEnemySpace_Body final : public CGameObject
+class CEnemySpace_Body final : public CMonster
 {
 private:
     CEnemySpace_Body() = default;
@@ -36,23 +27,11 @@ public:
     virtual HRESULT Render() override;
 
 private: /* For My Component*/
-    CTransform* m_pTransformCom = nullptr;
-    CRenderer* m_pRendererCom = nullptr;
     CMesh_EnemySpace* m_pMeshCom = nullptr;
-    //CMesh_ShinShip* m_pMeshCom = nullptr;
-    //CMesh_Cube* m_pMeshCom = nullptr;
-    CRigid_Body* m_pRigidBodyCom = nullptr;
-    CState_Move* m_pStateCom = nullptr;
-    CTargeting* m_pTargetingCom = nullptr;
-    CStatus* m_pStatusCom = nullptr;
-    CCollider_Sphere* m_pColliderCom = nullptr;
-    CAI_Controller* m_pAIControllerCom = nullptr;
-private:
-    list<CNormal_Turret*> m_pPosinList;
-    _float m_fTime = 1.f;
 
 private:
     HRESULT SetUp_Components();
+    virtual void SetUp_Components_For_Child();
     void Update_Target(CGameObject* _Target);
 
 public:

@@ -31,7 +31,7 @@ private:
 	void SelectPlanet_Event(float fTimeDelta);
 
 private:
-	
+	static _bool m_bFirst;
 
 
 
