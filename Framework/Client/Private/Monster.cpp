@@ -6,6 +6,7 @@
 #include "Fire_PSystem.h"
 #include "Smoke_PSystem.h"
 #include "Normal_Turret.h"
+#include "Level_RedPlanet.h"
 
 
 HRESULT CMonster::Initialize_Prototype()
@@ -146,6 +147,7 @@ void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
 		{
 			Set_Dead();
+			CLevel_RedPlanet::m_iEnemyCount - 1;
 			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
 
