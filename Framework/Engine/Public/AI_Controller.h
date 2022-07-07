@@ -38,6 +38,11 @@ private:
 	CTransform* m_pMyTransform = nullptr;
 	CTargeting* m_pMyTargeting = nullptr;
 
+private:
+	STATE Command_MoveTarget();
+	STATE Command_Move();
+	STATE Command_Attack();
+
 protected:
 	list<pair<STATE, _float>> m_CommandQueue;
 	vector<STATE> m_eUsableStates[9];

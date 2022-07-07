@@ -10,15 +10,11 @@
 #include <Fire_PSystem.h>
 #include <Bomb_Effect.h>
 #include <Smoke_PSystem.h>
+#include "Move_PSystem.h"
 
 CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
 {
 	*this = Prototype;
-
-	m_pTransformCom = Add_Component<CTransform>();
-	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
-	//m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(rand()% 100, rand() % 20, rand() % 100));
-	//m_pTransformCom->Update_WorldMatrix();
 }
 
 HRESULT CEnemySpace_Body::Initialize_Prototype()
@@ -34,8 +30,8 @@ HRESULT CEnemySpace_Body::Initialize(void* pArg)
 #pragma region 초기 위치 설정
 
 
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(rand() % 100, rand() % 20, 900.f + 20.f));
-	m_pTransformCom->Update_WorldMatrix();
+	/*m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(rand() % 100, rand() % 20, 300.f + 20.f));
+	m_pTransformCom->Update_WorldMatrix();*/
 
 #pragma endregion 초기 위치 설정
 
@@ -48,22 +44,7 @@ HRESULT CEnemySpace_Body::Initialize(void* pArg)
 void CEnemySpace_Body::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
-
-
-	ISVALID(m_pTransformCom);
-
-	
-	/*_float3 MyScreenPos;
-	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE::STATE_POSITION, true), &MyScreenPos);
-
-	GAMEINSTANCE->Add_Text(
-		_point{ (long)MyScreenPos.x, (long)MyScreenPos.y },
-		D3DCOLOR_ARGB(255, 0, 0, 255),
-		0.0f,
-		L"HP : %d / 10",
-		1,
-		(_int)m_pStatusCom->Get_Status().fHp);*/
-    
+ 
 }
 
 void CEnemySpace_Body::LateTick(_float fTimeDelta)
@@ -72,17 +53,39 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 
 
 	m_fTime -= fTimeDelta;
-	if (m_fTime < 0.f)
+
+	/*if (m_fTime < 0.f)
 	{
-		m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player")), m_pTransformCom);
-		//Update_Target();
-		m_fTime = 1.f;
+		int RandomTarget = rand() % 2;
+
+		if (0 == RandomTarget)
+		{
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+		}
+
+		else
+		{
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("AI_Friendly")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+		}
+		
+		auto TargetList = m_pTargetingCom->Get_Targetting();
+
+		if (!TargetList->empty())
+		{
+			Update_Target(TargetList->begin()->second);
+		}
+
+		m_fTime = 3.f;
+	}*/
+
+	_float3 Speed = m_pRigidBodyCom->Get_Vector(RIGID_BODY::SPEED);
+
+	if (fabs(D3DXVec3Length(&Speed)) > 5.f)
+	{
+		D3DCOLOR color = D3DCOLOR_ARGB(255, 0, 255, 0);
+		((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(10, m_pTransformCom, color);
 	}
 
-	if (m_pStatusCom->Get_Status().fHp < m_pStatusCom->Get_Status().fMaxHp / 2.f)
-	{
-		((CSmoke_PSystem*)GAMEINSTANCE->Add_GameObject<CSmoke_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke"), nullptr, nullptr, true))->AddParticle(1, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
-	}
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
@@ -113,10 +116,6 @@ HRESULT CEnemySpace_Body::Render_Begin(ID3DXEffect** Shader)
 HRESULT CEnemySpace_Body::Render()
 {
 
-
-	/*m_pColliderCom->Debug_Render();
-	m_pColliderPreCom->Debug_Render();*/
-
 	__super::Render();
 
 	m_pMeshCom->Render_Mesh();
@@ -124,9 +123,10 @@ HRESULT CEnemySpace_Body::Render()
 	return S_OK;
 }
 
-HRESULT CEnemySpace_Body::SetUp_Components()
-{
 
+
+void CEnemySpace_Body::SetUp_Components_For_Child()
+{
 	CStatus::STATUS Status;
 	Status.fAttack = 1.f;
 	Status.fArmor = 5.f;
@@ -136,50 +136,23 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pStatusCom = Add_Component<CStatus>(&Status);
 	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
 
-
-	m_pRendererCom = Add_Component<CRenderer>();
-	m_pRendererCom->Set_WeakPtr((void**)&m_pRendererCom);
-	//m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
-
-
 	m_pMeshCom = Add_Component<CMesh_EnemySpace>();
 	m_pMeshCom->Set_WeakPtr((void**)&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Red_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 10.f;
-	RigidBodyDesc.m_fOwnerAccel = 0.5f;
-	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
-	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
-	RigidBodyDesc.m_fOwnerJump = 5.f;
-	RigidBodyDesc.m_fOwnerJumpScale = 1.f;
-
-	RigidBodyDesc.m_fFrictional = 0.05f;
-	RigidBodyDesc.m_fRadFrictional = 0.02f;
-	RigidBodyDesc.m_fRadZ = 0.01f;
-
-
-	RigidBodyDesc.m_fOwnerLiftSpeed = 10.f;
-	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
-	RigidBodyDesc.m_fRadDrag = 1.f;
-	RigidBodyDesc.m_fDirDrag = 0.05f;
-	RigidBodyDesc.m_fOwnerAccel = 0.1f;
+	RigidBodyDesc.Set_Preset_EnemySpace_Body();
 
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
+
 	
-	m_pStateCom = Add_Component<CState_Move>();
-	m_pStateCom->Set_WeakPtr((void**)m_pStateCom);
 	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
 	m_pStateCom->Link_AI_Transform(m_pTransformCom);
 
 
-	m_pTargetingCom = Add_Component<CTargeting>();
-	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
-
-	
 	COLLISION_TYPE eBulletCollisionType = COLLISION_TYPE::MONSTER_ATTACK;
 
 	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
@@ -192,56 +165,35 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pPosinList.back());
 
-	m_pAIControllerCom = Add_Component<CAI_Controller>();
-	m_pAIControllerCom->Set_WeakPtr(&m_pAIControllerCom);
+	
 	m_pAIControllerCom->Link_Object(this);
 	m_pAIControllerCom->Set_Enable(false);
 	m_pAIControllerCom->Set_UsableStates(m_pAIControllerCom->Get_States_Preset_AI_Default());
 
 
-	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
-	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
+
 	m_pColliderCom->Link_Transform(m_pTransformCom);
 	m_pColliderCom->Set_Collider_Size(_float3(3.f, 3.f, 3.f));
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 
 	Set_Controller(CONTROLLER::AI);
-
-	return S_OK;
 }
 
-void CEnemySpace_Body::Update_Target()
-{
-	map<_float, CGameObject*>* TargetList = m_pTargetingCom->Get_Targetting();
-
-	if (TargetList->empty())
-	{
-		/*for (auto iter = m_pPosinList.begin(); iter != m_pPosinList.end();)
-		{
-			(*iter)->Set_Target(nullptr);
-			++iter;
-		}*/
-		return;
-	}
-
-	/*for (auto& elem : m_pPosinList)
-	{
-		
-		elem->Set_Target((*TargetList->begin()).second);
-	}*/
-
-}
+//void CEnemySpace_Body::Update_Target(CGameObject* _Target)
+//{
+//	if (!_Target)
+//		return;
+//
+//	for (auto& elem : m_pPosinList)
+//	{
+//		elem->Set_AI_Target(_Target);
+//	}
+//
+//}
 
 void CEnemySpace_Body::On_Change_Controller(const CONTROLLER& _IsAI)
 {
-	if (_IsAI == CONTROLLER::AI)
-	{
-		m_pAIControllerCom->Set_Enable(true);
-	}
-	else
-	{
-		return;
-	}
+	__super::On_Change_Controller(_IsAI);
 }
 
 
@@ -264,25 +216,15 @@ void CEnemySpace_Body::Free()
 
 void CEnemySpace_Body::On_Collision_Enter(CCollider* _Other_Collider)
 {
-	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::PLAYER_ATTACK)
-	{
-		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
-		((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle_Fire"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
-		
-		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
-		{
-			Set_Dead();
-			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
-			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
-
-		}
-	}
+	__super::On_Collision_Enter(_Other_Collider);
 }
 
 void CEnemySpace_Body::On_Collision_Stay(CCollider* _Other_Collider)
 {
+	__super::On_Collision_Stay(_Other_Collider);
 }
 
 void CEnemySpace_Body::On_Collision_Exit(CCollider* _Other_Collider)
 {
+	__super::On_Collision_Exit(_Other_Collider);
 }

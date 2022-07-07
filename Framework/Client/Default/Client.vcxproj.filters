@@ -211,6 +211,12 @@
     <Filter Include="02.GameObject\00. Player\AI_TransportShip">
       <UniqueIdentifier>{1141a8dd-26b4-43f2-982a-c7e2c58c8f63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\13. Effect\Teleport_Effect">
+      <UniqueIdentifier>{e6cb5f1e-c3fd-4e12-865e-de29617c6851}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\07. UI\Dive">
+      <UniqueIdentifier>{e3aaa70c-d1e3-428f-b29c-5229da6639e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -379,9 +385,6 @@
     <ClInclude Include="..\Public\Quest.h">
       <Filter>02.GameObject\07. UI\Quest</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Player.h">
-      <Filter>02.GameObject\00. Player</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\Song_Ship_Body.h">
       <Filter>02.GameObject\00. Player\Song_Ship</Filter>
     </ClInclude>
@@ -402,9 +405,6 @@
     </ClInclude>
     <ClInclude Include="..\Public\Effect.h">
       <Filter>02.GameObject\13. Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\Rock.h">
-      <Filter>02.GameObject\12. Rock</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Bomb_Effect.h">
       <Filter>02.GameObject\13. Effect\Bomb_Effect</Filter>
@@ -430,6 +430,21 @@
     </ClInclude>
     <ClInclude Include="..\Public\AI_TransportShip.h">
       <Filter>02.GameObject\00. Player\AI_TransportShip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Teleport_Effect.h">
+      <Filter>02.GameObject\13. Effect\Teleport_Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock.h">
+      <Filter>02.GameObject\12. Rock</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Planet.h">
+      <Filter>02.GameObject\06. Planet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Dive.h">
+      <Filter>02.GameObject\07. UI\Dive</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Player.h">
+      <Filter>02.GameObject\00. Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -617,9 +632,6 @@
     <ClCompile Include="..\Private\Effect.cpp">
       <Filter>02.GameObject\13. Effect</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Rock.cpp">
-      <Filter>02.GameObject\12. Rock</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\Bomb_Effect.cpp">
       <Filter>02.GameObject\13. Effect\Bomb_Effect</Filter>
     </ClCompile>
@@ -644,6 +656,18 @@
     </ClCompile>
     <ClCompile Include="..\Private\AI_TransportShip.cpp">
       <Filter>02.GameObject\00. Player\AI_TransportShip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Teleport_Effect.cpp">
+      <Filter>02.GameObject\13. Effect\Teleport_Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock.cpp">
+      <Filter>02.GameObject\12. Rock</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Planet.cpp">
+      <Filter>02.GameObject\06. Planet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Dive.cpp">
+      <Filter>02.GameObject\07. UI\Dive</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

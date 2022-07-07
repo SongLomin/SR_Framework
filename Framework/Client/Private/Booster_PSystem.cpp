@@ -77,7 +77,6 @@ void CBooster_PSystem::Tick(_float fTimeDelta)
 	if (IsDead())
 	{
 		Set_Enable(false);
-		printf("%s : Set_Enable(false).\n", typeid(*this).name());
 	}
 }
 
@@ -153,9 +152,12 @@ void CBooster_PSystem::ResetParticle(ParticleDesc* Desc)
 	//m_size = (_float)((rand() % 5 + 10) * 0.01f);
 	m_size = 2.f;
 
+
 	Desc->position.x = 0.f;
 	Desc->position.y = 0.f;
 	Desc->position.z = -7.f;
+
+	D3DXVec3TransformCoord(&Desc->position, &Desc->position, &m_WorldMat);
 
 	Desc->velocity.x = (_float)((rand() % 21) * 0.5f) - 5.f;
 	Desc->velocity.y = (_float)((rand() % 21) * 0.5f) - 11.f;

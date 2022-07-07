@@ -2,6 +2,7 @@
 #include "AI_TransportShip.h"
 #include "GameInstance.h"
 #include "Normal_Turret.h"
+#include "AI_Friendly.h"
 
 CAI_TransportShip::CAI_TransportShip()
 {
@@ -11,25 +12,38 @@ CAI_TransportShip::CAI_TransportShip(const CAI_TransportShip& Prototype)
 {
     *this = Prototype;
 
-    Add_Component<CTransform>();
+    
 
 }
 
 HRESULT CAI_TransportShip::Initialize_Prototype()
-{
-    SetUp_Components();
+{  
 
     return S_OK;
 }
 
 HRESULT CAI_TransportShip::Initialize(void* pArg)
 {
+	Add_Component<CTransform>();
+
+	SetUp_Components();
+
     return S_OK;
 }
 
 void CAI_TransportShip::Tick(_float fTimeDelta)
 {
     __super::Tick(fTimeDelta);
+	
+	m_fSpawnTime -= fTimeDelta;
+
+	if (m_fSpawnTime < 0.f)
+	{
+		Spawn_SpaceShip();
+
+		m_fSpawnTime = 10.f;
+	}
+
 
 }
 
@@ -37,11 +51,33 @@ void CAI_TransportShip::LateTick(_float fTimeDelta)
 {
     __super::LateTick(fTimeDelta);
 
+	m_pRigidBodyCom->Update_Transform(fTimeDelta);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
 }
 
 HRESULT CAI_TransportShip::Render_Begin(ID3DXEffect** Shader)
 {
     __super::Render_Begin(Shader);
+
+	m_pTransformCom->Bind_WorldMatrix();
+
+	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
+	D3DXHANDLE DiffuseHandle = (*Shader)->GetParameterByName(0, "Diffuse");
+	D3DXHANDLE SpecularHandle = (*Shader)->GetParameterByName(0, "Specular");
+
+
+	float floatArray[3];
+	floatArray[0] = 0.8f;
+	floatArray[1] = 0.8f;
+	floatArray[2] = 0.8f;
+
+
+	float Specular = 1.f;
+	float Diffuse = 1.f;
+
+	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
+	(*Shader)->SetFloat(DiffuseHandle, Diffuse);
+	(*Shader)->SetFloat(SpecularHandle, Specular);
 
     return S_OK;
 }
@@ -49,6 +85,8 @@ HRESULT CAI_TransportShip::Render_Begin(ID3DXEffect** Shader)
 HRESULT CAI_TransportShip::Render()
 {
     __super::Render();
+
+	m_pMeshCom->Render_Mesh();
 
     return S_OK;
 }
@@ -73,16 +111,20 @@ HRESULT CAI_TransportShip::SetUp_Components()
 {
     m_pTransformCom = Get_Component<CTransform>();
     m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
-    m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(rand() % 20, rand() % 20, rand() % 20));
+    m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 0.f, -100.f));
+	m_pTransformCom->Scaling(_float3(30.0f, 4.0f, 50.0f));
+
 
     m_pRendererCom = Add_Component<CRenderer>();
     m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
 
-    m_pTargetingCom = Add_Component<CTargeting>();
-    m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
+    /*m_pTargetingCom = Add_Component<CTargeting>();
+    m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);*/
 
-    m_pMeshCom = Add_Component<CMesh_ShinShip>();
+    m_pMeshCom = Add_Component<CMesh_Cube>();
     m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
+
+
 
 #pragma region Status Setting
 	CStatus::STATUS		Status;
@@ -96,8 +138,8 @@ HRESULT CAI_TransportShip::SetUp_Components()
 
 #pragma region Rigid_Body Setting
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 20.f;
-	RigidBodyDesc.m_fOwnerAccel = 0.5f;
+	RigidBodyDesc.m_fOwnerSpeed = 4.5f;
+	RigidBodyDesc.m_fOwnerAccel = 1.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
 	RigidBodyDesc.m_fOwnerJump = 5.f;
@@ -148,6 +190,7 @@ HRESULT CAI_TransportShip::SetUp_Components()
 	m_pAIControllerCom->Set_WeakPtr(&m_pAIControllerCom);
 	m_pAIControllerCom->Link_Object(this);
 	m_pAIControllerCom->Set_Enable(true);
+	m_pAIControllerCom->Set_UsableStates({STATE::MOVE_FORWARD});
 
 	Set_Controller(CONTROLLER::AI);
 
@@ -155,8 +198,23 @@ HRESULT CAI_TransportShip::SetUp_Components()
     return S_OK;
 }
 
-void CAI_TransportShip::Update_PosinTarget()
+void CAI_TransportShip::Spawn_SpaceShip()
 {
+	CGameObject* pAI_Friendly = GAMEINSTANCE->Add_GameObject<CAI_Friendly>(CURRENT_LEVEL, TEXT("AI_Friendly"));
+	CTransform* pTransform_Friendly = pAI_Friendly->Get_Component<CTransform>();
+
+	pTransform_Friendly->Set_LocalMatrix(m_pTransformCom->Get_WorldMatrix());
+	pTransform_Friendly->Scaling(_float3(1.f, 1.f, 1.f));
+	pTransform_Friendly->Add_Position(_float3(0.f, 5.f, -10.f));
+	pTransform_Friendly->Update_WorldMatrix();
+
+	CAI_Controller* pController_Friendly = pAI_Friendly->Get_Component<CAI_Controller>();
+
+	//pController_Friendly->Push_Front_Command(STATE::MOVE_LIFT_FRONT);
+	pController_Friendly->Push_Front_Command(STATE::MOVE_FORWARD, 6.f);
+
+	
+
 }
 
 CAI_TransportShip* CAI_TransportShip::Create()

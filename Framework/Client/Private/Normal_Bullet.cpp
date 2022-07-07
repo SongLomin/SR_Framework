@@ -93,7 +93,7 @@ void CNormal_Bullet::Init_BulletPosition(_float4x4* _pWorldMat)
 {
 	__super::Init_BulletPosition(_pWorldMat);
 
-	m_pTransformCom->Go_BackAndForth(9.f, 1.f);
+	m_pTransformCom->Go_BackAndForth(2.f, 1.f);
 
 	m_pTransformCom->Update_WorldMatrix();
 	m_pRigidBodyCom->Set_DirVector();
@@ -153,8 +153,8 @@ void CNormal_Bullet::Free()
 HRESULT CNormal_Bullet::SetUp_Components_For_Child()
 {
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 250.f;
-	RigidBodyDesc.m_fOwnerAccel = 250.f;
+	RigidBodyDesc.m_fOwnerSpeed = 10000.f;
+	RigidBodyDesc.m_fOwnerAccel = 10000.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
 	RigidBodyDesc.m_fOwnerJump = 0.f;

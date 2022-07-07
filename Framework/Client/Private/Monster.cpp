@@ -2,16 +2,11 @@
 #include "..\Public\Monster.h"
 #include "GameInstance.h"
 #include <Math_Utillity.h>
+#include "Bomb_Effect.h"
+#include "Fire_PSystem.h"
+#include "Smoke_PSystem.h"
+#include "Normal_Turret.h"
 
-
-
-CMonster::CMonster(const CMonster& Prototype)
-{
-	*this = Prototype;
-	Add_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
-	
-	Set_Controller(CONTROLLER::AI);
-}
 
 HRESULT CMonster::Initialize_Prototype()
 {
@@ -20,114 +15,142 @@ HRESULT CMonster::Initialize_Prototype()
 
 HRESULT CMonster::Initialize(void* pArg)
 {
-	SetUp_Components();
-	m_pPlayerTransformCom = CGameInstance::Get_Instance()->Get_Player_GameObject()->Get_Component<CTransform>();
-	m_pPlayerTransformCom->Set_WeakPtr((void**)&m_pPlayerTransformCom);
-	
 	return S_OK;
 }
 
 void CMonster::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
-
-	ISVALID(m_pPlayerTransformCom, );
-	ISVALID(m_pTransformCom, );
-
-	/*m_pTransformCom->Go_Target(m_pPlayerTransformCom, fTimeDelta);
-	m_pTransformCom->Go_BackAndForth(2.5, fTimeDelta);*/
-
 	
-	_float3 MyScreenPos;
-	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE::STATE_POSITION, true), &MyScreenPos);
 
-	GAMEINSTANCE->Add_Text(
-		_point{ (long)MyScreenPos.x, (long)MyScreenPos.y },
-		D3DCOLOR_ARGB(255, 130, 255, 0),
-		0.0f,
-		L"HP : %d / 10",
-		1,
-		(_int)m_pStatusCom->Get_Status().fHp);
 }
 
 void CMonster::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
-	
+	m_fTime -= fTimeDelta;
+	if (m_fTime < 0.f)
+	{
+		int RandomTarget = rand() % 2;
 
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+		if (0 == RandomTarget)
+		{
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+		}
+
+		else
+		{
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("AI_Friendly")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+		}
+
+		auto TargetList = m_pTargetingCom->Get_Targetting();
+
+		if (!TargetList->empty())
+		{
+			Update_Target(TargetList->begin()->second);
+		}
+
+		m_fTime = 3.f;
+	}
+
+	if (m_pStatusCom->Get_Status().fHp < m_pStatusCom->Get_Status().fMaxHp / 2.f)
+	{
+		((CSmoke_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CSmoke_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(1, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
+	}
+
+	m_pRigidBodyCom->Update_Transform(fTimeDelta);
+	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+
+	if (GAMEINSTANCE->IsIn(&vPos))
+		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
+
+
+}
+
+HRESULT CMonster::Render_Begin(ID3DXEffect** Shader)
+{
+	return S_OK;
 }
 
 HRESULT CMonster::Render()
 {
-	m_pTransformCom->Bind_WorldMatrix();
-
 	__super::Render();
-	m_pMeshCom->Render_Mesh();
-
+	m_pColliderCom->Debug_Render();
 
 	return S_OK;
+}
+
+
+
+void CMonster::On_Change_Controller(const CONTROLLER& _IsAI)
+{
+	if (_IsAI == CONTROLLER::AI)
+	{
+		m_pAIControllerCom->Set_Enable(true);
+	}
+	else
+	{
+		return;
+	}
+}
+
+void CMonster::Update_Target(CGameObject* _Target)
+{
+	if (!_Target)
+		return;
+
+	for (auto& elem : m_pPosinList)
+	{
+		elem->Set_AI_Target(_Target);
+	}
+
 }
 
 HRESULT CMonster::SetUp_Components()
 {
-	//CGameInstance* pGameInstance = CGameInstance::Get_Instance();
-	//Safe_AddRef(pGameInstance);
-
-	/* For.Com_Renderer */
-	//약포인터: 해당 객체가 삭제되면 약포인터로 선언된 포인터 객체들도 nullptr를 가르킨다.
-	//댕글링 포인터를 방지하기 위해 사용한다.
-
-	CStatus::STATUS		Status;
-	Status.fHp = 10.f;
-	Status.fAttack = 7.f;
-	Status.fArmor = 5.f;
-
-	m_pStatusCom = Add_Component<CStatus>(&Status);
-	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
+    m_pTransformCom = Add_Component<CTransform>();
+	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
 	m_pRendererCom = Add_Component<CRenderer>();
-
 	m_pRendererCom->Set_WeakPtr((void**)&m_pRendererCom);
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Test"), MEMORY_TYPE::MEMORY_DYNAMIC);
 
+	m_pTargetingCom = Add_Component<CTargeting>();
+	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
 
-	m_pMeshCom = Add_Component<CMesh_Cube>();
-	m_pMeshCom->Set_WeakPtr((void**)&m_pMeshCom);
-	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pStateCom = Add_Component<CState_Move>();
+	m_pStateCom->Set_WeakPtr((void**)m_pStateCom);
 
-	/*CTransform::TRANSFORMDESC		TransformDesc;
-	TransformDesc.fSpeedPerSec = 2.5f;
-	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f);*/
+	m_pAIControllerCom = Add_Component<CAI_Controller>();
+	m_pAIControllerCom->Set_WeakPtr(&m_pAIControllerCom);
 
-	m_pTransformCom = Get_Component<CTransform>();
-	m_pTransformCom->Set_WeakPtr((void**)&m_pTransformCom);
-
-	//콜라이더 기본 틀
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
-	m_pCColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
-	m_pCColliderCom->Set_WeakPtr(&m_pCColliderCom);
-	m_pCColliderCom->Link_Transform(m_pTransformCom);
-	m_pCColliderCom->Set_Collider_Size(_float3(2.f, 2.f, 2.f));
-	
+	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
 
-	//Safe_Release(pGameInstance);
+
+	SetUp_Components_For_Child();
+
 	return S_OK;
 }
+
+
+
 
 void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::PLAYER_ATTACK)
 	{
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+		((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle_Fire"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
 
 		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
 		{
 			Set_Dead();
+			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
+
 		}
 	}
-
 }
 
 void CMonster::On_Collision_Stay(CCollider* _Other_Collider)
@@ -138,19 +161,7 @@ void CMonster::On_Collision_Exit(CCollider* _Other_Collider)
 {
 }
 
-CMonster* CMonster::Create()
-{
-	CREATE_PIPELINE(CMonster);
-}
-
-CGameObject* CMonster::Clone(void* pArg)
-{
-	CLONE_PIPELINE(CMonster);
-}
-
 void CMonster::Free()
 {
 	__super::Free();
-
-	delete this;
 }

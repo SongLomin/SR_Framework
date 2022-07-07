@@ -404,6 +404,16 @@ void CGameInstance::Add_Shaking(_float _fOffset, _float _fInclination)
 	m_pCamera_Manager->Add_Shaking(_fOffset, _fInclination);
 }
 
+void CGameInstance::Switch_Camera(const _tchar* _CameraTag, _float _fTime)
+{
+	m_pCamera_Manager->Switch_Camera(_CameraTag, _fTime);
+}
+
+void CGameInstance::Switch_Player(CTransform* _pCurCamera, CTransform* _pNextCamera, const _tchar* _NextCameraTag, _float fTime)
+{
+	m_pCamera_Manager->Switch_Player(_pCurCamera, _pNextCamera, _NextCameraTag, fTime);
+}
+
 void CGameInstance::Add_Collider(CCollider* pCollider)
 {
 	m_pCollision_Manager->Add_Collider(pCollider);

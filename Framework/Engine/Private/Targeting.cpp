@@ -194,6 +194,24 @@ void CTargeting::Make_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _
 	}
 }
 
+bool CTargeting::IsTargetEmpty()
+{
+	for (auto& iter = m_pTargeting.begin(); iter != m_pTargeting.end();)
+	{
+
+		if (iter->second == nullptr)
+		{
+			iter = m_pTargeting.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
+	}
+
+	return m_pTargeting.empty();
+}
+
 
 
 void CTargeting::Clear_Targeting()

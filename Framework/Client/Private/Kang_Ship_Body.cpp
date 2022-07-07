@@ -92,25 +92,7 @@ void CKang_Ship_Body::SetUp_Components_For_Child()
 
 #pragma region Rigid_Body Setting
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 20.f;
-	RigidBodyDesc.m_fOwnerAccel = 0.5f;
-	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
-	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
-	RigidBodyDesc.m_fOwnerJump = 5.f;
-	RigidBodyDesc.m_fOwnerJumpScale = 1.f;
-
-	RigidBodyDesc.m_fFrictional = 0.05f;
-	RigidBodyDesc.m_fRadFrictional = 0.02f;
-	RigidBodyDesc.m_fRadZ = 0.01f;
-
-
-	RigidBodyDesc.m_fOwnerLiftSpeed = 20.f;
-	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
-	RigidBodyDesc.m_fRadDrag = 1.f;
-	RigidBodyDesc.m_fDirDrag = 0.05f;
-
-	RigidBodyDesc.m_fBoosterSpeed = 50.f;
-	RigidBodyDesc.m_fBoosterAccel = 0.1f;
+	RigidBodyDesc.Set_Preset_Kang_Ship();
 
 	m_pRigid_BodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigid_BodyCom->Set_WeakPtr(&m_pRigid_BodyCom);
@@ -120,7 +102,7 @@ void CKang_Ship_Body::SetUp_Components_For_Child()
 
 #pragma region Posin Setting
 
-	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());

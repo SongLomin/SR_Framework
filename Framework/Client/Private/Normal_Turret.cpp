@@ -59,7 +59,7 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 	// AI는 정면을 바라본다.
 	else if (Get_Controller() == CONTROLLER::AI)
 	{
-		m_pTransformCom->LookAt(_float3(0.f, 0.f, 1.f));
+ 		m_pTransformCom->LookAt(_float3(0.f, 0.f, 1.f));
 	}
 
 }
@@ -91,7 +91,7 @@ void CNormal_Turret::LateTick(_float fTimeDelta)
 
 HRESULT CNormal_Turret::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.1f, 0.4f, 3.f), true);
+	m_pTransformCom->Scaling(_float3(0.4f, 0.4f, 3.f), true);
 	m_pTransformCom->Bind_WorldMatrix(D3D_ALL, D3D_ALL);
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -115,7 +115,7 @@ HRESULT CNormal_Turret::Render()
 	return S_OK;
 }
 
-void CNormal_Turret::Set_Target(CGameObject* _Target)
+void CNormal_Turret::Set_Player_Target(CGameObject* _Target)
 {
 
 	//기존에 타겟 인스턴스가 살아 있는데 바뀐 경우는
@@ -155,6 +155,27 @@ void CNormal_Turret::Set_Target(CGameObject* _Target)
 
 }
 
+void CNormal_Turret::Set_AI_Target(CGameObject* _Target)
+{
+	if (m_pTarget)
+	{
+		m_pTarget->Return_WeakPtr(&m_pTarget);
+		m_pTarget = nullptr;
+
+	}
+
+	if (!_Target)
+	{
+		m_pTarget = nullptr;
+
+		return;
+	}
+
+	m_pTarget = _Target;
+	WEAK_PTR(m_pTarget);
+
+}
+
 _bool CNormal_Turret::LookAt_Targeting()
 {
 	if (!m_pTarget)
@@ -187,6 +208,11 @@ void CNormal_Turret::Command_Fire()
 	{
 		CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &m_eBulletCollisionType);
 		static_cast<CNormal_Bullet*>(Bullet)->Init_BulletPosition(&m_pTransformCom->Get_WorldMatrix());
+		
+		if (Get_Controller() == CONTROLLER::PLAYER)
+		{
+			GAMEINSTANCE->Add_Shaking(0.1f, 0.05f);
+		}
 
 		//m_fMaxTime = (_float)(rand() % 11 + 5) * 0.1f;
 		m_fCurTime = m_fMaxTime;

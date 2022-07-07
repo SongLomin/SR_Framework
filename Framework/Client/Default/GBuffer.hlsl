@@ -129,10 +129,8 @@ PS_OUTPUT_SKY PS_Main_SkyBox(VS_OUTPUT_SKY input)
     output.normal = float4(input.normal.xyz, 0);
 
     // zip depth in color range [0, 1]
-    float depth = 1;
-    float int_depth = floor(depth);
-    float dec_depth = frac(depth);
-    output.depth = float4((int_depth / 256.f) / 256.f, (int_depth % 256.f) / 256.f, dec_depth, 0);
+    
+    output.depth = float4(1, 1, 1, 0);
 
     output.diffuse = texCUBE(SkyBoxSampler, input.TextureCoordinate);
     output.diffuse.w = -1;

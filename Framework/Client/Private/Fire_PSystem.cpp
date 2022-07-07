@@ -61,7 +61,6 @@ void CFire_PSystem::Tick(_float fTimeDelta)
 	if (IsDead())
 	{
 		Set_Enable(false);
-		printf("%s : Set_Enable(false).\n", typeid(*this).name());
 	}
 }
 
@@ -127,6 +126,8 @@ void CFire_PSystem::ResetParticle(ParticleDesc* Desc)
 	Desc->position.x = 0.f;
 	Desc->position.y = 0.f + 1.f;
 	Desc->position.z = 0.f;
+
+	D3DXVec3TransformCoord(&Desc->position, &Desc->position, &m_WorldMat);
 
 	Desc->velocity.x = (_float)((rand() % 31) * 0.5f) - 10.5f;
 	Desc->velocity.y = (_float)((rand() % 31) * 0.5f) - 7.5f;

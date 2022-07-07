@@ -34,6 +34,7 @@ public:
 	void Move_Lift_Back();
 	void Move_Jump_Front();
 	void Move_Chase_Player(CTransform* pPlayerTransform, _float fTimeDelta);
+	void Move_Forward();
 
 public:
 	void MoveTarget_Chase(_float fTimeDelta, _float fLimit);

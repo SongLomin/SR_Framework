@@ -14,6 +14,7 @@ class CState_Move;
 class CAI_Controller;
 class CPlayer_Controller;
 class CMesh_ShinShip;
+class CMesh_KangShip;
 END
 
 BEGIN(Client)
@@ -45,7 +46,7 @@ private:
 	CTargeting* m_pTargetingCom = nullptr;
 	CStatus* m_pStatusCom = nullptr;
 	//CMesh_Cube* m_pMeshCom = nullptr;
-	CMesh_ShinShip* m_pMeshCom = nullptr;
+	CMesh_KangShip* m_pMeshCom = nullptr;
 	CCollider_Pre* m_pPreColliderCom = nullptr;
 	CState_Move* m_pStateCom = nullptr;
 	CAI_Controller* m_pAIControllerCom = nullptr;
@@ -68,7 +69,7 @@ public: /* For Event Function */
 
 private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 	HRESULT SetUp_Components();
-	void Update_PosinTarget();
+	void Update_PosinTarget(CGameObject* _Target);
 
 
 

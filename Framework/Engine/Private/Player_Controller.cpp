@@ -44,12 +44,6 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 		m_pMyObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::SPIN, fDirX * 0.1f);
 		m_pMyObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::DOWN, fDirY * 0.1f);
 
-		if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP))//testing Camera Shaking
-		{
-			GAMEINSTANCE->Add_Shaking(2.f, 0.01f);
-		}
-
-
 		if (KEY_INPUT(KEY::Z, KEY_STATE::TAP))
 		{
 			//m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
@@ -61,15 +55,15 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 			{
 			case 0:
 
-				GAMEINSTANCE->Set_Current_Camera(TEXT("Free"));
+				GAMEINSTANCE->Switch_Camera(TEXT("Shoulder"),0.1f);
 				break;
 
 			case 1:
-				GAMEINSTANCE->Set_Current_Camera(TEXT("FPS"));
+				GAMEINSTANCE->Switch_Camera(TEXT("FPS"),0.1f);
 				break;
 
 			case 2:
-				GAMEINSTANCE->Set_Current_Camera(TEXT("TPS"));
+				GAMEINSTANCE->Switch_Camera(TEXT("TPS"),0.1f);
 				break;
 
 			/*case 3:
@@ -114,7 +108,7 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 		if (KEY_INPUT(KEY::LSHIFT, KEY_STATE::HOLD))
 		{
 			m_pMyObject->Get_Component<CRigid_Body>()->Set_Booster(true);
-			GAMEINSTANCE->Add_Shaking(0.3f, 0.01f);
+			GAMEINSTANCE->Add_Shaking(0.2f, 0.01f);
 		}
 		else
 		{

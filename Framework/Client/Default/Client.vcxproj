@@ -176,6 +176,7 @@
     <ClInclude Include="..\Public\BulletUI.h" />
     <ClInclude Include="..\Public\AI_Friendly.h" />
     <ClInclude Include="..\Public\Default_Aim.h" />
+    <ClInclude Include="..\Public\Dive.h" />
     <ClInclude Include="..\Public\Effect.h" />
     <ClInclude Include="..\Public\Fire_PSystem.h" />
     <ClInclude Include="..\Public\Hong_Ship_Body.h" />
@@ -191,6 +192,7 @@
     <ClInclude Include="..\Public\HpBar.h" />
     <ClInclude Include="..\Public\Level_SelectPlanet.h" />
     <ClInclude Include="..\Public\MovingCamera.h" />
+    <ClInclude Include="..\Public\Planet.h" />
     <ClInclude Include="..\Public\Planet_Exo.h" />
     <ClInclude Include="..\Public\Planet_Magma.h" />
     <ClInclude Include="..\Public\Planet_Red.h" />
@@ -202,7 +204,6 @@
     <ClInclude Include="..\public\Song_Ship_Body.h" />
     <ClInclude Include="..\Public\Cam_FPS.h" />
     <ClInclude Include="..\Public\Normal_Bullet.h" />
-    <ClInclude Include="..\Public\Cam_Free.h" />
     <ClInclude Include="..\Public\Cam_Shoulder.h" />
     <ClInclude Include="..\Public\Cam_TPS.h" />
     <ClInclude Include="..\Public\Client_Defines.h" />
@@ -220,6 +221,9 @@
     <ClInclude Include="..\Public\SpaceDust_PSystem.h" />
     <ClInclude Include="..\Public\StatusBar.h" />
     <ClInclude Include="..\Public\TargetingBox.h" />
+    <ClInclude Include="..\Public\Teleport_Effect.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\Public\Terrain.h" />
     <ClInclude Include="..\Public\Kang_Ship_Body.h" />
     <ClInclude Include="..\Public\TextBox.h" />
@@ -245,6 +249,7 @@
     <ClCompile Include="..\Private\BulletUI.cpp" />
     <ClCompile Include="..\Private\AI_Friendly.cpp" />
     <ClCompile Include="..\Private\Default_Aim.cpp" />
+    <ClCompile Include="..\Private\Dive.cpp" />
     <ClCompile Include="..\Private\Effect.cpp" />
     <ClCompile Include="..\Private\Fire_PSystem.cpp" />
     <ClCompile Include="..\Private\Hong_Ship_Body.cpp" />
@@ -260,6 +265,7 @@
     <ClCompile Include="..\Private\HpBar.cpp" />
     <ClCompile Include="..\Private\Level_SelectPlanet.cpp" />
     <ClCompile Include="..\Private\MovingCamera.cpp" />
+    <ClCompile Include="..\Private\Planet.cpp" />
     <ClCompile Include="..\Private\Planet_Exo.cpp" />
     <ClCompile Include="..\Private\Planet_Magma.cpp" />
     <ClCompile Include="..\Private\Planet_Red.cpp" />
@@ -271,7 +277,6 @@
     <ClCompile Include="..\private\Song_Ship_Body.cpp" />
     <ClCompile Include="..\Private\Normal_Bullet.cpp" />
     <ClCompile Include="..\Private\Cam_FPS.cpp" />
-    <ClCompile Include="..\Private\Cam_Free.cpp" />
     <ClCompile Include="..\Private\Cam_Shoulder.cpp" />
     <ClCompile Include="..\Private\Cam_TPS.cpp" />
     <ClCompile Include="..\Private\Level_RedPlanet.cpp" />
@@ -288,6 +293,9 @@
     <ClCompile Include="..\Private\SpaceDust_PSystem.cpp" />
     <ClCompile Include="..\Private\StatusBar.cpp" />
     <ClCompile Include="..\Private\TargetingBox.cpp" />
+    <ClCompile Include="..\Private\Teleport_Effect.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\Private\Terrain.cpp" />
     <ClCompile Include="..\Private\Kang_Ship_Body.cpp" />
     <ClCompile Include="..\Private\TextBox.cpp" />

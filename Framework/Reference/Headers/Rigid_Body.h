@@ -38,6 +38,50 @@ public:
 		_float		m_fBoosterSpeed; // 앞뒤 움직임 속도
 		_float		m_fBoosterAccel; // 앞뒤 움직임 가속도
 
+		void Set_Preset_EnemySpace_Body()
+		{
+			m_fOwnerSpeed = 30.f;
+			m_fOwnerAccel = 15.f;
+			m_fOwnerRadSpeed = D3DXToRadian(90.0f);
+			m_fOwnerRadAccel = 0.3f;
+			m_fOwnerJump = 5.f;
+			m_fOwnerJumpScale = 1.f;
+
+			m_fFrictional = 0.05f;
+			m_fRadFrictional = 0.02f;
+			m_fRadZ = 0.01f;
+
+
+			m_fOwnerLiftSpeed = 10.f;
+			m_fOwnerLiftAccel = 0.3f;
+			m_fRadDrag = 1.f;
+			m_fDirDrag = 0.05f;
+			m_fOwnerAccel = 0.1f;
+		}
+
+		void Set_Preset_Kang_Ship()
+		{
+			m_fOwnerSpeed = 30.f;
+			m_fOwnerAccel = 3.f;
+			m_fOwnerRadSpeed = D3DXToRadian(90.0f);
+			m_fOwnerRadAccel = 0.3f;
+			m_fOwnerJump = 5.f;
+			m_fOwnerJumpScale = 1.f;
+
+			m_fFrictional = 0.05f;
+			m_fRadFrictional = 0.02f;
+			m_fRadZ = 0.01f;
+
+
+			m_fOwnerLiftSpeed = 20.f;
+			m_fOwnerLiftAccel = 0.3f;
+			m_fRadDrag = 1.f;
+			m_fDirDrag = 0.05f;
+
+			m_fBoosterSpeed = 60.f;
+			m_fBoosterAccel = 6.f;
+		}
+
 	}RIGIDBODYDESC;
 
 private:
@@ -83,16 +127,16 @@ public:
 
 private:
 
-	void		Compute_Force();
+	void		Compute_Force(_float fTimeDelta);
 	void		Compute_Camera();
 
-	void		Compute_Dir();
+	void		Compute_Dir(_float fTimeDelta);
 	void		Compute_Rotation();
 
 	void		Compute_RotDirection();//비행기 회전용
 	void		Compute_Lift();
 
-	void		Friction();//마찰력
+	void		Friction(_float fTimeDelta);//마찰력
 
 	void		Compute_Ground();
 
@@ -142,6 +186,7 @@ public:
 			
 		}
 
+		return _float3(0.f, 0.f, 0.f);
 	}
 
 	_bool Get_Booster()

@@ -72,6 +72,12 @@ public: /* For.Object_Manager */
 		return m_pObject_Manager->Add_GameObject<T>(iLevelIndex, pLayerTag, pParent, pArg, _bMemoryPool);
 	}
 
+	template <typename T>
+	CGameObject* Get_ParticleSystem(_uint iLevelIndex, const _tchar* pLayerTag, CTransform* pParent = nullptr, void* pArg = nullptr)
+	{
+		return m_pObject_Manager->Get_ParticleSystem<T>(iLevelIndex, pLayerTag, pParent, pArg);
+	}
+
 	CGameObject* Get_Player_GameObject();
 	list<CGameObject*>* Find_Layer(_uint iLevelIndex, const _tchar* pLayerTag);
 
@@ -121,6 +127,9 @@ public: /* For.Camera_Manager */
 	CGameObject* Get_MovingCam();
 	void Swap_Camera();
 	void Add_Shaking(_float _fOffset, _float _fInclination);
+	void Switch_Camera(const _tchar* _CameraTag, _float _fTime);
+	void Switch_Player(CTransform* _pCurCamera, CTransform* _pNextCamera, const _tchar* _NextCameraTag, _float fTime);
+
 
 
 public: /* For.IMGUI_Manager */

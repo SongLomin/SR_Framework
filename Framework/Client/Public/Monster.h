@@ -4,20 +4,23 @@
 
 BEGIN(Engine)
 class CRenderer;
-class CMesh_Cube;
 class CTransform;
-class CCollider_OBB;
-class CCollider_Sphere;
+class CRigid_Body;
+class CState_Move;
+class CTargeting;
 class CStatus;
+class CTargeting;
+class CAI_Controller;
+class CCollider_Sphere;
+class CNormal_Turret;
 END
 
 BEGIN(Client)
-
-class CMonster final : public CGameObject
+class CNormal_Turret;
+class CMonster abstract : public CGameObject
 {
-private:
+protected:
     CMonster() = default;
-    CMonster(const CMonster& Prototype);
     virtual ~CMonster() = default;
 
 public:
@@ -25,36 +28,43 @@ public:
     virtual HRESULT Initialize(void* pArg)override;
     virtual void Tick(_float fTimeDelta) override;
     virtual void LateTick(_float fTimeDelta) override;
+    virtual HRESULT Render_Begin(ID3DXEffect** Shader = nullptr) override;
     virtual HRESULT Render() override;
 
-private:
-    CTransform*     m_pTransformCom = nullptr;
-    CRenderer*      m_pRendererCom = nullptr;
-    CMesh_Cube*     m_pMeshCom = nullptr;
-    CCollider_Sphere*  m_pCColliderCom = nullptr;
-    CStatus*        m_pStatusCom = nullptr;
+protected: /* For My Component*/
+    CTransform* m_pTransformCom = nullptr;
+    CRenderer* m_pRendererCom = nullptr;
+    CRigid_Body* m_pRigidBodyCom = nullptr;
+    CState_Move* m_pStateCom = nullptr;
+    CTargeting* m_pTargetingCom = nullptr;
+    CStatus* m_pStatusCom = nullptr;
+    CCollider_Sphere* m_pColliderCom = nullptr;
+    CAI_Controller* m_pAIControllerCom = nullptr;
+
+protected:
+    list<CNormal_Turret*> m_pPosinList;
+    _float m_fTime = 3.f;
+
+public:
+    virtual void On_Change_Controller(const CONTROLLER& _IsAI);
 
 private:
-    CTransform* m_pPlayerTransformCom = nullptr;
+    void Update_Target(CGameObject* _Target);
 
-private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
+protected:
     HRESULT SetUp_Components();
+    virtual void SetUp_Components_For_Child() PURE;
 
-public: /* For Event Function */
+protected
+: /* For Event Function */
     virtual void On_Collision_Enter(CCollider* _Other_Collider) override;
     virtual void On_Collision_Stay(CCollider* _Other_Collider) override;
     virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
 
 
 public:
-    static CMonster* Create();
-    
-    virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 
-    // CGameObject을(를) 통해 상속됨
-    
-    //virtual CGameObject* Clone(void* pArg) override;
 };
 
 END

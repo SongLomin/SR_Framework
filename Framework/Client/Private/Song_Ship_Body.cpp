@@ -16,6 +16,7 @@
 #include "Booster_PSystem.h"
 #include "Smoke_PSystem.h"
 #include <Move_PSystem.h>
+#include "Teleport_Effect.h"
 
 
 
@@ -57,8 +58,11 @@ void CSong_Ship_Body::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::M, KEY_STATE::HOLD))
 	{
-		((CMove_PSystem*)GAMEINSTANCE->Add_GameObject<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"), nullptr, nullptr, true))->AddParticle(10, m_pTransformCom);
+		D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 0, 0);
+		((CMove_PSystem*)GAMEINSTANCE->Add_GameObject<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"), nullptr, nullptr, true))->AddParticle(10, m_pTransformCom, color);
 	}
+
+	
 
 	/*if (Get_Controller() == CONTROLLER::PLAYER)
 	{
@@ -95,7 +99,7 @@ HRESULT CSong_Ship_Body::Render_Begin(ID3DXEffect** Shader)
 
 
 	float Specular = 1.f;
-	float Diffuse = 0.5f;
+	float Diffuse = 1.f;
 
 	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 	(*Shader)->SetFloat(DiffuseHandle, Diffuse);
@@ -172,11 +176,38 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 
 #pragma endregion Mesh Setting
 
-#pragma region Rigid_Body Setting
+//#pragma region Rigid_Body Setting
+//
+//	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
+//	RigidBodyDesc.m_fOwnerSpeed = 20.f;
+//	RigidBodyDesc.m_fOwnerAccel = 0.5f;
+//	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
+//	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
+//	RigidBodyDesc.m_fOwnerJump = 5.f;
+//	RigidBodyDesc.m_fOwnerJumpScale = 1.f;
+//
+//	RigidBodyDesc.m_fFrictional = 0.05f;
+//	RigidBodyDesc.m_fRadFrictional = 0.02f;
+//	RigidBodyDesc.m_fRadZ = 0.01f;
+//
+//
+//	RigidBodyDesc.m_fOwnerLiftSpeed = 20.f;
+//	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
+//	RigidBodyDesc.m_fRadDrag = 1.f;
+//	RigidBodyDesc.m_fDirDrag = 0.05f;
+//
+//	RigidBodyDesc.m_fBoosterSpeed = 50.f;
+//	RigidBodyDesc.m_fBoosterAccel = 0.1f;
+//	m_pRigid_BodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
+//	m_pRigid_BodyCom->Set_WeakPtr(&m_pRigid_BodyCom);
+//	m_pRigid_BodyCom->Link_TransformCom(m_pTransformCom);
+//
+//#pragma endregion Rigid_Body Setting
 
+#pragma region Rigid_Body Setting
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 20.f;
-	RigidBodyDesc.m_fOwnerAccel = 0.5f;
+	RigidBodyDesc.m_fOwnerSpeed = 30.f;
+	RigidBodyDesc.m_fOwnerAccel = 3.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
 	RigidBodyDesc.m_fOwnerJump = 5.f;
@@ -186,14 +217,13 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 	RigidBodyDesc.m_fRadFrictional = 0.02f;
 	RigidBodyDesc.m_fRadZ = 0.01f;
 
-
-	RigidBodyDesc.m_fOwnerLiftSpeed = 20.f;
-	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
+	RigidBodyDesc.m_fOwnerLiftSpeed = 100.f;
+	RigidBodyDesc.m_fOwnerLiftAccel = 10.f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;
+	RigidBodyDesc.m_fBoosterSpeed = 60.f;
+	RigidBodyDesc.m_fBoosterAccel = 6.f;
 
-	RigidBodyDesc.m_fBoosterSpeed = 50.f;
-	RigidBodyDesc.m_fBoosterAccel = 0.1f;
 	m_pRigid_BodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigid_BodyCom->Set_WeakPtr(&m_pRigid_BodyCom);
 	m_pRigid_BodyCom->Link_TransformCom(m_pTransformCom);
@@ -202,30 +232,30 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 
 #pragma region Posin Setting
 
-	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.8f, -0.15f, 0.f));
+	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(3.6f, -0.15f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 
-	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(1.6f, -0.15f, 0.f));
+	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.4f, -0.15f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 
-	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-1.6f, -0.15f, 0.f));
+	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.4f, -0.15f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 
-	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-3.8f, -0.15f, 0.f));
+	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-3.6f, -0.15f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 
-	CLazer_Turret* LazerPosin = static_cast<CLazer_Turret*>(GAMEINSTANCE->Add_GameObject<CLazer_Turret>(CURRENT_LEVEL, TEXT("Lazer_Turret"), m_pTransformCom));
+	/*CLazer_Turret* LazerPosin = static_cast<CLazer_Turret*>(GAMEINSTANCE->Add_GameObject<CLazer_Turret>(CURRENT_LEVEL, TEXT("Lazer_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, -0.5f, 0.f));
 	m_pMyPosinList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pMyPosinList.back());
+	Posin->Set_WeakPtr(&m_pMyPosinList.back());*/
 
 #pragma endregion Posin Setting
 

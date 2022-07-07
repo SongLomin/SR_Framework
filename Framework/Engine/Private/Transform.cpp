@@ -23,6 +23,26 @@ HRESULT CTransform::Render()
 	return S_OK;
 }
 
+void CTransform::Add_Position(_float3 _vPos, _bool _bWorld)
+{
+	if (_bWorld)
+	{
+		m_WorldMatrix._41 += _vPos.x;
+		m_WorldMatrix._42 += _vPos.y;
+		m_WorldMatrix._43 += _vPos.z;
+	}
+
+	else
+	{
+		m_LocalMatrix._41 += _vPos.x;
+		m_LocalMatrix._42 += _vPos.y;
+		m_LocalMatrix._43 += _vPos.z;
+	}
+
+	
+
+}
+
 list<CTransform*>* CTransform::Get_Children()
 {
 	return &m_pChildren;

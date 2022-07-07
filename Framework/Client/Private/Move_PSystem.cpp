@@ -20,7 +20,7 @@ HRESULT CMove_PSystem::Initialize(void* pArg)
 	m_vbBatchSize = 512;
 
 	__super::Initialize(pArg);
-	m_pRenderer->Set_Textures_From_Key(TEXT("Booster_Particle"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRenderer->Set_Textures_From_Key(TEXT("Smoke_Particle"), MEMORY_TYPE::MEMORY_STATIC);
 
 	return S_OK;
 }
@@ -43,6 +43,11 @@ void CMove_PSystem::Tick(_float fTimeDelta)
 		}
 
 		iter->age += fTimeDelta;
+	}
+
+	if (IsDead())
+	{
+		Set_Enable(false);
 	}
 }
 
@@ -86,12 +91,12 @@ HRESULT CMove_PSystem::Render_Begin(ID3DXEffect** Shader)
 HRESULT CMove_PSystem::Render()
 {
 
-	m_pRenderer->Bind_Texture(0);
+	//m_pRenderer->Bind_Texture(0);
 
 
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	DEVICE->SetRenderState(D3DRS_ALPHAREF, 253);
+	DEVICE->SetRenderState(D3DRS_ALPHAREF, 250);
 	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 
 	__super::Render();
@@ -107,7 +112,7 @@ HRESULT CMove_PSystem::Render()
 
 
 	//언바인드
-	m_pRenderer->UnBind_Texture();
+	//m_pRenderer->UnBind_Texture();
 	return S_OK;
 }
 
@@ -115,19 +120,21 @@ void CMove_PSystem::ResetParticle(ParticleDesc* Desc)
 {
 	Desc->isAlive = true;
 
-	m_size = 1.f;
+	m_size = 0.3f;
 
 	Desc->position.x = 0.f;
 	Desc->position.y = 0.f;
-	Desc->position.z = 0.f;
+	Desc->position.z = -7.f;
 
-	Desc->position -= m_pTransform->Get_World_State(CTransform::STATE_LOOK) * 50.f;
+	D3DXVec3TransformCoord(&Desc->position, &Desc->position, &m_WorldMat);
+
+	//Desc->position -= m_pTransform->Get_World_State(CTransform::STATE_LOOK) * 50.f;
 
 	Desc->velocity.x = 0.f;
 	Desc->velocity.y = 0.f;
 	Desc->velocity.z = 0.f;
 
-	Desc->color = D3DCOLOR_ARGB(255, 255, 0, 0);
+	//Desc->color = D3DCOLOR_ARGB(255, 255, 0, 0);
 
 	Desc->age = 0.f;
 	Desc->lifeTime = 3.f;

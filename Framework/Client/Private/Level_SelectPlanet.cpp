@@ -28,6 +28,10 @@
 #include "TextBox.h"
 #include <Bomb_Effect.h>
 #include "Warring.h"
+#include "Dive.h"
+#include "Monster.h"
+
+_bool CLevel_SelectPlanet::m_bFirst = false;
 
 CLevel_SelectPlanet::CLevel_SelectPlanet()
 {
@@ -39,31 +43,33 @@ HRESULT CLevel_SelectPlanet::Initialize()
 		return E_FAIL;
 
 	
+	if (!m_bFirst)
+	{
+		CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(LEVEL_STATIC, TEXT("Camera"));
+		FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
+		GAMEINSTANCE->Register_Camera(TEXT("FPS"), FPS_Cam->Get_Component<CCamera>());
 
-	CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(CURRENT_LEVEL, TEXT("Camera"));
-	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	GAMEINSTANCE->Register_Camera(TEXT("FPS"), FPS_Cam->Get_Component<CCamera>());
+		CGameObject* Shoulder_Cam = GAMEINSTANCE->Add_GameObject<CCam_Shoulder>(LEVEL_STATIC, TEXT("Camera"));
+		Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
+		GAMEINSTANCE->Register_Camera(TEXT("Shoulder"), Shoulder_Cam->Get_Component<CCamera>());
 
-	CGameObject* Shoulder_Cam = GAMEINSTANCE->Add_GameObject<CCam_Shoulder>(CURRENT_LEVEL, TEXT("Camera"));
-	Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	GAMEINSTANCE->Register_Camera(TEXT("Shoulder"), Shoulder_Cam->Get_Component<CCamera>());
+		CGameObject* TPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(LEVEL_STATIC, TEXT("Camera"));
+		TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
+		GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
 
-	CGameObject* TPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera"));
-	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
+		CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(LEVEL_STATIC, TEXT("Camera"));
+		Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
+		GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
-	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(CURRENT_LEVEL, TEXT("Camera"));
-	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
+		if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_STATIC, TEXT("Player")))
+			return E_FAIL;
 
-	/*CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_Free>(CURRENT_LEVEL, TEXT("Camera"));
-	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	GAMEINSTANCE->Register_Camera(TEXT("Free"), Moving_Cam->Get_Component<CCamera>());
-*/
+	}
 
-	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_SELECTPLANET, TEXT("Player")))
-		return E_FAIL;
+	m_bFirst = true;
+	
 
+	
 	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
@@ -91,12 +97,17 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("CLight_Moon")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
+	/*if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
+		return E_FAIL;*/
+
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
 		return E_FAIL;
 
 
-	if (!GAMEINSTANCE->Add_GameObject<CWarring>(LEVEL_SELECTPLANET, TEXT("Warring")))
-		return E_FAIL;
+
+
+	//if (!GAMEINSTANCE->Add_GameObject<CWarring>(LEVEL_SELECTPLANET, TEXT("Warring")))
+	//	return E_FAIL;
 
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
@@ -118,7 +129,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	LEVEL m_eNextPlanet = LEVEL_STATIC;
 	LEVEL m_ePreNextPlanet = m_eNextPlanet;
 
-	for (_uint i = 0; i < 4; ++i)
+	/*for (_uint i = 0; i < 4; ++i)
 	{
 		
 
@@ -154,7 +165,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 		}
 
 		m_ePreNextPlanet = m_eNextPlanet;
-	}
+	}*/
 
 
 	
@@ -209,7 +220,7 @@ void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 	m_bCinematic = true;
 	m_iNextLevel = _iNextLevel;
 
-	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player"));
+	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 	for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)
 	{
 		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())

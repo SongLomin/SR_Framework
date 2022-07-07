@@ -144,6 +144,7 @@ RAY CMath_Utillity::Get_MouseRayInWorldSpace()
 	D3DXVec3TransformNormal(&MouseRay.Dir, &vRayDir, &ViewMatrixInv);
 	D3DXVec3TransformCoord(&MouseRay.Pos, &vRayPos, &ViewMatrixInv);
 	MouseRay.fLength = 10000.0f; //¹«ÇÑ
+
 	return MouseRay;
 }
 
@@ -173,7 +174,7 @@ _bool CMath_Utillity::Picking_VIBuffer(CVIBuffer* pVIBuffer, CTransform* pTransf
 		{
 			if (fDist < _Ray.fLength)
 			{
-				vPickedPos = vRayPos + *D3DXVec3Normalize(&vRayDir, &vRayDir) * fDist;
+				vPickedPos = vRayPos + vRayDir* fDist;
 				D3DXVec3TransformCoord(pOut, &vPickedPos, &pTransform->Get_WorldMatrix());
 
 				return true;

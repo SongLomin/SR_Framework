@@ -2,6 +2,8 @@
 #include "AI_Friendly.h"
 #include "GameInstance.h"
 #include "Normal_Turret.h"
+#include <Fire_PSystem.h>
+#include <Bomb_Effect.h>
 
 CAI_Friendly::CAI_Friendly()
 {
@@ -44,9 +46,17 @@ void CAI_Friendly::LateTick(_float fTimeDelta)
 	m_fTime -= fTimeDelta;
 	if (m_fTime < 0.f)
 	{
-		m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom);
-		Update_PosinTarget();
-		m_fTime = 1.f;
+		m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+		
+
+		auto TargetList = m_pTargetingCom->Get_Targetting();
+
+		if (!TargetList->empty())
+		{
+			Update_PosinTarget(TargetList->begin()->second);
+		}
+
+		m_fTime = 3.f;
 	}
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
@@ -103,6 +113,19 @@ void CAI_Friendly::On_Change_Controller(const CONTROLLER& _IsAI)
 
 void CAI_Friendly::On_Collision_Enter(CCollider* _Other_Collider)
 {
+	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER_ATTACK)
+	{
+		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+		((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle_Fire"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
+
+		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
+		{
+			Set_Dead();
+			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
+
+		}
+	}
 }
 
 void CAI_Friendly::On_Collision_Stay(CCollider* _Other_Collider)
@@ -125,7 +148,7 @@ HRESULT CAI_Friendly::SetUp_Components()
 	m_pTargetingCom = Add_Component<CTargeting>();
 	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
 
-	m_pMeshCom = Add_Component<CMesh_ShinShip>();
+	m_pMeshCom = Add_Component<CMesh_KangShip>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
@@ -142,8 +165,8 @@ HRESULT CAI_Friendly::SetUp_Components()
 
 #pragma region Rigid_Body Setting
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 20.f;
-	RigidBodyDesc.m_fOwnerAccel = 0.5f;
+	RigidBodyDesc.m_fOwnerSpeed = 80.f;
+	RigidBodyDesc.m_fOwnerAccel = 8.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
 	RigidBodyDesc.m_fOwnerJump = 5.f;
@@ -202,6 +225,7 @@ HRESULT CAI_Friendly::SetUp_Components()
 	m_pAIControllerCom->Set_WeakPtr(&m_pAIControllerCom);
 	m_pAIControllerCom->Link_Object(this);
 	m_pAIControllerCom->Set_Enable(false);
+	m_pAIControllerCom->Set_UsableStates(m_pAIControllerCom->Get_States_Preset_AI_Default());
 
 	m_pPlayerController = Add_Component<CPlayer_Controller>();
 	m_pPlayerController->Set_WeakPtr(&m_pPlayerController);
@@ -213,70 +237,79 @@ HRESULT CAI_Friendly::SetUp_Components()
 	return S_OK;
 }
 
-void CAI_Friendly::Update_PosinTarget()
+void CAI_Friendly::Update_PosinTarget(CGameObject* _Target)
 {
-	map<_float, CGameObject*>* TargetList = m_pTargetingCom->Get_Targetting();
-	
-	if (TargetList->empty())
-	{
-		for (auto iter = m_pMyPosinList.begin(); iter != m_pMyPosinList.end();)
-		{
-			if (!(*iter))
-			{
-				iter = m_pMyPosinList.erase(iter);
-				continue;
-			}
 
-			(*iter)->Set_Target(nullptr);
-			iter++;
-		}
-
+	if (!_Target)
 		return;
-	}
 
-	vector<CGameObject*> TargetVec;
-
-	for (auto& elem : *TargetList)
+	for (auto& elem : m_pMyPosinList)
 	{
-		TargetVec.push_back(elem.second);
+		elem->Set_AI_Target(_Target);
 	}
 
-	//¸ÖÆ¼ Å¸°Ù ¸ðµå
-	if (m_bTargetMode)
-	{
-		_uint Index = 0;
+	//map<_float, CGameObject*>* TargetList = m_pTargetingCom->Get_Targetting();
+	//
+	//if (TargetList->empty())
+	//{
+	//	for (auto iter = m_pMyPosinList.begin(); iter != m_pMyPosinList.end();)
+	//	{
+	//		if (!(*iter))
+	//		{
+	//			iter = m_pMyPosinList.erase(iter);
+	//			continue;
+	//		}
 
-		for (auto iter = m_pMyPosinList.begin(); iter != m_pMyPosinList.end();)
-		{
-			if (!(*iter))
-			{
-				iter = m_pMyPosinList.erase(iter);
-				continue;
-			}
+	//		(*iter)->Set_Player_Target(nullptr);
+	//		iter++;
+	//	}
 
-			(*iter)->Set_Target(TargetVec[Index % TargetVec.size()]);
-			Index++;
-			iter++;
-		}
-	}
+	//	return;
+	//}
 
-	//½Ì±Û Å¸°Ù ¸ðµå
-	else
-	{
-		for (auto iter = m_pMyPosinList.begin(); iter != m_pMyPosinList.end();)
-		{
-			if (!(*iter))
-			{
-				iter = m_pMyPosinList.erase(iter);
-				continue;
-			}
+	//vector<CGameObject*> TargetVec;
 
-			(*iter)->Set_Target(TargetVec.front());
+	//for (auto& elem : *TargetList)
+	//{
+	//	TargetVec.push_back(elem.second);
+	//}
 
-			iter++;
-		}
+	////¸ÖÆ¼ Å¸°Ù ¸ðµå
+	//if (m_bTargetMode)
+	//{
+	//	_uint Index = 0;
 
-	}
+	//	for (auto iter = m_pMyPosinList.begin(); iter != m_pMyPosinList.end();)
+	//	{
+	//		if (!(*iter))
+	//		{
+	//			iter = m_pMyPosinList.erase(iter);
+	//			continue;
+	//		}
+
+	//		(*iter)->Set_Player_Target(TargetVec[Index % TargetVec.size()]->Get_Component<CTransform>());
+	//		Index++;
+	//		iter++;
+	//	}
+	//}
+
+	////½Ì±Û Å¸°Ù ¸ðµå
+	//else
+	//{
+	//	for (auto iter = m_pMyPosinList.begin(); iter != m_pMyPosinList.end();)
+	//	{
+	//		if (!(*iter))
+	//		{
+	//			iter = m_pMyPosinList.erase(iter);
+	//			continue;
+	//		}
+
+	//		(*iter)->Set_Player_Target(TargetVec.front()->Get_Component<CTransform>());
+
+	//		iter++;
+	//	}
+
+	//}
 }
 
 CAI_Friendly* CAI_Friendly::Create()

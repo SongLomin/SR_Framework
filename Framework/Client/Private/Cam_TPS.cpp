@@ -38,12 +38,30 @@ void CCam_TPS::Tick(_float fTimeDelta)
 	_float3 vUp = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_UP, true);
 
 	_float3 vRight;
+	_float  fRatio = 0.f;
+	CRigid_Body* pTargetRigidBody = m_pCameraCom->Get_Target()->Get_Owner()->Get_Component<CRigid_Body>();
+	if (pTargetRigidBody)
+	{
+		_float3 vTargetSpeed = pTargetRigidBody->Get_Vector(RIGID_BODY::SPEED);
+		if (0.f > D3DXVec3Dot(&vLook, &vTargetSpeed))
+			fRatio = 0.f;
+		else
+		{
+			fRatio = D3DXVec3Length(&vTargetSpeed) / 50.f;
+			if (1.f < fRatio)
+				fRatio = 1.f;
+		}
 
-	vPos -= vLook*17.f;
+	}
+	
+
+	vPos -= vLook*(15.f + 10.f*fRatio);
 	vPos += vUp*3.f;
 
 	D3DXVec3Cross(&vRight, &vUp, &vLook);
 	D3DXVec3Cross(&vUp, &vLook, &vRight);
+
+	
 
 
 

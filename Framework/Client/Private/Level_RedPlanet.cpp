@@ -37,6 +37,7 @@
 #include "Shin_Ship_Body.h"
 #include <SpaceDust_PSystem.h>
 #include <SelectPlanet_SkyBox.h>
+#include "AI_TransportShip.h"
 
 CLevel_RedPlanet::CLevel_RedPlanet()
 {
@@ -51,32 +52,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 
 
 
-	CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(CURRENT_LEVEL, TEXT("Camera"));
-	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	GAMEINSTANCE->Register_Camera(TEXT("FPS"), FPS_Cam->Get_Component<CCamera>());
-
-	CGameObject* Shoulder_Cam = GAMEINSTANCE->Add_GameObject<CCam_Shoulder>(CURRENT_LEVEL, TEXT("Camera"));
-	Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	GAMEINSTANCE->Register_Camera(TEXT("Shoulder"), Shoulder_Cam->Get_Component<CCamera>());
-
-	CGameObject* TPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera"));
-	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
-
-	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(CURRENT_LEVEL, TEXT("Camera"));
-	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
-
-	//CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_Free>(CURRENT_LEVEL, TEXT("Camera"));
-	//Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	//GAMEINSTANCE->Register_Camera(TEXT("Free"), Moving_Cam->Get_Component<CCamera>());
-
-
-	//CURRENT_LEVEL이게 LEVEL_STATIC이 아님. 그래서 터짐.
-	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
-		return E_FAIL;
-
-	if (!GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
+	if (!GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player")))
 		return E_FAIL;
 
 	/*if (!GAMEINSTANCE->Add_GameObject<CHong_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
@@ -85,13 +61,29 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CShin_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
 		return E_FAIL;*/
 
-	for (int i = 0; i < 15; ++i)
+	for (int i = 0; i < 40; ++i)
 	{
-		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_REDPLANET, TEXT("EnemySpace_Body")))
-			return E_FAIL;
+		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body"))->Get_Component<CTransform>();
+
+		_float3 SpawnPos{ 0, 0.f, 300.f };
+
+		_float RotateX = (_float)(rand() % 361);
+		_float RotateY = (_float)(rand() % 361);
+		_float RotateZ = (_float)(rand() % 361);
+		RotateX = D3DXToRadian(RotateX);
+		RotateY = D3DXToRadian(RotateY);
+		RotateZ = D3DXToRadian(RotateZ);
+
+
+		SpawnPos = CMath_Utillity::Rotate_Vec3(_float3(RotateX, RotateY, RotateZ), SpawnPos);
+
+		pEnemyTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
 
 		m_iEnemyCount++;
 	}
+
+	if (!GAMEINSTANCE->Add_GameObject<CAI_TransportShip>(LEVEL_REDPLANET, TEXT("TransportShip")))
+		return E_FAIL;
 
 	/*for (int i = 0; i < 50; ++i)
 	{
@@ -142,12 +134,12 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_REDPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
-	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(500);
+	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_REDPLANET, TEXT("Particle")))->AddParticle(500);
 
-	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
+	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_REDPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);
 
-	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest"));
+	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_REDPLANET, TEXT("Quest"));
 	m_pQuestBoxObject->Set_Enable(false);
 
 
@@ -158,12 +150,6 @@ HRESULT CLevel_RedPlanet::Initialize()
 
 
 
-	/*TEXTINFO Info;
-	Info.color = D3DCOLOR_ARGB(255, 0, 255, 0);
-	Info.rcTemp = { 600, 300, 600 + 200, 300 + 300 };
-	wsprintf(Info.szBuff, L"10초동안 출력");
-	if (FAILED(GAMEINSTANCE->Add_Text(&Info, 10.f)))
-		return E_FAIL;*/
 
 	return S_OK;
 }
@@ -177,11 +163,24 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	m_fSpawnTime -= fTimeDelta;
 	if (m_fSpawnTime < 0.f)
 	{
-		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body")))
-			return;
+		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body"))->Get_Component<CTransform>();
+
+		_float3 SpawnPos{ 0, 0.f, 300.f };
+
+		_float RotateX = (_float)(rand() % 361);
+		_float RotateY = (_float)(rand() % 361);
+		_float RotateZ = (_float)(rand() % 361);
+		RotateX = D3DXToRadian(RotateX);
+		RotateY = D3DXToRadian(RotateY);
+		RotateZ = D3DXToRadian(RotateZ);
+
+
+		SpawnPos = CMath_Utillity::Rotate_Vec3(_float3(RotateX, RotateY, RotateZ), SpawnPos);
+
+		pEnemyTransform->Set_State( CTransform::STATE_POSITION, SpawnPos);
 
 		m_iEnemyCount++;
-		m_fSpawnTime = 5.f;
+		m_fSpawnTime = 3.f;
 	}
 
 
@@ -195,15 +194,6 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	}
 
 
-
-	/*if (m_fMaxTime <= 0)
-	{
-		if (FAILED(GAMEINSTANCE->Get_Instance()->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
-			return;
-	}*/
-
-
-	
 
 	RedPlanet_Event(fTimeDelta);
 
@@ -298,22 +288,26 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 		m_bEventCheck[3] = true;
 	}
 
+
+	//////////////지원병력 생존 퀘스트 카운트 0 될시 아군AI생성/////////////////// 
 	if (m_fTextBoxTime <= 179.f && !m_bEventCheck[4])
 	{
+		
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("고생 많았네 모조리 쓸어보자고!"), 0);
 
 		m_fSpawnTime -= fTimeDelta;
 
-		if (m_fSpawnTime < 1.5f)
+		if (m_fSpawnTime < 1.0f && m_bSpawnCheck)
 		{
 			if (!GAMEINSTANCE->Add_GameObject<CAI_Friendly>(CURRENT_LEVEL, TEXT("AI_Friendly")))
 				return;
 
-			m_fSpawnTime = 1.5f;
+			m_fSpawnTime = 2.0f;
 		}
 
 	}
+	/////////////////////////////////////////////////////////////////////////
 
 
 	if (m_fTextBoxTime <= 172.f && !m_bEventCheck[4])
@@ -353,8 +347,10 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	}
 
 
+	// 적생성 false 모든적 처치임무
 	if (m_fTextBoxTime <= 175 && !m_bEventCheck[9])
 	{
+		m_bSpawnCheck = false;
 		m_pQuestBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n    모든 적 함체 섬멸 "), 0);
 
@@ -366,10 +362,28 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 		m_iFontiX -= 0.8;
 	}
 
+
+	// 적군 카운트 0될시 퀘스트박스 소멸, 폰트 소멸
 	if (m_iEnemyCount <= 0 && !m_bEventCheck[9])
 	{
 		m_pQuestBoxObject->Set_Enable(false);
 		m_bEventCheck[9] = true;
+	
+		m_fTextBoxTime = 300;
 	}
+
+	if (m_fTextBoxTime <= 295 && m_iEnemyCount <= 0 && !m_bEventCheck[7] && !m_bSpawnCheck)
+	{
+		// 보상 UI / 선택
+	}
+
+
+	if (!m_bEventCheck[7] && !m_bSpawnCheck && m_iEnemyCount <= 0)  // 보상 받았단 정보 조건 넣어줌
+	{
+		//m_bEventCheck[7] = true;
+		//GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this, LEVEL::LEVEL_SELECTPLANET);
+	}
+	
+		
 }
 

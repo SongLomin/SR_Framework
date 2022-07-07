@@ -43,10 +43,10 @@ private:
 	CTransform* m_pTransformCom = nullptr;
 	CCollider_Sphere* m_pColliderCom = nullptr;
 	CRigid_Body* m_pRigidBodyCom = nullptr;
-	CTargeting* m_pTargetingCom = nullptr;
+	//CTargeting* m_pTargetingCom = nullptr;
 	CStatus* m_pStatusCom = nullptr;
 	//CMesh_Cube* m_pMeshCom = nullptr;
-	CMesh_ShinShip* m_pMeshCom = nullptr;
+	CMesh_Cube* m_pMeshCom = nullptr;
 	CState_Move* m_pStateCom = nullptr;
 	CAI_Controller* m_pAIControllerCom = nullptr;
 
@@ -54,7 +54,7 @@ private:
 private:
 	list<CNormal_Turret*>	m_pMyPosinList;
 	_bool					m_bTargetMode = false;
-	_float					m_fTime = 1.f;
+	_float					m_fSpawnTime = 3.f;
 
 
 protected: /* For Event Function */
@@ -67,7 +67,7 @@ public: /* For Event Function */
 
 private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 	HRESULT SetUp_Components();
-	void Update_PosinTarget();
+	void Spawn_SpaceShip();
 
 
 

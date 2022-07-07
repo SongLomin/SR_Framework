@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Normal_Turret.h"
 #include <Booster_PSystem.h>
+#include <Move_PSystem.h>
 
 CPlayer::CPlayer()
 {
@@ -21,7 +22,7 @@ HRESULT CPlayer::Initialize(void* pArg)
 void CPlayer::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
-	list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player"));
+	list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 	_uint i = 0;
 
 	if (!pAiObect)
@@ -38,10 +39,21 @@ void CPlayer::Tick(_float fTimeDelta)
 	}
 
 
-
 	if (m_pRigid_BodyCom->Get_Booster())
 	{
-		((CBooster_PSystem*)GAMEINSTANCE->Add_GameObject<CBooster_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom);
+		//GAMEINSTANCE->Get_ParticleSystem<CBooster_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"));
+		((CBooster_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CBooster_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"), nullptr, nullptr))->AddParticle(900 * fTimeDelta, m_pTransformCom);
+	}
+	else if (m_pRigid_BodyCom->Get_Booster() == false)
+	{
+		_float3 Speed = m_pRigid_BodyCom->Get_Vector(RIGID_BODY::SPEED);
+		
+		_float vNow = fabs(D3DXVec3Length(&Speed)) / 100.f;
+		if (vNow > 0.9f)
+		{
+			D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 0, 0);
+			((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(10, m_pTransformCom, color);
+		}
 	}
 }
 
@@ -61,7 +73,7 @@ void CPlayer::LateTick(_float fTimeDelta)
 		else
 		{
 			m_pTargetingCom->Set_TargetMode(TARGETMODE::TARGET_MULTIRAY);
-			m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
 			Update_PosinTarget(m_pTargetingCom->Get_TargetMode());
 		}
 		m_fTime = 1.f;
@@ -92,11 +104,22 @@ void CPlayer::On_Change_Controller(const CONTROLLER& _IsAI)
 		m_pAI_ControllerCom->Set_Enable(false);
 		m_pPlayer_ControllerCom->Set_Enable(true);
 		m_pRigid_BodyCom->Set_Mouse(true);
+
+		CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
+		CTransform* pCurCameraTransform = nullptr;//이게맞냐
+		if(pCurCamera)
+			pCurCameraTransform = GAMEINSTANCE->Get_Camera()->Get_Transform();
+
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
+		if (pCurCameraTransform)
+		{
+			//CTransform* pNextCameraTransform = GAMEINSTANCE->Get_Camera(TEXT("TPS"))->Get_Transform();
 
-		list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player"));
+			GAMEINSTANCE->Switch_Player(pCurCameraTransform, m_pTransformCom, TEXT("TPS"), 0.7f);
+		}
+		list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 
 		if (pAiObect == nullptr)
 			return;
@@ -162,6 +185,7 @@ HRESULT CPlayer::SetUp_Components()
 
 	m_pAI_ControllerCom = Add_Component<CAI_Controller>();
 	m_pAI_ControllerCom->Set_WeakPtr(&m_pAI_ControllerCom);
+	m_pAI_ControllerCom->Set_UsableStates(m_pAI_ControllerCom->Get_States_Preset_AI_Default());
 
 	m_pPlayer_ControllerCom = Add_Component<CPlayer_Controller>();
 	m_pPlayer_ControllerCom->Set_WeakPtr(&m_pPlayer_ControllerCom);
@@ -185,7 +209,7 @@ void CPlayer::Update_PosinTarget(TARGETMODE _TargetMode)
 				continue;
 			}
 
-			(*iter)->Set_Target(nullptr);
+			(*iter)->Set_Player_Target(nullptr);
 			iter++;
 		}
 
@@ -212,7 +236,18 @@ void CPlayer::Update_PosinTarget(TARGETMODE _TargetMode)
 				continue;
 			}
 
-			(*iter)->Set_Target(TargetVec[Index % TargetVec.size()]);
+			if (TargetVec[Index % TargetVec.size()])
+			{
+				(*iter)->Set_Player_Target(TargetVec[Index % TargetVec.size()]);
+			}
+
+			else
+			{
+				(*iter)->Set_Player_Target(nullptr);
+			}
+			
+
+			(*iter)->Set_Player_Target(TargetVec[Index % TargetVec.size()]);
 			Index++;
 			iter++;
 		}
@@ -229,7 +264,7 @@ void CPlayer::Update_PosinTarget(TARGETMODE _TargetMode)
 				continue;
 			}
 
-			(*iter)->Set_Target(TargetVec.front());
+			(*iter)->Set_Player_Target(TargetVec.front());
 
 			iter++;
 		}
@@ -248,7 +283,7 @@ void CPlayer::Update_PosinTarget(TARGETMODE _TargetMode)
 				continue;
 			}
 
-			(*iter)->Set_Target(TargetVec[Index % TargetVec.size()]);
+			(*iter)->Set_Player_Target(TargetVec[Index % TargetVec.size()]);
 			Index++;
 			iter++;
 		}

@@ -8,6 +8,7 @@
 BEGIN(Engine)
 
 class CTransform;
+class CParticleSystem;
 
 class CObject_Manager final : public CBase
 {
@@ -125,6 +126,62 @@ public: /* Template Function */
 		pCloneObject->OnEnable();
 
 		return static_cast<T*>(pCloneObject);
+	}
+
+	template <typename T>
+	CGameObject* Get_ParticleSystem(_uint iLevelIndex, const _tchar* pLayerTag, CTransform* pParent = nullptr, void* pArg = nullptr)
+	{
+		static_assert(is_base_of<CParticleSystem, T>::value, "T Isn't base of CParticleSystem");
+
+		if (m_iNumLevels <= iLevelIndex)
+		{
+			//잘못된 레벨 인덱스
+#ifdef _DEBUG
+			assert(false);
+#endif
+			return nullptr;
+		}
+
+		CGameObject* pPrototype = nullptr;
+
+		auto iter = find_if(m_Prototypes.begin(), m_Prototypes.end(), CTag_Finder_c_str(typeid(T).name()));
+
+		if (iter != m_Prototypes.end())
+		{
+			pPrototype = (*iter).second;
+		}
+
+		if (nullptr == pPrototype)
+		{
+			pPrototype = Add_Prototype<T>();
+		}
+
+		for (auto& elem : m_pLayers[iLevelIndex][pLayerTag])
+		{
+			elem->Set_Enable(true, pArg);
+
+			return elem;
+		}
+
+
+		CGameObject* pCloneObject = pPrototype->Clone(pArg);
+
+		pCloneObject->Set_Internal_Tag(pLayerTag);
+
+		if (nullptr == pCloneObject)
+			return nullptr;
+
+		m_pLayers[iLevelIndex][pLayerTag].push_back(pCloneObject);
+
+		if (pParent)
+		{
+			CTransform* pTransfromCom = pCloneObject->Get_Component<CTransform>();
+			pTransfromCom->Set_Parent(pParent);
+			pParent->Add_Child(pTransfromCom);
+		}
+		pCloneObject->OnEnable();
+
+		return pCloneObject;
 	}
 };
 

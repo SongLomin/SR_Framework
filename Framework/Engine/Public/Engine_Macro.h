@@ -67,5 +67,5 @@ void ClassName::Destroy_Instance()						\
 	}													\
 	return pInstance;		
 
-#define WEAK_PTR(Instance) Instance->Set_WeakPtr(&Instance)
+#define WEAK_PTR(Instance) if(Instance) Instance->Set_WeakPtr(&Instance)
 #define RETURN_WEAKPTR(Instance) if(Instance) Instance->Return_WeakPtr(&Instance)

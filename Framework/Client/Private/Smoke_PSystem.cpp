@@ -44,6 +44,11 @@ void CSmoke_PSystem::Tick(_float fTimeDelta)
 
 		iter->age += fTimeDelta;
 	}
+
+	if (IsDead())
+	{
+		Set_Enable(false);
+	}
 }
 
 void CSmoke_PSystem::LateTick(_float fTimeDelta)
@@ -119,6 +124,8 @@ void CSmoke_PSystem::ResetParticle(ParticleDesc* Desc)
 	Desc->position.x = 0.f;
 	Desc->position.y = 1.f;
 	Desc->position.z = 0.f;
+
+	D3DXVec3TransformCoord(&Desc->position, &Desc->position, &m_WorldMat);
 
 	Desc->velocity.x = (_float)((rand() % 21) * 0.5f) - 5.f;
 	Desc->velocity.y = (_float)((rand() % 21) * 0.5f) + 11.f;
