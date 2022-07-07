@@ -46,9 +46,6 @@ private:
 	_uint m_iTextueIndex;
 	_uint m_iAlphaValue = 250;
 
-
-	
-
 private:
 	_bool m_bLevelChange = false;
 

@@ -161,7 +161,8 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 
 	
 	m_fSpawnTime -= fTimeDelta;
-	if (m_fSpawnTime < 0.f)
+
+	if (m_fSpawnTime < 0.f && m_bSpawnCheck)
 	{
 		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body"))->Get_Component<CTransform>();
 
@@ -299,7 +300,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 
 		m_fSpawnTime -= fTimeDelta;
 
-		if (m_fSpawnTime < 1.0f && m_bSpawnCheck)
+		if (m_fSpawnTime < 1.7f && m_bSpawnCheck)
 		{
 			if (!GAMEINSTANCE->Add_GameObject<CAI_Friendly>(CURRENT_LEVEL, TEXT("AI_Friendly")))
 				return;
@@ -309,14 +310,17 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 
 	}
 
-	/////////////////////////////////////////////////////////////////////////
+	
 
+	// 7초뒤 아군생성 false
 
 	if (m_fTextBoxTime <= 172.f && !m_bEventCheck[4])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[4] = true;
 	}
+
+
 
 
 	if (m_fTextBoxTime <= 279.f && !m_bEventCheck[8])
@@ -374,7 +378,21 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 		m_fTextBoxTime = 300;
 	}
 
-	if (m_fTextBoxTime <= 295 && m_iEnemyCount <= 0 && !m_bEventCheck[7] && !m_bSpawnCheck)
+	if (m_iEnemyCount <= 295 && !m_bEventCheck[6] && !m_bSpawnCheck)
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("고생했네! \n 오늘밤은 맘 편히 발 쭉뻗고 자겠구만! "), 0);
+	}
+
+	if (m_iEnemyCount <= 290 && !m_bEventCheck[6] && !m_bSpawnCheck)
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[6] = true;
+	}
+
+
+
+	if (m_fTextBoxTime <= 285 && m_iEnemyCount <= 0 && !m_bEventCheck[7] && !m_bSpawnCheck)
 	{
 		// 보상 UI / 선택
 	}
