@@ -43,9 +43,15 @@ void CCam_TPS::Tick(_float fTimeDelta)
 	if (pTargetRigidBody)
 	{
 		_float3 vTargetSpeed = pTargetRigidBody->Get_Vector(RIGID_BODY::SPEED);
-		fRatio = D3DXVec3Length(&vTargetSpeed) / 50.f;
-		if (1.f < fRatio)
-			fRatio = 1.f;
+		if (0.f > D3DXVec3Dot(&vLook, &vTargetSpeed))
+			fRatio = 0.f;
+		else
+		{
+			fRatio = D3DXVec3Length(&vTargetSpeed) / 50.f;
+			if (1.f < fRatio)
+				fRatio = 1.f;
+		}
+
 	}
 	
 

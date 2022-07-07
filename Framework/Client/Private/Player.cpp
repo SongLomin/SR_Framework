@@ -92,6 +92,7 @@ void CPlayer::On_Change_Controller(const CONTROLLER& _IsAI)
 		m_pAI_ControllerCom->Set_Enable(false);
 		m_pPlayer_ControllerCom->Set_Enable(true);
 		m_pRigid_BodyCom->Set_Mouse(true);
+
 		CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
 		CTransform* pCurCameraTransform = nullptr;//이게맞냐
 		if(pCurCamera)

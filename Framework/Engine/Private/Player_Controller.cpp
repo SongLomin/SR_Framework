@@ -114,7 +114,7 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 		if (KEY_INPUT(KEY::LSHIFT, KEY_STATE::HOLD))
 		{
 			m_pMyObject->Get_Component<CRigid_Body>()->Set_Booster(true);
-			GAMEINSTANCE->Add_Shaking(0.5f, 0.01f);
+			GAMEINSTANCE->Add_Shaking(0.2f, 0.01f);
 		}
 		else
 		{
