@@ -155,8 +155,6 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 
 
 
-
-
 	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
 	{
 		if (FAILED(GAMEINSTANCE->Get_Instance()->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
@@ -164,15 +162,6 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	}
 
 
-
-	/*if (m_fMaxTime <= 0)
-	{
-		if (FAILED(GAMEINSTANCE->Get_Instance()->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
-			return;
-	}*/
-
-
-	
 
 	RedPlanet_Event(fTimeDelta);
 
@@ -268,20 +257,21 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	}
 
 
-	//////////////지원병력 생존 카운트 0 될시 아군AI생성/////////////////// 
+	//////////////지원병력 생존 퀘스트 카운트 0 될시 아군AI생성/////////////////// 
 	if (m_fTextBoxTime <= 179.f && !m_bEventCheck[4])
 	{
+		
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("고생 많았네 모조리 쓸어보자고!"), 0);
 
 		m_fSpawnTime -= fTimeDelta;
 
-		if (m_fSpawnTime < 1.5f && m_bSpawnCheck)
+		if (m_fSpawnTime < 1.0f && m_bSpawnCheck)
 		{
 			if (!GAMEINSTANCE->Add_GameObject<CAI_Friendly>(CURRENT_LEVEL, TEXT("AI_Friendly")))
 				return;
 
-			m_fSpawnTime = 1.5f;
+			m_fSpawnTime = 2.0f;
 		}
 
 	}
@@ -325,8 +315,10 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	}
 
 
+	// 적생성 false 모든적 처치임무
 	if (m_fTextBoxTime <= 175 && !m_bEventCheck[9])
 	{
+		m_bSpawnCheck = false;
 		m_pQuestBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n    모든 적 함체 섬멸 "), 0);
 
@@ -344,17 +336,17 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	{
 		m_pQuestBoxObject->Set_Enable(false);
 		m_bEventCheck[9] = true;
-		m_bSpawnCheck = false;
+	
 		m_fTextBoxTime = 300;
 	}
 
-	if (m_fTextBoxTime <= 295 && !m_bEventCheck[7] && !m_bSpawnCheck)
+	if (m_fTextBoxTime <= 295 && m_iEnemyCount <= 0 && !m_bEventCheck[7] && !m_bSpawnCheck)
 	{
 		// 보상 UI / 선택
 	}
 
 
-	if (!m_bEventCheck[7] && !m_bSpawnCheck)
+	if (!m_bEventCheck[7] && !m_bSpawnCheck && m_iEnemyCount <= 0)  // 보상 받았단 정보 조건 넣어줌
 	{
 		//m_bEventCheck[7] = true;
 		//GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this, LEVEL::LEVEL_SELECTPLANET);

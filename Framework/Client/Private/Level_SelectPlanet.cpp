@@ -29,6 +29,7 @@
 #include <Bomb_Effect.h>
 #include "Warring.h"
 #include "Dive.h"
+#include "Monster.h"
 
 _bool CLevel_SelectPlanet::m_bFirst = false;
 
@@ -100,6 +101,9 @@ HRESULT CLevel_SelectPlanet::Initialize()
 		return E_FAIL;*/
 
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CMonster>(LEVEL_SELECTPLANET, TEXT("Monster")))
 		return E_FAIL;
 
 
