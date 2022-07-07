@@ -33,6 +33,7 @@ void CPlanet::Set_MyWorldPos(_float3 _Pos)
     m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vMyWorldPos, true);
 }
 
+
 HRESULT CPlanet::Initialize_Prototype()
 {
     return S_OK;
@@ -111,6 +112,7 @@ HRESULT CPlanet::SetUp_Components()
     WEAK_PTR(m_pVI_BufferCom);
     m_pRendererCom->Set_Textures_From_Key(TEXT("Planet"), MEMORY_TYPE::MEMORY_STATIC);
 
+    
     SetUp_Components_For_Child();
     return S_OK;
 }
@@ -118,6 +120,8 @@ HRESULT CPlanet::SetUp_Components()
 void CPlanet::SetUp_Varialbes_For_Child(_float3 _StartPos, _tchar* FontText, _point PontPos, _uint TextureIndex, LEVEL _Level, _float3 Scale)
 {
     m_lPontPos = PontPos;
+
+
     m_szPontText = FontText;
     m_iTextueIndex = TextureIndex;
 

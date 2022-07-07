@@ -2,30 +2,24 @@
 #include "Client_Defines.h"
 #include "UI.h"
 
-
+BEGIN(Engine)
+END
 
 
 BEGIN(Client)
 
 class CTextBox final : public CUI
 {
-public:
-	CTextBox() = default;
+private:
+	CTextBox();
 	CTextBox(const CTextBox& Prototype);
 	virtual ~CTextBox() = default;
 
 public:
-	virtual HRESULT Initialize_Prototype() override;
 	virtual HRESULT Initialize(void* pArg) override;
-	virtual void Tick(_float fTimeDelta) override;
-	virtual void LateTick(_float fTimeDelta) override;
-	virtual HRESULT Render() override;
-
-
-
 
 private:
-	HRESULT SetUp_Components();
+	virtual void SetUp_Components_For_Child();
 
 public:
 	static CTextBox* Create();

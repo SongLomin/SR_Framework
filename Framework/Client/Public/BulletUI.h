@@ -1,43 +1,26 @@
 #pragma once
 #include "Client_Defines.h"
-#include "GameObject.h"
+#include "UI.h"
 
 BEGIN(Engine)
-class CRenderer;
-class CTransform;
-class CVIBuffer_Rect;
 END
 
 
 BEGIN(Client)
 
-class CBulletUI final : public CGameObject
+class CBulletUI final : public CUI
 {
-public:
+private:
 	CBulletUI() = default;
 	CBulletUI(const CBulletUI& Prototype);
 	virtual ~CBulletUI() = default;
 
 public:
-	virtual HRESULT Initialize_Prototype() override;
 	virtual HRESULT Initialize(void* pArg) override;
-	virtual void Tick(_float fTimeDelta) override;
-	virtual void LateTick(_float fTimeDelta) override;
-	virtual HRESULT Render() override;
 
 private:
-	CRenderer* m_pRendererCom = nullptr;
-	CTransform* m_pTransformCom = nullptr;
-	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
+	virtual void SetUp_Components_For_Child();
 
-private:
-	_float					m_fX, m_fY, m_fSizeX, m_fSizeY;
-	_point					m_ptMouse;
-	_float4x4				m_ProjMatrix;
-	RECT					m_rcRect;
-	_bool                   m_bChangeWeapon = false;
-private:
-	HRESULT SetUp_Components();
 
 public:
 	static CBulletUI* Create();
