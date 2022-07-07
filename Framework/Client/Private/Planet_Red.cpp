@@ -57,7 +57,7 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 
 	m_pTransformCom->Scaling(_float3(100.f, 100.f, 50.f), true);
 
-	_float3 MouseEndPos;
+	_float3 PickedPos = _float3(0.f, 0.f, 0.f);
 	RAY	MouseWorldRay;
 	MouseWorldRay = CMath_Utillity::Get_MouseRayInWorldSpace();
 	_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
@@ -68,6 +68,11 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 	{
 		m_pDiveUi->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Red Planet \n 고 위험 구역 \n 임무 : 모든 기체 파괴 \n 난이도 :『★★★★』  \n 보상 : XXX"), 0);
+	}
+
+	else
+	{
+		m_pDiveUi->Set_Enable(false);
 	}
 
 	if (KEY_INPUT(KEY::RBUTTON, KEY_STATE::TAP))
@@ -90,25 +95,7 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 
 	//MouseEndPos = MouseWorldRay.Pos + (MouseWorldRay.Dir * 10000.f);
 
-
-
-
-
-
-	_float3 ScreenPos = _float3(0.f, 0.f, 0.f);
-
-	CMath_Utillity::WorldToScreen(&m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), &ScreenPos);
-
-	if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldRay, &MouseEndPos))
-	{
-		m_pDiveUi->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Red Planet \n 고 위험 구역 \n 임무 : 모든 기체 파괴 \n 난이도 :『★★★★』  \n 보상 : XXX"), 0);
-	}
 	
-	else
-	{
-		m_pDiveUi->Set_Enable(false);
-	}
 
 	if (KEY_INPUT(KEY::F, KEY_STATE::HOLD) && !m_bLevelChange)
 	{
@@ -119,8 +106,6 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 			m_bLevelChange = true;
 			return;
 		}
-
-
 	}
 
 
