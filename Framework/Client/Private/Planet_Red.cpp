@@ -53,7 +53,7 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 	//m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);
 
 
-	//LookAtCamera();
+	LookAtCamera();
 
 	m_pTransformCom->Scaling(_float3(100.f, 100.f, 50.f), true);
 
@@ -116,15 +116,15 @@ HRESULT CPlanet_Red::Render()
 
 	m_pRendererCom->Bind_Texture(3);
 
-	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	/*DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 	DEVICE->SetRenderState(D3DRS_ALPHAREF, 253);
-	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);*/
 
 	m_pVIBufferCom->Render();
 
 	DEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 
-	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+	/*DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);*/
 
 	m_pRendererCom->UnBind_Texture();
 
