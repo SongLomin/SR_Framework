@@ -103,8 +103,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CMonster>(LEVEL_SELECTPLANET, TEXT("Monster")))
-		return E_FAIL;
+
 
 
 	//if (!GAMEINSTANCE->Add_GameObject<CWarring>(LEVEL_SELECTPLANET, TEXT("Warring")))
