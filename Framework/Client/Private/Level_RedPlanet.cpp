@@ -51,32 +51,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 
 
 
-	CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(CURRENT_LEVEL, TEXT("Camera"));
-	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	GAMEINSTANCE->Register_Camera(TEXT("FPS"), FPS_Cam->Get_Component<CCamera>());
-
-	CGameObject* Shoulder_Cam = GAMEINSTANCE->Add_GameObject<CCam_Shoulder>(CURRENT_LEVEL, TEXT("Camera"));
-	Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	GAMEINSTANCE->Register_Camera(TEXT("Shoulder"), Shoulder_Cam->Get_Component<CCamera>());
-
-	CGameObject* TPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(CURRENT_LEVEL, TEXT("Camera"));
-	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
-
-	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(CURRENT_LEVEL, TEXT("Camera"));
-	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
-
-	//CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_Free>(CURRENT_LEVEL, TEXT("Camera"));
-	//Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	//GAMEINSTANCE->Register_Camera(TEXT("Free"), Moving_Cam->Get_Component<CCamera>());
-
-
-	//CURRENT_LEVEL이게 LEVEL_STATIC이 아님. 그래서 터짐.
-	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
-		return E_FAIL;
-
-	if (!GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
+	if (!GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player")))
 		return E_FAIL;
 
 	/*if (!GAMEINSTANCE->Add_GameObject<CHong_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
@@ -167,7 +142,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	__super::Tick(fTimeDelta);
 
 
-	/*
+	
 	m_fSpawnTime -= fTimeDelta;
 	if (m_fSpawnTime < 0.f)
 	{
@@ -176,7 +151,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 
 		m_iEnemyCount++;
 		m_fSpawnTime = 5.f;
-	}*/
+	}
 
 
 
@@ -292,6 +267,8 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 		m_bEventCheck[3] = true;
 	}
 
+
+	//////////////지원병력 생존 카운트 0 될시 아군AI생성/////////////////// 
 	if (m_fTextBoxTime <= 179.f && !m_bEventCheck[4])
 	{
 		m_pTextBoxObject->Set_Enable(true);
@@ -299,7 +276,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 
 		m_fSpawnTime -= fTimeDelta;
 
-		if (m_fSpawnTime < 1.5f)
+		if (m_fSpawnTime < 1.5f && m_bSpawnCheck)
 		{
 			if (!GAMEINSTANCE->Add_GameObject<CAI_Friendly>(CURRENT_LEVEL, TEXT("AI_Friendly")))
 				return;
@@ -308,6 +285,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 		}
 
 	}
+	/////////////////////////////////////////////////////////////////////////
 
 
 	if (m_fTextBoxTime <= 172.f && !m_bEventCheck[4])
@@ -360,10 +338,28 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 		m_iFontiX -= 0.8;
 	}
 
+
+	// 적군 카운트 0될시 퀘스트박스 소멸, 폰트 소멸
 	if (m_iEnemyCount <= 0 && !m_bEventCheck[9])
 	{
 		m_pQuestBoxObject->Set_Enable(false);
 		m_bEventCheck[9] = true;
+		m_bSpawnCheck = false;
+		m_fTextBoxTime = 300;
 	}
+
+	if (m_fTextBoxTime <= 295 && !m_bEventCheck[7] && !m_bSpawnCheck)
+	{
+		// 보상 UI / 선택
+	}
+
+
+	if (!m_bEventCheck[7] && !m_bSpawnCheck)
+	{
+		//m_bEventCheck[7] = true;
+		//GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this, LEVEL::LEVEL_SELECTPLANET);
+	}
+	
+		
 }
 

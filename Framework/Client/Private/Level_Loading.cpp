@@ -34,8 +34,7 @@ void CLevel_Loading::Tick(_float fTimeDelta)
 
 	if (true == m_pLoader->is_Finished())
 	{
-		if (GetKeyState(VK_RETURN) & 0x8000)
-		{
+		
 			CLevel*			pLevel = nullptr;
 
 			switch (m_eNextLevel)
@@ -64,14 +63,10 @@ void CLevel_Loading::Tick(_float fTimeDelta)
 				return;
 
 			CGameInstance*		pGameInstance = CGameInstance::Get_Instance();
-			//Safe_AddRef(pGameInstance);
-
-			//Safe_Release(*this);
-
+			
 			pGameInstance->Open_Level(m_eNextLevel, pLevel);
 
-			//Safe_Release(pGameInstance);
-		}
+		
 	}
 }
 
