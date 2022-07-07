@@ -173,7 +173,7 @@ _bool CMath_Utillity::Picking_VIBuffer(CVIBuffer* pVIBuffer, CTransform* pTransf
 		{
 			if (fDist < _Ray.fLength)
 			{
-				vPickedPos = vRayPos + vRayDir* fDist;
+				vPickedPos = vRayPos + *D3DXVec3Normalize(&vRayDir, &vRayDir) * fDist;
 				D3DXVec3TransformCoord(pOut, &vPickedPos, &pTransform->Get_WorldMatrix());
 
 				return true;

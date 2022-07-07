@@ -1,6 +1,5 @@
 #include "Camera_Manager.h"
 #include "GameInstance.h"
-#include "Cam_Free.h"
 
 IMPLEMENT_SINGLETON(CCamera_Manager)
 
@@ -37,14 +36,6 @@ void CCamera_Manager::Add_Shaking(_float _fOffset, _float _fInclination)
 }
 
 
-
-void CCamera_Manager::Switch_Camera(const _tchar* _CameraTag)
-{
-	if (!m_pFreeCam)
-	{
-		m_pFreeCam = GAMEINSTANCE->Add_GameObject<CCam_Free>()
-	}
-}
 
 void CCamera_Manager::Tick(_float fTimeDelta)
 {

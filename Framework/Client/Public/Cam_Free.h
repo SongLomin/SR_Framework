@@ -1,13 +1,13 @@
 #pragma once
 #include "GameObject.h"
-
+#include "Client_Defines.h"
 
 BEGIN(Engine)
 class CTransform;
 class CCamera;
+END
 
-
-
+BEGIN(Client)
 class CCam_Free :
     public CGameObject
 {

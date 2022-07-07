@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Cam_Free.h"
 #include "GameInstance.h"
 
@@ -32,7 +33,28 @@ void CCam_Free::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	
+	if (0.f > m_fTime)
+	{
+		GAMEINSTANCE->Set_Current_Camera(m_NextCameraTag);
+		return;
+	}
+	m_fTime -= fTimeDelta;
+
+	m_vLook += m_vdLook;
+	m_vUp+= m_vdUp;
+	m_vRight+= m_vdRight;
+	m_vPos += m_vdPos;
+
+	D3DXVec3Normalize(&m_vLook, &m_vLook);
+	D3DXVec3Normalize(&m_vUp, &m_vUp);
+	D3DXVec3Normalize(&m_vRight, &m_vRight);
+
+	m_pTransformCom->Set_State(CTransform::STATE_LOOK, m_vLook);
+	m_pTransformCom->Set_State(CTransform::STATE_UP, m_vUp);
+	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, m_vRight);
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vPos);
+
+	m_pTransformCom->Update_WorldMatrix();
 
 }
 
