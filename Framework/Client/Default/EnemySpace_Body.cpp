@@ -63,6 +63,10 @@ void CEnemySpace_Body::Tick(_float fTimeDelta)
 		L"HP : %d / 10",
 		1,
 		(_int)m_pStatusCom->Get_Status().fHp);*/
+
+
+	
+
     
 }
 

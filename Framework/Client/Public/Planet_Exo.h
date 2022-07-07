@@ -32,6 +32,7 @@ public:
 private:
 	HRESULT SetUp_Components();
 	void LookAtCamera();
+	void Enter_Planet();
 	_bool m_bLevelChange = false;
 
 
