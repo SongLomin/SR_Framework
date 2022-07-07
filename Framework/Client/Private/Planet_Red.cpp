@@ -38,6 +38,25 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+
+	//CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
+
+	//ISVALID(pCurrentCam, );
+
+	//_float3 CamWorldPos = pCurrentCam->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
+	//_float3 MyWorldPos;
+	//MyWorldPos.x = 0.f + CamWorldPos.x;
+	//MyWorldPos.y = 200.f + CamWorldPos.y;
+	//MyWorldPos.z = 300.f + CamWorldPos.z;
+
+
+	//m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);
+
+
+	//LookAtCamera();
+
+	m_pTransformCom->Scaling(_float3(100.f, 100.f, 50.f), true);
+
 	_float3 MouseEndPos;
 	RAY	MouseWorldRay;
 	MouseWorldRay = CMath_Utillity::Get_MouseRayInWorldSpace();
@@ -49,11 +68,14 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 
 	if (true == CMath_Utillity::Picking_VIBuffer(m_pVIBufferCom, m_pTransformCom, MouseWorldRay, &MouseEndPos))
 	{
-		GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Red Planet \n 고 위험 구역 \n 임무 : 모든 기체 파괴 \n 난이도 :『★★★★』  \n 보상 : XXX"), 0);
 		m_pDiveUi->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)ScreenPos.x + 40, (LONG)ScreenPos.y - 10 }, TEXT("Red Planet \n 고 위험 구역 \n 임무 : 모든 기체 파괴 \n 난이도 :『★★★★』  \n 보상 : XXX"), 0);
 	}
-
-
+	
+	else
+	{
+		m_pDiveUi->Set_Enable(false);
+	}
 
 	if (KEY_INPUT(KEY::F, KEY_STATE::HOLD) && !m_bLevelChange)
 	{
@@ -68,18 +90,7 @@ void CPlanet_Red::Tick(_float fTimeDelta)
 
 	}
 
-	CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
 
-	ISVALID(pCurrentCam, );
-
-	_float3 CamWorldPos = pCurrentCam->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
-	_float3 MyWorldPos;
-	MyWorldPos.x = 0.f + CamWorldPos.x;
-	MyWorldPos.y = 200.f + CamWorldPos.y;
-	MyWorldPos.z = 300.f + CamWorldPos.z;
-
-
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, MyWorldPos, true);
 
 
 }
@@ -91,17 +102,17 @@ void CPlanet_Red::LateTick(_float fTimeDelta)
 
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 
-	LookAtCamera();
+	
 
 }
 
 HRESULT CPlanet_Red::Render()
 {
-	m_pTransformCom->Scaling(_float3(100.f, 100.f, 50.f), true);
+	
 
 	m_pTransformCom->Bind_WorldMatrix();
 
-	
+	DEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
 	m_pRendererCom->Bind_Texture(3);
 
@@ -110,6 +121,8 @@ HRESULT CPlanet_Red::Render()
 	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 
 	m_pVIBufferCom->Render();
+
+	DEVICE->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 

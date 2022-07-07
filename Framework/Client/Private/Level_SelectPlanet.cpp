@@ -92,10 +92,11 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("CLight_Moon")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
+	/*if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
+		return E_FAIL;*/
+
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
 		return E_FAIL;
-
-
 
 
 	//if (!GAMEINSTANCE->Add_GameObject<CWarring>(LEVEL_SELECTPLANET, TEXT("Warring")))
