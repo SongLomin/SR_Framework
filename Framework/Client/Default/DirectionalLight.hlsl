@@ -166,7 +166,7 @@ PS_OUTPUT PS_Main(VS_OUTPUT input)
     //output.color = float4(I_tot + stash.rgb, 1);
 
     
-    if(depth.z > 0)
+    if(depth.x < 1)
     {
         output.color = float4(I_tot + stash.rgb, 1);
     }

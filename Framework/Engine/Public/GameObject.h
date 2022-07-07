@@ -107,9 +107,6 @@ public: /* Template Function*/
 		return temp;
 	}
 
-	
-	
-	
 };
 
 

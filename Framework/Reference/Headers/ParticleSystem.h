@@ -54,7 +54,8 @@ protected:
 	CRenderer*				m_pRenderer = nullptr;
 
 protected:
-	D3DXVECTOR3             m_origin;
+	_float3					m_origin = _float3(0.f, 0.f, 0.f);
+	_float4x4				m_WorldMat;
 	float                   m_emitRate;   // rate new particles are added to system
 	float                   m_size;       // size of particles
 	IDirect3DVertexBuffer9* m_vb = nullptr;

@@ -37,6 +37,7 @@
 #include "Shin_Ship_Body.h"
 #include <SpaceDust_PSystem.h>
 #include <SelectPlanet_SkyBox.h>
+#include "AI_TransportShip.h"
 
 CLevel_RedPlanet::CLevel_RedPlanet()
 {
@@ -85,13 +86,29 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CShin_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
 		return E_FAIL;*/
 
-	for (int i = 0; i < 15; ++i)
+	for (int i = 0; i < 40; ++i)
 	{
-		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_REDPLANET, TEXT("EnemySpace_Body")))
-			return E_FAIL;
+		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body"))->Get_Component<CTransform>();
+
+		_float3 SpawnPos{ 0, 0.f, 300.f };
+
+		_float RotateX = (_float)(rand() % 361);
+		_float RotateY = (_float)(rand() % 361);
+		_float RotateZ = (_float)(rand() % 361);
+		RotateX = D3DXToRadian(RotateX);
+		RotateY = D3DXToRadian(RotateY);
+		RotateZ = D3DXToRadian(RotateZ);
+
+
+		SpawnPos = CMath_Utillity::Rotate_Vec3(_float3(RotateX, RotateY, RotateZ), SpawnPos);
+
+		pEnemyTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
 
 		m_iEnemyCount++;
 	}
+
+	if (!GAMEINSTANCE->Add_GameObject<CAI_TransportShip>(LEVEL_REDPLANET, TEXT("TransportShip")))
+		return E_FAIL;
 
 	/*for (int i = 0; i < 50; ++i)
 	{
@@ -167,16 +184,29 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	__super::Tick(fTimeDelta);
 
 
-	/*
+	
 	m_fSpawnTime -= fTimeDelta;
 	if (m_fSpawnTime < 0.f)
 	{
-		if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body")))
-			return;
+		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body"))->Get_Component<CTransform>();
+
+		_float3 SpawnPos{ 0, 0.f, 300.f };
+
+		_float RotateX = (_float)(rand() % 361);
+		_float RotateY = (_float)(rand() % 361);
+		_float RotateZ = (_float)(rand() % 361);
+		RotateX = D3DXToRadian(RotateX);
+		RotateY = D3DXToRadian(RotateY);
+		RotateZ = D3DXToRadian(RotateZ);
+
+
+		SpawnPos = CMath_Utillity::Rotate_Vec3(_float3(RotateX, RotateY, RotateZ), SpawnPos);
+
+		pEnemyTransform->Set_State( CTransform::STATE_POSITION, SpawnPos);
 
 		m_iEnemyCount++;
-		m_fSpawnTime = 5.f;
-	}*/
+		m_fSpawnTime = 3.f;
+	}
 
 
 

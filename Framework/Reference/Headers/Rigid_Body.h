@@ -38,6 +38,50 @@ public:
 		_float		m_fBoosterSpeed; // 앞뒤 움직임 속도
 		_float		m_fBoosterAccel; // 앞뒤 움직임 가속도
 
+		void Set_Preset_EnemySpace_Body()
+		{
+			m_fOwnerSpeed = 10.f;
+			m_fOwnerAccel = 0.5f;
+			m_fOwnerRadSpeed = D3DXToRadian(90.0f);
+			m_fOwnerRadAccel = 0.3f;
+			m_fOwnerJump = 5.f;
+			m_fOwnerJumpScale = 1.f;
+
+			m_fFrictional = 0.05f;
+			m_fRadFrictional = 0.02f;
+			m_fRadZ = 0.01f;
+
+
+			m_fOwnerLiftSpeed = 10.f;
+			m_fOwnerLiftAccel = 0.3f;
+			m_fRadDrag = 1.f;
+			m_fDirDrag = 0.05f;
+			m_fOwnerAccel = 0.1f;
+		}
+
+		void Set_Preset_Kang_Ship()
+		{
+			m_fOwnerSpeed = 20.f;
+			m_fOwnerAccel = 0.5f;
+			m_fOwnerRadSpeed = D3DXToRadian(90.0f);
+			m_fOwnerRadAccel = 0.3f;
+			m_fOwnerJump = 5.f;
+			m_fOwnerJumpScale = 1.f;
+
+			m_fFrictional = 0.05f;
+			m_fRadFrictional = 0.02f;
+			m_fRadZ = 0.01f;
+
+
+			m_fOwnerLiftSpeed = 20.f;
+			m_fOwnerLiftAccel = 0.3f;
+			m_fRadDrag = 1.f;
+			m_fDirDrag = 0.05f;
+
+			m_fBoosterSpeed = 50.f;
+			m_fBoosterAccel = 0.1f;
+		}
+
 	}RIGIDBODYDESC;
 
 private:
@@ -142,6 +186,7 @@ public:
 			
 		}
 
+		return _float3(0.f, 0.f, 0.f);
 	}
 
 	_bool Get_Booster()

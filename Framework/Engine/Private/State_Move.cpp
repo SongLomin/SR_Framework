@@ -45,6 +45,11 @@ void CState_Move::Tick(_float fTimeDelta)
 	case Engine::STATE::MOVE_UPPER_RIGHT:
 		Move_Upper_Right();
 		break;
+	case Engine::STATE::MOVE_FORWARD:
+		Move_Forward();
+		break;
+
+
 	case Engine::STATE::MOVETARGET_CHASE:
 		MoveTarget_Chase(fTimeDelta, 10.f);
 		break;
@@ -60,6 +65,7 @@ void CState_Move::Tick(_float fTimeDelta)
 	case Engine::STATE::ATTACK_TAP:
 		
 		break;
+
 	case Engine::STATE::ATTACK_HOLD:
 
 		break;
@@ -139,14 +145,18 @@ void CState_Move::Move_Chase_Player(CTransform* pPlayerTransform, _float fTimeDe
 	m_pTransform->Go_BackAndForth(8.f, fTimeDelta);
 }
 
+void CState_Move::Move_Forward()
+{
+	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
+}
+
 
 // Taget
 void CState_Move::MoveTarget_Chase( _float fTimeDelta, _float fLimit)
 {
 	if (!m_pTargetTransform)
 	{
-		//Å¸°Ù Æ®·£½ºÆû ¾øÀ½.
-		assert(false);
+		return;
 	}
 
 	m_pTransform->Go_Target(m_pTargetTransform, fTimeDelta);
@@ -158,8 +168,7 @@ void CState_Move::MoveTarget_LSpin(_float fTimeDelta, _float fLimit)
 {
 	if (!m_pTargetTransform)
 	{
-		//Å¸°Ù Æ®·£½ºÆû ¾øÀ½.
-		assert(false);
+		return;
 	}
 
 	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);
@@ -176,8 +185,7 @@ void CState_Move::MoveTarget_RSpin(_float fTimeDelta, _float fLimit)
 {
 	if (!m_pTargetTransform)
 	{
-		//Å¸°Ù Æ®·£½ºÆû ¾øÀ½.
-		assert(false);
+		return;
 	}
 
 	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);

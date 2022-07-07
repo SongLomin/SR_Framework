@@ -275,9 +275,6 @@ HRESULT CLoader::Loading_ForSelectPlanet()
 
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
 
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Planet"), TEXT("../Bin/Resources/Textures/Object/Planet%d.png"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
 
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("TextBox_Yang"), TEXT("../Bin/Resources/Textures/UI/TextBox_Yang.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
@@ -299,6 +296,9 @@ HRESULT CLoader::Loading_ForSelectPlanet()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 	
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Planet"), TEXT("../Bin/Resources/Textures/Object/Planet_%d.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
 	

@@ -546,6 +546,8 @@ _float3 CRigid_Body::Get_Vector(RIGID_BODY eType)
 		return m_vSpeed;
 		//받아오고 싶은 물리량 알아서 추가
 	}
+
+	return _float3(0.f, 0.f, 0.f);
 }
 
 CRigid_Body* CRigid_Body::Create()

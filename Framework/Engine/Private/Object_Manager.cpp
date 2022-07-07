@@ -2,6 +2,7 @@
 #include "Layer.h"
 #include "GameObject.h"
 #include "GameInstance.h"
+#include "ParticleSystem.h"
 
 IMPLEMENT_SINGLETON(CObject_Manager)
 

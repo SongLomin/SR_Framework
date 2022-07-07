@@ -55,6 +55,7 @@ void CLight::Set_Preset_SunLight()
 	//m_D3DLight.Falloff = 600.f;
 	//m_D3DLight.Phi = 2.f;
 	//m_D3DLight.Theta = 1.f;
+	m_fColorScale = 2.f;
 
 	m_D3DLight.Attenuation0 = 1.0f;
 	m_D3DLight.Attenuation1 = 0.007f;

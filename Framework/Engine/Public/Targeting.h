@@ -29,6 +29,8 @@ public:
 	void Make_AI_TargetList(list<CGameObject*>* pTarget, CTransform* pTransform, _float fDist = 40.f);
 	void Make_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _vPosition, _float _fRange);
 
+	bool IsTargetEmpty();
+
 private:
 	void Clear_Targeting();
 

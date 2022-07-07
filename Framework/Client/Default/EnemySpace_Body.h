@@ -53,7 +53,7 @@ private:
 
 private:
     HRESULT SetUp_Components();
-    void Update_Target();
+    void Update_Target(CGameObject* _Target);
 
 public:
     virtual void On_Change_Controller(const CONTROLLER& _IsAI);

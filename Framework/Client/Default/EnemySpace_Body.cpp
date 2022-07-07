@@ -34,8 +34,8 @@ HRESULT CEnemySpace_Body::Initialize(void* pArg)
 #pragma region 초기 위치 설정
 
 
-	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(rand() % 100, rand() % 20, 900.f + 20.f));
-	m_pTransformCom->Update_WorldMatrix();
+	/*m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(rand() % 100, rand() % 20, 300.f + 20.f));
+	m_pTransformCom->Update_WorldMatrix();*/
 
 #pragma endregion 초기 위치 설정
 
@@ -72,17 +72,36 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 
 
 	m_fTime -= fTimeDelta;
+
 	if (m_fTime < 0.f)
 	{
-		m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player")), m_pTransformCom);
-		//Update_Target();
-		m_fTime = 1.f;
+		int RandomTarget = rand() % 2;
+
+		if (0 == RandomTarget)
+		{
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+		}
+
+		else
+		{
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("AI_Friendly")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+		}
+		
+		auto TargetList = m_pTargetingCom->Get_Targetting();
+
+		if (!TargetList->empty())
+		{
+			Update_Target(TargetList->begin()->second);
+		}
+
+		m_fTime = 3.f;
 	}
 
-	if (m_pStatusCom->Get_Status().fHp < m_pStatusCom->Get_Status().fMaxHp / 2.f)
+	//얼굴에 쳐박힘..
+	/*if (m_pStatusCom->Get_Status().fHp < m_pStatusCom->Get_Status().fMaxHp / 2.f)
 	{
 		((CSmoke_PSystem*)GAMEINSTANCE->Add_GameObject<CSmoke_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke"), nullptr, nullptr, true))->AddParticle(1, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
-	}
+	}*/
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
@@ -147,23 +166,7 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	m_pMeshCom->Set_Texture(TEXT("Red_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 10.f;
-	RigidBodyDesc.m_fOwnerAccel = 0.5f;
-	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
-	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
-	RigidBodyDesc.m_fOwnerJump = 5.f;
-	RigidBodyDesc.m_fOwnerJumpScale = 1.f;
-
-	RigidBodyDesc.m_fFrictional = 0.05f;
-	RigidBodyDesc.m_fRadFrictional = 0.02f;
-	RigidBodyDesc.m_fRadZ = 0.01f;
-
-
-	RigidBodyDesc.m_fOwnerLiftSpeed = 10.f;
-	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
-	RigidBodyDesc.m_fRadDrag = 1.f;
-	RigidBodyDesc.m_fDirDrag = 0.05f;
-	RigidBodyDesc.m_fOwnerAccel = 0.1f;
+	RigidBodyDesc.Set_Preset_EnemySpace_Body();
 
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
@@ -210,25 +213,15 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	return S_OK;
 }
 
-void CEnemySpace_Body::Update_Target()
+void CEnemySpace_Body::Update_Target(CGameObject* _Target)
 {
-	map<_float, CGameObject*>* TargetList = m_pTargetingCom->Get_Targetting();
-
-	if (TargetList->empty())
-	{
-		/*for (auto iter = m_pPosinList.begin(); iter != m_pPosinList.end();)
-		{
-			(*iter)->Set_Target(nullptr);
-			++iter;
-		}*/
+	if (!_Target)
 		return;
-	}
 
-	/*for (auto& elem : m_pPosinList)
+	for (auto& elem : m_pPosinList)
 	{
-		
-		elem->Set_Target((*TargetList->begin()).second);
-	}*/
+		elem->Set_AI_Target(_Target);
+	}
 
 }
 

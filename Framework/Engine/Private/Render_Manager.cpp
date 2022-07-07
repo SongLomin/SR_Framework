@@ -193,13 +193,6 @@ void CRender_Manager::Deferred_Pipeline()
 			DEVICE->GetTransform(D3DTS_WORLD, &world);
 
 			(*G_Buffer)->SetMatrix(worldHandle, &world);
-			/*
-			float floatArray[3];
-			floatArray[0] = 0.7f;
-			floatArray[1] = 0.f;
-			floatArray[2] = 0.7f;*/
-
-			//(*G_Buffer)->SetFloatArray(ColorHandle, floatArray, 3);
 
 			(*G_Buffer)->Begin(&numPasses, 0);
 			for (_uint i = 0; i < numPasses; i++)
@@ -222,7 +215,7 @@ void CRender_Manager::Deferred_Pipeline()
 
 	/* deferred shading stage */
 	ResumeOriginRender();
-	//DEVICE->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
+	DEVICE->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
 	DEVICE->ColorFill(stashSurface, NULL, D3DXCOLOR(0.f, 0.f, 0.f, 0.f));
 
 	DEVICE->BeginScene();

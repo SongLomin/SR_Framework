@@ -67,6 +67,8 @@ public:
 	_float Get_Speed() {	return m_TransformDesc.fSpeedPerSec;}
 	_float Get_RotationSpeed() { return m_TransformDesc.fRotationPerSec; }
 
+	void Add_Position(_float3 _vPos, _bool _bWorld = false);
+
 public:
 	list<CTransform*>* Get_Children();
 	CTransform* Get_Parent();

@@ -35,10 +35,7 @@ void CCollider::Free()
     
     if (m_pMesh)
     {
-        while (m_pMesh != 0)
-        {
-            m_pMesh->Release();
-        }
+        m_pMesh->Release();
 
         m_pMesh = nullptr;
     }

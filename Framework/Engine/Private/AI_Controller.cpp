@@ -72,42 +72,36 @@ void CAI_Controller::Tick(_float fTimeDelta)
 	if (!Get_Enable())
 		return;
 
-	if (!m_pMyTargeting)
-		return;
-
 	//커맨드 큐가 비어 있으면 다음 행동을 알려준다.
 	if (m_CommandQueue.empty())
 	{
-		STATE eCurState = STATE::STATE_END;
+		STATE eCurState = STATE::STATE_NONE;
 
-		map<_float, CGameObject*>* TargetList = m_pMyTargeting->Get_Targetting();
-
-		//타겟이 없으면 MOVE 행동 중에서 랜덤으로 한 가지를 고른다.
-		if (TargetList->empty())
+		if (m_pMyTargeting)
 		{
-			eCurState = CMath_Utillity::Get_Random_Value_In_Vector<STATE>(m_eUsableStates[STATE_TYPE::STATE_MOVE]);
-			
-		}
-		else
-		{
-			CGameObject* Target = TargetList->begin()->second;
+			map<_float, CGameObject*>* TargetList = m_pMyTargeting->Get_Targetting();
 
-			if (!Target)
+			if (!TargetList->empty())
 			{
-				eCurState = CMath_Utillity::Get_Random_Value_In_Vector<STATE>(m_eUsableStates[STATE_TYPE::STATE_MOVE]);
+				CGameObject* Target = TargetList->begin()->second;
 
+				if (Target)
+				{
+					eCurState = Command_MoveTarget();
+					m_pMyState_Move->Set_TargetTransform(Target->Get_Component<CTransform>());
+				}
 			}
+		}
 
-			//타겟이 있으면 MOVETARGET 행동 중에서 랜덤으로 한 가지 고른다.
-			eCurState = CMath_Utillity::Get_Random_Value_In_Vector<STATE>(m_eUsableStates[STATE_TYPE::STATE_MOVETARGET]);
-			m_pMyState_Move->Set_TargetTransform(Target->Get_Component<CTransform>());
-
+		if (STATE::STATE_NONE == eCurState)
+		{
+			eCurState = Command_Move();
 		}
 
 		m_CommandQueue.push_back({ eCurState, m_fBehaviorTime });
 	}
 
-	//커맨드 큐에서 상태를 꺼낸다.
+	//커맨드 큐에서 가장 앞 순서의 상태를 확인한다.
 	m_pMyState_Move->Set_State(m_CommandQueue.front().first);
 
 	//지속 시간이 다 된 상태는 꺼낸다.
@@ -123,6 +117,27 @@ void CAI_Controller::Tick(_float fTimeDelta)
 
 void CAI_Controller::LateTick(_float fTimeDelta)
 {
+}
+
+STATE CAI_Controller::Command_MoveTarget()
+{
+	STATE eCurState = CMath_Utillity::Get_Random_Value_In_Vector<STATE>(m_eUsableStates[STATE_TYPE::STATE_MOVETARGET]);
+
+	return eCurState;
+}
+
+STATE CAI_Controller::Command_Move()
+{
+	STATE eCurState = CMath_Utillity::Get_Random_Value_In_Vector<STATE>(m_eUsableStates[STATE_TYPE::STATE_MOVE]);
+
+	return eCurState;
+}
+
+STATE CAI_Controller::Command_Attack()
+{
+
+
+	return STATE();
 }
 
 void CAI_Controller::OnEnable(void* pArg)

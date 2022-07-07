@@ -29,7 +29,8 @@ public:
 
 
 public:
-    void        Set_Target(CGameObject* _Target);
+    void        Set_Player_Target(CGameObject* _Target);
+    void        Set_AI_Target(CGameObject* _Target);
     _bool       LookAt_Targeting();
     void        LookAt_Aim();
     void        Command_Fire();

@@ -93,7 +93,7 @@ void CNormal_Bullet::Init_BulletPosition(_float4x4* _pWorldMat)
 {
 	__super::Init_BulletPosition(_pWorldMat);
 
-	m_pTransformCom->Go_BackAndForth(9.f, 1.f);
+	m_pTransformCom->Go_BackAndForth(2.f, 1.f);
 
 	m_pTransformCom->Update_WorldMatrix();
 	m_pRigidBodyCom->Set_DirVector();
