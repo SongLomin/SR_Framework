@@ -24,11 +24,11 @@ HRESULT CBulletCountUI::Initialize(void* pArg)
 
 	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinCX, g_iWinCY, 0.0f, 1.f);
 
-	m_fX = 1100.f;
+	m_fX = 1200.f;
 	m_fY = 630.f;
 
-	m_fSizeX = 160.0f;
-	m_fSizeY = 50.0f;
+	m_fSizeX = 43.0f;
+	m_fSizeY = 48.0f;
 
 	return S_OK;
 }

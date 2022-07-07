@@ -90,37 +90,6 @@ HRESULT CLoader::Loading_ForLogoLevel()
 
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
 	
-	/*if (FAILED(pGameInstance->Load_Textures(TEXT("Test"), TEXT("../Bin/Resources/Textures/Default%d.jpg"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
-		return E_FAIL;*/
-	/*메쉬 텍스처 추가*/
-	/*if (FAILED(pGameInstance->Load_Textures(TEXT("Mesh_Cube"), TEXT("../Bin/Resources/Textures/Terrain/Filter.bmp"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
-
-	if (FAILED(pGameInstance->Load_Textures(TEXT("Mesh_Cube"), TEXT("../Bin/Resources/Textures/Terrain/Brush.png"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
-
-	if (FAILED(pGameInstance->Load_Textures(TEXT("Mesh_Cube"), TEXT("../Bin/Resources/Textures/Terrain/Height.bmp"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
-
-	if (FAILED(pGameInstance->Load_Textures(TEXT("Mesh_Cube"), TEXT("../Bin/Resources/Textures/Terrain/MyFilter.bmp"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
-
-	if (FAILED(pGameInstance->Load_Textures(TEXT("Red_Cube"), TEXT("../Bin/Resources/Textures/Terrain/MyHeight.bmp"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
-
-	if (FAILED(pGameInstance->Load_Textures(TEXT("Mesh_Cube"), TEXT("../Bin/Resources/Textures/Terrain/Tile0.jpg"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
-
-	if (FAILED(pGameInstance->Load_Textures(TEXT("Mesh_Cube"), TEXT("../Bin/Resources/Textures/Terrain/Spaceship.jpg"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;*/
 
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Booster"), TEXT("../Bin/Resources/Textures/UI/Booster.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
@@ -322,10 +291,11 @@ HRESULT CLoader::Loading_ForSelectPlanet()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-
-	
-
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Warring"), TEXT("../Bin/Resources/Textures/UI/Warring.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Dive"), TEXT("../Bin/Resources/Textures/UI/Dive.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 	

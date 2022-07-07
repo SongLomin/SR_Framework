@@ -28,6 +28,7 @@
 #include "TextBox.h"
 #include <Bomb_Effect.h>
 #include "Warring.h"
+#include "Dive.h"
 
 CLevel_SelectPlanet::CLevel_SelectPlanet()
 {
@@ -91,12 +92,15 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("CLight_Moon")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
+	/*if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
+		return E_FAIL;*/
+
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
 		return E_FAIL;
 
 
-	if (!GAMEINSTANCE->Add_GameObject<CWarring>(LEVEL_SELECTPLANET, TEXT("Warring")))
-		return E_FAIL;
+	//if (!GAMEINSTANCE->Add_GameObject<CWarring>(LEVEL_SELECTPLANET, TEXT("Warring")))
+	//	return E_FAIL;
 
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));

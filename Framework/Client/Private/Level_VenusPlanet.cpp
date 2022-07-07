@@ -61,10 +61,6 @@ HRESULT CLevel_VenusPlanet::Initialize()
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 300.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
-	/*CGameObject* Free_Cam = GAMEINSTANCE->Add_GameObject<CCam_Free>(CURRENT_LEVEL, TEXT("Camera"));
-	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-	GAMEINSTANCE->Register_Camera(TEXT("Free"), Moving_Cam->Get_Component<CCamera>());*/
-
 
 	if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_VENUSPLANET, TEXT("Player")))
 		return E_FAIL;
@@ -101,15 +97,6 @@ HRESULT CLevel_VenusPlanet::Initialize()
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
 	//	return E_FAIL;
 
-	
-
-
-	/*TEXTINFO Info;
-	Info.color = D3DCOLOR_ARGB(255, 0, 255, 0);
-	Info.rcTemp = { 600, 300, 600 + 200, 300 + 300 };
-	wsprintf(Info.szBuff, L"10초동안 출력");
-	if (FAILED(GAMEINSTANCE->Add_Text(&Info, 10.f)))
-		return E_FAIL;*/
 
 	return S_OK;
 }
