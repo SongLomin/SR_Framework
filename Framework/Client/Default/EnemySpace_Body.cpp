@@ -95,10 +95,6 @@ void CEnemySpace_Body::SetUp_Components_For_Child()
 	m_pStatusCom = Add_Component<CStatus>(&Status);
 	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
 
-
-
-
-
 	m_pMeshCom = Add_Component<CMesh_EnemySpace>();
 	m_pMeshCom->Set_WeakPtr((void**)&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Red_Cube"), MEMORY_TYPE::MEMORY_STATIC);
@@ -127,8 +123,7 @@ void CEnemySpace_Body::SetUp_Components_For_Child()
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
 
-	m_pStateCom = Add_Component<CState_Move>();
-	m_pStateCom->Set_WeakPtr((void**)m_pStateCom);
+	
 	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
 	m_pStateCom->Link_AI_Transform(m_pTransformCom);
 
@@ -145,15 +140,13 @@ void CEnemySpace_Body::SetUp_Components_For_Child()
 	m_pPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pPosinList.back());
 
-	m_pAIControllerCom = Add_Component<CAI_Controller>();
-	m_pAIControllerCom->Set_WeakPtr(&m_pAIControllerCom);
+	
 	m_pAIControllerCom->Link_Object(this);
 	m_pAIControllerCom->Set_Enable(false);
 	m_pAIControllerCom->Set_UsableStates(m_pAIControllerCom->Get_States_Preset_AI_Default());
 
 
-	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
-	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
+
 	m_pColliderCom->Link_Transform(m_pTransformCom);
 	m_pColliderCom->Set_Collider_Size(_float3(3.f, 3.f, 3.f));
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
@@ -176,14 +169,7 @@ void CEnemySpace_Body::Update_Target()
 
 void CEnemySpace_Body::On_Change_Controller(const CONTROLLER& _IsAI)
 {
-	if (_IsAI == CONTROLLER::AI)
-	{
-		m_pAIControllerCom->Set_Enable(true);
-	}
-	else
-	{
-		return;
-	}
+	__super::On_Change_Controller(_IsAI);
 }
 
 

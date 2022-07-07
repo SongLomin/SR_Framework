@@ -64,6 +64,18 @@ HRESULT CMonster::Render()
 
 
 
+void CMonster::On_Change_Controller(const CONTROLLER& _IsAI)
+{
+	if (_IsAI == CONTROLLER::AI)
+	{
+		m_pAIControllerCom->Set_Enable(true);
+	}
+	else
+	{
+		return;
+	}
+}
+
 HRESULT CMonster::SetUp_Components()
 {
     m_pTransformCom = Add_Component<CTransform>();
@@ -74,6 +86,16 @@ HRESULT CMonster::SetUp_Components()
 
 	m_pTargetingCom = Add_Component<CTargeting>();
 	m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);
+
+	m_pStateCom = Add_Component<CState_Move>();
+	m_pStateCom->Set_WeakPtr((void**)m_pStateCom);
+
+	m_pAIControllerCom = Add_Component<CAI_Controller>();
+	m_pAIControllerCom->Set_WeakPtr(&m_pAIControllerCom);
+
+	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
+	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
+
 
 	SetUp_Components_For_Child();
 

@@ -44,6 +44,8 @@ protected:
     list<CNormal_Turret*> m_pPosinList;
     _float m_fTime = 1.f;
 
+public:
+    virtual void On_Change_Controller(const CONTROLLER& _IsAI);
 
 protected:
     HRESULT SetUp_Components();
