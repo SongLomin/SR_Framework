@@ -220,7 +220,7 @@ void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 	m_bCinematic = true;
 	m_iNextLevel = _iNextLevel;
 
-	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+	/*list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 	for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)
 	{
 		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
@@ -237,7 +237,7 @@ void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 				static_cast<CTransform*>(Temp)->LookAt((CTransform*)pArg, true);
 			}
 		}
-	}
+	}*/
 
 	CGameObject* Camera_Origin = GAMEINSTANCE->Get_Camera()->Get_Owner();
 	CTransform* pCameraTransform = Camera_Origin->Get_Component<CTransform>();

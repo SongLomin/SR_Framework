@@ -16,7 +16,7 @@ END
 
 BEGIN(Client)
 
-class CNormal_Turret;
+class CTurret;
 class CCameraPosin;
 class CPlayer_Posin;
 
@@ -48,7 +48,7 @@ protected:
 	CCollider_Sphere* m_pColliderCom = nullptr;
 
 protected:
-	list<CNormal_Turret*>	m_pMyPosinList;
+	list<CTurret*>	m_pMyPosinList;
 	_bool					m_bTargetMode = false;
 	_float					m_fTime = 1.f;
 	_bool					m_bMouse = false;

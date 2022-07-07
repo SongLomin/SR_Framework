@@ -41,7 +41,7 @@ private:
     CGameObject* m_pBoxObject = nullptr;
     CGameObject* m_pTarget = nullptr;
 
-    CGameObject* m_pTargetObject = nullptr;
+  
 
 private:
     _float	 m_fCurTime = 0.f;

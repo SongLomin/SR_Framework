@@ -217,6 +217,9 @@
     <Filter Include="02.GameObject\07. UI\Dive">
       <UniqueIdentifier>{e3aaa70c-d1e3-428f-b29c-5229da6639e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\01. Turret\Rocket">
+      <UniqueIdentifier>{62998e02-2f42-447e-b785-1c8d493890f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -254,9 +257,6 @@
     </ClInclude>
     <ClInclude Include="..\Public\Terrain.h">
       <Filter>02.GameObject\04. Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\Cam_Free.h">
-      <Filter>02.GameObject\05. Camera_Object\00. Cam_Free</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Cam_TPS.h">
       <Filter>02.GameObject\05. Camera_Object\01. Cam_TPS</Filter>
@@ -446,6 +446,12 @@
     <ClInclude Include="..\Public\Player.h">
       <Filter>02.GameObject\00. Player</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Turret.h">
+      <Filter>02.GameObject\01. Turret</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rocket_Turret.h">
+      <Filter>02.GameObject\01. Turret\Rocket</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -471,9 +477,6 @@
     </ClCompile>
     <ClCompile Include="..\Private\Terrain.cpp">
       <Filter>02.GameObject\04. Terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\Cam_Free.cpp">
-      <Filter>02.GameObject\05. Camera_Object\00. Cam_Free</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Cam_TPS.cpp">
       <Filter>02.GameObject\05. Camera_Object\01. Cam_TPS</Filter>
@@ -668,6 +671,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Dive.cpp">
       <Filter>02.GameObject\07. UI\Dive</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Turret.cpp">
+      <Filter>02.GameObject\01. Turret</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rocket_Turret.cpp">
+      <Filter>02.GameObject\01. Turret\Rocket</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

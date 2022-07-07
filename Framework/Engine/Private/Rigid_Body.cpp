@@ -205,7 +205,7 @@ void CRigid_Body::Compute_Dir(_float fTimeDelta)
 
 	if (m_bBooster)
 	{
-		m_vSpeed += m_vAccel * m_RigidbodyDesc.m_fBoosterAccel * fTimeDelta;
+		m_vSpeed += m_vAccel * m_RigidbodyDesc.m_fBoosterAccel;
 		if (m_RigidbodyDesc.m_fBoosterSpeed < fabs(D3DXVec3Length(&m_vSpeed)))
 		{
 			D3DXVec3Normalize(&m_vSpeed, &m_vSpeed);
@@ -216,7 +216,7 @@ void CRigid_Body::Compute_Dir(_float fTimeDelta)
 	}
 	if(!m_bBooster && fabs(D3DXVec3Length(&m_vSpeed) < m_RigidbodyDesc.m_fOwnerSpeed))
 	{
-		m_vSpeed += m_vAccel * m_RigidbodyDesc.m_fOwnerAccel * fTimeDelta;
+		m_vSpeed += m_vAccel * m_RigidbodyDesc.m_fOwnerAccel ;
 		if (m_RigidbodyDesc.m_fOwnerSpeed < fabs(D3DXVec3Length(&m_vSpeed)))
 		{
 			D3DXVec3Normalize(&m_vSpeed, &m_vSpeed);
@@ -264,7 +264,7 @@ void CRigid_Body::Friction(_float fTimeDelta)
 
 void CRigid_Body::Move(_float fTimeDelta)
 {
-	m_vPos += m_vSpeed * fTimeDelta;
+	m_vPos += m_vSpeed * fTimeDelta ;
 	if (m_bLift)
 		m_vPos += m_vUp * m_fLiftSpeed * fTimeDelta;
 }

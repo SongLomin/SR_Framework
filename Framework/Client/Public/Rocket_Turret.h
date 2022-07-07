@@ -5,12 +5,12 @@
 
 BEGIN(Client)
 
-class CNormal_Turret final :public CTurret
+class CRocket_Turret final :public CTurret
 {
 private:
-    CNormal_Turret() = default;
-    CNormal_Turret(const CNormal_Turret& Prototype);
-    virtual ~CNormal_Turret() = default;
+    CRocket_Turret() = default;
+    CRocket_Turret(const CRocket_Turret& Prototype);
+    virtual ~CRocket_Turret() = default;
 
 protected:
     // CTurret을(를) 통해 상속됨
@@ -26,7 +26,7 @@ private:
 
 public:
     // CGameObject을(를) 통해 상속됨
-    static CNormal_Turret* Create();
+    static CRocket_Turret* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 };

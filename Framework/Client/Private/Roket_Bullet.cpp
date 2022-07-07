@@ -206,7 +206,7 @@ void CRocket_Bullet::On_Collision_Exit(CCollider* _Other_Collider)
 HRESULT CRocket_Bullet::SetUp_Components_For_Child()
 {
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 150.f;
+	RigidBodyDesc.m_fOwnerSpeed = 50.f;
 	RigidBodyDesc.m_fOwnerAccel = 1.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(120.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;

@@ -41,7 +41,7 @@ public:
 		void Set_Preset_EnemySpace_Body()
 		{
 			m_fOwnerSpeed = 30.f;
-			m_fOwnerAccel = 15.f;
+			m_fOwnerAccel = 0.5f;
 			m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 			m_fOwnerRadAccel = 0.3f;
 			m_fOwnerJump = 5.f;
@@ -62,13 +62,13 @@ public:
 		void Set_Preset_Kang_Ship()
 		{
 			m_fOwnerSpeed = 30.f;
-			m_fOwnerAccel = 3.f;
+			m_fOwnerAccel = 0.5f;
 			m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 			m_fOwnerRadAccel = 0.3f;
 			m_fOwnerJump = 5.f;
 			m_fOwnerJumpScale = 1.f;
 
-			m_fFrictional = 0.05f;
+			m_fFrictional = 0.1f;
 			m_fRadFrictional = 0.02f;
 			m_fRadZ = 0.01f;
 
@@ -124,6 +124,10 @@ public:
 	void		Set_DirVector();
 
 	_float3		Get_Vector(RIGID_BODY	eType);
+	RIGIDBODYDESC Get_RigidDesc()
+	{
+		return m_RigidbodyDesc;
+	}
 
 private:
 

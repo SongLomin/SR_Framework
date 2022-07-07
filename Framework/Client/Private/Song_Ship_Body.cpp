@@ -4,6 +4,7 @@
 #include "Player_RightBody.h"
 #include <tchar.h>
 #include "Normal_Turret.h"
+#include "Rocket_Turret.h"
 #include "Cam_Free.h"
 #include "Cam_TPS.h"
 #include "Cam_FPS.h"
@@ -207,7 +208,7 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 #pragma region Rigid_Body Setting
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 30.f;
-	RigidBodyDesc.m_fOwnerAccel = 3.f;
+	RigidBodyDesc.m_fOwnerAccel = 0.5f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
 	RigidBodyDesc.m_fOwnerJump = 5.f;
@@ -221,8 +222,8 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 	RigidBodyDesc.m_fOwnerLiftAccel = 10.f;
 	RigidBodyDesc.m_fRadDrag = 1.f;
 	RigidBodyDesc.m_fDirDrag = 0.05f;
-	RigidBodyDesc.m_fBoosterSpeed = 200.f;
-	RigidBodyDesc.m_fBoosterAccel = 20.f;
+	RigidBodyDesc.m_fBoosterSpeed = 100.f;
+	RigidBodyDesc.m_fBoosterAccel = 1.f;
 
 	m_pRigid_BodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigid_BodyCom->Set_WeakPtr(&m_pRigid_BodyCom);
@@ -232,23 +233,33 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 
 #pragma region Posin Setting
 
-	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
+	CTurret* Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(3.6f, -0.15f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 
-	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.4f, -0.15f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 
-	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.4f, -0.15f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 
-	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-3.6f, -0.15f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back());
+
+	Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_STATIC, TEXT("Rocket_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-3.f, -1.f, 0.f));
+	m_pMyPosinList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyPosinList.back());
+
+	Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_STATIC, TEXT("Rocket_Turret"), m_pTransformCom));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(3.f, -1.f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 

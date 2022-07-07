@@ -45,81 +45,81 @@ void CCam_Free::Tick(_float fTimeDelta)
 		m_bSwitchPlayer = false;
 		return;
 	}
-#pragma region 원본
-	//_float3 vLook = m_pNextCameraTransform->Get_World_State(CTransform::STATE_LOOK);
-	//_float3 vUp = m_pNextCameraTransform->Get_World_State(CTransform::STATE_UP);
 
-	//m_vdLook = vLook - m_vLook;
-	//m_vdUp = vUp - m_vUp;
-	//m_vdRight = m_pNextCameraTransform->Get_World_State(CTransform::STATE_RIGHT) - m_vRight;
-	//m_vdPos = m_pNextCameraTransform->Get_World_State(CTransform::STATE_POSITION);
-	//if (m_bSwitchPlayer)//이게맞냐
-	//{	//플레이어가 바뀔 때 부조건 3인칭으로 가기 때문에 매 프레임마다 3인칭 카메라의 위치로 적용을 해줘야 함(?)
-	//	m_vdPos -= vLook * 17.f;
-	//	m_vdPos += vUp * 3.f;
+	_float3 vLook = m_pNextCameraTransform->Get_World_State(CTransform::STATE_LOOK);
+	_float3 vUp = m_pNextCameraTransform->Get_World_State(CTransform::STATE_UP);
+
+	m_vdLook = vLook - m_vLook;
+	m_vdUp = vUp - m_vUp;
+	m_vdRight = m_pNextCameraTransform->Get_World_State(CTransform::STATE_RIGHT) - m_vRight;
+	m_vdPos = m_pNextCameraTransform->Get_World_State(CTransform::STATE_POSITION);
+	if (m_bSwitchPlayer)//이게맞냐
+	{	//플레이어가 바뀔 때 부조건 3인칭으로 가기 때문에 매 프레임마다 3인칭 카메라의 위치로 적용을 해줘야 함(?)
+		m_vdPos -= vLook * 15.f;
+		m_vdPos += vUp * 3.f;
+	}
+	m_vdPos -=  m_vPos;
+
+	m_vdLook /= m_fTime;
+	m_vdUp /= m_fTime;
+	m_vdRight /= m_fTime;
+	m_vdPos /= m_fTime;
+
+	m_vLook += m_vdLook * fTimeDelta;
+	m_vUp+= m_vdUp* fTimeDelta;
+	m_vRight+= m_vdRight* fTimeDelta;
+	m_vPos+= m_vdPos* fTimeDelta;
+
+	m_pTransformCom->Set_State(CTransform::STATE_LOOK, m_vLook);
+	m_pTransformCom->Set_State(CTransform::STATE_UP, m_vUp);
+	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, m_vRight);
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vPos);
+#pragma region 수정중
+	//if (!m_bSwitchPlayer)
+	//{
+	//	_float3 vLook = m_pNextCameraTransform->Get_World_State(CTransform::STATE_LOOK);
+	//	_float3 vUp = m_pNextCameraTransform->Get_World_State(CTransform::STATE_UP);
+
+	//	m_vdLook = vLook - m_vLook;
+	//	m_vdUp = vUp - m_vUp;
+	//	m_vdRight = m_pNextCameraTransform->Get_World_State(CTransform::STATE_RIGHT) - m_vRight;
+	//	m_vdPos = m_pNextCameraTransform->Get_World_State(CTransform::STATE_POSITION);
+	//	 
+	//	m_vdPos -= m_vPos;
+
+	//	m_vdLook /= m_fTime;
+	//	m_vdUp /= m_fTime;
+	//	m_vdRight /= m_fTime;
+	//	m_vdPos /= m_fTime;
+
+	//	m_vLook += m_vdLook * fTimeDelta;
+	//	m_vUp += m_vdUp * fTimeDelta;
+	//	m_vRight += m_vdRight * fTimeDelta;
+	//	m_vPos += m_vdPos * fTimeDelta;
+
+	//	m_pTransformCom->Set_State(CTransform::STATE_LOOK, m_vLook);
+	//	m_pTransformCom->Set_State(CTransform::STATE_UP, m_vUp);
+	//	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, m_vRight);
+	//	m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vPos);
 	//}
-	//m_vdPos -=  m_vPos;
+	//else
+	//{
+	//	m_pNextCameraTransform->Set_State(CTransform::STATE_LOOK, m_vLook);
+	//	m_pNextCameraTransform->Set_State(CTransform::STATE_UP, m_vUp);
+	//	m_pNextCameraTransform->Set_State(CTransform::STATE_RIGHT, m_vRight);
 
-	//m_vdLook /= m_fTime;
-	//m_vdUp /= m_fTime;
-	//m_vdRight /= m_fTime;
-	//m_vdPos /= m_fTime;
+	//	m_vdPos = m_pNextCameraTransform->Get_World_State(CTransform::STATE_POSITION);
+	//	m_vdPos -= m_vLook * 17.f;
+	//	m_vdPos += m_vUp * 3.f;
+	//	
+	//	m_vdPos -= m_vPos;
+	//	m_vdPos /= m_fTime;
+	//	m_vPos += m_vdPos * fTimeDelta;
+	//	m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vPos);
 
-	//m_vLook += m_vdLook * fTimeDelta;
-	//m_vUp+= m_vdUp* fTimeDelta;
-	//m_vRight+= m_vdRight* fTimeDelta;
-	//m_vPos+= m_vdPos* fTimeDelta;
-
-	//m_pTransformCom->Set_State(CTransform::STATE_LOOK, m_vLook);
-	//m_pTransformCom->Set_State(CTransform::STATE_UP, m_vUp);
-	//m_pTransformCom->Set_State(CTransform::STATE_RIGHT, m_vRight);
-	//m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vPos);
-#pragma endregion 원본
-	if (!m_bSwitchPlayer)
-	{
-		_float3 vLook = m_pNextCameraTransform->Get_World_State(CTransform::STATE_LOOK);
-		_float3 vUp = m_pNextCameraTransform->Get_World_State(CTransform::STATE_UP);
-
-		m_vdLook = vLook - m_vLook;
-		m_vdUp = vUp - m_vUp;
-		m_vdRight = m_pNextCameraTransform->Get_World_State(CTransform::STATE_RIGHT) - m_vRight;
-		m_vdPos = m_pNextCameraTransform->Get_World_State(CTransform::STATE_POSITION);
-		 
-		m_vdPos -= m_vPos;
-
-		m_vdLook /= m_fTime;
-		m_vdUp /= m_fTime;
-		m_vdRight /= m_fTime;
-		m_vdPos /= m_fTime;
-
-		m_vLook += m_vdLook * fTimeDelta;
-		m_vUp += m_vdUp * fTimeDelta;
-		m_vRight += m_vdRight * fTimeDelta;
-		m_vPos += m_vdPos * fTimeDelta;
-
-		m_pTransformCom->Set_State(CTransform::STATE_LOOK, m_vLook);
-		m_pTransformCom->Set_State(CTransform::STATE_UP, m_vUp);
-		m_pTransformCom->Set_State(CTransform::STATE_RIGHT, m_vRight);
-		m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vPos);
-	}
-	else
-	{
-		m_pNextCameraTransform->Set_State(CTransform::STATE_LOOK, m_vLook);
-		m_pNextCameraTransform->Set_State(CTransform::STATE_UP, m_vUp);
-		m_pNextCameraTransform->Set_State(CTransform::STATE_RIGHT, m_vRight);
-
-		m_vdPos = m_pNextCameraTransform->Get_World_State(CTransform::STATE_POSITION);
-		m_vdPos -= m_vLook * 17.f;
-		m_vdPos += m_vUp * 3.f;
-		
-		m_vdPos -= m_vPos;
-		m_vdPos /= m_fTime;
-		m_vPos += m_vdPos * fTimeDelta;
-		m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vPos);
-
-	}
-	
-	
+	//}
+	//
+#pragma region 수정중
 }
 
 void CCam_Free::LateTick(_float fTimeDelta)
