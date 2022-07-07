@@ -35,14 +35,35 @@ void CCam_Free::Tick(_float fTimeDelta)
 	if (!m_bFlag)
 		return;//안 해주면 Weak_ptr계속 걸림
 
+	m_fTime -= fTimeDelta;
+	
 	if (0.f > m_fTime)
 	{
 		GAMEINSTANCE->Set_Current_Camera(m_NextCameraTag);
 		m_fTime = 0.f;
-		m_bFlag = false;
+		m_bFlag = false; 
+		m_bSwitchPlayer = false;
 		return;
 	}
-	m_fTime -= fTimeDelta;
+
+	_float3 vLook = m_pNextCameraTransform->Get_World_State(CTransform::STATE_LOOK);
+	_float3 vUp = m_pNextCameraTransform->Get_World_State(CTransform::STATE_UP);
+
+	m_vdLook = vLook - m_vLook;
+	m_vdUp = vUp - m_vUp;
+	m_vdRight = m_pNextCameraTransform->Get_World_State(CTransform::STATE_RIGHT) - m_vRight;
+	m_vdPos = m_pNextCameraTransform->Get_World_State(CTransform::STATE_POSITION);
+	if (m_bSwitchPlayer)//이게맞냐
+	{	//플레이어가 바뀔 때 부조건 3인칭으로 가기 때문에 매 프레임마다 3인칭 카메라의 위치로 적용을 해줘야 함(?)
+		m_vdPos -= vLook * 17.f;
+		m_vdPos += vUp * 3.f;
+	}
+	m_vdPos -=  m_vPos;
+
+	m_vdLook /= m_fTime;
+	m_vdUp /= m_fTime;
+	m_vdRight /= m_fTime;
+	m_vdPos /= m_fTime;
 
 	m_vLook += m_vdLook * fTimeDelta;
 	m_vUp+= m_vdUp* fTimeDelta;
@@ -90,6 +111,7 @@ void CCam_Free::Switch_Player(CTransform* _pCurCamera, CTransform* _pNextCamera,
 
 	Make_Route();
 	m_bFlag = true;
+	m_bSwitchPlayer = true;
 }
 
 void CCam_Free::Make_Route()

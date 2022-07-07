@@ -53,6 +53,7 @@ private:
     _float      m_fTime=0.f;
 
     _bool       m_bFlag = false;
+    _bool       m_bSwitchPlayer = false;
   
 
 public:
