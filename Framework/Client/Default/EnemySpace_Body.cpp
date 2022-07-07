@@ -79,6 +79,7 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 	if (m_fTime < 0.f)
 	{
 		m_pTargetingCom->Make_AI_TargetList(GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player")), m_pTransformCom);
+		//Update_Target();
 		m_fTime = 1.f;
 	}
 
@@ -211,6 +212,10 @@ HRESULT CEnemySpace_Body::SetUp_Components()
 	Set_Controller(CONTROLLER::AI);
 
 	return S_OK;
+}
+
+void CEnemySpace_Body::SetUp_Components_For_Child()
+{
 }
 
 void CEnemySpace_Body::Update_Target()
