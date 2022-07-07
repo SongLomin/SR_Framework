@@ -4,7 +4,7 @@
 CCam_Free::CCam_Free(const CCam_Free& Prototype)
 {
 	*this = Prototype;
-	Add_Component<CTransform>();
+
 }
 
 HRESULT CCam_Free::Initialize_Prototype()
@@ -32,7 +32,27 @@ void CCam_Free::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	
+	if (!m_bFlag)
+		return;//안 해주면 Weak_ptr계속 걸림
+
+	if (0.f > m_fTime)
+	{
+		GAMEINSTANCE->Set_Current_Camera(m_NextCameraTag);
+		m_fTime = 0.f;
+		m_bFlag = false;
+		return;
+	}
+	m_fTime -= fTimeDelta;
+
+	m_vLook += m_vdLook * fTimeDelta;
+	m_vUp+= m_vdUp* fTimeDelta;
+	m_vRight+= m_vdRight* fTimeDelta;
+	m_vPos+= m_vdPos* fTimeDelta;
+
+	m_pTransformCom->Set_State(CTransform::STATE_LOOK, m_vLook);
+	m_pTransformCom->Set_State(CTransform::STATE_UP, m_vUp);
+	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, m_vRight);
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vPos);
 
 }
 
@@ -48,7 +68,7 @@ HRESULT CCam_Free::Render()
 	return S_OK;
 }
 
-void CCam_Free::Set_RouteCamera(CCamera* _pCurCamera, _tchar* _NextCameraTag, _float _fTime)
+void CCam_Free::Set_RouteCamera(CCamera* _pCurCamera, const _tchar* _NextCameraTag, _float _fTime)
 {
 	m_NextCameraTag = _NextCameraTag;
 	CCamera* pCamera = GAMEINSTANCE->Get_Camera(_NextCameraTag);
@@ -58,6 +78,18 @@ void CCam_Free::Set_RouteCamera(CCamera* _pCurCamera, _tchar* _NextCameraTag, _f
 	m_fTime = _fTime;
 
 	Make_Route();
+	m_bFlag = true;
+}
+
+void CCam_Free::Switch_Player(CTransform* _pCurCamera, CTransform* _pNextCamera, const _tchar* _NextCameraTag, _float fTime)
+{
+	m_NextCameraTag = _NextCameraTag;
+	m_pCurCameraTransform = _pCurCamera;
+	m_pNextCameraTransform = _pNextCamera;
+	m_fTime = fTime;
+
+	Make_Route();
+	m_bFlag = true;
 }
 
 void CCam_Free::Make_Route()

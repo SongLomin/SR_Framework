@@ -38,12 +38,32 @@ void CCamera_Manager::Add_Shaking(_float _fOffset, _float _fInclination)
 
 
 
-void CCamera_Manager::Switch_Camera(const _tchar* _CameraTag)
+void CCamera_Manager::Switch_Camera(const _tchar* _CameraTag, _float _fTime)
 {
 	if (!m_pFreeCam)
 	{
-		m_pFreeCam = GAMEINSTANCE->Add_GameObject<CCam_Free>()
+		m_pFreeCam = GAMEINSTANCE->Add_GameObject<CCam_Free>(0,TEXT("Camera"));
+		GRAPHICDESC GraphicDesc = GAMEINSTANCE->Get_Graphic_Desc();
+		m_pFreeCam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)GraphicDesc.iWinCX/ GraphicDesc.iWinCY, 0.2f, 900.f);
+		GAMEINSTANCE->Register_Camera(TEXT("Free"), m_pFreeCam->Get_Component<CCamera>());
 	}
+
+	static_cast<CCam_Free*>(m_pFreeCam)->Set_RouteCamera(m_pCurrentCam, _CameraTag, _fTime);
+	Set_Current_Camera(TEXT("Free"));
+}
+
+void CCamera_Manager::Switch_Player(CTransform* _pCurCamera, CTransform* _pNextCamera, const _tchar* _NextCameraTag, _float fTime)
+{
+	if (!m_pFreeCam)
+	{
+		m_pFreeCam = GAMEINSTANCE->Add_GameObject<CCam_Free>(0, TEXT("Camera"));
+		GRAPHICDESC GraphicDesc = GAMEINSTANCE->Get_Graphic_Desc();
+		m_pFreeCam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)GraphicDesc.iWinCX / GraphicDesc.iWinCY, 0.2f, 900.f);
+		GAMEINSTANCE->Register_Camera(TEXT("Free"), m_pFreeCam->Get_Component<CCamera>());
+	}
+
+	static_cast<CCam_Free*>(m_pFreeCam)->Switch_Player(_pCurCamera, _pNextCamera, _NextCameraTag, fTime);
+	Set_Current_Camera(TEXT("Free"));
 }
 
 void CCamera_Manager::Tick(_float fTimeDelta)

@@ -45,7 +45,9 @@ public:
     }
 
 public:
-    void    Switch_Camera(const _tchar* _CameraTag);
+    void    Switch_Camera(const _tchar* _CameraTag, _float _fTime);
+    void    Switch_Player(CTransform* _pCurCamera, CTransform* _pNextCamera, const _tchar* _NextCameraTag, _float fTime);
+
 
 public:
     void Tick(_float fTimeDelta);

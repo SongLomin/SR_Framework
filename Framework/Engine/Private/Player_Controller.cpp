@@ -61,15 +61,15 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 			{
 			case 0:
 
-				GAMEINSTANCE->Set_Current_Camera(TEXT("Free"));
+				GAMEINSTANCE->Switch_Camera(TEXT("Shoulder"),0.1f);
 				break;
 
 			case 1:
-				GAMEINSTANCE->Set_Current_Camera(TEXT("FPS"));
+				GAMEINSTANCE->Switch_Camera(TEXT("FPS"),0.1f);
 				break;
 
 			case 2:
-				GAMEINSTANCE->Set_Current_Camera(TEXT("TPS"));
+				GAMEINSTANCE->Switch_Camera(TEXT("TPS"),0.1f);
 				break;
 
 			/*case 3:

@@ -90,7 +90,7 @@ public: /* Template Function*/
 	T* Add_Component(void* pArg = nullptr)
 	{
 		if (Get_Component<T>() != nullptr)
-			assert(false);
+			assert(false);//넣었던 컴포넌트 또 넣으려고 할 때
 
 		T* temp = CGameInstance::Get_Instance()->Clone_Component<T>(pArg);
 
