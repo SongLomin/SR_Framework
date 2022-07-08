@@ -96,8 +96,9 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("CLight_Moon")))
 		return E_FAIL;
 
-	/*if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
-		return E_FAIL;*/
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
+		return E_FAIL;
+
 
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
 		return E_FAIL;
@@ -297,7 +298,7 @@ void CLevel_SelectPlanet::SelectPlanet_Event(float fTimeDelta)
 	if (m_fTextBoxTime <= 297.f && !m_bEventCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n각 행성 임무를 통해 다양한 장비를 얻어서 \n비행선을 강화하도록 하게."), 0);
 	}
 
 	if (m_fTextBoxTime <= 293.f && !m_bEventCheck[0])

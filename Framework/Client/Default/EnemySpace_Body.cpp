@@ -53,32 +53,10 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 
 	m_fTime -= fTimeDelta;
 
-	/*if (m_fTime < 0.f)
-	{
-		int RandomTarget = rand() % 2;
 
-		if (0 == RandomTarget)
-		{
-			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
-		}
-
-		else
-		{
-			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("AI_Friendly")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
-		}
-		
-		auto TargetList = m_pTargetingCom->Get_Targetting();
-
-		if (!TargetList->empty())
-		{
-			Update_Target(TargetList->begin()->second);
-		}
-
-		m_fTime = 3.f;
-	}*/
 
 	_float3 Speed = m_pRigidBodyCom->Get_Vector(RIGID_BODY::SPEED);
-
+	
 	if (fabs(D3DXVec3Length(&Speed)) > 5.f)
 	{
 		D3DCOLOR color = D3DCOLOR_ARGB(255, 0, 255, 0);
@@ -178,17 +156,7 @@ void CEnemySpace_Body::SetUp_Components_For_Child()
 	Set_Controller(CONTROLLER::AI);
 }
 
-//void CEnemySpace_Body::Update_Target(CGameObject* _Target)
-//{
-//	if (!_Target)
-//		return;
-//
-//	for (auto& elem : m_pPosinList)
-//	{
-//		elem->Set_AI_Target(_Target);
-//	}
-//
-//}
+
 
 void CEnemySpace_Body::On_Change_Controller(const CONTROLLER& _IsAI)
 {
