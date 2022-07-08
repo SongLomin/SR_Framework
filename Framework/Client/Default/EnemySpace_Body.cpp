@@ -35,8 +35,7 @@ HRESULT CEnemySpace_Body::Initialize(void* pArg)
 
 #pragma endregion 초기 위치 설정
 
-	GAMEINSTANCE->Add_GameObject<CTargetingBox>(CURRENT_LEVEL,
-		TEXT("Targeting"), m_pTransformCom)->Set_Enable(false);
+	__super::Initialize(pArg);
 
 	return S_OK;
 }

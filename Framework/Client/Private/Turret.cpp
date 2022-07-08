@@ -165,7 +165,18 @@ void CTurret::Set_AI_Target(CGameObject* _Target)
 
 _bool CTurret::LookAt_Targeting()
 {
-    return _bool();
+    if (!m_pTarget)
+    {
+        return false;
+    }
+
+    m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>(), true);
+
+
+    if (m_pBoxObject)
+        m_pBoxObject->Set_Enable(true);
+
+    return true;
 }
 
 void CTurret::LookAt_Aim()

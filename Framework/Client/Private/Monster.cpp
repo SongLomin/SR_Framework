@@ -6,6 +6,7 @@
 #include "Fire_PSystem.h"
 #include "Smoke_PSystem.h"
 #include "Normal_Turret.h"
+#include <TargetingBox.h>
 
 
 HRESULT CMonster::Initialize_Prototype()
@@ -15,6 +16,10 @@ HRESULT CMonster::Initialize_Prototype()
 
 HRESULT CMonster::Initialize(void* pArg)
 {
+
+	GAMEINSTANCE->Add_GameObject<CTargetingBox>(CURRENT_LEVEL,
+		TEXT("Targeting"), m_pTransformCom)->Set_Enable(false);
+
 	return S_OK;
 }
 
