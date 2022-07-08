@@ -135,7 +135,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_REDPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
-	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_REDPLANET, TEXT("Particle")))->AddParticle(500);
+	//((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_REDPLANET, TEXT("Particle")))->AddParticle(500);
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_REDPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);
@@ -163,10 +163,9 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	
 	m_fSpawnTime -= fTimeDelta;
 
-	if (m_fSpawnTime < 0.f && m_bSpawnCheck)
+	if (m_fSpawnTime < 0.f)
 	{
-		if (m_bSpawnCheck)
-		{
+		
 			CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body"))->Get_Component<CTransform>();
 			_float3 SpawnPos{ 0, 0.f, 300.f };
 
@@ -177,15 +176,10 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 			RotateY = D3DXToRadian(RotateY);
 			RotateZ = D3DXToRadian(RotateZ);
 
-
 			SpawnPos = CMath_Utillity::Rotate_Vec3(_float3(RotateX, RotateY, RotateZ), SpawnPos);
-
 			pEnemyTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
 
-			m_iEnemyCount++;
-		}
-		
-		m_fSpawnTime = 3.f;
+		     m_fSpawnTime = 3.f;
 	}
 
 
@@ -380,13 +374,13 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 		m_fTextBoxTime = 300;
 	}
 
-	if (m_iEnemyCount <= 295 && !m_bEventCheck[6] && !m_bSpawnCheck)
+	if (m_iEnemyCount <= 295 && !m_bEventCheck[6] && !m_bSpawnCheck && m_bEventCheck[9])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("°í»ýÇß³×! \n ¿À´Ã¹ãÀº ¸¾ ÆíÈ÷ ¹ß Âß»¸°í ÀÚ°Ú±¸¸¸! \n ¸¾ ÆíÈ÷ º¹±ÍÇÏµµ·Ï ÇÏ°Ô³ª! "), 0);
 	}
 
-	if (m_iEnemyCount <= 290 && !m_bEventCheck[6] && !m_bSpawnCheck)
+	if (m_iEnemyCount <= 290 && !m_bEventCheck[6] && !m_bSpawnCheck && m_bEventCheck[9])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[6] = true;
