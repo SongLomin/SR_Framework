@@ -223,6 +223,9 @@
     <Filter Include="02.GameObject\10. ParticleSystem\06. Rocket_PSystem">
       <UniqueIdentifier>{d0f69e45-d9dc-4124-8b5d-9cb34c25c423}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\09. Box\SkyBox\Select">
+      <UniqueIdentifier>{62d1b17e-3344-490a-832b-d7d040fb0dc4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -332,9 +335,6 @@
     </ClInclude>
     <ClInclude Include="..\Public\Planet_Venus.h">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
-    </ClInclude>
-    <ClInclude Include="SelectPlanet_SkyBox.h">
-      <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Lazer_Bullet.h">
       <Filter>02.GameObject\03. Bullet\Lazer</Filter>
@@ -458,6 +458,9 @@
     <ClInclude Include="..\Public\Rocket_PSystem.h">
       <Filter>02.GameObject\10. ParticleSystem\06. Rocket_PSystem</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\SelectPlanet_SkyBox.h">
+      <Filter>02.GameObject\09. Box\SkyBox\Select</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -555,9 +558,6 @@
     </ClCompile>
     <ClCompile Include="..\Private\Planet_Venus.cpp">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
-    </ClCompile>
-    <ClCompile Include="SelectPlanet_SkyBox.cpp">
-      <Filter>02.GameObject\09. Box\SkyBox</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Lazer_Bullet.cpp">
       <Filter>02.GameObject\03. Bullet\Lazer</Filter>
@@ -686,6 +686,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Rocket_PSystem.cpp">
       <Filter>02.GameObject\10. ParticleSystem\06. Rocket_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\SelectPlanet_SkyBox.cpp">
+      <Filter>02.GameObject\09. Box\SkyBox\Select</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

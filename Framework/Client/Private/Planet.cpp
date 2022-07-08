@@ -77,7 +77,7 @@ void CPlanet::Tick(_float fTimeDelta)
         GAMEINSTANCE->Add_Text(m_lPontPos, m_szPontText, 0);
 
          // 충돌하고 키 입력시
-        if (KEY_INPUT(KEY::F, KEY_STATE::HOLD) && !m_bLevelChange)
+        if (KEY_INPUT(KEY::F, KEY_STATE::TAP) && !m_bLevelChange)
         {
 
             GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this, m_eMyLevel);

@@ -148,7 +148,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../Public/;../../Reference/Headers/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Public/;../Default/;../../Reference/Headers/</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -201,6 +201,7 @@
     <ClInclude Include="..\Public\Player.h" />
     <ClInclude Include="..\Public\Rocket_PSystem.h" />
     <ClInclude Include="..\Public\Rocket_Turret.h" />
+    <ClInclude Include="..\Public\SelectPlanet_SkyBox.h" />
     <ClInclude Include="..\Public\Shin_Ship_Body.h" />
     <ClInclude Include="..\Public\Smoke_PSystem.h" />
     <ClInclude Include="..\public\Song_Ship_Body.h" />
@@ -238,7 +239,6 @@
     <ClInclude Include="EnemySpace_Body.h" />
     <ClInclude Include="Logo.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="SelectPlanet_SkyBox.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -277,6 +277,7 @@
     <ClCompile Include="..\Private\Player.cpp" />
     <ClCompile Include="..\Private\Rocket_PSystem.cpp" />
     <ClCompile Include="..\Private\Rocket_Turret.cpp" />
+    <ClCompile Include="..\Private\SelectPlanet_SkyBox.cpp" />
     <ClCompile Include="..\Private\Shin_Ship_Body.cpp" />
     <ClCompile Include="..\Private\Smoke_PSystem.cpp" />
     <ClCompile Include="..\private\Song_Ship_Body.cpp" />
@@ -312,7 +313,6 @@
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="EnemySpace_Body.cpp" />
     <ClCompile Include="Logo.cpp" />
-    <ClCompile Include="SelectPlanet_SkyBox.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
