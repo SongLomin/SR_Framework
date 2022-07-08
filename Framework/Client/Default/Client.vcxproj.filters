@@ -220,6 +220,9 @@
     <Filter Include="02.GameObject\01. Turret\Rocket">
       <UniqueIdentifier>{62998e02-2f42-447e-b785-1c8d493890f8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem\06. Rocket_PSystem">
+      <UniqueIdentifier>{d0f69e45-d9dc-4124-8b5d-9cb34c25c423}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -452,6 +455,9 @@
     <ClInclude Include="..\Public\Rocket_Turret.h">
       <Filter>02.GameObject\01. Turret\Rocket</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Rocket_PSystem.h">
+      <Filter>02.GameObject\10. ParticleSystem\06. Rocket_PSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -677,6 +683,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Rocket_Turret.cpp">
       <Filter>02.GameObject\01. Turret\Rocket</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rocket_PSystem.cpp">
+      <Filter>02.GameObject\10. ParticleSystem\06. Rocket_PSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

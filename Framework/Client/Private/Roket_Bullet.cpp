@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Roket_Bullet.h"
 #include "GameInstance.h"
+#include "Rocket_PSystem.h"
 
 
 
@@ -161,6 +162,7 @@ void CRocket_Bullet::Find_Way()
 		}
 	}
 
+	((CRocket_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CRocket_PSystem>(CURRENT_LEVEL, TEXT("Rocket_Particle")))->AddParticle(5, m_pTransformCom);
 	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 }
 
