@@ -31,6 +31,7 @@
 #include "Dive.h"
 #include "Monster.h"
 
+
 _bool CLevel_SelectPlanet::m_bFirst = false;
 
 CLevel_SelectPlanet::CLevel_SelectPlanet()
@@ -41,7 +42,6 @@ HRESULT CLevel_SelectPlanet::Initialize()
 {
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
-
 	
 	if (!m_bFirst)
 	{
@@ -68,7 +68,6 @@ HRESULT CLevel_SelectPlanet::Initialize()
 
 	m_bFirst = true;
 	
-
 	
 	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
 		return E_FAIL;
@@ -114,13 +113,15 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	m_pTextBoxObject->Set_Enable(false);
 
 
+
+
 	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest"));
 	m_pQuestBoxObject->Set_Enable(false);
 
 
 
 
-	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(500);
+	//((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(500);
 
 
 	// 青己 2俺 罚待 积己

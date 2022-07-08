@@ -358,7 +358,14 @@ namespace Engine
 		ATTACK_HOLD, //정해진 시간동안 계속 Fire를 호출
 		STATE_END
 	};
-
+	enum class MOVE_UI_DIR
+	{
+		MOVE_UI_RIGHT = 0,
+		MOVE_UI_LEFT,
+		MOVE_UI_UP,
+		MOVE_UI_DOWN,
+		MOVE_UI_END
+	};
 }
 
 

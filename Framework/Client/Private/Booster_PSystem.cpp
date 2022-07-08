@@ -150,7 +150,7 @@ void CBooster_PSystem::ResetParticle(ParticleDesc* Desc)
 
 
 	//m_size = (_float)((rand() % 5 + 10) * 0.01f);
-	m_size = 2.f;
+	m_size = 1.f;
 
 
 	Desc->position.x = 0.f;

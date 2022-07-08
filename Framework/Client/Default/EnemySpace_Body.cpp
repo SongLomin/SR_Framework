@@ -83,7 +83,7 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 	if (fabs(D3DXVec3Length(&Speed)) > 5.f)
 	{
 		D3DCOLOR color = D3DCOLOR_ARGB(255, 0, 255, 0);
-		((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(10, m_pTransformCom, color);
+		((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(10 * fTimeDelta, m_pTransformCom, color);
 	}
 
 

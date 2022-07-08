@@ -18,16 +18,11 @@ private:
 public:
 	virtual HRESULT Initialize(void* pArg) override;
 
-//private:
-//	HRESULT SetUp_Components();
-//	void LookAtCamera();
-//	void Enter_Planet();
 
 protected:
 	virtual void SetUp_Components_For_Child();
 
 private:
-	_bool m_bLevelChange = false;
 	CGameObject* m_pDiveUi = nullptr;
 	
 
