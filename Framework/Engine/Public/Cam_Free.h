@@ -28,7 +28,8 @@ public:
     void    Switch_Player(CTransform* _pCurCamera, CTransform* _pNextCamera, const _tchar* _NextCameraTag, _float fTime);
     //바꾼 후에는 무조건 3인칭으로
 private:
-    void    Make_Route();
+    void    Make_Route();//시점 전환용
+    void    Switching();
 
 private:
     CTransform* m_pTransformCom = nullptr;

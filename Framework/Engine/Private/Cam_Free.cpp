@@ -74,52 +74,6 @@ void CCam_Free::Tick(_float fTimeDelta)
 	m_pTransformCom->Set_State(CTransform::STATE_UP, m_vUp);
 	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, m_vRight);
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vPos);
-#pragma region 수정중
-	//if (!m_bSwitchPlayer)
-	//{
-	//	_float3 vLook = m_pNextCameraTransform->Get_World_State(CTransform::STATE_LOOK);
-	//	_float3 vUp = m_pNextCameraTransform->Get_World_State(CTransform::STATE_UP);
-
-	//	m_vdLook = vLook - m_vLook;
-	//	m_vdUp = vUp - m_vUp;
-	//	m_vdRight = m_pNextCameraTransform->Get_World_State(CTransform::STATE_RIGHT) - m_vRight;
-	//	m_vdPos = m_pNextCameraTransform->Get_World_State(CTransform::STATE_POSITION);
-	//	 
-	//	m_vdPos -= m_vPos;
-
-	//	m_vdLook /= m_fTime;
-	//	m_vdUp /= m_fTime;
-	//	m_vdRight /= m_fTime;
-	//	m_vdPos /= m_fTime;
-
-	//	m_vLook += m_vdLook * fTimeDelta;
-	//	m_vUp += m_vdUp * fTimeDelta;
-	//	m_vRight += m_vdRight * fTimeDelta;
-	//	m_vPos += m_vdPos * fTimeDelta;
-
-	//	m_pTransformCom->Set_State(CTransform::STATE_LOOK, m_vLook);
-	//	m_pTransformCom->Set_State(CTransform::STATE_UP, m_vUp);
-	//	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, m_vRight);
-	//	m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vPos);
-	//}
-	//else
-	//{
-	//	m_pNextCameraTransform->Set_State(CTransform::STATE_LOOK, m_vLook);
-	//	m_pNextCameraTransform->Set_State(CTransform::STATE_UP, m_vUp);
-	//	m_pNextCameraTransform->Set_State(CTransform::STATE_RIGHT, m_vRight);
-
-	//	m_vdPos = m_pNextCameraTransform->Get_World_State(CTransform::STATE_POSITION);
-	//	m_vdPos -= m_vLook * 17.f;
-	//	m_vdPos += m_vUp * 3.f;
-	//	
-	//	m_vdPos -= m_vPos;
-	//	m_vdPos /= m_fTime;
-	//	m_vPos += m_vdPos * fTimeDelta;
-	//	m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vPos);
-
-	//}
-	//
-#pragma region 수정중
 }
 
 void CCam_Free::LateTick(_float fTimeDelta)
@@ -168,17 +122,12 @@ void CCam_Free::Make_Route()
 		m_vRight = m_pCurCameraTransform->Get_World_State(CTransform::STATE_RIGHT);
 		m_vPos =  m_pCurCameraTransform->Get_World_State(CTransform::STATE_POSITION);
 
-		m_vdLook	 = m_pNextCameraTransform->Get_World_State(CTransform::STATE_LOOK) - m_vLook;
-		m_vdUp	 = m_pNextCameraTransform->Get_World_State(CTransform::STATE_UP) - m_vUp;
-		m_vdRight = m_pNextCameraTransform->Get_World_State(CTransform::STATE_RIGHT) - m_vRight;
-		m_vdPos	 = m_pNextCameraTransform->Get_World_State(CTransform::STATE_POSITION) - m_vPos;
-
-		m_vdLook /= m_fTime;
-		m_vdUp/= m_fTime;
-		m_vdRight/= m_fTime;
-		m_vdPos /= m_fTime;
-
+	
 	}
+}
+
+void CCam_Free::Switching()
+{
 }
 
 CCam_Free* CCam_Free::Create()

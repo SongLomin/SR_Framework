@@ -115,9 +115,9 @@ void CPlayer::On_Change_Controller(const CONTROLLER& _IsAI)
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
 		if (pCurCameraTransform)
 		{
-			//CTransform* pNextCameraTransform = GAMEINSTANCE->Get_Camera(TEXT("TPS"))->Get_Transform();
+			GAMEINSTANCE->Get_Camera()->Get_Transform();
 
-			GAMEINSTANCE->Switch_Player(pCurCameraTransform, m_pTransformCom, TEXT("TPS"), 1.f);
+			GAMEINSTANCE->Switch_Player(pCurCameraTransform, GAMEINSTANCE->Get_Camera()->Get_Transform(), TEXT("TPS"), 1.f);
 		}
 		list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 
