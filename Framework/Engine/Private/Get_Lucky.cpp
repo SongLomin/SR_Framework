@@ -6,7 +6,7 @@ IMPLEMENT_SINGLETON(Get_Lucky)
 void Get_Lucky::Team_EverSpace()
 {
 	//파싱할 x파일 경로 수정
-	D3DXLoadMeshFromX(TEXT("../Bin/Resources/Textures/Terrain/StarShip.x"), D3DXMESH_MANAGED,
+	D3DXLoadMeshFromX(TEXT("../Bin/Resources/Textures/Terrain/Ship_1.x"), D3DXMESH_MANAGED,
 		DEVICE, &m_pAdj, &m_pMtrl, &m_pEffectInstances,
 		&m_iNumMtrl, &m_pMesh);
 

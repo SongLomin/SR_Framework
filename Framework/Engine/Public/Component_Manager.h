@@ -34,6 +34,7 @@
 #include "Mesh_ShinShip.h"
 #include "Mesh_Canon.h"
 #include "Mesh_HongShip.h"
+#include "Mesh_Ship1.h"
 
 
 BEGIN(Engine)
