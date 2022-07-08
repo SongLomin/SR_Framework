@@ -63,7 +63,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CShin_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
 		return E_FAIL;*/
 
-	for (int i = 0; i < 40; ++i)
+	for (int i = 0; i < 20; ++i)
 	{
 		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body"))->Get_Component<CTransform>();
 
@@ -81,7 +81,6 @@ HRESULT CLevel_RedPlanet::Initialize()
 
 		pEnemyTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
 
-		m_iEnemyCount++;
 	}
 
 	if (!GAMEINSTANCE->Add_GameObject<CAI_TransportShip>(LEVEL_REDPLANET, TEXT("TransportShip")))
@@ -257,7 +256,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[1])
 	{
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("뭔가 빨갛고 기분이 나쁜 행성이구만."), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("주변에 무언가 다가오는것 같은데?."), 0);
 	}
 
 	if (m_fTextBoxTime <= 287.f && !m_bEventCheck[1])
@@ -372,8 +371,8 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	}
 
 
-	// 적군 카운트 0될시 퀘스트박스 소멸, 폰트 소멸
-	if (m_iEnemyCount <= 3 && !m_bEventCheck[9])
+	// (화물호위? 조건) 퀘스트박스 소멸, 폰트 소멸
+	if (m_fTextBoxTime <= 100 && !m_bEventCheck[9])
 	{
 		m_pQuestBoxObject->Set_Enable(false);
 		m_bEventCheck[9] = true;
