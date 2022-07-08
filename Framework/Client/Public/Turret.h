@@ -31,8 +31,8 @@ private:
 
 private:
     CGameObject* m_pBoxObject = nullptr;
+protected:
     CGameObject* m_pTarget = nullptr;//Rocket bullet을 만들 때 넘겨주기
-
     
 private:
     _float	 m_fCurTime = 0.f;

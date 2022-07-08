@@ -37,6 +37,7 @@ void CRocket_Turret::Command_Fire()
 {
 	CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CRocket_Bullet>(CURRENT_LEVEL, TEXT("Rocket_Bullet"), nullptr, &m_eBulletCollisionType);
 	static_cast<CBullet*>(Bullet)->Init_BulletPosition(&Get_Component<CTransform>()->Get_WorldMatrix());
+	static_cast<CRocket_Bullet*>(Bullet)->Set_Target(m_pTarget);
 	if (Get_Controller() == CONTROLLER::PLAYER)
 	{
 		GAMEINSTANCE->Add_Shaking(0.1f, 0.05f);

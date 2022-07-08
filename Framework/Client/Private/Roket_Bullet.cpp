@@ -106,7 +106,7 @@ void CRocket_Bullet::Find_Way()
 
 	else if(9.f > m_fLifeTime)
 	{
-		if (nullptr == m_pTarget || m_pTarget->Get_Dead())
+		/*if (nullptr == m_pTarget || m_pTarget->Get_Dead())
 		{
 
 			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 50.f);
@@ -115,11 +115,19 @@ void CRocket_Bullet::Find_Way()
 			{
 				m_pTarget = pMap->begin()->second;
 			}
-		}
+		}*/
 		if (m_pTarget)
 		{
-			_float fDistance = D3DXVec3Length(&(m_pTransformCom->Get_World_State(CTransform::STATE_POSITION) - m_pTarget->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION)));
-			if (40.f > fDistance)
+			_float3 fDistance = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+			
+			_float3 TargetPos =  m_pTarget->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
+
+			fDistance -= TargetPos;
+
+			_float test = D3DXVec3Length(&fDistance);
+			
+			int i = 10;
+			if (40.f > test)
 			{
 				m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>());
 				m_pTransformCom->Go_BackAndForth(1.f, 0.5f);
@@ -168,6 +176,11 @@ void CRocket_Bullet::Find_Way()
 
 void CRocket_Bullet::Set_Target(CGameObject* _pTarget)
 {
+	if (m_pTarget)
+	{
+		RETURN_WEAKPTR(m_pTarget);
+		m_pTarget = nullptr;
+	}
 	if (_pTarget)
 	{
 		m_pTarget = _pTarget;
