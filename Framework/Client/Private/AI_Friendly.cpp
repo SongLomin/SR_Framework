@@ -60,7 +60,11 @@ void CAI_Friendly::LateTick(_float fTimeDelta)
 	}
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
+
+	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+
+	if (GAMEINSTANCE->IsIn(&vPos))
+		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
 }
 
 HRESULT CAI_Friendly::Render_Begin(ID3DXEffect** Shader)
@@ -189,18 +193,11 @@ HRESULT CAI_Friendly::SetUp_Components()
 #pragma region Collider Setting
 
 
-	m_pPreColliderCom = Add_Component<CCollider_Pre>();
-	WEAK_PTR(m_pPreColliderCom);
-	m_pPreColliderCom->Link_Transform(m_pTransformCom);
-	//구체라서 x만 받는다.
-	m_pPreColliderCom->Set_Collider_Size(_float3(4.5f, 0.f, 0.f));
-
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER;
 	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
 	m_pColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
-	m_pColliderCom->Link_Pre_Collider(m_pPreColliderCom);
 
 
 #pragma endregion Collider Setting
@@ -247,69 +244,6 @@ void CAI_Friendly::Update_PosinTarget(CGameObject* _Target)
 	{
 		elem->Set_AI_Target(_Target);
 	}
-
-	//map<_float, CGameObject*>* TargetList = m_pTargetingCom->Get_Targetting();
-	//
-	//if (TargetList->empty())
-	//{
-	//	for (auto iter = m_pMyPosinList.begin(); iter != m_pMyPosinList.end();)
-	//	{
-	//		if (!(*iter))
-	//		{
-	//			iter = m_pMyPosinList.erase(iter);
-	//			continue;
-	//		}
-
-	//		(*iter)->Set_Player_Target(nullptr);
-	//		iter++;
-	//	}
-
-	//	return;
-	//}
-
-	//vector<CGameObject*> TargetVec;
-
-	//for (auto& elem : *TargetList)
-	//{
-	//	TargetVec.push_back(elem.second);
-	//}
-
-	////멀티 타겟 모드
-	//if (m_bTargetMode)
-	//{
-	//	_uint Index = 0;
-
-	//	for (auto iter = m_pMyPosinList.begin(); iter != m_pMyPosinList.end();)
-	//	{
-	//		if (!(*iter))
-	//		{
-	//			iter = m_pMyPosinList.erase(iter);
-	//			continue;
-	//		}
-
-	//		(*iter)->Set_Player_Target(TargetVec[Index % TargetVec.size()]->Get_Component<CTransform>());
-	//		Index++;
-	//		iter++;
-	//	}
-	//}
-
-	////싱글 타겟 모드
-	//else
-	//{
-	//	for (auto iter = m_pMyPosinList.begin(); iter != m_pMyPosinList.end();)
-	//	{
-	//		if (!(*iter))
-	//		{
-	//			iter = m_pMyPosinList.erase(iter);
-	//			continue;
-	//		}
-
-	//		(*iter)->Set_Player_Target(TargetVec.front()->Get_Component<CTransform>());
-
-	//		iter++;
-	//	}
-
-	//}
 }
 
 CAI_Friendly* CAI_Friendly::Create()

@@ -14,8 +14,8 @@ void CBullet::Tick(_float fTimeDelta)
 
 	if (m_fLifeTime < 0.f)
 	{
-		Set_Dead();
-		//Set_Enable(false);
+		//Set_Dead();
+		Set_Enable(false);
 	}
 }
 
@@ -55,6 +55,22 @@ void CBullet::Init_BulletPosition(_float4x4* _pWorldMat)
 {
 	//총알의 로컬 행렬은 부모가 없기 때문에 월드 행렬이 된다.
 	m_pTransformCom->Set_LocalMatrix(*_pWorldMat);
+}
+
+void CBullet::OnEnable(void* _Arg)
+{
+	D3DXMATRIX IdentityMat;
+	D3DXMatrixIdentity(&IdentityMat);
+
+	m_fLifeTime = 1.f;
+	m_pTransformCom->Set_LocalMatrix(IdentityMat);
+	m_pRigidBodyCom->SetUp_Origin_DirVector();
+	m_pRigidBodyCom->Reset_Force();
+}
+
+void CBullet::OnDisable()
+{
+
 }
 
 

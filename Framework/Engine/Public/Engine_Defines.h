@@ -23,6 +23,7 @@
 #include <tchar.h>
 #include <assert.h>
 #include <fstream>
+#include <string>
 
 
 #include "Engine_Typedef.h"

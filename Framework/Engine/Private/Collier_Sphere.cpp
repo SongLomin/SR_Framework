@@ -13,10 +13,9 @@ HRESULT CCollider_Sphere::Initialize_Prototype()
 
 HRESULT CCollider_Sphere::Initialize(void* pArg)
 {
+	
+	m_iID = ++g_iNextID;
 	m_eCollision_Type = *(COLLISION_TYPE*)pArg;
-	m_iID = g_iNextID++;
-
-	GAMEINSTANCE->Add_Collider(this);
 
 	return S_OK;
 }

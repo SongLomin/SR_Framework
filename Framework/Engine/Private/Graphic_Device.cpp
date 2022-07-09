@@ -149,6 +149,8 @@ void CGraphic_Device::Render_End(HWND hWnd)
 
 	if (!m_Text.empty())
 	{
+		_float fTextDeltaTime = GAMEINSTANCE->Compute_Timer(99);
+
 		for (auto& iter : m_Text)
 		{
 			if (iter->Get_CountTime() < 0.f) // 시간만큼 돌았단 소리
@@ -159,7 +161,7 @@ void CGraphic_Device::Render_End(HWND hWnd)
 			{
 				m_pFont->DrawText(m_pSprite, iter->Get_Font().szBuff, -1, &iter->Get_Font().rcTemp, 0,
 					iter->Get_Font().color);//0xFFFF0000);
-				iter->Minus_CountTime(GAMEINSTANCE->Compute_Timer(99));
+				iter->Minus_CountTime(fTextDeltaTime);
 			}
 
 		}

@@ -420,6 +420,11 @@ void CGameInstance::Add_Collider(CCollider* pCollider)
 
 }
 
+void CGameInstance::Erase_Collider(CCollider* pCollider)
+{
+	m_pCollision_Manager->Erase_Collider(pCollider);
+}
+
 _bool CGameInstance::IsIn(D3DXVECTOR3* pv)
 {
 	return m_pZFrustum->IsIn(pv);

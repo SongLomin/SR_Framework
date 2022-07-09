@@ -121,7 +121,10 @@ public:
 	void		Add_Force(_float3 fDir);
 	
 	void		Update_Transform(_float fTimeDelta);
+	void		SetUp_Origin_DirVector();
 	void		Set_DirVector();
+
+	void		Reset_Force();
 
 	_float3		Get_Vector(RIGID_BODY	eType);
 	RIGIDBODYDESC Get_RigidDesc()

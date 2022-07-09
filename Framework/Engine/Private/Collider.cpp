@@ -29,6 +29,18 @@ CCollider_Pre* CCollider::Get_Pre_Collider() const
     return m_pPreCollider;
 }
 
+void CCollider::OnEnable(void* _Arg)
+{
+    m_eCollision_Type = *(COLLISION_TYPE*)_Arg;
+    GAMEINSTANCE->Add_Collider(this);
+}
+
+void CCollider::OnDisable()
+{
+    GAMEINSTANCE->Erase_Collider(this);
+}
+
+
 void CCollider::Free()
 {
     __super::Free();

@@ -66,6 +66,8 @@ protected:
 	virtual void SetUp_Components_For_Child() PURE;
 	virtual void Update_PosinTarget(TARGETMODE _TargetMode);
 
+	void Change_Player();
+
 public:
 	virtual void Free() override;
 };

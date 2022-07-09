@@ -220,6 +220,30 @@ void CTargeting::Add_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _v
 	}
 }
 
+CGameObject* CTargeting::Get_Nearest_Target_Distance(list<CGameObject*>* pTarget, _float3 _vPosition, _float _fRange)
+{
+	Clear_Targeting();
+
+	if (!pTarget)
+		return nullptr;
+
+	for (auto iter = pTarget->begin();
+		iter != pTarget->end();
+		++iter)
+	{
+		_float3 vTargetPos = (*iter)->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
+
+		_float fDistance = D3DXVec3Length(&(vTargetPos - _vPosition));
+		if (_fRange > fDistance)
+		{
+			m_pTargeting.emplace(fDistance, (*iter));
+			(*iter)->Set_WeakPtr(&m_pTargeting[fDistance]);
+		}
+	}
+
+	return nullptr;
+}
+
 bool CTargeting::IsTargetEmpty()
 {
 	for (auto& iter = m_pTargeting.begin(); iter != m_pTargeting.end();)

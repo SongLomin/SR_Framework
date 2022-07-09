@@ -35,7 +35,7 @@ HRESULT CNormal_Turret::Initialize(void* pArg)
 
 void CNormal_Turret::Command_Fire()
 {
-	CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &m_eBulletCollisionType);
+	CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CNormal_Bullet>(CURRENT_LEVEL, TEXT("Normal_Bullet"), nullptr, &m_eBulletCollisionType, true);
 	static_cast<CBullet*>(Bullet)->Init_BulletPosition(&Get_Component<CTransform>()->Get_WorldMatrix());
 	if (Get_Controller() == CONTROLLER::PLAYER)
 	{

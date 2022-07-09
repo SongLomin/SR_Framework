@@ -116,17 +116,26 @@ void CCollision_Manager::CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_T
 				
 
 			COLLIDER_ID ID;
+			ID.ID = 0;
 			ID.Left_id = (*LeftIter)->Get_ID();		// 4바이트
 			ID.Right_id = (*RightIter)->Get_ID();		// 4바이트
 			//합쳐서 나온 8바이트는 절대 안겹침.
+			/*string id_to_string = to_string(ID.Left_id) + to_string(ID.Right_id);
 
-			iter = m_mapColInfo.find(ID.ID);
+			ID.ID = stoll(id_to_string.c_str());*/
+
+			_ulonglong Byte8ID;
+
+			Byte8ID = (_ulonglong)ID.Left_id * 100000;
+			Byte8ID += ID.Right_id;
+
+			iter = m_mapColInfo.find(Byte8ID);
 
 			//충돌 정보가 아예 미등록 상태인 경우
 			if (m_mapColInfo.end() == iter)
 			{
-				m_mapColInfo.insert(make_pair(ID.ID, false)); // 아예 등록조차 안되있던 상황이므로 맵에 추가
-				iter = m_mapColInfo.find(ID.ID); // 넣은 값 다시 이터로 받고
+				m_mapColInfo.insert(make_pair(Byte8ID, false)); // 아예 등록조차 안되있던 상황이므로 맵에 추가
+				iter = m_mapColInfo.find(Byte8ID); // 넣은 값 다시 이터로 받고
 			}
 
 			//진짜 충돌 검사
@@ -140,6 +149,7 @@ void CCollision_Manager::CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_T
 						(*LeftIter)->Get_Owner()->On_Collision_Exit((*RightIter));
 						(*RightIter)->Get_Owner()->On_Collision_Exit((*LeftIter));
 						iter->second = false;
+						//m_mapColInfo.erase(iter);
 					}
 					else
 					{
@@ -159,6 +169,10 @@ void CCollision_Manager::CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_T
 						iter->second = true;
 
 					}
+					else
+					{
+						//m_mapColInfo.erase(iter);
+					}
 				}
 			}
 			else // 현재 충돌중이지 않음
@@ -168,7 +182,7 @@ void CCollision_Manager::CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_T
 					(*LeftIter)->Get_Owner()->On_Collision_Exit((*RightIter));
 					(*RightIter)->Get_Owner()->On_Collision_Exit((*LeftIter));
 					iter->second = false;
-
+					//m_mapColInfo.erase(iter);
 				}
 			}
 

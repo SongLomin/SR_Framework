@@ -55,9 +55,20 @@ void CCam_TPS::Tick(_float fTimeDelta)
 		}
 
 	}
+
+	_float fMovement = 10.f * fRatio;
+
+	/*m_fCurLerpTime -= fTimeDelta;
+
+	if(m_fCurLerpTime < 0.f)
+	{
+		m_fMovement = CMath_Utillity::fLerp(m_fMovement, fMovement, 0.1f);
+		m_fCurLerpTime = m_fLerpFreq;
+	}
+	*/
 	
 
-	vPos -= vLook*(15.f + 10.f*fRatio);
+	vPos -= vLook*(15.f + fMovement);
 	vPos += vUp*3.f;
 
 	D3DXVec3Cross(&vRight, &vUp, &vLook);

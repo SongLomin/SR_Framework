@@ -211,7 +211,7 @@ void CAI_TransportShip::Spawn_SpaceShip()
 	CAI_Controller* pController_Friendly = pAI_Friendly->Get_Component<CAI_Controller>();
 
 	//pController_Friendly->Push_Front_Command(STATE::MOVE_LIFT_FRONT);
-	pController_Friendly->Push_Front_Command(STATE::MOVE_FORWARD, 6.f);
+	pController_Friendly->Push_Front_Command(STATE::MOVE_FORWARD, 3.f);
 
 	
 

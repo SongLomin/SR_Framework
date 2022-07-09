@@ -36,7 +36,7 @@ void CRocket_Bullet::Tick(_float fTimeDelta)
 	__super::Tick(fTimeDelta);
 
 	//불빛이 미사일 뒤로 나감
-	Find_Way();
+	Find_Way(fTimeDelta);
 
 	_float3 Light_Look_Dir = -m_pTransformCom->Get_State(CTransform::STATE_LOOK, true);
 	D3DXVec3Normalize(&Light_Look_Dir, &Light_Look_Dir);
@@ -90,7 +90,7 @@ HRESULT CRocket_Bullet::Render()
 	return S_OK;
 }
 
-void CRocket_Bullet::Find_Way()
+void CRocket_Bullet::Find_Way(_float fTimeDelta)
 {
 	if (m_fLifeTime < 0.f)
 		return;
@@ -170,7 +170,7 @@ void CRocket_Bullet::Find_Way()
 		}
 	}
 
-	((CRocket_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CRocket_PSystem>(CURRENT_LEVEL, TEXT("Rocket_Particle")))->AddParticle(5, m_pTransformCom);
+	((CRocket_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CRocket_PSystem>(CURRENT_LEVEL, TEXT("Rocket_Particle")))->AddParticle(5 * fTimeDelta, m_pTransformCom);
 	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 }
 

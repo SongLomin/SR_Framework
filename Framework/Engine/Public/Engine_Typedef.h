@@ -14,6 +14,9 @@ namespace Engine
 	typedef unsigned long				_ulong;
 	typedef signed long					_long;
 
+	typedef unsigned long long			_ulonglong;
+	typedef signed long long			_longlong;
+
 	typedef float						_float;
 	typedef double						_double;
 
