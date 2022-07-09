@@ -32,6 +32,8 @@
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
 #include <SelectPlanet_SkyBox.h>
+#include "TextBox.h"
+#include "Quest.h"
 
 CLevel_VenusPlanet::CLevel_VenusPlanet()
 {
@@ -73,6 +75,14 @@ HRESULT CLevel_VenusPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_VENUSPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_REDPLANET, TEXT("Aim")))
+		return E_FAIL;
+
+	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_REDPLANET, TEXT("TextBox_Yang"));
+	m_pTextBoxObject->Set_Enable(false);
+
+	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_REDPLANET, TEXT("Quest"));
+	m_pQuestBoxObject->Set_Enable(false);
 
 
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
@@ -86,7 +96,7 @@ void CLevel_VenusPlanet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);		
 
-
+	VenusPlanet_Event(fTimeDelta);
 }
 
 HRESULT CLevel_VenusPlanet::Render()
@@ -98,6 +108,32 @@ HRESULT CLevel_VenusPlanet::Render()
 	SetWindowText(g_hWnd, TEXT("Venus Planet 레벨입니다. "));
 
 	return S_OK;
+}
+
+void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
+{
+	m_fTextBoxTime -= fTimeDelta;
+
+
+	if (m_fTextBoxTime <= 298.f && !m_bEventCheck[0])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("자네가 요번에 들어온 신입 파일럿인가? \n 어리버리 하게 생긴게 마음에 안들군. "), 0);
+	}
+
+	if (m_fTextBoxTime <= 295.f && !m_bEventCheck[0])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[0] = true;
+	}
+
+	if (m_fTextBoxTime <= 283.f && !m_bEventCheck[1])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이동키와 마우스를 이용해 \n 앞에보이는 체크포인트까지 이동해봐."), 0);
+	}
+	 
+
 }
 
 CLevel_VenusPlanet* CLevel_VenusPlanet::Create()
