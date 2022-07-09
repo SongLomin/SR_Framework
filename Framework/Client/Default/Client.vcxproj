@@ -235,6 +235,7 @@
     <ClInclude Include="..\Public\Turret.h" />
     <ClInclude Include="..\Public\UI.h" />
     <ClInclude Include="..\Public\UITest.h" />
+    <ClInclude Include="..\Public\VenusPlanet_SkyBox.h" />
     <ClInclude Include="..\Public\Warring.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="EnemySpace_Body.h" />
@@ -311,6 +312,7 @@
     <ClCompile Include="..\Private\Turret.cpp" />
     <ClCompile Include="..\Private\UI.cpp" />
     <ClCompile Include="..\Private\UITest.cpp" />
+    <ClCompile Include="..\Private\VenusPlanet_SkyBox.cpp" />
     <ClCompile Include="..\Private\Warring.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="EnemySpace_Body.cpp" />

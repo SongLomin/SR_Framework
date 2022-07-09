@@ -475,6 +475,9 @@
     <ClInclude Include="..\Public\RedPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\VenusPlanet_SkyBox.h">
+      <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -705,6 +708,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\RedPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\VenusPlanet_SkyBox.cpp">
+      <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

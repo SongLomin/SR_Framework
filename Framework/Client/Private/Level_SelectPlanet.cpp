@@ -131,7 +131,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	LEVEL m_eNextPlanet = LEVEL_STATIC;
 	LEVEL m_ePreNextPlanet = m_eNextPlanet;
 
-	/*for (_uint i = 0; i < 4; ++i)
+	for (_uint i = 0; i < 4; ++i)
 	{
 		
 
@@ -167,7 +167,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 		}
 
 		m_ePreNextPlanet = m_eNextPlanet;
-	}*/
+	}
 
 
 	
