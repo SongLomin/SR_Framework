@@ -32,6 +32,7 @@
 #include "Math_Utillity.h"
 #include "Light_Moon.h"
 #include <SelectPlanet_SkyBox.h>
+#include <VenusPlanet_SkyBox.h>
 
 CLevel_VenusPlanet::CLevel_VenusPlanet()
 {
@@ -46,7 +47,7 @@ HRESULT CLevel_VenusPlanet::Initialize()
 
 
 
-	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
+	if (!GAMEINSTANCE->Add_GameObject<CVenusPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_VENUSPLANET, TEXT("Aim")))

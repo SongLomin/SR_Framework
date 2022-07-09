@@ -300,7 +300,8 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 		}
 
 	}
-	/////////////////////////////////////////////////////////////////////////
+
+	
 
 
 	// 7초뒤 아군생성 false
