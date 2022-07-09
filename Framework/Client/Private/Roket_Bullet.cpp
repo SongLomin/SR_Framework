@@ -61,9 +61,9 @@ HRESULT CRocket_Bullet::Render_Begin(ID3DXEffect** Shader)
 
 
 	float floatArray[3];
-	floatArray[0] = 1.0f;
-	floatArray[1] = 1.0f;
-	floatArray[2] = 0.0f;
+	floatArray[0] = 0.2f;
+	floatArray[1] = 0.0f;
+	floatArray[2] = 0.2f;
 
 	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 
@@ -256,7 +256,10 @@ HRESULT CRocket_Bullet::SetUp_Components_For_Child()
 
 	m_pLight = Add_Component<CSpotLight>();
 	WEAK_PTR(m_pLight);
-	m_pLight->Set_LightRange(12.f);
+	m_pLight->Set_Light_Variables(D3DXCOLOR(1.f, 0.f, 1.f, 1.f),0.3f,0.5f,0.6f,_float3(0.f,0.f,-2.f), D3DXVECTOR3(-1.f, -1.f, -1.f),
+		1.f,1.f,0.7f,1.8f,0.5f,0.05f,0.1f);
+
+
 
 	m_pTargetingCom = Add_Component<CTargeting>();//Make_AI_TargetList<- 쫓아가던 타겟이 사라졌을 때만 실행
 	WEAK_PTR(m_pTargetingCom);

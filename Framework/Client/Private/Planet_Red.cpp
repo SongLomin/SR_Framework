@@ -42,6 +42,11 @@ HRESULT CPlanet_Red::Initialize(void* pArg)
 
 void CPlanet_Red::SetUp_Components_For_Child()
 {
+	m_pDirectionalLightCom2 = Add_Component<CDirectionalLight>();
+	m_pDirectionalLightCom2->Set_WeakPtr(&m_pDirectionalLightCom2);
+	m_pDirectionalLightCom2->Set_Light_Variables(D3DCOLOR_RGBA(255, 255, 255, 255), 0.2f, 0.4f, 0.6f,
+		_float3(0.f, 0.f, 0.f), _float3(1.f, -1.f, 1.f), 600.f);
+
 }
 
 	

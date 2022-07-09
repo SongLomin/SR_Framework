@@ -39,6 +39,11 @@ private:
 	_float		m_fAccelX=0.f;
 	_float		m_fAccelY=0.f;
 
+private:
+    _float      m_fMovement=0.f;
+    _float      m_fCurTime = -1.f;
+    _float      m_fLerpTime = 0.016;
+
 public:
     static CCam_TPS* Create();
     virtual CGameObject* Clone(void* pArg) override;

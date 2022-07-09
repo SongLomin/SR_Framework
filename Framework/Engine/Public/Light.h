@@ -27,7 +27,9 @@ public:
     void            Set_LightRange(const _float& _Range);
     //조명 구조체를 매개변수로 새로 설정한다.
     void            Set_D3DLight(const _D3DLIGHT9& _D3DLight);
-    
+    void            Set_Light_Variables(D3DXCOLOR _Color,_float _lightambient, _float _lightdiffuse, _float _lightspecular, _float3 _lightmarginposition,
+        _float3 _lightdirection, _float _lightrange = 0.f, _float _lightattenuation0 = 0.f, _float _lightattenuation1 = 0.f, _float _lightattenuation2 = 0.f,
+        _float _lightfalloff = 0.f, _float _lighttheta = 0.f, _float _lightphi = 0.f);
 public:
     void            Set_Preset_PowLight();
     void            Set_Preset_SunLight();

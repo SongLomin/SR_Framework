@@ -309,6 +309,11 @@ _float3 CMath_Utillity::Rotate_Vec3(const _float3& _Rotation, const _float3& _Ve
 	return _ResultVec;
 }
 
+_float CMath_Utillity::fLerp(_float LeftSide, _float RightSide, _float fRatio)
+{
+	return LeftSide * (1 - fRatio) + RightSide * fRatio;
+}
+
 DWORD CMath_Utillity::FtoDw(float f)
 {
 	return *((DWORD*)&f);

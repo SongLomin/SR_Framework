@@ -18,28 +18,10 @@ HRESULT CSpotLight::Initialize(void* pArg)
 {
 	D3DXCreateSphere(DEVICE, 1, 50, 50, &m_pMesh, 0);
 
-	D3DXCOLOR color = D3DXCOLOR(1.f, 1.f, 0.f, 1.f);       // white
-	D3DXVECTOR3 position = D3DXVECTOR3(0.f, 0.f, 5.f);
-	D3DXVECTOR3 direction = D3DXVECTOR3(-1.f, -1.f, -1.f);
 
 	m_D3DLight.Type = D3DLIGHTTYPE::D3DLIGHT_SPOT;
 
-	m_D3DLight.Ambient = color * 0.5f * m_fColorScale;
-	m_D3DLight.Diffuse = color;
-	m_D3DLight.Specular = color * 0.6f;
 
-	m_D3DLight.Position = position;
-	m_D3DLight.Direction = direction;
-
-	m_D3DLight.Range = 15.0f;
-	m_D3DLight.Falloff = 4.0f;
-
-	m_D3DLight.Attenuation0 = 0.2f;
-	m_D3DLight.Attenuation1 = 0.4f;
-	m_D3DLight.Attenuation2 = 0.8f;
-
-	m_D3DLight.Theta = 1.f;
-	m_D3DLight.Phi = 2.f;
 
 	return S_OK;
 }
@@ -60,12 +42,15 @@ void CSpotLight::LateTick(_float fTimeDelta)
 	if (!Get_Enable())
 		return;
 
+	CTransform* pOwnerTransform = m_pOwner->Get_Component<CTransform>();
 
-	m_D3DLight.Position = m_pOwner->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION, true);
+	m_D3DLight.Position = pOwnerTransform->Get_State(CTransform::STATE_POSITION, true);
 	
 	m_D3DLight.Position.x += m_Margin_Position.x;
 	m_D3DLight.Position.y += m_Margin_Position.y;
 	m_D3DLight.Position.z += m_Margin_Position.z;
+
+	m_D3DLight.Direction = -1.f*pOwnerTransform->Get_State(CTransform::STATE_LOOK, true);
 
 	GAMEINSTANCE->Add_Light(this);
 }

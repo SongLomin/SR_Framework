@@ -46,7 +46,7 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 
 		if (KEY_INPUT(KEY::Z, KEY_STATE::TAP))
 		{
-			//m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+			m_pMyObject->Get_Component<CRigid_Body>()->Add_Force(_float3(20.f,20.f,20.f));
 		}
 
 		if (KEY_INPUT(KEY::V, KEY_STATE::TAP))
@@ -71,7 +71,7 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 				break;*/
 			}
 
-			m_iCurrentCam = (m_iCurrentCam + 1) % 4;
+			m_iCurrentCam = (m_iCurrentCam + 1) % 3;
 		}
 
 		if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))

@@ -3,7 +3,7 @@
 #include "Planet.h"
 
 BEGIN(Engine)
-
+class CDirectionalLight;
 END
 
 BEGIN(Client)
@@ -24,7 +24,7 @@ protected:
 
 private:
 	CGameObject* m_pDiveUi = nullptr;
-	
+	CDirectionalLight* m_pDirectionalLightCom2 = nullptr;
 
 public:
 	static CPlanet_Red* Create();

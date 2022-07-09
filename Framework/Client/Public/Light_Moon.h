@@ -31,7 +31,8 @@ public:
 	CRenderer* m_pRendererCom = nullptr;
 	CTransform* m_pTransformCom = nullptr;
 	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
-	CDirectionalLight* m_pDirectionalLightCom = nullptr;
+	CDirectionalLight* m_pDirectionalLightCom1 = nullptr;
+	
 
 
 

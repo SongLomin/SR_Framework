@@ -214,13 +214,17 @@ void CRigid_Body::Compute_Dir(_float fTimeDelta)
 		}
 
 	}
-	if(!m_bBooster && fabs(D3DXVec3Length(&m_vSpeed) < m_RigidbodyDesc.m_fOwnerSpeed))
+	else
 	{
-		m_vSpeed += m_vAccel * m_RigidbodyDesc.m_fOwnerAccel ;
-		if (m_RigidbodyDesc.m_fOwnerSpeed < fabs(D3DXVec3Length(&m_vSpeed)))
+		
+		if (!m_bBooster && fabs(D3DXVec3Length(&m_vSpeed) < m_RigidbodyDesc.m_fOwnerSpeed))
 		{
-			D3DXVec3Normalize(&m_vSpeed, &m_vSpeed);
-			m_vSpeed *= m_RigidbodyDesc.m_fOwnerSpeed;
+			m_vSpeed += m_vAccel * m_RigidbodyDesc.m_fOwnerAccel;
+			if (m_RigidbodyDesc.m_fOwnerSpeed < fabs(D3DXVec3Length(&m_vSpeed)))
+			{
+				D3DXVec3Normalize(&m_vSpeed, &m_vSpeed);
+				m_vSpeed *= m_RigidbodyDesc.m_fOwnerSpeed;
+			}
 		}
 	}
 	
