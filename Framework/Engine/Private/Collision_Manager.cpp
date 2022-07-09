@@ -32,6 +32,8 @@ void CCollision_Manager::Tick()
 			}
 		}
 	}
+
+	Clear_ColliderList();
 }
 
 void CCollision_Manager::CheckGroup(COLLISION_TYPE _eLeft, COLLISION_TYPE _eRight)
@@ -70,21 +72,60 @@ void CCollision_Manager::Erase_Collider(CCollider* pCollider)
 {
 	COLLISION_TYPE collisontype = pCollider->Get_Collision_Type();
 
-	for (auto iter = m_ColliderList[(UINT)collisontype].begin(); iter != m_ColliderList[(UINT)collisontype].end(); ++iter)
+	/*for (auto iter = m_ColliderList[(UINT)collisontype].begin(); iter != m_ColliderList[(UINT)collisontype].end(); ++iter)
 	{
 		if (*iter == pCollider)
 		{
 			(*iter)->Return_WeakPtr(&(*iter));
 			m_ColliderList[(UINT)collisontype].erase(iter);
-			return;
+			break;
 		}
 
-	}
+	}*/
+
+	m_Erase_ColliderIDList.push_back(pCollider->Get_ID());
+
+	
 }
 
 list<CCollider*>* CCollision_Manager::Get_ColliderList(COLLISION_TYPE _eType)
 {
 	return &m_ColliderList[(_uint)_eType];
+}
+
+void CCollision_Manager::Clear_ColliderList()
+{
+	for (auto& ColliderList_Type : m_ColliderList)
+	{
+		for (auto& elem_Collider : ColliderList_Type)
+		{
+			RETURN_WEAKPTR(elem_Collider);
+		}
+
+		ColliderList_Type.clear();
+	}
+
+	for (_ulong& elem_ID : m_Erase_ColliderIDList)
+	{
+		for (auto iter = m_mapColInfo.begin(); iter != m_mapColInfo.end();)
+		{
+			_ulong Collider_ID = elem_ID;
+
+			if (Collider_ID == (*iter).first / 100000
+				|| Collider_ID == (*iter).first % 100000)
+			{
+				iter = m_mapColInfo.erase(iter);
+			}
+
+			else
+			{
+				iter++;
+			}
+		}
+	}
+	m_Erase_ColliderIDList.clear();
+
+	
 }
 
 void CCollision_Manager::CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_TYPE _eRight)

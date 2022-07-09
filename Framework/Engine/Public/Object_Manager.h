@@ -123,7 +123,7 @@ public: /* Template Function */
 			pTransfromCom->Set_Parent(pParent);
 			pParent->Add_Child(pTransfromCom);
 		}
-		pCloneObject->OnEnable();
+		pCloneObject->OnEnable(pArg);
 
 		return static_cast<T*>(pCloneObject);
 	}

@@ -57,12 +57,6 @@ void CSong_Ship_Body::Tick(_float fTimeDelta)
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
 	}
 
-	if (KEY_INPUT(KEY::M, KEY_STATE::HOLD))
-	{
-		D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 0, 0);
-		((CMove_PSystem*)GAMEINSTANCE->Add_GameObject<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"), nullptr, nullptr, true))->AddParticle(10, m_pTransformCom, color);
-	}
-
 	
 
 	/*if (Get_Controller() == CONTROLLER::PLAYER)

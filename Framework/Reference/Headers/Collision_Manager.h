@@ -25,6 +25,7 @@ public:
     void Add_Collider(CCollider* pCollider);
     void Erase_Collider(CCollider* pCollider);
     list<CCollider*>* Get_ColliderList(COLLISION_TYPE _eType);
+    void Clear_ColliderList();
 
 private:
     void CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_TYPE _eRight);
@@ -36,11 +37,11 @@ private:
 
 private:
     list<CCollider*>	m_ColliderList[(UINT)COLLISION_TYPE::TYPE_END]; // 충돌 컴포넌트들만 충돌 타입별로 모아놓은 리스트
+    list<_ulong>    m_Erase_ColliderIDList;
 
     UINT m_arrCheck[(UINT)COLLISION_TYPE::TYPE_END];
 
     map<ULONGLONG, bool> m_mapColInfo;//충돌체 간의 이전 프레임 충돌 정보
-    
 
 public:
     virtual void Free() override;

@@ -39,7 +39,7 @@ void CParticleSystem::Tick(_float fTimeDelta)
 	if (m_fRemoveTime < 0.f)
 	{
 		RemoveDeadParticles();
-		m_fRemoveTime = 2.f;
+		m_fRemoveTime = 0.5f;
 	}
 }
 
