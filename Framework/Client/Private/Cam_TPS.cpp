@@ -60,7 +60,7 @@ void CCam_TPS::Tick(_float fTimeDelta)
 
 	if (0.f > m_fCurTime)
 	{
-		m_fMovement = CMath_Utillity::fLerp(m_fMovement, 10*fRatio, 0.7f);
+		m_fMovement = CMath_Utillity::fLerp(m_fMovement, 10*fRatio, 0.03f);
 		m_fCurTime = m_fLerpTime;
 	}
 
