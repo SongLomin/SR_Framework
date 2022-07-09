@@ -6,6 +6,7 @@
 
 BEGIN(Engine)
 class CMesh_EnemySpace;
+
 END
 
 
@@ -28,11 +29,6 @@ public:
 
 private: /* For My Component*/
     CMesh_EnemySpace* m_pMeshCom = nullptr;
-
-private:
-    //HRESULT SetUp_Components();
-    
-    void Update_Target(CGameObject* _Target);
 
 protected:
     virtual void SetUp_Components_For_Child();

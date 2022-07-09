@@ -232,6 +232,11 @@
     <ClCompile Include="..\Private\Mesh_EnemySpace.cpp" />
     <ClCompile Include="..\Private\Mesh_KangShip.cpp" />
     <ClCompile Include="..\Private\Mesh_ShinShip.cpp" />
+    <ClCompile Include="..\Private\Mesh_Ship2.cpp" />
+    <ClCompile Include="..\Private\Mesh_Ship3.cpp" />
+    <ClCompile Include="..\Private\Mesh_Ship4.cpp" />
+    <ClCompile Include="..\Private\Mesh_Ship5.cpp" />
+    <ClCompile Include="..\Private\Mesh_Ship6.cpp" />
     <ClCompile Include="..\Private\Mesh_SongShip.cpp" />
     <ClCompile Include="..\Private\Mesh_Sphere.cpp" />
     <ClCompile Include="..\Private\Mesh_Terrain.cpp" />
@@ -337,6 +342,11 @@
     <ClInclude Include="..\Public\Mesh_EnemySpace.h" />
     <ClInclude Include="..\Public\Mesh_KangShip.h" />
     <ClInclude Include="..\Public\Mesh_ShinShip.h" />
+    <ClInclude Include="..\Public\Mesh_Ship2.h" />
+    <ClInclude Include="..\Public\Mesh_Ship3.h" />
+    <ClInclude Include="..\Public\Mesh_Ship4.h" />
+    <ClInclude Include="..\Public\Mesh_Ship5.h" />
+    <ClInclude Include="..\Public\Mesh_Ship6.h" />
     <ClInclude Include="..\Public\Mesh_SongShip.h" />
     <ClInclude Include="..\Public\Mesh_Sphere.h" />
     <ClInclude Include="..\Public\Mesh_Terrain.h" />

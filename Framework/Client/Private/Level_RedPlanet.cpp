@@ -39,7 +39,7 @@
 #include "AI_TransportShip.h"
 
 
-_uint CLevel_RedPlanet::m_iEnemyCount = 0;
+
 
 CLevel_RedPlanet::CLevel_RedPlanet()
 {
@@ -63,7 +63,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CShin_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
 		return E_FAIL;*/
 
-	for (int i = 0; i < 5; ++i)
+	for (int i = 0; i < 40; ++i)
 	{
 		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body"))->Get_Component<CTransform>();
 
@@ -83,8 +83,8 @@ HRESULT CLevel_RedPlanet::Initialize()
 
 	}
 
-	//f (!GAMEINSTANCE->Add_GameObject<CAI_TransportShip>(LEVEL_REDPLANET, TEXT("TransportShip")))
-		//return E_FAIL;
+	 if (!GAMEINSTANCE->Add_GameObject<CAI_TransportShip>(LEVEL_REDPLANET, TEXT("TransportShip")))
+		return E_FAIL;
 
 	/*for (int i = 0; i < 50; ++i)
 	{
@@ -161,7 +161,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 
 
 	
-	/*m_fSpawnTime -= fTimeDelta;
+	m_fSpawnTime -= fTimeDelta;
 
 	if (m_fSpawnTime < 0.f)
 	{
@@ -180,7 +180,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 			pEnemyTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
 
 		     m_fSpawnTime = 3.f;
-	}*/
+	}
 
 
 

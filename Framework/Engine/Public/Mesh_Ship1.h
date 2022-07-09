@@ -1,6 +1,8 @@
 #pragma once
 #include "Mesh.h"
 
+/* 거꾸로 되있음 디테일 좀 높음*/
+
 BEGIN(Engine)
 
 class ENGINE_DLL CMesh_Ship1 final : public CMesh

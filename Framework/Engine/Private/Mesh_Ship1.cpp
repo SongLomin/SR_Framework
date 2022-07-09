@@ -21,11 +21,6 @@ CMesh_Ship1::CMesh_Ship1(const CMesh_Ship1& Prototype)
 
 HRESULT CMesh_Ship1::Initialize_Prototype()
 {
-	return S_OK;
-}
-
-HRESULT CMesh_Ship1::Initialize(void* pArg)
-{
 	m_iNumVertices = 1961;
 	m_iNumPrimitive = 1418;
 	m_dwFVF = VTXNORMAL::FVF;
@@ -3444,6 +3439,11 @@ HRESULT CMesh_Ship1::Initialize(void* pArg)
 		0, 0, 0
 	);
 
+	return S_OK;
+}
+
+HRESULT CMesh_Ship1::Initialize(void* pArg)
+{
 	return S_OK;
 }
 
