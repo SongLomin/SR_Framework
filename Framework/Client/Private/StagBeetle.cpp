@@ -83,7 +83,7 @@ void CStagBeetle::SetUp_Components_For_Child()
 	m_pMeshCom->Set_Texture(TEXT("Red_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.Set_Preset_Scouge();
+	RigidBodyDesc.Set_Preset_StagBeetle();
 
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
