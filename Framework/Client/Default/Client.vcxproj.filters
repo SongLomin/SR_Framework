@@ -475,8 +475,15 @@
     <ClInclude Include="..\Public\RedPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\StagBeetle.h" />
     <ClInclude Include="..\Public\VenusPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\MagmaPlanet_SkyBox.h">
+      <Filter>02.GameObject\09. Box\SkyBox\Magma</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\ExoPlanet_SkyBox.h">
+      <Filter>02.GameObject\09. Box\SkyBox\Exo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -709,8 +716,15 @@
     <ClCompile Include="..\Private\RedPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClCompile>
+    <ClCompile Include="..\Private\StagBeetle.cpp" />
     <ClCompile Include="..\Private\VenusPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\MagmaPlanet_SkyBox.cpp">
+      <Filter>02.GameObject\09. Box\SkyBox\Magma</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\ExoPlanet_SkyBox.cpp">
+      <Filter>02.GameObject\09. Box\SkyBox\Exo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
