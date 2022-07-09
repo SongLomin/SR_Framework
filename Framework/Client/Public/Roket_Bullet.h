@@ -32,7 +32,7 @@ public:
 
     void    Set_Target(CGameObject* _pTarget);
 private:
-    void    Find_Way();
+    void    Find_Way(_float fTimeDelta);
 
 private:
     CSpotLight* m_pLight = nullptr;

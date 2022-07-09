@@ -261,12 +261,19 @@ namespace Engine
 	{
 		struct
 		{
-			UINT Left_id;
-			UINT Right_id;
+			unsigned long Left_id;
+			unsigned long Right_id;
 		};
-		ULONGLONG ID;
+		unsigned long long  ID;
 
 	};
+
+	/*struct COLLIDER_ID
+	{
+		unsigned long Left_id;
+		unsigned long Right_id;
+		unsigned long long  ID;
+	};*/
 
 
 	enum class RENDERGROUP { RENDER_PRIORITY = 0, RENDER_DEFERRED, RENDER_NONALPHABLEND, RENDER_ALPHABLEND, RENDER_UI, RENDER_END };

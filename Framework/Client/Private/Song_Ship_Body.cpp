@@ -85,13 +85,14 @@ void CSong_Ship_Body::LateTick(_float fTimeDelta)
 
 HRESULT CSong_Ship_Body::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(1.0f, 1.0f, 1.0f), true);
+	m_pTransformCom->Scaling(_float3(0.01, 0.01, 0.01f), true);
+	
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
 	D3DXHANDLE DiffuseHandle = (*Shader)->GetParameterByName(0, "Diffuse");
 	D3DXHANDLE SpecularHandle = (*Shader)->GetParameterByName(0, "Specular");
-
+	D3DXHANDLE ShininessHandle = (*Shader)->GetParameterByName(0, "shininess");
 
 	float floatArray[3];
 	floatArray[0] = 0.5f;
@@ -100,11 +101,13 @@ HRESULT CSong_Ship_Body::Render_Begin(ID3DXEffect** Shader)
 
 
 	float Specular = 1.f;
-	float Diffuse = 1.f;
+	float Diffuse = 0.6f;
+	float Shininess = 1.f;
 
 	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 	(*Shader)->SetFloat(DiffuseHandle, Diffuse);
 	(*Shader)->SetFloat(SpecularHandle, Specular);
+	(*Shader)->SetFloat(ShininessHandle, Shininess);
 
 	
 
@@ -150,7 +153,7 @@ void CSong_Ship_Body::On_Collision_Exit(CCollider* _Other_Collider)
 void CSong_Ship_Body::SetUp_Components_For_Child()
 {
 #pragma region Collider Setting
-	m_pColliderCom->Set_Collider_Size(_float3(3.f, 0.f, 0.f));
+	m_pColliderCom->Set_Collider_Size(_float3(3.f, 3.f, 3.f));
 
 #pragma endregion Collider Setting
 
@@ -171,7 +174,7 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 
 #pragma region Mesh Setting
 
-	m_pMeshCom = Add_Component<CMesh_SongShip>();
+	m_pMeshCom = Add_Component<CMesh_Ship6>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 

@@ -214,13 +214,17 @@ void CRigid_Body::Compute_Dir(_float fTimeDelta)
 		}
 
 	}
-	if(!m_bBooster && fabs(D3DXVec3Length(&m_vSpeed) < m_RigidbodyDesc.m_fOwnerSpeed))
+	else
 	{
-		m_vSpeed += m_vAccel * m_RigidbodyDesc.m_fOwnerAccel ;
-		if (m_RigidbodyDesc.m_fOwnerSpeed < fabs(D3DXVec3Length(&m_vSpeed)))
+		
+		if (!m_bBooster && fabs(D3DXVec3Length(&m_vSpeed) < m_RigidbodyDesc.m_fOwnerSpeed))
 		{
-			D3DXVec3Normalize(&m_vSpeed, &m_vSpeed);
-			m_vSpeed *= m_RigidbodyDesc.m_fOwnerSpeed;
+			m_vSpeed += m_vAccel * m_RigidbodyDesc.m_fOwnerAccel;
+			if (m_RigidbodyDesc.m_fOwnerSpeed < fabs(D3DXVec3Length(&m_vSpeed)))
+			{
+				D3DXVec3Normalize(&m_vSpeed, &m_vSpeed);
+				m_vSpeed *= m_RigidbodyDesc.m_fOwnerSpeed;
+			}
 		}
 	}
 	
@@ -517,15 +521,27 @@ void CRigid_Body::Update_Transform(_float fTimeDelta)
 
 }
 
+void CRigid_Body::SetUp_Origin_DirVector()
+{
+	m_vLook = m_vSubLook = m_pTransform->Get_State(CTransform::STATE_LOOK);
+	m_vRight = m_vSubRight = m_pTransform->Get_State(CTransform::STATE_RIGHT);
+	m_vUp = m_vSubUp = _float3(0.f, 1.f, 0.f);
+	m_bFirst = false;
+}
+
+void CRigid_Body::Reset_Force()
+{
+	m_vSpeed = _float3(0.f, 0.f, 0.f);
+	m_vPos = _float3(0.f, 0.f, 0.f);
+	m_vAccel = _float3(0.f, 0.f, 0.f);
+}
+
+
 void CRigid_Body::Set_DirVector()
 {
 	if (m_bFirst)
 	{
-		m_vLook = m_vSubLook = m_pTransform->Get_State(CTransform::STATE_LOOK);
-		m_vRight = m_vSubRight = m_pTransform->Get_State(CTransform::STATE_RIGHT);
-		m_vUp = m_vSubUp = _float3(0.f, 1.f, 0.f);
-
-		m_bFirst = false;
+		SetUp_Origin_DirVector();
 	}
 
 	m_vLook = m_pTransform->Get_State(CTransform::STATE_LOOK);

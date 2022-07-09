@@ -33,7 +33,10 @@ void CTurret::LateTick(_float fTimeDelta)
 {
     __super::LateTick(fTimeDelta);
 
-    m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
+    _float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+
+    if (GAMEINSTANCE->IsIn(&vPos))
+        m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
 }
 
 HRESULT CTurret::Render_Begin(ID3DXEffect** Shader)

@@ -88,13 +88,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			}			
 		}
 
-            fTimerAcc += GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_DEFAULT);
+        fTimerAcc += GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_DEFAULT);
 
         if (fTimerAcc > 0.00694f) //144Hz
         {
-            fTimerAcc = 0.f;
+            pMainApp->Tick(fTimerAcc);
 
-            pMainApp->Tick(GAMEINSTANCE->Compute_Timer((_uint)TIMER::TIMER_FRAME));
+            fTimerAcc = 0.f;
 
             if (FAILED(pMainApp->Render()))
                 break;

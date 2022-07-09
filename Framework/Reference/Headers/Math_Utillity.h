@@ -51,6 +51,7 @@ public:
 	}
 
 public:
+	static _float fLerp(_float LeftSide, _float RightSide, _float fRatio);
 	static DWORD FtoDw(float f);
 	static _float Get_RandomFloat(_float LowBound, _float HighBound);
 };

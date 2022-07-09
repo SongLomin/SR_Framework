@@ -86,11 +86,6 @@ void CLevel_VenusPlanet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);		
 
-	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
-	{
-		if (FAILED(GAMEINSTANCE->Get_Instance()->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
-			return;
-	}
 
 }
 

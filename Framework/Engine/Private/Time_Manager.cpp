@@ -19,7 +19,23 @@ HRESULT CTime_Manager::Add_Timer(_uint eTimer)
 
 _float CTime_Manager::Compute_Timer(_uint eTimer)
 {
-	CTimer* pTimer = Find_Timer(eTimer);
+	CTimer* pTimer = nullptr;
+
+	// 타이머를 Find하면 프레임 저하가 생긴다.
+	// 프로그램의 루프마다 호출되는 타이머가 있다.
+	// 해당 타이머를 매 루프마다(빈도가 Tick보다 많다.) 그렇다면 Find하는게 맞을까?
+	// 맞지 않다. 따라서 0번 타이머는 루프 시간을 검사하는 타이머로 고정시킨다.
+	if (0 == eTimer)
+	{
+		pTimer = (*m_Timers.begin()).second;
+	}
+
+	else
+	{
+		pTimer = Find_Timer(eTimer);
+	}
+
+	
 	if (nullptr == pTimer)
 		return 0.f;
 

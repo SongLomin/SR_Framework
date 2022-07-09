@@ -4,6 +4,7 @@
 #include "Normal_Turret.h"
 #include <Booster_PSystem.h>
 #include <Move_PSystem.h>
+#include <Bomb_Effect.h>
 
 CPlayer::CPlayer()
 {
@@ -48,11 +49,11 @@ void CPlayer::Tick(_float fTimeDelta)
 	{
 		_float3 Speed = m_pRigid_BodyCom->Get_Vector(RIGID_BODY::SPEED);
 		
-		_float vNow = fabs(D3DXVec3Length(&Speed)) / 100.f;
+		_float vNow = fabs(D3DXVec3Length(&Speed)) / 30.f;
 		if (vNow > 0.9f)
 		{
 			D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 0, 0);
-			((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(10 * fTimeDelta, m_pTransformCom, color);
+			((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom, color);
 		}
 	}
 }
@@ -79,7 +80,11 @@ void CPlayer::LateTick(_float fTimeDelta)
 		m_fTime = 1.f;
 	}
 	m_pRigid_BodyCom->Update_Transform(fTimeDelta);
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
+
+	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+
+	if (GAMEINSTANCE->IsIn(&vPos))
+		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
 }
 
 HRESULT CPlayer::Render_Begin(ID3DXEffect** Shader)
@@ -150,6 +155,15 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 	{
 		GAMEINSTANCE->Add_Shaking(0.4f, 0.1f);
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+
+		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
+		{
+			//Set_Dead();
+
+			//_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+			//((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
+
+		}
 	}
 
 
@@ -289,6 +303,12 @@ void CPlayer::Update_PosinTarget(TARGETMODE _TargetMode)
 		}
 
 	}
+}
+
+void CPlayer::Change_Player()
+{
+
+
 }
 
 void CPlayer::Free()

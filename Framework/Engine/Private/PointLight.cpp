@@ -28,17 +28,11 @@ HRESULT CPointLight::Initialize(void* pArg)
 	m_D3DLight.Specular = m_Color * 0.9f;
 
 	m_D3DLight.Position = position;
-	m_D3DLight.Direction = direction;
-
 	m_D3DLight.Range = 7.0f;
-	m_D3DLight.Falloff = 4.0f;
 
 	m_D3DLight.Attenuation0 = 1.f;
 	m_D3DLight.Attenuation1 = 0.7f;
 	m_D3DLight.Attenuation2 = 1.8f;
-
-	m_D3DLight.Theta = 1.f;
-	m_D3DLight.Phi = 2.f;
 
     return S_OK;
 }

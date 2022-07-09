@@ -199,8 +199,10 @@
     <ClInclude Include="..\Public\Planet_Sun.h" />
     <ClInclude Include="..\Public\Planet_Venus.h" />
     <ClInclude Include="..\Public\Player.h" />
+    <ClInclude Include="..\Public\RedPlanet_SkyBox.h" />
     <ClInclude Include="..\Public\Rocket_PSystem.h" />
     <ClInclude Include="..\Public\Rocket_Turret.h" />
+    <ClInclude Include="..\Public\StagBeetle.h" />
     <ClInclude Include="..\Public\SelectPlanet_SkyBox.h" />
     <ClInclude Include="..\Public\Shin_Ship_Body.h" />
     <ClInclude Include="..\Public\Smoke_PSystem.h" />
@@ -275,8 +277,10 @@
     <ClCompile Include="..\Private\Planet_Sun.cpp" />
     <ClCompile Include="..\Private\Planet_Venus.cpp" />
     <ClCompile Include="..\Private\Player.cpp" />
+    <ClCompile Include="..\Private\RedPlanet_SkyBox.cpp" />
     <ClCompile Include="..\Private\Rocket_PSystem.cpp" />
     <ClCompile Include="..\Private\Rocket_Turret.cpp" />
+    <ClCompile Include="..\Private\StagBeetle.cpp" />
     <ClCompile Include="..\Private\SelectPlanet_SkyBox.cpp" />
     <ClCompile Include="..\Private\Shin_Ship_Body.cpp" />
     <ClCompile Include="..\Private\Smoke_PSystem.cpp" />

@@ -37,9 +37,10 @@
 #include <SpaceDust_PSystem.h>
 #include <SelectPlanet_SkyBox.h>
 #include "AI_TransportShip.h"
+#include "RedPlanet_SkyBox.h"
 
 
-_uint CLevel_RedPlanet::m_iEnemyCount = 0;
+
 
 CLevel_RedPlanet::CLevel_RedPlanet()
 {
@@ -83,7 +84,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 
 	}
 
-	if (!GAMEINSTANCE->Add_GameObject<CAI_TransportShip>(LEVEL_REDPLANET, TEXT("TransportShip")))
+	 if (!GAMEINSTANCE->Add_GameObject<CAI_TransportShip>(LEVEL_REDPLANET, TEXT("TransportShip")))
 		return E_FAIL;
 
 	/*for (int i = 0; i < 50; ++i)
@@ -102,7 +103,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_REDPLANET, TEXT("Terrain")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
+	if (!GAMEINSTANCE->Add_GameObject<CRedPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_REDPLANET, TEXT("Aim")))
@@ -183,12 +184,6 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	}
 
 
-
-	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
-	{
-		if (FAILED(GAMEINSTANCE->Get_Instance()->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
-			return;
-	}
 
 
 
@@ -305,8 +300,8 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 		}
 
 	}
+	/////////////////////////////////////////////////////////////////////////
 
-	
 
 	// 7초뒤 아군생성 false
 
