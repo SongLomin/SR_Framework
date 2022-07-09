@@ -64,7 +64,7 @@ void CMonster::LateTick(_float fTimeDelta)
 
 	if (m_pStatusCom->Get_Status().fHp < m_pStatusCom->Get_Status().fMaxHp / 2.f)
 	{
-		((CSmoke_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CSmoke_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(1, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
+		((CSmoke_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CSmoke_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
 	}
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
@@ -156,7 +156,7 @@ void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 			Set_Dead();
 			
 			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
-			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
+			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false))->Set_Pos(MyPos);
 
 		}
 	}

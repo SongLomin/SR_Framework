@@ -34,6 +34,13 @@ HRESULT CParticleSystem::Initialize(void* pArg)
 void CParticleSystem::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
+
+	m_fRemoveTime -= fTimeDelta;
+	if (m_fRemoveTime > 0.f)
+	{
+		RemoveDeadParticles();
+		m_fRemoveTime = 2.f;
+	}
 }
 
 void CParticleSystem::LateTick(_float fTimeDelta)
@@ -180,7 +187,6 @@ void CParticleSystem::Reset()
 
 void CParticleSystem::AddParticle(int num)
 {
-	RemoveDeadParticles();
 
 	ParticleDesc Desc;
 
@@ -194,7 +200,6 @@ void CParticleSystem::AddParticle(int num)
 
 void CParticleSystem::AddParticle(int num, CTransform* _pTransformCom)
 {
-	RemoveDeadParticles();
 
 	ParticleDesc Desc;
 
@@ -222,7 +227,6 @@ void CParticleSystem::AddParticle(int num, CTransform* _pTransformCom)
 
 void CParticleSystem::AddParticle(int num, CTransform* _pTransformCom, D3DCOLOR _color)
 {
-	RemoveDeadParticles();
 
 	ParticleDesc Desc;
 
@@ -249,7 +253,6 @@ void CParticleSystem::AddParticle(int num, CTransform* _pTransformCom, D3DCOLOR 
 
 void CParticleSystem::AddParticle(int num, _float3 _Pos)
 {
-	RemoveDeadParticles();
 
 	ParticleDesc Desc;
 
@@ -270,7 +273,6 @@ void CParticleSystem::AddParticle(int num, _float3 _Pos)
 
 void CParticleSystem::AddParticle(int num, _float3 _Pos, D3DCOLOR _color)
 {
-	RemoveDeadParticles();
 
 	ParticleDesc Desc;
 
@@ -280,6 +282,7 @@ void CParticleSystem::AddParticle(int num, _float3 _Pos, D3DCOLOR _color)
 	m_WorldMat._41 = _Pos.x;
 	m_WorldMat._42 = _Pos.y;
 	m_WorldMat._43 = _Pos.z;
+
 
 	Desc.color = _color;
 

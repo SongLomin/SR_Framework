@@ -21,7 +21,7 @@ HRESULT CBomb_Effect::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_iTexture_Max = 47;
+	m_iTexture_Max = 90;
 		
 	return S_OK;
 }
@@ -52,7 +52,7 @@ HRESULT CBomb_Effect::Render_Begin(ID3DXEffect** Shader)
 
 HRESULT CBomb_Effect::Render()
 {
-	m_pTransformCom->Scaling(_float3(15.f, 15.f, 15.f), true);
+	m_pTransformCom->Scaling(_float3(30.f, 30.f, 30.f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 

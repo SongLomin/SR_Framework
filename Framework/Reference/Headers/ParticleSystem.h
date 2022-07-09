@@ -54,6 +54,7 @@ protected:
 protected:
 	CTransform*				m_pTransform = nullptr;
 	CRenderer*				m_pRenderer = nullptr;
+	_float					m_fRemoveTime = 2.f;
 
 protected:
 	_float3					m_origin = _float3(0.f, 0.f, 0.f);
