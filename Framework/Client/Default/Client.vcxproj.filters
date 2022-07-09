@@ -463,7 +463,7 @@
     <ClInclude Include="..\Public\SelectPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Select</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Scourge.h">
+    <ClInclude Include="..\Public\StagBeetle.h">
       <Filter>02.GameObject\02. Monster\Scourge</Filter>
     </ClInclude>
   </ItemGroup>
@@ -694,7 +694,7 @@
     <ClCompile Include="..\Private\SelectPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Select</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Scourge.cpp">
+    <ClCompile Include="..\Private\StagBeetle.cpp">
       <Filter>02.GameObject\02. Monster\Scourge</Filter>
     </ClCompile>
   </ItemGroup>

@@ -11,12 +11,12 @@ END
 
 BEGIN(Client)
 class CNormal_Turret;
-class CScouge final : public CMonster
+class CStagBeetle final : public CMonster
 {
 private:
-    CScouge() = default;
-    CScouge(const CScouge& Prototype);
-    virtual ~CScouge() = default;
+    CStagBeetle() = default;
+    CStagBeetle(const CStagBeetle& Prototype);
+    virtual ~CStagBeetle() = default;
 
 public:
     virtual HRESULT Initialize_Prototype() override;
@@ -44,7 +44,7 @@ public: /* For Event Function */
     virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
 
 public:
-    static CScouge* Create();
+    static CStagBeetle* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 

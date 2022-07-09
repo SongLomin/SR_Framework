@@ -2396,6 +2396,9 @@ HRESULT CMesh_Ship6::Initialize_Prototype()
 	vertices[2359] = VTXNORMAL(_float3(-0.00, 135.13, -249.99), _float3(0.00, -0.98, 0.21));
 	vertices[2360] = VTXNORMAL(_float3(-19.62, 135.42, -248.05), _float3(0.15, -0.96, 0.22));
 	vertices[2361] = VTXNORMAL(_float3(-25.36, 122.84, -273.19), _float3(0.40, -0.82, 0.41));
+
+	
+	
 	m_pMesh->UnlockVertexBuffer();
 
 	WORD* indices = 0;

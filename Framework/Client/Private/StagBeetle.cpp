@@ -1,19 +1,20 @@
 #include "stdafx.h"
-#include "Scourge.h"
+#include "StagBeetle.h"
 #include "GameInstance.h"
 #include "Normal_Turret.h"
+#include "Rocket_Turret.h"
 
-CScouge::CScouge(const CScouge& Prototype)
+CStagBeetle::CStagBeetle(const CStagBeetle& Prototype)
 {
 	*this = Prototype;
 }
 
-HRESULT CScouge::Initialize_Prototype()
+HRESULT CStagBeetle::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CScouge::Initialize(void* pArg)
+HRESULT CStagBeetle::Initialize(void* pArg)
 {
 	
 	if (FAILED(SetUp_Components()))
@@ -24,17 +25,17 @@ HRESULT CScouge::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CScouge::Tick(_float fTimeDelta)
+void CStagBeetle::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 }
 
-void CScouge::LateTick(_float fTimeDelta)
+void CStagBeetle::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 }
 
-HRESULT CScouge::Render_Begin(ID3DXEffect** Shader)
+HRESULT CStagBeetle::Render_Begin(ID3DXEffect** Shader)
 {
 	m_pTransformCom->Scaling(_float3(0.01f, 0.01f, 0.01f), true);
 	m_pTransformCom->Bind_WorldMatrix();
@@ -52,7 +53,7 @@ HRESULT CScouge::Render_Begin(ID3DXEffect** Shader)
 	return S_OK;
 }
 
-HRESULT CScouge::Render()
+HRESULT CStagBeetle::Render()
 {
 	__super::Render();
 
@@ -61,17 +62,18 @@ HRESULT CScouge::Render()
 	return S_OK;
 }
 
-void CScouge::Update_Target(CGameObject* _Target)
+void CStagBeetle::Update_Target(CGameObject* _Target)
 {
 }
 
-void CScouge::SetUp_Components_For_Child()
+void CStagBeetle::SetUp_Components_For_Child()
 {
 	CStatus::STATUS Status;
 	Status.fAttack = 1.f;
 	Status.fArmor = 5.f;
-	Status.fMaxHp = 20.f;
+	Status.fMaxHp = 500.f;
 	Status.fHp = Status.fMaxHp;
+
 
 	m_pStatusCom = Add_Component<CStatus>(&Status);
 	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
@@ -81,35 +83,33 @@ void CScouge::SetUp_Components_For_Child()
 	m_pMeshCom->Set_Texture(TEXT("Red_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.Set_Preset_EnemySpace_Body();
+	RigidBodyDesc.Set_Preset_Scouge();
 
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
 
-
-	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
-	m_pStateCom->Link_AI_Transform(m_pTransformCom);
-
-
 	COLLISION_TYPE eBulletCollisionType = COLLISION_TYPE::MONSTER_ATTACK;
 
 	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.0f, 2.f));
 	m_pPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pPosinList.back());
 
 	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.f, 1.0f, 2.f));
 	m_pPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pPosinList.back());
 
 
+	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
+	m_pStateCom->Link_AI_Transform(m_pTransformCom);
+	
+
 	m_pAIControllerCom->Link_Object(this);
 	m_pAIControllerCom->Set_Enable(false);
 	m_pAIControllerCom->Set_UsableStates(m_pAIControllerCom->Get_States_Preset_AI_Default());
-
 
 
 	m_pColliderCom->Link_Transform(m_pTransformCom);
@@ -119,37 +119,37 @@ void CScouge::SetUp_Components_For_Child()
 	Set_Controller(CONTROLLER::AI);
 }
 
-void CScouge::On_Change_Controller(const CONTROLLER& _IsAI)
+void CStagBeetle::On_Change_Controller(const CONTROLLER& _IsAI)
 {
 	__super::On_Change_Controller(_IsAI);
 }
 
-void CScouge::On_Collision_Enter(CCollider* _Other_Collider)
+void CStagBeetle::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Enter(_Other_Collider);
 }
 
-void CScouge::On_Collision_Stay(CCollider* _Other_Collider)
+void CStagBeetle::On_Collision_Stay(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Stay(_Other_Collider);
 }
 
-void CScouge::On_Collision_Exit(CCollider* _Other_Collider)
+void CStagBeetle::On_Collision_Exit(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Exit(_Other_Collider);
 }
 
-CScouge* CScouge::Create()
+CStagBeetle* CStagBeetle::Create()
 {
-	CREATE_PIPELINE(CScouge);
+	CREATE_PIPELINE(CStagBeetle);
 }
 
-CGameObject* CScouge::Clone(void* pArg)
+CGameObject* CStagBeetle::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CScouge);
+	CLONE_PIPELINE(CStagBeetle);
 }
 
-void CScouge::Free()
+void CStagBeetle::Free()
 {
 	__super::Free();
 

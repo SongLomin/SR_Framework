@@ -101,8 +101,6 @@ void CBoosterBar::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
-	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f) * 2);
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(m_fX - (g_iWinCX >> 1), -m_fY + (g_iWinCY >> 1), 0.f));
 
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_UI, this);
 }

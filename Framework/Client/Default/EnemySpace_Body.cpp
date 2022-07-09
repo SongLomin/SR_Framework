@@ -51,7 +51,7 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 	__super::LateTick(fTimeDelta);
 
 
-	//m_fTime -= fTimeDelta;
+	m_fTime -= fTimeDelta;
 
 
 
