@@ -101,12 +101,12 @@ void CAI_Friendly::On_Change_Controller(const CONTROLLER& _IsAI)
 {
 	if (_IsAI == CONTROLLER::PLAYER)
 	{
-		m_pAIControllerCom->Set_Enable(false);
-		m_pPlayerController->Set_Enable(true);
+		//m_pAIControllerCom->Set_Enable(false);
+		//m_pPlayerController->Set_Enable(true);
 		//이 게임오브젝트가 플레이어라면, 카메라에게 이 게임 오브젝트를 보도록 하겠다.
-		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
-		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
-		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
+		//GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
+		//GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
+		//GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
 	}
 	else
 	{
