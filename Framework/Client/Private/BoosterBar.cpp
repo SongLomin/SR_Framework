@@ -73,7 +73,7 @@ void CBoosterBar::Tick(_float fTimeDelta)
 
 			if (m_fSizeX >= 150.f)
 			{
-				m_fSizeX == 150.f;
+				m_fSizeX = 150.f;
 			}
 
 			else 
