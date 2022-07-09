@@ -39,9 +39,10 @@ private:
 	_float		m_fAccelX=0.f;
 	_float		m_fAccelY=0.f;
 
-    /*_float      m_fMovement = 0.f;
-    _float      m_fLerpFreq = 0.016f;
-    _float      m_fCurLerpTime = -1.f;*/
+private:
+    _float      m_fMovement=0.f;
+    _float      m_fCurTime = -1.f;
+    _float      m_fLerpTime = 0.016f;
 
 public:
     static CCam_TPS* Create();

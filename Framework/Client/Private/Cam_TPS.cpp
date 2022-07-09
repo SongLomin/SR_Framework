@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Cam_TPS.h"
 #include "GameInstance.h"
+#include "Math_Utillity.h"
 
 CCam_TPS::CCam_TPS(const CCam_TPS& Prototype)
 {
@@ -55,20 +56,16 @@ void CCam_TPS::Tick(_float fTimeDelta)
 		}
 
 	}
+	m_fCurTime -= fTimeDelta;
 
-	_float fMovement = 10.f * fRatio;
-
-	/*m_fCurLerpTime -= fTimeDelta;
-
-	if(m_fCurLerpTime < 0.f)
+	if (0.f > m_fCurTime)
 	{
-		m_fMovement = CMath_Utillity::fLerp(m_fMovement, fMovement, 0.1f);
-		m_fCurLerpTime = m_fLerpFreq;
+		m_fMovement = CMath_Utillity::fLerp(m_fMovement, 10*fRatio, 0.7f);
+		m_fCurTime = m_fLerpTime;
 	}
-	*/
-	
 
-	vPos -= vLook*(15.f + fMovement);
+
+	vPos -= vLook*(15.f + m_fMovement);
 	vPos += vUp*3.f;
 
 	D3DXVec3Cross(&vRight, &vUp, &vLook);

@@ -92,7 +92,7 @@ HRESULT CSong_Ship_Body::Render_Begin(ID3DXEffect** Shader)
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
 	D3DXHANDLE DiffuseHandle = (*Shader)->GetParameterByName(0, "Diffuse");
 	D3DXHANDLE SpecularHandle = (*Shader)->GetParameterByName(0, "Specular");
-
+	D3DXHANDLE ShininessHandle = (*Shader)->GetParameterByName(0, "shininess");
 
 	float floatArray[3];
 	floatArray[0] = 0.5f;
@@ -101,11 +101,13 @@ HRESULT CSong_Ship_Body::Render_Begin(ID3DXEffect** Shader)
 
 
 	float Specular = 1.f;
-	float Diffuse = 1.f;
+	float Diffuse = 0.6f;
+	float Shininess = 1.f;
 
 	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 	(*Shader)->SetFloat(DiffuseHandle, Diffuse);
 	(*Shader)->SetFloat(SpecularHandle, Specular);
+	(*Shader)->SetFloat(ShininessHandle, Shininess);
 
 	
 

@@ -39,7 +39,7 @@ HRESULT CPlanet_Exo::Initialize(void* pArg)
 
 void CPlanet_Exo::SetUp_Components_For_Child()
 {
-
+	
 }
 
 

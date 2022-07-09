@@ -40,6 +40,29 @@ void CLight::Set_D3DLight(const _D3DLIGHT9& _D3DLight)
 	m_D3DLight = _D3DLight;
 }
 
+void CLight::Set_Light_Variables(D3DXCOLOR _Color, _float _lightambient, _float _lightdiffuse, _float _lightspecular,
+	_float3 _lightmarginposition, _float3 _lightdirection, _float _lightrange, _float _lightattenuation0, _float _lightattenuation1, _float _lightattenuation2, 
+	_float _lightfalloff, _float _lighttheta, _float _lightphi)
+{
+	m_Color = _Color;
+	m_D3DLight.Ambient = _Color*_lightambient;
+	m_D3DLight.Diffuse = _Color * _lightdiffuse;
+	m_D3DLight.Specular= _Color * _lightspecular;
+
+	m_Margin_Position = _lightmarginposition;
+	m_D3DLight.Direction = _lightdirection;
+	
+	m_D3DLight.Range = _lightrange;
+	m_D3DLight.Attenuation0= _lightattenuation0;
+	m_D3DLight.Attenuation1 = _lightattenuation1;
+	m_D3DLight.Attenuation2 = _lightattenuation2;
+
+	m_D3DLight.Falloff = _lightfalloff;
+	m_D3DLight.Theta = _lighttheta;
+	m_D3DLight.Phi = _lightphi;
+
+}
+
 void CLight::Set_Preset_PowLight()
 {
 	m_Color = D3DCOLOR_RGBA(200, 200, 50, 255);

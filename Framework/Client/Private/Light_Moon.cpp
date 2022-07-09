@@ -99,9 +99,13 @@ HRESULT CLight_Moon::SetUp_Components()
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
-	m_pDirectionalLightCom = Add_Component<CDirectionalLight>();
-	m_pDirectionalLightCom->Set_WeakPtr(&m_pDirectionalLightCom);
-	m_pDirectionalLightCom->Set_Preset_SunLight();
+	m_pDirectionalLightCom1 = Add_Component<CDirectionalLight>();
+	m_pDirectionalLightCom1->Set_WeakPtr(&m_pDirectionalLightCom1);
+	m_pDirectionalLightCom1->Set_Light_Variables(D3DCOLOR_RGBA(255,255,255,255),0.5f,0.8f,1.f,
+		_float3(0.f,0.f,0.f),_float3(-1.f,-1.f,-1.f),600.f);
+	/*m_pPointLightCom1->Set_Light_Variables(D3DXCOLOR(1.f, 1.f, 1.f, 1.f), 0.3f, 0.5f, 0.6f, _float3(0.f, 0.f, -2.f), D3DXVECTOR3(-1.f, -1.f, -1.f),
+		600.f, 1.f, 0.007f, 0.001f, 0.5f, 0.05f, 0.1f);*/
+
 
 	return S_OK;
 }
