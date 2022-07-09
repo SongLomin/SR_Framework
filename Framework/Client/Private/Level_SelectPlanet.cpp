@@ -30,6 +30,7 @@
 #include "Warring.h"
 #include "Dive.h"
 #include "Monster.h"
+#include "StagBeetle.h"
 
 
 _bool CLevel_SelectPlanet::m_bFirst = false;
@@ -96,11 +97,14 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("CLight_Moon")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
+
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_REDPLANET, TEXT("Aim")))
 		return E_FAIL;
 
-
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CStagBeetle>(LEVEL_SELECTPLANET, TEXT("StagBeetle")))
 		return E_FAIL;
 
 
@@ -122,19 +126,18 @@ HRESULT CLevel_SelectPlanet::Initialize()
 
 
 
-	//((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(500);
+	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(500);
 
 
+	
 	// 青己 2俺 罚待 积己
 	srand(unsigned(time(NULL)));
 
 	LEVEL m_eNextPlanet = LEVEL_STATIC;
 	LEVEL m_ePreNextPlanet = m_eNextPlanet;
 
-	/*for (_uint i = 0; i < 4; ++i)
+	for (_uint i = 0; i < 2; ++i)
 	{
-		
-
 		m_eNextPlanet = (LEVEL)(rand() % (_uint)LEVEL::LEVEL_SELECTPLANET);
 
 		if (m_eNextPlanet == m_ePreNextPlanet)
@@ -167,7 +170,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 		}
 
 		m_ePreNextPlanet = m_eNextPlanet;
-	}*/
+	}
 
 
 	

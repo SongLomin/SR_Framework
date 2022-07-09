@@ -34,7 +34,12 @@
 #include "Mesh_ShinShip.h"
 #include "Mesh_Canon.h"
 #include "Mesh_HongShip.h"
-
+#include "Mesh_Ship1.h"
+#include "Mesh_Ship2.h"
+#include "Mesh_Ship3.h"
+#include "Mesh_Ship4.h"
+#include "Mesh_Ship5.h"
+#include "Mesh_Ship6.h"
 
 BEGIN(Engine)
 

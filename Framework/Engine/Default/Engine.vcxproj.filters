@@ -238,6 +238,24 @@
     <Filter Include="01.Utility\04.Manager\07. Camera_Manager\00. Cam_Free">
       <UniqueIdentifier>{d0a5bfba-63aa-4563-a2e3-a1f32681b1d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\Mesh\Mesh_Ship1">
+      <UniqueIdentifier>{bf7e3a1a-5af1-4ddf-bc05-939f853f5345}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\Mesh\Mesh_Ship2">
+      <UniqueIdentifier>{bd9bcae9-cd09-4ac5-a487-c7e2b1b4fa8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\Mesh\Mesh_ship3">
+      <UniqueIdentifier>{40131124-3e71-42ed-8257-b862f766a831}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\Mesh\Mesh_ship4">
+      <UniqueIdentifier>{43ac282d-f686-46aa-9da9-e69509def28d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\Mesh_Ship5">
+      <UniqueIdentifier>{d9b834db-cf4b-4194-bbd6-877a37c75b59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Components\00. Model\Mesh_Ship6">
+      <UniqueIdentifier>{a61615cc-1ac1-4474-ba5f-6d9bc49432d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -476,6 +494,24 @@
     <ClInclude Include="..\Public\Cam_Free.h">
       <Filter>01.Utility\04.Manager\07. Camera_Manager\00. Cam_Free</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Mesh_Ship1.h">
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_Ship1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Mesh_Ship2.h">
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_Ship2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Mesh_Ship3.h">
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_ship3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Mesh_Ship4.h">
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_ship4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Mesh_Ship5.h">
+      <Filter>01.Utility\03.Components\00. Model\Mesh_Ship5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Mesh_Ship6.h">
+      <Filter>01.Utility\03.Components\00. Model\Mesh_Ship6</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -695,6 +731,24 @@
     </ClCompile>
     <ClCompile Include="..\Private\Cam_Free.cpp">
       <Filter>01.Utility\04.Manager\07. Camera_Manager\00. Cam_Free</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Mesh_Ship1.cpp">
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_Ship1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Mesh_Ship2.cpp">
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_Ship2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Mesh_Ship3.cpp">
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_ship3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Mesh_Ship4.cpp">
+      <Filter>01.Utility\03.Components\00. Model\Mesh\Mesh_ship4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Mesh_Ship5.cpp">
+      <Filter>01.Utility\03.Components\00. Model\Mesh_Ship5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Mesh_Ship6.cpp">
+      <Filter>01.Utility\03.Components\00. Model\Mesh_Ship6</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

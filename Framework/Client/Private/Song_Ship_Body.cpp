@@ -85,7 +85,8 @@ void CSong_Ship_Body::LateTick(_float fTimeDelta)
 
 HRESULT CSong_Ship_Body::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(1.0f, 1.0f, 1.0f), true);
+	m_pTransformCom->Scaling(_float3(0.01, 0.01, 0.01f), true);
+	
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -150,7 +151,7 @@ void CSong_Ship_Body::On_Collision_Exit(CCollider* _Other_Collider)
 void CSong_Ship_Body::SetUp_Components_For_Child()
 {
 #pragma region Collider Setting
-	m_pColliderCom->Set_Collider_Size(_float3(3.f, 0.f, 0.f));
+	m_pColliderCom->Set_Collider_Size(_float3(3.f, 3.f, 3.f));
 
 #pragma endregion Collider Setting
 
@@ -171,7 +172,7 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 
 #pragma region Mesh Setting
 
-	m_pMeshCom = Add_Component<CMesh_SongShip>();
+	m_pMeshCom = Add_Component<CMesh_Ship6>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 

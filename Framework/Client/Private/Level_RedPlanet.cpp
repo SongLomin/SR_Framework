@@ -39,7 +39,7 @@
 #include "AI_TransportShip.h"
 
 
-_uint CLevel_RedPlanet::m_iEnemyCount = 0;
+
 
 CLevel_RedPlanet::CLevel_RedPlanet()
 {
@@ -83,7 +83,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 
 	}
 
-	if (!GAMEINSTANCE->Add_GameObject<CAI_TransportShip>(LEVEL_REDPLANET, TEXT("TransportShip")))
+	 if (!GAMEINSTANCE->Add_GameObject<CAI_TransportShip>(LEVEL_REDPLANET, TEXT("TransportShip")))
 		return E_FAIL;
 
 	/*for (int i = 0; i < 50; ++i)
@@ -305,8 +305,8 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 		}
 
 	}
+	/////////////////////////////////////////////////////////////////////////
 
-	
 
 	// 7초뒤 아군생성 false
 

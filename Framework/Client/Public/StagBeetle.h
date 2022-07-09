@@ -5,19 +5,18 @@
 #include "Monster.h"
 
 BEGIN(Engine)
-class CMesh_EnemySpace;
-
+class CMesh_Ship2;
 END
 
 
 BEGIN(Client)
 class CNormal_Turret;
-class CEnemySpace_Body final : public CMonster
+class CStagBeetle final : public CMonster
 {
 private:
-    CEnemySpace_Body() = default;
-    CEnemySpace_Body(const CEnemySpace_Body& Prototype);
-    virtual ~CEnemySpace_Body() = default;
+    CStagBeetle() = default;
+    CStagBeetle(const CStagBeetle& Prototype);
+    virtual ~CStagBeetle() = default;
 
 public:
     virtual HRESULT Initialize_Prototype() override;
@@ -28,11 +27,13 @@ public:
     virtual HRESULT Render() override;
 
 private: /* For My Component*/
-    CMesh_EnemySpace* m_pMeshCom = nullptr;
+    CMesh_Ship2* m_pMeshCom = nullptr;
+
+private:
+    void Update_Target(CGameObject* _Target);
 
 protected:
     virtual void SetUp_Components_For_Child();
-
 
 public:
     virtual void On_Change_Controller(const CONTROLLER& _IsAI);
@@ -43,12 +44,11 @@ public: /* For Event Function */
     virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
 
 public:
-    static CEnemySpace_Body* Create();
+    static CStagBeetle* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 
 };
 
 END
-
 
