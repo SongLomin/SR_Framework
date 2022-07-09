@@ -49,11 +49,11 @@ void CPlayer::Tick(_float fTimeDelta)
 	{
 		_float3 Speed = m_pRigid_BodyCom->Get_Vector(RIGID_BODY::SPEED);
 		
-		_float vNow = fabs(D3DXVec3Length(&Speed)) / 100.f;
+		_float vNow = fabs(D3DXVec3Length(&Speed)) / 30.f;
 		if (vNow > 0.9f)
 		{
 			D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 0, 0);
-			((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(10 * fTimeDelta, m_pTransformCom, color);
+			((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom, color);
 		}
 	}
 }

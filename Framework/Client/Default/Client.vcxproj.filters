@@ -226,6 +226,18 @@
     <Filter Include="02.GameObject\09. Box\SkyBox\Select">
       <UniqueIdentifier>{62d1b17e-3344-490a-832b-d7d040fb0dc4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\09. Box\SkyBox\Red">
+      <UniqueIdentifier>{2b66074a-a903-47cc-ab69-41c8af985905}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\09. Box\SkyBox\Exo">
+      <UniqueIdentifier>{595d3c1a-3936-424d-8bf0-6a3b47dc9d4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\09. Box\SkyBox\Magma">
+      <UniqueIdentifier>{150ace55-8483-4179-a53b-b70d4a105c21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\09. Box\SkyBox\Venus">
+      <UniqueIdentifier>{3d0ea51d-186a-4461-ad21-9d8fa9fb7708}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02.GameObject\02. Monster\Scourge">
       <UniqueIdentifier>{7b75a45e-bbc5-42f9-8981-45edcbc9ec3b}</UniqueIdentifier>
     </Filter>
@@ -469,6 +481,9 @@
     <ClInclude Include="..\Public\SelectPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Select</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\RedPlanet_SkyBox.h">
+      <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
+    </ClInclude>
     <ClInclude Include="..\Public\StagBeetle.h">
       <Filter>02.GameObject\02. Monster\Scourge</Filter>
     </ClInclude>
@@ -705,6 +720,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\SelectPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Select</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\RedPlanet_SkyBox.cpp">
+      <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\StagBeetle.cpp">
       <Filter>02.GameObject\02. Monster\Scourge</Filter>
