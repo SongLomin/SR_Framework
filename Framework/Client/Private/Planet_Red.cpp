@@ -17,17 +17,21 @@ CPlanet_Red::CPlanet_Red(const CPlanet_Red& Prototype)
 
 HRESULT CPlanet_Red::Initialize(void* pArg)
 {
+	__super::Initialize(pArg);
 
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
+
+
 	_float3 StartPos = { 0.f, 200.f, 300.f };
-	_tchar* PontText = TEXT("Red Planet \n 고 위험 구역 \n 임무 : 모든 기체 파괴 \n 난이도 :『★★★★』  \n 보상 : XXX");
+	_tchar* PontText = TEXT("Red Planet \n 고 위험 구역 \n 임무 : 화물선 호위  \n  난이도 :『★★★★★』  \n 보상 : XXX");
 	_point PontPos = { (LONG)m_vScreenPos.x + 40, (LONG)m_vScreenPos.y - 10 };
 	_float3 MyScale = _float3(100.f, 100.f, 50.f);
-	_uint TextureIndex = 3;
+	_uint TextureIndex = 2;
 
 	SetUp_Varialbes_For_Child(StartPos, PontText, PontPos, TextureIndex, LEVEL::LEVEL_REDPLANET, MyScale);
+
 	m_pDiveUi = GAMEINSTANCE->Add_GameObject<CDive>(LEVEL_SELECTPLANET, TEXT("Dive"));
 	m_pDiveUi->Set_Enable(false);
 
@@ -40,6 +44,7 @@ void CPlanet_Red::SetUp_Components_For_Child()
 {
 }
 
+	
 
 CPlanet_Red* CPlanet_Red::Create()
 {

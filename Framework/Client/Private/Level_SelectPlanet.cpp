@@ -96,8 +96,9 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("CLight_Moon")))
 		return E_FAIL;
 
-	/*if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
-		return E_FAIL;*/
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
+		return E_FAIL;
+
 
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
 		return E_FAIL;
@@ -189,6 +190,28 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 			GAMEINSTANCE->Swap_Camera();
 			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
 				return;
+
+			list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+			//for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)
+			//{
+			//	if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
+			//	{
+			//		if ((*iter) == nullptr)
+			//			break;
+			//		//CComponent* Temp = (*iter)->Get_Component<CPlayer_Controller>();
+			//		(*iter)->Get_Component<CPlayer_Controller>()->Set_Enable(false);
+			//		int i = 10;
+			//		//Temp->Set_Enable(false);
+			//		
+			//	}
+			//}
+			for (auto& elem : *pLayer)
+			{
+				if (!elem)
+					break;
+				
+				elem->Set_Controller(CONTROLLER::PLAYER);
+			}
 		}
 	}
 
@@ -221,13 +244,16 @@ void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 	m_bCinematic = true;
 	m_iNextLevel = _iNextLevel;
 
-	/*list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 	for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)
 	{
 		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
 		{
-			CComponent* Temp = (*iter)->Get_Component<CPlayer_Controller>();
+			
 
+			(*iter)->Set_Controller(CONTROLLER::AI);
+			CComponent* Temp = (*iter)->Get_Component<CAI_Controller>();
+			WEAK_PTR(Temp);
 			Temp->Set_Enable(false);
 			Temp = (*iter)->Get_Component<CRigid_Body>();
 			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::SPIN, 0.f);
@@ -237,8 +263,9 @@ void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 				Temp = (*iter)->Get_Component<CTransform>();
 				static_cast<CTransform*>(Temp)->LookAt((CTransform*)pArg, true);
 			}
+			RETURN_WEAKPTR(Temp);
 		}
-	}*/
+	}
 
 	CGameObject* Camera_Origin = GAMEINSTANCE->Get_Camera()->Get_Owner();
 	CTransform* pCameraTransform = Camera_Origin->Get_Component<CTransform>();
@@ -297,7 +324,7 @@ void CLevel_SelectPlanet::SelectPlanet_Event(float fTimeDelta)
 	if (m_fTextBoxTime <= 297.f && !m_bEventCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n앞에 보이는 행성들을 골라 진입하시게. "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n각 행성 임무를 통해 다양한 장비를 얻어서 \n비행선을 강화하도록 하게."), 0);
 	}
 
 	if (m_fTextBoxTime <= 293.f && !m_bEventCheck[0])

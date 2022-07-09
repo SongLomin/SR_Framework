@@ -33,7 +33,8 @@ private:
 	_float m_fMaxTime = 100;
 	_bool  m_bSpawnCheck = true;
 
-	
+public:
+	static _uint       m_iEnemyCount;
 
 };
 
