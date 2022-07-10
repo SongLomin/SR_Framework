@@ -238,14 +238,17 @@
     <Filter Include="02.GameObject\09. Box\SkyBox\Venus">
       <UniqueIdentifier>{3d0ea51d-186a-4461-ad21-9d8fa9fb7708}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\02. Monster\Scourge">
-      <UniqueIdentifier>{7b75a45e-bbc5-42f9-8981-45edcbc9ec3b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\10. ParticleSystem\06. Rocket_PSystem">
       <UniqueIdentifier>{d0f69e45-d9dc-4124-8b5d-9cb34c25c423}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.GameObject\09. Box\SkyBox\Select">
       <UniqueIdentifier>{62d1b17e-3344-490a-832b-d7d040fb0dc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\02. Monster\Taget">
+      <UniqueIdentifier>{98c9f86d-5367-4983-b141-08b728fa034b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\02. Monster\StagBeetle">
+      <UniqueIdentifier>{7b75a45e-bbc5-42f9-8981-45edcbc9ec3b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -485,13 +488,16 @@
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\StagBeetle.h">
-      <Filter>02.GameObject\02. Monster\Scourge</Filter>
+      <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Rocket_PSystem.h">
       <Filter>02.GameObject\10. ParticleSystem\06. Rocket_PSystem</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\SelectPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Select</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Taget.h">
+      <Filter>02.GameObject\02. Monster\Taget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -725,13 +731,16 @@
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\StagBeetle.cpp">
-      <Filter>02.GameObject\02. Monster\Scourge</Filter>
+      <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Rocket_PSystem.cpp">
       <Filter>02.GameObject\10. ParticleSystem\06. Rocket_PSystem</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\SelectPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Select</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Taget.cpp">
+      <Filter>02.GameObject\02. Monster\Taget</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

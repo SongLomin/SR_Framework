@@ -70,8 +70,7 @@ void CMonster::LateTick(_float fTimeDelta)
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 
-	if (GAMEINSTANCE->IsIn(&vPos))
-		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
+	
 
 
 }

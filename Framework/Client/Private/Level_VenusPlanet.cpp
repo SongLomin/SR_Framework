@@ -127,10 +127,15 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 		m_bEventCheck[0] = true;
 	}
 
-	if (m_fTextBoxTime <= 283.f && !m_bEventCheck[1])
+	if (m_fTextBoxTime <= 292.f && !m_bEventCheck[1])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이동키와 마우스를 이용해 \n 앞에보이는 체크포인트까지 이동해봐."), 0);
+	}
+
+	if (!m_bEventCheck[1])
+	{
+
 	}
 	 
 
