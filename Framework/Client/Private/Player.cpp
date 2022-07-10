@@ -166,6 +166,13 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 		}
 	}
 
+	if (COLLISION_TYPE::OBJECT == _Other_Collider->Get_Collision_Type())
+	{
+		GAMEINSTANCE->Add_Shaking(0.01f, 0.01f);
+		_float3 vSpeed = -1.f*m_pRigid_BodyCom->Get_Vector(RIGID_BODY::SPEED);
+		m_pRigid_BodyCom->Add_Force(vSpeed*1.5f);
+	}
+
 
 }
 

@@ -17,7 +17,7 @@ public:
 	virtual HRESULT Complete_Condition() { return S_OK; }
 
 private:
-	void	CharacterSelect_Event();//폰트나 그런것들
+	void	CharacterSelect_Event();//폰트나 UI그런것들
 
 private:
 	vector<CGameObject*> m_vecShips;

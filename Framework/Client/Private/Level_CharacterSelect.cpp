@@ -75,7 +75,7 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 	if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP) /* || 버튼 눌렀을 때*/)
 	{
 		
-		switch (m_iIndex)
+	/*	switch (m_iIndex)
 		{
 		case 0:
 			if(FAILED(GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_STATIC, TEXT("Player"))))
@@ -86,7 +86,7 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 			if(FAILED(GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player"))))
 				return;
 			break;
-		}
+		}*/
 
 		if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL::LEVEL_SELECTPLANET))))
 			return;
@@ -98,6 +98,8 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 	GAMEINSTANCE->Get_Camera()->Get_Transform()->Set_State(CTransform::STATE_POSITION, vCameraCurPos);
 
 	GAMEINSTANCE->Get_Camera()->Get_Transform()->Update_WorldMatrix();
+
+	CharacterSelect_Event();//UI정리해놓음
 
 }
 

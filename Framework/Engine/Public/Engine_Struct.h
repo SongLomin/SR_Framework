@@ -334,6 +334,7 @@ namespace Engine
 		RANGE,
 		CAMERA,
 		MOUSE,
+		OBJECT,
 		TYPE_END
 	};
 
