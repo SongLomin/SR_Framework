@@ -90,7 +90,7 @@ HRESULT CMagmaSpace_Body::Render_Begin(ID3DXEffect** Shader)
 
 HRESULT CMagmaSpace_Body::Render()
 {
-
+	
 	__super::Render();
 
 	m_pMeshCom->Render_Mesh();
@@ -111,7 +111,7 @@ void CMagmaSpace_Body::SetUp_Components_For_Child()
 	m_pStatusCom = Add_Component<CStatus>(&Status);
 	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
 
-	m_pMeshCom = Add_Component<CMesh_Ship4>();
+	m_pMeshCom = Add_Component<CMesh_Ship3>();
 	m_pMeshCom->Set_WeakPtr((void**)&m_pMeshCom);
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
@@ -147,7 +147,7 @@ void CMagmaSpace_Body::SetUp_Components_For_Child()
 
 
 	m_pColliderCom->Link_Transform(m_pTransformCom);
-	m_pColliderCom->Set_Collider_Size(_float3(3.f, 3.f, 3.f));
+	m_pColliderCom->Set_Collider_Size(_float3(10.f, 10.f, 10.f));
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 
 	Set_Controller(CONTROLLER::AI);

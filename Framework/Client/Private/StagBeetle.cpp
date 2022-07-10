@@ -54,7 +54,7 @@ void CStagBeetle::LateTick(_float fTimeDelta)
 
 HRESULT CStagBeetle::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.01f, 0.01f, 0.01f), true);
+	m_pTransformCom->Scaling(_float3(1.f, 1.f, 1.f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");

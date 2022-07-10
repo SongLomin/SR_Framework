@@ -58,7 +58,7 @@ void CAI_TransportShip::LateTick(_float fTimeDelta)
 HRESULT CAI_TransportShip::Render_Begin(ID3DXEffect** Shader)
 {
     __super::Render_Begin(Shader);
-
+	m_pTransformCom->Scaling(_float3(0.05f, 0.05f, 0.05f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -121,7 +121,7 @@ HRESULT CAI_TransportShip::SetUp_Components()
     /*m_pTargetingCom = Add_Component<CTargeting>();
     m_pTargetingCom->Set_WeakPtr(&m_pTargetingCom);*/
 
-    m_pMeshCom = Add_Component<CMesh_Cube>();
+    m_pMeshCom = Add_Component<CMesh_Ship2>();
     m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 
 

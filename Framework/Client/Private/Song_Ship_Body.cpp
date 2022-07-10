@@ -79,7 +79,7 @@ void CSong_Ship_Body::LateTick(_float fTimeDelta)
 
 HRESULT CSong_Ship_Body::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.01, 0.01, 0.01f), true);
+	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 0.5f), true);
 	
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -168,7 +168,7 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 
 #pragma region Mesh Setting
 
-	m_pMeshCom = Add_Component<CMesh_Ship6>();
+	m_pMeshCom = Add_Component<CMesh_SongShip>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 
 #pragma endregion Mesh Setting

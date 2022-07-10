@@ -107,8 +107,8 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CStagBeetle>(LEVEL_SELECTPLANET, TEXT("StagBeetle")))
-		return E_FAIL;
+	/*if (!GAMEINSTANCE->Add_GameObject<CStagBeetle>(LEVEL_SELECTPLANET, TEXT("StagBeetle")))
+		return E_FAIL;*/
 
 
 
