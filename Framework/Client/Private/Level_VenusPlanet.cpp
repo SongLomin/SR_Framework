@@ -234,17 +234,35 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 	}
 
 	
-	if (m_fTextBoxTime <= 295 && !m_bEventCheck[7] && m_bEventCheck[6])
+	if (m_fTextBoxTime <= 295 &&  m_bEventCheck[6] && !m_bEventCheck[7])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이제 기동훈련을 들어가겠다 \n쉬프트 키를 눌러 부스터를 사용해봐라."), 0);
 	}
 	
 
-	if (m_fTextBoxTime <= 293 && !m_bEventCheck[7] && m_bEventCheck[6])
+	if (m_fTextBoxTime <= 293  && m_bEventCheck[6] && !m_bEventCheck[7])
 	{
-		m_pTagetObject->Set_Enable(false);
-		m_bEventCheck[6] = true;
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[7] = true;
+	}
+
+	if (m_fTextBoxTime <= 291 && m_bEventCheck[7] && !m_bEventCheck[8])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("생각보다 솜씨가 나쁘지않구만 \n자 필요한건 다 알려준것 같으니 \n이제 밥값을 해야겠지?"), 0);
+	}
+
+	if (m_fTextBoxTime <= 289 && m_bEventCheck[7] && !m_bEventCheck[8])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[8] = true;
+	}
+
+	if (m_fTextBoxTime <= 287 && m_bEventCheck[8] && m_bEventCheck[9])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("앞에 우리 행성 포탈을 열어줄테니 'F' 키를 눌러\n '크루즈 드라이브'를 사용하게. "), 0);
 	}
 	
 }
