@@ -34,6 +34,8 @@
 #include "Quest.h"
 #include <SelectPlanet_SkyBox.h>
 #include <MagmaPlanet_SkyBox.h>
+#include <TextBox.h>
+#include <MagmaSpace_Body.h>
 
 CLevel_MagmaPlanet::CLevel_MagmaPlanet()
 {
@@ -83,7 +85,11 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
 	//	return E_FAIL;
 
-	
+	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_MAGMAPLANET, TEXT("TextBox_Yang"));
+	m_pTextBoxObject->Set_Enable(false);
+
+	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_MAGMAPLANET, TEXT("Quest"));
+	m_pQuestBoxObject->Set_Enable(false);
 
 
 
@@ -95,8 +101,33 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);		
 
+	m_fSpawnTime -= fTimeDelta;
 
-	
+	if (m_fSpawnTime < 0.f && m_bSpawnCheck == true)
+	{
+		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CMagmaSpace_Body>(CURRENT_LEVEL, TEXT("Monster"))->Get_Component<CTransform>();
+		_float3 SpawnPos{ 0, 0.f, 300.f };
+
+		_float RotateX = (_float)(rand() % 361);
+		_float RotateY = (_float)(rand() % 361);
+		_float RotateZ = (_float)(rand() % 361);
+		RotateX = D3DXToRadian(RotateX);
+		RotateY = D3DXToRadian(RotateY);
+		RotateZ = D3DXToRadian(RotateZ);
+
+		SpawnPos = CMath_Utillity::Rotate_Vec3(_float3(RotateX, RotateY, RotateZ), SpawnPos);
+		pEnemyTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
+
+		m_fSpawnTime = 2.f;
+
+		++m_iSpawnCount;
+		if (m_iSpawnCount == 0)
+		{
+			m_bSpawnCheck = false;
+		}
+	}
+
+	MagmaPlanet_Event(fTimeDelta);
 }
 
 HRESULT CLevel_MagmaPlanet::Render()
@@ -108,6 +139,53 @@ HRESULT CLevel_MagmaPlanet::Render()
 	SetWindowText(g_hWnd, TEXT("Magma Planet 레벨입니다. "));
 
 	return S_OK;
+}
+
+void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
+{
+	m_fTextBoxTime -= fTimeDelta;
+
+	// 양갑렬 대위
+	if (m_fTextBoxTime <= 295.f && !m_bEventCheck[0])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("Magma Planet은 적군의 엘리트들이 모여있는 곳일세. \n 엘리트들을 소탕해, 작전을 완수 해주게. "), 0);
+	}
+
+	if (m_fTextBoxTime <= 292.f && !m_bEventCheck[0])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[0] = true;
+	}
+
+	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[1])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("조심하게! 내 생각보다 수가 많네!"), 0);
+	}
+
+	if (m_fTextBoxTime <= 287.f && !m_bEventCheck[1])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[1] = true;
+	}
+
+
+	if (m_fTextBoxTime <= 284.f && !m_bEventCheck[2])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("우리의 존재를 눈치챈듯 하네! \n 힘을 합쳐 엘리트들을 말살하세!"), 0);
+	}
+
+
+	if (m_fTextBoxTime <= 281.f && !m_bEventCheck[2])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[2] = true;
+	}
+
+	
+
 }
 
 CLevel_MagmaPlanet* CLevel_MagmaPlanet::Create()

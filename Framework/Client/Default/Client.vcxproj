@@ -189,6 +189,7 @@
     <ClInclude Include="..\Public\Light_Moon.h" />
     <ClInclude Include="..\Public\Loading.h" />
     <ClInclude Include="..\Public\MagmaPlanet_SkyBox.h" />
+    <ClInclude Include="..\Public\MagmaSpace_Body.h" />
     <ClInclude Include="..\Public\Move_PSystem.h" />
     <ClInclude Include="..\Public\Normal_Turret.h" />
     <ClInclude Include="..\Public\HpBar.h" />
@@ -270,6 +271,7 @@
     <ClCompile Include="..\Private\Light_Moon.cpp" />
     <ClCompile Include="..\Private\Loading.cpp" />
     <ClCompile Include="..\Private\MagmaPlanet_SkyBox.cpp" />
+    <ClCompile Include="..\Private\MagmaSpace_Body.cpp" />
     <ClCompile Include="..\Private\Move_PSystem.cpp" />
     <ClCompile Include="..\Private\Normal_Turret.cpp" />
     <ClCompile Include="..\Private\HpBar.cpp" />

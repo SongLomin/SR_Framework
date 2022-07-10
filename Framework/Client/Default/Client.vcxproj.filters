@@ -238,6 +238,9 @@
     <Filter Include="02.GameObject\09. Box\SkyBox\Venus">
       <UniqueIdentifier>{3d0ea51d-186a-4461-ad21-9d8fa9fb7708}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\02. Monster\MagmaSpace">
+      <UniqueIdentifier>{17ddb38b-7d03-4881-a26c-61468e28776b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -485,6 +488,9 @@
     <ClInclude Include="..\Public\ExoPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Exo</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\MagmaSpace_Body.h">
+      <Filter>02.GameObject\02. Monster\MagmaSpace</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -725,6 +731,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\ExoPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Exo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\MagmaSpace_Body.cpp">
+      <Filter>02.GameObject\02. Monster\MagmaSpace</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
