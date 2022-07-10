@@ -70,8 +70,7 @@ void CMonster::LateTick(_float fTimeDelta)
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 
-	if (GAMEINSTANCE->IsIn(&vPos))
-		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
+	
 
 
 }
@@ -113,6 +112,18 @@ void CMonster::Update_Target(CGameObject* _Target)
 		elem->Set_AI_Target(_Target);
 	}
 
+}
+
+void CMonster::LookAt_Camera()
+{
+	_float4x4		ViewMatrix;
+
+	DEVICE->GetTransform(D3DTS_VIEW, &ViewMatrix);
+	D3DXMatrixInverse(&ViewMatrix, nullptr, &ViewMatrix);
+
+	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, *(_float3*)&ViewMatrix.m[0][0], true);
+	m_pTransformCom->Set_State(CTransform::STATE_UP, *(_float3*)&ViewMatrix.m[1][0], true);
+	m_pTransformCom->Set_State(CTransform::STATE_LOOK, *(_float3*)&ViewMatrix.m[2][0], true);
 }
 
 HRESULT CMonster::SetUp_Components()

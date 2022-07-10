@@ -22,7 +22,7 @@ HRESULT CPlanet_Venus::Initialize(void* pArg)
 		return E_FAIL;
 
 	_float3 StartPos = { 1.f, 100.f, 300.f };
-	_tchar* PontText = TEXT("Exo Planet \n 저 위험 구역 \n \n 임무 : 장애물 돌파 \n 난이도 :『★★★』  \n 보상 : XXX");
+	_tchar* PontText = TEXT("Venus Planet \n 저 위험 구역 \n \n 임무 : 장애물 돌파 \n 난이도 :『★★★』  \n 보상 : XXX");
 	_point PontPos = { (LONG)m_vScreenPos.x + 40, (LONG)m_vScreenPos.y - 10 };
 	_float3 MyScale = _float3(80.f, 80.f, 50.f);
 	_uint TextureIndex = 0;

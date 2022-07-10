@@ -2400,7 +2400,7 @@ HRESULT CMesh_Ship6::Initialize_Prototype()
 	
 	
 	m_pMesh->UnlockVertexBuffer();
-
+	
 	WORD* indices = 0;
 	m_pMesh->LockIndexBuffer(0, (void**)&indices);
 

@@ -243,6 +243,17 @@
     </Filter>
     <Filter Include="01.Levels\06. Level_CharacterSelect">
       <UniqueIdentifier>{d9c5d892-fc42-4310-a07a-ce1fd73dbc64}</UniqueIdentifier>
+    <Filter Include="02.GameObject\10. ParticleSystem\06. Rocket_PSystem">
+      <UniqueIdentifier>{d0f69e45-d9dc-4124-8b5d-9cb34c25c423}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\09. Box\SkyBox\Select">
+      <UniqueIdentifier>{62d1b17e-3344-490a-832b-d7d040fb0dc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\02. Monster\Taget">
+      <UniqueIdentifier>{98c9f86d-5367-4983-b141-08b728fa034b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\02. Monster\StagBeetle">
+      <UniqueIdentifier>{7b75a45e-bbc5-42f9-8981-45edcbc9ec3b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -484,6 +495,8 @@
     <ClInclude Include="..\Public\StagBeetle.h" />
     <ClInclude Include="..\Public\VenusPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
+    <ClInclude Include="..\Public\StagBeetle.h">
+      <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\MagmaPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Magma</Filter>
@@ -496,6 +509,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\Level_CharacterSelect.h">
       <Filter>01.Levels\06. Level_CharacterSelect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Taget.h">
+      <Filter>02.GameObject\02. Monster\Taget</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -737,12 +753,17 @@
     </ClCompile>
     <ClCompile Include="..\Private\ExoPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Exo</Filter>
+    <ClCompile Include="..\Private\StagBeetle.cpp">
+      <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\MagmaSpace_Body.cpp">
       <Filter>02.GameObject\02. Monster\MagmaSpace</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Level_CharacterSelect.cpp">
       <Filter>01.Levels\06. Level_CharacterSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Taget.cpp">
+      <Filter>02.GameObject\02. Monster\Taget</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
