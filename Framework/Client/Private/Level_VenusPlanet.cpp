@@ -124,43 +124,43 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("자네가 요번에 들어온 신입 파일럿인가? \n 어리버리 하게 생긴게 마음에 안들군. "), 0);
 	}
 
-	if (m_fTextBoxTime <= 295.f && !m_bEventCheck[0])
+	if (m_fTextBoxTime <= 296.f && !m_bEventCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[0] = true;
 	}
 
-	if (m_fTextBoxTime <= 292.f && !m_bEventCheck[1])
+	if (m_fTextBoxTime <= 294.f && !m_bEventCheck[1])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("우선 기체 사용법 부터 알려주겠다 \n 이동키와 마우스를 이용해 기체를 움직일수있지."), 0);
 	}
 
-	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[1])
+	if (m_fTextBoxTime <= 292.f && !m_bEventCheck[1])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[1] = true;
 	}
 
-	if (m_fTextBoxTime <= 285 && !m_bEventCheck[2])
+	if (m_fTextBoxTime <= 290 && !m_bEventCheck[2])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("또한 우리는 고도의 과학문명으로 오토 타겟팅을 지원하네."), 0);
 	}
 
-	if (m_fTextBoxTime <= 283 && !m_bEventCheck[2])
+	if (m_fTextBoxTime <= 288 && !m_bEventCheck[2])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[2] = true;
 	}
 
-	if (m_fTextBoxTime <= 280 && !m_bEventCheck[3])
+	if (m_fTextBoxTime <= 286 && !m_bEventCheck[3])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("앞에 훈련용 봇들을 타겟팅을 이용해 처리해보게."), 0);
 	}
 
-	if (m_fTextBoxTime <= 278.f && !m_bEventCheck[3])
+	if (m_fTextBoxTime <= 284.f && !m_bEventCheck[3])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 
@@ -187,7 +187,7 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 	}
 	 
 
-	if (m_fTextBoxTime <= 278.f && !m_bEventCheck[4])
+	if (m_fTextBoxTime <= 284.f && !m_bEventCheck[4])
 	{
 		m_pQuestBoxObject->Set_Enable(true);
 		iEnemyCount = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Taget"))->size();
@@ -210,14 +210,28 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 	if (iEnemyCount <= 0 && m_bEventCheck[3] && !m_bEventCheck[5])
 	{
-		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("총좀 쏘는구만!! \n 어리버리하단건 사과하지!"), 0);
 		m_pQuestBoxObject->Set_Enable(false);
 		m_bEventCheck[4] = true;
-		m_fTextBoxTime = 300;
+		
 	}
 
-	
+	if (iEnemyCount <= 0 && m_bEventCheck[4] && !m_bEventCheck[5])
+	{
+		m_fTextBoxTime = 300;
+		m_bEventCheck[5] = true;
+	}
+
+	if (m_fTextBoxTime <= 299 && m_bEventCheck[5] && !m_bEventCheck[6])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("총좀 쏘는구만!! \n 어리바리 하다는건 사과하겠네"), 0);
+	}
+
+	if (m_fTextBoxTime <= 297 && m_bEventCheck[5] && !m_bEventCheck[6])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[6] = true;
+	}
 	
 	
 }
