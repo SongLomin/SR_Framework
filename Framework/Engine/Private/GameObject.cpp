@@ -42,7 +42,12 @@ void CGameObject::Broadcast_EventMessage(void* _Arg)
 	for (auto& elem : *Children)
 	{
 		//소유자(GameObject) -> Set_Controller
-		elem->Get_Owner()->Broadcast_EventMessage(_Arg);
+		if (elem)
+		{
+			elem->Get_Owner()->Broadcast_EventMessage(_Arg);
+		}
+
+		
 	}
 }
 
@@ -117,8 +122,12 @@ void CGameObject::Set_Controller(const CONTROLLER& _eController)
 	//걔네 for문
 	for (auto& elem : *Children)
 	{
+		if (elem)
+		{
+			elem->Get_Owner()->Set_Controller(_eController);
+		}
+
 		//소유자(GameObject) -> Set_Controller
-		elem->Get_Owner()->Set_Controller(_eController);
 	}
 
 }
