@@ -30,8 +30,8 @@
 #include "Warring.h"
 #include "Dive.h"
 #include "Monster.h"
-#include "StagBeetle.h"
-#include "Taget.h"
+#include "Enemy_TagetBoard.h"
+#include "Enemy_StagBeetle.h"
 #include "Planet_Select.h"
 
 _bool CLevel_SelectPlanet::m_bFirst = false;
@@ -107,7 +107,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CStagBeetle>(LEVEL_SELECTPLANET, TEXT("StagBeetle")))
+	if (!GAMEINSTANCE->Add_GameObject<CEnemy_StagBeetle>(LEVEL_SELECTPLANET, TEXT("Enemy_StagBeetle")))
 		return E_FAIL;
 
 

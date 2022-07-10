@@ -496,7 +496,7 @@
     <ClInclude Include="..\Public\RedPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\StagBeetle.h" />
+    <ClInclude Include="..\Public\Enemy_StagBeetle.h" />
     <ClInclude Include="..\Public\VenusPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
     </ClInclude>
@@ -515,7 +515,7 @@
     <ClInclude Include="..\Public\Level_CharacterSelect.h">
       <Filter>01.Levels\06. Level_CharacterSelect</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Taget.h">
+    <ClInclude Include="..\Public\Enemy_TagetBoard.h">
       <Filter>02.GameObject\02. Monster\Taget</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Planet_Select.h">
@@ -752,7 +752,7 @@
     <ClCompile Include="..\Private\RedPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\StagBeetle.cpp" />
+    <ClCompile Include="..\Private\Enemy_StagBeetle.cpp" />
     <ClCompile Include="..\Private\VenusPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
     </ClCompile>
@@ -771,7 +771,7 @@
     <ClCompile Include="..\Private\Level_CharacterSelect.cpp">
       <Filter>01.Levels\06. Level_CharacterSelect</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Taget.cpp">
+    <ClCompile Include="..\Private\Enemy_TagetBoard.cpp">
       <Filter>02.GameObject\02. Monster\Taget</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Planet_Select.cpp">

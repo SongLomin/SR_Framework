@@ -34,7 +34,7 @@
 #include <SelectPlanet_SkyBox.h>
 #include "TextBox.h"
 #include "Quest.h"
-#include "Taget.h"
+#include "Enemy_TagetBoard.h"
 #include <VenusPlanet_SkyBox.h>
 #include "Planet_Select.h"
 
@@ -252,7 +252,7 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 		for (int i = 0; i < 3; ++i)
 		{
-			CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CTaget>(CURRENT_LEVEL, TEXT("Taget"))->Get_Component<CTransform>();
+			CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemy_TagetBoard>(CURRENT_LEVEL, TEXT("Enemy_TagetBoard"))->Get_Component<CTransform>();
 			_float3 SpawnPos{ 0, 0.f, 50.f };
 
 			_float RotateX = (_float)(rand() % 361);
@@ -275,7 +275,7 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 284.f && !m_bEventCheck[4])
 	{
-		iEnemyCount = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Taget"))->size();
+		iEnemyCount = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TagetBoard"))->size();
 		m_pQuestBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            ÇöÀç ÀÓ¹«\n          ÈÆ·Ã º¿ ÆÄ±« \n        ³²Àº Àû : "), 0);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("%d"), 1, (_uint)iEnemyCount);

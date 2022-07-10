@@ -1,19 +1,19 @@
 #include "stdafx.h"
-#include "Taget.h"
+#include "Enemy_TagetBoard.h"
 #include "GameInstance.h"
 #include "Level_VenusPlanet.h"
 
-CTaget::CTaget(const CTaget& Prototype)
+CEnemy_TagetBoard::CEnemy_TagetBoard(const CEnemy_TagetBoard& Prototype)
 {
 	*this = Prototype;
 }
 
-HRESULT CTaget::Initialize_Prototype()
+HRESULT CEnemy_TagetBoard::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CTaget::Initialize(void* pArg)
+HRESULT CEnemy_TagetBoard::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
@@ -23,12 +23,12 @@ HRESULT CTaget::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CTaget::Tick(_float fTimeDelta)
+void CEnemy_TagetBoard::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 }
 
-void CTaget::LateTick(_float fTimeDelta)
+void CEnemy_TagetBoard::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
@@ -36,7 +36,7 @@ void CTaget::LateTick(_float fTimeDelta)
 	LookAt_Camera();
 }
 
-HRESULT CTaget::Render_Begin(ID3DXEffect** Shader)
+HRESULT CEnemy_TagetBoard::Render_Begin(ID3DXEffect** Shader)
 {
 	m_pTransformCom->Scaling(_float3(7.f, 5.f, 5.f), true);
 	m_pTransformCom->Bind_WorldMatrix();
@@ -44,7 +44,7 @@ HRESULT CTaget::Render_Begin(ID3DXEffect** Shader)
 	return S_OK;
 }
 
-HRESULT CTaget::Render()
+HRESULT CEnemy_TagetBoard::Render()
 {
 	__super::Render();
 	m_pRendererCom->Bind_Texture(0);
@@ -64,7 +64,7 @@ HRESULT CTaget::Render()
 
 
 
-void CTaget::SetUp_Components_For_Child()
+void CEnemy_TagetBoard::SetUp_Components_For_Child()
 {
 	CStatus::STATUS Status;
 	Status.fAttack = 1.f;
@@ -107,37 +107,37 @@ void CTaget::SetUp_Components_For_Child()
 	Set_Controller(CONTROLLER::AI);
 }
 
-void CTaget::On_Change_Controller(const CONTROLLER& _IsAI)
+void CEnemy_TagetBoard::On_Change_Controller(const CONTROLLER& _IsAI)
 {
 	__super::On_Change_Controller(_IsAI);
 }
 
-void CTaget::On_Collision_Enter(CCollider* _Other_Collider)
+void CEnemy_TagetBoard::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Enter(_Other_Collider);
 }
 
-void CTaget::On_Collision_Stay(CCollider* _Other_Collider)
+void CEnemy_TagetBoard::On_Collision_Stay(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Stay(_Other_Collider);
 }
 
-void CTaget::On_Collision_Exit(CCollider* _Other_Collider)
+void CEnemy_TagetBoard::On_Collision_Exit(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Exit(_Other_Collider);
 }
 
-CTaget* CTaget::Create()
+CEnemy_TagetBoard* CEnemy_TagetBoard::Create()
 {
-	CREATE_PIPELINE(CTaget);
+	CREATE_PIPELINE(CEnemy_TagetBoard);
 }
 
-CGameObject* CTaget::Clone(void* pArg)
+CGameObject* CEnemy_TagetBoard::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CTaget);
+	CLONE_PIPELINE(CEnemy_TagetBoard);
 }
 
-void CTaget::Free()
+void CEnemy_TagetBoard::Free()
 {
 	__super::Free();
 
