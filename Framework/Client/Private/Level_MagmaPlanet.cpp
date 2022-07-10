@@ -96,9 +96,7 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_MAGMAPLANET, TEXT("CBulletCountUI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_MAGMAPLANET, TEXT("Quest")))
-		return E_FAIL;
-
+	
 
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
 	//	return E_FAIL;
@@ -243,56 +241,7 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 	}
 
 
-	// 적생성 false 모든적 처치임무
-	//if (m_fTextBoxTime <= 175 && !m_bEventCheck[9])
-	//{
-	//	m_bSpawnCheck = false;
-	//	m_pQuestBoxObject->Set_Enable(true);
-	//	GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n    모든 적 함체 섬멸 / 화물선 호위 "), 0);
-	//
-	//	if (m_iFontiX <= 1040)
-	//	{
-	//		m_iFontiX = 1040;
-	//	}
-	//
-	//	m_iFontiX -= 0.8;
-	//}
 
-
-	// (화물호위? 조건) 퀘스트박스 소멸, 폰트 소멸
-	if (m_fTextBoxTime <= 100 && !m_bEventCheck[9])
-	{
-		m_pQuestBoxObject->Set_Enable(false);
-		m_bEventCheck[9] = true;
-
-		m_fTextBoxTime = 300;
-	}
-
-	if (m_iEnemyCount <= 295 && !m_bEventCheck[6] && !m_bSpawnCheck && m_bEventCheck[9])
-	{
-		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("고생했네! \n 오늘밤은 맘 편히 발 쭉뻗고 자겠구만! \n 맘 편히 복귀하도록 하게나! "), 0);
-	}
-
-	if (m_iEnemyCount <= 290 && !m_bEventCheck[6] && !m_bSpawnCheck && m_bEventCheck[9])
-	{
-		m_pTextBoxObject->Set_Enable(false);
-		m_bEventCheck[6] = true;
-	}
-
-
-
-	if (m_fTextBoxTime <= 285 && m_iEnemyCount <= 3 && !m_bEventCheck[7] && !m_bSpawnCheck)
-	{
-		// 보상 UI / 선택
-	}
-
-
-	if (!m_bEventCheck[7] && !m_bSpawnCheck && m_iEnemyCount <= 3)  // 보상 받았단 정보 조건 넣어줌
-	{
-		//m_bEventCheck[7] = true;
-		//GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this, LEVEL::LEVEL_SELECTPLANET);
-	}
 	
 
 }

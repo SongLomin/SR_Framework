@@ -32,7 +32,7 @@
 #include "Monster.h"
 #include "StagBeetle.h"
 #include "Taget.h"
-
+#include "Planet_Select.h"
 
 _bool CLevel_SelectPlanet::m_bFirst = false;
 

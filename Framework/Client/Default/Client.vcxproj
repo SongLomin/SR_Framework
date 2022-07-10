@@ -200,6 +200,7 @@
     <ClInclude Include="..\Public\Planet_Exo.h" />
     <ClInclude Include="..\Public\Planet_Magma.h" />
     <ClInclude Include="..\Public\Planet_Red.h" />
+    <ClInclude Include="..\Public\Planet_Select.h" />
     <ClInclude Include="..\Public\Planet_Sun.h" />
     <ClInclude Include="..\Public\Planet_Venus.h" />
     <ClInclude Include="..\Public\Player.h" />
@@ -284,6 +285,7 @@
     <ClCompile Include="..\Private\Planet_Exo.cpp" />
     <ClCompile Include="..\Private\Planet_Magma.cpp" />
     <ClCompile Include="..\Private\Planet_Red.cpp" />
+    <ClCompile Include="..\Private\Planet_Select.cpp" />
     <ClCompile Include="..\Private\Planet_Sun.cpp" />
     <ClCompile Include="..\Private\Planet_Venus.cpp" />
     <ClCompile Include="..\Private\Player.cpp" />

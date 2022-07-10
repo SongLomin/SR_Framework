@@ -2,9 +2,6 @@
 #include "Client_Defines.h"
 #include "Planet.h"
 
-BEGIN(Engine)
-class CDirectionalLight;
-END
 
 BEGIN(Client)
 
@@ -22,9 +19,6 @@ public:
 protected:
 	virtual void SetUp_Components_For_Child();
 
-private:
-	CGameObject* m_pDiveUi = nullptr;
-	CDirectionalLight* m_pDirectionalLightCom2 = nullptr;
 
 public:
 	static CPlanet_Red* Create();
