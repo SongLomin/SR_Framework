@@ -35,6 +35,7 @@ protected:
 protected:
 	CGameObject* m_pTextBoxObject = nullptr;
 	CGameObject* m_pQuestBoxObject = nullptr;
+	CGameObject* m_pTagetObject = nullptr;
 	
 
 public:

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Taget.h"
 #include "GameInstance.h"
+#include "Level_VenusPlanet.h"
 
 CTaget::CTaget(const CTaget& Prototype)
 {

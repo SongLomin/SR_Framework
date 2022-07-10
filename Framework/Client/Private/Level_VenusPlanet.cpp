@@ -34,6 +34,9 @@
 #include <SelectPlanet_SkyBox.h>
 #include "TextBox.h"
 #include "Quest.h"
+#include "Taget.h"
+
+
 
 CLevel_VenusPlanet::CLevel_VenusPlanet()
 {
@@ -78,15 +81,15 @@ HRESULT CLevel_VenusPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_REDPLANET, TEXT("Aim")))
 		return E_FAIL;
 
-	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_REDPLANET, TEXT("TextBox_Yang"));
+	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_VENUSPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);
 
-	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_REDPLANET, TEXT("Quest"));
+	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_VENUSPLANET, TEXT("Quest"));
 	m_pQuestBoxObject->Set_Enable(false);
 
+	
 
-	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
-	//	return E_FAIL;
+	
 
 
 	return S_OK;
@@ -130,15 +133,91 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 	if (m_fTextBoxTime <= 292.f && !m_bEventCheck[1])
 	{
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이동키와 마우스를 이용해 \n 앞에보이는 체크포인트까지 이동해봐."), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("우선 기체 사용법 부터 알려주겠다 \n 이동키와 마우스를 이용해 기체를 움직일수있지."), 0);
 	}
 
-	if (!m_bEventCheck[1])
+	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[1])
 	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[1] = true;
+	}
 
+	if (m_fTextBoxTime <= 285 && !m_bEventCheck[2])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("또한 우리는 고도의 과학문명으로 오토 타겟팅을 지원하네."), 0);
+	}
+
+	if (m_fTextBoxTime <= 283 && !m_bEventCheck[2])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[2] = true;
+	}
+
+	if (m_fTextBoxTime <= 280 && !m_bEventCheck[3])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("앞에 훈련용 봇들을 타겟팅을 이용해 처리해보게."), 0);
+	}
+
+	if (m_fTextBoxTime <= 278.f && !m_bEventCheck[3])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+
+		for (int i = 0; i < 3; ++i)
+		{
+			CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CTaget>(CURRENT_LEVEL, TEXT("Taget"))->Get_Component<CTransform>();
+			_float3 SpawnPos{ 0, 0.f, 50.f };
+
+			_float RotateX = (_float)(rand() % 361);
+			_float RotateY = (_float)(rand() % 361);
+			_float RotateZ = (_float)(rand() % 361);
+			RotateX = D3DXToRadian(RotateX);
+			RotateY = D3DXToRadian(RotateY);
+			RotateZ = D3DXToRadian(RotateZ);
+
+
+			SpawnPos = CMath_Utillity::Rotate_Vec3(_float3(RotateX, RotateY, RotateZ), SpawnPos);
+
+			pEnemyTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
+		}
+		
+		
+		m_bEventCheck[3] = true;
 	}
 	 
 
+	if (m_fTextBoxTime <= 278.f && !m_bEventCheck[4])
+	{
+		m_pQuestBoxObject->Set_Enable(true);
+		iEnemyCount = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Taget"))->size();
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n          훈련 봇 파괴 \n        남은 적 : "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("%d"), 1, (_uint)iEnemyCount);
+
+		if (m_iFontiX <= 1040)
+		{
+			m_iFontiX = 1040;
+		}
+
+		if (m_iFontiXCount <= 1150)
+		{
+			m_iFontiXCount = 1150;
+		}
+
+		m_iFontiX -= 0.8;
+		m_iFontiXCount -= 0.8;
+
+	}
+
+	if (iEnemyCount <= 0 && m_bEventCheck[3])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("총좀 쏘는구만!"), 0);
+		m_pQuestBoxObject->Set_Enable(false);
+		m_bEventCheck[4] = true;
+	}
+	
+	
 }
 
 CLevel_VenusPlanet* CLevel_VenusPlanet::Create()
