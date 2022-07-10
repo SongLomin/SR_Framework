@@ -14,7 +14,7 @@ void CCollision_Manager::Initialize()
 {
 	CheckGroup(COLLISION_TYPE::PLAYER_ATTACK, COLLISION_TYPE::MONSTER);
 	CheckGroup(COLLISION_TYPE::MONSTER_ATTACK, COLLISION_TYPE::PLAYER);
-
+	CheckGroup(COLLISION_TYPE::PLAYER, COLLISION_TYPE::OBJECT);
 	//CheckGroup(COLLISION_TYPE::PLAYER_ATTACK, COLLISION_TYPE::PLAYER_ATTACK);
 	//CheckGroup(COLLISION_TYPE::PLAYER, COLLISION_TYPE::MONSTER);
 	//CheckGroup(COLLISION_TYPE::MONSTER, COLLISION_TYPE::MONSTER);
@@ -28,10 +28,14 @@ void CCollision_Manager::Tick()
 		{
 			if (m_arrCheck[iRow] & (1 << iCol))
 			{
-				CollisionGroupUpdate((COLLISION_TYPE)iRow, (COLLISION_TYPE)iCol);
+				auto Handle = async(&CCollision_Manager::CollisionGroupUpdate, this, (COLLISION_TYPE)iRow, (COLLISION_TYPE)iCol);
+
+				//CollisionGroupUpdate((COLLISION_TYPE)iRow, (COLLISION_TYPE)iCol);
 			}
 		}
 	}
+
+	Clear_ColliderList();
 }
 
 void CCollision_Manager::CheckGroup(COLLISION_TYPE _eLeft, COLLISION_TYPE _eRight)
@@ -68,23 +72,34 @@ void CCollision_Manager::Add_Collider(CCollider* pCollider)
 
 void CCollision_Manager::Erase_Collider(CCollider* pCollider)
 {
-	COLLISION_TYPE collisontype = pCollider->Get_Collision_Type();
-
-	for (auto iter = m_ColliderList[(UINT)collisontype].begin(); iter != m_ColliderList[(UINT)collisontype].end(); ++iter)
-	{
-		if (*iter == pCollider)
-		{
-			(*iter)->Return_WeakPtr(&(*iter));
-			m_ColliderList[(UINT)collisontype].erase(iter);
-			return;
-		}
-
-	}
+	m_Erase_ColliderIDList.push_back(pCollider->Get_ID());
 }
 
 list<CCollider*>* CCollision_Manager::Get_ColliderList(COLLISION_TYPE _eType)
 {
 	return &m_ColliderList[(_uint)_eType];
+}
+
+void CCollision_Manager::Clear_ColliderList()
+{
+	for (auto& ColliderList_Type : m_ColliderList)
+	{
+		for (auto& elem_Collider : ColliderList_Type)
+		{
+			RETURN_WEAKPTR(elem_Collider);
+		}
+
+		ColliderList_Type.clear();
+	}
+
+	for (_ulong& elem_ID : m_Erase_ColliderIDList)
+	{
+		m_mapColInfo.erase(elem_ID / 100000);
+		m_mapColInfo.erase(elem_ID % 100000);
+	}
+	m_Erase_ColliderIDList.clear();
+
+	
 }
 
 void CCollision_Manager::CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_TYPE _eRight)
@@ -130,6 +145,8 @@ void CCollision_Manager::CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_T
 			Byte8ID += ID.Right_id;
 
 			iter = m_mapColInfo.find(Byte8ID);
+
+			
 
 			//충돌 정보가 아예 미등록 상태인 경우
 			if (m_mapColInfo.end() == iter)

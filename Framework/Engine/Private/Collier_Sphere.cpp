@@ -22,6 +22,7 @@ HRESULT CCollider_Sphere::Initialize(void* pArg)
 
 void CCollider_Sphere::Tick(_float fTimeDelta)
 {
+	__super::Tick(fTimeDelta);
 }
 
 void CCollider_Sphere::LateTick(_float fTimeDelta)

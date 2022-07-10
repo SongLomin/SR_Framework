@@ -35,12 +35,14 @@ void CParticleSystem::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	m_fRemoveTime -= fTimeDelta;
-	if (m_fRemoveTime < 0.f)
+	//m_fRemoveTime -= fTimeDelta;
+	/*if (m_fRemoveTime < 0.f)
 	{
 		RemoveDeadParticles();
-		m_fRemoveTime = 2.f;
-	}
+		m_fRemoveTime = 0.5f;
+	}*/
+
+	RemoveDeadParticles();
 }
 
 void CParticleSystem::LateTick(_float fTimeDelta)

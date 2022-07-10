@@ -12,6 +12,7 @@ class CStatus;
 class CState_Move;
 class CCollider_Sphere;
 class CDirectionalLight;
+class CLock_Controller;
 END
 
 BEGIN(Client)
@@ -41,6 +42,7 @@ protected:
 	CTransform* m_pTransformCom = nullptr;
 	CAI_Controller* m_pAI_ControllerCom = nullptr;
 	CPlayer_Controller* m_pPlayer_ControllerCom = nullptr;
+	CLock_Controller* m_pLock_ControllerCom = nullptr;
 	CRigid_Body* m_pRigid_BodyCom = nullptr;
 	CTargeting* m_pTargetingCom = nullptr;
 	CStatus* m_pStatusCom = nullptr;
@@ -60,6 +62,7 @@ public: /* For Event Function */
 	virtual void On_Collision_Enter(CCollider* _Other_Collider) override;
 	virtual void On_Collision_Stay(CCollider* _Other_Collider) override;
 	virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
+	virtual void OnTimerEvent(const _uint _iEventIndex) override;
 
 protected:
 	HRESULT SetUp_Components();

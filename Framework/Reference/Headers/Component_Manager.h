@@ -25,6 +25,7 @@
 #include "Controller.h"
 #include "AI_Controller.h"
 #include "Player_Controller.h"
+#include "Lock_Controller.h"
 #include "Light.h"
 #include "DirectionalLight.h"
 #include "SpotLight.h"

@@ -178,15 +178,19 @@
     <ClInclude Include="..\Public\Default_Aim.h" />
     <ClInclude Include="..\Public\Dive.h" />
     <ClInclude Include="..\Public\Effect.h" />
+    <ClInclude Include="..\Public\ExoPlanet_SkyBox.h" />
     <ClInclude Include="..\Public\Fire_PSystem.h" />
     <ClInclude Include="..\Public\Hong_Ship_Body.h" />
     <ClInclude Include="..\Public\Lazer_Bullet.h" />
     <ClInclude Include="..\Public\Lazer_Turret.h" />
+    <ClInclude Include="..\Public\Level_CharacterSelect.h" />
     <ClInclude Include="..\Public\Level_ExoPlanet.h" />
     <ClInclude Include="..\Public\Level_MagmaPlanet.h" />
     <ClInclude Include="..\Public\Level_VenusPlanet.h" />
     <ClInclude Include="..\Public\Light_Moon.h" />
     <ClInclude Include="..\Public\Loading.h" />
+    <ClInclude Include="..\Public\MagmaPlanet_SkyBox.h" />
+    <ClInclude Include="..\Public\MagmaSpace_Body.h" />
     <ClInclude Include="..\Public\Move_PSystem.h" />
     <ClInclude Include="..\Public\Normal_Turret.h" />
     <ClInclude Include="..\Public\HpBar.h" />
@@ -225,6 +229,7 @@
     <ClInclude Include="..\Public\SkyBox.h" />
     <ClInclude Include="..\Public\SpaceDust_PSystem.h" />
     <ClInclude Include="..\Public\StatusBar.h" />
+    <ClInclude Include="..\Public\Taget.h" />
     <ClInclude Include="..\Public\TargetingBox.h" />
     <ClInclude Include="..\Public\Teleport_Effect.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -236,6 +241,7 @@
     <ClInclude Include="..\Public\Turret.h" />
     <ClInclude Include="..\Public\UI.h" />
     <ClInclude Include="..\Public\UITest.h" />
+    <ClInclude Include="..\Public\VenusPlanet_SkyBox.h" />
     <ClInclude Include="..\Public\Warring.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="EnemySpace_Body.h" />
@@ -256,15 +262,19 @@
     <ClCompile Include="..\Private\Default_Aim.cpp" />
     <ClCompile Include="..\Private\Dive.cpp" />
     <ClCompile Include="..\Private\Effect.cpp" />
+    <ClCompile Include="..\Private\ExoPlanet_SkyBox.cpp" />
     <ClCompile Include="..\Private\Fire_PSystem.cpp" />
     <ClCompile Include="..\Private\Hong_Ship_Body.cpp" />
     <ClCompile Include="..\Private\Lazer_Bullet.cpp" />
     <ClCompile Include="..\Private\Lazer_Turret.cpp" />
+    <ClCompile Include="..\Private\Level_CharacterSelect.cpp" />
     <ClCompile Include="..\Private\Level_ExoPlanet.cpp" />
     <ClCompile Include="..\Private\Level_MagmaPlanet.cpp" />
     <ClCompile Include="..\Private\Level_VenusPlanet.cpp" />
     <ClCompile Include="..\Private\Light_Moon.cpp" />
     <ClCompile Include="..\Private\Loading.cpp" />
+    <ClCompile Include="..\Private\MagmaPlanet_SkyBox.cpp" />
+    <ClCompile Include="..\Private\MagmaSpace_Body.cpp" />
     <ClCompile Include="..\Private\Move_PSystem.cpp" />
     <ClCompile Include="..\Private\Normal_Turret.cpp" />
     <ClCompile Include="..\Private\HpBar.cpp" />
@@ -302,6 +312,7 @@
     <ClCompile Include="..\Private\SkyBox.cpp" />
     <ClCompile Include="..\Private\SpaceDust_PSystem.cpp" />
     <ClCompile Include="..\Private\StatusBar.cpp" />
+    <ClCompile Include="..\Private\Taget.cpp" />
     <ClCompile Include="..\Private\TargetingBox.cpp" />
     <ClCompile Include="..\Private\Teleport_Effect.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -313,6 +324,7 @@
     <ClCompile Include="..\Private\Turret.cpp" />
     <ClCompile Include="..\Private\UI.cpp" />
     <ClCompile Include="..\Private\UITest.cpp" />
+    <ClCompile Include="..\Private\VenusPlanet_SkyBox.cpp" />
     <ClCompile Include="..\Private\Warring.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="EnemySpace_Body.cpp" />

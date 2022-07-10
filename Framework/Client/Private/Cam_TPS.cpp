@@ -34,13 +34,20 @@ void CCam_TPS::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	_float3 vLook = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_LOOK, true);
-	_float3 vPos = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_POSITION, true);
-	_float3 vUp = m_pCameraCom->Get_Target()->Get_State(CTransform::STATE_UP, true);
+	CTransform* pCamTargetTransformCom = m_pCameraCom->Get_Target();
+
+	if (!pCamTargetTransformCom)
+	{
+		return;
+	}
+
+	_float3 vLook = pCamTargetTransformCom->Get_State(CTransform::STATE_LOOK, true);
+	_float3 vPos = pCamTargetTransformCom->Get_State(CTransform::STATE_POSITION, true);
+	_float3 vUp = pCamTargetTransformCom->Get_State(CTransform::STATE_UP, true);
 
 	_float3 vRight;
 	_float  fRatio = 0.f;
-	CRigid_Body* pTargetRigidBody = m_pCameraCom->Get_Target()->Get_Owner()->Get_Component<CRigid_Body>();
+	CRigid_Body* pTargetRigidBody = pCamTargetTransformCom->Get_Owner()->Get_Component<CRigid_Body>();
 	if (pTargetRigidBody)
 	{
 		_float3 vTargetSpeed = pTargetRigidBody->Get_Vector(RIGID_BODY::SPEED);
@@ -60,7 +67,7 @@ void CCam_TPS::Tick(_float fTimeDelta)
 
 	if (0.f > m_fCurTime)
 	{
-		m_fMovement = CMath_Utillity::fLerp(m_fMovement, 10*fRatio, 0.7f);
+		m_fMovement = CMath_Utillity::fLerp(m_fMovement, 10*fRatio, 0.03f);
 		m_fCurTime = m_fLerpTime;
 	}
 

@@ -25,6 +25,13 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 {
 	if (Get_Enable())
 	{
+		if (m_bLock)
+		{
+			m_pMyObject->Get_Component<CRigid_Body>()->Reset_Force();
+			return;
+		}
+			
+
 		if (KEY_INPUT(KEY::W, KEY_STATE::HOLD))
 			m_pMyObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::FRONT);
 		if (KEY_INPUT(KEY::S, KEY_STATE::HOLD))
@@ -84,6 +91,8 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 		if (m_fTime < 0.f)
 		{
 			m_pMyObject->Get_Component<CTargeting>()->Make_Player_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pMyObject->Get_Component<CTransform>());
+			m_pMyObject->Get_Component<CTargeting>()->Make_Player_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("StagBeetle")), m_pMyObject->Get_Component<CTransform>());
+			m_pMyObject->Get_Component<CTargeting>()->Make_Player_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Taget")), m_pMyObject->Get_Component<CTransform>());
 			m_fTime = 1.f;
 		}
 
@@ -139,6 +148,7 @@ CController* CPlayer_Controller::Clone(void* pArg)
 void CPlayer_Controller::Free()
 {
 	__super::Free();
+
 
 	delete this;
 }

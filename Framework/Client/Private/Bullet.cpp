@@ -66,11 +66,13 @@ void CBullet::OnEnable(void* _Arg)
 	m_pTransformCom->Set_LocalMatrix(IdentityMat);
 	m_pRigidBodyCom->SetUp_Origin_DirVector();
 	m_pRigidBodyCom->Reset_Force();
+
+	m_pColliderCom->OnEnable(_Arg);
 }
 
 void CBullet::OnDisable()
 {
-
+	m_pColliderCom->OnDisable();
 }
 
 

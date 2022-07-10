@@ -41,10 +41,12 @@ void CRock::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
-
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
-
 	LookAtCamera();
+
+	if (GAMEINSTANCE->IsIn(&(m_pTransformCom->Get_World_State(CTransform::STATE_POSITION))))
+	{
+		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+	}
 
 }
 
@@ -113,6 +115,13 @@ HRESULT CRock::SetUp_Components()
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
+	COLLISION_TYPE	eCollisiontype = COLLISION_TYPE::OBJECT;
+	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisiontype);
+	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
+	m_pColliderCom->Link_Transform(m_pTransformCom);
+	m_pColliderCom->Set_Collider_Size(_float3(30.f, 30.f, 30.f));
+
+
 	return S_OK;
 }
 
@@ -127,6 +136,22 @@ void CRock::LookAtCamera()
 	m_pTransformCom->Set_State(CTransform::STATE_UP, *(_float3*)&ViewMatrix.m[1][0], true);
 	m_pTransformCom->Set_State(CTransform::STATE_LOOK, *(_float3*)&ViewMatrix.m[2][0], true);
 
+}
+
+void CRock::On_Collision_Enter(CCollider* _Other_Collider)
+{
+	if (COLLISION_TYPE::PLAYER == _Other_Collider->Get_Collision_Type())
+	{
+
+	}
+}
+
+void CRock::On_Collision_Stay(CCollider* _Other_Collider)
+{
+}
+
+void CRock::On_Collision_Exit(CCollider* _Other_Collider)
+{
 }
 
 CRock* CRock::Create()
@@ -146,6 +171,8 @@ void CRock::Free()
 	RETURN_WEAKPTR(m_pTransformCom);
 	RETURN_WEAKPTR(m_pRendererCom);
 	RETURN_WEAKPTR(m_pVIBufferCom);
+	RETURN_WEAKPTR(m_pColliderCom);
+	RETURN_WEAKPTR(m_pRigidBodyCom);
 
 	delete this;
 }

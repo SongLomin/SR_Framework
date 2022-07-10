@@ -18,12 +18,6 @@ public:
 public:
 	virtual HRESULT Initialize(void* pArg) override;
 
-private:/*
-	HRESULT SetUp_Components();
-	void LookAtCamera();
-	void Enter_Planet();*/
-	_bool m_bLevelChange = false;
-
 
 protected:
 	virtual void SetUp_Components_For_Child();

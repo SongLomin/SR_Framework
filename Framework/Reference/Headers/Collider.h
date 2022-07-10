@@ -30,7 +30,10 @@ public:
     void Link_Pre_Collider(CCollider_Pre* _PreCol);
     CCollider_Pre* Get_Pre_Collider() const;
 
-    
+public:
+    virtual void Tick(_float fTimeDelta) override;
+
+
 protected:
     COLLISION_TYPE m_eCollision_Type;
     COLLIDER_SHAPE m_eShape = COLLIDER_SHAPE::SHAPE_END;

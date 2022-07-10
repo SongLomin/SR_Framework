@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Normal_Turret.h"
 #include "Rocket_Turret.h"
+#include "Move_PSystem.h"
 
 CStagBeetle::CStagBeetle(const CStagBeetle& Prototype)
 {
@@ -33,6 +34,22 @@ void CStagBeetle::Tick(_float fTimeDelta)
 void CStagBeetle::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
+
+
+	_float3 Speed = m_pRigidBodyCom->Get_Vector(RIGID_BODY::SPEED);
+
+	if (fabs(D3DXVec3Length(&Speed)) > 5.f)
+	{
+		D3DCOLOR color = D3DCOLOR_ARGB(255, 0, 255, 0);
+		((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom, color);
+	}
+
+
+	m_pRigidBodyCom->Update_Transform(fTimeDelta);
+	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+
+	if (GAMEINSTANCE->IsIn(&vPos))
+		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
 }
 
 HRESULT CStagBeetle::Render_Begin(ID3DXEffect** Shader)
@@ -71,7 +88,7 @@ void CStagBeetle::SetUp_Components_For_Child()
 	CStatus::STATUS Status;
 	Status.fAttack = 1.f;
 	Status.fArmor = 5.f;
-	Status.fMaxHp = 500.f;
+	Status.fMaxHp = 20.f;
 	Status.fHp = Status.fMaxHp;
 
 

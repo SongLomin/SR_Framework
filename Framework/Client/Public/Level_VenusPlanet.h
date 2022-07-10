@@ -18,6 +18,11 @@ public:
 	virtual void Change_Level(void* pArg, _uint _iNextLevel) {}
 	virtual HRESULT Complete_Condition() { return S_OK; }
 
+private:
+	void VenusPlanet_Event(_float fTimeDelta);
+
+public:
+	 _uint iEnemyCount = 0;
 
 public:
 	static CLevel_VenusPlanet* Create();

@@ -29,10 +29,14 @@ CCollider_Pre* CCollider::Get_Pre_Collider() const
     return m_pPreCollider;
 }
 
+void CCollider::Tick(_float fTimeDelta)
+{
+    GAMEINSTANCE->Add_Collider(this);
+}
+
 void CCollider::OnEnable(void* _Arg)
 {
     m_eCollision_Type = *(COLLISION_TYPE*)_Arg;
-    GAMEINSTANCE->Add_Collider(this);
 }
 
 void CCollider::OnDisable()
@@ -51,6 +55,8 @@ void CCollider::Free()
 
         m_pMesh = nullptr;
     }
+
+    GAMEINSTANCE->Erase_Collider(this);
 
     RETURN_WEAKPTR(m_pMyTransformCom);
     RETURN_WEAKPTR(m_pPreCollider);

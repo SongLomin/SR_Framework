@@ -24,7 +24,7 @@ protected:
 	_float      m_fTextBoxTime = 300.f;
 
 	_bool		m_bCinematic = false;
-	_bool       m_bEventCheck[10] = { false };
+	_bool       m_bEventCheck[20] = { false };
 
 	_uint       m_iFontiX = 1360;
 	_uint       m_iFontiXCount = 1470;
@@ -35,6 +35,7 @@ protected:
 protected:
 	CGameObject* m_pTextBoxObject = nullptr;
 	CGameObject* m_pQuestBoxObject = nullptr;
+	CGameObject* m_pTagetObject = nullptr;
 	
 
 public:

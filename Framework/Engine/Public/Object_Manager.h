@@ -26,6 +26,7 @@ public:
 
 
 	void Tick(_float fTimeDelta);
+	void Object_Tick(list<CGameObject*>* _ObjList, _float fTimeDelta);
 	void LateTick(_float fTimeDelta);
 	void Remove_Dead_Object();
 
@@ -123,7 +124,7 @@ public: /* Template Function */
 			pTransfromCom->Set_Parent(pParent);
 			pParent->Add_Child(pTransfromCom);
 		}
-		pCloneObject->OnEnable();
+		pCloneObject->OnEnable(pArg);
 
 		return static_cast<T*>(pCloneObject);
 	}

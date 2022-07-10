@@ -222,10 +222,11 @@ void CTargeting::Add_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _v
 
 CGameObject* CTargeting::Get_Nearest_Target_Distance(list<CGameObject*>* pTarget, _float3 _vPosition, _float _fRange)
 {
-	Clear_Targeting();
 
 	if (!pTarget)
 		return nullptr;
+
+	map<_float, CGameObject*> pTargeting;
 
 	for (auto iter = pTarget->begin();
 		iter != pTarget->end();
@@ -236,12 +237,11 @@ CGameObject* CTargeting::Get_Nearest_Target_Distance(list<CGameObject*>* pTarget
 		_float fDistance = D3DXVec3Length(&(vTargetPos - _vPosition));
 		if (_fRange > fDistance)
 		{
-			m_pTargeting.emplace(fDistance, (*iter));
-			(*iter)->Set_WeakPtr(&m_pTargeting[fDistance]);
+			pTargeting.emplace(fDistance, (*iter));
 		}
 	}
 
-	return nullptr;
+	return (*pTargeting.begin()).second;
 }
 
 bool CTargeting::IsTargetEmpty()

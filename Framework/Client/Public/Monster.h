@@ -52,9 +52,11 @@ private:
     void Update_Target(CGameObject* _Target);
 
 protected:
+    void LookAt_Camera();
     HRESULT SetUp_Components();
     virtual void SetUp_Components_For_Child() PURE;
 
+   
 protected
 : /* For Event Function */
     virtual void On_Collision_Enter(CCollider* _Other_Collider) override;

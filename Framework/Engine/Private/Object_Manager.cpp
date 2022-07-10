@@ -38,16 +38,35 @@ void CObject_Manager::Tick(_float fTimeDelta)
 	{
 		for (auto& Pair : m_pLayers[i])
 		{
-			for(auto& elem_GameObject : Pair.second) 
-			{
-				//게임오브젝트가 활성화 상태면 Tick을 돌린다.
-				if (elem_GameObject->Get_Enable())
-				{
-					elem_GameObject->Tick(fTimeDelta);
-				}
-					
-			}
+			auto handle = async(&CObject_Manager::Object_Tick, this, &Pair.second, fTimeDelta);
+
+			//for(auto& elem_GameObject : Pair.second) 
+			//{
+
+			//	//게임오브젝트가 활성화 상태면 Tick을 돌린다.
+			//	if (elem_GameObject->Get_Enable())
+			//	{
+			//		//auto handle = async(&CGameObject::Tick, elem_GameObject, fTimeDelta);
+			//		elem_GameObject->Tick(fTimeDelta);
+			//	}
+			//		
+			//}
 		}
+	}
+}
+
+void CObject_Manager::Object_Tick(list<CGameObject*>* _ObjList, _float fTimeDelta)
+{
+	for (auto& elem_GameObject : *_ObjList)
+	{
+
+		//게임오브젝트가 활성화 상태면 Tick을 돌린다.
+		if (elem_GameObject->Get_Enable())
+		{
+			//auto handle = async(&CGameObject::Tick, elem_GameObject, fTimeDelta);
+			elem_GameObject->Tick(fTimeDelta);
+		}
+
 	}
 }
 
