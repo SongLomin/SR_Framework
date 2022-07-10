@@ -103,17 +103,17 @@ void CKang_Ship_Body::SetUp_Components_For_Child()
 
 #pragma region Posin Setting
 
-	CTurret* Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
+	CTurret* Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 
-	Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CRocket_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-1.f, -1.f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
 
-	Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
+	Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CRocket_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(1.f, -1.f, 0.f));
 	m_pMyPosinList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyPosinList.back());
