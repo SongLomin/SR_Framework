@@ -2,6 +2,7 @@
 #include "..\Public\Level_Loading.h"
 #include "Loader.h"
 #include "Level_Logo.h"
+#include "Level_CharacterSelect.h"
 #include "Level_RedPlanet.h"
 #include "Level_SelectPlanet.h"
 #include "Level_MagmaPlanet.h"
@@ -41,6 +42,9 @@ void CLevel_Loading::Tick(_float fTimeDelta)
 			{
 			case LEVEL_LOGO:
 				pLevel = CLevel_Logo::Create();
+				break;
+			case LEVEL_CHARACTERSELECT:
+				pLevel = CLevel_CharacterSelect::Create();
 				break;
 			case LEVEL_SELECTPLANET:
 				pLevel = CLevel_SelectPlanet::Create();

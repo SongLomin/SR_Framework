@@ -182,6 +182,7 @@
     <ClInclude Include="..\Public\Hong_Ship_Body.h" />
     <ClInclude Include="..\Public\Lazer_Bullet.h" />
     <ClInclude Include="..\Public\Lazer_Turret.h" />
+    <ClInclude Include="..\Public\Level_CharacterSelect.h" />
     <ClInclude Include="..\Public\Level_ExoPlanet.h" />
     <ClInclude Include="..\Public\Level_MagmaPlanet.h" />
     <ClInclude Include="..\Public\Level_VenusPlanet.h" />
@@ -260,6 +261,7 @@
     <ClCompile Include="..\Private\Hong_Ship_Body.cpp" />
     <ClCompile Include="..\Private\Lazer_Bullet.cpp" />
     <ClCompile Include="..\Private\Lazer_Turret.cpp" />
+    <ClCompile Include="..\Private\Level_CharacterSelect.cpp" />
     <ClCompile Include="..\Private\Level_ExoPlanet.cpp" />
     <ClCompile Include="..\Private\Level_MagmaPlanet.cpp" />
     <ClCompile Include="..\Private\Level_VenusPlanet.cpp" />
