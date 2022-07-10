@@ -66,6 +66,29 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 		pEnemyTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
 		++m_iSpawnCount;
 	}
+	auto Monster = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster"));
+
+	_uint MonsterSize = Monster->size();
+
+
+	for (int i = 0; i < 30; ++i)
+	{
+		CTransform* pRockTransform = GAMEINSTANCE->Add_GameObject<CRock>(CURRENT_LEVEL, TEXT("Rock"))->Get_Component<CTransform>();
+
+		_float3 SpawnPos{ 0, 0.f, 400.f };
+
+		_float RotateX = (_float)(rand() % 361);
+		_float RotateY = (_float)(rand() % 361);
+		_float RotateZ = (_float)(rand() % 361);
+		RotateX = D3DXToRadian(RotateX);
+		RotateY = D3DXToRadian(RotateY);
+		RotateZ = D3DXToRadian(RotateZ);
+
+
+		SpawnPos = CMath_Utillity::Rotate_Vec3(_float3(RotateX, RotateY, RotateZ), SpawnPos);
+
+		pRockTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
+	}
 
 
 	if (!GAMEINSTANCE->Add_GameObject<CMagmaPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
@@ -94,9 +117,6 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_MAGMAPLANET, TEXT("CBulletCountUI")))
-		return E_FAIL;
-
-	if (!GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_MAGMAPLANET, TEXT("Quest")))
 		return E_FAIL;
 
 
@@ -149,8 +169,6 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 		_uint MonsterSize = Monster->size();
 
 		m_iMonsterCount = m_iSpawnCount - MonsterSize;
-
-		int i = 10;
 	}
 
 	MagmaPlanet_Event(fTimeDelta);
