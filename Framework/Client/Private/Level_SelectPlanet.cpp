@@ -98,7 +98,6 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("CLight_Moon")))
 		return E_FAIL;
 
-
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_REDPLANET, TEXT("Aim")))
 		return E_FAIL;
 
@@ -111,8 +110,6 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CStagBeetle>(LEVEL_SELECTPLANET, TEXT("StagBeetle")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CTaget>(LEVEL_SELECTPLANET, TEXT("Taget")))
-		return E_FAIL;
 
 
 

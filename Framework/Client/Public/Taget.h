@@ -27,8 +27,7 @@ public:
 private: /* For My Component*/
     CVIBuffer_Rect* m_pVIBufferCom = nullptr;
 
-private:
-    void LookAt_Camera();
+
 
 protected:
     virtual void SetUp_Components_For_Child();

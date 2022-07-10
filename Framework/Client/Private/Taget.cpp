@@ -62,17 +62,7 @@ HRESULT CTaget::Render()
 	return S_OK;
 }
 
-void CTaget::LookAt_Camera()
-{
-	_float4x4		ViewMatrix;
 
-	DEVICE->GetTransform(D3DTS_VIEW, &ViewMatrix);
-	D3DXMatrixInverse(&ViewMatrix, nullptr, &ViewMatrix);
-
-	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, *(_float3*)&ViewMatrix.m[0][0], true);
-	m_pTransformCom->Set_State(CTransform::STATE_UP, *(_float3*)&ViewMatrix.m[1][0], true);
-	m_pTransformCom->Set_State(CTransform::STATE_LOOK, *(_float3*)&ViewMatrix.m[2][0], true);
-}
 
 void CTaget::SetUp_Components_For_Child()
 {

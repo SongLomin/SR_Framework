@@ -232,6 +232,8 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[6] = true;
 	}
+
+	
 	
 	
 }
