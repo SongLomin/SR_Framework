@@ -2,6 +2,7 @@
 #include "Enemy_TagetBoard.h"
 #include "GameInstance.h"
 #include "Level_VenusPlanet.h"
+#include "Move_PSystem.h"
 
 CEnemy_TagetBoard::CEnemy_TagetBoard(const CEnemy_TagetBoard& Prototype)
 {
@@ -32,25 +33,34 @@ void CEnemy_TagetBoard::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+	
 	LookAt_Camera();
+
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+
+	
 }
 
 HRESULT CEnemy_TagetBoard::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(7.f, 5.f, 5.f), true);
-	m_pTransformCom->Bind_WorldMatrix();
-
+		
 	return S_OK;
 }
 
 HRESULT CEnemy_TagetBoard::Render()
 {
-	__super::Render();
+	//__super::Render();
+
+	m_pTransformCom->Scaling(_float3(13.f, 10.f, 1.f), true);
+
+
+	m_pTransformCom->Bind_WorldMatrix();
+
+
 	m_pRendererCom->Bind_Texture(0);
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	DEVICE->SetRenderState(D3DRS_ALPHAREF, 100);
+	DEVICE->SetRenderState(D3DRS_ALPHAREF, 200);
 	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 
 	m_pVIBufferCom->Render();
