@@ -80,7 +80,8 @@ void CPlayer::LateTick(_float fTimeDelta)
 		else
 		{
 			m_pTargetingCom->Set_TargetMode(TARGETMODE::TARGET_MULTIRAY);
-			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+			//m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
 			Update_PosinTarget(m_pTargetingCom->Get_TargetMode());
 		}
 		m_fTime = 1.f;

@@ -238,14 +238,8 @@
     <Filter Include="02.GameObject\09. Box\SkyBox\Venus">
       <UniqueIdentifier>{3d0ea51d-186a-4461-ad21-9d8fa9fb7708}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\02. Monster\Scourge">
-      <UniqueIdentifier>{7b75a45e-bbc5-42f9-8981-45edcbc9ec3b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\10. ParticleSystem\06. Rocket_PSystem">
-      <UniqueIdentifier>{d0f69e45-d9dc-4124-8b5d-9cb34c25c423}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\09. Box\SkyBox\Select">
-      <UniqueIdentifier>{62d1b17e-3344-490a-832b-d7d040fb0dc4}</UniqueIdentifier>
+    <Filter Include="02.GameObject\02. Monster\MagmaSpace">
+      <UniqueIdentifier>{17ddb38b-7d03-4881-a26c-61468e28776b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -484,14 +478,18 @@
     <ClInclude Include="..\Public\RedPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\StagBeetle.h">
-      <Filter>02.GameObject\02. Monster\Scourge</Filter>
+    <ClInclude Include="..\Public\StagBeetle.h" />
+    <ClInclude Include="..\Public\VenusPlanet_SkyBox.h">
+      <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Rocket_PSystem.h">
-      <Filter>02.GameObject\10. ParticleSystem\06. Rocket_PSystem</Filter>
+    <ClInclude Include="..\Public\MagmaPlanet_SkyBox.h">
+      <Filter>02.GameObject\09. Box\SkyBox\Magma</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\SelectPlanet_SkyBox.h">
-      <Filter>02.GameObject\09. Box\SkyBox\Select</Filter>
+    <ClInclude Include="..\Public\ExoPlanet_SkyBox.h">
+      <Filter>02.GameObject\09. Box\SkyBox\Exo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\MagmaSpace_Body.h">
+      <Filter>02.GameObject\02. Monster\MagmaSpace</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -724,14 +722,18 @@
     <ClCompile Include="..\Private\RedPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\StagBeetle.cpp">
-      <Filter>02.GameObject\02. Monster\Scourge</Filter>
+    <ClCompile Include="..\Private\StagBeetle.cpp" />
+    <ClCompile Include="..\Private\VenusPlanet_SkyBox.cpp">
+      <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Rocket_PSystem.cpp">
-      <Filter>02.GameObject\10. ParticleSystem\06. Rocket_PSystem</Filter>
+    <ClCompile Include="..\Private\MagmaPlanet_SkyBox.cpp">
+      <Filter>02.GameObject\09. Box\SkyBox\Magma</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\SelectPlanet_SkyBox.cpp">
-      <Filter>02.GameObject\09. Box\SkyBox\Select</Filter>
+    <ClCompile Include="..\Private\ExoPlanet_SkyBox.cpp">
+      <Filter>02.GameObject\09. Box\SkyBox\Exo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\MagmaSpace_Body.cpp">
+      <Filter>02.GameObject\02. Monster\MagmaSpace</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

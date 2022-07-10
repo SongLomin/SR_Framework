@@ -46,7 +46,7 @@ void CAI_Friendly::LateTick(_float fTimeDelta)
 	m_fTime -= fTimeDelta;
 	if (m_fTime < 0.f)
 	{
-		m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+		m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
 		
 
 		auto TargetList = m_pTargetingCom->Get_Targetting();
