@@ -24,7 +24,7 @@ void CTime_Manager::Tick(const _float& _fOriginDeltaTime, const _float& _fTimeSc
 			}
 			else
 			{
-				RETURN_WEAKPTR((*iter).pInstance);
+				RETURN_WEAKPTR(((*iter).pInstance));
 				iter = m_TimerEvents.erase(iter);
 				continue;
 			}
@@ -82,7 +82,7 @@ HRESULT CTime_Manager::Add_TimerEvent(_uint _iEventNum, CBase* _Instance, _float
 	TimerEvent.fMaxTime = TimerEvent.fCurTime = _fTime;
 	TimerEvent.iEventNum = _iEventNum;
 	TimerEvent.pInstance = _Instance;
-	WEAK_PTR(TimerEvent.pInstance);
+	WEAK_PTR((TimerEvent.pInstance));
 	TimerEvent.bLoop = _bLoop;
 	TimerEvent.bUseTimeScale = _bUseTimeScale;
 
@@ -112,7 +112,7 @@ void CTime_Manager::Free()
 
 	for (auto& elem : m_TimerEvents)
 	{
-		RETURN_WEAKPTR(elem.pInstance);
+		RETURN_WEAKPTR((elem.pInstance));
 	}
 
 
