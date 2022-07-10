@@ -26,7 +26,6 @@ HRESULT CLevel_CharacterSelect::Initialize()
 	m_vecShips.push_back(m_pShip);
 	WEAK_PTR(m_vecShips.back());
 	m_pShip->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(10.f, 0.f, 0.f));
-	//m_pShip->Get_Component<CAI_Controller>()->Set_Enable(false);
 
 	m_iIndex = 0;
 
@@ -115,6 +114,7 @@ HRESULT CLevel_CharacterSelect::Render()
 void CLevel_CharacterSelect::CharacterSelect_Event()
 {
 	/*UI¶ç¿ö¾ßÇÔ*/
+	
 }
 
 CLevel_CharacterSelect* CLevel_CharacterSelect::Create()
