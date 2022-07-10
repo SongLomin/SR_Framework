@@ -41,6 +41,8 @@ public:
 	void Set_TimeScale(const _float& _fTimeScale) { m_fTimeScale = _fTimeScale; }
 	_float Get_TimeScale() { return m_fTimeScale; }
 
+	_float Get_UnScaledTimeDelta() { return m_fUnScaledTimeDelta; }
+
 public: /* For.Graphic_Device */	
 	void		Render_Begin(void);
 	void		Render_End(HWND hWnd = NULL);
@@ -114,7 +116,7 @@ public: /* For.Resource_Mananger */
 
 public: /* For.Time_Manager */
 	HRESULT Add_Timer(_uint eTimer);
-	HRESULT Add_TimerEvent(_uint _iEventNum, CBase* _Instance, _float _fTime, _bool _bLoop = false, _bool _bUseTimeScale = false);
+	HRESULT Add_TimerEvent(_uint _iEventNum, CBase* _Instance, _float _fTime, _bool _bLoop = false, _bool _bUseTimeScale = false, _bool _bAlwaysCall = false);
 	_float Compute_Timer(_uint eTimer);
 
 public: /* For.Input_Manager */
@@ -166,6 +168,7 @@ private:
 private:
 	GRAPHICDESC						m_Graphic_Desc;
 	_float							m_fTimeScale = 1.f;
+	_float							m_fUnScaledTimeDelta;
 
 public:
 	static void Release_Engine();

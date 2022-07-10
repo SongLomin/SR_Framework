@@ -243,7 +243,7 @@
     </Filter>
     <Filter Include="01.Levels\06. Level_CharacterSelect">
       <UniqueIdentifier>{d9c5d892-fc42-4310-a07a-ce1fd73dbc64}</UniqueIdentifier>
-	</Filter>	
+    </Filter>
     <Filter Include="02.GameObject\10. ParticleSystem\06. Rocket_PSystem">
       <UniqueIdentifier>{d0f69e45-d9dc-4124-8b5d-9cb34c25c423}</UniqueIdentifier>
     </Filter>
@@ -255,6 +255,9 @@
     </Filter>
     <Filter Include="02.GameObject\02. Monster\StagBeetle">
       <UniqueIdentifier>{7b75a45e-bbc5-42f9-8981-45edcbc9ec3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\05. Camera_Object\05. Cam_Fixed">
+      <UniqueIdentifier>{ec4b037b-1f48-4e55-90c9-746e8ce620ef}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -494,10 +497,9 @@
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\StagBeetle.h" />
-	
     <ClInclude Include="..\Public\VenusPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="..\Public\StagBeetle.h">
       <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
     </ClInclude>
@@ -756,7 +758,7 @@
     </ClCompile>
     <ClCompile Include="..\Private\ExoPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Exo</Filter>
-	</ClCompile>
+    </ClCompile>
     <ClCompile Include="..\Private\StagBeetle.cpp">
       <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
     </ClCompile>

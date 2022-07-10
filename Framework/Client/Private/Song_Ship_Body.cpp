@@ -43,7 +43,7 @@ HRESULT CSong_Ship_Body::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	GAMEINSTANCE->Set_Current_Camera(TEXT("TPS"));
+	//GAMEINSTANCE->Set_Current_Camera(TEXT("TPS"));
 
 	return S_OK;
 }

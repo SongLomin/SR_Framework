@@ -18,6 +18,7 @@ private:
 		_uint	iEventNum = 0;
 		_bool	bLoop = false;
 		_bool	bUseTimeScale = false;
+		_bool	bAlwaysCall = false;
 		CBase* pInstance = nullptr;
 
 	}TIMEREVENT;
@@ -34,7 +35,7 @@ public:
 	HRESULT Add_Timer(_uint eTimer);
 	_float Compute_Timer(_uint eTimer);
 
-	HRESULT Add_TimerEvent(_uint _iEventNum, CBase* _Instance, _float _fTime, _bool _bLoop = false, _bool _bUseTimeScale = false);
+	HRESULT Add_TimerEvent(_uint _iEventNum, CBase* _Instance, _float _fTime, _bool _bLoop = false, _bool _bUseTimeScale = false, _bool _bAlwaysCall = false);
 
 private:
 	map<_uint, CTimer*>			m_Timers;

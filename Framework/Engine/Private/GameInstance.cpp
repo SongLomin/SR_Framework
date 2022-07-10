@@ -58,7 +58,7 @@ HRESULT CGameInstance::Initialize_Engine(HINSTANCE hInst, _uint iNumLevels, cons
 
 HRESULT CGameInstance::Tick_Engine(_float fTimeDelta)
 {
-	_float fUnScaledTimeDelta = fTimeDelta;
+	m_fUnScaledTimeDelta = fTimeDelta;
 	fTimeDelta *= m_fTimeScale;
 
 	m_pInput_Manager->SetUp_DeviceState();
@@ -79,7 +79,7 @@ HRESULT CGameInstance::Tick_Engine(_float fTimeDelta)
 
 	m_pObject_Manager->LateTick(fTimeDelta);
 
-	m_pTime_Manager->Tick(fUnScaledTimeDelta, m_fTimeScale);
+	m_pTime_Manager->Tick(m_fUnScaledTimeDelta, m_fTimeScale);
 	
 	m_pInput_Manager->Tick(fTimeDelta);
 
@@ -331,9 +331,9 @@ HRESULT CGameInstance::Add_Timer(_uint eTimer)
 	return m_pTime_Manager->Add_Timer(eTimer);
 }
 
-HRESULT CGameInstance::Add_TimerEvent(_uint _iEventNum, CBase* _Instance, _float _fTime, _bool _bLoop, _bool _bUseTimeScale)
+HRESULT CGameInstance::Add_TimerEvent(_uint _iEventNum, CBase* _Instance, _float _fTime, _bool _bLoop, _bool _bUseTimeScale, _bool _bAlwaysCall)
 {
-	return m_pTime_Manager->Add_TimerEvent(_iEventNum, _Instance, _fTime, _bLoop, _bUseTimeScale);
+	return m_pTime_Manager->Add_TimerEvent(_iEventNum, _Instance, _fTime, _bLoop, _bUseTimeScale, _bAlwaysCall);
 }
 
 _float CGameInstance::Compute_Timer(_uint eTimer)

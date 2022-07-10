@@ -26,11 +26,6 @@ public:
 	virtual HRESULT Render() override;
 
 
-
-private:
-	CMesh_KangShip* m_pMeshCom = nullptr;
-
-
 public:
 	virtual void SetUp_Components_For_Child();
 

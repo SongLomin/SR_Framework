@@ -313,6 +313,11 @@ _float CMath_Utillity::fLerp(_float LeftSide, _float RightSide, _float fRatio)
 {
 	return LeftSide * (1.f - fRatio) + RightSide * fRatio;
 }
+//
+//_float CMath_Utillity::fSlerp(_float LeftSide, _float RightSide, _float fRatio)
+//{
+//	return _float();
+//}
 
 _float3 CMath_Utillity::vecLerp(_float3 LeftSide, _float3 RightSide, _float fRatio)
 {

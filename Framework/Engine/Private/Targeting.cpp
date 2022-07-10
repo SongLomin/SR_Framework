@@ -220,11 +220,11 @@ void CTargeting::Add_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _v
 	}
 }
 
-CGameObject* CTargeting::Get_Nearest_Target_Distance(list<CGameObject*>* pTarget, _float3 _vPosition, _float _fRange)
+map<_float, CGameObject*> CTargeting::Get_Nearest_Target_Distance(list<CGameObject*>* pTarget, _float3 _vPosition, _float _fRange)
 {
 
 	if (!pTarget)
-		return nullptr;
+		return map<_float, CGameObject*>();
 
 	map<_float, CGameObject*> pTargeting;
 
@@ -241,7 +241,7 @@ CGameObject* CTargeting::Get_Nearest_Target_Distance(list<CGameObject*>* pTarget
 		}
 	}
 
-	return (*pTargeting.begin()).second;
+	return pTargeting;
 }
 
 bool CTargeting::IsTargetEmpty()

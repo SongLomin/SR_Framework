@@ -32,6 +32,7 @@
 #include "Monster.h"
 #include "StagBeetle.h"
 #include "Taget.h"
+#include <Kang_Ship_Body.h>
 
 
 _bool CLevel_SelectPlanet::m_bFirst = false;
@@ -65,7 +66,9 @@ HRESULT CLevel_SelectPlanet::Initialize()
 
 
 		//카메라를 다 만들고 나서 비행기의 컨트롤러를 플레이어로 바꾸자.
+		GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
 		GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_STATIC, TEXT("Player"))->Set_Controller(CONTROLLER::PLAYER);
+		
 	}
 
 	m_bFirst = true;

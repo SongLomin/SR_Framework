@@ -120,11 +120,12 @@ void CObject_Manager::Clear(_uint iLevelIndex)
 	{
 		for (auto& elem_GameObject : Pair.second)
 		{
-			if(elem_GameObject)
-				Safe_Release(elem_GameObject);
+			if (elem_GameObject)
+				elem_GameObject->Set_Dead();
 		}
 	}
-		
+	
+	Remove_Dead_Object();
 
 	m_pLayers[iLevelIndex].clear();
 }

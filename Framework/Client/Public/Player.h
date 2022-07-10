@@ -13,6 +13,7 @@ class CState_Move;
 class CCollider_Sphere;
 class CDirectionalLight;
 class CLock_Controller;
+class CMesh;
 END
 
 BEGIN(Client)
@@ -48,12 +49,16 @@ protected:
 	CStatus* m_pStatusCom = nullptr;
 	CState_Move* m_pStateCom = nullptr;
 	CCollider_Sphere* m_pColliderCom = nullptr;
+	CMesh* m_pMeshCom = nullptr;
 
 protected:
 	list<CTurret*>	m_pMyPosinList;
 	_bool					m_bTargetMode = false;
 	_float					m_fTime = 1.f;
 	_bool					m_bMouse = false;
+
+protected:
+	_float			m_fTimeScale;
 
 protected: /* For Event Function */
 	virtual void On_Change_Controller(const CONTROLLER& _IsAI) override;
@@ -69,7 +74,7 @@ protected:
 	virtual void SetUp_Components_For_Child() PURE;
 	virtual void Update_PosinTarget(TARGETMODE _TargetMode);
 
-	void Change_Player();
+	_bool Change_NearstPlayer();
 
 public:
 	virtual void Free() override;

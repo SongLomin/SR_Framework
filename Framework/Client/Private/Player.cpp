@@ -120,19 +120,24 @@ void CPlayer::On_Change_Controller(const CONTROLLER& _IsAI)
 		m_pRigid_BodyCom->Set_Mouse(true);
 
 		CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
-		CTransform* pCurCameraTransform = nullptr;//이게맞냐
-		if(pCurCamera)
+		CTransform* pCurCameraTransform = nullptr;
+		if (pCurCamera)
 			pCurCameraTransform = GAMEINSTANCE->Get_Camera()->Get_Transform();
 
+		
+
+		//이 게임오브젝트가 플레이어라면, 카메라에게 이 게임 오브젝트를 보도록 하겠다.
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
+		GAMEINSTANCE->Set_Current_Camera(TEXT("TPS"));
+
 		if (pCurCameraTransform)
 		{
-			GAMEINSTANCE->Get_Camera()->Get_Transform();
-
 			GAMEINSTANCE->Switch_Player(pCurCameraTransform, GAMEINSTANCE->Get_Camera()->Get_Transform(), TEXT("TPS"), 1.f);
 		}
+
+
 		list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 
 		if (pAiObect == nullptr)
@@ -147,7 +152,7 @@ void CPlayer::On_Change_Controller(const CONTROLLER& _IsAI)
 			elem->Set_Controller(CONTROLLER::AI);
 		}
 
-		//이 게임오브젝트가 플레이어라면, 카메라에게 이 게임 오브젝트를 보도록 하겠다.
+		
 	}
 	else if (_IsAI == CONTROLLER::AI)
 	{
@@ -161,7 +166,7 @@ void CPlayer::On_Change_Controller(const CONTROLLER& _IsAI)
 		m_pAI_ControllerCom->Set_Enable(false);
 		m_pPlayer_ControllerCom->Set_Enable(false);
 		m_pLock_ControllerCom->Set_Enable(true);
-
+		m_pRigid_BodyCom->Reset_Force();
 		m_pRigid_BodyCom->Set_Mouse(false);
 	}
 
@@ -185,9 +190,13 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 
 			Set_Controller(CONTROLLER::LOCK);
 			GAMEINSTANCE->Add_TimerEvent(1, this, 2.f, false, false);
+			GAMEINSTANCE->Set_TimeScale(0.1f);
+			m_pMeshCom->Set_Enable(false);
 
 			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false))->Set_Pos(MyPos);
+
+			
 
 		}
 	}
@@ -217,10 +226,20 @@ void CPlayer::On_Collision_Exit(CCollider* _Other_Collider)
 
 void CPlayer::OnTimerEvent(const _uint _iEventIndex)
 {
+	/*if (0 == _iEventIndex)
+	{
+		m_fTimeScale = min(1.f, CMath_Utillity::fLerp(m_fTimeScale, 1.f, GAMEINSTANCE->Get_UnScaledTimeDelta() * 10.f));
+
+		GAMEINSTANCE->Set_TimeScale(m_fTimeScale);
+	}*/
+
 	if (1 == _iEventIndex)
 	{
 		Set_Controller(CONTROLLER::PLAYER);
 		m_pStatusCom->Set_Status(CStatus::STATUSID::STATUS_HP, 10.f);
+		GAMEINSTANCE->Set_TimeScale(1.f);
+		Change_NearstPlayer();
+		Set_Dead();
 	}
 
 }
@@ -358,10 +377,25 @@ void CPlayer::Update_PosinTarget(TARGETMODE _TargetMode)
 	}
 }
 
-void CPlayer::Change_Player()
+_bool CPlayer::Change_NearstPlayer()
 {
-	//CGameObject* NearestPlayer = CTargeting::Get_Nearest_Target_Distance()
+	map<_float, CGameObject*> NearPlayers =
+		CTargeting::Get_Nearest_Target_Distance(
+			GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player")),
+			m_pTransformCom->Get_State(CTransform::STATE_POSITION, true),
+			10000.f
+			);
 
+	//찾은 플레이어의 개수가 나 포함 1개보다 작으면 아무것도 하지 않음.
+	if (NearPlayers.size() <= 1)
+		return false;
+
+	//가장 가까운건 나 자신, 따라서 건너 뜀
+	auto Iter_NearPlayer = ++NearPlayers.begin();
+
+	(*Iter_NearPlayer).second->Set_Controller(CONTROLLER::PLAYER);
+
+	return true;
 }
 
 void CPlayer::Free()

@@ -25,12 +25,6 @@ public:
 	virtual HRESULT Render_Begin(ID3DXEffect** Shader = nullptr) override;
 	virtual HRESULT Render() override;
 
-
-
-private:
-	CMesh_ShinShip* m_pMeshCom = nullptr;
-
-
 public:
 	virtual void SetUp_Components_For_Child();
 

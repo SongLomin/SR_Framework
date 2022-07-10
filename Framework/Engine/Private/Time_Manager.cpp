@@ -31,6 +31,11 @@ void CTime_Manager::Tick(const _float& _fOriginDeltaTime, const _float& _fTimeSc
 			}
 		}
 
+		if ((*iter).bAlwaysCall)
+		{
+			(*iter).pInstance->OnTimerEvent((*iter).iEventNum);
+		}
+
 		(*iter).fCurTime -= (_float)(_fOriginDeltaTime * (_float)((*iter).bUseTimeScale ? _fTimeScale : 1.f));
 		iter++;
 	}
@@ -76,7 +81,7 @@ _float CTime_Manager::Compute_Timer(_uint eTimer)
 	return pTimer->Compute_Timer();
 }
 
-HRESULT CTime_Manager::Add_TimerEvent(_uint _iEventNum, CBase* _Instance, _float _fTime, _bool _bLoop, _bool _bUseTimeScale)
+HRESULT CTime_Manager::Add_TimerEvent(_uint _iEventNum, CBase* _Instance, _float _fTime, _bool _bLoop, _bool _bUseTimeScale, _bool _bAlwaysCall)
 {
 	TIMEREVENT TimerEvent;
 
@@ -85,6 +90,7 @@ HRESULT CTime_Manager::Add_TimerEvent(_uint _iEventNum, CBase* _Instance, _float
 	TimerEvent.pInstance = _Instance;
 	TimerEvent.bLoop = _bLoop;
 	TimerEvent.bUseTimeScale = _bUseTimeScale;
+	TimerEvent.bAlwaysCall = _bAlwaysCall;
 
 	m_TimerEvents.push_back(TimerEvent);
 
