@@ -206,16 +206,18 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 		m_iFontiX -= 0.8;
 		m_iFontiXCount -= 0.8;
-
 	}
 
-	if (iEnemyCount <= 0 && m_bEventCheck[3])
+	if (iEnemyCount <= 0 && m_bEventCheck[3] && !m_bEventCheck[5])
 	{
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("총좀 쏘는구만!"), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("총좀 쏘는구만!! \n 어리버리하단건 사과하지!"), 0);
 		m_pQuestBoxObject->Set_Enable(false);
 		m_bEventCheck[4] = true;
+		m_fTextBoxTime = 300;
 	}
+
+	
 	
 	
 }
