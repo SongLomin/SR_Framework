@@ -145,7 +145,7 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 	if (m_fTextBoxTime <= 290 && !m_bEventCheck[2])
 	{
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("또한 우리는 고도의 과학문명으로 오토 타겟팅을 지원하네."), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("또한 우리는 고도의 과학문명으로 자동 조준을 지원하네."), 0);
 	}
 
 	if (m_fTextBoxTime <= 288 && !m_bEventCheck[2])
@@ -157,7 +157,7 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 	if (m_fTextBoxTime <= 286 && !m_bEventCheck[3])
 	{
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("앞에 훈련용 봇들을 타겟팅을 이용해 처리해보게."), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("훈련용 봇들을 무작위 위치에 출격시킬태니\n자동조준 을 이용해 처리해보게."), 0);
 	}
 
 	if (m_fTextBoxTime <= 284.f && !m_bEventCheck[3])
@@ -224,7 +224,7 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 	if (m_fTextBoxTime <= 299 && m_bEventCheck[5] && !m_bEventCheck[6])
 	{
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("총좀 쏘는구만!! \n 어리바리 하다는건 사과하겠네"), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("총좀 쏘는구만!! \n 어리바리 하다는건 사과하지."), 0);
 	}
 
 	if (m_fTextBoxTime <= 297 && m_bEventCheck[5] && !m_bEventCheck[6])
@@ -234,7 +234,18 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 	}
 
 	
+	if (m_fTextBoxTime <= 295 && !m_bEventCheck[7] && m_bEventCheck[6])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이제 기동훈련을 들어가겠다 \n쉬프트 키를 눌러 부스터를 사용해봐라."), 0);
+	}
 	
+
+	if (m_fTextBoxTime <= 293 && !m_bEventCheck[7] && m_bEventCheck[6])
+	{
+		m_pTagetObject->Set_Enable(false);
+		m_bEventCheck[6] = true;
+	}
 	
 }
 
