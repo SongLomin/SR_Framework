@@ -47,7 +47,25 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
 
+	for (int i = 0; i < 15; ++i)
+	{
+		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CMagmaSpace_Body>(CURRENT_LEVEL, TEXT("Monster"))->Get_Component<CTransform>();
 
+		_float3 SpawnPos{ 0, 0.f, 300.f };
+
+		_float RotateX = (_float)(rand() % 361);
+		_float RotateY = (_float)(rand() % 361);
+		_float RotateZ = (_float)(rand() % 361);
+		RotateX = D3DXToRadian(RotateX);
+		RotateY = D3DXToRadian(RotateY);
+		RotateZ = D3DXToRadian(RotateZ);
+
+
+		SpawnPos = CMath_Utillity::Rotate_Vec3(_float3(RotateX, RotateY, RotateZ), SpawnPos);
+
+		pEnemyTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
+		++m_iSpawnCount;
+	}
 
 
 	if (!GAMEINSTANCE->Add_GameObject<CMagmaPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
@@ -121,10 +139,18 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 		m_fSpawnTime = 2.f;
 
 		++m_iSpawnCount;
-		if (m_iSpawnCount == 0)
+		if (m_iSpawnCount == 100)
 		{
 			m_bSpawnCheck = false;
 		}
+
+		auto Monster = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster"));
+
+		_uint MonsterSize = Monster->size();
+
+		m_iMonsterCount = m_iSpawnCount - MonsterSize;
+
+		int i = 10;
 	}
 
 	MagmaPlanet_Event(fTimeDelta);
@@ -184,6 +210,89 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 		m_bEventCheck[2] = true;
 	}
 
+
+
+
+	if (m_fTextBoxTime <= 279.f && !m_bEventCheck[8])
+	{
+		m_pQuestBoxObject->Set_Enable(true);
+
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n   엘리트 비행선 섬멸  \n %d / 100 \n   남은시간 (초) : "), 0 , m_iMonsterCount);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT(" %d"), 1, (_uint)m_fMaxTime);
+
+		if (m_iFontiX <= 1040)
+		{
+			m_iFontiX = 1040;
+		}
+
+		if (m_iFontiXCount <= 1150)
+		{
+			m_iFontiXCount = 1150;
+		}
+
+		m_iFontiX -= 0.8;
+		m_iFontiXCount -= 0.8;
+		m_fMaxTime -= fTimeDelta;
+	}
+
+
+	if (m_fTextBoxTime <= 179 && !m_bEventCheck[8])
+	{
+		m_pQuestBoxObject->Set_Enable(false);
+		m_bEventCheck[8] = true;
+	}
+
+
+	// 적생성 false 모든적 처치임무
+	//if (m_fTextBoxTime <= 175 && !m_bEventCheck[9])
+	//{
+	//	m_bSpawnCheck = false;
+	//	m_pQuestBoxObject->Set_Enable(true);
+	//	GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n    모든 적 함체 섬멸 / 화물선 호위 "), 0);
+	//
+	//	if (m_iFontiX <= 1040)
+	//	{
+	//		m_iFontiX = 1040;
+	//	}
+	//
+	//	m_iFontiX -= 0.8;
+	//}
+
+
+	// (화물호위? 조건) 퀘스트박스 소멸, 폰트 소멸
+	if (m_fTextBoxTime <= 100 && !m_bEventCheck[9])
+	{
+		m_pQuestBoxObject->Set_Enable(false);
+		m_bEventCheck[9] = true;
+
+		m_fTextBoxTime = 300;
+	}
+
+	if (m_iEnemyCount <= 295 && !m_bEventCheck[6] && !m_bSpawnCheck && m_bEventCheck[9])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("고생했네! \n 오늘밤은 맘 편히 발 쭉뻗고 자겠구만! \n 맘 편히 복귀하도록 하게나! "), 0);
+	}
+
+	if (m_iEnemyCount <= 290 && !m_bEventCheck[6] && !m_bSpawnCheck && m_bEventCheck[9])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[6] = true;
+	}
+
+
+
+	if (m_fTextBoxTime <= 285 && m_iEnemyCount <= 3 && !m_bEventCheck[7] && !m_bSpawnCheck)
+	{
+		// 보상 UI / 선택
+	}
+
+
+	if (!m_bEventCheck[7] && !m_bSpawnCheck && m_iEnemyCount <= 3)  // 보상 받았단 정보 조건 넣어줌
+	{
+		//m_bEventCheck[7] = true;
+		//GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this, LEVEL::LEVEL_SELECTPLANET);
+	}
 	
 
 }
