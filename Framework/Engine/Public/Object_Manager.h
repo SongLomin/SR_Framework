@@ -26,6 +26,7 @@ public:
 
 
 	void Tick(_float fTimeDelta);
+	void Object_Tick(list<CGameObject*>* _ObjList, _float fTimeDelta);
 	void LateTick(_float fTimeDelta);
 	void Remove_Dead_Object();
 

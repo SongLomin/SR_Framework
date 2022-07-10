@@ -54,6 +54,8 @@ public:
 	//객체의 상태가 비활성화 상태로 변경될 때, 호출되는 이벤트입니다.
 	virtual void OnDisable() {};
 
+	virtual void OnTimerEvent(const _uint _iEventIndex) {};
+
 private:
 	list<CBase**>	m_WeakList;
 	_bool			m_bEnable = true;

@@ -5,7 +5,7 @@ BEGIN(Engine)
 
 class ENGINE_DLL CPlayer_Controller final : public CController
 {
-public:
+private:
 	CPlayer_Controller();
 	CPlayer_Controller(const CPlayer_Controller& Prototype);
 	virtual ~CPlayer_Controller() = default;

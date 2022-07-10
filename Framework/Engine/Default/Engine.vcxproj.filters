@@ -256,6 +256,9 @@
     <Filter Include="01.Utility\03.Components\00. Model\Mesh_Ship6">
       <UniqueIdentifier>{a61615cc-1ac1-4474-ba5f-6d9bc49432d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\09. Controller\Lock_Controller">
+      <UniqueIdentifier>{2af762fa-f514-4c2e-8c60-ec618cd14181}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -512,6 +515,9 @@
     <ClInclude Include="..\Public\Mesh_Ship6.h">
       <Filter>01.Utility\03.Components\00. Model\Mesh_Ship6</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Lock_Controller.h">
+      <Filter>01.Utility\03.Components\09. Controller\Lock_Controller</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -749,6 +755,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Mesh_Ship6.cpp">
       <Filter>01.Utility\03.Components\00. Model\Mesh_Ship6</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Lock_Controller.cpp">
+      <Filter>01.Utility\03.Components\09. Controller\Lock_Controller</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -3,6 +3,39 @@
 
 IMPLEMENT_SINGLETON(CTime_Manager)
 
+void CTime_Manager::Tick(const _float& _fOriginDeltaTime, const _float& _fTimeScale)
+{
+	for (auto iter = m_TimerEvents.begin(); iter != m_TimerEvents.end();)
+	{
+		if (!(*iter).pInstance)
+		{
+			iter = m_TimerEvents.erase(iter);
+			continue;
+		}
+
+		if ((*iter).fCurTime < 0.f)
+		{
+			(*iter).pInstance->OnTimerEvent((*iter).iEventNum);
+
+			if ((*iter).bLoop)
+			{
+				(*iter).fCurTime = (*iter).fMaxTime;
+				continue;
+			}
+			else
+			{
+				RETURN_WEAKPTR((*iter).pInstance);
+				iter = m_TimerEvents.erase(iter);
+				continue;
+			}
+		}
+
+		(*iter).fCurTime -= (_float)(_fOriginDeltaTime * (_float)((*iter).bUseTimeScale ? _fTimeScale : 1.f));
+		iter++;
+	}
+
+}
+
 HRESULT CTime_Manager::Add_Timer(_uint eTimer)
 {
 	if (nullptr != Find_Timer(eTimer))
@@ -42,6 +75,23 @@ _float CTime_Manager::Compute_Timer(_uint eTimer)
 	return pTimer->Compute_Timer();
 }
 
+HRESULT CTime_Manager::Add_TimerEvent(_uint _iEventNum, CBase* _Instance, _float _fTime, _bool _bLoop, _bool _bUseTimeScale)
+{
+	TIMEREVENT TimerEvent;
+
+	TimerEvent.fMaxTime = TimerEvent.fCurTime = _fTime;
+	TimerEvent.iEventNum = _iEventNum;
+	TimerEvent.pInstance = _Instance;
+	WEAK_PTR(TimerEvent.pInstance);
+	TimerEvent.bLoop = _bLoop;
+	TimerEvent.bUseTimeScale = _bUseTimeScale;
+
+	m_TimerEvents.push_back(TimerEvent);
+
+
+	return S_OK;
+}
+
 CTimer* CTime_Manager::Find_Timer(_uint eTimer)
 {
 
@@ -59,6 +109,12 @@ void CTime_Manager::Free()
 {
 	for (auto& Pair : m_Timers)
 		Safe_Release(Pair.second);
+
+	for (auto& elem : m_TimerEvents)
+	{
+		RETURN_WEAKPTR(elem.pInstance);
+	}
+
 
 	m_Timers.clear();
 

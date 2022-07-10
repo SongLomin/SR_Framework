@@ -62,9 +62,9 @@ HRESULT CLevel_SelectPlanet::Initialize()
 		Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 		GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
-		if (!GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_STATIC, TEXT("Player")))
-			return E_FAIL;
 
+		//카메라를 다 만들고 나서 비행기의 컨트롤러를 플레이어로 바꾸자.
+		GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_STATIC, TEXT("Player"))->Set_Controller(CONTROLLER::PLAYER);
 	}
 
 	m_bFirst = true;

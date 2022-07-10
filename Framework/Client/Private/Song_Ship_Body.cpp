@@ -170,7 +170,6 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 
 	m_pMeshCom = Add_Component<CMesh_Ship6>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
-	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 #pragma endregion Mesh Setting
 
@@ -284,7 +283,7 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 
 #pragma endregion State Setting
 
-	Set_Controller(CONTROLLER::PLAYER);
+	//Set_Controller(CONTROLLER::PLAYER);
 }
 
 

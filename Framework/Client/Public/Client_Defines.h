@@ -14,6 +14,4 @@ extern HINSTANCE g_hInst;
 
 extern bool   g_bCamera;
 
-
-
 using namespace Client;

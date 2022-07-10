@@ -17,6 +17,16 @@ void CController::Link_Object(CGameObject* _pObject)
 	WEAK_PTR(m_pMyObject);
 }
 
+void CController::Set_Lock(_bool _bLock)
+{
+	m_bLock = _bLock;
+}
+
+_bool CController::Get_Lock()
+{
+	return	m_bLock;
+}
+
 
 
 void CController::Free()

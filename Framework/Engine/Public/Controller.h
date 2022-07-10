@@ -24,10 +24,16 @@ public:
 
 
 public:
+	//사용하지 말 것.
 	virtual void Link_Object(CGameObject* _pObject);
+	void Set_Lock(_bool _bLock);
+	_bool Get_Lock();
 
 protected:
 	CGameObject*	m_pMyObject = nullptr;
+
+	//지금은 사용되지 않음.
+	_bool			m_bLock = false;
 
 public:
 	virtual	CComponent* Clone(void* pArg) PURE;

@@ -27,6 +27,7 @@
 #include <assert.h>
 #include <fstream>
 #include <string>
+#include <future>
 
 
 #include "Engine_Typedef.h"

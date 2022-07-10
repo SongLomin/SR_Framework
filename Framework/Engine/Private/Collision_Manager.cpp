@@ -28,7 +28,9 @@ void CCollision_Manager::Tick()
 		{
 			if (m_arrCheck[iRow] & (1 << iCol))
 			{
-				CollisionGroupUpdate((COLLISION_TYPE)iRow, (COLLISION_TYPE)iCol);
+				auto Handle = async(&CCollision_Manager::CollisionGroupUpdate, this, (COLLISION_TYPE)iRow, (COLLISION_TYPE)iCol);
+
+				//CollisionGroupUpdate((COLLISION_TYPE)iRow, (COLLISION_TYPE)iCol);
 			}
 		}
 	}
@@ -70,22 +72,7 @@ void CCollision_Manager::Add_Collider(CCollider* pCollider)
 
 void CCollision_Manager::Erase_Collider(CCollider* pCollider)
 {
-	COLLISION_TYPE collisontype = pCollider->Get_Collision_Type();
-
-	/*for (auto iter = m_ColliderList[(UINT)collisontype].begin(); iter != m_ColliderList[(UINT)collisontype].end(); ++iter)
-	{
-		if (*iter == pCollider)
-		{
-			(*iter)->Return_WeakPtr(&(*iter));
-			m_ColliderList[(UINT)collisontype].erase(iter);
-			break;
-		}
-
-	}*/
-
 	m_Erase_ColliderIDList.push_back(pCollider->Get_ID());
-
-	
 }
 
 list<CCollider*>* CCollision_Manager::Get_ColliderList(COLLISION_TYPE _eType)
@@ -107,21 +94,8 @@ void CCollision_Manager::Clear_ColliderList()
 
 	for (_ulong& elem_ID : m_Erase_ColliderIDList)
 	{
-		for (auto iter = m_mapColInfo.begin(); iter != m_mapColInfo.end();)
-		{
-			_ulong Collider_ID = elem_ID;
-
-			if (Collider_ID == (*iter).first / 100000
-				|| Collider_ID == (*iter).first % 100000)
-			{
-				iter = m_mapColInfo.erase(iter);
-			}
-
-			else
-			{
-				iter++;
-			}
-		}
+		m_mapColInfo.erase(elem_ID / 100000);
+		m_mapColInfo.erase(elem_ID % 100000);
 	}
 	m_Erase_ColliderIDList.clear();
 
@@ -171,6 +145,8 @@ void CCollision_Manager::CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_T
 			Byte8ID += ID.Right_id;
 
 			iter = m_mapColInfo.find(Byte8ID);
+
+			
 
 			//충돌 정보가 아예 미등록 상태인 경우
 			if (m_mapColInfo.end() == iter)

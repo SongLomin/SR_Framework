@@ -39,6 +39,12 @@ void CPlayer::Tick(_float fTimeDelta)
 			++i;
 	}
 
+	if (KEY_INPUT((KEY::Q), KEY_STATE::TAP))
+	{
+		//이벤트 번호, 인스턴스(this), 시간, 루프 할건지?, 타임스케일 적용할건지?
+		GAMEINSTANCE->Add_TimerEvent(0, this, 3.f);
+	}
+
 
 	if (m_pRigid_BodyCom->Get_Booster())
 	{
@@ -53,7 +59,7 @@ void CPlayer::Tick(_float fTimeDelta)
 		if (vNow > 0.9f)
 		{
 			D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 0, 0);
-			((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom, color);
+			//((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom, color);
 		}
 	}
 }
@@ -108,6 +114,8 @@ void CPlayer::On_Change_Controller(const CONTROLLER& _IsAI)
 		
 		m_pAI_ControllerCom->Set_Enable(false);
 		m_pPlayer_ControllerCom->Set_Enable(true);
+		m_pLock_ControllerCom->Set_Enable(false);
+
 		m_pRigid_BodyCom->Set_Mouse(true);
 
 		CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
@@ -147,6 +155,15 @@ void CPlayer::On_Change_Controller(const CONTROLLER& _IsAI)
 		m_pRigid_BodyCom->Set_Mouse(false);	
 	}
 
+	else if (_IsAI == CONTROLLER::LOCK)
+	{
+		m_pAI_ControllerCom->Set_Enable(false);
+		m_pPlayer_ControllerCom->Set_Enable(false);
+		m_pLock_ControllerCom->Set_Enable(true);
+
+		m_pRigid_BodyCom->Set_Mouse(false);
+	}
+
 }
 
 void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
@@ -160,8 +177,16 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 		{
 			//Set_Dead();
 
+			//m_pPlayer_ControllerCom->Set_Lock(true);
+
 			//_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			//((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
+
+			Set_Controller(CONTROLLER::LOCK);
+			GAMEINSTANCE->Add_TimerEvent(1, this, 2.f, false, false);
+
+			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false))->Set_Pos(MyPos);
 
 		}
 	}
@@ -175,6 +200,17 @@ void CPlayer::On_Collision_Stay(CCollider* _Other_Collider)
 
 void CPlayer::On_Collision_Exit(CCollider* _Other_Collider)
 {
+	int i = 0;
+}
+
+void CPlayer::OnTimerEvent(const _uint _iEventIndex)
+{
+	if (1 == _iEventIndex)
+	{
+		Set_Controller(CONTROLLER::PLAYER);
+		m_pStatusCom->Set_Status(CStatus::STATUSID::STATUS_HP, 10.f);
+	}
+
 }
 
 HRESULT CPlayer::SetUp_Components()
@@ -204,7 +240,12 @@ HRESULT CPlayer::SetUp_Components()
 	m_pPlayer_ControllerCom = Add_Component<CPlayer_Controller>();
 	m_pPlayer_ControllerCom->Set_WeakPtr(&m_pPlayer_ControllerCom);
 
+	m_pLock_ControllerCom = Add_Component<CLock_Controller>();
+	WEAK_PTR(m_pLock_ControllerCom);
+
 	SetUp_Components_For_Child();
+
+	Set_Controller(CONTROLLER::LOCK);
 	return S_OK;
 }
 
@@ -307,7 +348,7 @@ void CPlayer::Update_PosinTarget(TARGETMODE _TargetMode)
 
 void CPlayer::Change_Player()
 {
-
+	//CGameObject* NearestPlayer = CTargeting::Get_Nearest_Target_Distance()
 
 }
 

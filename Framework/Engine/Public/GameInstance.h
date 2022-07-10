@@ -38,6 +38,9 @@ public:
 	HWND	Get_Window_Handle() const { return  m_Graphic_Desc.hWnd; } 
 	GRAPHICDESC Get_Graphic_Desc() const { return m_Graphic_Desc; }
 
+	void Set_TimeScale(const _float& _fTimeScale) { m_fTimeScale = _fTimeScale; }
+	_float Get_TimeScale() { return m_fTimeScale; }
+
 public: /* For.Graphic_Device */	
 	void		Render_Begin(void);
 	void		Render_End(HWND hWnd = NULL);
@@ -111,6 +114,7 @@ public: /* For.Resource_Mananger */
 
 public: /* For.Time_Manager */
 	HRESULT Add_Timer(_uint eTimer);
+	HRESULT Add_TimerEvent(_uint _iEventNum, CBase* _Instance, _float _fTime, _bool _bLoop = false, _bool _bUseTimeScale = false);
 	_float Compute_Timer(_uint eTimer);
 
 public: /* For.Input_Manager */
@@ -161,6 +165,7 @@ private:
 	CZFrustum*						m_pZFrustum = nullptr;
 private:
 	GRAPHICDESC						m_Graphic_Desc;
+	_float							m_fTimeScale = 1.f;
 
 public:
 	static void Release_Engine();

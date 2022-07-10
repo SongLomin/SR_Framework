@@ -41,10 +41,12 @@ void CRock::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
-
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
-
 	LookAtCamera();
+
+	if (GAMEINSTANCE->IsIn(&(m_pTransformCom->Get_World_State(CTransform::STATE_POSITION))))
+	{
+		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+	}
 
 }
 
