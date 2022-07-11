@@ -120,11 +120,12 @@ void CAI_Friendly::On_Collision_Enter(CCollider* _Other_Collider)
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER_ATTACK)
 	{
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
-		((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle_Fire"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
+		((CFire_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle_Fire")))->AddParticle(50, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
 
 		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
 		{
-			Set_Dead();
+			Set_Enable(false);
+			//Set_Dead();
 			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
 
@@ -138,6 +139,27 @@ void CAI_Friendly::On_Collision_Stay(CCollider* _Other_Collider)
 
 void CAI_Friendly::On_Collision_Exit(CCollider* _Other_Collider)
 {
+}
+
+void CAI_Friendly::OnEnable(void* _Arg)
+{
+	//자식들을 순회하면서 Set_Enable 함수를 호출한다.
+	function<void(CBase&, _bool, void*)> Set_EnableFunc = &CBase::Set_Enable;
+	Command_For_Children<function<void(CBase&, _bool, void*)>, _bool, void*>(Set_EnableFunc, true, _Arg);
+
+	m_pStatusCom->Set_FULL_HP();
+	m_fTime = 3.f;
+	m_pTargetingCom->Clear_Targeting();
+
+	//AI 행동 초기화
+	//m_pAIControllerCom->Push_Front_Command(STATE::STATE_NONE, 0.f, true);
+}
+
+void CAI_Friendly::OnDisable()
+{
+	//자식들을 순회하면서 Set_Enable 함수를 호출한다.
+	function<void(CBase&, _bool, void*)> Set_EnableFunc = &CBase::Set_Enable;
+	Command_For_Children<function<void(CBase&, _bool, void*)>, _bool, void*>(Set_EnableFunc, false, nullptr);
 }
 
 HRESULT CAI_Friendly::SetUp_Components()
@@ -169,10 +191,10 @@ HRESULT CAI_Friendly::SetUp_Components()
 
 #pragma region Rigid_Body Setting
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 80.f;
-	RigidBodyDesc.m_fOwnerAccel = 8.f;
+	RigidBodyDesc.m_fOwnerSpeed = 20.f;
+	RigidBodyDesc.m_fOwnerAccel = 4.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
-	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
+	RigidBodyDesc.m_fOwnerRadAccel = 0.1f;
 	RigidBodyDesc.m_fOwnerJump = 5.f;
 	RigidBodyDesc.m_fOwnerJumpScale = 1.f;
 

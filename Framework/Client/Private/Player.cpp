@@ -5,6 +5,7 @@
 #include <Booster_PSystem.h>
 #include <Move_PSystem.h>
 #include <Bomb_Effect.h>
+#include <StagBeetle.h>
 
 CPlayer::CPlayer()
 {
@@ -39,11 +40,7 @@ void CPlayer::Tick(_float fTimeDelta)
 			++i;
 	}
 
-	if (KEY_INPUT((KEY::Q), KEY_STATE::TAP))
-	{
-		//이벤트 번호, 인스턴스(this), 시간, 루프 할건지?, 타임스케일 적용할건지?
-		GAMEINSTANCE->Add_TimerEvent(0, this, 3.f);
-	}
+	
 
 
 	if (m_pRigid_BodyCom->Get_Booster())
@@ -84,7 +81,7 @@ void CPlayer::LateTick(_float fTimeDelta)
 			//m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
 			Update_PosinTarget(m_pTargetingCom->Get_TargetMode());
 		}
-		m_fTime = 1.f;
+		m_fTime = 0.16f;
 	}
 	m_pRigid_BodyCom->Update_Transform(fTimeDelta);
 
@@ -188,10 +185,10 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 			//_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			//((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
 
-			Set_Controller(CONTROLLER::LOCK);
-			GAMEINSTANCE->Add_TimerEvent(1, this, 2.f, false, false);
-			GAMEINSTANCE->Set_TimeScale(0.1f);
-			m_pMeshCom->Set_Enable(false);
+			//Set_Controller(CONTROLLER::LOCK);
+			//GAMEINSTANCE->Add_TimerEvent(1, this, 2.f, false, false);
+			//GAMEINSTANCE->Set_TimeScale(0.1f);
+			//m_pMeshCom->Set_Enable(false);
 
 			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false))->Set_Pos(MyPos);
@@ -238,8 +235,8 @@ void CPlayer::OnTimerEvent(const _uint _iEventIndex)
 		Set_Controller(CONTROLLER::PLAYER);
 		m_pStatusCom->Set_Status(CStatus::STATUSID::STATUS_HP, 10.f);
 		GAMEINSTANCE->Set_TimeScale(1.f);
-		Change_NearstPlayer();
-		Set_Dead();
+		//Change_NearstPlayer();
+		//Set_Dead();
 	}
 
 }

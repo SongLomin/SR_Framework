@@ -123,7 +123,8 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 
 	if (m_fSpawnTime < 0.f && m_bSpawnCheck == true)
 	{
-		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CMagmaSpace_Body>(CURRENT_LEVEL, TEXT("Monster"))->Get_Component<CTransform>();
+		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CMagmaSpace_Body>(CURRENT_LEVEL, TEXT("Monster"), nullptr, nullptr, true)
+										->Get_Component<CTransform>();
 		_float3 SpawnPos{ 0, 0.f, 300.f };
 
 		_float RotateX = (_float)(rand() % 361);

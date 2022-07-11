@@ -167,7 +167,8 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	if (m_fSpawnTime < 0.f)
 	{
 		
-			CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("Monster"))->Get_Component<CTransform>();
+			CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("Monster"), nullptr, nullptr, true)
+											->Get_Component<CTransform>();
 			_float3 SpawnPos{ 0, 0.f, 300.f };
 
 			_float RotateX = (_float)(rand() % 361);
@@ -293,7 +294,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 
 		if (m_fSpawnTime < 1.7f && m_bSpawnCheck)
 		{
-			if (!GAMEINSTANCE->Add_GameObject<CAI_Friendly>(CURRENT_LEVEL, TEXT("AI_Friendly")))
+			if (!GAMEINSTANCE->Add_GameObject<CAI_Friendly>(CURRENT_LEVEL, TEXT("AI_Friendly"), nullptr, nullptr, true))
 				return;
 
 			m_fSpawnTime = 2.0f;

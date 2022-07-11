@@ -18,12 +18,12 @@ protected:
 protected:
 	virtual HRESULT Initialize_Prototype() final;
 	virtual HRESULT Initialize(void* pArg) PURE;
-	virtual void Tick(_float fTimeDelta) final;
-	virtual void LateTick(_float fTimeDelta) final;
+	virtual void Tick(_float fTimeDelta) override;
+	virtual void LateTick(_float fTimeDelta) override;
     virtual HRESULT Render_Begin(ID3DXEffect** Shader = nullptr) final;
     virtual HRESULT Render() final;
 
-private:
+protected:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
     CMesh_Cube* m_pMeshCom = nullptr;

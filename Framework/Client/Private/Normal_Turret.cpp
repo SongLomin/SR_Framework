@@ -31,6 +31,29 @@ HRESULT CNormal_Turret::Initialize(void* pArg)
 	return S_OK;
 }
 
+void CNormal_Turret::Tick(_float fTimeDelta)
+{
+	__super::Tick(fTimeDelta);
+
+	m_fPreheatTime -= fTimeDelta;
+	
+	m_fPreheatTime = max(1.1f, m_fPreheatTime);
+}
+
+void CNormal_Turret::LateTick(_float fTimeDelta)
+{
+	__super::LateTick(fTimeDelta);
+
+	
+
+	if (m_fPreheatTime >= 100.f - DBL_EPSILON)
+	{
+		//printf("m_fPrehetTime: %f\n",&m_fPreheatTime);
+	}
+	
+	m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK, true), m_fPreheatTime - 1.1f, 1.f, true);
+}
+
 
 
 void CNormal_Turret::Command_Fire()
@@ -41,6 +64,23 @@ void CNormal_Turret::Command_Fire()
 	{
 		GAMEINSTANCE->Add_Shaking(0.1f, 0.05f);
 	}
+}
+
+void CNormal_Turret::On_EventMessage(void* _Arg)
+{
+	__super::On_EventMessage(_Arg);
+
+	m_fLerpTime -= TIMEDELTA;
+
+	if (m_fLerpTime < 0.f)
+	{
+		m_fPreheatTime *= 1.15f;
+		m_fLerpTime = 2.f;
+	}
+
+	
+	
+	//m_fPreheatTime = min(100.f, m_fPreheatTime);
 }
 
 void CNormal_Turret::SetUp_Components_For_Child()

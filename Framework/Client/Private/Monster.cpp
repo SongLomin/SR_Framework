@@ -36,19 +36,7 @@ void CMonster::LateTick(_float fTimeDelta)
 
 	m_fTime -= fTimeDelta;
 	if (m_fTime < 0.f)
-	{/*
-		int RandomTarget = rand() % 2;
-
-		if (0 == RandomTarget)
-		{
-			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
-		}
-
-		else
-		{
-			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("AI_Friendly")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
-		}*/
-
+	{
 		m_pTargetingCom->Add_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("AI_Friendly")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f, true);
 		m_pTargetingCom->Add_TargetList_Distance(GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f, false);
 
@@ -164,8 +152,9 @@ void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 		((CFire_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle_Fire")))->AddParticle(50, m_pTransformCom);
 		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
 		{
-			Set_Dead();
-			
+			//Set_Dead();
+			Set_Enable(false);
+
 			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false))->Set_Pos(MyPos);
 
@@ -179,6 +168,29 @@ void CMonster::On_Collision_Stay(CCollider* _Other_Collider)
 
 void CMonster::On_Collision_Exit(CCollider* _Other_Collider)
 {
+}
+
+void CMonster::OnEnable(void* _Arg)
+{
+	//자식들을 순회하면서 Set_Enable 함수를 호출한다.
+	function<void(CBase&, _bool, void*)> Set_EnableFunc = &CBase::Set_Enable;
+	Command_For_Children<function<void(CBase&, _bool, void*)>, _bool, void*>(Set_EnableFunc, true, _Arg);
+
+	Get_Children_From_Key(TEXT("Targeting")).front()->Set_Enable(false);
+
+	m_pStatusCom->Set_FULL_HP();
+	m_fTime = 3.f;
+	m_pTargetingCom->Clear_Targeting();
+
+	//AI 행동 초기화
+	m_pAIControllerCom->Push_Front_Command(STATE::STATE_NONE, -1.f, true);
+}
+
+void CMonster::OnDisable()
+{
+	//자식들을 순회하면서 Set_Enable 함수를 호출한다.
+	function<void(CBase&, _bool, void*)> Set_EnableFunc = &CBase::Set_Enable;
+	Command_For_Children<function<void(CBase&, _bool, void*)>, _bool, void*>(Set_EnableFunc, false, nullptr);
 }
 
 void CMonster::Free()

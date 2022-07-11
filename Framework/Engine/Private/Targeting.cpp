@@ -7,7 +7,7 @@ CTargeting::CTargeting()
 {
 }
 
-void CTargeting::Make_Player_TargetList(list<CGameObject*>* pLayer, CTransform* pTransform, _float fDist)
+void CTargeting::Make_TargetList_Cursor(list<CGameObject*>* pLayer, CTransform* pTransform, _float fDist)
 {
 	if (nullptr == pLayer)
 		return;
@@ -23,6 +23,9 @@ void CTargeting::Make_Player_TargetList(list<CGameObject*>* pLayer, CTransform* 
 			iter != pLayer->end();
 			++iter)
 		{
+			if (!(*iter)->Get_Enable())
+				continue;
+
 			_float3 MonsterPos = (*iter)->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
 
 			_float3 CameraPos = CameraTransform->Get_World_State(CTransform::STATE_POSITION);
@@ -56,12 +59,15 @@ void CTargeting::Make_Player_TargetList(list<CGameObject*>* pLayer, CTransform* 
 		}
 	}
 
-	if (m_eTargetMode == TARGETMODE::TARGET_MULTIWIDE)
+	else if (m_eTargetMode == TARGETMODE::TARGET_MULTIWIDE)
 	{
 		for (auto iter = pLayer->begin();
 			iter != pLayer->end();
 			++iter)
 		{
+			if (!(*iter)->Get_Enable())
+				continue;
+
 			_float3 TargetPos = (*iter)->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
 			if (GAMEINSTANCE->IsIn(&TargetPos))
 			{
@@ -95,7 +101,7 @@ void CTargeting::Make_Player_TargetList(list<CGameObject*>* pLayer, CTransform* 
 	}
 }
 
-void CTargeting::Make_AI_TargetList(list<CGameObject*>* pTarget, CTransform* pTransform, _float fDist)
+void CTargeting::Make_TargetList_Look(list<CGameObject*>* pTarget, CTransform* pTransform, _float fDist)
 {
 	if (nullptr == pTarget)
 		return;
@@ -127,6 +133,9 @@ void CTargeting::Make_AI_TargetList(list<CGameObject*>* pTarget, CTransform* pTr
 		iter != pTarget->end();
 		++iter)
 	{
+		if (!(*iter)->Get_Enable())
+			continue;
+
 		_float3 TargetPos = (*iter)->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
 
 
@@ -183,6 +192,9 @@ void CTargeting::Make_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _
 		iter != pTarget->end();
 		++iter)
 	{
+		if (!(*iter)->Get_Enable())
+			continue;
+
 		_float3 vTargetPos = (*iter)->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
 
 		_float fDistance = D3DXVec3Length(&(vTargetPos - _vPosition));
@@ -209,6 +221,9 @@ void CTargeting::Add_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _v
 		iter != pTarget->end();
 		++iter)
 	{
+		if (!(*iter)->Get_Enable())
+			continue;
+
 		_float3 vTargetPos = (*iter)->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
 
 		_float fDistance = D3DXVec3Length(&(vTargetPos - _vPosition));
@@ -232,6 +247,9 @@ map<_float, CGameObject*> CTargeting::Get_Nearest_Target_Distance(list<CGameObje
 		iter != pTarget->end();
 		++iter)
 	{
+		if (!(*iter)->Get_Enable())
+			continue;
+
 		_float3 vTargetPos = (*iter)->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
 
 		_float fDistance = D3DXVec3Length(&(vTargetPos - _vPosition));
@@ -248,8 +266,8 @@ bool CTargeting::IsTargetEmpty()
 {
 	for (auto& iter = m_pTargeting.begin(); iter != m_pTargeting.end();)
 	{
-
-		if (iter->second == nullptr)
+		//C++ 컴파일러가 뒤에서부터 검사하기 때문에 iter->second가 nullptr라면 Get_Enable을 하지 않는다.
+		if (!iter->second->Get_Enable() && iter->second == nullptr)
 		{
 			iter = m_pTargeting.erase(iter);
 		}

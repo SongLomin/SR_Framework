@@ -69,3 +69,5 @@ void ClassName::Destroy_Instance()						\
 
 #define WEAK_PTR(Instance) if(Instance) Instance->Set_WeakPtr(&Instance)
 #define RETURN_WEAKPTR(Instance) if(Instance) Instance->Return_WeakPtr(&Instance)
+
+#define TIMEDELTA GAMEINSTANCE->Get_UnScaledTimeDelta() * GAMEINSTANCE->Get_TimeScale()

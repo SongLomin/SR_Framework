@@ -30,9 +30,9 @@ public:
 private:
     void CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_TYPE _eRight);
 
-    bool Is3DCollision(CCollider* _pLeft, CCollider* _pRight);
-    bool IsOBBCollision(CCollider* _pLeft, CCollider* _pRight);
-    bool IsSphereCollision(CCollider* _pLeft, CCollider* _pRight);
+    bool Is3DCollision(CCollider* _pLeft, CCollider* _pRight, _float* _fDistance = nullptr);
+    bool IsOBBCollision(CCollider* _pLeft, CCollider* _pRight, _float* _fDistance = nullptr);
+    bool IsSphereCollision(CCollider* _pLeft, CCollider* _pRight, _float* _fDistance = nullptr);
     bool IsOBB_To_SphereCollision(CCollider* _pLeft, CCollider* _pRight);
 
 private:

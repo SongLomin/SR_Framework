@@ -16,6 +16,26 @@ HRESULT CStatus::Initialize(void* pArg)
 	return S_OK;
 }
 
+_float CStatus::Get_Status(STATUSID StatusID)
+{
+	switch (StatusID)
+	{
+	case STATUS_HP:
+		return m_tStatus.fHp;
+
+	case STATUS_MAXHP:
+		return m_tStatus.fMaxHp;
+
+	case STATUS_ATTACK:
+		return m_tStatus.fAttack;
+
+	case STATUS_ARMOR:
+		return m_tStatus.fArmor;
+	}
+
+	return 0.f;
+}
+
 HRESULT CStatus::Set_Status(STATUSID StatusID, _float value)
 {
 	if (StatusID >= STATUS_END ||
@@ -67,6 +87,13 @@ HRESULT CStatus::Add_Status(STATUSID StatusID, _float value)
 		m_tStatus.fArmor += value;
 		break;
 	}
+
+	return S_OK;
+}
+
+HRESULT CStatus::Set_FULL_HP()
+{
+	Set_Status(STATUSID::STATUS_HP, Get_Status(STATUSID::STATUS_MAXHP));
 
 	return S_OK;
 }

@@ -107,6 +107,30 @@ public: /* Template Function*/
 		return temp;
 	}
 
+	template <typename T_Func, typename... Args>
+	void Command_For_Children(T_Func _Func, Args... args)
+	{
+		_Func(*this, args ...);
+
+		CTransform* myTransform = Get_Component<CTransform>();
+
+		//자식 트랜스폼 리스트
+		list<CTransform*>* Children = myTransform->Get_Children();
+
+		ISVALID(Children, );
+
+		//걔네 for문
+		for (auto& elem : *Children)
+		{
+			//소유자(GameObject) -> Set_Controller
+			if (elem)
+			{
+				elem->Get_Owner()->Command_For_Children<T_Func, Args ...>(_Func, args ...);
+			}
+
+
+		}
+	}
 };
 
 

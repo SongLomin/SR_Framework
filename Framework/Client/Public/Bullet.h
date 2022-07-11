@@ -31,6 +31,7 @@ protected:
 
 protected:
     _float  m_fLifeTime = 1.f;
+    _float  m_fMaxTime = 1.f;
 
 protected:
     HRESULT SetUp_Components(COLLISION_TYPE _eCollisionType);

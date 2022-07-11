@@ -25,8 +25,8 @@ public:
 	}
 
 public:
-	void Make_Player_TargetList(list<CGameObject*>* pLayer, CTransform* pTransform, _float fDist = 20.f);
-	void Make_AI_TargetList(list<CGameObject*>* pTarget, CTransform* pTransform, _float fDist = 40.f);
+	void Make_TargetList_Cursor(list<CGameObject*>* pLayer, CTransform* pTransform, _float fDist = 20.f);
+	void Make_TargetList_Look(list<CGameObject*>* pTarget, CTransform* pTransform, _float fDist = 40.f);
 	void Make_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _vPosition, _float _fRange);
 	void Add_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _vPosition, _float _fRange, _bool _bIsClear = false);
 	
@@ -34,8 +34,6 @@ public:
 
 
 	bool IsTargetEmpty();
-
-private:
 	void Clear_Targeting();
 
 private:

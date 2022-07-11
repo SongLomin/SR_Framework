@@ -18,6 +18,7 @@
 #include "Smoke_PSystem.h"
 #include <Move_PSystem.h>
 #include "Teleport_Effect.h"
+#include <StagBeetle.h>
 
 
 
@@ -57,7 +58,10 @@ void CSong_Ship_Body::Tick(_float fTimeDelta)
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
 	}
 
-	
+	if (KEY_INPUT((KEY::Q), KEY_STATE::TAP))
+	{
+		GAMEINSTANCE->Add_GameObject<CStagBeetle>(LEVEL_SELECTPLANET, TEXT("StagBeetle"), nullptr, nullptr, true);
+	}
 
 	/*if (Get_Controller() == CONTROLLER::PLAYER)
 	{

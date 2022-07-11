@@ -167,7 +167,8 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 		for (int i = 0; i < 3; ++i)
 		{
-			CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CTaget>(CURRENT_LEVEL, TEXT("Taget"))->Get_Component<CTransform>();
+			CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CTaget>(CURRENT_LEVEL, TEXT("Taget"), nullptr, nullptr, true)
+				->Get_Component<CTransform>();
 			_float3 SpawnPos{ 0, 0.f, 50.f };
 
 			_float RotateX = (_float)(rand() % 361);

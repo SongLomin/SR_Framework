@@ -31,10 +31,13 @@ public:
 	STATUS Get_Status() {
 		return m_tStatus;
 	}
+	_float Get_Status(STATUSID StatusID);
 
 public:
 	HRESULT Set_Status(STATUSID StatusID, _float value); // 값 수정
 	HRESULT Add_Status(STATUSID StatusID, _float value); // 값 변경
+
+	HRESULT Set_FULL_HP();
 
 private:
 	STATUS		m_tStatus;

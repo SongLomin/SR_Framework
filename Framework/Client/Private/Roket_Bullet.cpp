@@ -170,7 +170,7 @@ void CRocket_Bullet::Find_Way(_float fTimeDelta)
 		}
 	}
 
-	((CRocket_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CRocket_PSystem>(CURRENT_LEVEL, TEXT("Rocket_Particle")))->AddParticle(500 * fTimeDelta, m_pTransformCom);
+	//((CRocket_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CRocket_PSystem>(CURRENT_LEVEL, TEXT("Rocket_Particle")))->AddParticle(500 * fTimeDelta, m_pTransformCom);
 	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 }
 
@@ -204,7 +204,8 @@ void CRocket_Bullet::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER)
 	{
-		Set_Dead();
+		//Set_Dead();
+		Set_Enable(false);
 	}
 
 }
@@ -267,7 +268,7 @@ HRESULT CRocket_Bullet::SetUp_Components_For_Child()
 
 	
 
-	m_fLifeTime = 10.f;
+	m_fMaxTime = m_fLifeTime = 10.f;
 
 	return S_OK;
 }
