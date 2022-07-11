@@ -167,6 +167,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Public\Benner.h" />
     <ClInclude Include="..\Public\Bomb_Effect.h" />
     <ClInclude Include="..\Public\AI_TransportShip.h" />
     <ClInclude Include="..\Public\BoosterBar.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="..\Public\BulletCountUI.h" />
     <ClInclude Include="..\Public\BulletUI.h" />
     <ClInclude Include="..\Public\AI_Friendly.h" />
+    <ClInclude Include="..\Public\CharacterLogo.h" />
     <ClInclude Include="..\Public\Default_Aim.h" />
     <ClInclude Include="..\Public\Dive.h" />
     <ClInclude Include="..\Public\Effect.h" />
@@ -261,6 +263,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\AI_TransportShip.cpp" />
+    <ClCompile Include="..\Private\Benner.cpp" />
     <ClCompile Include="..\Private\Bomb_Effect.cpp" />
     <ClCompile Include="..\Private\BoosterBar.cpp" />
     <ClCompile Include="..\Private\Booster_PSystem.cpp" />
@@ -268,6 +271,7 @@
     <ClCompile Include="..\Private\BulletCountUI.cpp" />
     <ClCompile Include="..\Private\BulletUI.cpp" />
     <ClCompile Include="..\Private\AI_Friendly.cpp" />
+    <ClCompile Include="..\Private\CharacterLogo.cpp" />
     <ClCompile Include="..\Private\Default_Aim.cpp" />
     <ClCompile Include="..\Private\Dive.cpp" />
     <ClCompile Include="..\Private\Effect.cpp" />

@@ -292,6 +292,12 @@
     <Filter Include="02.GameObject\12. BillBoadr_Object\Satellite\Satellite3">
       <UniqueIdentifier>{70001689-47c6-4145-a1ee-1de0a25c9d30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="97. UITest\Logo\CharacterLogo">
+      <UniqueIdentifier>{83bf28d5-0a0c-43fb-8017-347bdd119c19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\07. UI\CharterSelect">
+      <UniqueIdentifier>{7a028f1d-928e-4895-b71f-a0b7015d3a7a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -578,6 +584,12 @@
     <ClInclude Include="..\Public\Satellite_3.h">
       <Filter>02.GameObject\12. BillBoadr_Object\Satellite\Satellite3</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\CharacterLogo.h">
+      <Filter>97. UITest\Logo\CharacterLogo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Benner.h">
+      <Filter>02.GameObject\07. UI\CharterSelect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -857,6 +869,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Satellite_3.cpp">
       <Filter>02.GameObject\12. BillBoadr_Object\Satellite\Satellite3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\CharacterLogo.cpp">
+      <Filter>97. UITest\Logo\CharacterLogo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Benner.cpp">
+      <Filter>02.GameObject\07. UI\CharterSelect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

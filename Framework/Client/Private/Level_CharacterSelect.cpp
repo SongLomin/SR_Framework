@@ -12,9 +12,12 @@
 #include "Cam_FPS.h"
 #include "Cam_TPS.h"
 #include "Cam_Shoulder.h"
-
+#include "CharacterLogo.h"
+#include "Benner.h"
 HRESULT CLevel_CharacterSelect::Initialize()
 {
+	
+
 	CGameObject* m_pShip = GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_CHARACTERSELECT, TEXT("Player"));
 	m_vecShips.push_back(m_pShip);
 	WEAK_PTR(m_vecShips.back());
@@ -36,6 +39,11 @@ HRESULT CLevel_CharacterSelect::Initialize()
 
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_CHARACTERSELECT, TEXT("CLight_Moon")))
 		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CBenner>(LEVEL_CHARACTERSELECT, TEXT("Benner")))
+		return E_FAIL;
+
+	
 
 	m_vMovePos = _float3(0.f, 5.f, -20.f);
 	GAMEINSTANCE->Get_Camera()->Get_Transform()->Set_State(CTransform::STATE_POSITION, m_vMovePos);

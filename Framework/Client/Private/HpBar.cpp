@@ -34,7 +34,6 @@ HRESULT CHpBar::Initialize(void* pArg)
 	m_fSizeY = 5.0f;
 
 	
-
 	return S_OK;
 }
 
