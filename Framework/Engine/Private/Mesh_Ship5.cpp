@@ -1691,6 +1691,13 @@ HRESULT CMesh_Ship5::Initialize_Prototype()
 	vertices[1653] = VTXNORMAL(_float3(-32.37, 104.32, -38.41), _float3(0.65, -0.62, -0.45));
 	vertices[1654] = VTXNORMAL(_float3(-2.04, 135.57, -37.94), _float3(0.65, -0.62, -0.45));
 	vertices[1655] = VTXNORMAL(_float3(-1.57, 104.10, 6.56), _float3(0.65, -0.62, -0.45));
+
+	for (int i = 0; i < m_iNumVertices; i++)
+	{
+		vertices[i].vPosition = CMath_Utillity::Rotate_Vec3(_float3(0.f, D3DXToRadian(180.f), 0.f), vertices[i].vPosition);
+		vertices[i].vNorm = CMath_Utillity::Rotate_Vec3(_float3(0.f, D3DXToRadian(180.f), 0.f), vertices[i].vNorm);
+	}
+
 	m_pMesh->UnlockVertexBuffer();
 
 	WORD* indices = 0;

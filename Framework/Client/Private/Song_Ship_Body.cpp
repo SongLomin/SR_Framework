@@ -159,7 +159,7 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 #pragma region Status Setting
 
 	CStatus::STATUS		Status;
-	Status.fMaxHp = 10.f;
+	Status.fMaxHp = 30.f;
 	Status.fHp = Status.fMaxHp;
 	Status.fAttack = 7.f;
 	Status.fMaxArmor = 5.f;

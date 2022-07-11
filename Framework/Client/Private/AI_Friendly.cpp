@@ -46,7 +46,7 @@ void CAI_Friendly::LateTick(_float fTimeDelta)
 	m_fTime -= fTimeDelta;
 	if (m_fTime < 0.f)
 	{
-		m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+		m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
 		
 
 		auto TargetList = m_pTargetingCom->Get_Targetting();
@@ -216,7 +216,7 @@ HRESULT CAI_Friendly::SetUp_Components()
 
 
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER;
-	m_pColliderCom = Add_Component<CCollider_OBB>(&eCollisionType);
+	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
 	m_pColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);

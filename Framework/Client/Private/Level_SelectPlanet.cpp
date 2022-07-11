@@ -46,6 +46,43 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
 
+	if (!m_bFirst)
+	{
+		CGameObject* pPlayer = GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
+		pPlayer->Set_Controller(CONTROLLER::AI);
+
+		//list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+
+		//if (!pAiObect)
+		//	return E_FAIL;
+
+		///*if (Get_Controller() == CONTROLLER::PLAYER)
+		//	return;*/
+
+		//CKang_Ship_Body* pSubPlayerCharacter = nullptr;
+
+		//for (auto& elem : *pAiObect)
+		//{
+		//	pSubPlayerCharacter = dynamic_cast<CKang_Ship_Body*>(elem);
+
+		//	if (pSubPlayerCharacter)
+		//	{
+		//		CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
+		//		CTransform* pCurCameraTransform = nullptr;
+		//		if (pCurCamera)
+		//			pCurCameraTransform = pCurCamera->Get_Transform();
+
+		//		if (pCurCameraTransform)
+		//		{
+		//			GAMEINSTANCE->Switch_Player(pCurCameraTransform, elem->Get_Component<CTransform>(), TEXT("TPS"), 1.f);
+		//			GAMEINSTANCE->Add_TimerEvent(0, this, 1.f);
+		//			break;
+		//		}
+		//	}
+		//}
+
+		
+	}
 	
 	
 	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
@@ -90,11 +127,11 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CEnemy_StagBeetle>(LEVEL_SELECTPLANET, TEXT("Enemy_StagBeetle")))
+	/*if (!GAMEINSTANCE->Add_GameObject<CEnemy_StagBeetle>(LEVEL_SELECTPLANET, TEXT("Enemy_StagBeetle")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CEnemy_TagetBoard>(LEVEL_SELECTPLANET, TEXT("Enemy_TagetBoard")))
-		return E_FAIL;
+		return E_FAIL;*/
 
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
@@ -170,10 +207,29 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 		{
 			m_bCinematic = false;
 			GAMEINSTANCE->Swap_Camera();
+
+			CSong_Ship_Body* pMainCharacter = nullptr;
+
+			list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+
+			if (!pAiObect)
+				return;
+
+			for (auto& elem : *pAiObect)
+			{
+				pMainCharacter = dynamic_cast<CSong_Ship_Body*>(elem);
+
+				if (pMainCharacter)
+				{
+					pMainCharacter->Set_Controller(CONTROLLER::PLAYER);
+					break;
+				}
+			}
+
 			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
 				return;
 
-			list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+			/*list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 		
 			for (auto& elem : *pLayer)
 			{
@@ -181,7 +237,7 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 					break;
 				
 				elem->Set_Controller(CONTROLLER::PLAYER);
-			}
+			}*/
 		}
 	}
 
@@ -264,6 +320,40 @@ void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 }
 
 
+
+void CLevel_SelectPlanet::OnTimerEvent(const _uint _iEventIndex)
+{
+	list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+	_uint i = 0;
+
+	if (!pAiObect)
+		return;
+
+	if (0 == _iEventIndex)
+	{
+		CSong_Ship_Body* pMainCharacter = nullptr;
+
+		for (auto& elem : *pAiObect)
+		{
+			pMainCharacter = dynamic_cast<CSong_Ship_Body*>(elem);
+
+			if (pMainCharacter)
+			{
+				CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
+				CTransform* pCurCameraTransform = nullptr;//이게맞냐
+				if (pCurCamera)
+					pCurCameraTransform = pCurCamera->Get_Transform();
+
+				if (pCurCameraTransform)
+				{
+					GAMEINSTANCE->Switch_Player(pCurCameraTransform, elem->Get_Component<CTransform>(), TEXT("TPS"), 1.f);
+				}
+
+				break;
+			}
+		}
+	}
+}
 
 CLevel_SelectPlanet* CLevel_SelectPlanet::Create()
 {

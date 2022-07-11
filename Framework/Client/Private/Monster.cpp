@@ -153,10 +153,21 @@ void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
 		{
 			//Set_Dead();
-			Set_Enable(false);
+
+			_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+
+			if (GAMEINSTANCE->IsIn(&vPos))
+			{
+				GAMEINSTANCE->Add_TimerEvent(1, this, 0.1f);
+				GAMEINSTANCE->Set_TimeScale(0.05f);
+				GAMEINSTANCE->Add_Shaking(2.7f, 0.01f);
+			}
+			
 
 			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false))->Set_Pos(MyPos);
+
+			Set_Enable(false);
 
 		}
 	}
@@ -168,6 +179,14 @@ void CMonster::On_Collision_Stay(CCollider* _Other_Collider)
 
 void CMonster::On_Collision_Exit(CCollider* _Other_Collider)
 {
+}
+
+void CMonster::OnTimerEvent(const _uint _iEventIndex)
+{
+	if (1 == _iEventIndex)
+	{
+		GAMEINSTANCE->Set_TimeScale(1.f);
+	}
 }
 
 void CMonster::OnEnable(void* _Arg)

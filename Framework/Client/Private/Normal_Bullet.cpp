@@ -125,6 +125,19 @@ void CNormal_Bullet::On_Collision_Exit(CCollider* _Other_Collider)
 {
 }
 
+void CNormal_Bullet::OnEnable(void* _Arg)
+{
+	__super::OnEnable(_Arg);
+
+	m_pLight->Set_Preset_PowLight();
+	m_pLight->Set_Enable(true);
+}
+
+void CNormal_Bullet::OnDisable()
+{
+
+}
+
 CNormal_Bullet* CNormal_Bullet::Create()
 {
 	CREATE_PIPELINE(CNormal_Bullet);

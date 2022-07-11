@@ -24,34 +24,6 @@ HRESULT CPlayer::Initialize(void* pArg)
 void CPlayer::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
-	list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
-	_uint i = 0;
-
-	if (!pAiObect)
-		return;
-
-	for (auto& elem : *pAiObect)
-	{
-		if (KEY_INPUT((KEY)((_uint)KEY::NUM1 + i), KEY_STATE::TAP))
-		{
-			if (CONTROLLER::PLAYER != elem->Get_Controller())
-			{
-				CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
-				CTransform* pCurCameraTransform = nullptr;//이게맞냐
-				if (pCurCamera)
-					pCurCameraTransform = pCurCamera->Get_Transform();
-
-				if (pCurCameraTransform)
-				{
-					GAMEINSTANCE->Switch_Player(pCurCameraTransform, elem->Get_Component<CTransform>(), TEXT("TPS"), 1.f);
-				}
-			}
-		}
-		++i;
-	}
-
-	
-
 
 	if (m_pRigid_BodyCom->Get_Booster())
 	{
@@ -68,6 +40,37 @@ void CPlayer::Tick(_float fTimeDelta)
 			D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 0, 0);
 			//((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom, color);
 		}
+	}
+
+	list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+	_uint i = 0;
+
+	if (!pAiObect)
+		return;
+
+	//한 번만 왜냐>??
+	/*if (Get_Controller() != CONTROLLER::PLAYER)
+		return;*/
+
+	for (auto& elem : *pAiObect)
+	{
+		if (KEY_INPUT((KEY)((_uint)KEY::NUM1 + i), KEY_STATE::TAP))
+		{
+			if (CONTROLLER::PLAYER != elem->Get_Controller())
+				//if (GAMEINSTANCE->Get_Camera()->Get_Target() != m_pTransformCom)
+			{
+				CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
+				CTransform* pCurCameraTransform = nullptr;//이게맞냐
+				if (pCurCamera)
+					pCurCameraTransform = pCurCamera->Get_Transform();
+
+				if (pCurCameraTransform)
+				{
+					GAMEINSTANCE->Switch_Player(pCurCameraTransform, elem->Get_Component<CTransform>(), TEXT("TPS"), 1.f);
+				}
+			}
+		}
+		++i;
 	}
 }
 
@@ -134,6 +137,8 @@ void CPlayer::On_Change_Controller(const CONTROLLER& _IsAI)
 
 		list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 
+		m_pTargetingCom->Set_TargetMode(TARGETMODE::TARGET_SINGLE);
+
 		if (pAiObect == nullptr)
 			return;
 
@@ -170,7 +175,7 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER_ATTACK && Get_Controller() == CONTROLLER::PLAYER)
 	{
-		GAMEINSTANCE->Add_Shaking(0.4f, 0.1f);
+		//GAMEINSTANCE->Add_Shaking(0.4f, 0.1f);
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
 
 		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
@@ -179,11 +184,15 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 
 			//m_pPlayer_ControllerCom->Set_Lock(true);
 
-			//_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
-			//((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
+			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
+
+			//Change_NearstPlayer();
 
 			//Set_Controller(CONTROLLER::LOCK);
-			//GAMEINSTANCE->Add_TimerEvent(1, this, 2.f, false, false);
+			GAMEINSTANCE->Add_TimerEvent(1, this, 1.f, false, false);
+			GAMEINSTANCE->Set_TimeScale(0.1f);
+			GAMEINSTANCE->Add_Shaking(3.1f, 0.01f);
 
 			//_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			//((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false))->Set_Pos(MyPos);
@@ -227,8 +236,8 @@ void CPlayer::OnTimerEvent(const _uint _iEventIndex)
 
 	if (1 == _iEventIndex)
 	{
-		Set_Controller(CONTROLLER::PLAYER);
-		m_pStatusCom->Set_Status(CStatus::STATUSID::STATUS_HP, 10.f);
+		//Set_Controller(CONTROLLER::PLAYER);
+		m_pStatusCom->Set_FULL_HP();
 		GAMEINSTANCE->Set_TimeScale(1.f);
 		//Change_NearstPlayer();
 		//Set_Dead();
@@ -385,7 +394,18 @@ _bool CPlayer::Change_NearstPlayer()
 	//가장 가까운건 나 자신, 따라서 건너 뜀
 	auto Iter_NearPlayer = ++NearPlayers.begin();
 
-	(*Iter_NearPlayer).second->Set_Controller(CONTROLLER::PLAYER);
+	//(*Iter_NearPlayer).second->Set_Controller(CONTROLLER::PLAYER);
+
+	CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
+	CTransform* pCurCameraTransform = nullptr;//이게맞냐
+	if (pCurCamera)
+		pCurCameraTransform = pCurCamera->Get_Transform();
+
+	if (pCurCameraTransform)
+	{
+		GAMEINSTANCE->Switch_Player(pCurCameraTransform, (*Iter_NearPlayer).second->Get_Component<CTransform>(), TEXT("TPS"), 1.f);
+		//GAMEINSTANCE->Switch_Player(pCurCameraTransform, (*Iter_NearPlayer).second->Get_Component<CTransform>(), TEXT("TPS"), 1.f);
+	}
 
 	return true;
 }

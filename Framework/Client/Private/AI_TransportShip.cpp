@@ -205,7 +205,7 @@ void CAI_TransportShip::Spawn_SpaceShip()
 
 	pTransform_Friendly->Set_LocalMatrix(m_pTransformCom->Get_WorldMatrix());
 	pTransform_Friendly->Scaling(_float3(1.f, 1.f, 1.f));
-	pTransform_Friendly->Add_Position(_float3(0.f, 5.f, -10.f));
+	pTransform_Friendly->Add_Position(_float3(0.f, 20.f, -10.f));
 	pTransform_Friendly->Update_WorldMatrix();
 
 	CAI_Controller* pController_Friendly = pAI_Friendly->Get_Component<CAI_Controller>();

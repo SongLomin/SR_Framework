@@ -68,7 +68,10 @@ void CLight::Set_Preset_PowLight()
 	m_Color = D3DCOLOR_RGBA(200, 200, 50, 255);
 	m_D3DLight.Range = 11.f;
 	m_fLifeTime = 0.4f;
-
+	
+	m_D3DLight.Attenuation0 = 1.0f;
+	m_D3DLight.Attenuation1 = 0.007f;
+	m_D3DLight.Attenuation2 = 0.001f;
 }
 
 void CLight::Set_Preset_SunLight()

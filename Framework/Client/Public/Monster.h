@@ -61,6 +61,7 @@ protected: /* For Event Function */
     virtual void On_Collision_Enter(CCollider* _Other_Collider) override;
     virtual void On_Collision_Stay(CCollider* _Other_Collider) override;
     virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
+    virtual void OnTimerEvent(const _uint _iEventIndex) override;
 
 public:
     //객체의 상태가 활성화 상태로 변경될 때, 호출되는 이벤트입니다.

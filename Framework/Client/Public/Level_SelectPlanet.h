@@ -24,6 +24,9 @@ public:
 	virtual HRESULT Complete_Condition() { return S_OK; }
 
 public:
+	virtual void OnTimerEvent(const _uint _iEventIndex) override;
+
+public:
 	static CLevel_SelectPlanet* Create();
 	virtual void Free() override;
 

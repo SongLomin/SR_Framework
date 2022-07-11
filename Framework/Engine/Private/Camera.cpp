@@ -72,6 +72,9 @@ HRESULT CCamera::Bind_PipeLine()
 
 void CCamera::Add_Shaking(_float _fOffset, _float _fInclination)
 {
+	if (_fOffset * _fInclination < m_fInclination)
+		return;
+
 	m_fOffset = _fOffset;
 	m_fInclination = _fOffset * _fInclination;
 

@@ -38,6 +38,7 @@
 #include <SelectPlanet_SkyBox.h>
 #include "AI_TransportShip.h"
 #include "RedPlanet_SkyBox.h"
+#include <Planet_Select.h>
 
 
 
@@ -55,8 +56,8 @@ HRESULT CLevel_RedPlanet::Initialize()
 
 
 
-	CGameObject* pPlayer = GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
-	pPlayer->Set_Controller(CONTROLLER::AI);
+	//CGameObject* pPlayer = GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
+	//pPlayer->Set_Controller(CONTROLLER::AI);
 
 
 
@@ -68,7 +69,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 
 	for (int i = 0; i < 20; ++i)
 	{
-		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("Monster"))->Get_Component<CTransform>();
+		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body"))->Get_Component<CTransform>();
 
 		_float3 SpawnPos{ 0, 0.f, 300.f };
 
@@ -151,7 +152,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
 	//	return E_FAIL;
 
-
+	GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVEL_VENUSPLANET, TEXT("Earth"));
 
 
 
@@ -187,7 +188,10 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	}
 
 
-
+	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
+	{
+		GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
+	}
 
 
 	RedPlanet_Event(fTimeDelta);
@@ -206,6 +210,66 @@ HRESULT CLevel_RedPlanet::Render()
 	SetWindowText(g_hWnd, TEXT("Red Planet 레벨입니다. "));
 
 	return S_OK;
+}
+
+void CLevel_RedPlanet::Change_Level(void* pArg, _uint _iNextLevel)
+{
+	if (m_bCinematic)
+		return;
+
+
+	m_fTime = 5.f;
+	m_bCinematic = true;
+	m_iNextLevel = _iNextLevel;
+
+	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+	for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)
+	{
+		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
+		{
+
+
+			(*iter)->Set_Controller(CONTROLLER::AI);
+			CComponent* Temp = (*iter)->Get_Component<CAI_Controller>();
+			WEAK_PTR(Temp);
+			Temp->Set_Enable(false);
+			Temp = (*iter)->Get_Component<CRigid_Body>();
+			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::SPIN, 0.f);
+			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::DOWN, 0.f);
+			if (pArg)
+			{
+				Temp = (*iter)->Get_Component<CTransform>();
+				static_cast<CTransform*>(Temp)->LookAt((CTransform*)pArg, true);
+			}
+			RETURN_WEAKPTR(Temp);
+		}
+	}
+
+	CGameObject* Camera_Origin = GAMEINSTANCE->Get_Camera()->Get_Owner();
+	CTransform* pCameraTransform = Camera_Origin->Get_Component<CTransform>();
+	GAMEINSTANCE->Update_MovingCam();
+	CGameObject* Camera_Moving = GAMEINSTANCE->Get_Camera()->Get_Owner();
+	CTransform* pCameraMovingTransform = Camera_Moving->Get_Component<CTransform>();
+
+	_float3	vUp, vLook, vRight, vSpeed;
+
+	pCameraMovingTransform->Set_State(CTransform::STATE_RIGHT, vRight = pCameraTransform->Get_State(CTransform::STATE_RIGHT));
+	pCameraMovingTransform->Set_State(CTransform::STATE_UP, vUp = pCameraTransform->Get_State(CTransform::STATE_UP));
+	pCameraMovingTransform->Set_State(CTransform::STATE_LOOK, vLook = pCameraTransform->Get_State(CTransform::STATE_LOOK));
+	pCameraMovingTransform->Set_State(CTransform::STATE_POSITION, pCameraTransform->Get_State(CTransform::STATE_POSITION));
+
+
+
+	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(2.f, 0.f,
+		*D3DXVec3Normalize(&vSpeed, &(-vLook)) * 1.5f, _float3(0.f, 0.f, 0.f),
+		nullptr, nullptr, 0.1f, 0.f
+	);
+
+	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(3.f, 0.f,
+		_float3(0.f, 0.f, 0.f), *D3DXVec3Normalize(&vSpeed, &(-vLook)) * 4.f,
+		nullptr, nullptr, 1.f, 0.05f
+	);
+
 }
 
 CLevel_RedPlanet * CLevel_RedPlanet::Create()

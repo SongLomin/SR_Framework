@@ -452,5 +452,7 @@ void CCollision_Manager::Free()
 {
 	__super::Free();
 
+	Clear_ColliderList();
+
 	delete this;
 }

@@ -11,6 +11,7 @@ CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphic_Device)
 CMonster::CMonster(const CMonster & Prototype)
 	: CGameObject(Prototype)
 {
+
 }
 
 HRESULT CMonster::Initialize_Prototype()
@@ -66,25 +67,36 @@ void CMonster::LateTick(_float fTimeDelta)
 
 HRESULT CMonster::Render()
 {
-	if (FAILED(m_pTextureCom->Bind_Texture(0)))
+
+
+	_float4x4		WorldMatrix = m_pTransformCom->Get_WorldMatrix();
+	_float4x4		ViewMatrix, ProjMatrix;
+
+	m_pGraphic_Device->GetTransform(D3DTS_VIEW, &ViewMatrix);
+	m_pGraphic_Device->GetTransform(D3DTS_PROJECTION, &ProjMatrix);
+
+	
+	D3DXMatrixTranspose(&WorldMatrix, &WorldMatrix);
+	D3DXMatrixTranspose(&ViewMatrix, &ViewMatrix);
+	D3DXMatrixTranspose(&ProjMatrix, &ProjMatrix);
+
+	if (FAILED(m_pShaderCom->Set_RawValue("g_WorldMatrix", &WorldMatrix, sizeof(_float4x4))))
+		return E_FAIL;
+	if (FAILED(m_pShaderCom->Set_RawValue("g_ViewMatrix", &ViewMatrix, sizeof(_float4x4))))
+		return E_FAIL;
+	if (FAILED(m_pShaderCom->Set_RawValue("g_ProjMatrix", &ProjMatrix, sizeof(_float4x4))))
 		return E_FAIL;
 
-	m_pTransformCom->Bind_WorldMatrix();	
+	if (FAILED(m_pShaderCom->Set_ShaderResource("g_Texture", m_pTextureCom->Get_Texture(0))))
+		return E_FAIL;
 
-	/*m_pGraphic_Device->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	m_pGraphic_Device->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	m_pGraphic_Device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	m_pGraphic_Device->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);*/
 
-	m_pGraphic_Device->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	m_pGraphic_Device->SetRenderState(D3DRS_ALPHAREF, 250);
-	m_pGraphic_Device->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	m_pShaderCom->Begin_Shader(0);
 
 	m_pVIBufferCom->Render();	
 
-	m_pGraphic_Device->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+	m_pShaderCom->End_Shader();
 
-	// m_pGraphic_Device->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 
 	return S_OK;
 }
@@ -109,6 +121,10 @@ HRESULT CMonster::SetUp_Components()
 	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f);
 
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Transform"), TEXT("Com_Transform"), (CComponent**)&m_pTransformCom, &TransformDesc)))
+		return E_FAIL;
+
+	/* For.Com_Shader */
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Shader_Rect"), TEXT("Com_Shader"), (CComponent**)&m_pShaderCom)))
 		return E_FAIL;
 	
 	
@@ -162,6 +178,7 @@ void CMonster::Free()
 {
 	__super::Free();
 
+	Safe_Release(m_pShaderCom);
 	Safe_Release(m_pTransformCom);
 	Safe_Release(m_pTextureCom);
 	Safe_Release(m_pVIBufferCom);

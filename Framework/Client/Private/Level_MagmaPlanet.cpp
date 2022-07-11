@@ -37,6 +37,8 @@
 #include <TextBox.h>
 #include <MagmaSpace_Body.h>
 #include <Rock_1.h>
+#include <Planet_Select.h>
+#include <Level_SelectPlanet.h>
 
 CLevel_MagmaPlanet::CLevel_MagmaPlanet()
 {
@@ -50,7 +52,7 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 
 	for (int i = 0; i < 15; ++i)
 	{
-		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CMagmaSpace_Body>(CURRENT_LEVEL, TEXT("Monster"))->Get_Component<CTransform>();
+		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CMagmaSpace_Body>(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace"))->Get_Component<CTransform>();
 
 		_float3 SpawnPos{ 0, 0.f, 300.f };
 
@@ -123,7 +125,7 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_MAGMAPLANET, TEXT("Quest_UI"));
 	m_pQuestBoxObject->Set_Enable(false);
 
-
+	GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVEL_VENUSPLANET, TEXT("Earth"));
 
 
 	return S_OK;
@@ -137,7 +139,7 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 
 	if (m_fSpawnTime < 0.f && m_bSpawnCheck == true)
 	{
-		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CMagmaSpace_Body>(CURRENT_LEVEL, TEXT("Monster"), nullptr, nullptr, true)
+		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CMagmaSpace_Body>(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace"), nullptr, nullptr, true)
 										->Get_Component<CTransform>();
 		_float3 SpawnPos{ 0, 0.f, 300.f };
 
@@ -160,6 +162,12 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 		}
 	}
 
+	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
+	{
+		GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
+	}
+
+
 	MagmaPlanet_Event(fTimeDelta);
 
 
@@ -176,11 +184,70 @@ HRESULT CLevel_MagmaPlanet::Render()
 	return S_OK;
 }
 
+void CLevel_MagmaPlanet::Change_Level(void* pArg, _uint _iNextLevel)
+{
+	if (m_bCinematic)
+		return;
+
+
+	m_fTime = 5.f;
+	m_bCinematic = true;
+	m_iNextLevel = _iNextLevel;
+
+	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+	for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)
+	{
+		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
+		{
+
+
+			(*iter)->Set_Controller(CONTROLLER::AI);
+			CComponent* Temp = (*iter)->Get_Component<CAI_Controller>();
+			WEAK_PTR(Temp);
+			Temp->Set_Enable(false);
+			Temp = (*iter)->Get_Component<CRigid_Body>();
+			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::SPIN, 0.f);
+			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::DOWN, 0.f);
+			if (pArg)
+			{
+				Temp = (*iter)->Get_Component<CTransform>();
+				static_cast<CTransform*>(Temp)->LookAt((CTransform*)pArg, true);
+			}
+			RETURN_WEAKPTR(Temp);
+		}
+	}
+
+	CGameObject* Camera_Origin = GAMEINSTANCE->Get_Camera()->Get_Owner();
+	CTransform* pCameraTransform = Camera_Origin->Get_Component<CTransform>();
+	GAMEINSTANCE->Update_MovingCam();
+	CGameObject* Camera_Moving = GAMEINSTANCE->Get_Camera()->Get_Owner();
+	CTransform* pCameraMovingTransform = Camera_Moving->Get_Component<CTransform>();
+
+	_float3	vUp, vLook, vRight, vSpeed;
+
+	pCameraMovingTransform->Set_State(CTransform::STATE_RIGHT, vRight = pCameraTransform->Get_State(CTransform::STATE_RIGHT));
+	pCameraMovingTransform->Set_State(CTransform::STATE_UP, vUp = pCameraTransform->Get_State(CTransform::STATE_UP));
+	pCameraMovingTransform->Set_State(CTransform::STATE_LOOK, vLook = pCameraTransform->Get_State(CTransform::STATE_LOOK));
+	pCameraMovingTransform->Set_State(CTransform::STATE_POSITION, pCameraTransform->Get_State(CTransform::STATE_POSITION));
+
+
+
+	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(2.f, 0.f,
+		*D3DXVec3Normalize(&vSpeed, &(-vLook)) * 1.5f, _float3(0.f, 0.f, 0.f),
+		nullptr, nullptr, 0.1f, 0.f
+	);
+
+	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(3.f, 0.f,
+		_float3(0.f, 0.f, 0.f), *D3DXVec3Normalize(&vSpeed, &(-vLook)) * 4.f,
+		nullptr, nullptr, 1.f, 0.05f
+	);
+}
+
 void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 {
 	m_fTextBoxTime -= fTimeDelta;
 
-	auto Monster = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster"));
+	auto Monster = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace"));
 
 	_uint MonsterSize = Monster->size();
 

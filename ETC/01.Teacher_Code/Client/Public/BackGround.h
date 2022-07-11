@@ -4,6 +4,7 @@
 #include "GameObject.h"
 
 BEGIN(Engine)
+class CShader;
 class CTexture;
 class CRenderer;
 class CTransform;
@@ -27,6 +28,7 @@ public:
 	virtual HRESULT Render() override;
 
 private:
+	CShader*				m_pShaderCom = nullptr;
 	CTexture*				m_pTextureCom = nullptr;
 	CRenderer*				m_pRendererCom = nullptr;
 	CTransform*				m_pTransformCom = nullptr;
@@ -35,6 +37,8 @@ private:
 private:
 	_float					m_fX, m_fY, m_fSizeX, m_fSizeY;
 	_float4x4				m_ProjMatrix;
+
+	_float					m_fPower = 0.f;
 
 private: /* 현재 객체에게 필요한 컴포넌트를 복제해온다. */
 	HRESULT SetUp_Components();

@@ -7,12 +7,13 @@ CTargeting::CTargeting()
 {
 }
 
-void CTargeting::Make_TargetList_Cursor(list<CGameObject*>* pLayer, CTransform* pTransform, _float fDist)
+void CTargeting::Make_TargetList_Cursor(list<CGameObject*>* pLayer, CTransform* pTransform, _float fDist, _bool bIsClear)
 {
 	if (nullptr == pLayer)
 		return;
 
-	Clear_Targeting();
+	if(bIsClear)
+		Clear_Targeting();
 
 	if (m_eTargetMode == TARGETMODE::TARGET_MULTIRAY)
 	{
@@ -101,7 +102,7 @@ void CTargeting::Make_TargetList_Cursor(list<CGameObject*>* pLayer, CTransform* 
 	}
 }
 
-void CTargeting::Make_TargetList_Look(list<CGameObject*>* pTarget, CTransform* pTransform, _float fDist)
+void CTargeting::Make_TargetList_Look(list<CGameObject*>* pTarget, CTransform* pTransform, _float fDist, _bool bIsClear)
 {
 	if (nullptr == pTarget)
 		return;

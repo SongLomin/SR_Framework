@@ -33,6 +33,7 @@ HRESULT CPointLight::Initialize(void* pArg)
 	m_D3DLight.Attenuation0 = 1.f;
 	m_D3DLight.Attenuation1 = 0.7f;
 	m_D3DLight.Attenuation2 = 1.8f;
+	m_D3DLight.Falloff = 1.f;
 
     return S_OK;
 }

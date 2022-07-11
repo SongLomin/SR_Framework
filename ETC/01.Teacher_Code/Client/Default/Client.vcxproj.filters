@@ -49,6 +49,9 @@
     <Filter Include="02.GameObject\Effect">
       <UniqueIdentifier>{67bb9413-0b2b-47da-abfe-7177a0f47fe0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="97.ShaderFiles">
+      <UniqueIdentifier>{551293ab-fbaa-47e7-a6c8-d02f1020c8f9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -164,5 +167,10 @@
     <Text Include="ReadMe.txt">
       <Filter>98.Defaults</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\Bin\ShaderFiles\Shader_Rect.hlsl">
+      <Filter>97.ShaderFiles</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

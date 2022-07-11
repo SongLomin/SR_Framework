@@ -170,7 +170,7 @@ void CRocket_Bullet::Find_Way(_float fTimeDelta)
 		}
 	}
 
-	//((CRocket_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CRocket_PSystem>(CURRENT_LEVEL, TEXT("Rocket_Particle")))->AddParticle(500 * fTimeDelta, m_pTransformCom);
+	((CRocket_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CRocket_PSystem>(CURRENT_LEVEL, TEXT("Rocket_Particle")))->AddParticle(200 * fTimeDelta, m_pTransformCom);
 	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
 }
 

@@ -4,7 +4,7 @@
 BEGIN(Engine)
 class CRenderer;
 class CTransform;
-class CCollider_OBB;
+class CCollider_Sphere;
 class CRigid_Body;
 class CTargeting;
 class CStatus;
@@ -40,7 +40,7 @@ public:
 private:
 	CRenderer* m_pRendererCom = nullptr;
 	CTransform* m_pTransformCom = nullptr;
-	CCollider_OBB* m_pColliderCom = nullptr;
+	CCollider_Sphere* m_pColliderCom = nullptr;
 	CRigid_Body* m_pRigidBodyCom = nullptr;
 	CTargeting* m_pTargetingCom = nullptr;
 	CStatus* m_pStatusCom = nullptr;

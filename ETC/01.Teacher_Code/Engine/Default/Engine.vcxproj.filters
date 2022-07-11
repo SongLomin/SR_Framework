@@ -85,6 +85,9 @@
     <Filter Include="01.Utility\03.Components\Model\Cube">
       <UniqueIdentifier>{82503524-7daf-479e-b612-e8aa082b948e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Components\Shader">
+      <UniqueIdentifier>{411bb6e9-6231-4b02-9457-3bad6ca001f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -171,6 +174,9 @@
     <ClInclude Include="..\Public\VIBuffer_Cube.h">
       <Filter>01.Utility\03.Components\Model\Cube</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Shader.h">
+      <Filter>01.Utility\03.Components\Shader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -238,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\VIBuffer_Cube.cpp">
       <Filter>01.Utility\03.Components\Model\Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Shader.cpp">
+      <Filter>01.Utility\03.Components\Shader</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

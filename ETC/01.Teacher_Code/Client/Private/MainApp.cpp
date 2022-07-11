@@ -7,6 +7,12 @@
 CMainApp::CMainApp()
 	: m_pGameInstance(CGameInstance::Get_Instance())
 {
+	//LPD3DXEFFECT		pEffect = nullptr;
+
+	//pEffect->SetMatrix();
+	//pEffect->SetInt();
+
+	// D3DDECLUSAGE
 	Safe_AddRef(m_pGameInstance);
 }
 
@@ -122,6 +128,11 @@ HRESULT CMainApp::Ready_Prototype_Component()
 	/* For.Prototype_Component_Transform */
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Transform"),
 		CTransform::Create(m_pGraphic_Device))))
+		return E_FAIL;
+
+	/* For.Prototype_Component_Shader_Rect */
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Shader_Rect"),
+		CShader::Create(m_pGraphic_Device, TEXT("../Bin/ShaderFiles/Shader_Rect.hlsl")))))
 		return E_FAIL;
 
 	Safe_AddRef(m_pRenderer);

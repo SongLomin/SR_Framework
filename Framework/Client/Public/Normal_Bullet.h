@@ -41,6 +41,13 @@ public: /* For Event Function */
     virtual void On_Collision_Stay(CCollider* _Other_Collider) override;
     virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
 
+public:
+    //객체의 상태가 활성화 상태로 변경될 때, 호출되는 이벤트입니다.
+    virtual void OnEnable(void* _Arg = nullptr) override;
+
+    //객체의 상태가 비활성화 상태로 변경될 때, 호출되는 이벤트입니다.
+    virtual void OnDisable() override;
+
 protected:
     // CBullet을(를) 통해 상속됨
     virtual HRESULT SetUp_Components_For_Child() override;

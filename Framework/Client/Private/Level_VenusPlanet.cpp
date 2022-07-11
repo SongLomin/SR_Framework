@@ -125,6 +125,10 @@ void CLevel_VenusPlanet::Tick(_float fTimeDelta)
 		}
 	}
 
+	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
+	{
+		GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
+	}
 
 	VenusPlanet_Event(fTimeDelta);
 }
