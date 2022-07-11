@@ -619,6 +619,9 @@
     <ClInclude Include="..\Public\Parts_UI.h">
       <Filter>02.GameObject\07. UI\SelectPlayerUI\Parts</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\SelectShip.h">
+      <Filter>02.GameObject\07. UI\CharterSelect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -915,6 +918,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Speed_UI.cpp">
       <Filter>02.GameObject\07. UI\SelectPlayerUI\Speed</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\SelectShip.cpp">
+      <Filter>02.GameObject\07. UI\CharterSelect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

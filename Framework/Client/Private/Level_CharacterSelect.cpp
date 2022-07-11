@@ -20,6 +20,7 @@
 #include "Health_UI.h"
 #include "Parts_UI.h"
 #include "HpBar.h"
+#include "SelectShip.h"
 
 HRESULT CLevel_CharacterSelect::Initialize()
 {
@@ -65,6 +66,10 @@ HRESULT CLevel_CharacterSelect::Initialize()
 
 	if (!GAMEINSTANCE->Add_GameObject<CParts_UI>(LEVEL_CHARACTERSELECT, TEXT("Parts_UI")))
 		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CSelectShip>(LEVEL_CHARACTERSELECT, TEXT("SelectShip_UI")))
+		return E_FAIL;
+
 
 
 

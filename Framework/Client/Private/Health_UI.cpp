@@ -59,12 +59,12 @@ void CHealth_UI::Tick(_float fTimeDelta)
 
 	if (!m_bSwitchTaget)
 	{
-		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)150 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 10(체력) "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)150 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 10 (체력) "), 0);
 	}
 
 	if (m_bSwitchTaget)
 	{
-		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)150 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 15(체력) "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)150 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 15 (체력) "), 0);
 	}
 	
 }

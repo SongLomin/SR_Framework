@@ -60,12 +60,12 @@ void CSpeed_UI::Tick(_float fTimeDelta)
 
 	if (!m_bSwitchTaget)
 	{
-		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)200 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 22(부스터 게이지) "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)200 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 22 (부스터 게이지) "), 0);
 	}
 
 	if (m_bSwitchTaget)
 	{
-		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)200 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 15(부스터 게이지) "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)200 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 15 (부스터 게이지) "), 0);
 	}
 
 	

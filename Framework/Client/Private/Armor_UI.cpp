@@ -59,12 +59,12 @@ void CArmor_UI::Tick(_float fTimeDelta)
 
 	if (!m_bSwitchTaget)
 	{
-		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)100 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 5(방어력) "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)100 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 5 (방어력) "), 0);
 	}
 
 	if (m_bSwitchTaget)
 	{
-		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)100 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 3(방어력) "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)100 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 3 (방어력) "), 0);
 	}
 }
 
