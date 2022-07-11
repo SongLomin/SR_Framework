@@ -35,6 +35,7 @@ private:
     _float3     m_EndColor;
 
 
+
 public:
 
     // CParticleSystem을(를) 통해 상속됨

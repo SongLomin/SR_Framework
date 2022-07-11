@@ -268,6 +268,21 @@
     <Filter Include="02.GameObject\05. Camera_Object\05. Cam_Fixed">
       <UniqueIdentifier>{ec4b037b-1f48-4e55-90c9-746e8ce620ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\14. GPS">
+      <UniqueIdentifier>{b9f88f1c-52a6-46c6-85c1-15cec63e44d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\14. GPS\Enemy_GPS">
+      <UniqueIdentifier>{bd09e7ec-2247-4f53-bce4-0a4992070dd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\14. GPS\Friendly_GPS">
+      <UniqueIdentifier>{fd7c8726-268a-4dae-8db7-f0f80f315303}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\15. Rader">
+      <UniqueIdentifier>{572ea962-666c-4d40-b0ed-42b40f43240a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem\08. Rader_PSystem">
+      <UniqueIdentifier>{5f26074a-221d-4601-bc13-4ab34609bd90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -505,13 +520,9 @@
     <ClInclude Include="..\Public\RedPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\StagBeetle.h" />
     <ClInclude Include="..\Public\Enemy_StagBeetle.h" />
     <ClInclude Include="..\Public\VenusPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\StagBeetle.h">
-      <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\MagmaPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Magma</Filter>
@@ -536,6 +547,21 @@
     </ClInclude>
     <ClInclude Include="..\Public\Rock_1.h">
       <Filter>02.GameObject\12. Rock\Rock1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\GPS.h">
+      <Filter>02.GameObject\14. GPS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Friendly_GPS.h">
+      <Filter>02.GameObject\14. GPS\Friendly_GPS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Enemy_GPS.h">
+      <Filter>02.GameObject\14. GPS\Enemy_GPS</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rader.h">
+      <Filter>02.GameObject\15. Rader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rader_PSystem.h">
+      <Filter>02.GameObject\10. ParticleSystem\08. Rader_PSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -778,9 +804,6 @@
     <ClCompile Include="..\Private\ExoPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Exo</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\StagBeetle.cpp">
-      <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\MagmaSpace_Body.cpp">
       <Filter>02.GameObject\02. Monster\MagmaSpace</Filter>
     </ClCompile>
@@ -798,6 +821,21 @@
     </ClCompile>
     <ClCompile Include="..\Private\Rock_1.cpp">
       <Filter>02.GameObject\12. Rock\Rock1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\GPS.cpp">
+      <Filter>02.GameObject\14. GPS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Friendly_GPS.cpp">
+      <Filter>02.GameObject\14. GPS\Friendly_GPS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Enemy_GPS.cpp">
+      <Filter>02.GameObject\14. GPS\Enemy_GPS</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rader.cpp">
+      <Filter>02.GameObject\15. Rader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rader_PSystem.cpp">
+      <Filter>02.GameObject\10. ParticleSystem\08. Rader_PSystem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

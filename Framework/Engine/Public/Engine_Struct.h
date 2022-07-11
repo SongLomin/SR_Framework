@@ -374,6 +374,13 @@ namespace Engine
 		MOVE_UI_DOWN,
 		MOVE_UI_END
 	};
+
+	enum class GPS_TYPE
+	{
+		GPS_FRIENDLY = 0,
+		GPS_ENEMY,
+		GPS_END
+	};
 }
 
 

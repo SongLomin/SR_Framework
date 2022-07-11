@@ -38,6 +38,7 @@
 #include <SelectPlanet_SkyBox.h>
 #include "AI_TransportShip.h"
 #include "RedPlanet_SkyBox.h"
+#include <Rader.h>
 
 
 
@@ -146,6 +147,8 @@ HRESULT CLevel_RedPlanet::Initialize()
 	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_REDPLANET, TEXT("Quest_UI"));
 	m_pQuestBoxObject->Set_Enable(false);
 
+	if (!GAMEINSTANCE->Add_GameObject<CRader>(LEVEL_SELECTPLANET, TEXT("Lader")))
+		return E_FAIL;
 
 
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
