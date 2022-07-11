@@ -50,36 +50,45 @@ void CBoosterBar::Tick(_float fTimeDelta)
 	if (TransformCom)
 	{
 		CStatus* pPlayerStatusCom = TransformCom->Get_Owner()->Get_Component<CStatus>();
+		_float fBooster = pPlayerStatusCom->Get_Status().fBooster;
+		_float fMaxBooster = pPlayerStatusCom->Get_Status().fMaxBooster;
 
 		if (KEY_INPUT(KEY::LSHIFT, KEY_STATE::HOLD))
 		{
 			m_fX -= 0.5f;
-			m_fSizeX -= 0.5f;
+			m_fSizeX -= 0.5f; 
+		    fBooster -= fBooster / (fBooster * 20);
+			
 
 			if (m_fX <= 0 || m_fSizeX <= 0)
 			{
 				m_fX = 71;
 				m_fSizeX = 1;
+				fBooster = 0;
 			}
 		}
 
 		if (KEY_INPUT(KEY::LSHIFT, KEY_STATE::NONE))
 		{
 			
-			if (m_fX >= 220.f)
+			if (m_fX >= 220.f)	 
 			{
 				m_fX = 220.f;
+				fBooster = fMaxBooster;
 			}
 
 			if (m_fSizeX >= 150.f)
 			{
 				m_fSizeX = 150.f;
+				fBooster = fMaxBooster;
 			}
 
 			else 
 			{
 				m_fX += 0.5f;
 				m_fSizeX += 0.5f;
+				pPlayerStatusCom->Add_Status(CStatus::STATUSID::STATUS_BOOSTER, 0.05);
+			    fBooster += fBooster / (fBooster * 20);
 			}
 			
 		}

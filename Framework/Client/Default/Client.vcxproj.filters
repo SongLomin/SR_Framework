@@ -256,6 +256,15 @@
     <Filter Include="02.GameObject\02. Monster\StagBeetle">
       <UniqueIdentifier>{7b75a45e-bbc5-42f9-8981-45edcbc9ec3b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\06. Planet\Select">
+      <UniqueIdentifier>{270729ba-3ce4-4e41-ba4f-b19706206fb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Levels\07.Level_Sun">
+      <UniqueIdentifier>{0863205c-922f-4de1-9040-16bd29d88c6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. Rock\Rock1">
+      <UniqueIdentifier>{229027e3-cc56-41eb-aeef-b092f1306770}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02.GameObject\05. Camera_Object\05. Cam_Fixed">
       <UniqueIdentifier>{ec4b037b-1f48-4e55-90c9-746e8ce620ef}</UniqueIdentifier>
     </Filter>
@@ -497,11 +506,13 @@
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\StagBeetle.h" />
+    <ClInclude Include="..\Public\Enemy_StagBeetle.h" />
     <ClInclude Include="..\Public\VenusPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\StagBeetle.h">
       <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
+    </ClInclude>
     </ClInclude>
     <ClInclude Include="..\Public\MagmaPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Magma</Filter>
@@ -515,8 +526,17 @@
     <ClInclude Include="..\Public\Level_CharacterSelect.h">
       <Filter>01.Levels\06. Level_CharacterSelect</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Taget.h">
+    <ClInclude Include="..\Public\Enemy_TagetBoard.h">
       <Filter>02.GameObject\02. Monster\Taget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Planet_Select.h">
+      <Filter>02.GameObject\06. Planet\Select</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Level_SunPlanet.h">
+      <Filter>01.Levels\07.Level_Sun</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock_1.h">
+      <Filter>02.GameObject\12. Rock\Rock1</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -749,7 +769,7 @@
     <ClCompile Include="..\Private\RedPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\StagBeetle.cpp" />
+    <ClCompile Include="..\Private\Enemy_StagBeetle.cpp" />
     <ClCompile Include="..\Private\VenusPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
     </ClCompile>
@@ -762,14 +782,24 @@
     <ClCompile Include="..\Private\StagBeetle.cpp">
       <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
     </ClCompile>
+    </ClCompile>
     <ClCompile Include="..\Private\MagmaSpace_Body.cpp">
       <Filter>02.GameObject\02. Monster\MagmaSpace</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Level_CharacterSelect.cpp">
       <Filter>01.Levels\06. Level_CharacterSelect</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Taget.cpp">
+    <ClCompile Include="..\Private\Enemy_TagetBoard.cpp">
       <Filter>02.GameObject\02. Monster\Taget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Planet_Select.cpp">
+      <Filter>02.GameObject\06. Planet\Select</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_SunPlanet.cpp">
+      <Filter>01.Levels\07.Level_Sun</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock_1.cpp">
+      <Filter>02.GameObject\12. Rock\Rock1</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

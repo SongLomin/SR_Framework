@@ -30,10 +30,12 @@
 #include "Warring.h"
 #include "Dive.h"
 #include "Monster.h"
+#include "Enemy_TagetBoard.h"
+#include "Enemy_StagBeetle.h"
+#include "Planet_Select.h"
 #include "StagBeetle.h"
 #include "Taget.h"
 #include <Kang_Ship_Body.h>
-
 
 _bool CLevel_SelectPlanet::m_bFirst = false;
 
@@ -80,28 +82,28 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	/*if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_SELECTPLANET, TEXT("Aim")))
 		return E_FAIL;*/
 
-	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_SELECTPLANET, TEXT("Status")))
+	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_SELECTPLANET, TEXT("Status_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_SELECTPLANET, TEXT("HP")))
+	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_SELECTPLANET, TEXT("HP_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_SELECTPLANET, TEXT("Booster")))
+	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_SELECTPLANET, TEXT("Booster_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_SELECTPLANET, TEXT("Shield")))
+	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_SELECTPLANET, TEXT("Shield_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_SELECTPLANET, TEXT("NormalBullet")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_SELECTPLANET, TEXT("NormalBullet_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_SELECTPLANET, TEXT("CBulletCountUI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_SELECTPLANET, TEXT("BulletCount_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("CLight_Moon")))
+	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SELECTPLANET, TEXT("Light_Moon")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_REDPLANET, TEXT("Aim")))
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_REDPLANET, TEXT("Aim_UI")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
@@ -110,26 +112,25 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
 		return E_FAIL;
 
-	/*if (!GAMEINSTANCE->Add_GameObject<CStagBeetle>(LEVEL_SELECTPLANET, TEXT("StagBeetle")))
-		return E_FAIL;*/
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Magma>(LEVEL_SELECTPLANET, TEXT("Magma")))
+		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
+		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CEnemy_StagBeetle>(LEVEL_SELECTPLANET, TEXT("Enemy_StagBeetle")))
+		return E_FAIL;
 
-
-	//if (!GAMEINSTANCE->Add_GameObject<CWarring>(LEVEL_SELECTPLANET, TEXT("Warring")))
-	//	return E_FAIL;
+	if (!GAMEINSTANCE->Add_GameObject<CEnemy_TagetBoard>(LEVEL_SELECTPLANET, TEXT("Enemy_TagetBoard")))
+		return E_FAIL;
 
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);
 
 
-
-
-	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest"));
+	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest_UI"));
 	m_pQuestBoxObject->Set_Enable(false);
-
-
 
 
 	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(500);
@@ -333,7 +334,7 @@ void CLevel_SelectPlanet::SelectPlanet_Event(float fTimeDelta)
 	if (m_fTextBoxTime <= 297.f && !m_bEventCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("반갑네, 나는 자네 담당을 맡은 양갑렬 대위라고 하네. \n각 행성 임무를 통해 다양한 장비를 얻어서 \n비행선을 강화하도록 하게."), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("우리 행성에 온것을 환영하네. \n각 행성 임무를 통해 다양한 장비를 얻어서 \n비행선을 강화하도록 하게."), 0);
 	}
 
 	if (m_fTextBoxTime <= 293.f && !m_bEventCheck[0])

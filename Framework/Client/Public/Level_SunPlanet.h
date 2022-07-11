@@ -5,11 +5,11 @@
 
 BEGIN(Client)
 
-class CLevel_VenusPlanet final : public CLevel
+class CLevel_SunPlanet final : public CLevel
 {
 public:
-	CLevel_VenusPlanet();
-	virtual ~CLevel_VenusPlanet() = default;
+	CLevel_SunPlanet();
+	virtual ~CLevel_SunPlanet() = default;
 
 public:
 	virtual HRESULT Initialize();
@@ -19,13 +19,10 @@ public:
 	virtual HRESULT Complete_Condition() { return S_OK; }
 
 private:
-	void VenusPlanet_Event(_float fTimeDelta);
+	void SunPlanet_Event(_float fTimeDelta);
 
 public:
-	 _uint iEnemyCount = 0;
-
-public:
-	static CLevel_VenusPlanet* Create();
+	static CLevel_SunPlanet* Create();
 	virtual void Free() override;
 };
 

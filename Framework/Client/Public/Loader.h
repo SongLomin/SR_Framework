@@ -39,6 +39,7 @@ public:
 	HRESULT Loading_ForVenusPlanet();
 	HRESULT Loaidng_ForExoPlanet();
 	HRESULT Loading_ForSelectPlanet();
+	HRESULT Loading_ForSunPlanet();
 
 private:
 	LPDIRECT3DDEVICE9			m_pGraphic_Device = nullptr;

@@ -90,9 +90,9 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 		m_fTime -= fTimeDelta;
 		if (m_fTime < 0.f)
 		{
-			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pMyObject->Get_Component<CTransform>());
-			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("StagBeetle")), m_pMyObject->Get_Component<CTransform>());
-			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Taget")), m_pMyObject->Get_Component<CTransform>());
+			m_pMyObject->Get_Component<CTargeting>()->Make_Player_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pMyObject->Get_Component<CTransform>());
+			m_pMyObject->Get_Component<CTargeting>()->Make_Player_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_StagBeetle")), m_pMyObject->Get_Component<CTransform>());
+			m_pMyObject->Get_Component<CTargeting>()->Make_Player_TargetList(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TagetBoard")), m_pMyObject->Get_Component<CTransform>());
 			m_fTime = 1.f;
 		}
 
@@ -114,14 +114,30 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 			}
 			m_iCurrent_TargetMode = (m_iCurrent_TargetMode + 1) % 3;
 		}
-		if (KEY_INPUT(KEY::LSHIFT, KEY_STATE::HOLD))
+
+
+		CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
+		ISVALID(pCurrentCam, );
+		CTransform* TransformCom = pCurrentCam->Get_Target();
+
+		if (TransformCom)
+		{
+			CStatus* pPlayerStatusCom = TransformCom->Get_Owner()->Get_Component<CStatus>();
+			_float fBooster = pPlayerStatusCom->Get_Status().fBooster;
+		
+		if (fBooster >= 2.f && KEY_INPUT(KEY::LSHIFT, KEY_STATE::HOLD))
 		{
 			m_pMyObject->Get_Component<CRigid_Body>()->Set_Booster(true);
-			GAMEINSTANCE->Add_Shaking(0.2f, 0.01f);
+			GAMEINSTANCE->Add_Shaking(0.2f, 0.01f);	
+			pPlayerStatusCom->Add_Status(CStatus::STATUSID::STATUS_BOOSTER, -0.05);
 		}
+
 		else
 		{
+			
 			m_pMyObject->Get_Component<CRigid_Body>()->Set_Booster(false);
+		}
+
 		}
 	}
 }

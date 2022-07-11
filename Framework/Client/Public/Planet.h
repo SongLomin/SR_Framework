@@ -55,6 +55,9 @@ protected:
 	HRESULT SetUp_Components();
 	virtual void SetUp_Components_For_Child() PURE;
 	void SetUp_Varialbes_For_Child(_float3 _StartPos, _tchar* FontText, _point PontPos, _uint TextureIndex, LEVEL _Level, _float3 Scale = _float3(1.f,1.f,1.f));
+
+protected:
+	CGameObject* m_pDiveUi = nullptr;
 	
 private:
 	void LookAtCamera();

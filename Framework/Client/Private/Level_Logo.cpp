@@ -22,8 +22,6 @@ HRESULT CLevel_Logo::Initialize()
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
 
-	
-	
 	if (!GAMEINSTANCE->Add_GameObject<CLogo>(LEVEL_LOGO, TEXT("Logo")))
 		return E_FAIL;
 

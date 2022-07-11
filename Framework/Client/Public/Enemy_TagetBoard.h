@@ -1,22 +1,20 @@
 #pragma once
-
 #include "Client_Defines.h"
 #include "GameObject.h"
 #include "Monster.h"
 
 BEGIN(Engine)
-class CMesh_Ship2;
+class CVIBuffer_Rect;
 END
 
 
 BEGIN(Client)
-class CNormal_Turret;
-class CStagBeetle final : public CMonster
+class CEnemy_TagetBoard final : public CMonster
 {
 private:
-    CStagBeetle() = default;
-    CStagBeetle(const CStagBeetle& Prototype);
-    virtual ~CStagBeetle() = default;
+    CEnemy_TagetBoard() = default;
+    CEnemy_TagetBoard(const CEnemy_TagetBoard& Prototype);
+    virtual ~CEnemy_TagetBoard() = default;
 
 public:
     virtual HRESULT Initialize_Prototype() override;
@@ -27,13 +25,13 @@ public:
     virtual HRESULT Render() override;
 
 private: /* For My Component*/
-    CMesh_Ship2* m_pMeshCom = nullptr;
+    CVIBuffer_Rect* m_pVIBufferCom = nullptr;
 
-private:
-    void Update_Target(CGameObject* _Target);
+
 
 protected:
     virtual void SetUp_Components_For_Child();
+
 
 public:
     virtual void On_Change_Controller(const CONTROLLER& _IsAI);
@@ -44,11 +42,13 @@ public: /* For Event Function */
     virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
 
 public:
-    static CStagBeetle* Create();
+    static CEnemy_TagetBoard* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 
 };
 
 END
+
+
 

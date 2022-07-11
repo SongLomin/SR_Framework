@@ -90,39 +90,36 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CMagmaPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_MAGMAPLANET, TEXT("Aim")))
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_MAGMAPLANET, TEXT("Aim_UI")))
 		return E_FAIL;
 
 
-	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_MAGMAPLANET, TEXT("Light_Moon")))
+	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_MAGMAPLANET, TEXT("Light_Moon_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_MAGMAPLANET, TEXT("Status")))
+	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_MAGMAPLANET, TEXT("Status_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_MAGMAPLANET, TEXT("HP")))
+	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_MAGMAPLANET, TEXT("HP_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_MAGMAPLANET, TEXT("Booster")))
+	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_MAGMAPLANET, TEXT("Booster_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_MAGMAPLANET, TEXT("Shield")))
+	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_MAGMAPLANET, TEXT("Shield_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_MAGMAPLANET, TEXT("NormalBullet")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_MAGMAPLANET, TEXT("NormalBullet_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_MAGMAPLANET, TEXT("CBulletCountUI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_MAGMAPLANET, TEXT("BulletCount_UI")))
 		return E_FAIL;
 
-
-	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
-	//	return E_FAIL;
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_MAGMAPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);
 
-	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_MAGMAPLANET, TEXT("Quest"));
+	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_MAGMAPLANET, TEXT("Quest_UI"));
 	m_pQuestBoxObject->Set_Enable(false);
 
 
@@ -189,53 +186,51 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 	m_iMonsterCount = m_iSpawnCount - MonsterSize;
 
 	// 양갑렬 대위
-	if (m_fTextBoxTime <= 295.f && !m_bEventCheck[0])
+	if (m_fTextBoxTime <= 298.f && !m_bEventCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("Magma Planet은 적군의 엘리트들이 모여있는 곳일세. \n 엘리트들을 소탕해, 작전을 완수 해주게. "), 0);
 	}
 
-	if (m_fTextBoxTime <= 292.f && !m_bEventCheck[0])
+	if (m_fTextBoxTime <= 296.f && !m_bEventCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[0] = true;
 	}
 
-	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[1])
+	if (m_fTextBoxTime <= 294.f && !m_bEventCheck[1])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("조심하게! 내 생각보다 수가 많네!"), 0);
 	}
 
-	if (m_fTextBoxTime <= 287.f && !m_bEventCheck[1])
+	if (m_fTextBoxTime <= 292.f && !m_bEventCheck[1])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[1] = true;
 	}
 
 
-	if (m_fTextBoxTime <= 284.f && !m_bEventCheck[2])
+	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[2])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("우리의 존재를 눈치챈듯 하네! \n 힘을 합쳐 엘리트들을 말살하세!"), 0);
 	}
 
 
-	if (m_fTextBoxTime <= 281.f && !m_bEventCheck[2])
+	if (m_fTextBoxTime <= 288.f && !m_bEventCheck[2])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[2] = true;
 	}
 
 
-
-
-	if (m_fTextBoxTime <= 279.f && !m_bEventCheck[8])
+	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[8])
 	{
 		m_pQuestBoxObject->Set_Enable(true);
 
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n   엘리트 비행선 섬멸  \n %d / 30 \n   남은시간 (초) : "), 0 , m_iMonsterCount);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT(" %d"), 1, (_uint)m_fMaxTime);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n      엘리트 비행선 섬멸  \n           %d / 100    \n     남은시간 (초) :"), 0 , m_iMonsterCount);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("\n  %d"), 1, (_uint)m_fMaxTime);
 
 		if (m_iFontiX <= 1040)
 		{
@@ -253,71 +248,22 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 	}
 
 
-	if (m_fTextBoxTime <= 179 && !m_bEventCheck[8])
+	/*if (m_fMaxTime == 0)
 	{
 		m_pQuestBoxObject->Set_Enable(false);
-		m_bEventCheck[8] = true;
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이런, 여기에 더있다간 기체를 더이상 수리를 못하게될거세. \n 아쉽지만 일단 퇴각하도록."), 0);
 	}
 
 
-	// 적생성 false 모든적 처치임무
-	//if (m_fTextBoxTime <= 175 && !m_bEventCheck[9])
-	//{
-	//	m_bSpawnCheck = false;
-	//	m_pQuestBoxObject->Set_Enable(true);
-	//	GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n    모든 적 함체 섬멸 / 화물선 호위 "), 0);
-	//
-	//	if (m_iFontiX <= 1040)
-	//	{
-	//		m_iFontiX = 1040;
-	//	}
-	//
-	//	m_iFontiX -= 0.8;
-	//}
-
-
-	// (화물호위? 조건) 퀘스트박스 소멸, 폰트 소멸
-	if (m_fTextBoxTime <= 100 && !m_bEventCheck[9])
+	if (m_fMaxTime >= 0 && m_iMonsterCount <= 0)
 	{
 		m_pQuestBoxObject->Set_Enable(false);
-		m_bEventCheck[9] = true;
-
-		m_fTextBoxTime = 300;
-	}
-
-
-	if (m_iMonsterCount >= 30)
-	{
-		if (m_iEnemyCount <= 295 && !m_bEventCheck[6] && !m_bSpawnCheck && m_bEventCheck[9])
-		{
-			m_pTextBoxObject->Set_Enable(true);
-			GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("고생했네! \n 오늘밤은 맘 편히 발 쭉뻗고 자겠구만! \n 맘 편히 복귀하도록 하게나! "), 0);
-		}
-
-		if (m_iEnemyCount <= 290 && !m_bEventCheck[6] && !m_bSpawnCheck && m_bEventCheck[9])
-		{
-			m_pTextBoxObject->Set_Enable(false);
-			m_bEventCheck[6] = true;
-		}
-
-		if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL::LEVEL_SELECTPLANET))))
-			return;
-	}
-	
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("하하하 역시 자네는 내가 눈여겨 보고있엇다네! \n 어서 복귀해서 축배를 드세나!"), 0);
+	}*/
 
 
-
-	if (m_fTextBoxTime <= 285 && m_iEnemyCount <= 3 && !m_bEventCheck[7] && !m_bSpawnCheck)
-	{
-		// 보상 UI / 선택
-	}
-
-
-	if (!m_bEventCheck[7] && !m_bSpawnCheck && m_iEnemyCount <= 3)  // 보상 받았단 정보 조건 넣어줌
-	{
-		//m_bEventCheck[7] = true;
-		//GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this, LEVEL::LEVEL_SELECTPLANET);
-	}
 	
 
 }

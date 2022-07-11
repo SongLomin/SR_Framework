@@ -7,7 +7,7 @@ BEGIN(Engine)
 class ENGINE_DLL CStatus final : public CComponent
 {
 public:
-	enum STATUSID { STATUS_HP, STATUS_MAXHP, STATUS_ATTACK, STATUS_ARMOR, STATUS_END};
+	enum STATUSID { STATUS_HP, STATUS_MAXHP, STATUS_ATTACK, STATUS_ARMOR, STATUS_MAXARMOR, STATUS_BOOSTER, STATUS_MAXBOOSTER, STATUS_END};
 
 public:
 	typedef struct tagSTATUS
@@ -16,7 +16,9 @@ public:
 		_float fMaxHp;
 		_float fAttack;
 		_float fArmor;
+		_float fMaxArmor;
 		_float fBooster;
+		_float fMaxBooster;
 	}STATUS;
 
 public:

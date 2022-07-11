@@ -56,8 +56,7 @@ public: /* For Event Function */
 protected:
 	map<const _char*, class CComponent*> m_pComs;
 
-protected:
-	CGameObject* m_pDiveUi = nullptr;
+
 
 
 private:

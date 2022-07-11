@@ -34,9 +34,9 @@
 #include <SelectPlanet_SkyBox.h>
 #include "TextBox.h"
 #include "Quest.h"
-#include "Taget.h"
+#include "Enemy_TagetBoard.h"
 #include <VenusPlanet_SkyBox.h>
-
+#include "Planet_Select.h"
 
 
 CLevel_VenusPlanet::CLevel_VenusPlanet()
@@ -52,42 +52,45 @@ HRESULT CLevel_VenusPlanet::Initialize()
 
 
 
-	if (!GAMEINSTANCE->Add_GameObject<CVenusPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
+	if (!GAMEINSTANCE->Add_GameObject<CVenusPlanet_SkyBox>(LEVEL_VENUSPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_VENUSPLANET, TEXT("Aim")))
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_VENUSPLANET, TEXT("Aim_UI")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_VENUSPLANET, TEXT("Light_Moon")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_VENUSPLANET, TEXT("Status")))
+	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_VENUSPLANET, TEXT("Status_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_VENUSPLANET, TEXT("HP")))
+	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_VENUSPLANET, TEXT("HP_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_VENUSPLANET, TEXT("Booster")))
+	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_VENUSPLANET, TEXT("Booster_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_VENUSPLANET, TEXT("Shield")))
+	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_VENUSPLANET, TEXT("Shield_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_VENUSPLANET, TEXT("NormalBullet")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_VENUSPLANET, TEXT("NormalBullet_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_VENUSPLANET, TEXT("CBulletCountUI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_VENUSPLANET, TEXT("BulletCount_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_REDPLANET, TEXT("Aim")))
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_VENUSPLANET, TEXT("Aim")))
 		return E_FAIL;
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_VENUSPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);
 
-	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_VENUSPLANET, TEXT("Quest"));
+	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_VENUSPLANET, TEXT("Quest_UI"));
 	m_pQuestBoxObject->Set_Enable(false);
 
+
+	m_pPlanetObject = GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVEL_VENUSPLANET, TEXT("Earth"));
+	m_pPlanetObject->Set_Enable(false);
 	
 
 	
@@ -98,7 +101,30 @@ HRESULT CLevel_VenusPlanet::Initialize()
 
 void CLevel_VenusPlanet::Tick(_float fTimeDelta)
 {
-	__super::Tick(fTimeDelta);		
+	__super::Tick(fTimeDelta);
+
+	if (m_bCinematic)
+	{
+		m_fTime -= fTimeDelta;
+		if (0.f > m_fTime)
+		{
+			m_bCinematic = false;
+			GAMEINSTANCE->Swap_Camera();
+			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
+				return;
+
+			list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+
+			for (auto& elem : *pLayer)
+			{
+				if (!elem)
+					break;
+
+				elem->Set_Controller(CONTROLLER::PLAYER);
+			}
+		}
+	}
+
 
 	VenusPlanet_Event(fTimeDelta);
 }
@@ -112,6 +138,65 @@ HRESULT CLevel_VenusPlanet::Render()
 	SetWindowText(g_hWnd, TEXT("Venus Planet 레벨입니다. "));
 
 	return S_OK;
+}
+
+void CLevel_VenusPlanet::Change_Level(void* pArg, _uint _iNextLevel)
+{
+	if (m_bCinematic)
+		return;
+
+
+	m_fTime = 5.f;
+	m_bCinematic = true;
+	m_iNextLevel = _iNextLevel;
+
+	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+	for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)
+	{
+		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
+		{
+
+
+			(*iter)->Set_Controller(CONTROLLER::AI);
+			CComponent* Temp = (*iter)->Get_Component<CAI_Controller>();
+			WEAK_PTR(Temp);
+			Temp->Set_Enable(false);
+			Temp = (*iter)->Get_Component<CRigid_Body>();
+			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::SPIN, 0.f);
+			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::DOWN, 0.f);
+			if (pArg)
+			{
+				Temp = (*iter)->Get_Component<CTransform>();
+				static_cast<CTransform*>(Temp)->LookAt((CTransform*)pArg, true);
+			}
+			RETURN_WEAKPTR(Temp);
+		}
+	}
+
+	CGameObject* Camera_Origin = GAMEINSTANCE->Get_Camera()->Get_Owner();
+	CTransform* pCameraTransform = Camera_Origin->Get_Component<CTransform>();
+	GAMEINSTANCE->Update_MovingCam();
+	CGameObject* Camera_Moving = GAMEINSTANCE->Get_Camera()->Get_Owner();
+	CTransform* pCameraMovingTransform = Camera_Moving->Get_Component<CTransform>();
+
+	_float3	vUp, vLook, vRight, vSpeed;
+
+	pCameraMovingTransform->Set_State(CTransform::STATE_RIGHT, vRight = pCameraTransform->Get_State(CTransform::STATE_RIGHT));
+	pCameraMovingTransform->Set_State(CTransform::STATE_UP, vUp = pCameraTransform->Get_State(CTransform::STATE_UP));
+	pCameraMovingTransform->Set_State(CTransform::STATE_LOOK, vLook = pCameraTransform->Get_State(CTransform::STATE_LOOK));
+	pCameraMovingTransform->Set_State(CTransform::STATE_POSITION, pCameraTransform->Get_State(CTransform::STATE_POSITION));
+
+
+
+	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(2.f, 0.f,
+		*D3DXVec3Normalize(&vSpeed, &(-vLook)) * 1.5f, _float3(0.f, 0.f, 0.f),
+		nullptr, nullptr, 0.1f, 0.f
+	);
+
+	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(3.f, 0.f,
+		_float3(0.f, 0.f, 0.f), *D3DXVec3Normalize(&vSpeed, &(-vLook)) * 4.f,
+		nullptr, nullptr, 1.f, 0.05f
+	);
 }
 
 void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
@@ -167,8 +252,7 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 		for (int i = 0; i < 3; ++i)
 		{
-			CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CTaget>(CURRENT_LEVEL, TEXT("Taget"), nullptr, nullptr, true)
-				->Get_Component<CTransform>();
+			CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemy_TagetBoard>(CURRENT_LEVEL, TEXT("Enemy_TagetBoard"), nullptr, nullptr, true)->Get_Component<CTransform>();
 			_float3 SpawnPos{ 0, 0.f, 50.f };
 
 			_float RotateX = (_float)(rand() % 361);
@@ -191,8 +275,8 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 284.f && !m_bEventCheck[4])
 	{
+		iEnemyCount = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TagetBoard"))->size();
 		m_pQuestBoxObject->Set_Enable(true);
-		iEnemyCount = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Taget"))->size();
 		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n          훈련 봇 파괴 \n        남은 적 : "), 0);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("%d"), 1, (_uint)iEnemyCount);
 
@@ -261,12 +345,17 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 		m_bEventCheck[8] = true;
 	}
 
-	if (m_fTextBoxTime <= 287 && m_bEventCheck[8] && m_bEventCheck[9])
+	if (m_fTextBoxTime <= 287 && m_bEventCheck[8] && !m_bEventCheck[9])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("앞에 우리 행성 포탈을 열어줄테니 'F' 키를 눌러\n '크루즈 드라이브'를 사용하게. "), 0);
 	}
+
 	
+	if (m_fTextBoxTime <= 287 && m_bEventCheck[8] && !m_bEventCheck[9])
+	{
+		m_pPlanetObject->Set_Enable(true);
+	}
 }
 
 CLevel_VenusPlanet* CLevel_VenusPlanet::Create()

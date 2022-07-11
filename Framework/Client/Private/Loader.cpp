@@ -49,6 +49,10 @@ unsigned int APIENTRY LoadingMain(void* pArg)
 		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
 		hr = pLoader->Loading_ForMagmaPlanet();
 		break;
+	case LEVEL_SUNPLANET:
+		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
+		hr - pLoader->Loading_ForSunPlanet();
+		break;
 	}
 
 	if (FAILED(hr))
@@ -155,6 +159,8 @@ HRESULT CLoader::Loading_ForLogoLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Rock"), TEXT("../Bin/Resources/Textures/Object/Rock_%d.png"), TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
 		return E_FAIL;
@@ -185,19 +191,6 @@ HRESULT CLoader::Loading_ForCharacterSelect()
 {
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
 
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Test"), TEXT("../Bin/Resources/Textures/Default%d.jpg"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
-		return E_FAIL;
-
-
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Tex_Terrain"), TEXT("../Bin/Resources/Textures/Terrain/SpaceStation.jpg"),
-		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_DYNAMIC)))
-		return E_FAIL;
-
-
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Rock"), TEXT("../Bin/Resources/Textures/Object/Rock.png"), TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
-
 
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
 
@@ -224,8 +217,7 @@ HRESULT CLoader::Loading_ForRedPlanet()
 		return E_FAIL;
 
 
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Rock"), TEXT("../Bin/Resources/Textures/Object/Rock.png"), TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
+
 
 
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
@@ -350,6 +342,22 @@ HRESULT CLoader::Loading_ForSelectPlanet()
 
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
+
+
+	m_isFinished = true;
+
+	return S_OK;
+}
+
+HRESULT CLoader::Loading_ForSunPlanet()
+{
+	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
+
+
+	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
+
+
+	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
 
 	m_isFinished = true;

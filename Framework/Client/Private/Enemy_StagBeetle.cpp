@@ -1,21 +1,21 @@
 #include "stdafx.h"
-#include "StagBeetle.h"
+#include "Enemy_StagBeetle.h"
 #include "GameInstance.h"
 #include "Normal_Turret.h"
 #include "Rocket_Turret.h"
 #include "Move_PSystem.h"
 
-CStagBeetle::CStagBeetle(const CStagBeetle& Prototype)
+CEnemy_StagBeetle::CEnemy_StagBeetle(const CEnemy_StagBeetle& Prototype)
 {
 	*this = Prototype;
 }
 
-HRESULT CStagBeetle::Initialize_Prototype()
+HRESULT CEnemy_StagBeetle::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CStagBeetle::Initialize(void* pArg)
+HRESULT CEnemy_StagBeetle::Initialize(void* pArg)
 {
 	
 	if (FAILED(SetUp_Components()))
@@ -26,12 +26,12 @@ HRESULT CStagBeetle::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CStagBeetle::Tick(_float fTimeDelta)
+void CEnemy_StagBeetle::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 }
 
-void CStagBeetle::LateTick(_float fTimeDelta)
+void CEnemy_StagBeetle::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
@@ -52,7 +52,7 @@ void CStagBeetle::LateTick(_float fTimeDelta)
 		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
 }
 
-HRESULT CStagBeetle::Render_Begin(ID3DXEffect** Shader)
+HRESULT CEnemy_StagBeetle::Render_Begin(ID3DXEffect** Shader)
 {
 	m_pTransformCom->Scaling(_float3(1.f, 1.f, 1.f), true);
 	m_pTransformCom->Bind_WorldMatrix();
@@ -70,7 +70,7 @@ HRESULT CStagBeetle::Render_Begin(ID3DXEffect** Shader)
 	return S_OK;
 }
 
-HRESULT CStagBeetle::Render()
+HRESULT CEnemy_StagBeetle::Render()
 {
 	__super::Render();
 
@@ -79,11 +79,11 @@ HRESULT CStagBeetle::Render()
 	return S_OK;
 }
 
-void CStagBeetle::Update_Target(CGameObject* _Target)
+void CEnemy_StagBeetle::Update_Target(CGameObject* _Target)
 {
 }
 
-void CStagBeetle::SetUp_Components_For_Child()
+void CEnemy_StagBeetle::SetUp_Components_For_Child()
 {
 	CStatus::STATUS Status;
 	Status.fAttack = 1.f;
@@ -136,37 +136,37 @@ void CStagBeetle::SetUp_Components_For_Child()
 	Set_Controller(CONTROLLER::AI);
 }
 
-void CStagBeetle::On_Change_Controller(const CONTROLLER& _IsAI)
+void CEnemy_StagBeetle::On_Change_Controller(const CONTROLLER& _IsAI)
 {
 	__super::On_Change_Controller(_IsAI);
 }
 
-void CStagBeetle::On_Collision_Enter(CCollider* _Other_Collider)
+void CEnemy_StagBeetle::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Enter(_Other_Collider);
 }
 
-void CStagBeetle::On_Collision_Stay(CCollider* _Other_Collider)
+void CEnemy_StagBeetle::On_Collision_Stay(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Stay(_Other_Collider);
 }
 
-void CStagBeetle::On_Collision_Exit(CCollider* _Other_Collider)
+void CEnemy_StagBeetle::On_Collision_Exit(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Exit(_Other_Collider);
 }
 
-CStagBeetle* CStagBeetle::Create()
+CEnemy_StagBeetle* CEnemy_StagBeetle::Create()
 {
-	CREATE_PIPELINE(CStagBeetle);
+	CREATE_PIPELINE(CEnemy_StagBeetle);
 }
 
-CGameObject* CStagBeetle::Clone(void* pArg)
+CGameObject* CEnemy_StagBeetle::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CStagBeetle);
+	CLONE_PIPELINE(CEnemy_StagBeetle);
 }
 
-void CStagBeetle::Free()
+void CEnemy_StagBeetle::Free()
 {
 	__super::Free();
 

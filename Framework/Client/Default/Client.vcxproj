@@ -186,6 +186,7 @@
     <ClInclude Include="..\Public\Level_CharacterSelect.h" />
     <ClInclude Include="..\Public\Level_ExoPlanet.h" />
     <ClInclude Include="..\Public\Level_MagmaPlanet.h" />
+    <ClInclude Include="..\Public\Level_SunPlanet.h" />
     <ClInclude Include="..\Public\Level_VenusPlanet.h" />
     <ClInclude Include="..\Public\Light_Moon.h" />
     <ClInclude Include="..\Public\Loading.h" />
@@ -200,13 +201,15 @@
     <ClInclude Include="..\Public\Planet_Exo.h" />
     <ClInclude Include="..\Public\Planet_Magma.h" />
     <ClInclude Include="..\Public\Planet_Red.h" />
+    <ClInclude Include="..\Public\Planet_Select.h" />
     <ClInclude Include="..\Public\Planet_Sun.h" />
     <ClInclude Include="..\Public\Planet_Venus.h" />
     <ClInclude Include="..\Public\Player.h" />
     <ClInclude Include="..\Public\RedPlanet_SkyBox.h" />
     <ClInclude Include="..\Public\Rocket_PSystem.h" />
     <ClInclude Include="..\Public\Rocket_Turret.h" />
-    <ClInclude Include="..\Public\StagBeetle.h" />
+    <ClInclude Include="..\Public\Enemy_StagBeetle.h" />
+    <ClInclude Include="..\Public\Rock_1.h" />
     <ClInclude Include="..\Public\SelectPlanet_SkyBox.h" />
     <ClInclude Include="..\Public\Shin_Ship_Body.h" />
     <ClInclude Include="..\Public\Smoke_PSystem.h" />
@@ -229,7 +232,7 @@
     <ClInclude Include="..\Public\SkyBox.h" />
     <ClInclude Include="..\Public\SpaceDust_PSystem.h" />
     <ClInclude Include="..\Public\StatusBar.h" />
-    <ClInclude Include="..\Public\Taget.h" />
+    <ClInclude Include="..\Public\Enemy_TagetBoard.h" />
     <ClInclude Include="..\Public\TargetingBox.h" />
     <ClInclude Include="..\Public\Teleport_Effect.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -270,6 +273,7 @@
     <ClCompile Include="..\Private\Level_CharacterSelect.cpp" />
     <ClCompile Include="..\Private\Level_ExoPlanet.cpp" />
     <ClCompile Include="..\Private\Level_MagmaPlanet.cpp" />
+    <ClCompile Include="..\Private\Level_SunPlanet.cpp" />
     <ClCompile Include="..\Private\Level_VenusPlanet.cpp" />
     <ClCompile Include="..\Private\Light_Moon.cpp" />
     <ClCompile Include="..\Private\Loading.cpp" />
@@ -284,13 +288,15 @@
     <ClCompile Include="..\Private\Planet_Exo.cpp" />
     <ClCompile Include="..\Private\Planet_Magma.cpp" />
     <ClCompile Include="..\Private\Planet_Red.cpp" />
+    <ClCompile Include="..\Private\Planet_Select.cpp" />
     <ClCompile Include="..\Private\Planet_Sun.cpp" />
     <ClCompile Include="..\Private\Planet_Venus.cpp" />
     <ClCompile Include="..\Private\Player.cpp" />
     <ClCompile Include="..\Private\RedPlanet_SkyBox.cpp" />
     <ClCompile Include="..\Private\Rocket_PSystem.cpp" />
     <ClCompile Include="..\Private\Rocket_Turret.cpp" />
-    <ClCompile Include="..\Private\StagBeetle.cpp" />
+    <ClCompile Include="..\Private\Enemy_StagBeetle.cpp" />
+    <ClCompile Include="..\Private\Rock_1.cpp" />
     <ClCompile Include="..\Private\SelectPlanet_SkyBox.cpp" />
     <ClCompile Include="..\Private\Shin_Ship_Body.cpp" />
     <ClCompile Include="..\Private\Smoke_PSystem.cpp" />
@@ -312,7 +318,7 @@
     <ClCompile Include="..\Private\SkyBox.cpp" />
     <ClCompile Include="..\Private\SpaceDust_PSystem.cpp" />
     <ClCompile Include="..\Private\StatusBar.cpp" />
-    <ClCompile Include="..\Private\Taget.cpp" />
+    <ClCompile Include="..\Private\Enemy_TagetBoard.cpp" />
     <ClCompile Include="..\Private\TargetingBox.cpp" />
     <ClCompile Include="..\Private\Teleport_Effect.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

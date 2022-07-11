@@ -19,13 +19,6 @@ HRESULT CRock::Initialize_Prototype()
 
 HRESULT CRock::Initialize(void* pArg)
 {
-
-	if (FAILED(SetUp_Components()))
-		return E_FAIL;
-
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(rand() % 1000, rand() % 150, rand() % 1000));
-
-	
 	return S_OK;
 }
 
@@ -52,26 +45,8 @@ void CRock::LateTick(_float fTimeDelta)
 
 HRESULT CRock::Render()
 {
-	m_pTransformCom->Scaling(_float3(30.f, 30.f, 30.f), true);
 
-	
-
-	m_pTransformCom->Bind_WorldMatrix();
-
-	
-	m_pRendererCom->Bind_Texture(0);
-
-	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	DEVICE->SetRenderState(D3DRS_ALPHAREF, 253);
-	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
-
-	m_pVIBufferCom->Render();
-
-	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
-
-	m_pRendererCom->UnBind_Texture();
-
-	
+	__super::Render();
 
 	return S_OK;
 }
@@ -86,11 +61,12 @@ HRESULT CRock::SetUp_Components()
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Rock"), MEMORY_TYPE::MEMORY_STATIC);
+	
 
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
+
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 10.f;
@@ -112,15 +88,17 @@ HRESULT CRock::SetUp_Components()
 	RigidBodyDesc.m_fOwnerAccel = 0.1f;
 
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
-	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
+	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
+	
 
 	COLLISION_TYPE	eCollisiontype = COLLISION_TYPE::OBJECT;
 	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisiontype);
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
-	m_pColliderCom->Set_Collider_Size(_float3(30.f, 30.f, 30.f));
+	
 
+	SetUp_Components_For_Chiled();
 
 	return S_OK;
 }
@@ -140,6 +118,7 @@ void CRock::LookAtCamera()
 
 void CRock::On_Collision_Enter(CCollider* _Other_Collider)
 {
+	__super::On_Collision_Enter(_Other_Collider);
 	if (COLLISION_TYPE::PLAYER == _Other_Collider->Get_Collision_Type())
 	{
 
@@ -148,31 +127,18 @@ void CRock::On_Collision_Enter(CCollider* _Other_Collider)
 
 void CRock::On_Collision_Stay(CCollider* _Other_Collider)
 {
+	__super::On_Collision_Stay(_Other_Collider);
 }
 
 void CRock::On_Collision_Exit(CCollider* _Other_Collider)
 {
+	__super::On_Collision_Exit(_Other_Collider);
 }
 
-CRock* CRock::Create()
-{
-	CREATE_PIPELINE(CRock);
-}
-
-CGameObject* CRock::Clone(void* pArg)
-{
-	CLONE_PIPELINE(CRock);
-}
 
 void CRock::Free()
 {
 	__super::Free();
 
-	RETURN_WEAKPTR(m_pTransformCom);
-	RETURN_WEAKPTR(m_pRendererCom);
-	RETURN_WEAKPTR(m_pVIBufferCom);
-	RETURN_WEAKPTR(m_pColliderCom);
-	RETURN_WEAKPTR(m_pRigidBodyCom);
 
-	delete this;
 }
