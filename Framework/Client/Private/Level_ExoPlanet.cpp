@@ -15,7 +15,6 @@
 #include <TargetingBox.h>
 #include <UITest.h>
 #include <SkyBox.h>
-#include "Rock.h"
 #include "../Default/EnemySpace_Body.h"
 #include "StatusBar.h"
 #include "HpBar.h"
@@ -24,7 +23,6 @@
 #include "BulletUI.h"
 #include "BulletCountUI.h"
 #include "AI_Friendly.h"
-#include "Rock.h"
 #include "MovingCamera.h"
 #include "../Default/EnemySpace_Body.h"
 #include "Kang_Ship_Body.h"

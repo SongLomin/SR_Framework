@@ -265,11 +265,32 @@
     <Filter Include="02.GameObject\12. BillBoadr_Object">
       <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\12. BillBoadr_Object\Rock1">
+    <Filter Include="02.GameObject\12. BillBoadr_Object\Rock">
+      <UniqueIdentifier>{60093a4a-f599-45fd-82db-b87ff7b1ba91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoadr_Object\Rock\Rock1">
       <UniqueIdentifier>{229027e3-cc56-41eb-aeef-b092f1306770}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\12. BillBoadr_Object\Rock2">
+    <Filter Include="02.GameObject\12. BillBoadr_Object\Rock\Rock2">
       <UniqueIdentifier>{179fcfb8-4845-41fb-ac30-9e9f46e53e46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoadr_Object\Rock\Rock3">
+      <UniqueIdentifier>{f12fa7dc-ff54-46c4-9c0f-565d17555ddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoadr_Object\Rock\Rock4">
+      <UniqueIdentifier>{0a29be65-cb90-48fa-ad41-217a388c065d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoadr_Object\Satellite">
+      <UniqueIdentifier>{5cd239f1-d403-436a-929d-9829b5a22383}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoadr_Object\Satellite\Satellite1">
+      <UniqueIdentifier>{2d8ef0d3-d00b-4b43-913f-ee2761ea085f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoadr_Object\Satellite\Satellite2">
+      <UniqueIdentifier>{628c8b38-ac7c-4ef7-b02d-750c54f71621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoadr_Object\Satellite\Satellite3">
+      <UniqueIdentifier>{70001689-47c6-4145-a1ee-1de0a25c9d30}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -456,11 +477,9 @@
     <ClInclude Include="..\Public\Bomb_Effect.h">
       <Filter>02.GameObject\13. Effect\Bomb_Effect</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\BillBoard_Object.h" />
     <ClInclude Include="..\Public\Smoke_PSystem.h">
       <Filter>02.GameObject\10. ParticleSystem\04. Smoke_PSystem</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Rock.h" />
     <ClInclude Include="..\Public\Move_PSystem.h">
       <Filter>02.GameObject\10. ParticleSystem\05. Move_PSystem</Filter>
     </ClInclude>
@@ -508,12 +527,8 @@
     <ClInclude Include="..\Public\RedPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Enemy_StagBeetle.h" />
     <ClInclude Include="..\Public\VenusPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\StagBeetle.h">
-      <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\MagmaPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Magma</Filter>
@@ -537,10 +552,31 @@
       <Filter>01.Levels\07.Level_Sun</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Rock_1.h">
-      <Filter>02.GameObject\12. BillBoadr_Object\Rock1</Filter>
+      <Filter>02.GameObject\12. BillBoadr_Object\Rock\Rock1</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Rock_2.h">
-      <Filter>02.GameObject\12. BillBoadr_Object\Rock2</Filter>
+      <Filter>02.GameObject\12. BillBoadr_Object\Rock\Rock2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock_3.h">
+      <Filter>02.GameObject\12. BillBoadr_Object\Rock\Rock3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock_4.h">
+      <Filter>02.GameObject\12. BillBoadr_Object\Rock\Rock4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\BillBoard_Object.h">
+      <Filter>02.GameObject\12. BillBoadr_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Enemy_StagBeetle.h">
+      <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Satellite_1.h">
+      <Filter>02.GameObject\12. BillBoadr_Object\Satellite\Satellite1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Satellite_2.h">
+      <Filter>02.GameObject\12. BillBoadr_Object\Satellite\Satellite2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Satellite_3.h">
+      <Filter>02.GameObject\12. BillBoadr_Object\Satellite\Satellite3</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -724,11 +760,9 @@
     <ClCompile Include="..\Private\Bomb_Effect.cpp">
       <Filter>02.GameObject\13. Effect\Bomb_Effect</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\BillBoard_Object.cpp" />
     <ClCompile Include="..\Private\Smoke_PSystem.cpp">
       <Filter>02.GameObject\10. ParticleSystem\04. Smoke_PSystem</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Rock.cpp" />
     <ClCompile Include="..\Private\Move_PSystem.cpp">
       <Filter>02.GameObject\10. ParticleSystem\05. Move_PSystem</Filter>
     </ClCompile>
@@ -773,7 +807,6 @@
     <ClCompile Include="..\Private\RedPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Enemy_StagBeetle.cpp" />
     <ClCompile Include="..\Private\VenusPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
     </ClCompile>
@@ -799,10 +832,31 @@
       <Filter>01.Levels\07.Level_Sun</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Rock_1.cpp">
-      <Filter>02.GameObject\12. BillBoadr_Object\Rock1</Filter>
+      <Filter>02.GameObject\12. BillBoadr_Object\Rock\Rock1</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Rock_2.cpp">
-      <Filter>02.GameObject\12. BillBoadr_Object\Rock2</Filter>
+      <Filter>02.GameObject\12. BillBoadr_Object\Rock\Rock2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock_3.cpp">
+      <Filter>02.GameObject\12. BillBoadr_Object\Rock\Rock3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock_4.cpp">
+      <Filter>02.GameObject\12. BillBoadr_Object\Rock\Rock4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\BillBoard_Object.cpp">
+      <Filter>02.GameObject\12. BillBoadr_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Enemy_StagBeetle.cpp">
+      <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Satellite_1.cpp">
+      <Filter>02.GameObject\12. BillBoadr_Object\Satellite\Satellite1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Satellite_2.cpp">
+      <Filter>02.GameObject\12. BillBoadr_Object\Satellite\Satellite2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Satellite_3.cpp">
+      <Filter>02.GameObject\12. BillBoadr_Object\Satellite\Satellite3</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

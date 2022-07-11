@@ -211,6 +211,11 @@
     <ClInclude Include="..\Public\Enemy_StagBeetle.h" />
     <ClInclude Include="..\Public\Rock_1.h" />
     <ClInclude Include="..\Public\Rock_2.h" />
+    <ClInclude Include="..\Public\Rock_3.h" />
+    <ClInclude Include="..\Public\Rock_4.h" />
+    <ClInclude Include="..\Public\Satellite_1.h" />
+    <ClInclude Include="..\Public\Satellite_2.h" />
+    <ClInclude Include="..\Public\Satellite_3.h" />
     <ClInclude Include="..\Public\SelectPlanet_SkyBox.h" />
     <ClInclude Include="..\Public\Shin_Ship_Body.h" />
     <ClInclude Include="..\Public\Smoke_PSystem.h" />
@@ -299,6 +304,11 @@
     <ClCompile Include="..\Private\Enemy_StagBeetle.cpp" />
     <ClCompile Include="..\Private\Rock_1.cpp" />
     <ClCompile Include="..\Private\Rock_2.cpp" />
+    <ClCompile Include="..\Private\Rock_3.cpp" />
+    <ClCompile Include="..\Private\Rock_4.cpp" />
+    <ClCompile Include="..\Private\Satellite_1.cpp" />
+    <ClCompile Include="..\Private\Satellite_2.cpp" />
+    <ClCompile Include="..\Private\Satellite_3.cpp" />
     <ClCompile Include="..\Private\SelectPlanet_SkyBox.cpp" />
     <ClCompile Include="..\Private\Shin_Ship_Body.cpp" />
     <ClCompile Include="..\Private\Smoke_PSystem.cpp" />

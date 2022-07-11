@@ -159,7 +159,12 @@ HRESULT CLoader::Loading_ForLogoLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Rock"), TEXT("../Bin/Resources/Textures/Object/Rock_%d.png"), TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Rock"), TEXT("../Bin/Resources/Textures/Object/Rock_%d.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Satellite"), TEXT("../Bin/Resources/Textures/Object/Satellite_%d.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
