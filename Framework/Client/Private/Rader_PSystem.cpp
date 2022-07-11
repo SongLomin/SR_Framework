@@ -92,7 +92,7 @@ HRESULT CRader_PSystem::Render_Begin(ID3DXEffect** Shader)
 
 HRESULT CRader_PSystem::Render()
 {
-	m_pRenderer->Bind_Texture(0);
+	//m_pRenderer->Bind_Texture(0);
 
 
 
@@ -132,7 +132,7 @@ HRESULT CRader_PSystem::Render()
 
 
 	//언바인드
-	m_pRenderer->UnBind_Texture();
+	//m_pRenderer->UnBind_Texture();
 	return S_OK;
 }
 
