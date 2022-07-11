@@ -23,7 +23,7 @@
 #include "BulletUI.h"
 #include "BulletCountUI.h"
 #include "AI_Friendly.h"
-#include "Rock.h"
+#include "Rock_1.h"
 #include "MovingCamera.h"
 #include "../Default/EnemySpace_Body.h"
 #include "Kang_Ship_Body.h"
@@ -111,7 +111,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 
 	for (int i = 0; i < 30; ++i)
 	{
-		if (!GAMEINSTANCE->Add_GameObject<CRock>(LEVEL_REDPLANET, TEXT("Rock")))
+		if (!GAMEINSTANCE->Add_GameObject<CRock_1>(LEVEL_REDPLANET, TEXT("Rock_1")))
 			return E_FAIL;
 	}
 

@@ -262,6 +262,9 @@
     <Filter Include="01.Levels\07.Level_Sun">
       <UniqueIdentifier>{0863205c-922f-4de1-9040-16bd29d88c6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\12. Rock\Rock1">
+      <UniqueIdentifier>{229027e3-cc56-41eb-aeef-b092f1306770}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -524,6 +527,9 @@
     <ClInclude Include="..\Public\Level_SunPlanet.h">
       <Filter>01.Levels\07.Level_Sun</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Rock_1.h">
+      <Filter>02.GameObject\12. Rock\Rock1</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -779,6 +785,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Level_SunPlanet.cpp">
       <Filter>01.Levels\07.Level_Sun</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock_1.cpp">
+      <Filter>02.GameObject\12. Rock\Rock1</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -12,9 +12,9 @@ END
 
 BEGIN(Client)
 
-class CRock final : public CGameObject
+class CRock abstract : public CGameObject
 {
-private:
+protected:
 	CRock();
 	CRock(const CRock& Prototype);
 	virtual ~CRock() = default;
@@ -26,24 +26,24 @@ public:
 	virtual void LateTick(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
-private:
+protected:
 	CRenderer* m_pRendererCom = nullptr;
 	CTransform* m_pTransformCom = nullptr;
 	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
 	CRigid_Body* m_pRigidBodyCom = nullptr;
 	CCollider_Sphere* m_pColliderCom = nullptr;
-private:
+
+protected:
 	HRESULT SetUp_Components();
+	virtual void SetUp_Components_For_Chiled() = 0;
 	void LookAtCamera();
 
-public: /* For Event Function */
-	virtual void On_Collision_Enter(CCollider* _Other_Collider);
-	virtual void On_Collision_Stay(CCollider* _Other_Collider);
-	virtual void On_Collision_Exit(CCollider* _Other_Collider);
+protected: /* For Event Function */
+	virtual void On_Collision_Enter(CCollider* _Other_Collider) override;
+	virtual void On_Collision_Stay(CCollider* _Other_Collider) override;
+	virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
 
 public:
-	static CRock* Create();
-	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
 };
 
