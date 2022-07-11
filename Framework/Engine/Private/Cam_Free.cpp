@@ -62,7 +62,7 @@ void CCam_Free::Set_RouteCamera(CCamera* _pCurCamera, const _tchar* _NextCameraT
 {
 	m_NextCameraTag = _NextCameraTag;
 	CCamera* pCamera = GAMEINSTANCE->Get_Camera(_NextCameraTag);
-	m_pNextCameraTransform= pCamera->Get_Owner()->Get_Component<CTransform>();
+	m_pNextCameraTransform = pCamera->Get_Owner()->Get_Component<CTransform>();
 	m_pCurCameraTransform = _pCurCamera->Get_Owner()->Get_Component<CTransform>()->Get_WorldMatrix();
 
 	m_fTime = _fTime;
@@ -94,10 +94,10 @@ void CCam_Free::Make_Route()
 		if (m_bSwitchPlayer)
 		{
 			m_pNextCameraTransform->Get_Owner()->Set_Controller(CONTROLLER::LOCK);
+			m_pNextCameraTransform->Get_Owner()->Get_Component<CRigid_Body>()->Reset_Force();
 			m_pNextCameraTransform->Set_State(CTransform::STATE_LOOK, m_vLook);
 			m_pNextCameraTransform->Set_State(CTransform::STATE_UP, m_vUp);
 			m_pNextCameraTransform->Set_State(CTransform::STATE_RIGHT, m_vRight);
-			m_pNextCameraTransform->Get_Owner()->Get_Component<CRigid_Body>()->Reset_Force();
 
 			/*m_vPos -= m_vLook * 15.f;
 			m_vPos += m_vUp * 3.f;*/
@@ -109,6 +109,20 @@ void CCam_Free::Make_Route()
 
 void CCam_Free::Switch_PlayerCamera(_float fTimeDelta)
 {
+	POINT pt{};
+
+	GRAPHICDESC GraphicDesc = GAMEINSTANCE->Get_Graphic_Desc();
+	
+	pt.x = GraphicDesc.iWinCX * 0.5f;
+	pt.y = GraphicDesc.iWinCY * 0.5f;
+
+	ClientToScreen(GraphicDesc.hWnd, &pt);
+	SetCursorPos(pt.x, pt.y);
+
+	m_pNextCameraTransform->Set_State(CTransform::STATE_LOOK, m_vLook);
+	m_pNextCameraTransform->Set_State(CTransform::STATE_UP, m_vUp);
+	m_pNextCameraTransform->Set_State(CTransform::STATE_RIGHT, m_vRight);
+
 	_float3 vPos = m_pNextCameraTransform->Get_State(CTransform::STATE_POSITION);
 	_float3 vLook = m_pNextCameraTransform->Get_State(CTransform::STATE_LOOK);
 	_float3 vUp = m_pNextCameraTransform->Get_State(CTransform::STATE_UP);
@@ -119,10 +133,9 @@ void CCam_Free::Switch_PlayerCamera(_float fTimeDelta)
 	
 
 	_float fDistance = D3DXVec3Length(&(m_vPos - vPos));
-	if (0.5f > fDistance)
+	if (!(0.005f < fDistance))
 	{
 		m_pNextCameraTransform->Get_Owner()->Set_Controller(CONTROLLER::PLAYER);
-		GAMEINSTANCE->Set_Current_Camera(m_NextCameraTag);
 		m_bFlag = false;
 		m_bSwitchPlayer = false;
 		return;
@@ -131,9 +144,14 @@ void CCam_Free::Switch_PlayerCamera(_float fTimeDelta)
 	m_fTime -= fTimeDelta;
 	if (0.f > m_fTime)
 	{
-		m_vPos = CMath_Utillity::Slerp(m_vPos, vPos, 0.1f);
+		m_vPos.x = CMath_Utillity::fLerp(m_vPos.x, vPos.x, 0.2f);
+		m_vPos.y = CMath_Utillity::fLerp(m_vPos.y, vPos.y, 0.2f);
+		m_vPos.z = CMath_Utillity::fLerp(m_vPos.z, vPos.z, 0.2f);
+				
 		m_fTime = m_fLerpTime;
 	}
+
+	
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vPos);
 
 }
@@ -144,6 +162,7 @@ void CCam_Free::Swap_Camera(_float fTimeDelta)
 
 	if (0.f > m_fTime)
 	{
+		GAMEINSTANCE->Add_Shaking(0.f, 0.f);
 		m_pNextCameraTransform->Get_Owner()->Set_Controller(CONTROLLER::PLAYER);
 		GAMEINSTANCE->Set_Current_Camera(m_NextCameraTag);
 		m_fTime = 0.f;

@@ -51,11 +51,7 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 		m_pMyObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::SPIN, fDirX * 0.1f);
 		m_pMyObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::DOWN, fDirY * 0.1f);
 
-		if (KEY_INPUT(KEY::Z, KEY_STATE::TAP))
-		{
-			m_pMyObject->Get_Component<CRigid_Body>()->Add_Force(_float3(20.f,20.f,20.f));
-		}
-
+	
 		if (KEY_INPUT(KEY::V, KEY_STATE::TAP))
 		{
 			switch (m_iCurrentCam)
@@ -73,9 +69,6 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 				GAMEINSTANCE->Switch_Camera(TEXT("TPS"),0.2f);
 				break;
 
-			/*case 3:
-				GAMEINSTANCE->Set_Current_Camera(TEXT("Free"));
-				break;*/
 			}
 
 			m_iCurrentCam = (m_iCurrentCam + 1) % 3;

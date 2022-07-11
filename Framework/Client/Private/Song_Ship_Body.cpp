@@ -52,12 +52,6 @@ void CSong_Ship_Body::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	if (KEY_INPUT(KEY::Z, KEY_STATE::TAP))
-	{
-		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
-	}
-
-	
 
 	/*if (Get_Controller() == CONTROLLER::PLAYER)
 	{

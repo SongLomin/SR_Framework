@@ -33,18 +33,20 @@ void CPlayer::Tick(_float fTimeDelta)
 	{
 		if (KEY_INPUT((KEY)((_uint)KEY::NUM1 + i), KEY_STATE::TAP))
 		{
-			CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
-			CTransform* pCurCameraTransform = nullptr;//이게맞냐
-			if (pCurCamera)
-				pCurCameraTransform = pCurCamera->Get_Transform();
-
-			if (pCurCameraTransform)
+			if (CONTROLLER::PLAYER != elem->Get_Controller())
 			{
-				GAMEINSTANCE->Switch_Player(pCurCameraTransform, elem->Get_Component<CTransform>(), TEXT("TPS"), 1.f);
+				CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
+				CTransform* pCurCameraTransform = nullptr;//이게맞냐
+				if (pCurCamera)
+					pCurCameraTransform = pCurCamera->Get_Transform();
+
+				if (pCurCameraTransform)
+				{
+					GAMEINSTANCE->Switch_Player(pCurCameraTransform, elem->Get_Component<CTransform>(), TEXT("TPS"), 1.f);
+				}
 			}
 		}
-
-			++i;
+		++i;
 	}
 
 	if (KEY_INPUT((KEY::Q), KEY_STATE::TAP))
@@ -131,7 +133,8 @@ void CPlayer::On_Change_Controller(const CONTROLLER& _IsAI)
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
-		
+		GAMEINSTANCE->Set_Current_Camera(TEXT("TPS"));
+
 		list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 
 		if (pAiObect == nullptr)
@@ -182,11 +185,11 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 			//_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			//((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
 
-			Set_Controller(CONTROLLER::LOCK);
-			GAMEINSTANCE->Add_TimerEvent(1, this, 2.f, false, false);
+			//Set_Controller(CONTROLLER::LOCK);
+			//GAMEINSTANCE->Add_TimerEvent(1, this, 2.f, false, false);
 
-			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
-			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false))->Set_Pos(MyPos);
+			//_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+			//((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false))->Set_Pos(MyPos);
 
 		}
 	}

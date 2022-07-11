@@ -222,8 +222,10 @@ void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 			
 
 			(*iter)->Set_Controller(CONTROLLER::LOCK);
-				
+			(*iter)->Get_Component<CRigid_Body>()->Reset_Force();
+
 			CComponent* Temp = (*iter)->Get_Component<CRigid_Body>();
+
 			WEAK_PTR(Temp);
 			if (pArg)
 			{

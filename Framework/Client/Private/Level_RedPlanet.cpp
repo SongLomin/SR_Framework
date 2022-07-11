@@ -58,6 +58,8 @@ HRESULT CLevel_RedPlanet::Initialize()
 	CGameObject* pPlayer = GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
 	pPlayer->Set_Controller(CONTROLLER::AI);
 
+
+
 	/*if (!GAMEINSTANCE->Add_GameObject<CHong_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
 		return E_FAIL;
 

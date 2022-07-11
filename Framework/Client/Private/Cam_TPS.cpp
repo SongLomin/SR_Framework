@@ -32,10 +32,9 @@ HRESULT CCam_TPS::Initialize(void* pArg)
 
 void CCam_TPS::Tick(_float fTimeDelta)
 {
-	__super::Tick(fTimeDelta);
-
 	if (GAMEINSTANCE->Get_Camera(CURRENT_CAMERA) == m_pCameraCom)
 	{
+		__super::Tick(fTimeDelta);
 
 
 		CTransform* pCamTargetTransformCom = m_pCameraCom->Get_Target();
@@ -83,9 +82,6 @@ void CCam_TPS::Tick(_float fTimeDelta)
 		D3DXVec3Cross(&vUp, &vLook, &vRight);
 
 
-
-
-
 		POINT pt{};
 		GetCursorPos(&pt);
 		ScreenToClient(g_hWnd, &pt);
@@ -126,11 +122,11 @@ void CCam_TPS::Tick(_float fTimeDelta)
 		m_pTransformCom->Update_WorldMatrix();
 	}
 	else
-
 	{
 		m_fMovement = 0.f;
 		m_vCurPos.x = 0.f;
 		m_vCurPos.y = 0.f;
+		m_fCurTime = m_fLerpTime;
 	} 
 }
 
