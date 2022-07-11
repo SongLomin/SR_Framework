@@ -49,6 +49,10 @@ unsigned int APIENTRY LoadingMain(void* pArg)
 		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
 		hr = pLoader->Loading_ForMagmaPlanet();
 		break;
+	case LEVEL_SUNPLANET:
+		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
+		hr - pLoader->Loading_ForSunPlanet();
+		break;
 	}
 
 	if (FAILED(hr))
@@ -338,6 +342,22 @@ HRESULT CLoader::Loading_ForSelectPlanet()
 
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
+
+
+	m_isFinished = true;
+
+	return S_OK;
+}
+
+HRESULT CLoader::Loading_ForSunPlanet()
+{
+	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
+
+
+	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
+
+
+	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
 
 	m_isFinished = true;

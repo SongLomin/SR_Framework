@@ -205,12 +205,12 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 	}
 
 
-	if (m_fTextBoxTime <= 299.f && !m_bEventCheck[8])
+	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[8])
 	{
 		m_pQuestBoxObject->Set_Enable(true);
 
 		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n      엘리트 비행선 섬멸  \n           %d / 100    \n     남은시간 (초) :"), 0 , m_iMonsterCount);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("\n %d"), 1, (_uint)m_fMaxTime);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("\n  %d"), 1, (_uint)m_fMaxTime);
 
 		if (m_iFontiX <= 1040)
 		{
@@ -228,12 +228,20 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 	}
 
 
-	if (m_fTextBoxTime <= 179 && !m_bEventCheck[8])
+	/*if (m_fMaxTime == 0)
 	{
 		m_pQuestBoxObject->Set_Enable(false);
-		m_bEventCheck[8] = true;
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이런, 여기에 더있다간 기체를 더이상 수리를 못하게될거세. \n 아쉽지만 일단 퇴각하도록."), 0);
 	}
 
+
+	if (m_fMaxTime >= 0 && m_iMonsterCount <= 0)
+	{
+		m_pQuestBoxObject->Set_Enable(false);
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("하하하 역시 자네는 내가 눈여겨 보고있엇다네! \n 어서 복귀해서 축배를 드세나!"), 0);
+	}*/
 
 
 	

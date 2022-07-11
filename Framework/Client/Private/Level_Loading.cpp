@@ -8,6 +8,7 @@
 #include "Level_MagmaPlanet.h"
 #include "Level_VenusPlanet.h"
 #include "Level_ExoPlanet.h"
+#include "Level_SunPlanet.h"
 #include "GameInstance.h"
 
 CLevel_Loading::CLevel_Loading()
@@ -60,6 +61,9 @@ void CLevel_Loading::Tick(_float fTimeDelta)
 				break;
 			case LEVEL_MAGMAPLANET:
 				pLevel = CLevel_MagmaPlanet::Create();
+				break;
+			case LEVEL_SUNPLANET:
+				pLevel = CLevel_SunPlanet::Create();
 				break;
 			}
 

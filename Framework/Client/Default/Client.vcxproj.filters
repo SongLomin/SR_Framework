@@ -259,6 +259,9 @@
     <Filter Include="02.GameObject\06. Planet\Select">
       <UniqueIdentifier>{270729ba-3ce4-4e41-ba4f-b19706206fb8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Levels\07.Level_Sun">
+      <UniqueIdentifier>{0863205c-922f-4de1-9040-16bd29d88c6b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -500,9 +503,6 @@
     <ClInclude Include="..\Public\VenusPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\StagBeetle.h">
-      <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\MagmaPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Magma</Filter>
     </ClInclude>
@@ -520,6 +520,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\Planet_Select.h">
       <Filter>02.GameObject\06. Planet\Select</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Level_SunPlanet.h">
+      <Filter>01.Levels\07.Level_Sun</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -762,9 +765,6 @@
     <ClCompile Include="..\Private\ExoPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Exo</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\StagBeetle.cpp">
-      <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\MagmaSpace_Body.cpp">
       <Filter>02.GameObject\02. Monster\MagmaSpace</Filter>
     </ClCompile>
@@ -776,6 +776,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Planet_Select.cpp">
       <Filter>02.GameObject\06. Planet\Select</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_SunPlanet.cpp">
+      <Filter>01.Levels\07.Level_Sun</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -186,6 +186,7 @@
     <ClInclude Include="..\Public\Level_CharacterSelect.h" />
     <ClInclude Include="..\Public\Level_ExoPlanet.h" />
     <ClInclude Include="..\Public\Level_MagmaPlanet.h" />
+    <ClInclude Include="..\Public\Level_SunPlanet.h" />
     <ClInclude Include="..\Public\Level_VenusPlanet.h" />
     <ClInclude Include="..\Public\Light_Moon.h" />
     <ClInclude Include="..\Public\Loading.h" />
@@ -271,6 +272,7 @@
     <ClCompile Include="..\Private\Level_CharacterSelect.cpp" />
     <ClCompile Include="..\Private\Level_ExoPlanet.cpp" />
     <ClCompile Include="..\Private\Level_MagmaPlanet.cpp" />
+    <ClCompile Include="..\Private\Level_SunPlanet.cpp" />
     <ClCompile Include="..\Private\Level_VenusPlanet.cpp" />
     <ClCompile Include="..\Private\Light_Moon.cpp" />
     <ClCompile Include="..\Private\Loading.cpp" />

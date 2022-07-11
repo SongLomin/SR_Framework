@@ -51,7 +51,7 @@ HRESULT CEnemy_TagetBoard::Render()
 {
 	//__super::Render();
 
-	m_pTransformCom->Scaling(_float3(13.f, 10.f, 1.f), true);
+	m_pTransformCom->Scaling(_float3(15.f, 10.f, 1.f), true);
 
 
 	m_pTransformCom->Bind_WorldMatrix();
