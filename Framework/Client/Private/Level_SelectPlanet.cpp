@@ -107,6 +107,9 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
 		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Magma>(LEVEL_SELECTPLANET, TEXT("Magma")))
+		return E_FAIL;
+
 	if (!GAMEINSTANCE->Add_GameObject<CEnemy_StagBeetle>(LEVEL_SELECTPLANET, TEXT("Enemy_StagBeetle")))
 		return E_FAIL;
 

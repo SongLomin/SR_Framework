@@ -166,53 +166,51 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 	m_fTextBoxTime -= fTimeDelta;
 
 	// 양갑렬 대위
-	if (m_fTextBoxTime <= 295.f && !m_bEventCheck[0])
+	if (m_fTextBoxTime <= 298.f && !m_bEventCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("Magma Planet은 적군의 엘리트들이 모여있는 곳일세. \n 엘리트들을 소탕해, 작전을 완수 해주게. "), 0);
 	}
 
-	if (m_fTextBoxTime <= 292.f && !m_bEventCheck[0])
+	if (m_fTextBoxTime <= 296.f && !m_bEventCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[0] = true;
 	}
 
-	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[1])
+	if (m_fTextBoxTime <= 294.f && !m_bEventCheck[1])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("조심하게! 내 생각보다 수가 많네!"), 0);
 	}
 
-	if (m_fTextBoxTime <= 287.f && !m_bEventCheck[1])
+	if (m_fTextBoxTime <= 292.f && !m_bEventCheck[1])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[1] = true;
 	}
 
 
-	if (m_fTextBoxTime <= 284.f && !m_bEventCheck[2])
+	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[2])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("우리의 존재를 눈치챈듯 하네! \n 힘을 합쳐 엘리트들을 말살하세!"), 0);
 	}
 
 
-	if (m_fTextBoxTime <= 281.f && !m_bEventCheck[2])
+	if (m_fTextBoxTime <= 288.f && !m_bEventCheck[2])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[2] = true;
 	}
 
 
-
-
-	if (m_fTextBoxTime <= 279.f && !m_bEventCheck[8])
+	if (m_fTextBoxTime <= 299.f && !m_bEventCheck[8])
 	{
 		m_pQuestBoxObject->Set_Enable(true);
 
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n   엘리트 비행선 섬멸  \n %d / 100 \n   남은시간 (초) : "), 0 , m_iMonsterCount);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT(" %d"), 1, (_uint)m_fMaxTime);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n      엘리트 비행선 섬멸  \n           %d / 100    \n     남은시간 (초) :"), 0 , m_iMonsterCount);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("\n %d"), 1, (_uint)m_fMaxTime);
 
 		if (m_iFontiX <= 1040)
 		{
