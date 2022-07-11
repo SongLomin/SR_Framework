@@ -5,8 +5,7 @@
 
 BEGIN(Engine)
 class CMesh_SongShip;
-class CMesh_Ship1;
-class CMesh_Ship5;
+class CMesh_Ship4;
 END
 
 BEGIN(Client)
@@ -31,7 +30,7 @@ public:
 
 private:
 	//CMesh_SongShip*				m_pMeshCom = nullptr;
-	CMesh_Ship5*                    m_pMeshCom = nullptr;
+	CMesh_Ship4*                    m_pMeshCom = nullptr;
 	//CMesh_SongShip* m_pMeshCom = nullptr;
 
 

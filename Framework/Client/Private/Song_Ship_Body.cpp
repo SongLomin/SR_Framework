@@ -168,7 +168,7 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 
 #pragma region Mesh Setting
 
-	m_pMeshCom = Add_Component<CMesh_Ship5>();
+	m_pMeshCom = Add_Component<CMesh_Ship4>();
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 
 #pragma endregion Mesh Setting
