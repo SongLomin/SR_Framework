@@ -14,7 +14,6 @@
 #include "Default_Aim.h"
 #include <TargetingBox.h>
 #include <SkyBox.h>
-#include "Rock.h"
 #include "../Default/EnemySpace_Body.h"
 #include "StatusBar.h"
 #include "HpBar.h"

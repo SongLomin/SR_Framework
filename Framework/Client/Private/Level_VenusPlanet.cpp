@@ -15,7 +15,6 @@
 #include <TargetingBox.h>
 #include <UITest.h>
 #include <SkyBox.h>
-#include "Rock.h"
 #include "../Default/EnemySpace_Body.h"
 #include "StatusBar.h"
 #include "HpBar.h"
@@ -24,7 +23,6 @@
 #include "BulletUI.h"
 #include "BulletCountUI.h"
 #include "AI_Friendly.h"
-#include "Rock.h"
 #include "MovingCamera.h"
 #include "../Default/EnemySpace_Body.h"
 #include "Kang_Ship_Body.h"
@@ -256,7 +254,7 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 		for (int i = 0; i < 3; ++i)
 		{
-			CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemy_TagetBoard>(CURRENT_LEVEL, TEXT("Enemy_TagetBoard"), nullptr, nullptr, true)->Get_Component<CTransform>();
+			CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemy_TagetBoard>(CURRENT_LEVEL, TEXT("Enemy_TargetBoard"))->Get_Component<CTransform>();
 			_float3 SpawnPos{ 0, 0.f, 50.f };
 
 			_float RotateX = (_float)(rand() % 361);
@@ -279,7 +277,7 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 284.f && !m_bEventCheck[4])
 	{
-		iEnemyCount = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TagetBoard"))->size();
+		iEnemyCount = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TargetBoard"))->size();
 		m_pQuestBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            ÇöÀç ÀÓ¹«\n          ÈÆ·Ã º¿ ÆÄ±« \n        ³²Àº Àû : "), 0);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("%d"), 1, (_uint)iEnemyCount);

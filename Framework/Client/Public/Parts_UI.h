@@ -6,18 +6,17 @@ BEGIN(Engine)
 class CRenderer;
 class CTransform;
 class CVIBuffer_Rect;
-class CRigid_Body;
-class CCollider_Sphere;
 END
+
 
 BEGIN(Client)
 
-class CRock abstract : public CGameObject
+class CParts_UI final : public CGameObject
 {
-protected:
-	CRock();
-	CRock(const CRock& Prototype);
-	virtual ~CRock() = default;
+public:
+	CParts_UI() = default;
+	CParts_UI(const CParts_UI& Prototype);
+	virtual ~CParts_UI() = default;
 
 public:
 	virtual HRESULT Initialize_Prototype() override;
@@ -26,24 +25,24 @@ public:
 	virtual void LateTick(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
-protected:
+private:
 	CRenderer* m_pRendererCom = nullptr;
 	CTransform* m_pTransformCom = nullptr;
 	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
-	CRigid_Body* m_pRigidBodyCom = nullptr;
-	CCollider_Sphere* m_pColliderCom = nullptr;
 
-protected:
+private:
+	_float					m_fX, m_fY, m_fSizeX, m_fSizeY;
+	_point					m_ptMouse;
+	_float4x4				m_ProjMatrix;
+	RECT					m_rcRect;
+	_bool                   m_bSwitchTaget = false;
+
+private:
 	HRESULT SetUp_Components();
-	virtual void SetUp_Components_For_Chiled() = 0;
-	void LookAtCamera();
-
-protected: /* For Event Function */
-	virtual void On_Collision_Enter(CCollider* _Other_Collider) override;
-	virtual void On_Collision_Stay(CCollider* _Other_Collider) override;
-	virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
 
 public:
+	static CParts_UI* Create();
+	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
 };
 

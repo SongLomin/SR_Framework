@@ -5,12 +5,12 @@
 
 BEGIN(Client)
 
-class CRock_1 final : public CBillboard_Object
+class CRock_4 final : public CBillboard_Object
 {
 private:
-	CRock_1();
-	CRock_1(const CRock_1& Prototype);
-	virtual ~CRock_1() = default;
+	CRock_4();
+	CRock_4(const CRock_4& Prototype);
+	virtual ~CRock_4() = default;
 
 public:
 	virtual HRESULT Initialize_Prototype() override;
@@ -29,7 +29,7 @@ protected:
 	virtual void SetUp_Components_For_Chiled();
 
 public:
-	static CRock_1* Create();
+	static CRock_4* Create();
 	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
 };

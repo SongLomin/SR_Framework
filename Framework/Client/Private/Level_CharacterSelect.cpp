@@ -12,9 +12,20 @@
 #include "Cam_FPS.h"
 #include "Cam_TPS.h"
 #include "Cam_Shoulder.h"
+#include "CharacterLogo.h"
+#include "Benner.h"
+#include "Damage_UI.h"
+#include "Armor_UI.h"
+#include "Speed_UI.h"
+#include "Health_UI.h"
+#include "Parts_UI.h"
+#include "HpBar.h"
+#include "SelectShip.h"
 
 HRESULT CLevel_CharacterSelect::Initialize()
 {
+	
+
 	CGameObject* m_pShip = GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_CHARACTERSELECT, TEXT("Player"));
 	m_vecShips.push_back(m_pShip);
 	WEAK_PTR(m_vecShips.back());
@@ -51,6 +62,32 @@ HRESULT CLevel_CharacterSelect::Initialize()
 
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_CHARACTERSELECT, TEXT("CLight_Moon")))
 		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CBenner>(LEVEL_CHARACTERSELECT, TEXT("Benner")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CDamage_UI>(LEVEL_CHARACTERSELECT, TEXT("Damage_UI")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CArmor_UI>(LEVEL_CHARACTERSELECT, TEXT("Armor_UI")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CHealth_UI>(LEVEL_CHARACTERSELECT, TEXT("Health_UI")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CSpeed_UI>(LEVEL_CHARACTERSELECT, TEXT("Speed_UI")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CParts_UI>(LEVEL_CHARACTERSELECT, TEXT("Parts_UI")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CSelectShip>(LEVEL_CHARACTERSELECT, TEXT("SelectShip_UI")))
+		return E_FAIL;
+
+
+
+
+	
 
 	m_vMovePos = _float3(0.f, 5.f, -20.f);
 	GAMEINSTANCE->Get_Camera()->Get_Transform()->Set_State(CTransform::STATE_POSITION, m_vMovePos);

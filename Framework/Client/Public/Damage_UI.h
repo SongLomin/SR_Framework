@@ -12,12 +12,12 @@ END
 
 BEGIN(Client)
 
-class CHpBar final : public CGameObject
+class CDamage_UI final : public CGameObject
 {
 public:
-	CHpBar() = default;
-	CHpBar(const CHpBar& Prototype);
-	virtual ~CHpBar() = default;
+	CDamage_UI() = default;
+	CDamage_UI(const CDamage_UI& Prototype);
+	virtual ~CDamage_UI() = default;
 
 public:
 	virtual HRESULT Initialize_Prototype() override;
@@ -32,25 +32,23 @@ private:
 	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
 	CStatus* m_pStatusCom = nullptr;
 
-protected:
+private:
 	_float					m_fX, m_fY, m_fSizeX, m_fSizeY;
 	_point					m_ptMouse;
 	_float4x4				m_ProjMatrix;
 	RECT					m_rcRect;
-
+	_bool                   m_bSwitchTaget = false;
 
 public:
-	void Update_Hp_Bar(CStatus* pStatus);
-	
+	void Link_Status(CStatus* pStatus);
 
 private:
 	HRESULT SetUp_Components();
 
 public:
-	static CHpBar* Create();
+	static CDamage_UI* Create();
 	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
 };
 
 END
-

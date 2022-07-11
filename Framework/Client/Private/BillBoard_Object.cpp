@@ -1,28 +1,28 @@
 #include "stdafx.h"
-#include "Rock.h"
+#include "BillBoard_Object.h"
 #include "GameInstance.h"
 #include "Math_Utillity.h"
 
-CRock::CRock()
+CBillboard_Object::CBillboard_Object()
 {
 }
 
-CRock::CRock(const CRock& Prototype)
+CBillboard_Object::CBillboard_Object(const CBillboard_Object& Prototype)
 {
 	*this = Prototype;
 }
 
-HRESULT CRock::Initialize_Prototype()
+HRESULT CBillboard_Object::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CRock::Initialize(void* pArg)
+HRESULT CBillboard_Object::Initialize(void* pArg)
 {
 	return S_OK;
 }
 
-void CRock::Tick(_float fTimeDelta)
+void CBillboard_Object::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
@@ -30,7 +30,7 @@ void CRock::Tick(_float fTimeDelta)
 	
 }
 
-void CRock::LateTick(_float fTimeDelta)
+void CBillboard_Object::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
@@ -43,7 +43,7 @@ void CRock::LateTick(_float fTimeDelta)
 
 }
 
-HRESULT CRock::Render()
+HRESULT CBillboard_Object::Render()
 {
 
 	__super::Render();
@@ -51,7 +51,7 @@ HRESULT CRock::Render()
 	return S_OK;
 }
 
-HRESULT CRock::SetUp_Components()
+HRESULT CBillboard_Object::SetUp_Components()
 {
 
 	Add_Component<CTransform>();
@@ -103,7 +103,7 @@ HRESULT CRock::SetUp_Components()
 	return S_OK;
 }
 
-void CRock::LookAtCamera()
+void CBillboard_Object::LookAtCamera()
 {
 	_float4x4		ViewMatrix;
 
@@ -116,24 +116,24 @@ void CRock::LookAtCamera()
 
 }
 
-void CRock::On_Collision_Enter(CCollider* _Other_Collider)
+void CBillboard_Object::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Enter(_Other_Collider);
 	
 }
 
-void CRock::On_Collision_Stay(CCollider* _Other_Collider)
+void CBillboard_Object::On_Collision_Stay(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Stay(_Other_Collider);
 }
 
-void CRock::On_Collision_Exit(CCollider* _Other_Collider)
+void CBillboard_Object::On_Collision_Exit(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Exit(_Other_Collider);
 }
 
 
-void CRock::Free()
+void CBillboard_Object::Free()
 {
 	__super::Free();
 
