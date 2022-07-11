@@ -33,8 +33,6 @@
 #include "Enemy_TagetBoard.h"
 #include "Enemy_StagBeetle.h"
 #include "Planet_Select.h"
-#include "StagBeetle.h"
-#include "Taget.h"
 #include <Kang_Ship_Body.h>
 
 _bool CLevel_SelectPlanet::m_bFirst = false;
@@ -107,7 +105,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	m_pQuestBoxObject->Set_Enable(false);
 
 
-	((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(500);
+	//((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(500);
 
 
 	

@@ -5,7 +5,7 @@
 #include <Booster_PSystem.h>
 #include <Move_PSystem.h>
 #include <Bomb_Effect.h>
-#include <StagBeetle.h>
+#include "Enemy_StagBeetle.h"
 
 CPlayer::CPlayer()
 {

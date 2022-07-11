@@ -36,6 +36,7 @@
 #include <MagmaPlanet_SkyBox.h>
 #include <TextBox.h>
 #include <MagmaSpace_Body.h>
+#include <Rock_1.h>
 
 CLevel_MagmaPlanet::CLevel_MagmaPlanet()
 {
@@ -69,7 +70,7 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 
 	for (int i = 0; i < 30; ++i)
 	{
-		CTransform* pRockTransform = GAMEINSTANCE->Add_GameObject<CRock>(CURRENT_LEVEL, TEXT("Rock"))->Get_Component<CTransform>();
+		CTransform* pRockTransform = GAMEINSTANCE->Add_GameObject<CRock_1>(CURRENT_LEVEL, TEXT("Rock_1"))->Get_Component<CTransform>();
 
 		_float3 SpawnPos{ 0, 0.f, 400.f };
 

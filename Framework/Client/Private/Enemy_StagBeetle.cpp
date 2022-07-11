@@ -48,13 +48,15 @@ void CEnemy_StagBeetle::LateTick(_float fTimeDelta)
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 
+	m_pTransformCom->Scaling(_float3(0.01f, 0.01f, 0.01f), true);
+
 	if (GAMEINSTANCE->IsIn(&vPos))
 		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
 }
 
 HRESULT CEnemy_StagBeetle::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(1.f, 1.f, 1.f), true);
+	
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
