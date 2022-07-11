@@ -68,6 +68,7 @@ void CBullet::OnEnable(void* _Arg)
 	m_pRigidBodyCom->Reset_Force();
 
 	m_pColliderCom->OnEnable(_Arg);
+	
 }
 
 void CBullet::OnDisable()

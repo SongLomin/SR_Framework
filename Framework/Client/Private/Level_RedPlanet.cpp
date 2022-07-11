@@ -68,7 +68,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 
 	for (int i = 0; i < 20; ++i)
 	{
-		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("Monster"))->Get_Component<CTransform>();
+		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body"))->Get_Component<CTransform>();
 
 		_float3 SpawnPos{ 0, 0.f, 300.f };
 

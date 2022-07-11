@@ -166,13 +166,21 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 	if (m_bCinematic)
 	{
 		m_fTime -= fTimeDelta;
+		//타임 이벤트 어케씀
+		if (3.f > m_fTime)
+		{
+			m_pTagetObject->Get_Component<CRigid_Body>()->Set_Booster(true);
+			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::Func::FRONT);
+			//이게 맞냐
+		}
+
 		if (0.f > m_fTime)
 		{
 			m_bCinematic = false;
 			GAMEINSTANCE->Swap_Camera();
 			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
 				return;
-
+			m_pTagetObject->Get_Component<CRigid_Body>()->Set_Booster(false);
 			list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 		
 			for (auto& elem : *pLayer)
@@ -210,7 +218,7 @@ void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 		return;
 
 
-	m_fTime = 5.f;
+	m_fTime = 4.f;
 	m_bCinematic = true;
 	m_iNextLevel = _iNextLevel;
 
@@ -220,6 +228,11 @@ void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
 		{
 			
+			if (m_pTagetObject)
+				RETURN_WEAKPTR(m_pTagetObject);
+			m_pTagetObject = *iter;
+			WEAK_PTR(m_pTagetObject);
+
 
 			(*iter)->Set_Controller(CONTROLLER::LOCK);
 			(*iter)->Get_Component<CRigid_Body>()->Reset_Force();
@@ -251,14 +264,14 @@ void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 
 
 
-	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(2.f, 0.f,
+	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(1.f, 0.f,
 		*D3DXVec3Normalize(&vSpeed, &(-vLook))*1.5f, _float3(0.f, 0.f, 0.f),
-		nullptr, nullptr, 0.1f, 0.f
+		nullptr, nullptr, 0.5f, 0.f
 	);
 
 	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(3.f, 0.f,
-		_float3(0.f, 0.f, 0.f), *D3DXVec3Normalize(&vSpeed, &(-vLook)) * 4.f,
-		nullptr, nullptr, 1.f, 0.05f
+		_float3(0.f,0.f,0.f), *D3DXVec3Normalize(&vSpeed, &(-vLook)),
+		nullptr, nullptr, 1.f, 0.01f
 	);
 
 }

@@ -1,7 +1,7 @@
 #include "Collision_Manager.h"
 #include "GameObject.h"
 #include "GameInstance.h"
-#include "Collider.h"
+#include "Collider_Mesh.h"
 
 IMPLEMENT_SINGLETON(CCollision_Manager)
 
@@ -15,6 +15,8 @@ void CCollision_Manager::Initialize()
 	CheckGroup(COLLISION_TYPE::PLAYER_ATTACK, COLLISION_TYPE::MONSTER);
 	CheckGroup(COLLISION_TYPE::MONSTER_ATTACK, COLLISION_TYPE::PLAYER);
 	CheckGroup(COLLISION_TYPE::PLAYER, COLLISION_TYPE::OBJECT);
+	CheckGroup(COLLISION_TYPE::PLAYER, COLLISION_TYPE::PLAYER);
+
 	//CheckGroup(COLLISION_TYPE::PLAYER_ATTACK, COLLISION_TYPE::PLAYER_ATTACK);
 	//CheckGroup(COLLISION_TYPE::PLAYER, COLLISION_TYPE::MONSTER);
 	//CheckGroup(COLLISION_TYPE::MONSTER, COLLISION_TYPE::MONSTER);
@@ -245,21 +247,33 @@ void CCollision_Manager::CollisionGroupUpdate(COLLISION_TYPE _eLeft, COLLISION_T
 bool CCollision_Manager::Is3DCollision(CCollider* _pLeft, CCollider* _pRight, _float* _fDistance)
 {
 
-	/*if (!IsSphereCollision(_pLeft->Get_Pre_Collider(), _pRight->Get_Pre_Collider()))
+	//if (!IsSphereCollision(_pLeft->Get_Pre_Collider(), _pRight->Get_Pre_Collider()))
+	//{
+	//	return false;
+	//}
+
+
+	if ((_pLeft->Get_Collider_Shape() == COLLIDER_SHAPE::OBB)
+		&& (_pRight->Get_Collider_Shape() == COLLIDER_SHAPE::OBB))
 	{
-		return false;
-	}*/
+		return IsOBBCollision(_pLeft, _pRight);
+	}// 사각 - 사각
+	else if((_pLeft->Get_Collider_Shape() == COLLIDER_SHAPE::SPHERE)
+		&& (_pRight->Get_Collider_Shape() == COLLIDER_SHAPE::SPHERE))
+	{
+		return IsSphereCollision(_pLeft, _pRight);
+	}// 사각 - 원, 원 - 원
 
-
-	//if ((_pLeft->Get_Collider_Shape() == COLLIDER_SHAPE::OBB)
-	//	&& (_pRight->Get_Collider_Shape() == COLLIDER_SHAPE::OBB))
-	//{
-	//	return IsOBBCollision(_pLeft, _pRight);
-	//}// 사각 - 사각
-	//else
-	//{
-	//	return IsSphereCollision(_pLeft, _pRight);
-	//}// 사각 - 원, 원 - 원
+	else if ((_pLeft->Get_Collider_Shape() == COLLIDER_SHAPE::SPHERE)
+		&& (_pRight->Get_Collider_Shape() == COLLIDER_SHAPE::MESH))
+	{
+		return IsMesh_To_SphereCollision(_pLeft, _pRight);
+	}
+	else if ((_pLeft->Get_Collider_Shape() == COLLIDER_SHAPE::MESH)
+		&& (_pRight->Get_Collider_Shape() == COLLIDER_SHAPE::SPHERE))
+	{
+		return IsMesh_To_SphereCollision(_pRight, _pLeft);
+	}
 
 	return IsSphereCollision(_pLeft, _pRight, _fDistance);
 }
@@ -443,9 +457,23 @@ bool CCollision_Manager::IsSphereCollision(CCollider* _pLeft, CCollider* _pRight
 	}
 }
 
-bool CCollision_Manager::IsOBB_To_SphereCollision(CCollider* _pLeft, CCollider* _pRight)
+bool CCollision_Manager::IsMesh_To_SphereCollision(CCollider* _pLeft, CCollider* _pRight)
 {
-	return false;
+	_float3		vSphereCenter = _pLeft->Get_Collider_Position(); 
+	_float3     vMeshCenter = _pRight->Get_Collider_Position();
+	LPD3DXBASEMESH pMesh = static_cast<CCollider_Mesh*>(_pRight)->Get_Collider_Mesh();
+	CTransform* pMeshTransform = _pRight->Get_Owner()->Get_Component<CTransform>();
+
+
+	RAY	 CollisionRay;
+	CollisionRay.Dir = vMeshCenter - vSphereCenter;
+	CollisionRay.fLength = D3DXVec3Length(&CollisionRay.Dir);
+	D3DXVec3Normalize(&CollisionRay.Dir, &CollisionRay.Dir);
+	CollisionRay.Pos = vSphereCenter;
+
+	_float3		vPickingMeshOut;
+
+	return CMath_Utillity::Picking_Mesh(pMesh, pMeshTransform, CollisionRay, &vPickingMeshOut);
 }
 
 void CCollision_Manager::Free()

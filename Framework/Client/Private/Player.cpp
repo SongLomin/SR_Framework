@@ -34,7 +34,7 @@ void CPlayer::Tick(_float fTimeDelta)
 	{
 		if (KEY_INPUT((KEY)((_uint)KEY::NUM1 + i), KEY_STATE::TAP))
 		{
-			if (CONTROLLER::PLAYER != elem->Get_Controller())
+			if (CONTROLLER::PLAYER != elem->Get_Controller() )
 			{
 				CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
 				CTransform* pCurCameraTransform = nullptr;//이게맞냐
@@ -193,7 +193,7 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 		}
 	}
 
-	if (COLLISION_TYPE::OBJECT == _Other_Collider->Get_Collision_Type())
+	else if (COLLISION_TYPE::OBJECT == _Other_Collider->Get_Collision_Type())
 	{
 		GAMEINSTANCE->Add_Shaking(0.05f, 0.01f);
 		_float3 vSpeed = m_pRigid_BodyCom->Get_Vector(RIGID_BODY::SPEED);
@@ -203,7 +203,15 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 		
 		m_pRigid_BodyCom->Add_Force(vDirection * 1.5f);
 	}
+	else if (COLLISION_TYPE::PLAYER == _Other_Collider->Get_Collision_Type())
+	{
+		_float3 vSpeed = m_pRigid_BodyCom->Get_Vector(RIGID_BODY::SPEED);
+		_float3 vDirection = m_pTransformCom->Get_State(CTransform::STATE_POSITION) - _Other_Collider->Get_Collider_Position();
+		D3DXVec3Normalize(&vDirection, &vDirection);
+		vDirection *= D3DXVec3Length(&vSpeed);
 
+		m_pRigid_BodyCom->Add_Force(vDirection*0.5f);
+	}
 
 }
 

@@ -17,6 +17,8 @@ HRESULT CCollider_Sphere::Initialize(void* pArg)
 	m_iID = ++g_iNextID;
 	m_eCollision_Type = *(COLLISION_TYPE*)pArg;
 
+	m_eShape = COLLIDER_SHAPE::SPHERE;
+
 	return S_OK;
 }
 

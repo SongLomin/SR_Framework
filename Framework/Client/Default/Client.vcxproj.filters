@@ -268,6 +268,9 @@
     <Filter Include="02.GameObject\05. Camera_Object\05. Cam_Fixed">
       <UniqueIdentifier>{ec4b037b-1f48-4e55-90c9-746e8ce620ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\10. ParticleSystem\07. Rock_PSystem">
+      <UniqueIdentifier>{1b6f4db0-1f69-4990-9d68-7a6da01deed1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -505,8 +508,6 @@
     <ClInclude Include="..\Public\RedPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\StagBeetle.h" />
-    <ClInclude Include="..\Public\Enemy_StagBeetle.h" />
     <ClInclude Include="..\Public\VenusPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
     </ClInclude>
@@ -536,6 +537,12 @@
     </ClInclude>
     <ClInclude Include="..\Public\Rock_1.h">
       <Filter>02.GameObject\12. Rock\Rock1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock_PSystem.h">
+      <Filter>02.GameObject\10. ParticleSystem\07. Rock_PSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Enemy_StagBeetle.h">
+      <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -768,7 +775,6 @@
     <ClCompile Include="..\Private\RedPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Red</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Enemy_StagBeetle.cpp" />
     <ClCompile Include="..\Private\VenusPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
     </ClCompile>
@@ -777,9 +783,6 @@
     </ClCompile>
     <ClCompile Include="..\Private\ExoPlanet_SkyBox.cpp">
       <Filter>02.GameObject\09. Box\SkyBox\Exo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\StagBeetle.cpp">
-      <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\MagmaSpace_Body.cpp">
       <Filter>02.GameObject\02. Monster\MagmaSpace</Filter>
@@ -798,6 +801,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\Rock_1.cpp">
       <Filter>02.GameObject\12. Rock\Rock1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock_PSystem.cpp">
+      <Filter>02.GameObject\10. ParticleSystem\07. Rock_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Enemy_StagBeetle.cpp">
+      <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

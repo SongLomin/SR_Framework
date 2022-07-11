@@ -46,10 +46,14 @@ public: /* For Event Function */
     virtual void On_Collision_Enter(CCollider* _Other_Collider) override;
     virtual void On_Collision_Stay(CCollider* _Other_Collider) override;
     virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
+    virtual void OnTimerEvent(const _uint _iEventIndex) override;
+
 
 protected:
     // CBullet을(를) 통해 상속됨
     virtual HRESULT SetUp_Components_For_Child() override;
+    virtual void OnEnable(void* _Arg = nullptr) override;
+
 
 
 public:

@@ -42,7 +42,7 @@ HRESULT CLevel_CharacterSelect::Initialize()
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 
 
-	m_iIndex = 0;
+	m_iIndex = -1;
 
 	Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(LEVEL_CHARACTERSELECT, TEXT("Camera"));
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
@@ -68,7 +68,13 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::LEFT, KEY_STATE::TAP) /* || 버튼 눌렀을 때*/)
 	{
-		if (0 < m_iIndex)
+		if (0 > m_iIndex)//처음
+		{
+			m_iIndex = 0;
+			m_vMovePos = m_vecShips[m_iIndex]->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION);
+			m_vMovePos += _float3(0.f, 5.f, -15.f);
+		}
+		else if (0 < m_iIndex)
 		{
 			--m_iIndex;
 			m_vMovePos = m_vecShips[m_iIndex]->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION);
@@ -78,7 +84,13 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::RIGHT, KEY_STATE::TAP)/* || 버튼 눌렀을 때*/)
 	{
-		if (m_vecShips.size()-1 > m_iIndex)
+		if (0 > m_iIndex)//처음
+		{
+			m_iIndex = m_vecShips.size() - 1;
+			m_vMovePos = m_vecShips[m_iIndex]->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION);
+			m_vMovePos += _float3(0.f, 5.f, -15.f);
+		}
+		else if (m_vecShips.size()-1 > m_iIndex)
 		{
 			++m_iIndex;
 			m_vMovePos = m_vecShips[m_iIndex]->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION);
@@ -88,22 +100,24 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP) /* || 버튼 눌렀을 때*/)
 	{
-		CGameObject* pPlayer = nullptr;
-		switch (m_iIndex)
+		if (-1 != m_iIndex)
 		{
-		case 0:
-			
-			pPlayer = GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
-			break;
-			
-		case 1:
-			pPlayer = GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
-			break;
-		}
+			CGameObject* pPlayer = nullptr;
+			switch (m_iIndex)
+			{
+			case 0:
+				pPlayer = GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
+				break;
 
-		pPlayer->Set_Controller(CONTROLLER::PLAYER);
-		if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL::LEVEL_SELECTPLANET))))
-			return;
+			case 1:
+				pPlayer = GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
+				break;
+			}
+
+			pPlayer->Set_Controller(CONTROLLER::PLAYER);
+			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL::LEVEL_SELECTPLANET))))
+				return;
+		}
 	}
 
 	
@@ -148,6 +162,15 @@ CLevel_CharacterSelect* CLevel_CharacterSelect::Create()
 void CLevel_CharacterSelect::Free()
 {
 	__super::Free();
+
+	/*if (!m_vecShips.empty())
+	{
+		for (auto& elem : m_vecShips)
+		{
+			RETURN_WEAKPTR(elem);
+		}
+
+	}*/
 
 	delete this;
 }
