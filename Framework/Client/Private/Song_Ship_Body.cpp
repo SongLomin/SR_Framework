@@ -168,6 +168,7 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 	m_pStatusCom = Add_Component<CStatus>(&Status);
 	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
 
+
 #pragma endregion Status Setting
 
 #pragma region Mesh Setting

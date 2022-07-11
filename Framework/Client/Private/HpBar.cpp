@@ -298,6 +298,8 @@ HRESULT CHpBar::Render()
 
 
 
+
+
 void CHpBar::Update_Hp_Bar(CStatus* pStatus)
 {
 	m_pStatusCom = pStatus;

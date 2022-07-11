@@ -14,6 +14,13 @@
 #include "Cam_Shoulder.h"
 #include "CharacterLogo.h"
 #include "Benner.h"
+#include "Damage_UI.h"
+#include "Armor_UI.h"
+#include "Speed_UI.h"
+#include "Health_UI.h"
+#include "Parts_UI.h"
+#include "HpBar.h"
+
 HRESULT CLevel_CharacterSelect::Initialize()
 {
 	
@@ -32,6 +39,7 @@ HRESULT CLevel_CharacterSelect::Initialize()
 
 	m_iIndex = 0;
 
+
 	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(LEVEL_CHARACTERSELECT, TEXT("Camera"));
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
@@ -42,6 +50,23 @@ HRESULT CLevel_CharacterSelect::Initialize()
 
 	if (!GAMEINSTANCE->Add_GameObject<CBenner>(LEVEL_CHARACTERSELECT, TEXT("Benner")))
 		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CDamage_UI>(LEVEL_CHARACTERSELECT, TEXT("Damage_UI")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CArmor_UI>(LEVEL_CHARACTERSELECT, TEXT("Armor_UI")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CHealth_UI>(LEVEL_CHARACTERSELECT, TEXT("Health_UI")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CSpeed_UI>(LEVEL_CHARACTERSELECT, TEXT("Speed_UI")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CParts_UI>(LEVEL_CHARACTERSELECT, TEXT("Parts_UI")))
+		return E_FAIL;
+
+
 
 	
 
