@@ -181,9 +181,6 @@
     <Filter Include="02.GameObject\00. Player\Shin_Ship">
       <UniqueIdentifier>{77e76612-f35f-4f28-9df1-632015c131ab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\12. Rock">
-      <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\10. ParticleSystem\02. Fire_PSystem">
       <UniqueIdentifier>{0912303c-d4de-443f-bd2e-c029a038e879}</UniqueIdentifier>
     </Filter>
@@ -262,8 +259,17 @@
     <Filter Include="01.Levels\07.Level_Sun">
       <UniqueIdentifier>{0863205c-922f-4de1-9040-16bd29d88c6b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\12. Rock\Rock1">
+    <Filter Include="02.GameObject\05. Camera_Object\05. Cam_Fixed">
+      <UniqueIdentifier>{ec4b037b-1f48-4e55-90c9-746e8ce620ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoadr_Object">
+      <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoadr_Object\Rock1">
       <UniqueIdentifier>{229027e3-cc56-41eb-aeef-b092f1306770}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoadr_Object\Rock2">
+      <UniqueIdentifier>{179fcfb8-4845-41fb-ac30-9e9f46e53e46}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -450,7 +456,7 @@
     <ClInclude Include="..\Public\Bomb_Effect.h">
       <Filter>02.GameObject\13. Effect\Bomb_Effect</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Rock.h" />
+    <ClInclude Include="..\Public\BillBoard_Object.h" />
     <ClInclude Include="..\Public\Smoke_PSystem.h">
       <Filter>02.GameObject\10. ParticleSystem\04. Smoke_PSystem</Filter>
     </ClInclude>
@@ -506,6 +512,9 @@
     <ClInclude Include="..\Public\VenusPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\StagBeetle.h">
+      <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
+    </ClInclude>
     <ClInclude Include="..\Public\MagmaPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Magma</Filter>
     </ClInclude>
@@ -528,7 +537,10 @@
       <Filter>01.Levels\07.Level_Sun</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Rock_1.h">
-      <Filter>02.GameObject\12. Rock\Rock1</Filter>
+      <Filter>02.GameObject\12. BillBoadr_Object\Rock1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Rock_2.h">
+      <Filter>02.GameObject\12. BillBoadr_Object\Rock2</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -712,7 +724,7 @@
     <ClCompile Include="..\Private\Bomb_Effect.cpp">
       <Filter>02.GameObject\13. Effect\Bomb_Effect</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Rock.cpp" />
+    <ClCompile Include="..\Private\BillBoard_Object.cpp" />
     <ClCompile Include="..\Private\Smoke_PSystem.cpp">
       <Filter>02.GameObject\10. ParticleSystem\04. Smoke_PSystem</Filter>
     </ClCompile>
@@ -787,7 +799,10 @@
       <Filter>01.Levels\07.Level_Sun</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Rock_1.cpp">
-      <Filter>02.GameObject\12. Rock\Rock1</Filter>
+      <Filter>02.GameObject\12. BillBoadr_Object\Rock1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Rock_2.cpp">
+      <Filter>02.GameObject\12. BillBoadr_Object\Rock2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

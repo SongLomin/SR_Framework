@@ -116,7 +116,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CEnemy_StagBeetle>(LEVEL_SELECTPLANET, TEXT("Enemy_StagBeetle")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CEnemy_TagetBoard>(LEVEL_SELECTPLANET, TEXT("Enemy_TagetBoard")))
+	if (!GAMEINSTANCE->Add_GameObject<CEnemy_TagetBoard>(LEVEL_SELECTPLANET, TEXT("Enemy_TargetBoard")))
 		return E_FAIL;
 
 

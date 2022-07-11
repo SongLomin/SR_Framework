@@ -1,11 +1,11 @@
 #pragma once
 #include "Client_Defines.h"
-#include "Rock.h"
+#include "BillBoard_Object.h"
 
 
 BEGIN(Client)
 
-class CRock_1 final : public CRock
+class CRock_1 final : public CBillboard_Object
 {
 private:
 	CRock_1();
