@@ -85,7 +85,7 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 		{
 			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pMyObject->Get_Component<CTransform>());
 			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_StagBeetle")), m_pMyObject->Get_Component<CTransform>());
-			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TagetBoard")), m_pMyObject->Get_Component<CTransform>());
+			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TargetBoard")), m_pMyObject->Get_Component<CTransform>());
 			m_fTime = 1.f;
 		}
 

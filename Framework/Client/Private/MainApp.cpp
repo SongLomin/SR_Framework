@@ -6,7 +6,6 @@
 #include <cassert>
 
 
-
 CMainApp::CMainApp()
 	: m_pGameInstance(CGameInstance::Get_Instance())
 {

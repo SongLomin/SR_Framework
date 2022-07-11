@@ -30,7 +30,7 @@
 #include "Warring.h"
 #include "Dive.h"
 #include "Monster.h"
-#include "Enemy_TagetBoard.h"
+#include "Enemy_TargetBoard.h"
 #include "Enemy_StagBeetle.h"
 #include "Planet_Select.h"
 #include <Kang_Ship_Body.h>
@@ -93,7 +93,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CEnemy_StagBeetle>(LEVEL_SELECTPLANET, TEXT("Enemy_StagBeetle")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CEnemy_TagetBoard>(LEVEL_SELECTPLANET, TEXT("Enemy_TagetBoard")))
+	if (!GAMEINSTANCE->Add_GameObject<CEnemy_TargetBoard>(LEVEL_SELECTPLANET, TEXT("Enemy_TargetBoard")))
 		return E_FAIL;
 
 

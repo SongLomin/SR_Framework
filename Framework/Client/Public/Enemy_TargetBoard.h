@@ -9,12 +9,12 @@ END
 
 
 BEGIN(Client)
-class CEnemy_TagetBoard final : public CMonster
+class CEnemy_TargetBoard final : public CMonster
 {
 private:
-    CEnemy_TagetBoard() = default;
-    CEnemy_TagetBoard(const CEnemy_TagetBoard& Prototype);
-    virtual ~CEnemy_TagetBoard() = default;
+    CEnemy_TargetBoard() = default;
+    CEnemy_TargetBoard(const CEnemy_TargetBoard& Prototype);
+    virtual ~CEnemy_TargetBoard() = default;
 
 public:
     virtual HRESULT Initialize_Prototype() override;
@@ -42,7 +42,7 @@ public: /* For Event Function */
     virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
 
 public:
-    static CEnemy_TagetBoard* Create();
+    static CEnemy_TargetBoard* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 
