@@ -19,17 +19,32 @@ HRESULT CLevel_CharacterSelect::Initialize()
 	m_vecShips.push_back(m_pShip);
 	WEAK_PTR(m_vecShips.back());
 	m_pShip->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(-10.f, 0.f, 0.f));
-	m_pShip->Set_Controller(CONTROLLER::AI);//LockController·Î ¹Ù²Þ
-	m_pShip->Get_Component<CAI_Controller>()->Set_Enable(false);
-
+	
 	m_pShip = GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_CHARACTERSELECT, TEXT("Player"));
 	m_vecShips.push_back(m_pShip);
 	WEAK_PTR(m_vecShips.back());
 	m_pShip->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(10.f, 0.f, 0.f));
+	
+	CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(LEVEL_STATIC, TEXT("Camera"));
+	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
+	GAMEINSTANCE->Register_Camera(TEXT("FPS"), FPS_Cam->Get_Component<CCamera>());
+
+	CGameObject* Shoulder_Cam = GAMEINSTANCE->Add_GameObject<CCam_Shoulder>(LEVEL_STATIC, TEXT("Camera"));
+	Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
+	GAMEINSTANCE->Register_Camera(TEXT("Shoulder"), Shoulder_Cam->Get_Component<CCamera>());
+
+	CGameObject* TPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(LEVEL_STATIC, TEXT("Camera"));
+	TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
+	GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
+
+	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(LEVEL_STATIC, TEXT("Camera"));
+	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
+	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
+
 
 	m_iIndex = 0;
 
-	CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(LEVEL_CHARACTERSELECT, TEXT("Camera"));
+	Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(LEVEL_CHARACTERSELECT, TEXT("Camera"));
 	Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
 	GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
 	GAMEINSTANCE->Set_Current_Camera(TEXT("Moving"));
@@ -73,20 +88,20 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP) /* || ¹öÆ° ´­·¶À» ¶§*/)
 	{
-		
-	/*	switch (m_iIndex)
+		CGameObject* pPlayer = nullptr;
+		switch (m_iIndex)
 		{
 		case 0:
-			if(FAILED(GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_STATIC, TEXT("Player"))))
-				return;
+			
+			pPlayer = GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
 			break;
 			
 		case 1:
-			if(FAILED(GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player"))))
-				return;
+			pPlayer = GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
 			break;
-		}*/
+		}
 
+		pPlayer->Set_Controller(CONTROLLER::PLAYER);
 		if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL::LEVEL_SELECTPLANET))))
 			return;
 	}

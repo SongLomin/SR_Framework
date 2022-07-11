@@ -185,7 +185,7 @@ void CRigid_Body::Compute_Force(_float fTimeDelta)
 		}
 
 		Friction(fTimeDelta);
-		//Compute_Ground();
+		
 	}
 }
 
@@ -532,8 +532,9 @@ void CRigid_Body::SetUp_Origin_DirVector()
 void CRigid_Body::Reset_Force()
 {
 	m_vSpeed = _float3(0.f, 0.f, 0.f);
-	//m_vPos = _float3(0.f, 0.f, 0.f);
 	m_vAccel = _float3(0.f, 0.f, 0.f);
+	m_fLiftSpeed = 0.f;
+	m_fLiftAccel = 0.f;
 }
 
 

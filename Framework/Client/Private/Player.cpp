@@ -34,10 +34,20 @@ void CPlayer::Tick(_float fTimeDelta)
 	{
 		if (KEY_INPUT((KEY)((_uint)KEY::NUM1 + i), KEY_STATE::TAP))
 		{
-			elem->Set_Controller(CONTROLLER::PLAYER);
-		}
+			if (CONTROLLER::PLAYER != elem->Get_Controller())
+			{
+				CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
+				CTransform* pCurCameraTransform = nullptr;//이게맞냐
+				if (pCurCamera)
+					pCurCameraTransform = pCurCamera->Get_Transform();
 
-			++i;
+				if (pCurCameraTransform)
+				{
+					GAMEINSTANCE->Switch_Player(pCurCameraTransform, elem->Get_Component<CTransform>(), TEXT("TPS"), 1.f);
+				}
+			}
+		}
+		++i;
 	}
 
 	
@@ -116,24 +126,11 @@ void CPlayer::On_Change_Controller(const CONTROLLER& _IsAI)
 
 		m_pRigid_BodyCom->Set_Mouse(true);
 
-		CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
-		CTransform* pCurCameraTransform = nullptr;
-		if (pCurCamera)
-			pCurCameraTransform = GAMEINSTANCE->Get_Camera()->Get_Transform();
-
 		
-
-		//이 게임오브젝트가 플레이어라면, 카메라에게 이 게임 오브젝트를 보도록 하겠다.
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
 		GAMEINSTANCE->Set_Current_Camera(TEXT("TPS"));
-
-		if (pCurCameraTransform)
-		{
-			GAMEINSTANCE->Switch_Player(pCurCameraTransform, GAMEINSTANCE->Get_Camera()->Get_Transform(), TEXT("TPS"), 1.f);
-		}
-
 
 		list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 
@@ -187,11 +184,9 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 
 			//Set_Controller(CONTROLLER::LOCK);
 			//GAMEINSTANCE->Add_TimerEvent(1, this, 2.f, false, false);
-			//GAMEINSTANCE->Set_TimeScale(0.1f);
-			//m_pMeshCom->Set_Enable(false);
 
-			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
-			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false))->Set_Pos(MyPos);
+			//_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+			//((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false))->Set_Pos(MyPos);
 
 			
 
@@ -206,7 +201,7 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 		D3DXVec3Normalize(&vDirection, &vDirection);
 		vDirection *= D3DXVec3Length(&vSpeed);
 		
-		m_pRigid_BodyCom->Add_Force(vDirection * 2.f);
+		m_pRigid_BodyCom->Add_Force(vDirection * 1.5f);
 	}
 
 

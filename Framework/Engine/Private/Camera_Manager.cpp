@@ -62,7 +62,7 @@ void CCamera_Manager::Switch_Player(CTransform* _pCurCamera, CTransform* _pNextC
 		GAMEINSTANCE->Register_Camera(TEXT("Free"), m_pFreeCam->Get_Component<CCamera>());
 	}
 
-	static_cast<CCam_Free*>(m_pFreeCam)->Switch_Player(_pCurCamera, _pNextCamera, _NextCameraTag, fTime);
+	static_cast<CCam_Free*>(m_pFreeCam)->Switch_Player(_pCurCamera->Get_WorldMatrix(), _pNextCamera, _NextCameraTag, fTime);
 	Set_Current_Camera(TEXT("Free"));
 }
 

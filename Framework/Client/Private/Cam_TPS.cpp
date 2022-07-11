@@ -32,102 +32,69 @@ HRESULT CCam_TPS::Initialize(void* pArg)
 
 void CCam_TPS::Tick(_float fTimeDelta)
 {
-	__super::Tick(fTimeDelta);
-
-	CTransform* pCamTargetTransformCom = m_pCameraCom->Get_Target();
-
-	if (!pCamTargetTransformCom)
-	{
-		return;
-	}
-
-	_float3 vLook = pCamTargetTransformCom->Get_State(CTransform::STATE_LOOK, true);
-	_float3 vPos = pCamTargetTransformCom->Get_State(CTransform::STATE_POSITION, true);
-	_float3 vUp = pCamTargetTransformCom->Get_State(CTransform::STATE_UP, true);
-
-	_float3 vRight;
-	_float  fRatio = 0.f;
-	CRigid_Body* pTargetRigidBody = pCamTargetTransformCom->Get_Owner()->Get_Component<CRigid_Body>();
-	if (pTargetRigidBody)
-	{
-		_float3 vTargetSpeed = pTargetRigidBody->Get_Vector(RIGID_BODY::SPEED);
-		_float	fMaxSpeed = pTargetRigidBody->Get_RigidDesc().m_fBoosterSpeed;
-
-		if (0.f > D3DXVec3Dot(&vLook, &vTargetSpeed))
-			fRatio = 0.f;
-		else
-		{
-			fRatio = D3DXVec3Length(&vTargetSpeed) / fMaxSpeed;
-			if (1.f < fRatio)
-				fRatio = 1.f;
-		}
-
-	}
-	m_fCurTime -= fTimeDelta;
-
-	if (0.f > m_fCurTime)
-	{
-		m_fMovement = CMath_Utillity::fLerp(m_fMovement, 10*fRatio, 0.03f);
-		m_fCurTime = m_fLerpTime;
-	}
-
-
-	vPos -= vLook*(15.f + m_fMovement);
-	vPos += vUp*3.f;
-
-	D3DXVec3Cross(&vRight, &vUp, &vLook);
-	D3DXVec3Cross(&vUp, &vLook, &vRight);
-
-	
-
-
-
 	if (GAMEINSTANCE->Get_Camera(CURRENT_CAMERA) == m_pCameraCom)
 	{
+		__super::Tick(fTimeDelta);
+
+
+		CTransform* pCamTargetTransformCom = m_pCameraCom->Get_Target();
+
+		if (!pCamTargetTransformCom)
+		{
+			return;
+		}
+
+		_float3 vLook = pCamTargetTransformCom->Get_State(CTransform::STATE_LOOK, true);
+		_float3 vPos = pCamTargetTransformCom->Get_State(CTransform::STATE_POSITION, true);
+		_float3 vUp = pCamTargetTransformCom->Get_State(CTransform::STATE_UP, true);
+
+		_float3 vRight;
+		_float  fRatio = 0.f;
+		CRigid_Body* pTargetRigidBody = pCamTargetTransformCom->Get_Owner()->Get_Component<CRigid_Body>();
+		if (pTargetRigidBody)
+		{
+			_float3 vTargetSpeed = pTargetRigidBody->Get_Vector(RIGID_BODY::SPEED);
+			_float	fMaxSpeed = pTargetRigidBody->Get_RigidDesc().m_fBoosterSpeed;
+
+			if (0.f > D3DXVec3Dot(&vLook, &vTargetSpeed))
+				fRatio = 0.f;
+			else
+			{
+				fRatio = D3DXVec3Length(&vTargetSpeed) / fMaxSpeed;
+				if (1.f < fRatio)
+					fRatio = 1.f;
+			}
+
+		}
+		m_fCurTime -= fTimeDelta;
+
+		if (0.f > m_fCurTime)
+		{
+			m_fMovement = CMath_Utillity::fLerp(m_fMovement, 10 * fRatio, 0.03f);
+
+		}
+
+
+		vPos -= vLook * (15.f + m_fMovement);
+		vPos += vUp * 3.f;
+
+		D3DXVec3Cross(&vRight, &vUp, &vLook);
+		D3DXVec3Cross(&vUp, &vLook, &vRight);
+
 
 		POINT pt{};
 		GetCursorPos(&pt);
 		ScreenToClient(g_hWnd, &pt);
 
-		
-		m_fSpeedX += m_fAccelX;
-		m_fSpeedY += m_fAccelY;
-		
-		
-		
-		_float fDirX = (pt.x-g_iWinCX*0.5f) - m_vCurPos.x;
-		_float fDirY = (pt.y-g_iWinCY*0.5f) - m_vCurPos.y;
-		if (DBL_EPSILON < fabs(fDirX))
+		if (0.f > m_fCurTime)
 		{
-			m_fAccelX = fDirX / (72.f * 150.f);
-			m_fSpeedX = fDirX / 72.f;
-		}
-		else
-		{
-			m_fAccelX = m_fSpeedX = 0.f;
-		}
-		if (DBL_EPSILON < fabs(fDirY))
-		{
-			m_fAccelY = fDirY / (72.f * 150.f);
-			m_fSpeedY = fDirY / 72.f;
-		}
-		else
-		{
-			m_fAccelY = m_fSpeedY = 0.f;
-		}
-		
-		
-
-
-		if (g_iWinCX*0.5f > fabs(m_vCurPos.x + m_fSpeedX) && DBL_EPSILON < fabs(m_vCurPos.x + m_fSpeedX) &&
-			g_iWinCY*0.5f > fabs(m_vCurPos.y + m_fSpeedY) && DBL_EPSILON < fabs(m_vCurPos.y + m_fSpeedY))
-		{
-			m_vCurPos.x += m_fSpeedX;
-			m_vCurPos.y += m_fSpeedY;
+			m_vCurPos.x = CMath_Utillity::fLerp(m_vCurPos.x, pt.x - g_iWinCX * 0.5f, 0.05f);
+			m_vCurPos.y = CMath_Utillity::fLerp(m_vCurPos.y, pt.y - g_iWinCY * 0.5f, 0.05f);
+			m_fCurTime = m_fLerpTime;
 		}
 
-		vPos += vRight*m_vCurPos.x*0.01f;
-		vPos -= vUp*m_vCurPos.y*0.01f;
+		vPos += vRight * m_vCurPos.x * 0.01f;
+		vPos -= vUp * m_vCurPos.y * 0.01f;
 
 		D3DXMATRIX	matRotation;
 		_float fRadian = m_vCurPos.x * 0.001f;
@@ -135,8 +102,8 @@ void CCam_TPS::Tick(_float fTimeDelta)
 		{
 			if (0.f < fRadian)
 				fRadian = D3DXToRadian(30.f);
-			else if( 0.f > fRadian)
-				fRadian = -1.f*D3DXToRadian(30.f);
+			else if (0.f > fRadian)
+				fRadian = -1.f * D3DXToRadian(30.f);
 		}
 		//비행체 기울어짐 연출 위해서
 		D3DXMatrixRotationAxis(&matRotation, &vLook, fRadian);
@@ -144,15 +111,23 @@ void CCam_TPS::Tick(_float fTimeDelta)
 		D3DXVec3TransformNormal(&vUp, &vUp, &matRotation);
 		D3DXVec3Cross(&vRight, &vUp, &vLook);
 
-		
+
 		m_ptPrePos = pt;
 
+
+		m_pTransformCom->Set_State(CTransform::STATE_LOOK, vLook);
+		m_pTransformCom->Set_State(CTransform::STATE_UP, vUp);
+		m_pTransformCom->Set_State(CTransform::STATE_RIGHT, vRight);
+		m_pTransformCom->Set_State(CTransform::STATE_POSITION, vPos);
+		m_pTransformCom->Update_WorldMatrix();
 	}
-	m_pTransformCom->Set_State(CTransform::STATE_LOOK, vLook);
-	m_pTransformCom->Set_State(CTransform::STATE_UP, vUp);
-	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, vRight);
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, vPos);
-	m_pTransformCom->Update_WorldMatrix();
+	else
+	{
+		m_fMovement = 0.f;
+		m_vCurPos.x = 0.f;
+		m_vCurPos.y = 0.f;
+		m_fCurTime = m_fLerpTime;
+	} 
 }
 
 void CCam_TPS::LateTick(_float fTimeDelta)
