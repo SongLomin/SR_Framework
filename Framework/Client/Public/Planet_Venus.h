@@ -27,11 +27,6 @@ protected:
 	virtual void SetUp_Components_For_Child();
 
 private:
-	/*HRESULT SetUp_Components();
-	void LookAtCamera();
-	void Enter_Planet();*/
-
-private:
 	_bool m_bLevelChange = false;
 
 

@@ -54,7 +54,6 @@ HRESULT CLevel_ExoPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVLE_EXOPLANET, TEXT("Aim_UI")))
 		return E_FAIL;
 
-
 	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVLE_EXOPLANET , TEXT("Light_Moon")))
 		return E_FAIL;
 
@@ -76,21 +75,6 @@ HRESULT CLevel_ExoPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVLE_EXOPLANET, TEXT("BulletCount_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CQuest>(LEVLE_EXOPLANET, TEXT("Quest_UI")))
-		return E_FAIL;
-
-	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
-	//	return E_FAIL;
-
-	
-
-
-	/*TEXTINFO Info;
-	Info.color = D3DCOLOR_ARGB(255, 0, 255, 0);
-	Info.rcTemp = { 600, 300, 600 + 200, 300 + 300 };
-	wsprintf(Info.szBuff, L"10초동안 출력");
-	if (FAILED(GAMEINSTANCE->Add_Text(&Info, 10.f)))
-		return E_FAIL;*/
 
 	return S_OK;
 }
@@ -101,12 +85,7 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 
 
 
-	if (m_fMaxTime <= 0)
-	{
-		if (FAILED(GAMEINSTANCE->Get_Instance()->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))))
-			return;
-	}
-
+	
 }
 
 HRESULT CLevel_ExoPlanet::Render()

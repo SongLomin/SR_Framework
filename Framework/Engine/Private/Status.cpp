@@ -39,6 +39,18 @@ HRESULT CStatus::Set_Status(STATUSID StatusID, _float value)
 	case STATUS_ARMOR:
 		m_tStatus.fArmor = value;
 		break;
+
+	case STATUS_MAXARMOR:
+		m_tStatus.fMaxArmor = value;
+		break;
+
+	case STATUS_BOOSTER:
+		m_tStatus.fBooster = value;
+		break;
+
+	case STATUS_MAXBOOSTER:
+		m_tStatus.fMaxBooster = value;
+		break;
 	}
 	
 	return S_OK;
@@ -65,6 +77,18 @@ HRESULT CStatus::Add_Status(STATUSID StatusID, _float value)
 
 	case STATUS_ARMOR:
 		m_tStatus.fArmor += value;
+		break;
+
+	case STATUS_MAXARMOR:
+		m_tStatus.fMaxArmor += value;
+		break;
+
+	case STATUS_BOOSTER:
+		m_tStatus.fBooster += value;
+		break;
+
+	case STATUS_MAXBOOSTER:
+		m_tStatus.fMaxBooster += value;
 		break;
 	}
 

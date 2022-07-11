@@ -82,10 +82,13 @@ void CKang_Ship_Body::SetUp_Components_For_Child()
 
 #pragma region Status Setting
 	CStatus::STATUS		Status;
-	Status.fHp = 10.f;
+	Status.fMaxHp = 10.f;
+	Status.fHp = Status.fMaxHp;
 	Status.fAttack = 7.f;
-	Status.fArmor = 5.f;
-	Status.fBooster = 10.f;
+	Status.fMaxArmor = 5.f;
+	Status.fArmor = Status.fMaxArmor;
+	Status.fMaxBooster = 22.f;
+	Status.fBooster = Status.fMaxBooster;
 
 	m_pStatusCom = Add_Component<CStatus>(&Status);
 	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
