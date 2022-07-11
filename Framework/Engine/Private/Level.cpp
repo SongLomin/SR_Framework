@@ -22,4 +22,7 @@ HRESULT CLevel::Render()
 void CLevel::Free()
 {
 	//Safe_Release(m_pGraphic_Device);
+
+	if (m_pTagetObject)
+		RETURN_WEAKPTR(m_pTagetObject);
 }

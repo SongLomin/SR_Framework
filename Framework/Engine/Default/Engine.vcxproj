@@ -172,6 +172,7 @@
     <ClCompile Include="..\Private\Camera_Manager.cpp" />
     <ClCompile Include="..\Private\Cam_Free.cpp" />
     <ClCompile Include="..\Private\Collider.cpp" />
+    <ClCompile Include="..\Private\Collider_Mesh.cpp" />
     <ClCompile Include="..\Private\Collider_OBB.cpp" />
     <ClCompile Include="..\Private\Collider_Pre.cpp" />
     <ClCompile Include="..\Private\Collier_Sphere.cpp" />
@@ -273,6 +274,7 @@
     <ClInclude Include="..\Public\Camera_Manager.h" />
     <ClInclude Include="..\Public\Cam_Free.h" />
     <ClInclude Include="..\Public\Collider.h" />
+    <ClInclude Include="..\Public\Collider_Mesh.h" />
     <ClInclude Include="..\Public\Collider_OBB.h" />
     <ClInclude Include="..\Public\Collider_Pre.h" />
     <ClInclude Include="..\Public\Collier_Sphere.h" />

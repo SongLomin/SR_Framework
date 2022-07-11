@@ -89,6 +89,20 @@ public: /* Template Function*/
 	}
 
 	template <typename T>
+	T* Get_Component_FromType()
+	{//type검사용 함수 속도 느리니 쓰지 마셈0.<
+		for (auto& elem : m_pComs)
+		{
+			T* pTemp = dynamic_cast<T*>(elem.second);
+			if (pTemp)
+			{
+				return pTemp;
+			}
+		}
+		return nullptr;
+	}
+
+	template <typename T>
 	T* Add_Component(void* pArg = nullptr)
 	{
 		if (Get_Component<T>() != nullptr)

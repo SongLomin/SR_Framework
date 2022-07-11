@@ -37,7 +37,7 @@ HRESULT CEffect::Render_Begin(ID3DXEffect** Shader)
 
 HRESULT CEffect::Render()
 {
-	m_pTransformCom->Scaling(_float3(15.f, 15.f, 15.f), true);
+	
 	m_pTransformCom->Bind_WorldMatrix();
 
 
@@ -88,6 +88,7 @@ HRESULT CEffect::SetUp_Components()
 {
 	m_pTransformCom = Add_Component<CTransform>();
 	WEAK_PTR(m_pTransformCom);
+	m_pTransformCom->Scaling(_float3(15.f, 15.f, 15.f), true);
 	m_pRendererCom = Add_Component<CRenderer>();
 	WEAK_PTR(m_pRendererCom);
 

@@ -1,7 +1,4 @@
 #pragma once
-
-
-
 /* 컴포넌트들의 원형을 가지고 있는다. */
 #include "Renderer.h"
 #include "VIBuffer_Rect.h"
@@ -41,6 +38,8 @@
 #include "Mesh_Ship4.h"
 #include "Mesh_Ship5.h"
 #include "Mesh_Ship6.h"
+#include "Collider_Mesh.h"
+
 
 BEGIN(Engine)
 

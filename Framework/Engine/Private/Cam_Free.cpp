@@ -136,7 +136,7 @@ void CCam_Free::Switch_PlayerCamera(_float fTimeDelta)
 	
 
 	_float fDistance = D3DXVec3Length(&(m_vPos - vPos));
-	if (!(0.005f < fDistance))
+	if (!(0.1f < fDistance))
 	{
 		m_pNextCameraTransform->Get_Owner()->Set_Controller(CONTROLLER::PLAYER);
 		m_bFlag = false;
@@ -147,9 +147,9 @@ void CCam_Free::Switch_PlayerCamera(_float fTimeDelta)
 	m_fTime -= fTimeDelta;
 	if (0.f > m_fTime)
 	{
-		m_vPos.x = CMath_Utillity::fLerp(m_vPos.x, vPos.x, 0.2f);
-		m_vPos.y = CMath_Utillity::fLerp(m_vPos.y, vPos.y, 0.2f);
-		m_vPos.z = CMath_Utillity::fLerp(m_vPos.z, vPos.z, 0.2f);
+		m_vPos.x = CMath_Utillity::fLerp(m_vPos.x, vPos.x, 0.5f);
+		m_vPos.y = CMath_Utillity::fLerp(m_vPos.y, vPos.y, 0.5f);
+		m_vPos.z = CMath_Utillity::fLerp(m_vPos.z, vPos.z, 0.5f);
 				
 		m_fTime = m_fLerpTime;
 	}

@@ -1,38 +1,38 @@
-#include "Collier_Sphere.h"
+#include "Collider_Mesh.h"
 #include "GameInstance.h"
+#include "GameObject.h"
 
-CCollider_Sphere::CCollider_Sphere(const CCollider_Sphere& Prototype)
+CCollider_Mesh::CCollider_Mesh(const CCollider_Mesh& Prototype)
 {
 	*this = Prototype;
 }
 
-HRESULT CCollider_Sphere::Initialize_Prototype()
+HRESULT CCollider_Mesh::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CCollider_Sphere::Initialize(void* pArg)
+HRESULT CCollider_Mesh::Initialize(void* pArg)
 {
-	
+
 	m_iID = ++g_iNextID;
 	m_eCollision_Type = *(COLLISION_TYPE*)pArg;
-
-	m_eShape = COLLIDER_SHAPE::SPHERE;
+	m_eShape = COLLIDER_SHAPE::MESH;
 
 	return S_OK;
 }
 
-void CCollider_Sphere::Tick(_float fTimeDelta)
+void CCollider_Mesh::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 }
 
-void CCollider_Sphere::LateTick(_float fTimeDelta)
+void CCollider_Mesh::LateTick(_float fTimeDelta)
 {
 	m_vColliderPosition = m_pMyTransformCom->Get_State(CTransform::STATE_POSITION, true);
 }
 
-HRESULT CCollider_Sphere::Debug_Render()
+HRESULT CCollider_Mesh::Debug_Render()
 {
 	DEVICE->SetRenderState(D3DRS_FILLMODE, _D3DFILLMODE::D3DFILL_WIREFRAME);
 
@@ -60,33 +60,39 @@ HRESULT CCollider_Sphere::Debug_Render()
 	return S_OK;
 }
 
-void CCollider_Sphere::Set_Collider_Size(const _float3& _Size)
+void CCollider_Mesh::Set_Collider_Size(const _float3& _Size)
 {
-	m_fSize = _Size.x;
-	//D3DXCreateSphere(DEVICE, m_fSize, 10, 10, &m_pMesh, nullptr);
+	m_vSize = _Size;
+	
 }
 
-_float3 CCollider_Sphere::Get_Collider_Size()
+_float3 CCollider_Mesh::Get_Collider_Size()
 {
-	return _float3(m_fSize, m_fSize, m_fSize);
+	return m_vSize;
 }
 
-_float3 CCollider_Sphere::Get_Collider_Position()
+_float3 CCollider_Mesh::Get_Collider_Position()
 {
 	return m_vColliderPosition;
 }
 
-CCollider_Sphere* CCollider_Sphere::Create()
+ID3DXMesh* CCollider_Mesh::Get_Collider_Mesh()
 {
-	CREATE_PIPELINE(CCollider_Sphere);
+	return m_pOwner->Get_Component_FromType<CMesh>()->Get_Mesh();
 }
 
-CComponent* CCollider_Sphere::Clone(void* pArg)
+
+CCollider_Mesh* CCollider_Mesh::Create()
 {
-	CLONE_PIPELINE(CCollider_Sphere);
+	CREATE_PIPELINE(CCollider_Mesh);
 }
 
-void CCollider_Sphere::Free()
+CComponent* CCollider_Mesh::Clone(void* pArg)
+{
+	CLONE_PIPELINE(CCollider_Mesh);
+}
+
+void CCollider_Mesh::Free()
 {
 	__super::Free();
 

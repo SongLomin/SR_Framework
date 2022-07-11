@@ -21,7 +21,7 @@ private:
 
 private:
 	vector<CGameObject*> m_vecShips;
-	_uint	m_iIndex = 0;
+	_int	m_iIndex = 0;
 private:
 	_float3		m_vMovePos = _float3(0.f,0.f,0.f);//카메라가 이동할 위치
 

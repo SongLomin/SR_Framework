@@ -76,7 +76,7 @@ HRESULT CRock::SetUp_Components()
 	RigidBodyDesc.m_fOwnerJump = 5.f;
 	RigidBodyDesc.m_fOwnerJumpScale = 1.f;
 
-	RigidBodyDesc.m_fFrictional = 0.05f;
+	RigidBodyDesc.m_fFrictional = 0.01f;
 	RigidBodyDesc.m_fRadFrictional = 0.02f;
 	RigidBodyDesc.m_fRadZ = 0.01f;
 
@@ -119,10 +119,7 @@ void CRock::LookAtCamera()
 void CRock::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Enter(_Other_Collider);
-	if (COLLISION_TYPE::PLAYER == _Other_Collider->Get_Collision_Type())
-	{
-
-	}
+	
 }
 
 void CRock::On_Collision_Stay(CCollider* _Other_Collider)
