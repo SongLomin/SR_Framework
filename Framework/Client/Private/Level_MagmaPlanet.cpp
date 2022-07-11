@@ -123,7 +123,7 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_MAGMAPLANET, TEXT("Quest_UI"));
 	m_pQuestBoxObject->Set_Enable(false);
 
-	GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVEL_VENUSPLANET, TEXT("Earth"));
+	//GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVEL_VENUSPLANET, TEXT("Earth"));
 
 
 	return S_OK;

@@ -151,7 +151,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 	//if (!GAMEINSTANCE->Add_GameObject<CTargetingBox>(LEVEL_GAMEPLAY, TEXT("Targeting")))
 	//	return E_FAIL;
 
-	GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVEL_VENUSPLANET, TEXT("Earth"));
+	GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVEL_REDPLANET, TEXT("Earth"));
 
 
 

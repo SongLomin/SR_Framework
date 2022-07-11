@@ -277,7 +277,16 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 284.f && !m_bEventCheck[4])
 	{
-		iEnemyCount = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TargetBoard"))->size();
+		list<CGameObject*>* TargetBoards = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TargetBoard"));
+		iEnemyCount = 0;
+		for (auto& elem : *TargetBoards)
+		{
+			if (elem->Get_Enable())
+			{
+				iEnemyCount++;
+			}
+		}
+
 		m_pQuestBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            ÇöÀç ÀÓ¹«\n          ÈÆ·Ã º¿ ÆÄ±« \n        ³²Àº Àû : "), 0);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("%d"), 1, (_uint)iEnemyCount);

@@ -133,10 +133,10 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CEnemy_TagetBoard>(LEVEL_SELECTPLANET, TEXT("Enemy_TargetBoard")))
-		return E_FAIL;
+	/*if (!GAMEINSTANCE->Add_GameObject<CEnemy_TagetBoard>(LEVEL_SELECTPLANET, TEXT("Enemy_TargetBoard")))
+		return E_FAIL;*/
 
-	if (!GAMEINSTANCE->Add_GameObject<CSatellite_1>(LEVEL_SELECTPLANET, TEXT("Satellite_1")))
+	/*if (!GAMEINSTANCE->Add_GameObject<CSatellite_1>(LEVEL_SELECTPLANET, TEXT("Satellite_1")))
 		return E_FAIL;
 
 
@@ -145,7 +145,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 
 
 	if (!GAMEINSTANCE->Add_GameObject<CSatellite_3>(LEVEL_SELECTPLANET, TEXT("Satellite_3")))
-		return E_FAIL;
+		return E_FAIL;*/
 
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
