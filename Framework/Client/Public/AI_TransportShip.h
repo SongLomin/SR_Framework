@@ -15,6 +15,7 @@ class CAI_Controller;
 class CPlayer_Controller;
 class CMesh_ShinShip;
 class CCollider_Sphere;
+class CMesh_Ship2;
 END
 
 BEGIN(Client)
@@ -46,7 +47,7 @@ private:
 	//CTargeting* m_pTargetingCom = nullptr;
 	CStatus* m_pStatusCom = nullptr;
 	//CMesh_Cube* m_pMeshCom = nullptr;
-	CMesh_Cube* m_pMeshCom = nullptr;
+	CMesh_Ship2* m_pMeshCom = nullptr;
 	CState_Move* m_pStateCom = nullptr;
 	CAI_Controller* m_pAIControllerCom = nullptr;
 
