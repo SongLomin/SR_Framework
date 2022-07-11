@@ -85,7 +85,7 @@ void CRock_1::SetUp_Components_For_Chiled()
 {
 	m_pRendererCom->Set_Textures_From_Key(TEXT("Rock"), MEMORY_TYPE::MEMORY_STATIC);
 
-
+	m_pColliderCom->Set_Collider_Size(_float3(30.f, 30.f, 30.f));
 
 }
 
@@ -102,6 +102,12 @@ CGameObject* CRock_1::Clone(void* pArg)
 void CRock_1::Free()
 {
 	__super::Free();
+
+	RETURN_WEAKPTR(m_pTransformCom);
+	RETURN_WEAKPTR(m_pRendererCom);
+	RETURN_WEAKPTR(m_pVIBufferCom);
+	RETURN_WEAKPTR(m_pColliderCom);
+	RETURN_WEAKPTR(m_pRigidBodyCom);
 
 	delete this;
 }
