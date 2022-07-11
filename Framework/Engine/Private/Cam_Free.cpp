@@ -75,7 +75,10 @@ void CCam_Free::Switch_Player(_float4x4 _pCurCamera, CTransform* _pNextCamera, c
 {
 	m_NextCameraTag = _NextCameraTag;
 	m_pCurCameraTransform = _pCurCamera;
+	if (m_pNextCameraTransform)
+		RETURN_WEAKPTR(m_pNextCameraTransform);
 	m_pNextCameraTransform = _pNextCamera;
+	WEAK_PTR(m_pNextCameraTransform);
 	m_fTime = fTime;
 
 	m_bFlag = true;
@@ -213,6 +216,8 @@ CGameObject* CCam_Free::Clone(void* pArg)
 void CCam_Free::Free()
 {
 	__super::Free();
+
+	RETURN_WEAKPTR(m_pNextCameraTransform);
 
 	delete this;
 }
