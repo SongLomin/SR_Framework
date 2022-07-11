@@ -33,11 +33,6 @@ private:
 	_float3		m_vCurPos;
 	POINT		m_ptPrePos{};
 
-	_float		m_fSpeedX =0.f;
-	_float		m_fSpeedY = 0.f;
-
-	_float		m_fAccelX=0.f;
-	_float		m_fAccelY=0.f;
 
 private:
     _float      m_fMovement=0.f;

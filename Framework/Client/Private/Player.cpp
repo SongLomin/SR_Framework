@@ -33,7 +33,15 @@ void CPlayer::Tick(_float fTimeDelta)
 	{
 		if (KEY_INPUT((KEY)((_uint)KEY::NUM1 + i), KEY_STATE::TAP))
 		{
-			elem->Set_Controller(CONTROLLER::PLAYER);
+			CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
+			CTransform* pCurCameraTransform = nullptr;//이게맞냐
+			if (pCurCamera)
+				pCurCameraTransform = pCurCamera->Get_Transform();
+
+			if (pCurCameraTransform)
+			{
+				GAMEINSTANCE->Switch_Player(pCurCameraTransform, elem->Get_Component<CTransform>(), TEXT("TPS"), 1.f);
+			}
 		}
 
 			++i;
@@ -119,20 +127,11 @@ void CPlayer::On_Change_Controller(const CONTROLLER& _IsAI)
 
 		m_pRigid_BodyCom->Set_Mouse(true);
 
-		CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
-		CTransform* pCurCameraTransform = nullptr;//이게맞냐
-		if(pCurCamera)
-			pCurCameraTransform = GAMEINSTANCE->Get_Camera()->Get_Transform();
-
+		
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("FPS"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("Shoulder"));
 		GAMEINSTANCE->Set_Camera_Target(m_pTransformCom, TEXT("TPS"));
-		if (pCurCameraTransform)
-		{
-			GAMEINSTANCE->Get_Camera()->Get_Transform();
-
-			GAMEINSTANCE->Switch_Player(pCurCameraTransform, GAMEINSTANCE->Get_Camera()->Get_Transform(), TEXT("TPS"), 1.f);
-		}
+		
 		list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 
 		if (pAiObect == nullptr)
@@ -200,7 +199,7 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 		D3DXVec3Normalize(&vDirection, &vDirection);
 		vDirection *= D3DXVec3Length(&vSpeed);
 		
-		m_pRigid_BodyCom->Add_Force(vDirection * 2.f);
+		m_pRigid_BodyCom->Add_Force(vDirection * 1.5f);
 	}
 
 

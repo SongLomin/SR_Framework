@@ -35,45 +35,15 @@ void CCam_Free::Tick(_float fTimeDelta)
 	if (!m_bFlag)
 		return;//안 해주면 Weak_ptr계속 걸림
 
-	m_fTime -= fTimeDelta;
-	
-	if (0.f > m_fTime)
+	if (m_bSwitchPlayer)
 	{
-		GAMEINSTANCE->Set_Current_Camera(m_NextCameraTag);
-		m_fTime = 0.f;
-		m_bFlag = false; 
-		m_bSwitchPlayer = false;
-		return;
+		Switch_PlayerCamera(fTimeDelta);
 	}
-
-	_float3 vLook = m_pNextCameraTransform->Get_World_State(CTransform::STATE_LOOK);
-	_float3 vUp = m_pNextCameraTransform->Get_World_State(CTransform::STATE_UP);
-
-	m_vdLook = vLook - m_vLook;
-	m_vdUp = vUp - m_vUp;
-	m_vdRight = m_pNextCameraTransform->Get_World_State(CTransform::STATE_RIGHT) - m_vRight;
-	m_vdPos = m_pNextCameraTransform->Get_World_State(CTransform::STATE_POSITION);
-	if (m_bSwitchPlayer)//이게맞냐
-	{	//플레이어가 바뀔 때 부조건 3인칭으로 가기 때문에 매 프레임마다 3인칭 카메라의 위치로 적용을 해줘야 함(?)
-		m_vdPos -= vLook * 15.f;
-		m_vdPos += vUp * 3.f;
+	else
+	{
+		Swap_Camera(fTimeDelta);
 	}
-	m_vdPos -=  m_vPos;
-
-	m_vdLook /= m_fTime;
-	m_vdUp /= m_fTime;
-	m_vdRight /= m_fTime;
-	m_vdPos /= m_fTime;
-
-	m_vLook += m_vdLook * fTimeDelta;
-	m_vUp+= m_vdUp* fTimeDelta;
-	m_vRight+= m_vdRight* fTimeDelta;
-	m_vPos+= m_vdPos* fTimeDelta;
-
-	m_pTransformCom->Set_State(CTransform::STATE_LOOK, m_vLook);
-	m_pTransformCom->Set_State(CTransform::STATE_UP, m_vUp);
-	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, m_vRight);
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vPos);
+	
 }
 
 void CCam_Free::LateTick(_float fTimeDelta)
@@ -93,7 +63,7 @@ void CCam_Free::Set_RouteCamera(CCamera* _pCurCamera, const _tchar* _NextCameraT
 	m_NextCameraTag = _NextCameraTag;
 	CCamera* pCamera = GAMEINSTANCE->Get_Camera(_NextCameraTag);
 	m_pNextCameraTransform= pCamera->Get_Owner()->Get_Component<CTransform>();
-	m_pCurCameraTransform = _pCurCamera->Get_Owner()->Get_Component<CTransform>();
+	m_pCurCameraTransform = _pCurCamera->Get_Owner()->Get_Component<CTransform>()->Get_WorldMatrix();
 
 	m_fTime = _fTime;
 
@@ -101,7 +71,7 @@ void CCam_Free::Set_RouteCamera(CCamera* _pCurCamera, const _tchar* _NextCameraT
 	m_bFlag = true;
 }
 
-void CCam_Free::Switch_Player(CTransform* _pCurCamera, CTransform* _pNextCamera, const _tchar* _NextCameraTag, _float fTime)
+void CCam_Free::Switch_Player(_float4x4 _pCurCamera, CTransform* _pNextCamera, const _tchar* _NextCameraTag, _float fTime)
 {
 	m_NextCameraTag = _NextCameraTag;
 	m_pCurCameraTransform = _pCurCamera;
@@ -117,18 +87,99 @@ void CCam_Free::Make_Route()
 {
 	if (m_fTime)//m_fTime이 0이 아닌 경우가 없
 	{
-		m_vLook = m_pCurCameraTransform->Get_World_State(CTransform::STATE_LOOK);
-		m_vUp = m_pCurCameraTransform->Get_World_State(CTransform::STATE_UP);
-		m_vRight = m_pCurCameraTransform->Get_World_State(CTransform::STATE_RIGHT);
-		m_vPos =  m_pCurCameraTransform->Get_World_State(CTransform::STATE_POSITION);
+		m_vLook = *(_float3*)& m_pCurCameraTransform.m[2];
+		m_vUp = *(_float3*)&m_pCurCameraTransform.m[1];
+		m_vRight = *(_float3*)&m_pCurCameraTransform.m[0];
+		m_vPos = *(_float3*)&m_pCurCameraTransform.m[3];
+		if (m_bSwitchPlayer)
+		{
+			m_pNextCameraTransform->Get_Owner()->Set_Controller(CONTROLLER::LOCK);
+			m_pNextCameraTransform->Set_State(CTransform::STATE_LOOK, m_vLook);
+			m_pNextCameraTransform->Set_State(CTransform::STATE_UP, m_vUp);
+			m_pNextCameraTransform->Set_State(CTransform::STATE_RIGHT, m_vRight);
+			m_pNextCameraTransform->Get_Owner()->Get_Component<CRigid_Body>()->Reset_Force();
 
-	
+			/*m_vPos -= m_vLook * 15.f;
+			m_vPos += m_vUp * 3.f;*/
+			m_fTime = m_fLerpTime;
+		}
+
 	}
 }
 
-void CCam_Free::Switching()
+void CCam_Free::Switch_PlayerCamera(_float fTimeDelta)
 {
+	_float3 vPos = m_pNextCameraTransform->Get_State(CTransform::STATE_POSITION);
+	_float3 vLook = m_pNextCameraTransform->Get_State(CTransform::STATE_LOOK);
+	_float3 vUp = m_pNextCameraTransform->Get_State(CTransform::STATE_UP);
+	
+	vPos -= vLook * 15.f;
+	vPos += vUp * 3.f;
+
+	
+
+	_float fDistance = D3DXVec3Length(&(m_vPos - vPos));
+	if (0.5f > fDistance)
+	{
+		m_pNextCameraTransform->Get_Owner()->Set_Controller(CONTROLLER::PLAYER);
+		GAMEINSTANCE->Set_Current_Camera(m_NextCameraTag);
+		m_bFlag = false;
+		m_bSwitchPlayer = false;
+		return;
+	}
+
+	m_fTime -= fTimeDelta;
+	if (0.f > m_fTime)
+	{
+		m_vPos = CMath_Utillity::Slerp(m_vPos, vPos, 0.1f);
+		m_fTime = m_fLerpTime;
+	}
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vPos);
+
 }
+
+void CCam_Free::Swap_Camera(_float fTimeDelta)
+{
+	m_fTime -= fTimeDelta;
+
+	if (0.f > m_fTime)
+	{
+		m_pNextCameraTransform->Get_Owner()->Set_Controller(CONTROLLER::PLAYER);
+		GAMEINSTANCE->Set_Current_Camera(m_NextCameraTag);
+		m_fTime = 0.f;
+		m_bFlag = false;
+		m_bSwitchPlayer = false;
+		return;
+	}
+
+
+	_float3 vLook = m_pNextCameraTransform->Get_World_State(CTransform::STATE_LOOK);
+	_float3 vUp = m_pNextCameraTransform->Get_World_State(CTransform::STATE_UP);
+
+	m_vdLook = vLook - m_vLook;
+	m_vdUp = vUp - m_vUp;
+	m_vdRight = m_pNextCameraTransform->Get_World_State(CTransform::STATE_RIGHT) - m_vRight;
+	m_vdPos = m_pNextCameraTransform->Get_World_State(CTransform::STATE_POSITION);
+	m_vdPos += vUp * 3.f;
+	
+	m_vdPos -= m_vPos;
+
+	m_vdLook /= m_fTime;
+	m_vdUp /= m_fTime;
+	m_vdRight /= m_fTime;
+	m_vdPos /= m_fTime;
+
+	m_vLook += m_vdLook * fTimeDelta;
+	m_vUp += m_vdUp * fTimeDelta;
+	m_vRight += m_vdRight * fTimeDelta;
+	m_vPos += m_vdPos * fTimeDelta;
+
+	m_pTransformCom->Set_State(CTransform::STATE_LOOK, m_vLook);
+	m_pTransformCom->Set_State(CTransform::STATE_UP, m_vUp);
+	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, m_vRight);
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, m_vPos);
+}
+
 
 CCam_Free* CCam_Free::Create()
 {

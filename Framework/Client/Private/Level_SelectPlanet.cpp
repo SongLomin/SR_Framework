@@ -44,31 +44,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 {
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
-	
-	if (!m_bFirst)
-	{
-		CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(LEVEL_STATIC, TEXT("Camera"));
-		FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-		GAMEINSTANCE->Register_Camera(TEXT("FPS"), FPS_Cam->Get_Component<CCamera>());
 
-		CGameObject* Shoulder_Cam = GAMEINSTANCE->Add_GameObject<CCam_Shoulder>(LEVEL_STATIC, TEXT("Camera"));
-		Shoulder_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-		GAMEINSTANCE->Register_Camera(TEXT("Shoulder"), Shoulder_Cam->Get_Component<CCamera>());
-
-		CGameObject* TPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_TPS>(LEVEL_STATIC, TEXT("Camera"));
-		TPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-		GAMEINSTANCE->Register_Camera(TEXT("TPS"), TPS_Cam->Get_Component<CCamera>());
-
-		CGameObject* Moving_Cam = GAMEINSTANCE->Add_GameObject<CMovingCamera>(LEVEL_STATIC, TEXT("Camera"));
-		Moving_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
-		GAMEINSTANCE->Register_Camera(TEXT("Moving"), Moving_Cam->Get_Component<CCamera>());
-
-
-		//카메라를 다 만들고 나서 비행기의 컨트롤러를 플레이어로 바꾸자.
-		GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_STATIC, TEXT("Player"))->Set_Controller(CONTROLLER::PLAYER);
-	}
-
-	m_bFirst = true;
 	
 	
 	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
@@ -198,19 +174,7 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 				return;
 
 			list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
-			//for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)
-			//{
-			//	if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
-			//	{
-			//		if ((*iter) == nullptr)
-			//			break;
-			//		//CComponent* Temp = (*iter)->Get_Component<CPlayer_Controller>();
-			//		(*iter)->Get_Component<CPlayer_Controller>()->Set_Enable(false);
-			//		int i = 10;
-			//		//Temp->Set_Enable(false);
-			//		
-			//	}
-			//}
+		
 			for (auto& elem : *pLayer)
 			{
 				if (!elem)
@@ -257,13 +221,10 @@ void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 		{
 			
 
-			(*iter)->Set_Controller(CONTROLLER::AI);
-			CComponent* Temp = (*iter)->Get_Component<CAI_Controller>();
+			(*iter)->Set_Controller(CONTROLLER::LOCK);
+				
+			CComponent* Temp = (*iter)->Get_Component<CRigid_Body>();
 			WEAK_PTR(Temp);
-			Temp->Set_Enable(false);
-			Temp = (*iter)->Get_Component<CRigid_Body>();
-			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::SPIN, 0.f);
-			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::DOWN, 0.f);
 			if (pArg)
 			{
 				Temp = (*iter)->Get_Component<CTransform>();

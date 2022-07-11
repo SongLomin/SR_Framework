@@ -319,6 +319,22 @@ _float3 CMath_Utillity::vecLerp(_float3 LeftSide, _float3 RightSide, _float fRat
 	return LeftSide*(1.f-fRatio) + RightSide*fRatio;
 }
 
+_float3 CMath_Utillity::Slerp(_float3 LeftSide, _float3 RightSide, _float fRatio)
+{
+	_float3 Left = *D3DXVec3Normalize(&Left, &LeftSide);
+	_float3 Right = *D3DXVec3Normalize(&Right, &RightSide);
+
+	_float fTheta = acosf(D3DXVec3Dot(&Left, &Right));
+
+	if (DBL_EPSILON < fTheta)
+	{
+		return sinf(fTheta * (1.f - fRatio)) / sinf(fTheta) * LeftSide + sinf(fTheta * fRatio) / sinf(fTheta) * RightSide;
+	}
+	else
+		return LeftSide;
+
+}
+
 DWORD CMath_Utillity::FtoDw(float f)
 {
 	return *((DWORD*)&f);
