@@ -513,7 +513,6 @@
     <ClInclude Include="..\Public\StagBeetle.h">
       <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
     </ClInclude>
-    </ClInclude>
     <ClInclude Include="..\Public\MagmaPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Magma</Filter>
     </ClInclude>
@@ -781,7 +780,6 @@
     </ClCompile>
     <ClCompile Include="..\Private\StagBeetle.cpp">
       <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
-    </ClCompile>
     </ClCompile>
     <ClCompile Include="..\Private\MagmaSpace_Body.cpp">
       <Filter>02.GameObject\02. Monster\MagmaSpace</Filter>
