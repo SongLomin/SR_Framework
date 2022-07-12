@@ -331,6 +331,9 @@
     <Filter Include="02.GameObject\02. Monster\Roller">
       <UniqueIdentifier>{795fc578-e3b8-4c19-a6ff-29b63b0c0447}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\01. Turret\Bayonet">
+      <UniqueIdentifier>{c0be6a96-18e3-4bce-81a6-b8e5913698b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -534,9 +537,6 @@
     <ClInclude Include="..\Public\Teleport_Effect.h">
       <Filter>02.GameObject\13. Effect\Teleport_Effect</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Rock.h">
-      <Filter>02.GameObject\12. Rock</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\Planet.h">
       <Filter>02.GameObject\06. Planet</Filter>
     </ClInclude>
@@ -650,6 +650,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\Enemy_Roller.h">
       <Filter>02.GameObject\02. Monster\Roller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Bayonet_Turret.h">
+      <Filter>02.GameObject\01. Turret\Bayonet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -851,9 +854,6 @@
     <ClCompile Include="..\Private\Teleport_Effect.cpp">
       <Filter>02.GameObject\13. Effect\Teleport_Effect</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Rock.cpp">
-      <Filter>02.GameObject\12. Rock</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\Planet.cpp">
       <Filter>02.GameObject\06. Planet</Filter>
     </ClCompile>
@@ -964,6 +964,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Enemy_Roller.cpp">
       <Filter>02.GameObject\02. Monster\Roller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Bayonet_Turret.cpp">
+      <Filter>02.GameObject\01. Turret\Bayonet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -168,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Armor_UI.h" />
+    <ClInclude Include="..\Public\Bayonet_Turret.h" />
     <ClInclude Include="..\Public\Benner.h" />
     <ClInclude Include="..\Public\AI_HPBar.h" />
     <ClInclude Include="..\Public\Bomb_Effect.h" />
@@ -275,6 +276,7 @@
     <ClCompile Include="..\Private\AI_HPBar.cpp" />
     <ClCompile Include="..\Private\AI_TransportShip.cpp" />
     <ClCompile Include="..\Private\Armor_UI.cpp" />
+    <ClCompile Include="..\Private\Bayonet_Turret.cpp" />
     <ClCompile Include="..\Private\Benner.cpp" />
     <ClCompile Include="..\Private\Bomb_Effect.cpp" />
     <ClCompile Include="..\Private\BoosterBar.cpp" />
