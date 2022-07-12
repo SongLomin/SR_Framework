@@ -233,56 +233,12 @@ void CRocket_Bullet::OnTimerEvent(const _uint _iEventIndex)
 		}
 		if (m_pTarget)
 		{
-			_float3 fDistance = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
-
-			_float3 TargetPos = m_pTarget->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
-
-			fDistance -= TargetPos;
-
-			_float test = D3DXVec3Length(&fDistance);
-
-			if (40.f > test)
-			{
-				m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>());
-				m_pTransformCom->Go_BackAndForth(1.f, 0.5f);
-				m_pTransformCom->Update_WorldMatrix();
-			}
-			else
-			{
-				_float3 vDir = m_pTarget->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION) - m_pTransformCom->Get_State(CTransform::STATE_POSITION);
-				_float3 vLook = m_pRigidBodyCom->Get_Direction(CRigid_Body::STATE_LOOK);
-				D3DXVec3Normalize(&vDir, &vDir);
-				D3DXVec3Normalize(&vLook, &vLook);
-
-				_float fDotProduct = D3DXVec3Dot(&vDir, &vLook);
-				if (0.f > fDotProduct)
-				{
-					_float3 fCrossProduct;
-					D3DXVec3Cross(&fCrossProduct, &vLook, &vDir);
-					_float3 vUp = m_pRigidBodyCom->Get_Direction(CRigid_Body::STATE_UP);
-					_float  fDotProduct = D3DXVec3Dot(&fCrossProduct, &vUp);
-					if (0.f > fDotProduct)
-					{
-						m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
-					}
-					else if (0.f < fDotProduct)
-					{
-						m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
-					}
-				}
-				else
-				{
-					_float3 vVec = fDotProduct * vDir;
-					D3DXVec3Normalize(&vVec, &vVec);
-
-					_float3 vProj = vVec + vLook;
-					D3DXVec3Normalize(&vProj, &vProj);
-
-					m_pRigidBodyCom->Set_Direction(CRigid_Body::STATE_LOOK, vProj);
-				}
-			}
+			
+			m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>());
+		
 		}
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
+		m_pTransformCom->Go_BackAndForth(2.f, 1.f);
+		m_pTransformCom->Update_WorldMatrix();
 	}
 }
 

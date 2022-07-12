@@ -28,9 +28,9 @@ void CPlanet::Set_MyWorldPos(_float3 _Pos)
 
     _float3 CamWorldPos = pCurrentCam->Get_Transform()->Get_World_State(CTransform::STATE_POSITION);
    
-    m_vMyWorldPos.x = _Pos.x +CamWorldPos.x;
-    m_vMyWorldPos.y = _Pos.y +CamWorldPos.y;
-    m_vMyWorldPos.z = _Pos.z +CamWorldPos.z;
+    m_vMyWorldPos.x = _Pos.x ;
+    m_vMyWorldPos.y = _Pos.y ;
+    m_vMyWorldPos.z = _Pos.z ;
 
     RETURN_WEAKPTR(pCurrentCam);
 
