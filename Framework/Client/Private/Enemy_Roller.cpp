@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Normal_Turret.h"
 #include "Move_PSystem.h"
+#include "Bayonet_Turret.h"
 
 CEnemy_Roller::CEnemy_Roller(const CEnemy_Roller& Prototype)
 {
@@ -105,15 +106,25 @@ void CEnemy_Roller::SetUp_Components_For_Child()
 
 	COLLISION_TYPE eBulletCollisionType = COLLISION_TYPE::MONSTER_ATTACK;
 
-	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.0f, 2.f));
-	m_pPosinList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pPosinList.back());
+	//CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
+	//Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.0f, 2.f));
+	//m_pPosinList.push_back(Posin);
+	//Posin->Set_WeakPtr(&m_pPosinList.back());
 
-	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
+	//Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
+	//Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.f, 1.0f, 2.f));
+	//m_pPosinList.push_back(Posin);
+	//Posin->Set_WeakPtr(&m_pPosinList.back());
+
+	CBayonet_Turret* Posin = static_cast<CBayonet_Turret*>(GAMEINSTANCE->Add_GameObject<CBayonet_Turret>(CURRENT_LEVEL, TEXT("Bayonet_Turret"), m_pTransformCom, &eBulletCollisionType));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.0f, 2.f));
+	m_pBayonetList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pBayonetList.back());
+
+	Posin = static_cast<CBayonet_Turret*>(GAMEINSTANCE->Add_GameObject<CBayonet_Turret>(CURRENT_LEVEL, TEXT("Bayonet_Turret"), m_pTransformCom, &eBulletCollisionType));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.f, 1.0f, 2.f));
-	m_pPosinList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pPosinList.back());
+	m_pBayonetList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pBayonetList.back());
 
 
 	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
