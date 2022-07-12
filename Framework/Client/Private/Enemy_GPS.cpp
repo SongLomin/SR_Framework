@@ -8,6 +8,7 @@ CEnemy_GPS::CEnemy_GPS()
 
 CEnemy_GPS::CEnemy_GPS(const CEnemy_GPS& Prototype)
 {
+	*this = Prototype;
 }
 
 HRESULT CEnemy_GPS::Initialize_Prototype()
@@ -17,6 +18,7 @@ HRESULT CEnemy_GPS::Initialize_Prototype()
 
 HRESULT CEnemy_GPS::Initialize(void* pArg)
 {
+	__super::Initialize(pArg);
 
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;

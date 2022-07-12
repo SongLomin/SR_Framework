@@ -15,8 +15,8 @@ HRESULT CGPS::Initialize_Prototype()
 
 HRESULT CGPS::Initialize(void* pArg)
 {
-	if (FAILED(SetUp_Components()))
-		return E_FAIL;
+	/*if (FAILED(SetUp_Components()))
+		return E_FAIL;*/
 
 	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinCX, g_iWinCY, 0.0f, 1.f);
 	
@@ -48,6 +48,14 @@ void CGPS::Tick(_float fTimeDelta)
 	//	Enemy_GPS();
 	//	break;
 	//}
+
+	Culling();
+
+	SetRect(&m_rcGPSBox, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
+		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
+
+	if (!m_bCulling)
+		m_pTransformCom->Add_Position(_float3(0.f, 5.f, 0.f), true);
 	
 	RETURN_WEAKPTR(m_pCurrentCamera);
 }
@@ -56,43 +64,72 @@ void CGPS::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
-	LookAtCamera();
+
+	if(!m_bCulling)
+		LookAtCamera();
+
+
+	_float3 Scaled = m_pTransformCom->Get_Scaled();
+	m_pTransformCom->Scaling(Scaled * 3.5f, true);
 	
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_UI, this);
 }
 
 HRESULT CGPS::Render()
 {
-	m_pTransformCom->Bind_WorldMatrix();
 
-	m_pRendererCom->Bind_Texture(0);
+	if (m_bCulling)
+	{
+		m_pTransformCom->Bind_WorldMatrix();
+
+		m_pRendererCom->Bind_Texture(0);
 
 
-	DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	DEVICE->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	DEVICE->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+		DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+		DEVICE->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+		DEVICE->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
-	_float4x4 CurView, CurProj;
-	DEVICE->GetTransform(D3DTS_VIEW, &CurView);
-	DEVICE->GetTransform(D3DTS_PROJECTION, &CurProj);
+		_float4x4 CurView, CurProj;
+		DEVICE->GetTransform(D3DTS_VIEW, &CurView);
+		DEVICE->GetTransform(D3DTS_PROJECTION, &CurProj);
 
-	_float4x4	ViewMatrix;
-	D3DXMatrixIdentity(&ViewMatrix);
+		_float4x4	ViewMatrix;
+		D3DXMatrixIdentity(&ViewMatrix);
 
-	DEVICE->SetTransform(D3DTS_VIEW, &ViewMatrix);
-	DEVICE->SetTransform(D3DTS_PROJECTION, &m_ProjMatrix);
+		DEVICE->SetTransform(D3DTS_VIEW, &ViewMatrix);
+		DEVICE->SetTransform(D3DTS_PROJECTION, &m_ProjMatrix);
 
-	m_pVIBufferCom->Render();
+		__super::Render();
 
-	m_pRendererCom->UnBind_Texture();
+		m_pRendererCom->UnBind_Texture();
 
-	//DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
-	DEVICE->SetTransform(D3DTS_VIEW, &CurView);
-	DEVICE->SetTransform(D3DTS_PROJECTION, &CurProj);
+		//DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+		DEVICE->SetTransform(D3DTS_VIEW, &CurView);
+		DEVICE->SetTransform(D3DTS_PROJECTION, &CurProj);
 
-	DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
+		DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 
-	return S_OK;
+		return S_OK;
+	}
+	else if (!m_bCulling)
+	{
+		m_pTransformCom->Bind_WorldMatrix();
+
+		m_pRendererCom->Bind_Texture(0);
+
+		DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+		DEVICE->SetRenderState(D3DRS_ALPHAREF, 250);
+		DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+
+		m_pVIBufferCom->Render();
+
+		DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+
+
+		m_pRendererCom->UnBind_Texture();
+
+		return S_OK;
+	}
 }
 
 
@@ -100,6 +137,8 @@ HRESULT CGPS::SetUp_Components()
 {
 	m_pTransformCom = Add_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
+
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 1.f, 0.f), true);
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
@@ -117,8 +156,8 @@ void CGPS::SetUp_Varialbes_For_Child(GPS_TYPE _Type, _tchar* TextureTag)
 	m_eType = _Type;
 
 
-
 	m_pRendererCom->Set_Textures_From_Key(TextureTag, MEMORY_TYPE::MEMORY_STATIC);
+	int i = 10;
 }
 
 void CGPS::Enemy_GPS()
@@ -161,7 +200,7 @@ void CGPS::Friendly_GPS()
 
 			D3DXVec3Normalize(&Distance, &Distance);
 
-			m_pTransformCom->Set_State(CTransform::STATE_POSITION, FriendlyPos, true);
+			//m_pTransformCom->Set_State(CTransform::STATE_POSITION, FriendlyPos, true);
 		}
 
 	}
@@ -183,8 +222,32 @@ void CGPS::LookAtCamera()
 	_float3 vWorldPos = m_pTransformCom->Get_State(CTransform::STATE_POSITION, true);
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, *(_float3*)&ViewMatrix.m[2][0] * -1.f + vWorldPos, true);
-
 	m_pTransformCom->Scaling(Scaled * 3.5f, true);
+}
+
+void CGPS::Culling()
+{
+	_uint WinCX = GAMEINSTANCE->Get_Graphic_Desc().iWinCX;
+	_uint WinCY = GAMEINSTANCE->Get_Graphic_Desc().iWinCY;
+
+	_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+
+	CMath_Utillity::WorldToScreen(&MyPos, &MyPos);
+
+	_float CullingX = max(min(MyPos.x, WinCX), 0.f);
+	_float CullingY = max(min(MyPos.y, WinCY), 0.f);
+
+	if (CullingX > WinCX || CullingX < 0.f || CullingY > WinCY || CullingY < 0.f)
+	{
+		m_bCulling = true;
+		m_fX = CullingX;
+		m_fY = CullingY;
+		int i = 10;
+	}
+	else
+	{
+		m_bCulling = false;
+	}
 }
 
 

@@ -91,15 +91,15 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CEnemy_StagBeetle>(LEVEL_SELECTPLANET, TEXT("Enemy_StagBeetle")))
-		return E_FAIL;
+	//if (!GAMEINSTANCE->Add_GameObject<CEnemy_StagBeetle>(LEVEL_SELECTPLANET, TEXT("Enemy_StagBeetle")))
+	//	return E_FAIL;
+	//
+	//if (!GAMEINSTANCE->Add_GameObject<CEnemy_TagetBoard>(LEVEL_SELECTPLANET, TEXT("Enemy_TagetBoard")))
+	//	return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CEnemy_TagetBoard>(LEVEL_SELECTPLANET, TEXT("Enemy_TagetBoard")))
-		return E_FAIL;
 
-
-	GAMEINSTANCE->Add_GameObject<CEnemy_GPS>(CURRENT_LEVEL,
-		TEXT("GPS_Enemy"));
+	//GAMEINSTANCE->Add_GameObject<CEnemy_GPS>(CURRENT_LEVEL,
+	//	TEXT("GPS_Enemy"));
 
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));

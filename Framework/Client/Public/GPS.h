@@ -40,6 +40,8 @@ private:
 	_point					m_ptMouse;
 	RECT					m_rcGPSBox;
 
+	_bool					m_bCulling = false;
+
 private:
 	GPS_TYPE				m_eType = GPS_TYPE::GPS_END;
 
@@ -52,6 +54,7 @@ private:
 	void Enemy_GPS();
 	void Friendly_GPS();
 	void LookAtCamera();
+	void Culling();
 
 public:
 	virtual void Free() override;

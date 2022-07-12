@@ -8,6 +8,7 @@ CFriendly_GPS::CFriendly_GPS()
 
 CFriendly_GPS::CFriendly_GPS(const CFriendly_GPS& Prototype)
 {
+	*this = Prototype;
 }
 
 HRESULT CFriendly_GPS::Initialize_Prototype()
