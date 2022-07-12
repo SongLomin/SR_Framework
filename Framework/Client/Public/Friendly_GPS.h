@@ -7,7 +7,7 @@ END
 
 BEGIN(Client)
 
-class CFriendly_GPS final : CGPS
+class CFriendly_GPS final : public CGPS
 {
 private:
 	CFriendly_GPS();

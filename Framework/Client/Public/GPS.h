@@ -51,6 +51,7 @@ protected:
 private:
 	void Enemy_GPS();
 	void Friendly_GPS();
+	void LookAtCamera();
 
 public:
 	virtual void Free() override;

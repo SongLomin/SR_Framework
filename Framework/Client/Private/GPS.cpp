@@ -19,12 +19,12 @@ HRESULT CGPS::Initialize(void* pArg)
 		return E_FAIL;
 
 	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinCX, g_iWinCY, 0.0f, 1.f);
-
-	m_fX = m_ptMouse.x;
-	m_fY = m_ptMouse.y;
+	
+	m_fX = 0.f;
+	m_fY = 0.f;
 	m_fSizeX = 50.0f;
 	m_fSizeY = 50.0f;
-
+	
 	SetRect(&m_rcGPSBox, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
 
@@ -38,16 +38,16 @@ void CGPS::Tick(_float fTimeDelta)
 	m_pCurrentCamera = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform();
 	WEAK_PTR(m_pCurrentCamera);
 
-	switch (m_eType)
-	{
-	case GPS_TYPE::GPS_FRIENDLY:
-		Friendly_GPS();
-		break;
-
-	case GPS_TYPE::GPS_ENEMY:
-		Enemy_GPS();
-		break;
-	}
+	//switch (m_eType)
+	//{
+	//case GPS_TYPE::GPS_FRIENDLY:
+	//	Friendly_GPS();
+	//	break;
+	//
+	//case GPS_TYPE::GPS_ENEMY:
+	//	Enemy_GPS();
+	//	break;
+	//}
 	
 	RETURN_WEAKPTR(m_pCurrentCamera);
 }
@@ -56,8 +56,9 @@ void CGPS::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
+	LookAtCamera();
 	
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_UI, this);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CGPS::Render()
@@ -107,7 +108,7 @@ HRESULT CGPS::SetUp_Components()
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
-
+	SetUp_For_Child();
 	return S_OK;
 }
 
@@ -123,7 +124,10 @@ void CGPS::SetUp_Varialbes_For_Child(GPS_TYPE _Type, _tchar* TextureTag)
 void CGPS::Enemy_GPS()
 {
 	auto Monster = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster"));
-
+	if (!Monster)
+	{
+		return;
+	}
 	for (auto& elem : *Monster)
 	{
 		if (!GAMEINSTANCE->IsIn(&elem->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION)))
@@ -136,7 +140,6 @@ void CGPS::Enemy_GPS()
 
 			D3DXVec3Normalize(&Distance, &Distance);
 
-			m_pTransformCom->Set_State(CTransform::STATE_POSITION, MonsterPos, true);
 
 		}
 
@@ -162,6 +165,26 @@ void CGPS::Friendly_GPS()
 		}
 
 	}
+}
+
+void CGPS::LookAtCamera()
+{
+	_float4x4		ViewMatrix;
+
+	DEVICE->GetTransform(D3DTS_VIEW, &ViewMatrix);
+	D3DXMatrixInverse(&ViewMatrix, nullptr, &ViewMatrix);
+
+	_float3 Scaled = m_pTransformCom->Get_Scaled();
+
+	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, *(_float3*)&ViewMatrix.m[0][0], true);
+	m_pTransformCom->Set_State(CTransform::STATE_UP, *(_float3*)&ViewMatrix.m[1][0], true);
+	m_pTransformCom->Set_State(CTransform::STATE_LOOK, *(_float3*)&ViewMatrix.m[2][0], true);
+
+	_float3 vWorldPos = m_pTransformCom->Get_State(CTransform::STATE_POSITION, true);
+
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, *(_float3*)&ViewMatrix.m[2][0] * -1.f + vWorldPos, true);
+
+	m_pTransformCom->Scaling(Scaled * 3.5f, true);
 }
 
 

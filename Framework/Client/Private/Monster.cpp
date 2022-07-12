@@ -20,8 +20,8 @@ HRESULT CMonster::Initialize(void* pArg)
 	GAMEINSTANCE->Add_GameObject<CTargetingBox>(CURRENT_LEVEL,
 		TEXT("Targeting"), m_pTransformCom)->Set_Enable(false);
 
-	/*GAMEINSTANCE->Add_GameObject<CEnemy_GPS>(CURRENT_LEVEL,
-		TEXT("GPS_Enemy"), m_pTransformCom)->Set_Enable(true);*/
+	GAMEINSTANCE->Add_GameObject<CEnemy_GPS>(CURRENT_LEVEL,
+		TEXT("GPS_Enemy"), m_pTransformCom)->Set_Enable(true);
 
 	return S_OK;
 }

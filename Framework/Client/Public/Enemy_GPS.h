@@ -7,7 +7,7 @@ END
 
 BEGIN(Client)
 
-class CEnemy_GPS final : CGPS
+class CEnemy_GPS final : public CGPS
 {
 private:
 	CEnemy_GPS();

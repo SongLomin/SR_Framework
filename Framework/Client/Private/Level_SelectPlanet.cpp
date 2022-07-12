@@ -34,7 +34,7 @@
 #include "Enemy_StagBeetle.h"
 #include "Planet_Select.h"
 #include <Kang_Ship_Body.h>
-#include "Rader.h"
+#include <Enemy_GPS.h>
 
 _bool CLevel_SelectPlanet::m_bFirst = false;
 
@@ -97,8 +97,9 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CEnemy_TagetBoard>(LEVEL_SELECTPLANET, TEXT("Enemy_TagetBoard")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CRader>(LEVEL_SELECTPLANET, TEXT("Lader")))
-		return E_FAIL;
+
+	GAMEINSTANCE->Add_GameObject<CEnemy_GPS>(CURRENT_LEVEL,
+		TEXT("GPS_Enemy"));
 
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
