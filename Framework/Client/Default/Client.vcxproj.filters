@@ -325,6 +325,9 @@
     <Filter Include="02.GameObject\07. UI\00. StatusUI\AI_HPBar">
       <UniqueIdentifier>{0932f8ec-827f-4fc9-9d79-b2d7001423bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\02. Monster\Scourge">
+      <UniqueIdentifier>{fa6b764d-a931-4da9-8858-ba83fa8ff057}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -519,7 +522,6 @@
     <ClInclude Include="..\Public\UI.h">
       <Filter>02.GameObject\07. UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Rock.h" />
     <ClInclude Include="..\Public\Warring.h">
       <Filter>02.GameObject\07. UI\Warring</Filter>
     </ClInclude>
@@ -558,9 +560,6 @@
     </ClInclude>
     <ClInclude Include="..\Public\VenusPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Venus</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\StagBeetle.h">
-      <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\MagmaPlanet_SkyBox.h">
       <Filter>02.GameObject\09. Box\SkyBox\Magma</Filter>
@@ -642,6 +641,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\AI_HPBar.h">
       <Filter>02.GameObject\07. UI\00. StatusUI\AI_HPBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Enemy_Scourge.h">
+      <Filter>02.GameObject\02. Monster\Scourge</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -834,7 +836,6 @@
     <ClCompile Include="..\Private\UI.cpp">
       <Filter>02.GameObject\07. UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Rock.cpp" />
     <ClCompile Include="..\Private\Warring.cpp">
       <Filter>02.GameObject\07. UI\Warring</Filter>
     </ClCompile>
@@ -951,6 +952,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\AI_HPBar.cpp">
       <Filter>02.GameObject\07. UI\00. StatusUI\AI_HPBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Enemy_Scourge.cpp">
+      <Filter>02.GameObject\02. Monster\Scourge</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

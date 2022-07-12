@@ -183,6 +183,7 @@
     <ClInclude Include="..\Public\Default_Aim.h" />
     <ClInclude Include="..\Public\Dive.h" />
     <ClInclude Include="..\Public\Effect.h" />
+    <ClInclude Include="..\Public\Enemy_Scourge.h" />
     <ClInclude Include="..\Public\ExoPlanet_SkyBox.h" />
     <ClInclude Include="..\Public\Fire_PSystem.h" />
     <ClInclude Include="..\Public\Health_UI.h" />
@@ -286,6 +287,7 @@
     <ClCompile Include="..\Private\Default_Aim.cpp" />
     <ClCompile Include="..\Private\Dive.cpp" />
     <ClCompile Include="..\Private\Effect.cpp" />
+    <ClCompile Include="..\Private\Enemy_Scourge.cpp" />
     <ClCompile Include="..\Private\ExoPlanet_SkyBox.cpp" />
     <ClCompile Include="..\Private\Fire_PSystem.cpp" />
     <ClCompile Include="..\Private\Health_UI.cpp" />
