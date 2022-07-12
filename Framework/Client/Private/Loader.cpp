@@ -344,7 +344,7 @@ HRESULT CLoader::Loading_ForSelectPlanet()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("GPS_Enemy"), TEXT("../Bin/Resources/Textures/UI/FriendlyAI_Dir.png"),
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("GPS_Friendly"), TEXT("../Bin/Resources/Textures/UI/FriendlyAI_Dir.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 

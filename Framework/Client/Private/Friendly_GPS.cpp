@@ -18,10 +18,12 @@ HRESULT CFriendly_GPS::Initialize_Prototype()
 
 HRESULT CFriendly_GPS::Initialize(void* pArg)
 {
+
+	__super::Initialize(pArg);
+
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	
 
 	SetUp_Varialbes_For_Child(GPS_TYPE::GPS_FRIENDLY,TEXT("GPS_Friendly"));
 

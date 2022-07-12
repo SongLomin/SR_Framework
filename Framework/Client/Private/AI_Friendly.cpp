@@ -4,6 +4,7 @@
 #include "Normal_Turret.h"
 #include <Fire_PSystem.h>
 #include <Bomb_Effect.h>
+#include <Friendly_GPS.h>
 
 CAI_Friendly::CAI_Friendly()
 {
@@ -26,6 +27,7 @@ HRESULT CAI_Friendly::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
+	GAMEINSTANCE->Add_GameObject<CFriendly_GPS>(CURRENT_LEVEL, TEXT("GPS_Friendly"), m_pTransformCom);
 
 	return S_OK;
 }

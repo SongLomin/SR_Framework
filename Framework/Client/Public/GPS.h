@@ -51,13 +51,15 @@ protected:
 	virtual void SetUp_Varialbes_For_Child(GPS_TYPE _Type, _tchar* TextureTag);
 
 private:
-	void Enemy_GPS();
-	void Friendly_GPS();
-	void LookAtCamera();
+	//void Enemy_GPS();
+	//void Friendly_GPS();
+	//void LookAtCamera();
 	void Culling();
+	
 
 public:
 	virtual void Free() override;
+	virtual void OnDisable();
 };
 
 END
