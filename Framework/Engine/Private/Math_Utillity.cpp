@@ -208,9 +208,9 @@ _bool CMath_Utillity::Picking_Mesh(LPD3DXBASEMESH pMesh, CTransform* pTransform,
 	LPD3DXBUFFER pAllHits;
 	DWORD CountOfHits;
 
-	D3DXIntersect(pMesh, &vRayPos, &vRayDir, &bIsHit, &FaceIndex, &U, &V, &fDist, &pAllHits, &CountOfHits);
+	D3DXIntersect(pMesh, &vRayPos, &vRayDir, &bIsHit, nullptr, nullptr, nullptr, &fDist, nullptr, nullptr);
 
-	if (pFaceIndex)
+	/*if (pFaceIndex)
 		*pFaceIndex = FaceIndex;
 
 	if (pU)
@@ -223,7 +223,7 @@ _bool CMath_Utillity::Picking_Mesh(LPD3DXBASEMESH pMesh, CTransform* pTransform,
 		*ppAllHits = pAllHits;
 
 	if (pCountOfHits)
-		*pCountOfHits = CountOfHits;
+		*pCountOfHits = CountOfHits;*/
 
 
 	if (TRUE == bIsHit)

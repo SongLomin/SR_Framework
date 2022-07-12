@@ -162,16 +162,16 @@ HRESULT CAI_TransportShip::SetUp_Components()
 
 #pragma region Collider Setting
 
-	//COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER;
-	//m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
-	//m_pColliderCom->Link_Transform(m_pTransformCom);
-	//m_pColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
-	//m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
-
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER;
+	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
+	m_pColliderCom->Link_Transform(m_pTransformCom);
+	m_pColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
+	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
+
+	/*COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER;
 	m_pColliderMesh = Add_Component<CCollider_Mesh>(&eCollisionType);
 	m_pColliderMesh->Link_Transform(m_pTransformCom);
-	WEAK_PTR(m_pColliderMesh);
+	WEAK_PTR(m_pColliderMesh);*/
 
 
 

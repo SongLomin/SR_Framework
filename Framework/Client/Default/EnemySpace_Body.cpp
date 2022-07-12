@@ -11,6 +11,7 @@
 #include <Bomb_Effect.h>
 #include <Smoke_PSystem.h>
 #include "Move_PSystem.h"
+#include <AI_HPBar.h>
 
 CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
 {
@@ -36,6 +37,8 @@ HRESULT CEnemySpace_Body::Initialize(void* pArg)
 #pragma endregion 초기 위치 설정
 
 	__super::Initialize(pArg);
+
+	GAMEINSTANCE->Add_GameObject<CAI_HPBar>(CURRENT_LEVEL, TEXT("AI_HPBar_UI"), m_pTransformCom, nullptr);
 
 	return S_OK;
 }

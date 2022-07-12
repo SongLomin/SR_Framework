@@ -23,6 +23,7 @@ public:
 	virtual HRESULT Initialize(void* pArg) override;
 	virtual void Tick(_float fTimeDelta) override;
 	virtual void LateTick(_float fTimeDelta) override;
+	virtual HRESULT Render_Begin(ID3DXEffect** Shader = nullptr) override;
 	virtual HRESULT Render() override;
 
 private:
@@ -40,9 +41,12 @@ protected:
 public:
 	void Update_Hp_Bar(CStatus* pStatus);
 
+	
+
 
 private:
 	HRESULT SetUp_Components();
+	void LookAtCamera();
 
 public:
 	static CAI_HPBar* Create();
