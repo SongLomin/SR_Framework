@@ -15,15 +15,12 @@ HRESULT CGPS::Initialize_Prototype()
 
 HRESULT CGPS::Initialize(void* pArg)
 {
-	/*if (FAILED(SetUp_Components()))
-		return E_FAIL;*/
-
 	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinCX, g_iWinCY, 0.0f, 1.f);
 	
 	m_fX = 0.f;
 	m_fY = 0.f;
-	m_fSizeX = 50.0f;
-	m_fSizeY = 50.0f;
+	m_fSizeX = 25.0f;
+	m_fSizeY = 25.0f;
 	
 	SetRect(&m_rcGPSBox, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
@@ -35,29 +32,15 @@ void CGPS::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 	
-	m_pCurrentCamera = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform();
-	WEAK_PTR(m_pCurrentCamera);
-
-	//switch (m_eType)
-	//{
-	//case GPS_TYPE::GPS_FRIENDLY:
-	//	Friendly_GPS();
-	//	break;
-	//
-	//case GPS_TYPE::GPS_ENEMY:
-	//	Enemy_GPS();
-	//	break;
-	//}
-
 	Culling();
 
-	SetRect(&m_rcGPSBox, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
-		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
+	if(m_bCulling)
+		SetRect(&m_rcGPSBox, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
+			m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
 
-	if (!m_bCulling)
-		m_pTransformCom->Add_Position(_float3(0.f, 5.f, 0.f), true);
-	
-	RETURN_WEAKPTR(m_pCurrentCamera);
+	//if (!m_bCulling)
+	//	m_pTransformCom->Add_Position(_float3(0.f, 1.f, 0.f), true);
+
 }
 
 void CGPS::LateTick(_float fTimeDelta)
@@ -68,9 +51,13 @@ void CGPS::LateTick(_float fTimeDelta)
 	if(!m_bCulling)
 		LookAtCamera();
 
+	if (m_bCulling)
+	{
+		m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f) * 2.f);
+		m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(m_fX - (g_iWinCX >> 1), -m_fY + (g_iWinCY >> 1), 0.f));
+	}
 
-	_float3 Scaled = m_pTransformCom->Get_Scaled();
-	m_pTransformCom->Scaling(Scaled * 3.5f, true);
+	
 	
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_UI, this);
 }
@@ -85,9 +72,10 @@ HRESULT CGPS::Render()
 		m_pRendererCom->Bind_Texture(0);
 
 
-		DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-		DEVICE->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-		DEVICE->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+		DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+		DEVICE->SetRenderState(D3DRS_ALPHAREF, 120);
+		DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+		DEVICE->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
 
 		_float4x4 CurView, CurProj;
 		DEVICE->GetTransform(D3DTS_VIEW, &CurView);
@@ -99,15 +87,14 @@ HRESULT CGPS::Render()
 		DEVICE->SetTransform(D3DTS_VIEW, &ViewMatrix);
 		DEVICE->SetTransform(D3DTS_PROJECTION, &m_ProjMatrix);
 
-		__super::Render();
+		m_pVIBufferCom->Render();
+
 
 		m_pRendererCom->UnBind_Texture();
 
-		//DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+		DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 		DEVICE->SetTransform(D3DTS_VIEW, &CurView);
 		DEVICE->SetTransform(D3DTS_PROJECTION, &CurProj);
-
-		DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, FALSE);
 
 		return S_OK;
 	}
@@ -120,6 +107,7 @@ HRESULT CGPS::Render()
 		DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 		DEVICE->SetRenderState(D3DRS_ALPHAREF, 250);
 		DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+		DEVICE->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ZERO);
 
 		m_pVIBufferCom->Render();
 
@@ -138,7 +126,6 @@ HRESULT CGPS::SetUp_Components()
 	m_pTransformCom = Add_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 1.f, 0.f), true);
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
@@ -157,54 +144,8 @@ void CGPS::SetUp_Varialbes_For_Child(GPS_TYPE _Type, _tchar* TextureTag)
 
 
 	m_pRendererCom->Set_Textures_From_Key(TextureTag, MEMORY_TYPE::MEMORY_STATIC);
-	int i = 10;
 }
 
-void CGPS::Enemy_GPS()
-{
-	auto Monster = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster"));
-	if (!Monster)
-	{
-		return;
-	}
-	for (auto& elem : *Monster)
-	{
-		if (!GAMEINSTANCE->IsIn(&elem->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION)))
-		{
-
-			_float3 CameraPos = m_pCurrentCamera->Get_World_State(CTransform::STATE_POSITION);
-			_float3 MonsterPos = elem->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
-
-			_float3 Distance = MonsterPos - CameraPos;
-
-			D3DXVec3Normalize(&Distance, &Distance);
-
-
-		}
-
-	}
-}
-
-void CGPS::Friendly_GPS()
-{
-	auto Friendly = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("AI_Friendly"));
-
-	for (auto& elem : *Friendly)
-	{
-		if (!GAMEINSTANCE->IsIn(&elem->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION)))
-		{
-			_float3 CameraPos = m_pCurrentCamera->Get_World_State(CTransform::STATE_POSITION);
-			_float3 FriendlyPos = elem->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
-
-			_float3 Distance = FriendlyPos - CameraPos;
-
-			D3DXVec3Normalize(&Distance, &Distance);
-
-			//m_pTransformCom->Set_State(CTransform::STATE_POSITION, FriendlyPos, true);
-		}
-
-	}
-}
 
 void CGPS::LookAtCamera()
 {
@@ -222,32 +163,37 @@ void CGPS::LookAtCamera()
 	_float3 vWorldPos = m_pTransformCom->Get_State(CTransform::STATE_POSITION, true);
 
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, *(_float3*)&ViewMatrix.m[2][0] * -1.f + vWorldPos, true);
-	m_pTransformCom->Scaling(Scaled * 3.5f, true);
+	m_pTransformCom->Scaling(Scaled / 2.f, true);
 }
 
 void CGPS::Culling()
 {
-	_uint WinCX = GAMEINSTANCE->Get_Graphic_Desc().iWinCX;
-	_uint WinCY = GAMEINSTANCE->Get_Graphic_Desc().iWinCY;
 
 	_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+	//_float3 MyPos = m_pTransformCom->Get_Owner()->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
 
-	CMath_Utillity::WorldToScreen(&MyPos, &MyPos);
-
-	_float CullingX = max(min(MyPos.x, WinCX), 0.f);
-	_float CullingY = max(min(MyPos.y, WinCY), 0.f);
-
-	if (CullingX > WinCX || CullingX < 0.f || CullingY > WinCY || CullingY < 0.f)
+	if (!GAMEINSTANCE->IsIn(&MyPos))
 	{
+		_uint WinCX = GAMEINSTANCE->Get_Graphic_Desc().iWinCX;
+		_uint WinCY = GAMEINSTANCE->Get_Graphic_Desc().iWinCY;
+
+		CMath_Utillity::WorldToScreen(&MyPos, &MyPos);
+		MyPos.z = 0.f;
+
+		_float CullingX = max(min(MyPos.x, 1200.f), 0.f);
+		_float CullingY = max(min(MyPos.y, 680.f), 0.f);
+
 		m_bCulling = true;
 		m_fX = CullingX;
 		m_fY = CullingY;
-		int i = 10;
+
 	}
 	else
 	{
 		m_bCulling = false;
 	}
+
+	int i = 10;
 }
 
 

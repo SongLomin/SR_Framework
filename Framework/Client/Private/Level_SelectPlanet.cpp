@@ -98,8 +98,8 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	//	return E_FAIL;
 
 
-	//GAMEINSTANCE->Add_GameObject<CEnemy_GPS>(CURRENT_LEVEL,
-	//	TEXT("GPS_Enemy"));
+	GAMEINSTANCE->Add_GameObject<CEnemy_GPS>(CURRENT_LEVEL,
+		TEXT("GPS_Enemy"));
 
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
