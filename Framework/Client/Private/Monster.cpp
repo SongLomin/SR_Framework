@@ -7,6 +7,7 @@
 #include "Smoke_PSystem.h"
 #include "Normal_Turret.h"
 #include <TargetingBox.h>
+#include "Bayonet_Turret.h"
 
 
 HRESULT CMonster::Initialize_Prototype()
@@ -96,6 +97,11 @@ void CMonster::Update_Target(CGameObject* _Target)
 		return;
 
 	for (auto& elem : m_pPosinList)
+	{
+		elem->Set_AI_Target(_Target);
+	}
+
+	for (auto& elem : m_pBayonetList)
 	{
 		elem->Set_AI_Target(_Target);
 	}

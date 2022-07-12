@@ -17,6 +17,7 @@ END
 
 BEGIN(Client)
 class CNormal_Turret;
+class CBayonet_Turret;
 class CMonster abstract : public CGameObject
 {
 protected:
@@ -43,6 +44,7 @@ protected: /* For My Component*/
 
 protected:
     list<CNormal_Turret*> m_pPosinList;
+    list<CBayonet_Turret*> m_pBayonetList;
     _float m_fTime = 3.f;
 
 public:
