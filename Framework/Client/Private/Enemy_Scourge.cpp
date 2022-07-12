@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Move_PSystem.h"
 #include "Normal_Turret.h"
+#include "Bomb_Effect.h"
 
 CEnemy_Scourge::CEnemy_Scourge(const CEnemy_Scourge& Prototype)
 {
@@ -20,6 +21,8 @@ HRESULT CEnemy_Scourge::Initialize(void* pArg)
 		return E_FAIL;
 
 	__super::Initialize(pArg);
+
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(rand() % 1000, rand() % 150, rand() % 1000));
 
 	return S_OK;
 }
@@ -95,24 +98,20 @@ void CEnemy_Scourge::SetUp_Components_For_Child()
 	m_pMeshCom->Set_Texture(TEXT("Red_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.Set_Preset_StagBeetle();
+	RigidBodyDesc.Set_Preset_Scourge();
 
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
 
-	COLLISION_TYPE eBulletCollisionType = COLLISION_TYPE::MONSTER_ATTACK;
 
-	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.0f, 2.f));
-	m_pPosinList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pPosinList.back());
-
-	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.f, 1.0f, 2.f));
-	m_pPosinList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pPosinList.back());
+	COLLISION_TYPE	eCollisiontype = COLLISION_TYPE::OBJECT;
+	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisiontype);
+	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
+	m_pColliderCom->Link_Transform(m_pTransformCom);
+	m_pColliderCom->Set_Collider_Size(_float3(3.f, 3.f, 3.f));
+	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 
 
 	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
@@ -121,13 +120,9 @@ void CEnemy_Scourge::SetUp_Components_For_Child()
 
 	m_pAIControllerCom->Link_Object(this);
 	m_pAIControllerCom->Set_Enable(false);
-	m_pAIControllerCom->Set_UsableStates(m_pAIControllerCom->Get_States_Preset_AI_Default());
+	m_pAIControllerCom->Set_UsableStates({ STATE::MOVETAGET_CHASE_PLAYER });
 
-
-	m_pColliderCom->Link_Transform(m_pTransformCom);
-	m_pColliderCom->Set_Collider_Size(_float3(3.f, 3.f, 3.f));
-	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
-
+	
 	Set_Controller(CONTROLLER::AI);
 }
 
@@ -139,6 +134,27 @@ void CEnemy_Scourge::On_Change_Controller(const CONTROLLER& _IsAI)
 void CEnemy_Scourge::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Enter(_Other_Collider);
+
+	if (COLLISION_TYPE::PLAYER == _Other_Collider->Get_Collision_Type())
+	{
+		CGameObject* pOtherCollider = _Other_Collider->Get_Owner();
+		_float3		pRockPos = m_pTransformCom->Get_State(CTransform::STATE_POSITION, true);
+		_float3 vOtherColliderSpeed = pOtherCollider->Get_Component<CRigid_Body>()->Get_Vector(RIGID_BODY::SPEED);
+		_float3 vCollisionDirection = pRockPos - pOtherCollider->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION, true);
+
+		D3DXVec3Normalize(&vCollisionDirection, &vCollisionDirection);
+		vCollisionDirection *= D3DXVec3Length(&vOtherColliderSpeed);
+		vOtherColliderSpeed += vCollisionDirection;
+
+		m_pRigidBodyCom->Add_Force(vOtherColliderSpeed * 3.f);
+
+		CGameObject* pParticle = GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false);
+		((CBomb_Effect*)pParticle)->Set_Pos(pRockPos);
+		((CBomb_Effect*)pParticle)->Get_Component<CTransform>()->Scaling(_float3(25.f, 25.f, 25.f));
+		Set_Dead();
+		//폭발 이펙트 스케일링 따로 지정해줘야함
+	}
+
 }
 
 void CEnemy_Scourge::On_Collision_Stay(CCollider* _Other_Collider)

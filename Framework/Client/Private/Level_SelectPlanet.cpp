@@ -149,12 +149,13 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CSatellite_3>(LEVEL_SELECTPLANET, TEXT("Satellite_3")))
 		return E_FAIL;*/
 
-
-	if (!GAMEINSTANCE->Add_GameObject<CEnemy_Scourge>(LEVEL_SELECTPLANET, TEXT("Enemy_Scouge")))
-		return E_FAIL;
-
-	if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_SELECTPLANET, TEXT("EnemySpace_Body")))
-		return E_FAIL;
+	for (int i = 0; i < 10; ++i)
+	{
+		if (!GAMEINSTANCE->Add_GameObject<CEnemy_Scourge>(LEVEL_SELECTPLANET, TEXT("Enemy_Scouge")))
+			return E_FAIL;
+	}
+	/*if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_SELECTPLANET, TEXT("EnemySpace_Body")))
+		return E_FAIL;*/
 
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));

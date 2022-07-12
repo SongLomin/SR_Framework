@@ -77,7 +77,6 @@ public:
 			m_fOwnerLiftAccel = 0.3f;
 			m_fRadDrag = 1.f;
 			m_fDirDrag = 0.05f;
-			m_fOwnerAccel = 0.1f;
 		}
 
 		void Set_Preset_StagBeetle()
@@ -98,7 +97,28 @@ public:
 			m_fOwnerLiftAccel = 0.3f;
 			m_fRadDrag = 1.f;
 			m_fDirDrag = 0.05f;
-			m_fOwnerAccel = 0.1f;
+		}
+
+
+		void Set_Preset_Scourge()
+		{
+			m_fOwnerSpeed = 50.f;
+			m_fOwnerAccel = 10.f;
+			m_fOwnerRadSpeed = D3DXToRadian(90.0f);
+			m_fOwnerRadAccel = 0.3f;
+			m_fOwnerJump = 5.f;
+			m_fOwnerJumpScale = 1.f;
+
+			m_fFrictional = 0.05f;
+			m_fRadFrictional = 0.02f;
+			m_fRadZ = 0.01f;
+
+			m_fOwnerLiftSpeed = 100.f;
+			m_fOwnerLiftAccel = 10.f;
+			m_fRadDrag = 1.f;
+			m_fDirDrag = 0.05f;
+			m_fBoosterSpeed = 100.f;
+			m_fBoosterAccel = 1.f;
 		}
 
 		void Set_Preset_Kang_Ship()

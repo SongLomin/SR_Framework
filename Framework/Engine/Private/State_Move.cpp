@@ -53,6 +53,9 @@ void CState_Move::Tick(_float fTimeDelta)
 	case Engine::STATE::MOVETARGET_CHASE:
 		MoveTarget_Chase(fTimeDelta, 10.f);
 		break;
+	case Engine::STATE::MOVETAGET_CHASE_PLAYER:
+		MoveTaget_Chase_Player(fTimeDelta);
+		break;
 	case Engine::STATE::MOVETARGET_RSPIN:
 		MoveTarget_RSpin(fTimeDelta, 10.f);
 		break;
@@ -139,10 +142,15 @@ void CState_Move::Move_Jump_Front()
 }
 
 
-void CState_Move::Move_Chase_Player(CTransform* pPlayerTransform, _float fTimeDelta)
+void CState_Move::MoveTaget_Chase_Player(_float fTimeDelta)
 {
-	m_pTransform->Go_Target(pPlayerTransform, fTimeDelta);
-	m_pTransform->Go_BackAndForth(8.f, fTimeDelta);
+	if (!m_pTargetTransform)
+	{
+		return;
+	}
+
+	m_pTransform->Go_Target(m_pTargetTransform, fTimeDelta);
+	m_pTransform->Go_BackAndForth(50.f, fTimeDelta);
 }
 
 void CState_Move::Move_Forward()
@@ -163,6 +171,7 @@ void CState_Move::MoveTarget_Chase( _float fTimeDelta, _float fLimit)
 	m_pTransform->Chase(m_pTargetTransform, fTimeDelta, fLimit);
 
 }
+
 
 void CState_Move::MoveTarget_LSpin(_float fTimeDelta, _float fLimit)
 {

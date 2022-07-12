@@ -131,8 +131,7 @@ HRESULT CMonster::SetUp_Components()
 	m_pAIControllerCom = Add_Component<CAI_Controller>();
 	m_pAIControllerCom->Set_WeakPtr(&m_pAIControllerCom);
 
-	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
-	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
+	
 
 
 	SetUp_Components_For_Child();

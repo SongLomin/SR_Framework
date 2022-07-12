@@ -212,6 +212,8 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 
 #pragma region Rigid_Body Setting
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
+	/*RigidBodyDesc.m_fOwnerSpeed = 30.f;
+	RigidBodyDesc.m_fOwnerAccel = 1.f;*/
 	RigidBodyDesc.m_fOwnerSpeed = 30.f;
 	RigidBodyDesc.m_fOwnerAccel = 1.f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
