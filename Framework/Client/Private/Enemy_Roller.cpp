@@ -39,7 +39,7 @@ void CEnemy_Roller::LateTick(_float fTimeDelta)
 
 	if (fabs(D3DXVec3Length(&Speed)) > 5.f)
 	{
-		D3DCOLOR color = D3DCOLOR_ARGB(255, 200, 191, 231);
+		D3DCOLOR color = D3DCOLOR_ARGB(255, 249, 159, 247);
 		((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom, color);
 	}
 
@@ -134,6 +134,7 @@ void CEnemy_Roller::SetUp_Components_For_Child()
 	m_pAIControllerCom->Link_Object(this);
 	m_pAIControllerCom->Set_Enable(false);
 	m_pAIControllerCom->Set_UsableStates(m_pAIControllerCom->Get_States_Preset_AI_Default());
+	m_pAIControllerCom->Set_UsableStates({ STATE::MOVETAGET_CHASE_PLAYER });
 
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
 	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);

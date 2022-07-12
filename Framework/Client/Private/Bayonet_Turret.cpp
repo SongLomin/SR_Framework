@@ -23,7 +23,7 @@ HRESULT CBayonet_Turret::Initialize(void* pArg)
 
 	float floatArray[3];
 	floatArray[0] = 0.9f;
-	floatArray[1] = 0.6f;
+	floatArray[1] = 0.5f;
 	floatArray[2] = 0.9f;
 
 	SetUp_Variables_For_Child(0.1f, _float3(0.2f, 0.2f, 5.f), floatArray);
