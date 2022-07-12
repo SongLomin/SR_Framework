@@ -39,7 +39,7 @@ void CEnemy_Roller::LateTick(_float fTimeDelta)
 
 	if (fabs(D3DXVec3Length(&Speed)) > 5.f)
 	{
-		D3DCOLOR color = D3DCOLOR_ARGB(255, 0, 255, 0);
+		D3DCOLOR color = D3DCOLOR_ARGB(255, 200, 191, 231);
 		((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom, color);
 	}
 
@@ -117,12 +117,12 @@ void CEnemy_Roller::SetUp_Components_For_Child()
 	//Posin->Set_WeakPtr(&m_pPosinList.back());
 
 	CBayonet_Turret* Posin = static_cast<CBayonet_Turret*>(GAMEINSTANCE->Add_GameObject<CBayonet_Turret>(CURRENT_LEVEL, TEXT("Bayonet_Turret"), m_pTransformCom, &eBulletCollisionType));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.0f, 2.f));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(4.f, 1.0f, 3.f));
 	m_pBayonetList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pBayonetList.back());
 
 	Posin = static_cast<CBayonet_Turret*>(GAMEINSTANCE->Add_GameObject<CBayonet_Turret>(CURRENT_LEVEL, TEXT("Bayonet_Turret"), m_pTransformCom, &eBulletCollisionType));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.f, 1.0f, 2.f));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-4.f, 1.0f, 3.f));
 	m_pBayonetList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pBayonetList.back());
 

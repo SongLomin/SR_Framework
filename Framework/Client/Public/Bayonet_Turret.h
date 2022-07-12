@@ -15,6 +15,7 @@ protected:
     virtual HRESULT Initialize(void* pArg) override;
     virtual void    Tick(_float fTimeDelta) final;
     virtual void    LateTick(_float fTimeDelta) final;
+    virtual HRESULT Render();
     virtual void    Command_Fire() override;
     virtual void    On_EventMessage(void* _Arg) override;
 

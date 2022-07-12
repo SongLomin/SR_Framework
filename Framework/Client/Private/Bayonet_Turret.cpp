@@ -26,7 +26,7 @@ HRESULT CBayonet_Turret::Initialize(void* pArg)
 	floatArray[1] = 0.2f;
 	floatArray[2] = 0.9f;
 
-	SetUp_Variables_For_Child(0.1f, _float3(0.4f, 0.4f, 30.f), floatArray);
+	SetUp_Variables_For_Child(0.1f, _float3(0.2f, 0.2f, 5.f), floatArray);
 
 	return S_OK;
 }
@@ -45,6 +45,12 @@ void CBayonet_Turret::LateTick(_float fTimeDelta)
 	__super::LateTick(fTimeDelta);
 
 	m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK, true), m_fPreheatTime - 1.1f, 1.f, true);
+}
+
+HRESULT CBayonet_Turret::Render()
+{
+	m_pMeshTestCom->Render_Mesh();
+	return S_OK;
 }
 
 
