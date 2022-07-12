@@ -328,6 +328,9 @@
     <Filter Include="02.GameObject\08. Aim\12. BillBoard_Object\Satellite\Satellite3">
       <UniqueIdentifier>{70001689-47c6-4145-a1ee-1de0a25c9d30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\02. Monster\Roller">
+      <UniqueIdentifier>{795fc578-e3b8-4c19-a6ff-29b63b0c0447}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -645,6 +648,9 @@
     <ClInclude Include="..\Public\Enemy_Scourge.h">
       <Filter>02.GameObject\02. Monster\Scourge</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Enemy_Roller.h">
+      <Filter>02.GameObject\02. Monster\Roller</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -955,6 +961,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Enemy_Scourge.cpp">
       <Filter>02.GameObject\02. Monster\Scourge</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Enemy_Roller.cpp">
+      <Filter>02.GameObject\02. Monster\Roller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

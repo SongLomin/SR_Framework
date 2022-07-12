@@ -42,6 +42,7 @@
 #include <Kang_Ship_Body.h>
 #include "Enemy_Scourge.h"
 #include "EnemySpace_Body.h"
+#include "Enemy_Roller.h"
 
 _bool CLevel_SelectPlanet::m_bFirst = false;
 
@@ -154,8 +155,10 @@ HRESULT CLevel_SelectPlanet::Initialize()
 		if (!GAMEINSTANCE->Add_GameObject<CEnemy_Scourge>(LEVEL_SELECTPLANET, TEXT("Enemy_Scouge")))
 			return E_FAIL;
 	}
-	/*if (!GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_SELECTPLANET, TEXT("EnemySpace_Body")))
-		return E_FAIL;*/
+    
+
+	if (!GAMEINSTANCE->Add_GameObject<CEnemy_Roller>(LEVEL_SELECTPLANET, TEXT("Enemy_Roller")))
+		return E_FAIL;
 
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
