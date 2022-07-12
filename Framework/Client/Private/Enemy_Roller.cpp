@@ -46,7 +46,6 @@ void CEnemy_Roller::LateTick(_float fTimeDelta)
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 
-	m_pTransformCom->Scaling(_float3(1.f, 1.f, 1.f), true);
 
 	if (GAMEINSTANCE->IsIn(&vPos))
 		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
@@ -55,6 +54,19 @@ void CEnemy_Roller::LateTick(_float fTimeDelta)
 
 HRESULT CEnemy_Roller::Render_Begin(ID3DXEffect** Shader)
 {
+	m_pTransformCom->Scaling(_float3(0.05f, 0.05f, 0.05f), true);
+	m_pTransformCom->Bind_WorldMatrix();
+
+	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
+
+	float floatArray[3];
+	floatArray[0] = 0.7f;
+	floatArray[1] = 0.7f;
+	floatArray[2] = 0.7f;
+
+	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
+
+
 	return S_OK;
 }
 
@@ -62,7 +74,7 @@ HRESULT CEnemy_Roller::Render()
 {
 	__super::Render();
 
-	m_pMeshCom->Render();
+	m_pMeshCom->Render_Mesh();
 
 	return S_OK;
 }
@@ -79,7 +91,7 @@ void CEnemy_Roller::SetUp_Components_For_Child()
 	m_pStatusCom = Add_Component<CStatus>(&Status);
 	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
 
-	m_pMeshCom = Add_Component<CMesh_Ship2>();
+	m_pMeshCom = Add_Component<CMesh_EnemySpace>();
 	m_pMeshCom->Set_WeakPtr((void**)&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Red_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
