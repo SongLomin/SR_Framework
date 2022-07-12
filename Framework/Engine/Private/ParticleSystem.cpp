@@ -258,6 +258,8 @@ void CParticleSystem::AddParticle(int num, _float3 _Pos)
 
 	ParticleDesc Desc;
 
+	Desc.position = _Pos;
+
 	//m_pTransform->Set_State(CTransform::STATE_POSITION, _Pos);
 	D3DXMatrixIdentity(&m_WorldMat);
 

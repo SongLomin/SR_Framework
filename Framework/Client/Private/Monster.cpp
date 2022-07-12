@@ -7,7 +7,7 @@
 #include "Smoke_PSystem.h"
 #include "Normal_Turret.h"
 #include <TargetingBox.h>
-
+#include <Enemy_GPS.h>
 
 HRESULT CMonster::Initialize_Prototype()
 {
@@ -20,6 +20,10 @@ HRESULT CMonster::Initialize(void* pArg)
 	GAMEINSTANCE->Add_GameObject<CTargetingBox>(CURRENT_LEVEL,
 		TEXT("Targeting"), m_pTransformCom)->Set_Enable(false);
 
+	GAMEINSTANCE->Add_GameObject<CEnemy_GPS>(CURRENT_LEVEL, TEXT("GPS_Enemy"), m_pTransformCom);
+
+	//m_pGPS = (CEnemy_GPS*)GAMEINSTANCE->Add_GameObject<CEnemy_GPS>(CURRENT_LEVEL, TEXT("GPS"),m_pTransformCom);
+	
 	return S_OK;
 }
 
@@ -57,8 +61,6 @@ void CMonster::LateTick(_float fTimeDelta)
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
-
-	
 
 
 }

@@ -183,8 +183,17 @@
     <ClInclude Include="..\Public\Default_Aim.h" />
     <ClInclude Include="..\Public\Dive.h" />
     <ClInclude Include="..\Public\Effect.h" />
+    <ClInclude Include="..\Public\Enemy_GPS.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\Public\ExoPlanet_SkyBox.h" />
     <ClInclude Include="..\Public\Fire_PSystem.h" />
+    <ClInclude Include="..\Public\Friendly_GPS.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\Public\GPS.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\Public\Health_UI.h" />
     <ClInclude Include="..\Public\Hong_Ship_Body.h" />
     <ClInclude Include="..\Public\Lazer_Bullet.h" />
@@ -212,6 +221,7 @@
     <ClInclude Include="..\Public\Planet_Sun.h" />
     <ClInclude Include="..\Public\Planet_Venus.h" />
     <ClInclude Include="..\Public\Player.h" />
+    <ClInclude Include="..\Public\Rader_PSystem.h" />
     <ClInclude Include="..\Public\RedPlanet_SkyBox.h" />
     <ClInclude Include="..\Public\Rocket_PSystem.h" />
     <ClInclude Include="..\Public\Rocket_Turret.h" />
@@ -286,8 +296,17 @@
     <ClCompile Include="..\Private\Default_Aim.cpp" />
     <ClCompile Include="..\Private\Dive.cpp" />
     <ClCompile Include="..\Private\Effect.cpp" />
+    <ClCompile Include="..\Private\Enemy_GPS.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\Private\ExoPlanet_SkyBox.cpp" />
     <ClCompile Include="..\Private\Fire_PSystem.cpp" />
+    <ClCompile Include="..\Private\Friendly_GPS.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\Private\GPS.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\Private\Health_UI.cpp" />
     <ClCompile Include="..\Private\Hong_Ship_Body.cpp" />
     <ClCompile Include="..\Private\Lazer_Bullet.cpp" />
@@ -315,6 +334,7 @@
     <ClCompile Include="..\Private\Planet_Sun.cpp" />
     <ClCompile Include="..\Private\Planet_Venus.cpp" />
     <ClCompile Include="..\Private\Player.cpp" />
+    <ClCompile Include="..\Private\Rader_PSystem.cpp" />
     <ClCompile Include="..\Private\RedPlanet_SkyBox.cpp" />
     <ClCompile Include="..\Private\Rocket_PSystem.cpp" />
     <ClCompile Include="..\Private\Rocket_Turret.cpp" />

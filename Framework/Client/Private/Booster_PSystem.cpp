@@ -70,7 +70,7 @@ void CBooster_PSystem::Tick(_float fTimeDelta)
 			//ResetParticle(&(*iter));
 			continue;
 		}
-
+		
 		iter->age += fTimeDelta;
 	}
 
