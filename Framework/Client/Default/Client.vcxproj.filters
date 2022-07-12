@@ -277,9 +277,6 @@
     <Filter Include="02.GameObject\14. GPS\Friendly_GPS">
       <UniqueIdentifier>{fd7c8726-268a-4dae-8db7-f0f80f315303}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\15. Rader">
-      <UniqueIdentifier>{572ea962-666c-4d40-b0ed-42b40f43240a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\10. ParticleSystem\08. Rader_PSystem">
       <UniqueIdentifier>{5f26074a-221d-4601-bc13-4ab34609bd90}</UniqueIdentifier>
     </Filter>
@@ -557,9 +554,6 @@
     <ClInclude Include="..\Public\Enemy_GPS.h">
       <Filter>02.GameObject\14. GPS\Enemy_GPS</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Rader.h">
-      <Filter>02.GameObject\15. Rader</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\Rader_PSystem.h">
       <Filter>02.GameObject\10. ParticleSystem\08. Rader_PSystem</Filter>
     </ClInclude>
@@ -830,9 +824,6 @@
     </ClCompile>
     <ClCompile Include="..\Private\Enemy_GPS.cpp">
       <Filter>02.GameObject\14. GPS\Enemy_GPS</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\Rader.cpp">
-      <Filter>02.GameObject\15. Rader</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Rader_PSystem.cpp">
       <Filter>02.GameObject\10. ParticleSystem\08. Rader_PSystem</Filter>

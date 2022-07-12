@@ -190,9 +190,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\Public\Hong_Ship_Body.h" />
-    <ClInclude Include="..\Public\Rader.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="..\Public\Lazer_Bullet.h" />
     <ClInclude Include="..\Public\Lazer_Turret.h" />
     <ClInclude Include="..\Public\Level_CharacterSelect.h" />
@@ -290,9 +287,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\Private\Hong_Ship_Body.cpp" />
-    <ClCompile Include="..\Private\Rader.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\Private\Lazer_Bullet.cpp" />
     <ClCompile Include="..\Private\Lazer_Turret.cpp" />
     <ClCompile Include="..\Private\Level_CharacterSelect.cpp" />
