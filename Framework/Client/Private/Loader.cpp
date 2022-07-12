@@ -179,6 +179,9 @@ HRESULT CLoader::Loading_ForLogoLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("AI_HPBar_UI"), TEXT("../Bin/Resources/Textures/UI/AI_HP.jpg"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
 	
 
 	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
@@ -187,10 +190,11 @@ HRESULT CLoader::Loading_ForLogoLevel()
 
 	lstrcpy(m_szLoadingText, TEXT("쉐이더를 로딩중 입니다. "));
 
-	GAMEINSTANCE->Load_Shader(TEXT("GBuffer"), TEXT("GBuffer.hlsl"));
-	GAMEINSTANCE->Load_Shader(TEXT("DirectionalLight"), TEXT("DirectionalLight.hlsl"));
-	GAMEINSTANCE->Load_Shader(TEXT("SpotLight"), TEXT("SpotLight.hlsl"));
-	GAMEINSTANCE->Load_Shader(TEXT("PointLight"), TEXT("PointLight.hlsl"));
+	GAMEINSTANCE->Load_Shader(TEXT("GBuffer"), TEXT("../Bin/ShaderFiles/GBuffer.hlsl"));
+	GAMEINSTANCE->Load_Shader(TEXT("DirectionalLight"), TEXT("../Bin/ShaderFiles/DirectionalLight.hlsl"));
+	GAMEINSTANCE->Load_Shader(TEXT("SpotLight"), TEXT("../Bin/ShaderFiles/SpotLight.hlsl"));
+	GAMEINSTANCE->Load_Shader(TEXT("PointLight"), TEXT("../Bin/ShaderFiles/PointLight.hlsl"));
+	GAMEINSTANCE->Load_Shader(TEXT("HPBar"), TEXT("../Bin/ShaderFiles/HPBar.hlsl"));
 
 
 	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))

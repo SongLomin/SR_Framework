@@ -27,10 +27,16 @@ public:
 	virtual HRESULT Render() override;
 
 private:
-	CRenderer* m_pRendererCom = nullptr;
-	CTransform* m_pTransformCom = nullptr;
-	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
-	CStatus* m_pStatusCom = nullptr;
+	CRenderer*		m_pRendererCom = nullptr;
+	CTransform*		m_pTransformCom = nullptr;
+	CVIBuffer_Rect*	m_pVIBufferCom = nullptr;
+
+private:
+	CStatus*		m_pMyBodyStatusCom = nullptr;
+	_float			m_fHPRatio = 1.f;
+
+private:
+	ID3DXEffect** m_ppShader = nullptr;
 
 protected:
 	_float					m_fX, m_fY, m_fSizeX, m_fSizeY;
@@ -39,7 +45,7 @@ protected:
 	RECT					m_rcRect;
 
 public:
-	void Update_Hp_Bar(CStatus* pStatus);
+	void Update_Hp_Bar();
 
 	
 

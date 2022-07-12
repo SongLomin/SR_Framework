@@ -7,6 +7,7 @@
 #include "Smoke_PSystem.h"
 #include "Normal_Turret.h"
 #include <TargetingBox.h>
+#include <AI_HPBar.h>
 
 
 HRESULT CMonster::Initialize_Prototype()
@@ -19,6 +20,10 @@ HRESULT CMonster::Initialize(void* pArg)
 
 	GAMEINSTANCE->Add_GameObject<CTargetingBox>(CURRENT_LEVEL,
 		TEXT("Targeting"), m_pTransformCom)->Set_Enable(false);
+
+	m_pHPBar = GAMEINSTANCE->Add_GameObject<CAI_HPBar>(CURRENT_LEVEL, TEXT("AI_HPBar_UI"), m_pTransformCom, nullptr);
+
+	m_pHPBar->Set_Enable(false);
 
 	return S_OK;
 }
@@ -147,6 +152,8 @@ void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::PLAYER_ATTACK)
 	{
+		m_pHPBar->Set_Enable(true);
+
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
 		//((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle_Fire"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
 		((CFire_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle_Fire")))->AddParticle(50, m_pTransformCom);
@@ -196,6 +203,7 @@ void CMonster::OnEnable(void* _Arg)
 	Command_For_Children<function<void(CBase&, _bool, void*)>, _bool, void*>(Set_EnableFunc, true, _Arg);
 
 	Get_Children_From_Key(TEXT("Targeting")).front()->Set_Enable(false);
+	m_pHPBar->Set_Enable(false);
 
 	m_pStatusCom->Set_FULL_HP();
 	m_fTime = 3.f;

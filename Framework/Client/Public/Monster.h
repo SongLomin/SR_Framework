@@ -45,6 +45,9 @@ protected:
     list<CNormal_Turret*> m_pPosinList;
     _float m_fTime = 3.f;
 
+private:
+    CGameObject* m_pHPBar = nullptr;
+
 public:
     virtual void On_Change_Controller(const CONTROLLER& _IsAI);
 

@@ -38,7 +38,7 @@ HRESULT CEnemySpace_Body::Initialize(void* pArg)
 
 	__super::Initialize(pArg);
 
-	GAMEINSTANCE->Add_GameObject<CAI_HPBar>(CURRENT_LEVEL, TEXT("AI_HPBar_UI"), m_pTransformCom, nullptr);
+	
 
 	return S_OK;
 }

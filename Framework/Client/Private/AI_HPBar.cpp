@@ -17,6 +17,8 @@ HRESULT CAI_HPBar::Initialize(void* pArg)
 
 	SetUp_Components();
 
+	m_ppShader = GAMEINSTANCE->Get_Shader_From_Key(TEXT("HPBar"), MEMORY_TYPE::MEMORY_STATIC);
+
 	return S_OK;
 }
 
@@ -24,21 +26,64 @@ void CAI_HPBar::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	LookAtCamera();
+	if (!m_pMyBodyStatusCom)
+	{
+		m_pMyBodyStatusCom = m_pTransformCom->Get_Parent()->Get_Owner()->Get_Component<CStatus>();
+	}
+
+	_float CurHP = m_pMyBodyStatusCom->Get_Status(CStatus::STATUS_HP);
+	_float MaxHP = m_pMyBodyStatusCom->Get_Status(CStatus::STATUS_MAXHP);
+
+	//목표 HP 비율이다.
+	_float Target_HPRatio = CurHP / MaxHP;
+
+	m_fHPRatio = CMath_Utillity::fLerp(m_fHPRatio, Target_HPRatio, 0.1f);
 }
 
 void CAI_HPBar::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
+	LookAtCamera();
+	m_pTransformCom->Scaling(_float3(5.f, 1.f, 1.f), true);
+
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CAI_HPBar::Render_Begin(ID3DXEffect** Shader)
 {
+	D3DXHANDLE worldHandle = (*m_ppShader)->GetParameterByName(0, "world");
+	D3DXHANDLE viewHandle = (*m_ppShader)->GetParameterByName(0, "view");
+	D3DXHANDLE projHandle = (*m_ppShader)->GetParameterByName(0, "proj");
+	D3DXHANDLE RatioHandle = (*m_ppShader)->GetParameterByName(0, "g_Ratio");
+	D3DXHANDLE TextureHandle = (*m_ppShader)->GetParameterByName(0, "g_Texture");
 
-	m_pTransformCom->Bind_WorldMatrix();
+	_float4x4 view, proj, world;
+	DEVICE->GetTransform(D3DTS_VIEW, &view);
+	DEVICE->GetTransform(D3DTS_PROJECTION, &proj);
+	
+	(*m_ppShader)->SetMatrix(viewHandle, &view);
+	(*m_ppShader)->SetMatrix(projHandle, &proj);
+	(*m_ppShader)->SetMatrix(worldHandle, &m_pTransformCom->Get_WorldMatrix());
+	(*m_ppShader)->SetFloat(RatioHandle, m_fHPRatio);
+	(*m_ppShader)->SetTexture(TextureHandle, m_pRendererCom->Get_Texture(0));
+
 	__super::Render_Begin(Shader);
+
+	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	DEVICE->SetRenderState(D3DRS_ALPHAREF, 250);
+	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+
+	D3DXHANDLE hTech = 0;
+	UINT numPasses = 0;
+
+	hTech = (*m_ppShader)->GetTechniqueByName("DefaultTechnique");
+	(*m_ppShader)->SetTechnique(hTech);
+
+	(*m_ppShader)->Begin(nullptr, 0);
+	(*m_ppShader)->BeginPass(0);
+
+	//m_pRendererCom->Bind_Texture(0);
 
 	return S_OK;
 }
@@ -47,10 +92,17 @@ HRESULT CAI_HPBar::Render()
 {
 	__super::Render();
 
+	//m_pRendererCom->UnBind_Texture();
+
+	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
+
+	(*m_ppShader)->EndPass();
+	(*m_ppShader)->End();
+
 	return S_OK;
 }
 
-void CAI_HPBar::Update_Hp_Bar(CStatus* pStatus)
+void CAI_HPBar::Update_Hp_Bar()
 {
 }
 
@@ -79,17 +131,7 @@ HRESULT CAI_HPBar::SetUp_Components()
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	WEAK_PTR(m_pVIBufferCom);
 
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Planet"), MEMORY_TYPE::MEMORY_STATIC);
-
-	//정해진 값 안에서만 놀게끔 짜고 싶을 때,
-	_float i = min(1300.f, 800.f);
-	_float j = max(-1300.f, 0.f);
-	_float MonsterScreenPos_X = 1300.f;
-
-
-	MonsterScreenPos_X = max(min(MonsterScreenPos_X, 800.f), 0.f);
-
-	//i = 800.f
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Logo"), MEMORY_TYPE::MEMORY_STATIC);
 
 
 

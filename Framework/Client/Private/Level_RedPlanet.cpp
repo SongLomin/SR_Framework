@@ -169,7 +169,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	if (m_fSpawnTime < 0.f)
 	{
 		
-			CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("Monster"), nullptr, nullptr, true)
+			CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body"), nullptr, nullptr, true)
 											->Get_Component<CTransform>();
 			_float3 SpawnPos{ 0, 0.f, 300.f };
 
