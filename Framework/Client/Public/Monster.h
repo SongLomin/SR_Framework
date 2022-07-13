@@ -49,7 +49,7 @@ protected:
     _float m_fTime = 3.f;
     //CEnemy_GPS* m_pGPS = nullptr;
 
-private:
+protected:
     CGameObject* m_pHPBar = nullptr;
 
 public:

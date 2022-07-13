@@ -4,6 +4,7 @@
 #include "Move_PSystem.h"
 #include "Normal_Turret.h"
 #include "Bomb_Effect.h"
+#include "Fire_PSystem.h"
 
 CEnemy_Scourge::CEnemy_Scourge(const CEnemy_Scourge& Prototype)
 {
@@ -135,8 +136,9 @@ void CEnemy_Scourge::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Enter(_Other_Collider);
 
-	if (COLLISION_TYPE::PLAYER == _Other_Collider->Get_Collision_Type())
+	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::PLAYER)
 	{
+	
 		CGameObject* pOtherCollider = _Other_Collider->Get_Owner();
 		_float3		pRockPos = m_pTransformCom->Get_State(CTransform::STATE_POSITION, true);
 		_float3 vOtherColliderSpeed = pOtherCollider->Get_Component<CRigid_Body>()->Get_Vector(RIGID_BODY::SPEED);
@@ -155,11 +157,13 @@ void CEnemy_Scourge::On_Collision_Enter(CCollider* _Other_Collider)
 		//폭발 이펙트 스케일링 따로 지정해줘야함
 	}
 
+
 }
 
 void CEnemy_Scourge::On_Collision_Stay(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Stay(_Other_Collider);
+
 }
 
 void CEnemy_Scourge::On_Collision_Exit(CCollider* _Other_Collider)
