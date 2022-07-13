@@ -221,11 +221,13 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 	{
 		m_fTime -= fTimeDelta;
 		//타임 이벤트 어케씀
-		if (3.f > m_fTime)
+		if (2.f > m_fTime)
 		{
 			m_pTagetObject->Get_Component<CRigid_Body>()->Set_Booster(true);
-			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::Func::FRONT);
+			
+			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f*m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
 			//이게 맞냐
+			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
 		}
 
 		if (0.f > m_fTime)
@@ -291,7 +293,7 @@ void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 		return;
 
 
-	m_fTime = 4.f;
+	m_fTime = 3.f;
 	m_bCinematic = true;
 	m_iNextLevel = _iNextLevel;
 
@@ -317,12 +319,13 @@ void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 			{
 				Temp = (*iter)->Get_Component<CTransform>();
 				static_cast<CTransform*>(Temp)->LookAt((CTransform*)pArg, true);
+				
 			}
 			RETURN_WEAKPTR(Temp);
 		}
 	}
-
-	CGameObject* Camera_Origin = GAMEINSTANCE->Get_Camera()->Get_Owner();
+	GAMEINSTANCE->Add_Shaking(0.1f, 0.f);
+	/*CGameObject* Camera_Origin = GAMEINSTANCE->Get_Camera()->Get_Owner();
 	CTransform* pCameraTransform = Camera_Origin->Get_Component<CTransform>();
 	GAMEINSTANCE->Update_MovingCam();
 	CGameObject* Camera_Moving = GAMEINSTANCE->Get_Camera()->Get_Owner();
@@ -333,11 +336,12 @@ void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 	pCameraMovingTransform->Set_State(CTransform::STATE_RIGHT, vRight= pCameraTransform->Get_State(CTransform::STATE_RIGHT));
 	pCameraMovingTransform->Set_State(CTransform::STATE_UP, vUp= pCameraTransform->Get_State(CTransform::STATE_UP));
 	pCameraMovingTransform->Set_State(CTransform::STATE_LOOK, vLook= pCameraTransform->Get_State(CTransform::STATE_LOOK));
-	pCameraMovingTransform->Set_State(CTransform::STATE_POSITION, pCameraTransform->Get_State(CTransform::STATE_POSITION));
+	pCameraMovingTransform->Set_State(CTransform::STATE_POSITION, pCameraTransform->Get_State(CTransform::STATE_POSITION));*/
 
 
 
-	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(1.f, 0.f,
+
+	/*static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(1.f, 0.f,
 		*D3DXVec3Normalize(&vSpeed, &(-vLook))*1.5f, _float3(0.f, 0.f, 0.f),
 		nullptr, nullptr, 0.5f, 0.f
 	);
@@ -345,7 +349,7 @@ void CLevel_SelectPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(3.f, 0.f,
 		_float3(0.f,0.f,0.f), *D3DXVec3Normalize(&vSpeed, &(-vLook)),
 		nullptr, nullptr, 1.f, 0.01f
-	);
+	);*/
 
 }
 

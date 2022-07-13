@@ -88,8 +88,8 @@ void CCam_TPS::Tick(_float fTimeDelta)
 
 		if (0.f > m_fCurTime)
 		{
-			m_vCurPos.x = CMath_Utillity::fLerp(m_vCurPos.x, pt.x - g_iWinCX * 0.5f, 0.05f);
-			m_vCurPos.y = CMath_Utillity::fLerp(m_vCurPos.y, pt.y - g_iWinCY * 0.5f, 0.05f);
+			m_vCurPos.x = CMath_Utillity::fLerp(m_vCurPos.x, pt.x - g_iWinCX * 0.5f, 0.01f);
+			m_vCurPos.y = CMath_Utillity::fLerp(m_vCurPos.y, pt.y - g_iWinCY * 0.5f, 0.01f);
 			m_fCurTime = m_fLerpTime;
 		}
 

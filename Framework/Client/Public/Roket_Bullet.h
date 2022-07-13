@@ -56,6 +56,7 @@ protected:
 
 
 
+
 public:
     static CRocket_Bullet* Create();
     virtual CGameObject* Clone(void* pArg) override;

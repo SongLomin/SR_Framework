@@ -183,15 +183,15 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 
 			//m_pPlayer_ControllerCom->Set_Lock(true);
 
-			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
-			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
+			//_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+			//((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
 
-			//Change_NearstPlayer();
+			////Change_NearstPlayer();
 
-			//Set_Controller(CONTROLLER::LOCK);
-			GAMEINSTANCE->Add_TimerEvent(1, this, 1.f, false, false);
-			GAMEINSTANCE->Set_TimeScale(0.1f);
-			GAMEINSTANCE->Add_Shaking(3.1f, 0.01f);
+			////Set_Controller(CONTROLLER::LOCK);
+			//GAMEINSTANCE->Add_TimerEvent(1, this, 1.f, false, false);
+			//GAMEINSTANCE->Set_TimeScale(0.1f);
+			//GAMEINSTANCE->Add_Shaking(3.1f, 0.01f);
 
 			//_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			//((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false))->Set_Pos(MyPos);
