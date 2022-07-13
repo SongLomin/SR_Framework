@@ -32,7 +32,7 @@ struct VS_IN
 
 struct VS_OUT
 {
-	float3 vPosition : POSITION;
+	float4 vPosition : POSITION;
 	float2 vTexUV : TEXCOORD0;
 };
 
@@ -55,13 +55,14 @@ VS_OUT VS_MAIN(/* 정점*/VS_IN In)
 /* 래스터라이즈한다. == 픽셀을 생성한다. */
 struct PS_IN
 {
+	float4 vPosition : POSITION;
 	float2 vTexUV : TEXCOORD0;	
 };
 
 
 vector PS_MAIN(PS_IN In) : COLOR0
 {
-	vector			vColor = vector(0.f);
+	vector			vColor = vector(0.f, 0.f, 0.f, 0.f);
 
 	float fBlurStart = 1.f;
 	float2 center = float2(0.5f, 0.5f);
