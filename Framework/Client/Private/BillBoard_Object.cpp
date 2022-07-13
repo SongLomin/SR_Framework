@@ -28,8 +28,6 @@ void CBillboard_Object::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	m_pTransformCom->Go_BackAndForth(3.f, fTimeDelta, true);
-	
 }
 
 void CBillboard_Object::LateTick(_float fTimeDelta)
