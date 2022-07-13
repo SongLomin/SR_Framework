@@ -22,8 +22,9 @@ HRESULT CSatellite_3::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1500.f,  1200.f, 1700.f));
+	//m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1500.f,  1200.f, 1700.f));
 
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1.f, 1.f, 200.f));
 
 	return S_OK;
 }
@@ -41,7 +42,7 @@ void CSatellite_3::LateTick(_float fTimeDelta)
 HRESULT CSatellite_3::Render()
 {
 
-	m_pTransformCom->Scaling(_float3(500.f, 300.f, 30.f), true);
+	m_pTransformCom->Scaling(_float3(100.f, 100.f, 50.f), true);
 
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -85,7 +86,7 @@ void CSatellite_3::SetUp_Components_For_Chiled()
 {
 	m_pRendererCom->Set_Textures_From_Key(TEXT("Satellite"), MEMORY_TYPE::MEMORY_STATIC);
 
-	m_pColliderCom->Set_Collider_Size(_float3(500.f, 300.f, 30.f));
+	m_pColliderCom->Set_Collider_Size(_float3(100.f, 100.f, 50.f));
 
 }
 
