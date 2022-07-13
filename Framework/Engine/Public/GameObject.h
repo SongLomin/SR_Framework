@@ -26,6 +26,10 @@ public:
 	void Set_Controller(const CONTROLLER& _eController);
 	CONTROLLER Get_Controller() { return m_eController; };
 
+	_float Get_CamDistance() {
+		return m_fCamDistance;
+	}
+
 	void Set_Dead();
 	bool Get_Dead() const { return m_bDead; }
 
@@ -53,9 +57,12 @@ public: /* For Event Function */
 	//이벤트 메세지가 도착하면 호출됩니다.
 	virtual void On_EventMessage(void* _Arg) {};
 
+public:
+	HRESULT Compute_CamDistance(class CTransform* pTransform);
+
 protected:
 	map<const _char*, class CComponent*> m_pComs;
-
+	_float						m_fCamDistance = 0.f;
 
 
 
@@ -63,6 +70,8 @@ private:
 	CONTROLLER	m_eController = CONTROLLER::CONTROLLER_END;
 	bool m_bDead = false;
 	const _tchar* m_Tag;
+
+
 
 public:
 	virtual CGameObject* Clone(void* pArg) = 0;

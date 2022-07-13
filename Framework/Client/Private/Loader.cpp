@@ -98,10 +98,13 @@ HRESULT CLoader::Loading_ForLogoLevel()
 
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
 
-
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Booster"), TEXT("../Bin/Resources/Textures/UI/Booster.png"),
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Booster"), TEXT("../Bin/Resources/Textures/Effect/Booster/Booster%d.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
+
+	/*if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Booster"), TEXT("../Bin/Resources/Textures/UI/Booster.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;*/
 
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Shield"), TEXT("../Bin/Resources/Textures/UI/Shield.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
@@ -334,9 +337,9 @@ HRESULT CLoader::Loading_ForSelectPlanet()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Booster_Particle"), TEXT("../Bin/Resources/Textures/Particle/Booster%d.png"),
+	/*if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Booster_Particle"), TEXT("../Bin/Resources/Textures/Particle/Booster%d.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;
+		return E_FAIL;*/
 
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Smoke_Particle"), TEXT("../Bin/Resources/Textures/Particle/Smoke.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))

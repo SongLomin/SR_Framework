@@ -262,6 +262,7 @@
     <ClInclude Include="..\Public\Speed_UI.h" />
     <ClInclude Include="..\Public\StatusBar.h" />
     <ClInclude Include="..\Public\Enemy_TagetBoard.h" />
+    <ClInclude Include="..\Public\SunSpaceBoss_Body.h" />
     <ClInclude Include="..\Public\TargetingBox.h" />
     <ClInclude Include="..\Public\Teleport_Effect.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -377,6 +378,7 @@
     <ClCompile Include="..\Private\Speed_UI.cpp" />
     <ClCompile Include="..\Private\StatusBar.cpp" />
     <ClCompile Include="..\Private\Enemy_TagetBoard.cpp" />
+    <ClCompile Include="..\Private\SunSpaceBoss_Body.cpp" />
     <ClCompile Include="..\Private\TargetingBox.cpp" />
     <ClCompile Include="..\Private\Teleport_Effect.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

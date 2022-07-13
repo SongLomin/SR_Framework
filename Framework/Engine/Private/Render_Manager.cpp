@@ -290,7 +290,15 @@ void CRender_Manager::Foward_Pipeline()
 
 	for (_uint i = (_uint)RENDERGROUP::RENDER_NONALPHABLEND; i < (_uint)RENDERGROUP::RENDER_END; ++i)
 	{
-		
+	
+		if (i == (_uint)RENDERGROUP::RENDER_ALPHABLEND)
+		{
+			m_RenderObjects[i].sort([](CGameObject* pSour, CGameObject* pDest)
+				{
+					return pSour->Get_CamDistance() > pDest->Get_CamDistance();
+				});
+		}
+
 		for (auto iter = m_RenderObjects[i].begin(); iter != m_RenderObjects[i].end();)
 		{
 			if ((*iter))

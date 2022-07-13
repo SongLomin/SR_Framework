@@ -209,3 +209,20 @@ void CGameObject::On_Collision_Stay(CCollider* _Other_Collider)
 void CGameObject::On_Collision_Exit(CCollider* _Other_Collider)
 {
 }
+
+HRESULT CGameObject::Compute_CamDistance(CTransform* pTransform)
+{
+	
+
+	_float4x4		ViewMatrix;
+
+	DEVICE->GetTransform(D3DTS_VIEW, &ViewMatrix);
+	D3DXMatrixInverse(&ViewMatrix, nullptr, &ViewMatrix);
+
+	_float3		vCamDir = *(_float3*)&ViewMatrix.m[3][0] - pTransform->Get_State(CTransform::STATE_POSITION);
+
+	m_fCamDistance = D3DXVec3Length(&vCamDir);
+
+
+	return S_OK;
+}

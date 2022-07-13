@@ -32,7 +32,7 @@ HRESULT CBooster_PSystem::Initialize(void* pArg)
 	__super::Initialize(pArg);
 
 	//m_pRenderer = Get_Component<CRenderer>();
-	m_pRenderer->Set_Textures_From_Key(TEXT("Booster_Particle"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRenderer->Set_Textures_From_Key(TEXT("Booster"), MEMORY_TYPE::MEMORY_STATIC);
 
 
 	return S_OK;
@@ -49,7 +49,11 @@ void CBooster_PSystem::Tick(_float fTimeDelta)
 	std::list<ParticleDesc>::iterator iter;
 	for (iter = m_particles.begin(); iter != m_particles.end(); iter++)
 	{
-
+		++m_iTextureCount;
+		if (m_iTextureCount == 83)
+		{
+			m_iTextureCount = 0;
+		}
 		//m_fCurSpeed += 0.002f;
 		//if (m_fCurSpeed >= 1.f)
 		//{
@@ -84,7 +88,7 @@ void CBooster_PSystem::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
-	m_pRenderer->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+	m_pRenderer->Add_RenderGroup(RENDERGROUP::RENDER_ALPHABLEND, this);
 }
 
 HRESULT CBooster_PSystem::Render_Begin(ID3DXEffect** Shader)
@@ -119,15 +123,16 @@ HRESULT CBooster_PSystem::Render_Begin(ID3DXEffect** Shader)
 
 HRESULT CBooster_PSystem::Render()
 {
-	m_pRenderer->Bind_Texture(0);
+	m_pRenderer->Bind_Texture(m_iTextureCount);
 
-	//DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	//DEVICE->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	//DEVICE->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	DEVICE->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	DEVICE->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
+	DEVICE->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
 
-	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	DEVICE->SetRenderState(D3DRS_ALPHAREF, 253);
-	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	//DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	//DEVICE->SetRenderState(D3DRS_ALPHAREF, 253);
+	//DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 
 	__super::Render();
 
@@ -167,6 +172,9 @@ void CBooster_PSystem::ResetParticle(ParticleDesc* Desc)
 
 
 	Desc->color = D3DCOLOR_ARGB(255, (_uint)(m_BeginColor.x * 255), (_uint)(m_BeginColor.y * 255), (_uint)(m_BeginColor.z * 255));
+
+
+	
 
 	Desc->age = 0.f;
 	Desc->lifeTime = 0.5f;
