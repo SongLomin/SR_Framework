@@ -195,7 +195,7 @@ HRESULT CLoader::Loading_ForLogoLevel()
 	GAMEINSTANCE->Load_Shader(TEXT("SpotLight"), TEXT("../Bin/ShaderFiles/SpotLight.hlsl"));
 	GAMEINSTANCE->Load_Shader(TEXT("PointLight"), TEXT("../Bin/ShaderFiles/PointLight.hlsl"));
 	GAMEINSTANCE->Load_Shader(TEXT("HPBar"), TEXT("../Bin/ShaderFiles/HPBar.hlsl"));
-
+	GAMEINSTANCE->Load_Shader(TEXT("BoosterBlur"), TEXT("../Bin/ShaderFiles/BoosterBlur.hlsl"));
 
 	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
 		return E_FAIL;

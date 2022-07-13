@@ -26,7 +26,11 @@ HRESULT CRender_Manager::Initialize()
 		return E_FAIL;
 	}
 
+	if (!SetupTexture(&originTex, &originRenderTarget)) {
+		return E_FAIL;
+	}
 
+	SetUpScreenRect();
 	
 
 	return S_OK;
@@ -65,6 +69,7 @@ HRESULT CRender_Manager::Draw_RenderGroup()
 	GAMEINSTANCE->Render_Begin();
 	//GAMEINSTANCE->Render_Begin();
 	Foward_Pipeline();
+	Apply_BoosterBlur();
 	GAMEINSTANCE->Render_Engine();
 	GAMEINSTANCE->Render_End(GAMEINSTANCE->Get_Window_Handle());
 
@@ -306,6 +311,61 @@ void CRender_Manager::Foward_Pipeline()
 	}
 }
 
+void CRender_Manager::Apply_BoosterBlur()
+{
+	ID3DXEffect** BoosterEffect = GAMEINSTANCE->Get_Shader_From_Key(TEXT("BoosterBlur"));
+
+	if (!BoosterEffect)
+	{
+		//BoosterEffect 쉐이더를 찾을 수 없음.
+		return;
+	}
+
+	D3DXHANDLE WorldHandle = (*BoosterEffect)->GetParameterByName(0, "world");
+	D3DXHANDLE ViewHandle=(*BoosterEffect)->GetParameterByName(0, "view");
+	D3DXHANDLE ProjHandle=(*BoosterEffect)->GetParameterByName(0, "proj");
+
+	D3DXHANDLE blurWidthHandle = (*BoosterEffect)->GetParameterByName(0, "blurWidth");
+
+	D3DXHANDLE TextureHandle = (*BoosterEffect)->GetParameterByName(0, "g_Texture");
+
+
+	_float4x4 view, proj, world;
+	DEVICE->GetTransform(D3DTS_VIEW, &view);
+	DEVICE->GetTransform(D3DTS_PROJECTION, &proj);
+	D3DXMatrixIdentity(&world);
+
+	(*BoosterEffect)->SetMatrix(WorldHandle, &world);
+	(*BoosterEffect)->SetMatrix(ViewHandle, &view);
+	(*BoosterEffect)->SetMatrix(ProjHandle, &proj);
+	(*BoosterEffect)->SetFloat(blurWidthHandle, 0.1f);
+
+	(*BoosterEffect)->SetTexture(TextureHandle, originTex);
+
+	D3DXHANDLE hTech = 0;
+	UINT numPasses = 0;
+
+	hTech = (*BoosterEffect)->GetTechniqueByName("DefaultTechnique");
+	(*BoosterEffect)->SetTechnique(hTech);
+
+
+	numPasses = 0;
+	(*BoosterEffect)->Begin(&numPasses, 0);
+
+	for (_uint i = 0; i < numPasses; i++)
+	{
+		(*BoosterEffect)->BeginPass(i);
+
+		DrawScreenQuad();
+
+		(*BoosterEffect)->EndPass();
+	}
+	(*BoosterEffect)->End();
+
+
+
+}
+
 bool CRender_Manager::SetupTexture(IDirect3DTexture9** texture, IDirect3DSurface9** surface)
 {
 	const GRAPHICDESC& Desc = GAMEINSTANCE->Get_Graphic_Desc();
@@ -356,6 +416,57 @@ void CRender_Manager::DrawScreenQuad()
 	DEVICE->SetStreamSource(0, vb, 0, sizeof(VTX));
 	DEVICE->SetFVF(D3DFVF_XYZ);
 	DEVICE->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2);
+}
+
+void CRender_Manager::SetUpScreenRect()
+{
+
+	DEVICE->CreateVertexBuffer(
+		6 * sizeof(VTX),
+		0,
+		D3DFVF_XYZ,
+		D3DPOOL_MANAGED,
+		&vb,
+		0
+	);
+
+	/* screen quad coordinates
+
+	-1,1	        1,1
+	 v0             v1
+	  +-------------+
+	  |             |
+	  |    screen   |
+	  |             |
+	  +-------------+
+	 v2             v3
+	-1,-1          1,-1
+
+	*/
+	VTX v0 = {
+		-1, 1, 0
+	};
+	VTX v1 = {
+		1, 1, 0
+	};
+	VTX v2 = {
+		-1, -1, 0
+	};
+	VTX v3 = {
+		1, -1, 0
+	};
+
+	VTX* vertices;
+	vb->Lock(0, 0, (void**)&vertices, 0);
+
+	vertices[0] = v0;
+	vertices[1] = v1;
+	vertices[2] = v2;
+	vertices[3] = v1;
+	vertices[4] = v3;
+	vertices[5] = v2;
+
+	vb->Unlock();
 }
 
 void CRender_Manager::Free()

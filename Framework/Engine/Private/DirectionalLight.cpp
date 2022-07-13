@@ -55,7 +55,7 @@ HRESULT CDirectionalLight::Initialize(void* pArg)
 	/* fill into buffer */
 	VTX* vertices;
 	vb->Lock(0, 0, (void**)&vertices, 0);
-
+	
 	vertices[0] = v0;
 	vertices[1] = v1;
 	vertices[2] = v2;
