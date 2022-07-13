@@ -40,6 +40,7 @@
 #include "Satellite_2.h"
 #include "Satellite_3.h"
 #include <Kang_Ship_Body.h>
+#include <Enemy_GPS.h>
 #include <EnemySpace_Body.h>
 
 _bool CLevel_SelectPlanet::m_bFirst = false;
@@ -134,12 +135,19 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
 		return E_FAIL;
 
+	//if (!GAMEINSTANCE->Add_GameObject<CEnemy_StagBeetle>(LEVEL_SELECTPLANET, TEXT("Enemy_StagBeetle")))
+	//	return E_FAIL;
+	//
+	//if (!GAMEINSTANCE->Add_GameObject<CEnemy_TagetBoard>(LEVEL_SELECTPLANET, TEXT("Enemy_TagetBoard")))
+	//	return E_FAIL;
+
 	/*if (!GAMEINSTANCE->Add_GameObject<CEnemy_TagetBoard>(LEVEL_SELECTPLANET, TEXT("Enemy_TargetBoard")))
 		return E_FAIL;*/
 
 	/*if (!GAMEINSTANCE->Add_GameObject<CSatellite_1>(LEVEL_SELECTPLANET, TEXT("Satellite_1")))
 		return E_FAIL;
 
+ 	//GAMEINSTANCE->Add_GameObject<CEnemy_GPS>(CURRENT_LEVEL,TEXT("GPS_Enemy"));
 
 	if (!GAMEINSTANCE->Add_GameObject<CSatellite_2>(LEVEL_SELECTPLANET, TEXT("Satellite_2")))
 		return E_FAIL;

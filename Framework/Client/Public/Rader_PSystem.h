@@ -2,17 +2,18 @@
 #include "Client_Defines.h"
 #include "ParticleSystem.h"
 BEGIN(Engine)
-class CTransform;
+
 END
 
 BEGIN(Client)
 
-class CBooster_PSystem final : public CParticleSystem
+class CRader_PSystem final : public CParticleSystem
 {
+
 private:
-    CBooster_PSystem() = default;
-    CBooster_PSystem(const CBooster_PSystem& Prototype);
-    virtual ~CBooster_PSystem() = default;
+    CRader_PSystem() = default;
+    CRader_PSystem(const CRader_PSystem& Prototype);
+    virtual ~CRader_PSystem() = default;
 
 public:
     // CGameObject을(를) 통해 상속됨
@@ -29,17 +30,15 @@ public:
     virtual void ResetParticle(ParticleDesc* Desc) override;
 
 private:
-    _float     m_fCurSpeed;
-    _float     m_fMaxSpeed;
     _float3     m_BeginColor;
     _float3     m_EndColor;
 
-
+    _float4x4 m_ProjMatrix;
 
 public:
 
     // CParticleSystem을(를) 통해 상속됨
-    static CBooster_PSystem* Create();
+    static CRader_PSystem* Create();
     virtual CGameObject* Clone(void* pArg) override;
     virtual void Free() override;
 
@@ -49,7 +48,6 @@ public:
 
     //객체의 상태가 비활성화 상태로 변경될 때, 호출되는 이벤트입니다.
     virtual void OnDisable() override;
-
 };
 
 END
