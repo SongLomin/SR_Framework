@@ -292,7 +292,7 @@ void CRender_Manager::Foward_Pipeline()
 
 
 
-	for (_uint i = (_uint)RENDERGROUP::RENDER_NONALPHABLEND; i < (_uint)RENDERGROUP::RENDER_END; ++i)
+	for (_uint i = (_uint)RENDERGROUP::RENDER_NONALPHABLEND; i < (_uint)RENDERGROUP::RENDER_UI; ++i)
 	{
 		
 		for (auto iter = m_RenderObjects[i].begin(); iter != m_RenderObjects[i].end();)
