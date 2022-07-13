@@ -22,7 +22,7 @@ HRESULT CSatellite_2::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(rand() % 1000, rand() % 150, rand() % 1000));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(rand() % 2000, rand() % 2000, rand() % 2000));
 
 
 	return S_OK;

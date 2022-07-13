@@ -22,7 +22,7 @@ HRESULT CSatellite_3::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(rand() % 1000, rand() % 150, rand() % 1000));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1500.f,  1200.f, 1700.f));
 
 
 	return S_OK;
@@ -68,7 +68,7 @@ HRESULT CSatellite_3::Render()
 
 void CSatellite_3::On_Collision_Enter(CCollider* _Other_Collider)
 {
-	__super::On_Collision_Enter(_Other_Collider);
+
 }
 
 void CSatellite_3::On_Collision_Stay(CCollider* _Other_Collider)

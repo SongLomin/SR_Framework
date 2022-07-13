@@ -17,7 +17,10 @@ public:
 	virtual HRESULT Render();
 
 private:
-	_float  m_fMaxTime = 180;
+	void ExoPlanet_Event(float fTimeDelta);
+
+private:
+	_float  m_fMaxTime = 300.f;
 	virtual void Change_Level(void* pArg, _uint _iNextLevel) {}
 	virtual HRESULT Complete_Condition() { return S_OK; }
 

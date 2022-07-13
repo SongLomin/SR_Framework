@@ -21,7 +21,7 @@ HRESULT CRock_2::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(rand() % 1000, rand() % 1000, rand() % 1000));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(rand() % 2000, rand() % 2000, rand() % 2000));
 
 
 	return S_OK;
@@ -39,7 +39,7 @@ void CRock_2::LateTick(_float fTimeDelta)
 
 HRESULT CRock_2::Render()
 {
-	m_pTransformCom->Scaling(_float3(30.f, 30.f, 30.f), true);
+	m_pTransformCom->Scaling(_float3(40.f, 40.f, 40.f), true);
 
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -79,7 +79,7 @@ void CRock_2::SetUp_Components_For_Chiled()
 {
 	m_pRendererCom->Set_Textures_From_Key(TEXT("Rock"), MEMORY_TYPE::MEMORY_STATIC);
 
-	m_pColliderCom->Set_Collider_Size(_float3(30.f, 30.f, 30.f));
+	m_pColliderCom->Set_Collider_Size(_float3(40.f, 40.f, 40.f));
 }
 
 CRock_2* CRock_2::Create()
