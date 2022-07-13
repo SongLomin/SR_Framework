@@ -151,6 +151,7 @@ void CState_Move::MoveTaget_Chase_Player(_float fTimeDelta)
 
 	m_pTransform->Go_Target(m_pTargetTransform, fTimeDelta);
 	m_pTransform->Go_BackAndForth(50.f, fTimeDelta);
+	m_pTransform->Turn_AxisY(90.f, fTimeDelta);
 }
 
 void CState_Move::Move_Forward()
