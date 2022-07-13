@@ -40,9 +40,6 @@ void CShieldBar::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	GetCursorPos(&m_ptMouse);
-	ScreenToClient(g_hWnd, &m_ptMouse);
-
 
 	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);

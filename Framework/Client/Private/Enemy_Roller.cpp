@@ -1,23 +1,22 @@
 #include "stdafx.h"
-#include "Enemy_StagBeetle.h"
+#include "Enemy_Roller.h"
 #include "GameInstance.h"
 #include "Normal_Turret.h"
-#include "Rocket_Turret.h"
 #include "Move_PSystem.h"
+#include "Bayonet_Turret.h"
 
-CEnemy_StagBeetle::CEnemy_StagBeetle(const CEnemy_StagBeetle& Prototype)
+CEnemy_Roller::CEnemy_Roller(const CEnemy_Roller& Prototype)
 {
 	*this = Prototype;
 }
 
-HRESULT CEnemy_StagBeetle::Initialize_Prototype()
+HRESULT CEnemy_Roller::Initialize_Prototype()
 {
 	return S_OK;
 }
 
-HRESULT CEnemy_StagBeetle::Initialize(void* pArg)
+HRESULT CEnemy_Roller::Initialize(void* pArg)
 {
-	
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
@@ -26,12 +25,12 @@ HRESULT CEnemy_StagBeetle::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CEnemy_StagBeetle::Tick(_float fTimeDelta)
+void CEnemy_Roller::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 }
 
-void CEnemy_StagBeetle::LateTick(_float fTimeDelta)
+void CEnemy_Roller::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
@@ -40,7 +39,7 @@ void CEnemy_StagBeetle::LateTick(_float fTimeDelta)
 
 	if (fabs(D3DXVec3Length(&Speed)) > 5.f)
 	{
-		D3DCOLOR color = D3DCOLOR_ARGB(255, 0, 255, 0);
+		D3DCOLOR color = D3DCOLOR_ARGB(255, 249, 159, 247);
 		((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom, color);
 	}
 
@@ -48,23 +47,23 @@ void CEnemy_StagBeetle::LateTick(_float fTimeDelta)
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 
-	m_pTransformCom->Scaling(_float3(0.01f, 0.01f, 0.01f), true);
 
 	if (GAMEINSTANCE->IsIn(&vPos))
 		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
 }
 
-HRESULT CEnemy_StagBeetle::Render_Begin(ID3DXEffect** Shader)
+
+HRESULT CEnemy_Roller::Render_Begin(ID3DXEffect** Shader)
 {
-	
+	m_pTransformCom->Scaling(_float3(0.05f, 0.05f, 0.05f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
 
 	float floatArray[3];
 	floatArray[0] = 0.7f;
-	floatArray[1] = 0.0f;
-	floatArray[2] = 0.0f;
+	floatArray[1] = 0.7f;
+	floatArray[2] = 0.7f;
 
 	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 
@@ -72,7 +71,7 @@ HRESULT CEnemy_StagBeetle::Render_Begin(ID3DXEffect** Shader)
 	return S_OK;
 }
 
-HRESULT CEnemy_StagBeetle::Render()
+HRESULT CEnemy_Roller::Render()
 {
 	__super::Render();
 
@@ -81,11 +80,7 @@ HRESULT CEnemy_StagBeetle::Render()
 	return S_OK;
 }
 
-void CEnemy_StagBeetle::Update_Target(CGameObject* _Target)
-{
-}
-
-void CEnemy_StagBeetle::SetUp_Components_For_Child()
+void CEnemy_Roller::SetUp_Components_For_Child()
 {
 	CStatus::STATUS Status;
 	Status.fAttack = 1.f;
@@ -97,7 +92,7 @@ void CEnemy_StagBeetle::SetUp_Components_For_Child()
 	m_pStatusCom = Add_Component<CStatus>(&Status);
 	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
 
-	m_pMeshCom = Add_Component<CMesh_Ship2>();
+	m_pMeshCom = Add_Component<CMesh_EnemySpace>();
 	m_pMeshCom->Set_WeakPtr((void**)&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Red_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
@@ -111,24 +106,35 @@ void CEnemy_StagBeetle::SetUp_Components_For_Child()
 
 	COLLISION_TYPE eBulletCollisionType = COLLISION_TYPE::MONSTER_ATTACK;
 
-	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.0f, 2.f));
-	m_pPosinList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pPosinList.back());
+	//CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
+	//Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.0f, 2.f));
+	//m_pPosinList.push_back(Posin);
+	//Posin->Set_WeakPtr(&m_pPosinList.back());
 
-	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.f, 1.0f, 2.f));
-	m_pPosinList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pPosinList.back());
+	//Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
+	//Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.f, 1.0f, 2.f));
+	//m_pPosinList.push_back(Posin);
+	//Posin->Set_WeakPtr(&m_pPosinList.back());
+
+	CBayonet_Turret* Posin = static_cast<CBayonet_Turret*>(GAMEINSTANCE->Add_GameObject<CBayonet_Turret>(CURRENT_LEVEL, TEXT("Bayonet_Turret"), m_pTransformCom, &eBulletCollisionType));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(4.f, 1.0f, 3.f));
+	m_pBayonetList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pBayonetList.back());
+
+	Posin = static_cast<CBayonet_Turret*>(GAMEINSTANCE->Add_GameObject<CBayonet_Turret>(CURRENT_LEVEL, TEXT("Bayonet_Turret"), m_pTransformCom, &eBulletCollisionType));
+	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-4.f, 1.0f, 3.f));
+	m_pBayonetList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pBayonetList.back());
 
 
 	m_pStateCom->Link_RigidBody(m_pRigidBodyCom);
 	m_pStateCom->Link_AI_Transform(m_pTransformCom);
-	
+
 
 	m_pAIControllerCom->Link_Object(this);
 	m_pAIControllerCom->Set_Enable(false);
 	m_pAIControllerCom->Set_UsableStates(m_pAIControllerCom->Get_States_Preset_AI_Default());
+	m_pAIControllerCom->Set_UsableStates({ STATE::MOVETAGET_CHASE_PLAYER });
 
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
 	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
@@ -139,37 +145,37 @@ void CEnemy_StagBeetle::SetUp_Components_For_Child()
 	Set_Controller(CONTROLLER::AI);
 }
 
-void CEnemy_StagBeetle::On_Change_Controller(const CONTROLLER& _IsAI)
+void CEnemy_Roller::On_Change_Controller(const CONTROLLER& _IsAI)
 {
 	__super::On_Change_Controller(_IsAI);
 }
 
-void CEnemy_StagBeetle::On_Collision_Enter(CCollider* _Other_Collider)
+void CEnemy_Roller::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Enter(_Other_Collider);
 }
 
-void CEnemy_StagBeetle::On_Collision_Stay(CCollider* _Other_Collider)
+void CEnemy_Roller::On_Collision_Stay(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Stay(_Other_Collider);
 }
 
-void CEnemy_StagBeetle::On_Collision_Exit(CCollider* _Other_Collider)
+void CEnemy_Roller::On_Collision_Exit(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Exit(_Other_Collider);
 }
 
-CEnemy_StagBeetle* CEnemy_StagBeetle::Create()
+CEnemy_Roller* CEnemy_Roller::Create()
 {
-	CREATE_PIPELINE(CEnemy_StagBeetle);
+	CREATE_PIPELINE(CEnemy_Roller);
 }
 
-CGameObject* CEnemy_StagBeetle::Clone(void* pArg)
+CGameObject* CEnemy_Roller::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CEnemy_StagBeetle);
+	CLONE_PIPELINE(CEnemy_Roller);
 }
 
-void CEnemy_StagBeetle::Free()
+void CEnemy_Roller::Free()
 {
 	__super::Free();
 

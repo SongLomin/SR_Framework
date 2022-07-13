@@ -168,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Armor_UI.h" />
+    <ClInclude Include="..\Public\Bayonet_Turret.h" />
     <ClInclude Include="..\Public\Benner.h" />
     <ClInclude Include="..\Public\AI_HPBar.h" />
     <ClInclude Include="..\Public\Bomb_Effect.h" />
@@ -183,6 +184,8 @@
     <ClInclude Include="..\Public\Default_Aim.h" />
     <ClInclude Include="..\Public\Dive.h" />
     <ClInclude Include="..\Public\Effect.h" />
+    <ClInclude Include="..\Public\Enemy_Roller.h" />
+    <ClInclude Include="..\Public\Enemy_Scourge.h" />
     <ClInclude Include="..\Public\Enemy_GPS.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -283,6 +286,7 @@
     <ClCompile Include="..\Private\AI_HPBar.cpp" />
     <ClCompile Include="..\Private\AI_TransportShip.cpp" />
     <ClCompile Include="..\Private\Armor_UI.cpp" />
+    <ClCompile Include="..\Private\Bayonet_Turret.cpp" />
     <ClCompile Include="..\Private\Benner.cpp" />
     <ClCompile Include="..\Private\Bomb_Effect.cpp" />
     <ClCompile Include="..\Private\BoosterBar.cpp" />
@@ -296,6 +300,8 @@
     <ClCompile Include="..\Private\Default_Aim.cpp" />
     <ClCompile Include="..\Private\Dive.cpp" />
     <ClCompile Include="..\Private\Effect.cpp" />
+    <ClCompile Include="..\Private\Enemy_Roller.cpp" />
+    <ClCompile Include="..\Private\Enemy_Scourge.cpp" />
     <ClCompile Include="..\Private\Enemy_GPS.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>

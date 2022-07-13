@@ -33,7 +33,7 @@ public:
 	void Move_Lift_Front();
 	void Move_Lift_Back();
 	void Move_Jump_Front();
-	void Move_Chase_Player(CTransform* pPlayerTransform, _float fTimeDelta);
+	void MoveTaget_Chase_Player(_float fTimeDelta);
 	void Move_Forward();
 
 public:

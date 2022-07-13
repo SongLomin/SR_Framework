@@ -6,6 +6,7 @@ BEGIN(Engine)
 class CTransform;
 class CRenderer;
 class CMesh_Cube;
+class CMesh_Test;
 END
 
 BEGIN(Client)
@@ -21,13 +22,14 @@ protected:
 	virtual void Tick(_float fTimeDelta) override;
 	virtual void LateTick(_float fTimeDelta) override;
     virtual HRESULT Render_Begin(ID3DXEffect** Shader = nullptr) final;
-    virtual HRESULT Render() final;
+    virtual HRESULT Render();
 
 protected:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
     CMesh_Cube* m_pMeshCom = nullptr;
     CTransform* m_pPlayerTransformCom = nullptr;
+    CMesh_Test* m_pMeshTestCom = nullptr;
 
 private:
     CGameObject* m_pBoxObject = nullptr;

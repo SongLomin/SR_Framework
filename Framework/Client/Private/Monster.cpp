@@ -7,6 +7,7 @@
 #include "Smoke_PSystem.h"
 #include "Normal_Turret.h"
 #include <TargetingBox.h>
+#include "Bayonet_Turret.h"
 #include <Enemy_GPS.h>
 #include <AI_HPBar.h>
 
@@ -107,6 +108,11 @@ void CMonster::Update_Target(CGameObject* _Target)
 		elem->Set_AI_Target(_Target);
 	}
 
+	for (auto& elem : m_pBayonetList)
+	{
+		elem->Set_AI_Target(_Target);
+	}
+
 }
 
 void CMonster::LookAt_Camera()
@@ -138,8 +144,7 @@ HRESULT CMonster::SetUp_Components()
 	m_pAIControllerCom = Add_Component<CAI_Controller>();
 	m_pAIControllerCom->Set_WeakPtr(&m_pAIControllerCom);
 
-	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
-	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
+	
 
 
 	SetUp_Components_For_Child();

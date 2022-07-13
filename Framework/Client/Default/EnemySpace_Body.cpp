@@ -152,8 +152,10 @@ void CEnemySpace_Body::SetUp_Components_For_Child()
 
 
 
+	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
+	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
-	m_pColliderCom->Set_Collider_Size(_float3(3.f, 3.f, 3.f));
+	m_pColliderCom->Set_Collider_Size(_float3(4.f, 4.f, 4.f));
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 
 	Set_Controller(CONTROLLER::AI);

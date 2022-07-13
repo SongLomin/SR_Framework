@@ -38,6 +38,7 @@
 #include "AI_TransportShip.h"
 #include "RedPlanet_SkyBox.h"
 #include <Planet_Select.h>
+#include "Enemy_Roller.h"
 
 
 
@@ -136,6 +137,9 @@ HRESULT CLevel_RedPlanet::Initialize()
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_REDPLANET, TEXT("BulletCount_UI")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CEnemy_Roller>(LEVEL_REDPLANET, TEXT("Enemy_Roller")))
 		return E_FAIL;
 
 	//((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_REDPLANET, TEXT("Particle")))->AddParticle(500);

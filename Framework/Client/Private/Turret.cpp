@@ -59,6 +59,7 @@ HRESULT CTurret::Render()
 {
     __super::Render();
     m_pMeshCom->Render_Mesh();
+    
 
     return S_OK;
 }
@@ -69,6 +70,9 @@ HRESULT CTurret::SetUp_Components()
     WEAK_PTR(m_pTransformCom);
 
     m_pMeshCom = Add_Component<CMesh_Cube>();
+    WEAK_PTR(m_pMeshCom);
+
+    m_pMeshTestCom = Add_Component<CMesh_Test>();
     WEAK_PTR(m_pMeshCom);
 
     m_pRendererCom = Add_Component<CRenderer>();

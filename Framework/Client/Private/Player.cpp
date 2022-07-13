@@ -203,6 +203,7 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 
 	else if (COLLISION_TYPE::OBJECT == _Other_Collider->Get_Collision_Type())
 	{
+		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
 		GAMEINSTANCE->Add_Shaking(0.05f, 0.01f);
 		_float3 vSpeed = m_pRigid_BodyCom->Get_Vector(RIGID_BODY::SPEED);
 		_float3 vDirection = m_pTransformCom->Get_State(CTransform::STATE_POSITION) -_Other_Collider->Get_Collider_Position();
