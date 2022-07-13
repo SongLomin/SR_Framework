@@ -248,7 +248,7 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 			m_pTagetObject->Get_Component<CRigid_Body>()->Set_Booster(true);
 			
 			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f*m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
-			//이게 맞냐
+			// 이게 맞냐
 			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
 		}
 

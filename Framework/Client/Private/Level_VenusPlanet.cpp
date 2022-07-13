@@ -101,7 +101,7 @@ void CLevel_VenusPlanet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	if (m_bCinematic)
+	/*if (m_bCinematic)
 	{
 		m_fTime -= fTimeDelta;
 		if (0.f > m_fTime)
@@ -119,6 +119,44 @@ void CLevel_VenusPlanet::Tick(_float fTimeDelta)
 					break;
 
 				elem->Set_Controller(CONTROLLER::PLAYER);
+			}
+		}
+	}*/
+
+	if (m_bCinematic)
+	{
+		m_fTime -= fTimeDelta;
+		//타임 이벤트 어케씀
+		if (2.f > m_fTime)
+		{
+			m_pTagetObject->Get_Component<CRigid_Body>()->Set_Booster(true);
+
+			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f * m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
+			// 이게 맞냐
+			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
+		}
+
+		if (0.f > m_fTime)
+		{
+			m_bCinematic = false;
+			GAMEINSTANCE->Swap_Camera();
+
+			CSong_Ship_Body* pMainCharacter = nullptr;
+
+			list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+
+			if (!pAiObect)
+				return;
+
+			for (auto& elem : *pAiObect)
+			{
+				pMainCharacter = dynamic_cast<CSong_Ship_Body*>(elem);
+
+				if (pMainCharacter)
+				{
+					pMainCharacter->Set_Controller(CONTROLLER::PLAYER);
+					break;
+				}
 			}
 		}
 	}
@@ -148,7 +186,7 @@ void CLevel_VenusPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 		return;
 
 
-	m_fTime = 5.f;
+	m_fTime = 3.f;
 	m_bCinematic = true;
 	m_iNextLevel = _iNextLevel;
 
@@ -158,47 +196,28 @@ void CLevel_VenusPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
 		{
 
+			if (m_pTagetObject)
+				RETURN_WEAKPTR(m_pTagetObject);
+			m_pTagetObject = *iter;
+			WEAK_PTR(m_pTagetObject);
 
-			(*iter)->Set_Controller(CONTROLLER::AI);
-			CComponent* Temp = (*iter)->Get_Component<CAI_Controller>();
+
+			(*iter)->Set_Controller(CONTROLLER::LOCK);
+			(*iter)->Get_Component<CRigid_Body>()->Reset_Force();
+
+			CComponent* Temp = (*iter)->Get_Component<CRigid_Body>();
+
 			WEAK_PTR(Temp);
-			Temp->Set_Enable(false);
-			Temp = (*iter)->Get_Component<CRigid_Body>();
-			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::SPIN, 0.f);
-			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::DOWN, 0.f);
 			if (pArg)
 			{
 				Temp = (*iter)->Get_Component<CTransform>();
 				static_cast<CTransform*>(Temp)->LookAt((CTransform*)pArg, true);
+
 			}
 			RETURN_WEAKPTR(Temp);
 		}
 	}
-
-	CGameObject* Camera_Origin = GAMEINSTANCE->Get_Camera()->Get_Owner();
-	CTransform* pCameraTransform = Camera_Origin->Get_Component<CTransform>();
-	GAMEINSTANCE->Update_MovingCam();
-	CGameObject* Camera_Moving = GAMEINSTANCE->Get_Camera()->Get_Owner();
-	CTransform* pCameraMovingTransform = Camera_Moving->Get_Component<CTransform>();
-
-	_float3	vUp, vLook, vRight, vSpeed;
-
-	pCameraMovingTransform->Set_State(CTransform::STATE_RIGHT, vRight = pCameraTransform->Get_State(CTransform::STATE_RIGHT));
-	pCameraMovingTransform->Set_State(CTransform::STATE_UP, vUp = pCameraTransform->Get_State(CTransform::STATE_UP));
-	pCameraMovingTransform->Set_State(CTransform::STATE_LOOK, vLook = pCameraTransform->Get_State(CTransform::STATE_LOOK));
-	pCameraMovingTransform->Set_State(CTransform::STATE_POSITION, pCameraTransform->Get_State(CTransform::STATE_POSITION));
-
-
-
-	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(2.f, 0.f,
-		*D3DXVec3Normalize(&vSpeed, &(-vLook)) * 1.5f, _float3(0.f, 0.f, 0.f),
-		nullptr, nullptr, 0.1f, 0.f
-	);
-
-	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(3.f, 0.f,
-		_float3(0.f, 0.f, 0.f), *D3DXVec3Normalize(&vSpeed, &(-vLook)) * 4.f,
-		nullptr, nullptr, 1.f, 0.05f
-	);
+	GAMEINSTANCE->Add_Shaking(0.1f, 0.f);
 }
 
 void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)

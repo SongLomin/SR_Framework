@@ -48,7 +48,7 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
 
-	for (int i = 0; i < 15; ++i)
+	for (int i = 0; i < 5; ++i)
 	{
 		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CMagmaSpace_Body>(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace"))->Get_Component<CTransform>();
 
@@ -160,6 +160,44 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 		}
 	}
 
+	if (m_bCinematic)
+	{
+		m_fTime -= fTimeDelta;
+		//타임 이벤트 어케씀
+		if (2.f > m_fTime)
+		{
+			m_pTagetObject->Get_Component<CRigid_Body>()->Set_Booster(true);
+
+			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f * m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
+			// 이게 맞냐
+			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
+		}
+
+		if (0.f > m_fTime)
+		{
+			m_bCinematic = false;
+			GAMEINSTANCE->Swap_Camera();
+
+			CSong_Ship_Body* pMainCharacter = nullptr;
+
+			list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+
+			if (!pAiObect)
+				return;
+
+			for (auto& elem : *pAiObect)
+			{
+				pMainCharacter = dynamic_cast<CSong_Ship_Body*>(elem);
+
+				if (pMainCharacter)
+				{
+					pMainCharacter->Set_Controller(CONTROLLER::PLAYER);
+					break;
+				}
+			}
+		}
+	}
+
 	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
 	{
 		GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
@@ -188,7 +226,7 @@ void CLevel_MagmaPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 		return;
 
 
-	m_fTime = 5.f;
+	m_fTime = 3.f;
 	m_bCinematic = true;
 	m_iNextLevel = _iNextLevel;
 
@@ -198,47 +236,28 @@ void CLevel_MagmaPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
 		{
 
+			if (m_pTagetObject)
+				RETURN_WEAKPTR(m_pTagetObject);
+			m_pTagetObject = *iter;
+			WEAK_PTR(m_pTagetObject);
 
-			(*iter)->Set_Controller(CONTROLLER::AI);
-			CComponent* Temp = (*iter)->Get_Component<CAI_Controller>();
+
+			(*iter)->Set_Controller(CONTROLLER::LOCK);
+			(*iter)->Get_Component<CRigid_Body>()->Reset_Force();
+
+			CComponent* Temp = (*iter)->Get_Component<CRigid_Body>();
+
 			WEAK_PTR(Temp);
-			Temp->Set_Enable(false);
-			Temp = (*iter)->Get_Component<CRigid_Body>();
-			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::SPIN, 0.f);
-			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::DOWN, 0.f);
 			if (pArg)
 			{
 				Temp = (*iter)->Get_Component<CTransform>();
 				static_cast<CTransform*>(Temp)->LookAt((CTransform*)pArg, true);
+
 			}
 			RETURN_WEAKPTR(Temp);
 		}
 	}
-
-	CGameObject* Camera_Origin = GAMEINSTANCE->Get_Camera()->Get_Owner();
-	CTransform* pCameraTransform = Camera_Origin->Get_Component<CTransform>();
-	GAMEINSTANCE->Update_MovingCam();
-	CGameObject* Camera_Moving = GAMEINSTANCE->Get_Camera()->Get_Owner();
-	CTransform* pCameraMovingTransform = Camera_Moving->Get_Component<CTransform>();
-
-	_float3	vUp, vLook, vRight, vSpeed;
-
-	pCameraMovingTransform->Set_State(CTransform::STATE_RIGHT, vRight = pCameraTransform->Get_State(CTransform::STATE_RIGHT));
-	pCameraMovingTransform->Set_State(CTransform::STATE_UP, vUp = pCameraTransform->Get_State(CTransform::STATE_UP));
-	pCameraMovingTransform->Set_State(CTransform::STATE_LOOK, vLook = pCameraTransform->Get_State(CTransform::STATE_LOOK));
-	pCameraMovingTransform->Set_State(CTransform::STATE_POSITION, pCameraTransform->Get_State(CTransform::STATE_POSITION));
-
-
-
-	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(2.f, 0.f,
-		*D3DXVec3Normalize(&vSpeed, &(-vLook)) * 1.5f, _float3(0.f, 0.f, 0.f),
-		nullptr, nullptr, 0.1f, 0.f
-	);
-
-	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(3.f, 0.f,
-		_float3(0.f, 0.f, 0.f), *D3DXVec3Normalize(&vSpeed, &(-vLook)) * 4.f,
-		nullptr, nullptr, 1.f, 0.05f
-	);
+	GAMEINSTANCE->Add_Shaking(0.1f, 0.f);
 }
 
 void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
@@ -250,6 +269,7 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 	_uint MonsterSize = Monster->size();
 
 	m_iMonsterCount = m_iSpawnCount - MonsterSize;
+
 
 	// 양갑렬 대위
 	if (m_fTextBoxTime <= 298.f && !m_bEventCheck[0])
@@ -295,7 +315,7 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 	{
 		m_pQuestBoxObject->Set_Enable(true);
 
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n      엘리트 비행선 섬멸  \n           %d / 100    \n     남은시간 (초) :"), 0 , m_iMonsterCount);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n      엘리트 비행선 섬멸  \n           %d / 30    \n     남은시간 (초) :"), 0 , m_iMonsterCount);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("\n  %d"), 1, (_uint)m_fMaxTime);
 
 		if (m_iFontiX <= 1040)
@@ -314,7 +334,7 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 	}
 
 
-	/*if (m_fMaxTime == 0)
+	if (m_fMaxTime == 0)
 	{
 		m_pQuestBoxObject->Set_Enable(false);
 		m_pTextBoxObject->Set_Enable(true);
@@ -322,12 +342,21 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 	}
 
 
-	if (m_fMaxTime >= 0 && m_iMonsterCount <= 0)
+	if (m_fMaxTime >= 0 && m_iMonsterCount == 30)
 	{
 		m_pQuestBoxObject->Set_Enable(false);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("하하하 역시 자네는 내가 눈여겨 보고있엇다네! \n 어서 복귀해서 축배를 드세나!"), 0);
-	}*/
+
+		if (m_fMaxTime <= -5.f)
+		{
+			// 스타트 레벨로 돌아감
+			
+			//GAMEINSTANCE->Swap_Camera();
+			//if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
+			//	return;
+		}
+	}
 
 
 	
