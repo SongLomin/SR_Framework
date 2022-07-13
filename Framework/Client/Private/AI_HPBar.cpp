@@ -38,6 +38,12 @@ void CAI_HPBar::Tick(_float fTimeDelta)
 	_float Target_HPRatio = CurHP / MaxHP;
 
 	m_fHPRatio = CMath_Utillity::fLerp(m_fHPRatio, Target_HPRatio, 0.1f);
+
+	if (!m_pTransformCom->Get_Parent()->Get_Enable())
+	{
+		this->Set_Enable(false);
+	}
+
 }
 
 void CAI_HPBar::LateTick(_float fTimeDelta)
@@ -47,7 +53,12 @@ void CAI_HPBar::LateTick(_float fTimeDelta)
 	LookAtCamera();
 	m_pTransformCom->Scaling(_float3(5.f, 1.f, 1.f), true);
 
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+	if (m_fHPRatio > 0.01f)
+	{
+		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+	}
+
+	
 }
 
 HRESULT CAI_HPBar::Render_Begin(ID3DXEffect** Shader)
