@@ -29,9 +29,8 @@ private:
 	void RedPlanet_Event(float fTimeDelta);
 
 private:
-	_float  m_fSpawnTime = 2.f;
-	_float m_fMaxTime = 100;
-	_bool  m_bSpawnCheck = true;
+
+	
 
 
 

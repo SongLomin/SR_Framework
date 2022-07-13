@@ -138,6 +138,9 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
 		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Exo>(LEVEL_SELECTPLANET, TEXT("Exo")))
+		return E_FAIL;
+
 	//if (!GAMEINSTANCE->Add_GameObject<CEnemy_StagBeetle>(LEVEL_SELECTPLANET, TEXT("Enemy_StagBeetle")))
 	//	return E_FAIL;
 	//
@@ -159,11 +162,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CSatellite_3>(LEVEL_SELECTPLANET, TEXT("Satellite_3")))
 		return E_FAIL;*/
 
-	//for (int i = 0; i < 10; ++i)
-	//{
-	//	if (!GAMEINSTANCE->Add_GameObject<CEnemy_Scourge>(LEVEL_SELECTPLANET, TEXT("Enemy_Scouge")))
-	//		return E_FAIL;
-	//}
+
     
 	
 		if (!GAMEINSTANCE->Add_GameObject<CEnemy_Roller>(LEVEL_SELECTPLANET, TEXT("Enemy_Roller")))

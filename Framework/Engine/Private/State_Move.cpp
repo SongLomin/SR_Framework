@@ -53,9 +53,9 @@ void CState_Move::Tick(_float fTimeDelta)
 	case Engine::STATE::MOVETARGET_CHASE:
 		MoveTarget_Chase(fTimeDelta, 10.f);
 		break;
-	/*case Engine::STATE::MOVETAGET_CHASE_PLAYER:
+	case Engine::STATE::MOVETAGET_CHASE_PLAYER:
 		MoveTaget_Chase_Player(fTimeDelta);
-		break;*/
+		break;
 	case Engine::STATE::MOVETARGET_RSPIN:
 		MoveTarget_RSpin(fTimeDelta, 10.f);
 		break;
@@ -78,6 +78,8 @@ void CState_Move::Tick(_float fTimeDelta)
 	default:
 		break;
 	}
+
+	
 
 	//스테이트 사용 후에 다시 돌려준다.
 	m_eCurState = STATE::STATE_END;
