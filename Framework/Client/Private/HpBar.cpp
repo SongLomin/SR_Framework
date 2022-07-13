@@ -67,7 +67,7 @@ void CHpBar::Tick(_float fTimeDelta)
 					if (m_fX <= 220 * AfterHp / (pPlayerStatusCom->Get_Status().fMaxHp) ||
 						m_fSizeX <= 150 * AfterHp / (pPlayerStatusCom->Get_Status().fMaxHp))
 					{
-						m_fX = 7 * i + 220 * AfterHp / (pPlayerStatusCom->Get_Status().fMaxHp);
+						m_fX = 2.3 * i + 220 * AfterHp / (pPlayerStatusCom->Get_Status().fMaxHp);
 						m_fSizeX = 150 * AfterHp / (pPlayerStatusCom->Get_Status().fMaxHp);
 					}
 				}

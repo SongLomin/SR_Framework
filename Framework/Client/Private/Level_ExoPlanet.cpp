@@ -298,7 +298,9 @@ void CLevel_ExoPlanet::ExoPlanet_Event(float fTimeDelta)
 		m_pQuestBoxObject->Set_Enable(false);
 		m_bEventCheck[3] = true;
 
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 3.f, TEXT("임무 실패!!!"), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)640, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 3.f, TEXT("임무 실패!!!"), 0);
+		if ((GAMEINSTANCE->Get_Instance()->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))));
+	
 	}
 }
 
