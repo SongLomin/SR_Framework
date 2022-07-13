@@ -165,11 +165,10 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	//		return E_FAIL;
 	//}
     
-	for (int i = 0; i < 5; ++i)
-	{
+	
 		if (!GAMEINSTANCE->Add_GameObject<CEnemy_Roller>(LEVEL_SELECTPLANET, TEXT("Enemy_Roller")))
 			return E_FAIL;
-	}
+
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);
