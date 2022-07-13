@@ -62,7 +62,7 @@ vector<STATE> CAI_Controller::Get_States_Preset_AI_Default()
 		STATE::MOVE_LIFT_FRONT,
 		STATE::MOVE_UPPER_LEFT,
 		STATE::MOVE_UPPER_RIGHT,
-		STATE::MOVETAGET_CHASE_PLAYER
+		//STATE::MOVETAGET_CHASE_PLAYER
 	};
 
 	return states;

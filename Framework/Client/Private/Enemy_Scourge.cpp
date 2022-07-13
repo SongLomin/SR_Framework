@@ -134,7 +134,7 @@ void CEnemy_Scourge::On_Change_Controller(const CONTROLLER& _IsAI)
 
 void CEnemy_Scourge::On_Collision_Enter(CCollider* _Other_Collider)
 {
-	__super::On_Collision_Enter(_Other_Collider);
+	//__super::On_Collision_Enter(_Other_Collider);
 
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::PLAYER)
 	{
