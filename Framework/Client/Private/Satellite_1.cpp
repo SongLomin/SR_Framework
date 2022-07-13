@@ -41,7 +41,7 @@ void CSatellite_1::LateTick(_float fTimeDelta)
 HRESULT CSatellite_1::Render()
 {
 
-	m_pTransformCom->Scaling(_float3(300.f, 300.f, 30.f), true);
+	m_pTransformCom->Scaling(_float3(100.f, 100.f, 30.f), true);
 
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -85,7 +85,7 @@ void CSatellite_1::SetUp_Components_For_Chiled()
 {
 	m_pRendererCom->Set_Textures_From_Key(TEXT("Satellite"), MEMORY_TYPE::MEMORY_STATIC);
 
-	m_pColliderCom->Set_Collider_Size(_float3(300.f, 300.f, 30.f));
+	m_pColliderCom->Set_Collider_Size(_float3(100.f, 100.f, 30.f));
 
 }
 

@@ -269,7 +269,37 @@ void CLevel_ExoPlanet::ExoPlanet_Event(float fTimeDelta)
 		m_bEventCheck[6] = true;
 	}
 
+	if (m_fTextBoxTime <= 200 && !m_bEventCheck[7])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("기체가 많이 파손됬네!!! 빨리 서둘러!!"), 0);
+	}
 
+	if (m_fTextBoxTime <= 197 && !m_bEventCheck[7])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[7] = true;
+	}
+
+	if (m_fTextBoxTime <= 93 && !m_bEventCheck[8])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이런.. 퇴각하겠네 다음을 노리세나.."), 0);
+	}
+
+	if (m_fTextBoxTime <= 90 && !m_bEventCheck[8])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[8] = true;
+	}
+
+	if (m_fMaxTime <= 0 && !m_bEventCheck[3])
+	{
+		m_pQuestBoxObject->Set_Enable(false);
+		m_bEventCheck[3] = true;
+
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 3.f, TEXT("임무 실패!!!"), 0);
+	}
 }
 
 CLevel_ExoPlanet* CLevel_ExoPlanet::Create()

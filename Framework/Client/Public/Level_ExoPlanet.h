@@ -20,7 +20,7 @@ private:
 	void ExoPlanet_Event(float fTimeDelta);
 
 private:
-	_float  m_fMaxTime = 300.f;
+	_float  m_fMaxTime = 200.f;
 	virtual void Change_Level(void* pArg, _uint _iNextLevel) {}
 	virtual HRESULT Complete_Condition() { return S_OK; }
 

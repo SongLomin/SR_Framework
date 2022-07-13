@@ -20,7 +20,7 @@ HRESULT CPlanet_Sun::Initialize(void* pArg)
 
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
-	_float3 StartPos = { 200.f, 300.f, 400.f };
+	_float3 StartPos = { 200.f, 100.f, 400.f };
 	_tchar* PontText = TEXT("Sun \n 보스 구역 \n [Warring]   \n 보상 : XXX");
 	_point PontPos = { (LONG)m_vScreenPos.x + 40, (LONG)m_vScreenPos.y - 10 };
 	_float3 MyScale = _float3(150.f, 150.f, 50.f);
