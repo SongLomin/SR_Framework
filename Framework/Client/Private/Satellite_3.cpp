@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Satellite_3.h"
 #include "GameInstance.h"
+#include "Level_Loading.h"
 
 CSatellite_3::CSatellite_3()
 {
@@ -50,7 +51,7 @@ void CSatellite_3::LateTick(_float fTimeDelta)
 HRESULT CSatellite_3::Render()
 {
 
-	m_pTransformCom->Scaling(_float3(100.f, 100.f, 50.f), true);
+	m_pTransformCom->Scaling(_float3(100.f, 100.f, 5.f), true);
 
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -79,6 +80,12 @@ void CSatellite_3::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Enter(_Other_Collider);
 
+	if (COLLISION_TYPE::PLAYER == _Other_Collider->Get_Collision_Type())
+	{
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 1.f, TEXT("우주 정거장을 해킹했습니다!!!!"), 0);
+
+		if ((GAMEINSTANCE->Get_Instance()->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))));
+	}
 }
 
 void CSatellite_3::On_Collision_Stay(CCollider* _Other_Collider)
@@ -138,7 +145,7 @@ HRESULT CSatellite_3::SetUp_Components()
 	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisiontype);
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
-	m_pColliderCom->Set_Collider_Size(_float3(300.f, 200.f, 30.f));
+	m_pColliderCom->Set_Collider_Size(_float3(50.f, 50.f, 5.f));
 
 	return S_OK;
 }

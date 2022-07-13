@@ -84,14 +84,14 @@ HRESULT CLevel_ExoPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVLE_EXOPLANET, TEXT("BulletCount_UI")))
 		return E_FAIL;
 
-	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_VENUSPLANET, TEXT("TextBox_Yang"));
+	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVLE_EXOPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);
 
-	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_VENUSPLANET, TEXT("Quest_UI"));
+	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVLE_EXOPLANET, TEXT("Quest_UI"));
 	m_pQuestBoxObject->Set_Enable(false);
 
 
-	m_pPlanetObject = GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVEL_VENUSPLANET, TEXT("Earth"));
+	m_pPlanetObject = GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVLE_EXOPLANET, TEXT("Earth"));
 	m_pPlanetObject->Set_Enable(false);
 
 	for (int i = 0; i < 500; ++i)
