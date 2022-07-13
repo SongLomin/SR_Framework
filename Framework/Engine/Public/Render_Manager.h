@@ -35,6 +35,8 @@ private:
 	void SetMRT();
 	void ResumeOriginRender();
 	void DrawScreenQuad();
+	void Draw_Divide_ViewPort();
+	void Set_OnlyRenderTarget(IDirect3DSurface9** _ppSurface);
 
 private: /* For Defferred Rendering */
 	IDirect3DSurface9* originRenderTarget = nullptr;

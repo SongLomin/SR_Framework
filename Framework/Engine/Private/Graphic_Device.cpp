@@ -69,6 +69,8 @@ HRESULT CGraphic_Device::InitDevice(const GRAPHICDESC& GraphicDesc, LPDIRECT3DDE
 
 	GAMEINSTANCE->Add_Timer(99);
 
+	
+
 	return S_OK;
 }
 

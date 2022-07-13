@@ -59,6 +59,8 @@ HRESULT CRender_Manager::Draw_RenderGroup()
 {
 	DEVICE->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
 
+	
+
 	//Priority_Pipeline();
 	Deferred_Pipeline();
 
@@ -211,7 +213,7 @@ void CRender_Manager::Deferred_Pipeline()
 		iter = m_RenderObjects[(_uint)RENDERGROUP::RENDER_DEFERRED].erase(iter);
 	}
 
-	DEVICE->EndScene();
+	DEVICE->EndScene();	
 
 	/* deferred shading stage */
 	ResumeOriginRender();
@@ -274,6 +276,8 @@ void CRender_Manager::Deferred_Pipeline()
 	}
 
 	DEVICE->EndScene();
+
+	//Draw_Divide_ViewPort();
 }
 
 void CRender_Manager::Foward_Pipeline()
@@ -356,6 +360,84 @@ void CRender_Manager::DrawScreenQuad()
 	DEVICE->SetStreamSource(0, vb, 0, sizeof(VTX));
 	DEVICE->SetFVF(D3DFVF_XYZ);
 	DEVICE->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2);
+}
+
+void CRender_Manager::Draw_Divide_ViewPort()
+{
+	GRAPHICDESC GraphicDesc = GAMEINSTANCE->Get_Graphic_Desc();
+
+	D3DVIEWPORT9 OriginalViewPort;
+	DEVICE->GetViewport(&OriginalViewPort);
+
+	D3DVIEWPORT9 NormalViewPort, DepthViewPort, DiffuseViewPort, SpecularViewPort;
+
+	NormalViewPort.X = 0;
+	NormalViewPort.Y = (GraphicDesc.iWinCY / 4) * 3;
+	NormalViewPort.Width = GraphicDesc.iWinCX / 4;
+	NormalViewPort.Height = GraphicDesc.iWinCY / 4;
+	NormalViewPort.MinZ = 0.0f;
+	NormalViewPort.MaxZ = 1.0f;
+
+	DepthViewPort.X = GraphicDesc.iWinCX / 4;
+	DepthViewPort.Y = (GraphicDesc.iWinCY / 4) * 3;
+	DepthViewPort.Width = GraphicDesc.iWinCX / 4;
+	DepthViewPort.Height = GraphicDesc.iWinCY / 4;
+	DepthViewPort.MinZ = 0.0f;
+	DepthViewPort.MaxZ = 1.0f;
+
+	DiffuseViewPort.X = (GraphicDesc.iWinCX / 4) * 2;
+	DiffuseViewPort.Y = (GraphicDesc.iWinCY / 4) * 3;
+	DiffuseViewPort.Width = GraphicDesc.iWinCX / 4;
+	DiffuseViewPort.Height = GraphicDesc.iWinCY / 4;
+	DiffuseViewPort.MinZ = 0.0f;
+	DiffuseViewPort.MaxZ = 1.0f;
+
+	SpecularViewPort.X = (GraphicDesc.iWinCX / 4) * 3;
+	SpecularViewPort.Y = (GraphicDesc.iWinCY / 4) * 3;
+	SpecularViewPort.Width = GraphicDesc.iWinCX / 4;
+	SpecularViewPort.Height = GraphicDesc.iWinCY / 4;
+	SpecularViewPort.MinZ = 0.0f;
+	SpecularViewPort.MaxZ = 1.0f;
+
+	
+	DEVICE->SetViewport(&NormalViewPort);
+	Set_OnlyRenderTarget(&normalSurface);
+
+	DEVICE->BeginScene();
+	DEVICE->StretchRect(normalSurface, NULL, normalSurface, NULL, D3DTEXF_NONE);
+	DEVICE->EndScene();
+
+	/*DEVICE->SetViewport(&DepthViewPort);
+	Set_OnlyRenderTarget(&depthSurface);
+
+	DEVICE->BeginScene();
+	DEVICE->EndScene();
+
+	DEVICE->SetViewport(&DiffuseViewPort);
+	Set_OnlyRenderTarget(&diffuseSurface);
+
+	DEVICE->BeginScene();
+	DEVICE->EndScene();
+
+	DEVICE->SetViewport(&SpecularViewPort);
+	Set_OnlyRenderTarget(&specularSurface);
+
+	DEVICE->BeginScene();
+	DEVICE->EndScene();
+
+	DEVICE->SetViewport(&OriginalViewPort);*/
+
+	//DEVICE->StretchRect(originRenderTarget, NULL, stashSurface, NULL, D3DTEXF_NONE);
+}
+
+void CRender_Manager::Set_OnlyRenderTarget(IDirect3DSurface9** _ppSurface)
+{
+	DEVICE->SetRenderTarget(0, (*_ppSurface));
+
+	DEVICE->SetRenderTarget(1, NULL);
+	DEVICE->SetRenderTarget(2, NULL);
+	DEVICE->SetRenderTarget(3, NULL);
+
 }
 
 void CRender_Manager::Free()
