@@ -346,6 +346,9 @@
     <Filter Include="02.GameObject\01. Turret\Bayonet">
       <UniqueIdentifier>{c0be6a96-18e3-4bce-81a6-b8e5913698b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\07. UI\TextureDrawUI">
+      <UniqueIdentifier>{f03af253-2c47-40e5-8d26-4e05419be448}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -678,6 +681,9 @@
     <ClInclude Include="..\Public\Rader_PSystem.h">
       <Filter>02.GameObject\10. ParticleSystem\08. Rader_PSystem</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\TextureDrawUI.h">
+      <Filter>02.GameObject\07. UI\TextureDrawUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1003,6 +1009,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Rader_PSystem.cpp">
       <Filter>02.GameObject\10. ParticleSystem\08. Rader_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\TextureDrawUI.cpp">
+      <Filter>02.GameObject\07. UI\TextureDrawUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

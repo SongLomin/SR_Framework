@@ -35,7 +35,7 @@ private:
 	void SetMRT();
 	void ResumeOriginRender();
 	void DrawScreenQuad();
-	void Draw_Divide_ViewPort();
+	void Draw_Divide_ViewPort(RENDERGROUP _eRenderGroup, IDirect3DTexture9* _Tex);
 	void Set_OnlyRenderTarget(IDirect3DSurface9** _ppSurface);
 
 private: /* For Defferred Rendering */

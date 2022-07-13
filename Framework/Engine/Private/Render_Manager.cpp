@@ -277,7 +277,9 @@ void CRender_Manager::Deferred_Pipeline()
 
 	DEVICE->EndScene();
 
-	//Draw_Divide_ViewPort();
+	
+
+	
 }
 
 void CRender_Manager::Foward_Pipeline()
@@ -292,7 +294,7 @@ void CRender_Manager::Foward_Pipeline()
 
 
 
-	for (_uint i = (_uint)RENDERGROUP::RENDER_NONALPHABLEND; i < (_uint)RENDERGROUP::RENDER_UI; ++i)
+	for (_uint i = (_uint)RENDERGROUP::RENDER_NONALPHABLEND; i < (_uint)RENDERGROUP::RENDER_UI+1; ++i)
 	{
 		
 		for (auto iter = m_RenderObjects[i].begin(); iter != m_RenderObjects[i].end();)
@@ -308,6 +310,16 @@ void CRender_Manager::Foward_Pipeline()
 		}
 
 	}
+	//D3DXSaveTextureToFile(TEXT("Normal.bmp"), D3DXIFF_BMP, normalTex, nullptr);
+	//D3DXSaveTextureToFile(TEXT("Depth.bmp"), D3DXIFF_BMP, depthTex, nullptr);
+	//D3DXSaveTextureToFile(TEXT("Diffuse.bmp"), D3DXIFF_BMP, diffuseTex, nullptr);
+	//D3DXSaveTextureToFile(TEXT("Specular.bmp"), D3DXIFF_BMP, specularTex, nullptr);
+
+
+	Draw_Divide_ViewPort(RENDERGROUP::RENDER_NORMAL, normalTex);
+	Draw_Divide_ViewPort(RENDERGROUP::RENDER_DEPTH, depthTex);
+	Draw_Divide_ViewPort(RENDERGROUP::RENDER_DIFFUSE, diffuseTex);
+	Draw_Divide_ViewPort(RENDERGROUP::RENDER_SPECULAR, specularTex);
 }
 
 bool CRender_Manager::SetupTexture(IDirect3DTexture9** texture, IDirect3DSurface9** surface)
@@ -362,9 +374,55 @@ void CRender_Manager::DrawScreenQuad()
 	DEVICE->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2);
 }
 
-void CRender_Manager::Draw_Divide_ViewPort()
+void CRender_Manager::Draw_Divide_ViewPort(RENDERGROUP _eRenderGroup, IDirect3DTexture9* _Tex)
 {
-	GRAPHICDESC GraphicDesc = GAMEINSTANCE->Get_Graphic_Desc();
+	ID3DXEffect** ppShader = GAMEINSTANCE->Get_Shader_From_Key(TEXT("DrawSurface"));
+
+	if (!ppShader)
+		return;
+
+	CCamera* pCamera = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA);	
+
+	if (pCamera)
+		pCamera->Bind_PipeLine();
+
+	D3DXHANDLE hTech = 0;
+	UINT numPasses = 0;
+
+	hTech = (*ppShader)->GetTechniqueByName("DefaultTechnique");
+	(*ppShader)->SetTechnique(hTech);
+
+	for (auto iter = m_RenderObjects[(_uint)_eRenderGroup].begin(); iter != m_RenderObjects[(_uint)_eRenderGroup].end();)
+	{
+		if ((*iter))
+		{
+			D3DXHANDLE TextureHandle = (*ppShader)->GetParameterByName(0, "g_Texture");
+			(*ppShader)->SetTexture(TextureHandle, _Tex);
+
+			(*iter)->Render_Begin(ppShader);
+
+			(*ppShader)->Begin(&numPasses, 0);
+			for (_uint i = 0; i < numPasses; i++)
+			{
+				(*ppShader)->BeginPass(i);
+
+				(*iter)->Render();
+
+				(*ppShader)->EndPass();
+			}
+			(*ppShader)->End();
+
+			
+			//(*iter)->Render();
+			(*iter)->Return_WeakPtr(&(*iter));
+		}
+
+		iter = m_RenderObjects[(_uint)_eRenderGroup].erase(iter);
+	}
+
+	
+
+	/*GRAPHICDESC GraphicDesc = GAMEINSTANCE->Get_Graphic_Desc();
 
 	D3DVIEWPORT9 OriginalViewPort;
 	DEVICE->GetViewport(&OriginalViewPort);
@@ -401,11 +459,11 @@ void CRender_Manager::Draw_Divide_ViewPort()
 
 	
 	DEVICE->SetViewport(&NormalViewPort);
-	Set_OnlyRenderTarget(&normalSurface);
+	Set_OnlyRenderTarget(&normalSurface);*/
 
-	DEVICE->BeginScene();
+	/*DEVICE->BeginScene();
 	DEVICE->StretchRect(normalSurface, NULL, normalSurface, NULL, D3DTEXF_NONE);
-	DEVICE->EndScene();
+	DEVICE->EndScene();*/
 
 	/*DEVICE->SetViewport(&DepthViewPort);
 	Set_OnlyRenderTarget(&depthSurface);

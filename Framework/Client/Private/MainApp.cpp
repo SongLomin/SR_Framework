@@ -4,6 +4,7 @@
 #include "Level_Loading.h"
 #include <iostream>
 #include <cassert>
+#include <TextureDrawUI.h>
 
 
 
@@ -38,6 +39,25 @@ HRESULT CMainApp::Initialize()
 	if (FAILED(Open_Level(LEVEL_LOGO)))
 		return E_FAIL;
 
+	for (int i = 0; i < LAYERCNT; i++)
+	{
+		m_pDeferredLayers[i] = static_cast<CTextureDrawUI*>(GAMEINSTANCE->Add_GameObject<CTextureDrawUI>(LEVEL_STATIC, TEXT("RenderTarget")));
+		m_pDeferredLayers[i]->Set_Option(
+			_float2( //Position
+				(g_iWinCX / LAYERCNT) / 2,
+				(g_iWinCY / LAYERCNT) / 2 + ((g_iWinCY / LAYERCNT) * i)
+			),
+			_float2( //Size
+				(g_iWinCX / LAYERCNT),
+				(g_iWinCY / LAYERCNT)
+			), //RenderGroup
+			(RENDERGROUP)((_uint)RENDERGROUP::RENDER_NORMAL + i)
+		);
+
+		m_pDeferredLayers[i]->Set_Enable(false);
+	}
+
+
 	return S_OK;
 }
 
@@ -56,6 +76,15 @@ void CMainApp::Tick(float fTimeDelta)
 		ClipCursor(&ClientRect);
 	}
 
+	if (KEY_INPUT(KEY::DELETEKEY, KEY_STATE::TAP))
+	{
+		m_pDeferredLayerEnable = !m_pDeferredLayerEnable;
+
+		for (int i = 0; i < LAYERCNT; i++)
+		{
+			m_pDeferredLayers[i]->Set_Enable(m_pDeferredLayerEnable);
+		}
+	}
 	
 }
 

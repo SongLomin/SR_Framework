@@ -269,6 +269,7 @@
     <ClInclude Include="..\Public\Terrain.h" />
     <ClInclude Include="..\Public\Kang_Ship_Body.h" />
     <ClInclude Include="..\Public\TextBox.h" />
+    <ClInclude Include="..\Public\TextureDrawUI.h" />
     <ClInclude Include="..\Public\Trajectory_PSystem.h" />
     <ClInclude Include="..\Public\Turret.h" />
     <ClInclude Include="..\Public\UI.h" />
@@ -384,6 +385,7 @@
     <ClCompile Include="..\Private\Terrain.cpp" />
     <ClCompile Include="..\Private\Kang_Ship_Body.cpp" />
     <ClCompile Include="..\Private\TextBox.cpp" />
+    <ClCompile Include="..\Private\TextureDrawUI.cpp" />
     <ClCompile Include="..\Private\Trajectory_PSystem.cpp" />
     <ClCompile Include="..\Private\Turret.cpp" />
     <ClCompile Include="..\Private\UI.cpp" />

@@ -45,6 +45,7 @@
 #include "Enemy_Roller.h"
 #include <Enemy_GPS.h>
 #include <EnemySpace_Body.h>
+#include <TextureDrawUI.h>
 
 _bool CLevel_SelectPlanet::m_bFirst = false;
 
@@ -179,6 +180,8 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	m_pQuestBoxObject->Set_Enable(false);
 
 	GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_SELECTPLANET, TEXT("EnemySpace_Body"));
+
+	//GAMEINSTANCE->Add_GameObject<CTextureDrawUI>(LEVEL_SELECTPLANET, TEXT("TextureDraw_UI"));
 
 
 	//((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_SELECTPLANET, TEXT("Particle")))->AddParticle(500);

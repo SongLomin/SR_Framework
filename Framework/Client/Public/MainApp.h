@@ -3,15 +3,21 @@
 #include "Client_Defines.h"
 #include "Base.h"
 
+
+
 BEGIN(Engine)
 class CRenderer;
 class CGameInstance;
+
 END
 
 BEGIN(Client)
-//class CGameInstance;
+class CTextureDrawUI;
+
+#define LAYERCNT 4
 class CMainApp final : public CBase
 {
+
 private:
 	CMainApp();
 	virtual ~CMainApp() = default;
@@ -23,6 +29,10 @@ public:
 private:
 	CGameInstance*			m_pGameInstance = nullptr;
 	LPDIRECT3DDEVICE9		m_pGraphic_Device = nullptr;
+	CTextureDrawUI*			m_pDeferredLayers[LAYERCNT] = { nullptr };
+	_bool					m_pDeferredLayerEnable = false;
+
+
 
 private:
 	HRESULT SetUp_RenderState();
