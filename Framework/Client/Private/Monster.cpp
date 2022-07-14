@@ -37,7 +37,6 @@ void CMonster::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 	
-
 }
 
 void CMonster::LateTick(_float fTimeDelta)

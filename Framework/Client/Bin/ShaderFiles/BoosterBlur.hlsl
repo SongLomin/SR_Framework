@@ -1,5 +1,3 @@
-
-
 // matrix
 matrix world;
 matrix view;
@@ -8,6 +6,7 @@ matrix proj;
 
 
 float				blurWidth;
+float2				screenSize;
 // textureCUBE
 
 texture		g_Texture;
@@ -47,6 +46,7 @@ VS_OUT VS_MAIN(/* Á¤Á¡*/VS_IN In)
 	Out.vPosition = vPosition;
 	Out.vTexUV = In.vTexUV;
 
+
 	return Out;
 }
 
@@ -67,7 +67,7 @@ vector PS_MAIN(PS_IN In) : COLOR0
 	float fBlurStart = 1.f;
 	float2 center = float2(0.5f, 0.5f);
 
-	In.vTexUV -= center;
+	In.vTexUV.xy -= center;
 	float fPrecompute = blurWidth * (1.0f / 9.f);
 
 	for (int i = 0; i < 10; ++i)
@@ -81,6 +81,7 @@ vector PS_MAIN(PS_IN In) : COLOR0
 
 	return vColor;
 }
+
 
 technique			DefaultTechnique
 { 

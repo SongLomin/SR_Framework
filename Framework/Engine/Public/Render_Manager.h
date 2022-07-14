@@ -60,6 +60,7 @@ private: /* For Defferred Rendering */
 	IDirect3DSurface9* stashSurface = nullptr;
 
 	IDirect3DVertexBuffer9* vb = nullptr;
+	IDirect3DSurface9* TemporarySurface = nullptr;
 
 private:
 
