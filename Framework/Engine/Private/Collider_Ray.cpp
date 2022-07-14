@@ -56,7 +56,7 @@ _float3 CCollider_Ray::Get_Collider_Position()
 RAY CCollider_Ray::Get_ColliderRay()
 {
 	
-	m_rayCollider.Pos = m_pMyTransformCom->Get_State(CTransform::STATE_POSITION, true);
+	m_rayCollider.Pos = m_pMyTransformCom->Get_State(CTransform::STATE_POSITION, true)+m_vOffSet;
 	m_rayCollider.Dir = m_pMyTransformCom->Get_State(CTransform::STATE_LOOK, true);
 	m_rayCollider.fLength = 100.f;
 

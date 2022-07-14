@@ -93,7 +93,9 @@ void CLazer_Bullet::Init_BulletPosition(_float4x4* _pWorldMat)
 {
 	__super::Init_BulletPosition(_pWorldMat);
 
-	//m_pTransformCom->Go_BackAndForth(100.f, 1.f);
+	m_pTransformCom->Go_BackAndForth(100.f, 1.f);
+
+	m_pColliderCom->Set_OffSet(-m_pTransformCom->Get_State(CTransform::STATE_LOOK, true) * 50.f);
 
 	m_pTransformCom->Update_WorldMatrix();
 	m_pRigidBodyCom->Set_DirVector();

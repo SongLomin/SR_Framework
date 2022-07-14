@@ -36,7 +36,7 @@ void CCollider::Set_OffSet(_float3 _vOffset)
 
 _float3 CCollider::Get_Offset()
 {
-    return _float3();
+    return m_vOffSet;
 }
 
 void CCollider::Tick(_float fTimeDelta)
