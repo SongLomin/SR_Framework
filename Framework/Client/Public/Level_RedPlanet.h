@@ -26,6 +26,9 @@ public:
 	virtual void Free() override;
 
 private:
+	_uint iEnemyCount = 0;
+
+private:
 	void RedPlanet_Event(float fTimeDelta);
 
 private:

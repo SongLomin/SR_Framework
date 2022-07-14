@@ -70,7 +70,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CShin_Ship_Body>(LEVEL_REDPLANET, TEXT("Player")))
 		return E_FAIL;*/
 
-	for (int i = 0; i < 20; ++i)
+	for (int i = 0; i < 2; ++i)
 	{
 		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body"))->Get_Component<CTransform>();
 
@@ -109,7 +109,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CTerrain>(LEVEL_REDPLANET, TEXT("Terrain")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CRedPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
+	if (!GAMEINSTANCE->Add_GameObject<CRedPlanet_SkyBox>(LEVEL_REDPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_REDPLANET, TEXT("Aim_UI")))
@@ -199,7 +199,12 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 			SpawnPos = CMath_Utillity::Rotate_Vec3(_float3(RotateX, RotateY, RotateZ), SpawnPos);
 			pEnemyTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
 
+
+		
+
 		     m_fSpawnTime = 3.f;
+
+
 	}
 
 
@@ -212,7 +217,6 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	RedPlanet_Event(fTimeDelta);
 
 
-	
 
 }
 
@@ -237,7 +241,7 @@ void CLevel_RedPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 	m_bCinematic = true;
 	m_iNextLevel = _iNextLevel;
 
-	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player"));
 	for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)
 	{
 		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
@@ -312,39 +316,39 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	m_fTextBoxTime -= fTimeDelta;
 
 
-	if (m_fTextBoxTime <= 295.f && !m_bEventCheck[0])
+	if (m_fTextBoxTime <= 298.f && !m_bEventCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("Red Planet 에서 화물선을 안전하게 옮기기 위해\n 용병들을 고용한다고 하는구만.\n 옆에 보이는 화물선을 목적지까지 호위해주게. "), 0);
 	}
 
-	if (m_fTextBoxTime <= 292.f && !m_bEventCheck[0])
+	if (m_fTextBoxTime <= 296.f && !m_bEventCheck[0])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[0] = true;
 	}
 
-	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[1])
+	if (m_fTextBoxTime <= 294.f && !m_bEventCheck[1])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("주변에 무언가 다가오는것 같은데?."), 0);
 	}
 
-	if (m_fTextBoxTime <= 287.f && !m_bEventCheck[1])
+	if (m_fTextBoxTime <= 292.f && !m_bEventCheck[1])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[1] = true;
 	}
 
 
-	if (m_fTextBoxTime <= 284.f && !m_bEventCheck[2])
+	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[2])
 	{
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("젠장! 전방에 적 함체들이 몰려오고있어! \n 지금바로 지원병력을 보낼테니 조금만 버텨주게!"), 0);
 	}
 
 
-	if (m_fTextBoxTime <= 281.f && !m_bEventCheck[2])
+	if (m_fTextBoxTime <= 288.f && !m_bEventCheck[2])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[2] = true;
@@ -365,7 +369,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 
 	//////////////지원병력 생존 퀘스트 카운트 0 될시 아군AI생성/////////////////// 
 
-	if (m_fTextBoxTime <= 179.f && !m_bEventCheck[4])
+	if (m_fTextBoxTime <= 190.f && !m_bEventCheck[4])
 	{
 		
 		m_pTextBoxObject->Set_Enable(true);
@@ -388,7 +392,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 
 	// 7초뒤 아군생성 false
 
-	if (m_fTextBoxTime <= 172.f && !m_bEventCheck[4])
+	if (m_fTextBoxTime <= 183.f && !m_bEventCheck[4])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[4] = true;
@@ -397,7 +401,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 
 
 
-	if (m_fTextBoxTime <= 279.f && !m_bEventCheck[8])
+	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[8])
 	{
 		m_pQuestBoxObject->Set_Enable(true);
 
@@ -420,7 +424,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	}
 
 
-	if (m_fTextBoxTime <= 179 && !m_bEventCheck[8])
+	if (m_fTextBoxTime <= 190 && !m_bEventCheck[8])
 	{
 		m_pQuestBoxObject->Set_Enable(false);
 		m_bEventCheck[8] = true;
@@ -428,56 +432,60 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 
 
 	// 적생성 false 모든적 처치임무
-	if (m_fTextBoxTime <= 175 && !m_bEventCheck[9])
+	if (m_fTextBoxTime <= 190 && !m_bEventCheck[9])
 	{
-		m_bSpawnCheck = false;
+		
 		m_pQuestBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)270 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n    모든 적 함체 섬멸 / 화물선 호위 "), 0);
 
+		list<CGameObject*>* Enemy_SpaceBody = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body"));
+		iEnemyCount = 0;
+		for (auto& elem : *Enemy_SpaceBody)
+		{
+			if (elem->Get_Enable())
+			{
+				iEnemyCount++;
+			}
+		}
+		
+
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)270 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n  모든 적 함체 섬멸 / 화물선 호위\n남은 적 : "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)308 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("%d"), 1, (_uint)iEnemyCount);
+	
 		if (m_iFontiX <= 1040)
 		{
 			m_iFontiX = 1040;
 		}
 
+		if (m_iFontiXCount <= 1150)
+		{
+			m_iFontiXCount = 1150;
+		}
+
 		m_iFontiX -= 0.8;
+		m_iFontiXCount -= 0.8;
+
+		m_bSpawnCheck = false;
 	}
 
 
 	// (화물호위? 조건) 퀘스트박스 소멸, 폰트 소멸
-	if (m_fTextBoxTime <= 100 && !m_bEventCheck[9])
+	if (m_fTextBoxTime <= 190 && iEnemyCount <= 0 && !m_bEventCheck[9])
 	{
 		m_pQuestBoxObject->Set_Enable(false);
 		m_bEventCheck[9] = true;
-	
-		m_fTextBoxTime = 300;
 	}
 
-	if (m_iEnemyCount <= 295 && !m_bEventCheck[6] && !m_bSpawnCheck && m_bEventCheck[9])
-	{
-		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("고생했네! \n 오늘밤은 맘 편히 발 쭉뻗고 자겠구만! \n 맘 편히 복귀하도록 하게나! "), 0);
-	}
 
-	if (m_iEnemyCount <= 290 && !m_bEventCheck[6] && !m_bSpawnCheck && m_bEventCheck[9])
+
+	if (m_iEnemyCount <= 0 && !m_bSpawnCheck && m_bEventCheck[9])
 	{
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[6] = true;
+		GAMEINSTANCE->Add_Text(_point{ (LONG)640, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 2.f, TEXT("Red Planet 임무완료!"), 0);
+		GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
 	}
 
 
-
-	if (m_fTextBoxTime <= 285 && m_iEnemyCount <= 3 && !m_bEventCheck[7] && !m_bSpawnCheck)
-	{
-		// 보상 UI / 선택
-	}
-
-
-	if (!m_bEventCheck[7] && !m_bSpawnCheck && m_iEnemyCount <= 3)  // 보상 받았단 정보 조건 넣어줌
-	{
-		//m_bEventCheck[7] = true;
-		//GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this, LEVEL::LEVEL_SELECTPLANET);
-	}
-	
 		
 }
 
