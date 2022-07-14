@@ -4,6 +4,10 @@
 #include "EnemySpace_Body.h"
 #include "Enemy_Roller.h"
 #include "Enemy_Scourge.h"
+#include "Rock_1.h"
+#include "Rock_2.h"
+#include "Rock_3.h"
+#include "Rock_4.h"
 
 CSunSpaceBoss_Body::CSunSpaceBoss_Body()
 {
@@ -112,7 +116,7 @@ void CSunSpaceBoss_Body::Spawn_Monster()
 		}
 		// 소환 이펙트 넣기
 
-		_float3 SpawnPos{ 0, 0.f, MyPos.z };
+		_float3 SpawnPos{ 0.f, 0.f, MyPos.z };
 
 		_float RotateX = (_float)(rand() % 361);
 		_float RotateY = (_float)(rand() % 361);
@@ -126,8 +130,48 @@ void CSunSpaceBoss_Body::Spawn_Monster()
 	}
 }
 
-void CSunSpaceBoss_Body::Rock_throw()
+void CSunSpaceBoss_Body::Rock_throw(_float fTimeDelta)
 {
+	_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+	for (_uint i = 0; i < 5; ++i)
+	{
+		_uint RockType = rand() % 4;
+		switch (RockType)
+		{
+		case 0:
+			pRockTransform = GAMEINSTANCE->Add_GameObject<CRock_1>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true)
+				->Get_Component<CTransform>();
+			break;
+
+		case 1:
+			pRockTransform = GAMEINSTANCE->Add_GameObject<CRock_2>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true)
+				->Get_Component<CTransform>();
+			break;
+
+		case 2:
+			pRockTransform = GAMEINSTANCE->Add_GameObject<CRock_3>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true)
+				->Get_Component<CTransform>();
+			break;
+
+		case 3:
+			pRockTransform = GAMEINSTANCE->Add_GameObject<CRock_4>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true)
+				->Get_Component<CTransform>();
+			break;
+		}
+		
+		_float3 SpawnPos{ (_float)(rand() % 100), (_float)(rand() % 100), MyPos.z};
+
+		pRockTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
+
+		CTransform* pPlayerObject = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform()->Get_Owner()->Get_Component<CTransform>();
+
+		pRockTransform->LookAt(pPlayerObject, true);
+
+		_float LifeTime = 5.f;
+
+		m_RockTransformList.push_back({ LifeTime, pRockTransform });
+	}
+	m_RockTransformList.sort();
 }
 
 void CSunSpaceBoss_Body::EMP()

@@ -27,7 +27,7 @@ public:
 
 private:
     void Spawn_Monster(); // 종류 random spawn (10마리정도?) 생성위치 랜덤.
-    void Rock_throw(); // 종류 random spawn (10개정도?) 생성위치. 보스 근처.
+    void Rock_throw(_float fTimeDelta); // 종류 random spawn (10개정도?) 생성위치. 보스 근처.
     void EMP(); // 일정시간 공격 불가능상태 만들기
 
     void LookAtPlayer();
@@ -38,9 +38,11 @@ private:
 
 private:
     CTransform* pEnemyTransform = nullptr;
+    CTransform* pRockTransform = nullptr;
 
 private:
     _float  m_pSpawnTime = 20.f;
+   list<pair<_float,CTransform*>> m_RockTransformList;
 
 protected:
     virtual void SetUp_Components_For_Child();

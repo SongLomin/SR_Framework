@@ -50,7 +50,7 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 
 	for (int i = 0; i < 5; ++i)
 	{
-		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CMagmaSpace_Body>(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace"))->Get_Component<CTransform>();
+		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CMagmaSpace_Body>(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace"), nullptr, nullptr, true)->Get_Component<CTransform>();
 
 		_float3 SpawnPos{ 0, 0.f, 300.f };
 
