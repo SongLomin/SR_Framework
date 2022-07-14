@@ -1,11 +1,9 @@
 #include "stdafx.h"
-#include "StatusBar.h"
+#include "TransportShip_HpBar.h"
 #include "GameInstance.h"
-#include "HpBar.h"
 
 
-
-CHpBar::CHpBar(const CHpBar& Prototype)
+CTransportShip_HpBar::CTransportShip_HpBar(const CTransportShip_HpBar& Prototype)
 {
 	*this = Prototype;
 
@@ -14,40 +12,43 @@ CHpBar::CHpBar(const CHpBar& Prototype)
 
 }
 
-HRESULT CHpBar::Initialize_Prototype()
+HRESULT CTransportShip_HpBar::Initialize_Prototype()
 {
 
 	return S_OK;
 }
 
-HRESULT CHpBar::Initialize(void* pArg)
+HRESULT CTransportShip_HpBar::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
 	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinCX, g_iWinCY, 0.0f, 1.f);
 
-	m_fX = 220.f;
-	m_fY = 50.f;
+	/*m_fX = 640.f;
+	m_fY = 85.f;*/
 
-	m_fSizeX = 150.0f;
-	m_fSizeY = 5.0f;
+	m_fX = 640.f;
+	m_fY = 85.f;
 
-	
+	m_fSizeX = 380.0f;
+	m_fSizeY = 8.f;
+
+
 	return S_OK;
 }
 
-void CHpBar::Tick(_float fTimeDelta)
+void CTransportShip_HpBar::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
+	/*CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
 
 	ISVALID(pCurrentCam, );
 
 	CTransform* TransformCom = pCurrentCam->Get_Target();
 
-	
+
 	if (TransformCom)
 	{
 		CStatus* pPlayerStatusCom = TransformCom->Get_Owner()->Get_Component<CStatus>();
@@ -81,42 +82,35 @@ void CHpBar::Tick(_float fTimeDelta)
 				else
 					m_fX -= 0.3f;
 				m_fSizeX -= 0.3f;
-				
+
 			}
 		}
-	}
-	
+	}*/
+
 	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f) * 2);
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(m_fX - (g_iWinCX >> 1), -m_fY + (g_iWinCY >> 1), 0.f));
 
-	
-
-	//몬스터의 스테이터스를 가져올 수 있다.
-	//CStatus* pMonsterStatusCom = m_pTransformCom->Get_Parent()->Get_Owner()->Get_Component<CStatus>();
-	
-	
-
-	GetCursorPos(&m_ptMouse);
-	ScreenToClient(g_hWnd, &m_ptMouse);
 	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
 
 }
 
-void CHpBar::LateTick(_float fTimeDelta)
+void CTransportShip_HpBar::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
-	
+
 
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_UI, this);
 }
 
-HRESULT CHpBar::Render()
+HRESULT CTransportShip_HpBar::Render()
 {
 	m_pTransformCom->Bind_WorldMatrix();
 
 	m_pRendererCom->Bind_Texture(0);
+
+
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 	DEVICE->SetRenderState(D3DRS_ALPHAREF, 120);
@@ -140,6 +134,8 @@ HRESULT CHpBar::Render()
 	DEVICE->SetTransform(D3DTS_VIEW, &CurView);
 	DEVICE->SetTransform(D3DTS_PROJECTION, &CurProj);
 
+
+
 	return S_OK;
 
 }
@@ -149,43 +145,42 @@ HRESULT CHpBar::Render()
 
 
 
-void CHpBar::Update_Hp_Bar(CStatus* pStatus)
+void CTransportShip_HpBar::Update_Hp_Bar(CStatus* pStatus)
 {
 	m_pStatusCom = pStatus;
 }
 
-HRESULT CHpBar::SetUp_Components()
+HRESULT CTransportShip_HpBar::SetUp_Components()
 {
 	m_pTransformCom = Get_Component<CTransform>();
 	m_pTransformCom->Set_WeakPtr(&m_pTransformCom);
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
-	m_pRendererCom->Set_Textures_From_Key(TEXT("HP"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("TransportShip_HP_Bar"), MEMORY_TYPE::MEMORY_STATIC);
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
-	
+
 
 
 	return S_OK;
 }
 
-CHpBar* CHpBar::Create()
+CTransportShip_HpBar* CTransportShip_HpBar::Create()
 {
-	CREATE_PIPELINE(CHpBar);
+	CREATE_PIPELINE(CTransportShip_HpBar);
 }
 
-CGameObject* CHpBar::Clone(void* pArg)
+CGameObject* CTransportShip_HpBar::Clone(void* pArg)
 {
-	CLONE_PIPELINE(CHpBar);
+	CLONE_PIPELINE(CTransportShip_HpBar);
 }
 
-void CHpBar::Free()
+void CTransportShip_HpBar::Free()
 {
 	__super::Free();
 
 	delete this;
 }
-

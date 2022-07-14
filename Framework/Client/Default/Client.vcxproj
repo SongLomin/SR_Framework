@@ -175,6 +175,9 @@
     <ClInclude Include="..\Public\AI_TransportShip.h" />
     <ClInclude Include="..\Public\BoosterBar.h" />
     <ClInclude Include="..\Public\Booster_PSystem.h" />
+    <ClInclude Include="..\Public\Boss_HpBar.h" />
+    <ClInclude Include="..\Public\Boss_HpTable.h" />
+    <ClInclude Include="..\Public\Boss_Name.h" />
     <ClInclude Include="..\Public\Bullet.h" />
     <ClInclude Include="..\Public\BulletCountUI.h" />
     <ClInclude Include="..\Public\BulletUI.h" />
@@ -270,6 +273,7 @@
     <ClInclude Include="..\Public\Kang_Ship_Body.h" />
     <ClInclude Include="..\Public\TextBox.h" />
     <ClInclude Include="..\Public\Trajectory_PSystem.h" />
+    <ClInclude Include="..\Public\TransportShip_HpBar.h" />
     <ClInclude Include="..\Public\Turret.h" />
     <ClInclude Include="..\Public\UI.h" />
     <ClInclude Include="..\Public\UITest.h" />
@@ -291,6 +295,9 @@
     <ClCompile Include="..\Private\Bomb_Effect.cpp" />
     <ClCompile Include="..\Private\BoosterBar.cpp" />
     <ClCompile Include="..\Private\Booster_PSystem.cpp" />
+    <ClCompile Include="..\Private\Boss_HpBar.cpp" />
+    <ClCompile Include="..\Private\Boss_HpTable.cpp" />
+    <ClCompile Include="..\Private\Boss_Name.cpp" />
     <ClCompile Include="..\Private\Bullet.cpp" />
     <ClCompile Include="..\Private\BulletCountUI.cpp" />
     <ClCompile Include="..\Private\BulletUI.cpp" />
@@ -385,6 +392,7 @@
     <ClCompile Include="..\Private\Kang_Ship_Body.cpp" />
     <ClCompile Include="..\Private\TextBox.cpp" />
     <ClCompile Include="..\Private\Trajectory_PSystem.cpp" />
+    <ClCompile Include="..\Private\TransportShip_HpBar.cpp" />
     <ClCompile Include="..\Private\Turret.cpp" />
     <ClCompile Include="..\Private\UI.cpp" />
     <ClCompile Include="..\Private\UITest.cpp" />

@@ -58,7 +58,7 @@ private:
 	list<CNormal_Turret*>	m_pMyPosinList;
 	_bool					m_bTargetMode = false;
 	_float					m_fSpawnTime = 3.f;
-
+	_float                  m_fTransLevelTime = 3.f;
 
 protected: /* For Event Function */
 	virtual void On_Change_Controller(const CONTROLLER& _IsAI) override;

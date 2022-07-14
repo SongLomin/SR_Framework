@@ -17,8 +17,9 @@ public:
 	virtual HRESULT Render();
 
 private:
-	void ExoPlanet_Event(float fTimeDelta);
-	void Rock_Create(float fTimeDelta);
+	void ExoPlanet_Event(_float fTimeDelta);
+	void Rock_Create(_float fTimeDelta);
+	void Scouge_Create(_float fTimeDelta);
 
 private:
 	_float  m_fMaxTime = 200.f;

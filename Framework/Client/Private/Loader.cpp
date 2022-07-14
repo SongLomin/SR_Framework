@@ -182,6 +182,22 @@ HRESULT CLoader::Loading_ForLogoLevel()
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("AI_HPBar_UI"), TEXT("../Bin/Resources/Textures/UI/AI_HP.jpg"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Boss_Name"), TEXT("../Bin/Resources/Textures/UI/Boss_Name.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Boss_HP_Table"), TEXT("../Bin/Resources/Textures/UI/Boss_HP_Table.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Boss_HP_Bar"), TEXT("../Bin/Resources/Textures/UI/Boss_HP_Bar.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
+
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("TransportShip_HP_Bar"), TEXT("../Bin/Resources/Textures/UI/TransportShip_HP_Bar.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
 	
 
 	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))

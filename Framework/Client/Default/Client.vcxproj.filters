@@ -346,6 +346,12 @@
     <Filter Include="02.GameObject\12. BillBoard_Object\Satellite\Satellite3">
       <UniqueIdentifier>{70001689-47c6-4145-a1ee-1de0a25c9d30}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\07. UI\00. StatusUI\TransportShip_HpBar">
+      <UniqueIdentifier>{87699643-a2b7-4fd4-bd05-dbcd4406284e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\07. UI\00. StatusUI\Boss_HpBar">
+      <UniqueIdentifier>{e1d73bb1-b0af-4969-98b1-12c1e95c710b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -678,6 +684,18 @@
     <ClInclude Include="..\Public\Rader_PSystem.h">
       <Filter>02.GameObject\10. ParticleSystem\08. Rader_PSystem</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Boss_HpBar.h">
+      <Filter>02.GameObject\07. UI\00. StatusUI\Boss_HpBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Boss_HpTable.h">
+      <Filter>02.GameObject\07. UI\00. StatusUI\Boss_HpBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Boss_Name.h">
+      <Filter>02.GameObject\07. UI\00. StatusUI\Boss_HpBar</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\TransportShip_HpBar.h">
+      <Filter>02.GameObject\07. UI\00. StatusUI\TransportShip_HpBar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1003,6 +1021,18 @@
     </ClCompile>
     <ClCompile Include="..\Private\Rader_PSystem.cpp">
       <Filter>02.GameObject\10. ParticleSystem\08. Rader_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Boss_HpBar.cpp">
+      <Filter>02.GameObject\07. UI\00. StatusUI\Boss_HpBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Boss_HpTable.cpp">
+      <Filter>02.GameObject\07. UI\00. StatusUI\Boss_HpBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Boss_Name.cpp">
+      <Filter>02.GameObject\07. UI\00. StatusUI\Boss_HpBar</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\TransportShip_HpBar.cpp">
+      <Filter>02.GameObject\07. UI\00. StatusUI\TransportShip_HpBar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
