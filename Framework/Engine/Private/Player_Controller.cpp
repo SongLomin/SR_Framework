@@ -124,6 +124,7 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 			m_pMyObject->Get_Component<CRigid_Body>()->Set_Booster(true);
 			GAMEINSTANCE->Add_Shaking(0.2f, 0.01f);	
 			pPlayerStatusCom->Add_Status(CStatus::STATUSID::STATUS_BOOSTER, -0.05);
+			GAMEINSTANCE->Add_BlurWidth();
 		}
 
 		else

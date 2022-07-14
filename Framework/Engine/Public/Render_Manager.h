@@ -20,6 +20,14 @@ public:
 	
 	HRESULT Draw_RenderGroup();
 
+	void	Add_BlurWidth()
+	{
+		if (0.15f > fBlurWidth)
+			fBlurWidth += 0.001f;
+		else
+			fBlurWidth = 0.1f;
+	}
+
 private:
 	list<class CGameObject*>				m_RenderObjects[(_uint)RENDERGROUP::RENDER_END];
 	typedef list<class CGameObject*>		RENDEROBJECTS;
@@ -36,6 +44,7 @@ private:
 	void ResumeOriginRender();
 	void DrawScreenQuad();
 	void Draw_Divide_ViewPort(RENDERGROUP _eRenderGroup, IDirect3DTexture9* _Tex);
+	void Apply_BoosterBlur(RENDERGROUP _eRenderGroup, IDirect3DTexture9* _Tex);
 	void Set_OnlyRenderTarget(IDirect3DSurface9** _ppSurface);
 
 private: /* For Defferred Rendering */
@@ -62,7 +71,7 @@ private: /* For Defferred Rendering */
 	IDirect3DVertexBuffer9* vb = nullptr;
 
 private:
-
+	_float	fBlurWidth = 0.f;
 
 public:
 	virtual void Free() override;

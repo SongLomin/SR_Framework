@@ -103,6 +103,7 @@ public: /* For.Render_Mananger */
 	HRESULT Add_RenderGroup(RENDERGROUP eGroup, class CGameObject* pGameObject);
 	HRESULT Draw_RenderGroup();
 	HRESULT Add_Light(CLight* _pLight);
+	void	Add_BlurWidth();
 
 public: /* For.Resource_Mananger */
 	HRESULT Remove_Textures_By_MemoryType(MEMORY_TYPE _eMemType);
