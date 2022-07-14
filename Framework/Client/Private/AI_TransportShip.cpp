@@ -4,7 +4,7 @@
 #include "Normal_Turret.h"
 #include "AI_Friendly.h"
 #include "Level_Loading.h"
-
+#include "TransportShip_HpBar.h"
 
 CAI_TransportShip::CAI_TransportShip()
 {
@@ -45,6 +45,8 @@ void CAI_TransportShip::Tick(_float fTimeDelta)
 
 		m_fSpawnTime = 10.f;
 	}
+
+	GAMEINSTANCE->Add_Text(_point{ (LONG)621, (LONG)42 }, D3DCOLOR_ARGB(255, 0, 255, 255), 0.f, TEXT("È­¹°¼±"), 0);
 
 	if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
 	{
@@ -152,7 +154,8 @@ HRESULT CAI_TransportShip::SetUp_Components()
 
 #pragma region Status Setting
 	CStatus::STATUS		Status;
-	Status.fHp = 1000.f;
+	Status.fMaxHp = 5000.f;
+	Status.fHp = Status.fMaxHp;
 	Status.fAttack = 7.f;
 	Status.fArmor = 5.f;
 

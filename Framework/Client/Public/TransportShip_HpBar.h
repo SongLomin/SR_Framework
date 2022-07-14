@@ -32,6 +32,9 @@ private:
 	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
 	CStatus* m_pStatusCom = nullptr;
 
+private:
+	CGameObject* m_pTransportShip = nullptr;
+
 protected:
 	_float					m_fX, m_fY, m_fSizeX, m_fSizeY;
 	_float4x4				m_ProjMatrix;

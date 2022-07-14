@@ -146,17 +146,17 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Exo>(LEVEL_SELECTPLANET, TEXT("Exo")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBossHpTable>(LEVEL_SELECTPLANET, TEXT("Boss_HP_Table")))
-		return E_FAIL;
-
-	//if (!GAMEINSTANCE->Add_GameObject<CBossHpBar>(LEVEL_SELECTPLANET, TEXT("Boss_HP_Bar")))
+	//if (!GAMEINSTANCE->Add_GameObject<CBossHpTable>(LEVEL_SELECTPLANET, TEXT("Boss_HP_Table")))
 	//	return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBossName>(LEVEL_SELECTPLANET, TEXT("Boss_Name")))
-		return E_FAIL;
+	////if (!GAMEINSTANCE->Add_GameObject<CBossHpBar>(LEVEL_SELECTPLANET, TEXT("Boss_HP_Bar")))
+	////	return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CTransportShip_HpBar>(LEVEL_SELECTPLANET, TEXT("TransportShip_HP_Bar")))
-		return E_FAIL;
+	//if (!GAMEINSTANCE->Add_GameObject<CBossName>(LEVEL_SELECTPLANET, TEXT("Boss_Name")))
+	//	return E_FAIL;
+
+	/*if (!GAMEINSTANCE->Add_GameObject<CTransportShip_HpBar>(LEVEL_SELECTPLANET, TEXT("TransportShip_HP_Bar")))
+		return E_FAIL;*/
 
 
 	//if (!GAMEINSTANCE->Add_GameObject<CEnemy_StagBeetle>(LEVEL_SELECTPLANET, TEXT("Enemy_StagBeetle")))
@@ -468,19 +468,19 @@ void CLevel_SelectPlanet::SelectPlanet_Event(float fTimeDelta)
 		m_bEventCheck[0] = true;
 	}
 
-	//if (m_fTextBoxTime <= 291.f && !m_bEventCheck[1])
-	//{
-	//	m_pQuestBoxObject->Set_Enable(true);
+	if (m_fTextBoxTime <= 291.f && !m_bEventCheck[1])
+	{
+		m_pQuestBoxObject->Set_Enable(true);
 
-	//	GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)60 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n행성들을 정복해 비행선 강화하기"), 0);
-	//  
-	//	m_iFontiX -= 0.8;
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)280 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n행성들을 정복해 비행선 강화하기"), 0);
+	  
+		m_iFontiX -= 0.8;
 
-	//	if (m_iFontiX <= 1040)
-	//	{
-	//		m_iFontiX = 1040;
-	//	}
-	//}
+		if (m_iFontiX <= 1040)
+		{
+			m_iFontiX = 1040;
+		}
+	}
 
 	if (m_bCinematic)
 	{

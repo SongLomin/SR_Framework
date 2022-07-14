@@ -53,6 +53,8 @@ private:
 	CAI_Controller* m_pAIControllerCom = nullptr;
 	//CCollider_Mesh* m_pColliderMesh = nullptr;
 
+private:
+	CGameObject* m_pHpBar = nullptr;
 
 private:
 	list<CNormal_Turret*>	m_pMyPosinList;

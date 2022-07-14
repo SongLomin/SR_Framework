@@ -39,6 +39,9 @@
 #include "RedPlanet_SkyBox.h"
 #include <Planet_Select.h>
 #include "Enemy_Roller.h"
+#include "Boss_HpTable.h"
+#include "Boss_Name.h"
+#include "TransportShip_HpBar.h"
 
 
 
@@ -140,6 +143,15 @@ HRESULT CLevel_RedPlanet::Initialize()
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CEnemy_Roller>(LEVEL_REDPLANET, TEXT("Enemy_Roller")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CBossHpTable>(LEVEL_REDPLANET, TEXT("Boss_HP_Table")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CBossName>(LEVEL_REDPLANET, TEXT("Boss_Name")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CTransportShip_HpBar>(LEVEL_REDPLANET, TEXT("TransportShip_HpBar")))
 		return E_FAIL;
 
 	//((CSpaceDust_PSystem*)GAMEINSTANCE->Add_GameObject<CSpaceDust_PSystem>(LEVEL_REDPLANET, TEXT("Particle")))->AddParticle(500);
@@ -389,8 +401,8 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	{
 		m_pQuestBoxObject->Set_Enable(true);
 
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n지원병력 도착까지 생존 / 화물선 호위 \n      남은시간 (초) : "), 0);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("    %d"), 1, (_uint)m_fMaxTime);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)270 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n지원병력 도착까지 생존 / 화물선 호위 \n      남은시간 (초) : "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)308 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("    %d"), 1, (_uint)m_fMaxTime);
 
 		if (m_iFontiX <= 1040)
 		{
@@ -420,7 +432,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 	{
 		m_bSpawnCheck = false;
 		m_pQuestBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n    모든 적 함체 섬멸 / 화물선 호위 "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)1040, (LONG)270 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n    모든 적 함체 섬멸 / 화물선 호위 "), 0);
 
 		if (m_iFontiX <= 1040)
 		{

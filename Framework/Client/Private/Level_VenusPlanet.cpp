@@ -288,8 +288,8 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 		}
 
 		m_pQuestBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)50 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            ÇöÀç ÀÓ¹«\n          ÈÆ·Ã º¿ ÆÄ±« \n        ³²Àº Àû : "), 0);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)88 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("%d"), 1, (_uint)iEnemyCount);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)270 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            ÇöÀç ÀÓ¹«\n          ÈÆ·Ã º¿ ÆÄ±« \n        ³²Àº Àû : "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)308 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("%d"), 1, (_uint)iEnemyCount);
 
 		if (m_iFontiX <= 1040)
 		{
