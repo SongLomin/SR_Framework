@@ -248,8 +248,15 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	}
 
 
-	
+  // 스테이지 클리어시 원점 이동
+	CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
+	CTransform* TransformCom = pCurrentCam->Get_Target();
 
+	if (TransformCom)
+	{
+		CTransform* pPlayerTransformCom = TransformCom->Get_Owner()->Get_Component<CTransform>();
+		pPlayerTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 0.f, 0.f));
+	}
 
 	
 	return S_OK;
@@ -313,6 +320,8 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 
 	 
 	SelectPlanet_Event(fTimeDelta);
+	
+
 	
 
 }
