@@ -43,6 +43,7 @@
 #include "Satellite_1.h"
 #include "Satellite_2.h"
 #include "Satellite_3.h"
+#include <time.h>
 
 CLevel_ExoPlanet::CLevel_ExoPlanet()
 {
@@ -295,38 +296,68 @@ void CLevel_ExoPlanet::ExoPlanet_Event(float fTimeDelta)
 
 void CLevel_ExoPlanet::Rock_Create(float fTimeDelta)
 {
+	m_fRockSqawnTime -= fTimeDelta;
+
 	CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
 
 	CTransform* TransformCom = pCurrentCam->Get_Target();
 
-	m_fRockSqawnTime -= fTimeDelta;
-	
+	CTransform* pPlayerTransformCom = TransformCom->Get_Owner()->Get_Component<CTransform>();
+
+
+	srand(unsigned(time(NULL)));
+
 	if (TransformCom && m_fRockSqawnTime <= 0)
 	{
-		CTransform* pPlayerTransformCom = TransformCom->Get_Owner()->Get_Component<CTransform>();
-
-		_float3 pPlayerPos = pPlayerTransformCom->Get_State(CTransform::STATE_POSITION);
-
 		CTransform* pRock_1Transform = GAMEINSTANCE->Add_GameObject<CRock_1>(CURRENT_LEVEL, TEXT("Rock_1"), nullptr, nullptr, true)->Get_Component<CTransform>();
 		CTransform* pRock_2Transform = GAMEINSTANCE->Add_GameObject<CRock_2>(CURRENT_LEVEL, TEXT("Rock_2"), nullptr, nullptr, true)->Get_Component<CTransform>();
 		CTransform* pRock_3Transform = GAMEINSTANCE->Add_GameObject<CRock_3>(CURRENT_LEVEL, TEXT("Rock_3"), nullptr, nullptr, true)->Get_Component<CTransform>();
 		CTransform* pRock_4Transform = GAMEINSTANCE->Add_GameObject<CRock_4>(CURRENT_LEVEL, TEXT("Rock_4"), nullptr, nullptr, true)->Get_Component<CTransform>();
 
 	
-		pPlayerPos.x = (_float)(rand() % 361);
+		/*pPlayerPos.x = (_float)(rand() % 361);
 		pPlayerPos.y = (_float)(rand() % 361);
-		pPlayerPos.z = (_float)(rand() % 361);
-
-		pPlayerPos = CMath_Utillity::Rotate_Vec3(_float3(pPlayerPos.x, pPlayerPos.y, pPlayerPos.z), pPlayerPos);
+		pPlayerPos.z = (_float)(rand() % 361);*/
 
 
-		pRock_1Transform->Set_State(CTransform::STATE_POSITION, pPlayerPos);
-		pRock_2Transform->Set_State(CTransform::STATE_POSITION, pPlayerPos);
-		pRock_3Transform->Set_State(CTransform::STATE_POSITION, pPlayerPos);
-		pRock_4Transform->Set_State(CTransform::STATE_POSITION, pPlayerPos);
+
+	/*	CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body"), nullptr, nullptr, true)
+			->Get_Component<CTransform>();
+		_float3 SpawnPos{ 0, 0.f, 300.f };
+
+		_float RotateX = (_float)(rand() % 361);
+		_float RotateY = (_float)(rand() % 361);
+		_float RotateZ = (_float)(rand() % 361);
+		RotateX = D3DXToRadian(RotateX);
+		RotateY = D3DXToRadian(RotateY);
+		RotateZ = D3DXToRadian(RotateZ);
+
+		SpawnPos = CMath_Utillity::Rotate_Vec3(_float3(RotateX, RotateY, RotateZ), SpawnPos);
+		pEnemyTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
+
+		m_fSpawnTime = 3.f;*/
+
+		_float3 pPlayerPos = pPlayerTransformCom->Get_World_State(CTransform::STATE_POSITION);
+
+		_float RotateX = (_float)(rand() % 361);
+		_float RotateY = (_float)(rand() % 361);
+		_float RotateZ = (_float)(rand() % 361);
+
+		RotateX = D3DXToRadian(RotateX);
+		RotateY = D3DXToRadian(RotateY);
+		RotateZ = D3DXToRadian(RotateZ);
+
+		pPlayerPos = CMath_Utillity::Rotate_Vec3(_float3(RotateX, RotateY, RotateZ), pPlayerPos);
+
+		
+		
+		pRock_1Transform->Set_State(CTransform::STATE_POSITION, pPlayerPos, true);
+		pRock_2Transform->Set_State(CTransform::STATE_POSITION, pPlayerPos, true);
+		pRock_3Transform->Set_State(CTransform::STATE_POSITION, pPlayerPos, true);
+		pRock_4Transform->Set_State(CTransform::STATE_POSITION, pPlayerPos, true);
 
 	
-		m_fRockSqawnTime = 2.f;
+		m_fRockSqawnTime = 1.f;
 	}
 
 	
