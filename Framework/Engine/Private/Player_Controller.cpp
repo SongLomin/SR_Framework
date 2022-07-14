@@ -80,6 +80,12 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 			Get_Owner()->Broadcast_EventMessage(&Message);
 		}
 
+		if (KEY_INPUT(KEY::RBUTTON, KEY_STATE::HOLD))
+		{
+			wstring Message = TEXT("Fire_Lazer");
+			Get_Owner()->Broadcast_EventMessage(&Message);
+		}
+
 		m_fTime -= fTimeDelta;
 		if (m_fTime < 0.f)
 		{

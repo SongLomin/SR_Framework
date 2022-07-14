@@ -21,6 +21,8 @@ HRESULT CRocket_Turret::Initialize(void* pArg)
 	if (pArg)
 		m_eBulletCollisionType = *(COLLISION_TYPE*)pArg;
 
+	m_pEventMessage = TEXT("Fire");
+
 	float floatArray[3];
 	floatArray[0] = 0.5f;
 	floatArray[1] = 0.2f;

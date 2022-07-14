@@ -29,6 +29,8 @@ public:
 
     void Link_Pre_Collider(CCollider_Pre* _PreCol);
     CCollider_Pre* Get_Pre_Collider() const;
+    void Set_OffSet(_float3 _vOffset);
+    _float3 Get_Offset();
 
 public:
     virtual void Tick(_float fTimeDelta) override;
@@ -41,6 +43,7 @@ protected:
     static _uint g_iNextID;
     _uint m_iID; //충돌체 고유 인덱스 (모든 충돌체는 인덱스가 서로 다름)
 
+    _float3 m_vOffSet;
 protected:
     CTransform* m_pMyTransformCom = nullptr;
     ID3DXMesh* m_pMesh = nullptr;

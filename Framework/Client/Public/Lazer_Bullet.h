@@ -7,6 +7,7 @@ BEGIN(Engine)
 class CMesh_Cube;
 class CSpotLight;
 class CMesh_Test;
+class CCollider_Ray;
 END
 
 BEGIN(Client)
@@ -33,6 +34,7 @@ private:
     //CMesh_Cube* m_pMeshCom = nullptr;
     CSpotLight* m_pLight = nullptr;
     CMesh_Test* m_pMeshCom = nullptr;
+    CCollider_Ray* m_pColliderCom = nullptr;
 
 
 public: /* For Event Function */
@@ -42,7 +44,9 @@ public: /* For Event Function */
 
 protected:
     // CBullet을(를) 통해 상속됨
-    virtual HRESULT SetUp_Components_For_Child() override;
+    virtual HRESULT SetUp_Components_For_Child(COLLISION_TYPE _eCollisionType) override;
+    virtual void OnEnable(void* _Arg = nullptr) override;
+    virtual void OnDisable() override;
 
 public:
     static CLazer_Bullet* Create();

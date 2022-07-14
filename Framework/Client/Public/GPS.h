@@ -40,6 +40,9 @@ private:
 	_point					m_ptMouse;
 	RECT					m_rcGPSBox;
 
+	_float3					m_vUp ;
+	_float3					m_vRight;
+
 	_bool					m_bCulling = false;
 
 private:

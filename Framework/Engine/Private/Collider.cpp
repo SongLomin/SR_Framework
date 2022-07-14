@@ -29,6 +29,16 @@ CCollider_Pre* CCollider::Get_Pre_Collider() const
     return m_pPreCollider;
 }
 
+void CCollider::Set_OffSet(_float3 _vOffset)
+{
+    m_vOffSet = _vOffset;
+}
+
+_float3 CCollider::Get_Offset()
+{
+    return _float3();
+}
+
 void CCollider::Tick(_float fTimeDelta)
 {
     GAMEINSTANCE->Add_Collider(this);

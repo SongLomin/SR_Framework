@@ -274,6 +274,16 @@ bool CCollision_Manager::Is3DCollision(CCollider* _pLeft, CCollider* _pRight, _f
 	{
 		return IsMesh_To_SphereCollision(_pRight, _pLeft);
 	}
+	else if ((_pLeft->Get_Collider_Shape() == COLLIDER_SHAPE::RAY)
+		&& (_pRight->Get_Collider_Shape() == COLLIDER_SHAPE::SPHERE))
+	{
+		return IsRay_To_SphereCollision(_pLeft, _pRight);
+	}
+	else if ((_pLeft->Get_Collider_Shape() == COLLIDER_SHAPE::SPHERE)
+		&& (_pRight->Get_Collider_Shape() == COLLIDER_SHAPE::RAY))
+	{
+		return IsRay_To_SphereCollision(_pRight, _pLeft);
+	}
 
 	return IsSphereCollision(_pLeft, _pRight, _fDistance);
 }
@@ -474,6 +484,38 @@ bool CCollision_Manager::IsMesh_To_SphereCollision(CCollider* _pLeft, CCollider*
 	_float3		vPickingMeshOut;
 
 	return CMath_Utillity::Picking_Mesh(pMesh, pMeshTransform, CollisionRay, &vPickingMeshOut);
+}
+
+bool CCollision_Manager::IsRay_To_SphereCollision(CCollider* _pLeft, CCollider* _pRight)
+{
+	RAY	rayCollider = static_cast<CCollider_Ray*>(_pLeft)->Get_ColliderRay();
+	D3DXVec3Normalize(&rayCollider.Dir, &rayCollider.Dir);
+	
+	_float Range = _pRight->Get_Collider_Size().x;
+	_float3 fSpherePos = _pRight->Get_Collider_Position();
+
+	_float3 SphereRay = fSpherePos - rayCollider.Pos;
+
+	_float Dotproduct = D3DXVec3Dot(&rayCollider.Dir, &SphereRay);
+
+	if (Dotproduct > 0.f && rayCollider.fLength > Dotproduct)
+	{
+		_float3 Projection = Dotproduct * rayCollider.Dir;
+
+		Projection += rayCollider.Pos;
+
+		_float3 Length = fSpherePos - Projection;
+
+		_float fDist = D3DXVec3Length(&Length);
+
+
+		if (Range > fDist)
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void CCollision_Manager::Free()

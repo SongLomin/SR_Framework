@@ -28,6 +28,8 @@ private:
     _float          m_fPreheatTime = 0.f;
     _float          m_fLerpTime = 2.f;
 
+   
+
 public:
     // CGameObject을(를) 통해 상속됨
     static CNormal_Turret* Create();

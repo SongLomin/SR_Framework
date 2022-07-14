@@ -30,6 +30,7 @@ protected:
     CMesh_Cube* m_pMeshCom = nullptr;
     CTransform* m_pPlayerTransformCom = nullptr;
     CMesh_Test* m_pMeshTestCom = nullptr;
+    _tchar* m_pEventMessage;
 
 private:
     CGameObject* m_pBoxObject = nullptr;

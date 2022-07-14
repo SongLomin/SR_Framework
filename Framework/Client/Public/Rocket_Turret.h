@@ -22,7 +22,7 @@ protected:
 
 private:
     COLLISION_TYPE m_eBulletCollisionType = COLLISION_TYPE::PLAYER_ATTACK;
-
+  
 
 public:
     // CGameObject을(를) 통해 상속됨

@@ -102,9 +102,9 @@ void CTurret::On_EventMessage(void* _Arg)
     wstring* Message = reinterpret_cast<wstring*>(_Arg);
 
     //발사 명령
-    if (lstrcmpW(Message->c_str(), TEXT("Fire")) == 0)
+    if (lstrcmpW(Message->c_str(), m_pEventMessage) == 0)
     {
-        if (m_fCurTime <= 0)
+        if (m_fCurTime < 0)
         {
              Command_Fire();
              m_fCurTime = m_fMaxTime;

@@ -357,6 +357,7 @@ namespace Engine
 		SPHERE = 0,
 		OBB,
 		MESH,
+		RAY,
 		SHAPE_END
 	};
 

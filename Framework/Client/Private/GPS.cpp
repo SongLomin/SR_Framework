@@ -25,6 +25,9 @@ HRESULT CGPS::Initialize(void* pArg)
 	SetRect(&m_rcGPSBox, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
 
+	m_vUp = _float3(0.f, 1.f, 0.f);
+	m_vRight = _float3(1.f, 0.f, 0.f);
+
 	return S_OK;
 }
 
@@ -47,8 +50,8 @@ void CGPS::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
-	m_pTransformCom->Set_World_State(CTransform::STATE_RIGHT, _float3(1.f, 0.f, 0.f));
-	m_pTransformCom->Set_World_State(CTransform::STATE_UP, _float3(0.f, 1.f, 0.f));
+	m_pTransformCom->Set_World_State(CTransform::STATE_RIGHT, m_vRight);
+	m_pTransformCom->Set_World_State(CTransform::STATE_UP, m_vUp);
 	m_pTransformCom->Set_World_State(CTransform::STATE_LOOK, _float3(0.f, 0.f, 1.f));
 
 	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f), true);
@@ -147,15 +150,18 @@ void CGPS::Culling()
 		_float CullingX = max(min(MyPos.x, 1200.f), 20.f);
 		m_fX = CullingX;
 
-		if (Dotproduct < 0.f)
-		{
-			m_fY = 680.f;
-		}
-		else
+		if (Dotproduct >= 0.f)
 		{
 			_float CullingY = max(min(MyPos.y, 680.f), 20.f);
 			m_fY = CullingY;
 		}
+	
+		_float fDirectionX = m_fX - g_iWinCX * 0.5f;
+		_float fDirectionY = m_fY - g_iWinCY * 0.5f;
+
+		m_vUp = _float3(fDirectionX, -fDirectionY, 0.f);
+		D3DXVec3Normalize(&m_vUp, &m_vUp);
+		D3DXVec3Cross(&m_vRight, &m_vUp, &_float3(0.f, 0.f, 1.f));
 
 		m_bCulling = true;
 	}

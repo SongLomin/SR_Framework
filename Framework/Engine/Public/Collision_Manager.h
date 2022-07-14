@@ -34,7 +34,7 @@ private:
     bool IsOBBCollision(CCollider* _pLeft, CCollider* _pRight, _float* _fDistance = nullptr);
     bool IsSphereCollision(CCollider* _pLeft, CCollider* _pRight, _float* _fDistance = nullptr);
     bool IsMesh_To_SphereCollision(CCollider* _pLeft, CCollider* _pRight);
-
+    bool IsRay_To_SphereCollision(CCollider* _pLeft, CCollider* _pRight);
 private:
     list<CCollider*>	m_ColliderList[(UINT)COLLISION_TYPE::TYPE_END]; // 충돌 컴포넌트들만 충돌 타입별로 모아놓은 리스트
     list<_ulong>    m_Erase_ColliderIDList;
