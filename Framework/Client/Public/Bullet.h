@@ -32,6 +32,7 @@ protected:
 protected:
     _float  m_fLifeTime = 1.f;
     _float  m_fMaxTime = 1.f;
+    _float  m_fDamage = 1.f;
 
 protected:
     HRESULT SetUp_Components(COLLISION_TYPE _eCollisionType);
@@ -39,6 +40,8 @@ protected:
 
 public:
     virtual void Init_BulletPosition(_float4x4* _pWorldMat);
+
+    _float Get_Damage() { return m_fDamage; }
 
 public:
     //객체의 상태가 활성화 상태로 변경될 때, 호출되는 이벤트입니다.

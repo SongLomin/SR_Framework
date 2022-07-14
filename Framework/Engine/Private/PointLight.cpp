@@ -54,8 +54,11 @@ void CPointLight::LateTick(_float fTimeDelta)
 
 	m_fLifeTime -= fTimeDelta;
 
-
-	m_D3DLight.Position = m_pOwner->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION, true);
+	if (!m_bFixed)
+		m_D3DLight.Position = m_pOwner->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION, true);
+	else
+		m_D3DLight.Position = _float3(0.f, 0.f, 0.f);
+	
 
 	m_D3DLight.Position.x += m_Margin_Position.x;
 	m_D3DLight.Position.y += m_Margin_Position.y;

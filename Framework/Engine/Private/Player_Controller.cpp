@@ -83,10 +83,10 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 		m_fTime -= fTimeDelta;
 		if (m_fTime < 0.f)
 		{
-			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pMyObject->Get_Component<CTransform>(), true);
-			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_StagBeetle")), m_pMyObject->Get_Component<CTransform>(), false);
-			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TargetBoard")), m_pMyObject->Get_Component<CTransform>(), false);
-			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace")), m_pMyObject->Get_Component<CTransform>(), false);
+			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pMyObject->Get_Component<CTransform>(), 20.f, true);
+			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_StagBeetle")), m_pMyObject->Get_Component<CTransform>(), 20.f, false);
+			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TargetBoard")), m_pMyObject->Get_Component<CTransform>(), 20.f, false);
+			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace")), m_pMyObject->Get_Component<CTransform>(), 20.f, false);
 			m_fTime = 1.f;
 		}
 

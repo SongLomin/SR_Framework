@@ -18,6 +18,8 @@ CRocket_Bullet::CRocket_Bullet(const CRocket_Bullet& Prototype)
 
 HRESULT CRocket_Bullet::Initialize_Prototype()
 {
+	m_fDamage = 10.f;
+
 	return S_OK;
 }
 

@@ -35,9 +35,9 @@ void CNormal_Turret::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	m_fPreheatTime -= fTimeDelta;
+	//m_fPreheatTime -= fTimeDelta;
 	
-	m_fPreheatTime = max(1.1f, m_fPreheatTime);
+	//m_fPreheatTime = max(1.1f, m_fPreheatTime);
 }
 
 void CNormal_Turret::LateTick(_float fTimeDelta)
@@ -46,12 +46,12 @@ void CNormal_Turret::LateTick(_float fTimeDelta)
 
 	
 
-	if (m_fPreheatTime >= 100.f - DBL_EPSILON)
-	{
-		//printf("m_fPrehetTime: %f\n",&m_fPreheatTime);
-	}
-	
-	m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK, true), m_fPreheatTime - 1.1f, 1.f, true);
+	//if (m_fPreheatTime >= 100.f - DBL_EPSILON)
+	//{
+	//	//printf("m_fPrehetTime: %f\n",&m_fPreheatTime);
+	//}
+	//
+	//m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK, true), m_fPreheatTime - 1.1f, 1.f, true);
 }
 
 
@@ -62,6 +62,10 @@ void CNormal_Turret::Command_Fire()
 	static_cast<CBullet*>(Bullet)->Init_BulletPosition(&Get_Component<CTransform>()->Get_WorldMatrix());
 	if (Get_Controller() == CONTROLLER::PLAYER)
 	{
+		//m_fPreheatTime += TIMEDELTA;
+		//m_fPreheatTime *= 1.01f;
+		//m_fPreheatTime = min(10.f, m_fPreheatTime);
+
 		GAMEINSTANCE->Add_Shaking(0.1f, 0.05f);
 	}
 }

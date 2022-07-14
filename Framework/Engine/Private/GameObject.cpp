@@ -147,7 +147,8 @@ void CGameObject::Set_Dead()
 
 	for (auto& elem : *pMyChildren)
 	{
-		elem->Get_Owner()->Set_Dead();
+		if(elem)
+			elem->Get_Owner()->Set_Dead();
 	}
 
 }
@@ -184,7 +185,8 @@ void CGameObject::Add_List_Child_From_Key(const _tchar* _Key, list<CGameObject*>
 
 	for (auto& elem : *pMyTransform->Get_Children())
 	{
-		elem->Get_Owner()->Add_List_Child_From_Key(_Key, _List);
+		if(elem)
+			elem->Get_Owner()->Add_List_Child_From_Key(_Key, _List);
 	}
 
 }

@@ -10,6 +10,9 @@
 #include "Bayonet_Turret.h"
 #include <Enemy_GPS.h>
 #include <AI_HPBar.h>
+#include <MagmaSpace_Body.h>
+#include "Rocket_Turret.h"
+#include <Bullet.h>
 
 HRESULT CMonster::Initialize_Prototype()
 {
@@ -152,6 +155,38 @@ HRESULT CMonster::SetUp_Components()
 	return S_OK;
 }
 
+void CMonster::Drop_Item()
+{
+	int random = rand() % 100;
+
+	CGameObject* Turret = nullptr;
+
+	if (random < 15)
+	{
+		Turret = GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_SELECTPLANET, TEXT("Normal_Turret"), nullptr, nullptr, true);
+	}
+
+	else if (random < 25)
+	{
+		Turret = GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_SELECTPLANET, TEXT("Rocket_Turret"), nullptr, nullptr, true);
+	}
+
+	else if (random < 30)
+	{
+		//레이저 터렛
+	}
+
+	else
+	{
+		return;
+	}
+
+
+	if(Turret)
+		Turret->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION, true));
+
+}
+
 
 
 
@@ -161,7 +196,9 @@ void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 	{
 		m_pHPBar->Set_Enable(true);
 
-		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+		_float fDamage = static_cast<CBullet*>(_Other_Collider->Get_Owner())->Get_Damage();
+
+		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -fDamage);
 		//((CFire_PSystem*)GAMEINSTANCE->Add_GameObject<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle_Fire"), nullptr, nullptr, true))->AddParticle(50, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
 		((CFire_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle_Fire")))->AddParticle(50, m_pTransformCom);
 		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
@@ -180,6 +217,8 @@ void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 
 			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false))->Set_Pos(MyPos);
+
+			Drop_Item();
 
 			Set_Enable(false);
 
@@ -225,6 +264,9 @@ void CMonster::OnDisable()
 	//자식들을 순회하면서 Set_Enable 함수를 호출한다.
 	function<void(CBase&, _bool, void*)> Set_EnableFunc = &CBase::Set_Enable;
 	Command_For_Children<function<void(CBase&, _bool, void*)>, _bool, void*>(Set_EnableFunc, false, nullptr);
+
+	
+
 }
 
 void CMonster::Free()

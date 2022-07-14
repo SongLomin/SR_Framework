@@ -35,7 +35,7 @@ CSong_Ship_Body::CSong_Ship_Body(const CSong_Ship_Body & Prototype)
 
 HRESULT CSong_Ship_Body::Initialize_Prototype()
 {
-
+	m_AnchorPosition = _float3(1.4f, 1.f, -0.5f);
 	return S_OK;
 }
 
@@ -242,33 +242,33 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 
 	CTurret* Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(3.6f, -0.15f, 0.f));
-	m_pMyPosinList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pMyPosinList.back());
+	m_pMyTurretList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyTurretList.back());
 
 	Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.4f, -0.15f, 0.f));
-	m_pMyPosinList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pMyPosinList.back());
+	m_pMyTurretList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyTurretList.back());
 
 	Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-2.4f, -0.15f, 0.f));
-	m_pMyPosinList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pMyPosinList.back());
+	m_pMyTurretList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyTurretList.back());
 
 	Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-3.6f, -0.15f, 0.f));
-	m_pMyPosinList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pMyPosinList.back());
+	m_pMyTurretList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyTurretList.back());
 
 	Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_STATIC, TEXT("Rocket_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(-3.f, -1.f, 0.f));
-	m_pMyPosinList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pMyPosinList.back());
+	m_pMyTurretList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyTurretList.back());
 
 	Posin = static_cast<CTurret*>(GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_STATIC, TEXT("Rocket_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(3.f, -1.f, 0.f));
-	m_pMyPosinList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pMyPosinList.back());
+	m_pMyTurretList.push_back(Posin);
+	Posin->Set_WeakPtr(&m_pMyTurretList.back());
 
 	/*CLazer_Turret* LazerPosin = static_cast<CLazer_Turret*>(GAMEINSTANCE->Add_GameObject<CLazer_Turret>(CURRENT_LEVEL, TEXT("Lazer_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, -0.5f, 0.f));

@@ -17,6 +17,21 @@ void CTurret::Tick(_float fTimeDelta)
 {
     __super::Tick(fTimeDelta);
 
+    //부모가 없는 경우: 아이템인 경우
+    if (!m_pTransformCom->Get_Parent())
+    {
+        if (m_fLifeTime < 0.f)
+        {
+            Set_Enable(false);
+        }
+
+        m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), 1.f, fTimeDelta, true);
+        COLLISION_TYPE eCollisionType = COLLISION_TYPE::ITEM;
+        m_fLifeTime -= fTimeDelta;
+        m_pColliderCom->Set_Enable(true, &eCollisionType);
+        return;
+    }
+
     m_fCurTime -= fTimeDelta;
 
     if (LookAt_Targeting())
@@ -78,6 +93,13 @@ HRESULT CTurret::SetUp_Components()
     m_pRendererCom = Add_Component<CRenderer>();
     WEAK_PTR(m_pRendererCom);
 
+    COLLISION_TYPE eCollisionType = COLLISION_TYPE::ITEM;
+    m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
+    m_pColliderCom->Set_Collider_Size(_float3(40.f, 40.f, 40.f));
+    WEAK_PTR(m_pColliderCom);
+    m_pColliderCom->Link_Transform(m_pTransformCom);
+    m_pColliderCom->Set_Enable(false);
+
     SetUp_Components_For_Child();
 
     return S_OK;
@@ -110,6 +132,75 @@ void CTurret::On_EventMessage(void* _Arg)
              m_fCurTime = m_fMaxTime;
         }
     }
+}
+
+void CTurret::On_Collision_Enter(CCollider* _Other_Collider)
+{
+}
+
+void CTurret::On_Collision_Stay(CCollider* _Other_Collider)
+{
+    if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::PLAYER)
+    {
+        if (!m_pColliderCom->Get_Enable())
+            return;
+
+        CTransform* PlayerTransformCom = _Other_Collider->Get_Owner()->Get_Component<CTransform>();
+
+        _float3 PlayerPos = PlayerTransformCom->Get_State(CTransform::STATE_POSITION, true);
+        _float3 DirPos = PlayerPos - m_pTransformCom->Get_State(CTransform::STATE_POSITION, true);
+
+        _float fDistance = D3DXVec3Length(&DirPos);
+        _float3 NormalDir;
+        D3DXVec3Normalize(&NormalDir, &DirPos);
+
+        if (fDistance < 9.f)
+        {
+            _float4x4 IdentityMat;
+            D3DXMatrixIdentity(&IdentityMat);
+            m_pTransformCom->Set_LocalMatrix(IdentityMat);
+
+            
+
+            m_pTransformCom->Set_Parent(PlayerTransformCom);
+            PlayerTransformCom->Add_Child(m_pTransformCom);
+            m_pColliderCom->Set_Enable(false);
+
+            Set_Controller(PlayerTransformCom->Get_Owner()->Get_Controller());
+        }
+
+        else
+        {
+            m_pTransformCom->Add_Position(NormalDir * TIMEDELTA * m_fMagnetic);
+            m_fMagnetic += TIMEDELTA * 3.f;
+        }
+    }
+
+}
+
+void CTurret::On_Collision_Exit(CCollider* _Other_Collider)
+{
+}
+
+void CTurret::OnEnable(void* _Arg)
+{
+    if (!m_pTransformCom->Get_Parent())
+    {
+        _float4x4 IdentityMat;
+        D3DXMatrixIdentity(&IdentityMat);
+
+
+        m_fLifeTime = 30.f;
+        m_pTransformCom->Set_LocalMatrix(IdentityMat);
+        m_pColliderCom->Set_Enable(false);
+        m_fMagnetic = 3.f;
+        
+    }
+}
+
+void CTurret::OnDisable()
+{
+
 }
 
 void CTurret::Set_Player_Target(CGameObject* _Target)

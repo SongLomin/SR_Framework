@@ -47,6 +47,13 @@ void CNormal_Bullet::LateTick(_float fTimeDelta)
 	__super::LateTick(fTimeDelta);
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 
+	/*if (m_bFirst)
+	{
+		m_pLight->Set_Margin_Position(m_pTransformCom->Get_State(CTransform::STATE_POSITION, true));
+		m_bFirst = false;
+	}*/
+	
+
 
 	if (GAMEINSTANCE->IsIn(&(m_pTransformCom->Get_World_State(CTransform::STATE_POSITION))))
 	{
@@ -131,6 +138,8 @@ void CNormal_Bullet::OnEnable(void* _Arg)
 
 	m_pLight->Set_Preset_PowLight();
 	m_pLight->Set_Enable(true);
+	//m_pLight->Set_FixedLight(true);
+	//m_bFirst = false;
 }
 
 void CNormal_Bullet::OnDisable()
@@ -207,6 +216,7 @@ HRESULT CNormal_Bullet::SetUp_Components_For_Child()
 	m_pLight = Add_Component<CPointLight>();
 	WEAK_PTR(m_pLight);
 	m_pLight->Set_Preset_PowLight();
+	
 
 	return S_OK;
 }

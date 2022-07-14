@@ -40,7 +40,7 @@ void CRocket_Turret::Command_Fire()
 	static_cast<CRocket_Bullet*>(Bullet)->Set_Target(m_pTarget);
 	if (Get_Controller() == CONTROLLER::PLAYER)
 	{
-		GAMEINSTANCE->Add_Shaking(0.1f, 0.05f);
+		GAMEINSTANCE->Add_Shaking(1.4f, 0.01f);
 	}
 }
 

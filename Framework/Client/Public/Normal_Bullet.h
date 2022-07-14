@@ -33,6 +33,9 @@ private:
     CMesh_Cube* m_pMeshCom = nullptr;
     CPointLight* m_pLight = nullptr;
 
+private:
+    _bool       m_bFirst = true;
+
 public:
     //void Link_PosinTransform(CTransform* _pTransform);
 

@@ -62,7 +62,7 @@ protected:
     void LookAt_Camera();
     HRESULT SetUp_Components();
     virtual void SetUp_Components_For_Child() PURE;
-
+    virtual void Drop_Item();
    
 protected: /* For Event Function */
     virtual void On_Collision_Enter(CCollider* _Other_Collider) override;

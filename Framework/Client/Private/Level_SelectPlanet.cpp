@@ -46,6 +46,7 @@
 #include <Enemy_GPS.h>
 #include <EnemySpace_Body.h>
 #include <TextureDrawUI.h>
+#include "Normal_Turret.h"
 
 _bool CLevel_SelectPlanet::m_bFirst = false;
 

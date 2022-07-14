@@ -124,9 +124,6 @@
     <Filter Include="02.GameObject\06. Planet\Red">
       <UniqueIdentifier>{7add39bb-f3de-4479-86ed-a0a96ee2a31f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\03. Bullet\Roket">
-      <UniqueIdentifier>{4e1ddc4f-c212-49e2-b683-3ad8501e612c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\06. Planet\Magma">
       <UniqueIdentifier>{94052d7d-a2b5-44dd-8102-97c4f7c87b1c}</UniqueIdentifier>
     </Filter>
@@ -349,6 +346,9 @@
     <Filter Include="02.GameObject\07. UI\TextureDrawUI">
       <UniqueIdentifier>{f03af253-2c47-40e5-8d26-4e05419be448}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\03. Bullet\Rocket">
+      <UniqueIdentifier>{4e1ddc4f-c212-49e2-b683-3ad8501e612c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -472,7 +472,7 @@
       <Filter>02.GameObject\06. Planet\Red</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Roket_Bullet.h">
-      <Filter>02.GameObject\03. Bullet\Roket</Filter>
+      <Filter>02.GameObject\03. Bullet\Rocket</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Planet_Venus.h">
       <Filter>02.GameObject\06. Planet\Venus</Filter>
@@ -795,7 +795,7 @@
       <Filter>02.GameObject\06. Planet\Red</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Roket_Bullet.cpp">
-      <Filter>02.GameObject\03. Bullet\Roket</Filter>
+      <Filter>02.GameObject\03. Bullet\Rocket</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Planet_Venus.cpp">
       <Filter>02.GameObject\06. Planet\Venus</Filter>

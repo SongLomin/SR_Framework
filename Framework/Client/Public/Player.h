@@ -52,13 +52,14 @@ protected:
 	CMesh* m_pMeshCom = nullptr;
 
 protected:
-	list<CTurret*>	m_pMyPosinList;
+	list<CTurret*>	m_pMyTurretList;
 	_bool					m_bTargetMode = false;
 	_float					m_fTime = 1.f;
 	_bool					m_bMouse = false;
 
 protected:
 	_float			m_fTimeScale;
+	_float3			m_AnchorPosition = _float3(2.2f, 0.f, 0.f);
 
 protected: /* For Event Function */
 	virtual void On_Change_Controller(const CONTROLLER& _IsAI) override;
@@ -75,6 +76,7 @@ protected:
 	virtual void Update_PosinTarget(TARGETMODE _TargetMode);
 
 	_bool Change_NearstPlayer();
+	void Update_TurretList();
 
 public:
 	virtual void Free() override;

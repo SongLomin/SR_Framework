@@ -24,6 +24,8 @@ public:
     // CLight을(를) 통해 상속됨
     virtual void Bind_ConstBuffer() override;
 
+    void Set_FixedLight(_bool _bFixed) { m_bFixed = _bFixed; }
+
 public:
     // CLight을(를) 통해 상속됨
     static CPointLight* Create();
@@ -31,7 +33,8 @@ public:
     virtual void Free() override;
 
 private:
-    ID3DXMesh* m_pMesh = nullptr;
+    ID3DXMesh*  m_pMesh = nullptr;
+    _bool       m_bFixed = false;
 };
 
 END
