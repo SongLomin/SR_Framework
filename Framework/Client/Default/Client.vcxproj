@@ -171,6 +171,7 @@
     <ClInclude Include="..\Public\Bayonet_Turret.h" />
     <ClInclude Include="..\Public\Benner.h" />
     <ClInclude Include="..\Public\AI_HPBar.h" />
+    <ClInclude Include="..\Public\BlackHole_Effect.h" />
     <ClInclude Include="..\Public\Bomb_Effect.h" />
     <ClInclude Include="..\Public\AI_TransportShip.h" />
     <ClInclude Include="..\Public\BoosterBar.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="..\Public\Default_Aim.h" />
     <ClInclude Include="..\Public\Dive.h" />
     <ClInclude Include="..\Public\Effect.h" />
+    <ClInclude Include="..\Public\EnemySpawn_Effect.h" />
     <ClInclude Include="..\Public\Enemy_Roller.h" />
     <ClInclude Include="..\Public\Enemy_Scourge.h" />
     <ClInclude Include="..\Public\Enemy_GPS.h">
@@ -289,6 +291,7 @@
     <ClCompile Include="..\Private\Armor_UI.cpp" />
     <ClCompile Include="..\Private\Bayonet_Turret.cpp" />
     <ClCompile Include="..\Private\Benner.cpp" />
+    <ClCompile Include="..\Private\BlackHole_Effect.cpp" />
     <ClCompile Include="..\Private\Bomb_Effect.cpp" />
     <ClCompile Include="..\Private\BoosterBar.cpp" />
     <ClCompile Include="..\Private\Booster_PSystem.cpp" />
@@ -301,6 +304,7 @@
     <ClCompile Include="..\Private\Default_Aim.cpp" />
     <ClCompile Include="..\Private\Dive.cpp" />
     <ClCompile Include="..\Private\Effect.cpp" />
+    <ClCompile Include="..\Private\EnemySpawn_Effect.cpp" />
     <ClCompile Include="..\Private\Enemy_Roller.cpp" />
     <ClCompile Include="..\Private\Enemy_Scourge.cpp" />
     <ClCompile Include="..\Private\Enemy_GPS.cpp">

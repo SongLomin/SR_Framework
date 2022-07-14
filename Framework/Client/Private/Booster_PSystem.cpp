@@ -88,7 +88,7 @@ void CBooster_PSystem::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 
-	m_pRenderer->Add_RenderGroup(RENDERGROUP::RENDER_ALPHABLEND, this);
+	m_pRenderer->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 }
 
 HRESULT CBooster_PSystem::Render_Begin(ID3DXEffect** Shader)
@@ -125,14 +125,13 @@ HRESULT CBooster_PSystem::Render()
 {
 	m_pRenderer->Bind_Texture(m_iTextureCount);
 
-	DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	DEVICE->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	DEVICE->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-	DEVICE->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
+	//DEVICE->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	//DEVICE->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	//DEVICE->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
-	//DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-	//DEVICE->SetRenderState(D3DRS_ALPHAREF, 253);
-	//DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
+	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+	DEVICE->SetRenderState(D3DRS_ALPHAREF, 253);
+	DEVICE->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 
 	__super::Render();
 

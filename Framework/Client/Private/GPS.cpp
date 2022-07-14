@@ -179,5 +179,4 @@ void CGPS::Free()
 
 void CGPS::OnDisable()
 {
-	printf("»£√‚");
 }

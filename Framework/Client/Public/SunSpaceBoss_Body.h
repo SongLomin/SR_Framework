@@ -38,11 +38,12 @@ private:
 
 private:
     CTransform* pEnemyTransform = nullptr;
-    CTransform* pRockTransform = nullptr;
+    CGameObject* pRockObject = nullptr;
 
 private:
-    _float  m_pSpawnTime = 20.f;
-   list<pair<_float,CTransform*>> m_RockTransformList;
+    _float  m_fMonsterSpawn = 20.f;
+    _float  m_fRockSpawn = 5.f;
+   list<pair<_float, CGameObject*>> m_RockTransformList;
 
 protected:
     virtual void SetUp_Components_For_Child();

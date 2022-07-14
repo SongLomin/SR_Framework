@@ -172,8 +172,6 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	//		return E_FAIL;
 	//}
 
-	if (!GAMEINSTANCE->Add_GameObject<CSunSpaceBoss_Body>(LEVEL_SELECTPLANET, TEXT("Enemy_Boss")))
-		return E_FAIL;
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);

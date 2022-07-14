@@ -72,9 +72,20 @@ void CEffect::LookAtCamera()
 
 	_float3 Scaled = m_pTransformCom->Get_Scaled();
 
-	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, *(_float3*)&ViewMatrix.m[0][0], true);
-	m_pTransformCom->Set_State(CTransform::STATE_UP, *(_float3*)&ViewMatrix.m[1][0], true);
+	//m_pTransformCom->Set_State(CTransform::STATE_RIGHT, *(_float3*)&ViewMatrix.m[0][0], true);
+	//m_pTransformCom->Set_State(CTransform::STATE_UP, *(_float3*)&ViewMatrix.m[1][0], true);
 	m_pTransformCom->Set_State(CTransform::STATE_LOOK, *(_float3*)&ViewMatrix.m[2][0], true);
+	
+
+	_float3		vRight = *D3DXVec3Cross(&vRight, &_float3(0.f, 1.f, 0.f), &*(_float3*)&ViewMatrix.m[2][0]);
+	_float3		vUp = *D3DXVec3Cross(&vUp, &*(_float3*)&ViewMatrix.m[2][0], &vRight);
+	
+	vRight = *D3DXVec3Normalize(&vRight, &vRight) * Scaled.x;
+	vUp = *D3DXVec3Normalize(&vUp, &vUp) * Scaled.y;
+
+	m_pTransformCom->Set_State(CTransform::STATE_RIGHT, vRight, true);
+	m_pTransformCom->Set_State(CTransform::STATE_UP, vUp, true);
+	
 
 	_float3 vWorldPos = m_pTransformCom->Get_State(CTransform::STATE_POSITION, true);
 
@@ -88,7 +99,7 @@ HRESULT CEffect::SetUp_Components()
 {
 	m_pTransformCom = Add_Component<CTransform>();
 	WEAK_PTR(m_pTransformCom);
-	m_pTransformCom->Scaling(_float3(15.f, 15.f, 15.f), true);
+
 	m_pRendererCom = Add_Component<CRenderer>();
 	WEAK_PTR(m_pRendererCom);
 

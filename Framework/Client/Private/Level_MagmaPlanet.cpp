@@ -48,7 +48,7 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
 
-	for (int i = 0; i < 5; ++i)
+	/*for (int i = 0; i < 5; ++i)
 	{
 		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CMagmaSpace_Body>(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace"), nullptr, nullptr, true)->Get_Component<CTransform>();
 
@@ -66,7 +66,7 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 
 		pEnemyTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
 		++m_iSpawnCount;
-	}
+	}*/
 
 	for (int i = 0; i < 30; ++i)
 	{
@@ -154,9 +154,10 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 		m_fSpawnTime = 2.f;
 
 		++m_iSpawnCount;
-		if (m_iSpawnCount == 30)
+		if (m_iSpawnCount >= 30)
 		{
 			m_bSpawnCheck = false;
+			m_iSpawnCount = 30;
 		}
 	}
 
@@ -263,10 +264,17 @@ void CLevel_MagmaPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 {
 	m_fTextBoxTime -= fTimeDelta;
-
+	_uint MonsterSize = 0;
 	auto Monster = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace"));
+	if (!Monster)
+		return;
 
-	_uint MonsterSize = Monster->size();
+	for (auto& elem : *Monster)
+	{
+		if (elem->Get_Enable())
+			++MonsterSize;
+	}
+
 
 	m_iMonsterCount = m_iSpawnCount - MonsterSize;
 
@@ -334,11 +342,20 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 	}
 
 
-	if (m_fMaxTime == 0)
+	if (m_fMaxTime < 0.f)
 	{
 		m_pQuestBoxObject->Set_Enable(false);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이런, 여기에 더있다간 기체를 더이상 수리를 못하게될거세. \n 아쉽지만 일단 퇴각하도록."), 0);
+	
+		if (m_fMaxTime <= -5.f)
+		{
+			// 스타트 레벨로 돌아감
+
+			//GAMEINSTANCE->Swap_Camera();
+			//if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
+			//	return;
+		}
 	}
 
 

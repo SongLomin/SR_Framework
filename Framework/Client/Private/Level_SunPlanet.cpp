@@ -15,6 +15,7 @@
 #include <Planet_Select.h>
 #include "Level_Loading.h"
 #include "MovingCamera.h"
+#include <SunSpaceBoss_Body.h>
 
 CLevel_SunPlanet::CLevel_SunPlanet()
 {
@@ -25,46 +26,49 @@ HRESULT CLevel_SunPlanet::Initialize()
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CVenusPlanet_SkyBox>(LEVEL_VENUSPLANET, TEXT("SkyBox")))
+	if (!GAMEINSTANCE->Add_GameObject<CVenusPlanet_SkyBox>(LEVEL_SUNPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_VENUSPLANET, TEXT("Aim_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_SUNPLANET, TEXT("Aim_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_VENUSPLANET, TEXT("Light_Moon")))
+	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_SUNPLANET, TEXT("Light_Moon")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_VENUSPLANET, TEXT("Status_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_SUNPLANET, TEXT("Status_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_VENUSPLANET, TEXT("HP_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_SUNPLANET, TEXT("HP_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_VENUSPLANET, TEXT("Booster_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_SUNPLANET, TEXT("Booster_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_VENUSPLANET, TEXT("Shield_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_SUNPLANET, TEXT("Shield_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_VENUSPLANET, TEXT("NormalBullet_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_SUNPLANET, TEXT("NormalBullet_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_VENUSPLANET, TEXT("BulletCount_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_SUNPLANET, TEXT("BulletCount_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_VENUSPLANET, TEXT("Aim")))
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_SUNPLANET, TEXT("Aim")))
 		return E_FAIL;
 
-	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_VENUSPLANET, TEXT("TextBox_Yang"));
+	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SUNPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);
 
-	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_VENUSPLANET, TEXT("Quest_UI"));
+	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SUNPLANET, TEXT("Quest_UI"));
 	m_pQuestBoxObject->Set_Enable(false);
 
 
-	m_pPlanetObject = GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVEL_VENUSPLANET, TEXT("Earth"));
+	m_pPlanetObject = GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVEL_SUNPLANET, TEXT("Earth"));
 	m_pPlanetObject->Set_Enable(false);
 
+
+	if (!GAMEINSTANCE->Add_GameObject<CSunSpaceBoss_Body>(LEVEL_SUNPLANET, TEXT("Enemy_Boss")))
+		return E_FAIL;
 
 	return S_OK;
 }
@@ -105,7 +109,7 @@ HRESULT CLevel_SunPlanet::Render()
 		return E_FAIL;
 
 
-	SetWindowText(g_hWnd, TEXT("Venus Planet 레벨입니다. "));
+	SetWindowText(g_hWnd, TEXT("Satrun Planet 레벨입니다. "));
 
 	return S_OK;
 }
@@ -179,7 +183,7 @@ CLevel_SunPlanet* CLevel_SunPlanet::Create()
 
 	if (FAILED(pInstance->Initialize()))
 	{
-		MSG_BOX("Failed to Created : CLevel_SunPlanet");
+		MSG_BOX("Failed to Created : CLevel_SatrunPlanet");
 		Safe_Release(pInstance);
 	}
 

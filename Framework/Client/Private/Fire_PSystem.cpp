@@ -131,7 +131,7 @@ void CFire_PSystem::ResetParticle(ParticleDesc* Desc)
 
 	Desc->velocity.x = (_float)((rand() % 31) * 0.5f) - 10.5f;
 	Desc->velocity.y = (_float)((rand() % 31) * 0.5f) - 7.5f;
-	Desc->velocity.z = (_float)((rand() % 7) * 0.5f) - 1.5f;
+	Desc->velocity.z = (_float)((rand() % 31) * 0.5f) - 1.5f;
 
 	//Desc->velocity.x = 1.f;
 	//Desc->velocity.y = 1.f;

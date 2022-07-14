@@ -8,6 +8,8 @@
 #include "Rock_2.h"
 #include "Rock_3.h"
 #include "Rock_4.h"
+#include <BlackHole_Effect.h>
+#include <EnemySpawn_Effect.h>
 
 CSunSpaceBoss_Body::CSunSpaceBoss_Body()
 {
@@ -39,18 +41,18 @@ void CSunSpaceBoss_Body::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	m_pSpawnTime -= fTimeDelta;
-	if (m_pSpawnTime < 0.f)
+	m_fMonsterSpawn -= fTimeDelta;
+	if (m_fMonsterSpawn < 0.f)
 	{
 		Spawn_Monster();
 
-		m_pSpawnTime = 20.f;
+		m_fMonsterSpawn = 18.f;
 		if (m_pStatusCom->Get_Status().fHp < m_pStatusCom->Get_Status().fMaxHp / 2.f)
 		{
-			m_pSpawnTime = 10.f;
+			m_fMonsterSpawn = 9.f;
 		}
-
 	}
+	Rock_throw(fTimeDelta);
 }
 
 void CSunSpaceBoss_Body::LateTick(_float fTimeDelta)
@@ -68,7 +70,7 @@ void CSunSpaceBoss_Body::LateTick(_float fTimeDelta)
 
 HRESULT CSunSpaceBoss_Body::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(5.f, 5.f, 5.f), true);
+	m_pTransformCom->Scaling(_float3(10.f, 10.f, 10.f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -95,17 +97,12 @@ void CSunSpaceBoss_Body::Spawn_Monster()
 	_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 	for (_uint i = 0; i < 5; ++i)
 	{
-		_uint MonsterType = rand() % 3;
+		_uint MonsterType = rand() % 2 + 1;
 
 		switch (MonsterType)
 		{
-		case 0:
-			pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true)
-				->Get_Component<CTransform>();
-			break;
-
 		case 1:
-			pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemy_Roller>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true)
+			pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true)
 				->Get_Component<CTransform>();
 			break;
 
@@ -114,18 +111,12 @@ void CSunSpaceBoss_Body::Spawn_Monster()
 				->Get_Component<CTransform>();
 			break;
 		}
-		// 소환 이펙트 넣기
 
-		_float3 SpawnPos{ 0.f, 0.f, MyPos.z };
+		
+		_float3 SpawnPos{ (_float)(rand() % 300), (_float)(rand() % 300), MyPos.z };
+		((CEnemySpawn_Effect*)GAMEINSTANCE->Add_GameObject<CEnemySpawn_Effect>(CURRENT_LEVEL, TEXT("EnemySpawn"), nullptr, nullptr, false))->Set_Pos(SpawnPos);
 
-		_float RotateX = (_float)(rand() % 361);
-		_float RotateY = (_float)(rand() % 361);
-		_float RotateZ = (_float)(rand() % 361);
-		RotateX = D3DXToRadian(RotateX);
-		RotateY = D3DXToRadian(RotateY);
-		RotateZ = D3DXToRadian(RotateZ);
-
-		SpawnPos = CMath_Utillity::Rotate_Vec3(_float3(RotateX, RotateY, RotateZ), SpawnPos);
+		
 		pEnemyTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
 	}
 }
@@ -133,45 +124,76 @@ void CSunSpaceBoss_Body::Spawn_Monster()
 void CSunSpaceBoss_Body::Rock_throw(_float fTimeDelta)
 {
 	_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
-	for (_uint i = 0; i < 5; ++i)
+	m_fRockSpawn -= fTimeDelta;
+	if (m_fRockSpawn < 0.f)
 	{
-		_uint RockType = rand() % 4;
-		switch (RockType)
+		m_fRockSpawn = 15.f;
+		if (m_pStatusCom->Get_Status().fHp < m_pStatusCom->Get_Status().fMaxHp / 2.f)
 		{
-		case 0:
-			pRockTransform = GAMEINSTANCE->Add_GameObject<CRock_1>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true)
-				->Get_Component<CTransform>();
-			break;
-
-		case 1:
-			pRockTransform = GAMEINSTANCE->Add_GameObject<CRock_2>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true)
-				->Get_Component<CTransform>();
-			break;
-
-		case 2:
-			pRockTransform = GAMEINSTANCE->Add_GameObject<CRock_3>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true)
-				->Get_Component<CTransform>();
-			break;
-
-		case 3:
-			pRockTransform = GAMEINSTANCE->Add_GameObject<CRock_4>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true)
-				->Get_Component<CTransform>();
-			break;
+			m_fRockSpawn = 7.5f;
 		}
-		
-		_float3 SpawnPos{ (_float)(rand() % 100), (_float)(rand() % 100), MyPos.z};
+		for (_uint i = 0; i < 5; ++i)
+		{
+			_uint RockType = rand() % 4 + 1;
+			switch (RockType)
+			{
+			case 1:
+				pRockObject = GAMEINSTANCE->Add_GameObject<CRock_1>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true);
+				break;
 
-		pRockTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
+			case 2:
+				pRockObject = GAMEINSTANCE->Add_GameObject<CRock_2>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true);
+				break;
 
-		CTransform* pPlayerObject = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform()->Get_Owner()->Get_Component<CTransform>();
+			case 3:
+				pRockObject = GAMEINSTANCE->Add_GameObject<CRock_3>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true);
+				break;
 
-		pRockTransform->LookAt(pPlayerObject, true);
+			case 4:
+				pRockObject = GAMEINSTANCE->Add_GameObject<CRock_4>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true);
+				break;
+			}
 
-		_float LifeTime = 5.f;
+			_float3 SpawnPos{ (_float)(rand() % 300), (_float)(rand() % 300), MyPos.z };
 
-		m_RockTransformList.push_back({ LifeTime, pRockTransform });
+			((CBlackHole_Effect*)GAMEINSTANCE->Add_GameObject<CBlackHole_Effect>(CURRENT_LEVEL, TEXT("BlackHole"), nullptr, nullptr, false))->Set_Pos(SpawnPos);
+
+			pRockObject->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, SpawnPos);
+
+			CTransform* pPlayerObject = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform()->Get_Owner()->Get_Component<CTransform>();
+
+			pRockObject->Get_Component<CTransform>()->LookAt(pPlayerObject);
+			_float LifeTime = 10.f;
+
+			m_RockTransformList.push_back({ LifeTime, pRockObject });
+		}
 	}
-	m_RockTransformList.sort();
+
+	if (!m_RockTransformList.empty())
+	{
+		m_RockTransformList.sort();
+		for (auto& iter = m_RockTransformList.begin(); iter != m_RockTransformList.end();)
+		{
+			if (!iter->second->Get_Enable())
+			{
+				++iter;
+				continue;
+			}
+			
+			iter->second->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::FRONT);
+
+			iter->first -= fTimeDelta;
+			if (iter->first < 0.f)
+			{
+				iter->second->Set_Enable(false);
+				iter = m_RockTransformList.erase(iter);
+			}
+			else
+			{
+				++iter;
+			}
+		}
+	}
 }
 
 void CSunSpaceBoss_Body::EMP()
@@ -215,7 +237,7 @@ void CSunSpaceBoss_Body::SetUp_Components_For_Child()
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
 	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
-	m_pColliderCom->Set_Collider_Size(_float3(4.f, 4.f, 4.f));
+	m_pColliderCom->Set_Collider_Size(_float3(15.f, 15.f, 15.f));
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 	Set_Controller(CONTROLLER::AI);
 
@@ -226,7 +248,7 @@ void CSunSpaceBoss_Body::SetUp_Components_For_Child()
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 100.f, 300.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 100.f, 800.f));
 }
 
 void CSunSpaceBoss_Body::On_Change_Controller(const CONTROLLER& _IsAI)

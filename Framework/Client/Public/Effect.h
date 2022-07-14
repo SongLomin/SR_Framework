@@ -36,7 +36,7 @@ protected:
 protected:
 	_uint	m_iTexture_Min = 0;
 	_uint	m_iTexture_Max = 0;
-
+	_float  m_fRadian = 0.f;
 	
 protected:
 	virtual void LookAtCamera();
