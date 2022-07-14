@@ -152,7 +152,7 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 			}
 
 			pPlayer->Set_Controller(CONTROLLER::PLAYER);
-			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL::LEVEL_SELECTPLANET))))
+			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL::LEVEL_VENUSPLANET))))
 				return;
 		}
 	}

@@ -134,8 +134,8 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
-		return E_FAIL;
+	//if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
+	//	return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Magma>(LEVEL_SELECTPLANET, TEXT("Magma")))
 		return E_FAIL;
@@ -233,10 +233,10 @@ HRESULT CLevel_SelectPlanet::Initialize()
 				return E_FAIL;
 			break;
 
-		case  LEVEL::LEVEL_VENUSPLANET:
+		/*case  LEVEL::LEVEL_VENUSPLANET:
 			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
 				return E_FAIL;
-			break;
+			break;*/
 
 		case  LEVEL::LEVEL_MAGMAPLANET:
 			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Magma>(LEVEL_SELECTPLANET, TEXT("Magma")))
@@ -257,7 +257,8 @@ HRESULT CLevel_SelectPlanet::Initialize()
 		CTransform* pPlayerTransformCom = TransformCom->Get_Owner()->Get_Component<CTransform>();
 		pPlayerTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 0.f, 0.f));
 	}
-
+	
+	GAMEINSTANCE->Set_TimeScale(1.0f);
 	
 	return S_OK;
 }
