@@ -25,7 +25,9 @@ HRESULT CRender_Manager::Initialize()
 	if (!SetupTexture(&stashTex, &stashSurface)) {
 		return E_FAIL;
 	}
-
+	if (!SetupTexture(&originTex, &TemporaryRenderTarget)) {
+		return E_FAIL;
+	}
 
 	
 
@@ -316,10 +318,15 @@ void CRender_Manager::Foward_Pipeline()
 	//D3DXSaveTextureToFile(TEXT("Specular.bmp"), D3DXIFF_BMP, specularTex, nullptr);
 
 
+	DEVICE->StretchRect(originRenderTarget, nullptr, TemporaryRenderTarget, nullptr, D3DTEXF_LINEAR);
+
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_NORMAL, normalTex);
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_DEPTH, depthTex);
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_DIFFUSE, diffuseTex);
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_SPECULAR, specularTex);
+	Draw_Divide_ViewPort(RENDERGROUP::RENDER_POSTPROCCESSING, originTex);
+
+	
 }
 
 bool CRender_Manager::SetupTexture(IDirect3DTexture9** texture, IDirect3DSurface9** surface)

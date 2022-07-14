@@ -40,6 +40,9 @@ private:
 
 private: /* For Defferred Rendering */
 	IDirect3DSurface9* originRenderTarget = nullptr;
+	IDirect3DTexture9* originTex = nullptr;
+
+	IDirect3DSurface9* TemporaryRenderTarget = nullptr;
 
 	IDirect3DTexture9* normalTex = nullptr;
 	IDirect3DSurface9* normalSurface = nullptr;
