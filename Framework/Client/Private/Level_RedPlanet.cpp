@@ -170,7 +170,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	
 	m_fSpawnTime -= fTimeDelta;
 
-	if (m_fSpawnTime < 0.f)
+	if (m_fSpawnTime < 0.f && m_bSpawnCheck)
 	{
 		
 			CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("EnemySpace_Body"), nullptr, nullptr, true)
