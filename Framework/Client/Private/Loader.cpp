@@ -37,7 +37,7 @@ unsigned int APIENTRY LoadingMain(void* pArg)
 		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
 		hr = pLoader->Loading_ForRedPlanet();
 		break;
-	case LEVLE_EXOPLANET:
+	case LEVEL_EXOPLANET:
 		GAMEINSTANCE->Set_CurrentLevelIndex(pLoader->Get_NextLevelID());
 		hr = pLoader->Loaidng_ForExoPlanet();
 		break;

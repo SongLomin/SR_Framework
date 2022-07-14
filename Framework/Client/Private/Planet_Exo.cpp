@@ -31,7 +31,7 @@ HRESULT CPlanet_Exo::Initialize(void* pArg)
 	m_pDiveUi->Set_Enable(false);
 
 
-	SetUp_Varialbes_For_Child(StartPos, FontText, PontPos, TextureIndex, LEVEL::LEVLE_EXOPLANET, MyScale);
+	SetUp_Varialbes_For_Child(StartPos, FontText, PontPos, TextureIndex, LEVEL::LEVEL_EXOPLANET, MyScale);
 
 	return S_OK;
 }

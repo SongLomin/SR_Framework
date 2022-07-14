@@ -18,9 +18,11 @@ public:
 
 private:
 	void ExoPlanet_Event(float fTimeDelta);
+	void Rock_Create(float fTimeDelta);
 
 private:
 	_float  m_fMaxTime = 200.f;
+	_float  m_fRockSqawnTime = 2.f;
 	virtual void Change_Level(void* pArg, _uint _iNextLevel) {}
 	virtual HRESULT Complete_Condition() { return S_OK; }
 

@@ -211,7 +211,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 				return E_FAIL;
 			break;
 
-		case  LEVEL::LEVLE_EXOPLANET:
+		case  LEVEL::LEVEL_EXOPLANET:
 			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Exo>(LEVEL_SELECTPLANET, TEXT("Exo")))
 				return E_FAIL;
 			break;

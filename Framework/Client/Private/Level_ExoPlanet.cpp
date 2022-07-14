@@ -57,71 +57,58 @@ HRESULT CLevel_ExoPlanet::Initialize()
 	
 
 	
-	if (!GAMEINSTANCE->Add_GameObject<CExoPlanet_SkyBox>(LEVLE_EXOPLANET, TEXT("SkyBox")))
+	if (!GAMEINSTANCE->Add_GameObject<CExoPlanet_SkyBox>(LEVEL_EXOPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVLE_EXOPLANET, TEXT("Aim_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_EXOPLANET, TEXT("Aim_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVLE_EXOPLANET , TEXT("Light_Moon")))
+	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_EXOPLANET, TEXT("Light_Moon")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVLE_EXOPLANET, TEXT("Status_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_EXOPLANET, TEXT("Status_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVLE_EXOPLANET, TEXT("HP_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_EXOPLANET, TEXT("HP_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVLE_EXOPLANET, TEXT("Booster_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_EXOPLANET, TEXT("Booster_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVLE_EXOPLANET, TEXT("Shield_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_EXOPLANET, TEXT("Shield_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVLE_EXOPLANET, TEXT("NormalBullet_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_EXOPLANET, TEXT("NormalBullet_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVLE_EXOPLANET, TEXT("BulletCount_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_EXOPLANET, TEXT("BulletCount_UI")))
 		return E_FAIL;
 
-	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVLE_EXOPLANET, TEXT("TextBox_Yang"));
+	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_EXOPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);
 
-	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVLE_EXOPLANET, TEXT("Quest_UI"));
+	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_EXOPLANET, TEXT("Quest_UI"));
 	m_pQuestBoxObject->Set_Enable(false);
 
 
-	m_pPlanetObject = GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVLE_EXOPLANET, TEXT("Earth"));
+	m_pPlanetObject = GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVEL_EXOPLANET, TEXT("Earth"));
 	m_pPlanetObject->Set_Enable(false);
 
-	for (int i = 0; i < 500; ++i)
-	{
-		if (!GAMEINSTANCE->Add_GameObject<CRock_1>(LEVLE_EXOPLANET, TEXT("Rock_1")))
-			return E_FAIL;
-
-		if (!GAMEINSTANCE->Add_GameObject<CRock_2>(LEVLE_EXOPLANET, TEXT("Rock_2")))
-			return E_FAIL;
-
-		if (!GAMEINSTANCE->Add_GameObject<CRock_3>(LEVLE_EXOPLANET, TEXT("Rock_3")))
-			return E_FAIL;
-
-		if (!GAMEINSTANCE->Add_GameObject<CRock_4>(LEVLE_EXOPLANET, TEXT("Rock_4")))
-			return E_FAIL;
-	}
+	
 
 
 	for (int i = 0; i < 2; ++i)
 	{
 
-		if (!GAMEINSTANCE->Add_GameObject<CSatellite_1>(LEVLE_EXOPLANET, TEXT("Satellite_1")))
+		if (!GAMEINSTANCE->Add_GameObject<CSatellite_1>(LEVEL_EXOPLANET, TEXT("Satellite_1")))
 			return E_FAIL;
 
-		if (!GAMEINSTANCE->Add_GameObject<CSatellite_2>(LEVLE_EXOPLANET, TEXT("Satellite_2")))
+		if (!GAMEINSTANCE->Add_GameObject<CSatellite_2>(LEVEL_EXOPLANET, TEXT("Satellite_2")))
 			return E_FAIL;
 	}
 
 
-	if (!GAMEINSTANCE->Add_GameObject<CSatellite_3>(LEVLE_EXOPLANET, TEXT("Satellite_3")))
+	if (!GAMEINSTANCE->Add_GameObject<CSatellite_3>(LEVEL_EXOPLANET, TEXT("Satellite_3")))
 		return E_FAIL;
 
 	return S_OK;
@@ -153,8 +140,11 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 
 		m_fSpawnTime = 2.f;
 	}
+
+	
 	
 	ExoPlanet_Event(fTimeDelta);
+	Rock_Create(fTimeDelta);
 }
 
 HRESULT CLevel_ExoPlanet::Render()
@@ -299,9 +289,47 @@ void CLevel_ExoPlanet::ExoPlanet_Event(float fTimeDelta)
 		m_bEventCheck[3] = true;
 
 		GAMEINSTANCE->Add_Text(_point{ (LONG)640, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 3.f, TEXT("임무 실패!!!"), 0);
-		if ((GAMEINSTANCE->Get_Instance()->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET))));
-	
+		GAMEINSTANCE->Get_Instance()->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
 	}
+}
+
+void CLevel_ExoPlanet::Rock_Create(float fTimeDelta)
+{
+	CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
+
+	CTransform* TransformCom = pCurrentCam->Get_Target();
+
+	m_fRockSqawnTime -= fTimeDelta;
+	
+	if (TransformCom && m_fRockSqawnTime <= 0)
+	{
+		CTransform* pPlayerTransformCom = TransformCom->Get_Owner()->Get_Component<CTransform>();
+
+		_float3 pPlayerPos = pPlayerTransformCom->Get_State(CTransform::STATE_POSITION);
+
+		CTransform* pRock_1Transform = GAMEINSTANCE->Add_GameObject<CRock_1>(CURRENT_LEVEL, TEXT("Rock_1"), nullptr, nullptr, true)->Get_Component<CTransform>();
+		CTransform* pRock_2Transform = GAMEINSTANCE->Add_GameObject<CRock_2>(CURRENT_LEVEL, TEXT("Rock_2"), nullptr, nullptr, true)->Get_Component<CTransform>();
+		CTransform* pRock_3Transform = GAMEINSTANCE->Add_GameObject<CRock_3>(CURRENT_LEVEL, TEXT("Rock_3"), nullptr, nullptr, true)->Get_Component<CTransform>();
+		CTransform* pRock_4Transform = GAMEINSTANCE->Add_GameObject<CRock_4>(CURRENT_LEVEL, TEXT("Rock_4"), nullptr, nullptr, true)->Get_Component<CTransform>();
+
+	
+		pPlayerPos.x = (_float)(rand() % 361);
+		pPlayerPos.y = (_float)(rand() % 361);
+		pPlayerPos.z = (_float)(rand() % 361);
+
+		pPlayerPos = CMath_Utillity::Rotate_Vec3(_float3(pPlayerPos.x, pPlayerPos.y, pPlayerPos.z), pPlayerPos);
+
+
+		pRock_1Transform->Set_State(CTransform::STATE_POSITION, pPlayerPos);
+		pRock_2Transform->Set_State(CTransform::STATE_POSITION, pPlayerPos);
+		pRock_3Transform->Set_State(CTransform::STATE_POSITION, pPlayerPos);
+		pRock_4Transform->Set_State(CTransform::STATE_POSITION, pPlayerPos);
+
+	
+		m_fRockSqawnTime = 2.f;
+	}
+
+	
 }
 
 CLevel_ExoPlanet* CLevel_ExoPlanet::Create()
