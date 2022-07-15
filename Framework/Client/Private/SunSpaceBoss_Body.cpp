@@ -165,31 +165,32 @@ void CSunSpaceBoss_Body::Rock_throw(_float fTimeDelta)
 			pRockObject->Get_Component<CTransform>()->LookAt(pPlayerObject);
 			_float LifeTime = 10.f;
 
-			m_RockTransformList.push_back({ LifeTime, pRockObject });
+			m_RockObjectList.push_back({ LifeTime, pRockObject });
+			WEAK_PTR(m_RockObjectList.back().second);
 		}
 	}
 
-	if (!m_RockTransformList.empty())
+	if (!m_RockObjectList.empty())
 	{
-		m_RockTransformList.sort();
-		for (auto& iter = m_RockTransformList.begin(); iter != m_RockTransformList.end();)
+		m_RockObjectList.sort();
+		for (auto& iter = m_RockObjectList.begin(); iter != m_RockObjectList.end();)
 		{
-			if (!iter->second->Get_Enable())
+			/*if (!iter->second->Get_Enable())
 			{
-				++iter;
+				RETURN_WEAKPTR(iter->second);
+				iter = m_RockObjectList.erase(iter);
 				continue;
-			}
-			
-			iter->second->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::FRONT);
-
+			}*/					
 			iter->first -= fTimeDelta;
-			if (iter->first < 0.f)
+			if (iter->first < 0.f || !iter->second->Get_Enable())
 			{
+				RETURN_WEAKPTR(iter->second);
 				iter->second->Set_Enable(false);
-				iter = m_RockTransformList.erase(iter);
+				iter = m_RockObjectList.erase(iter);
 			}
 			else
 			{
+				iter->second->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::FRONT);
 				++iter;
 			}
 		}
