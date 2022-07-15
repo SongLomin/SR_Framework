@@ -307,41 +307,50 @@
     <Filter Include="02.GameObject\02. Monster\Scourge">
       <UniqueIdentifier>{fa6b764d-a931-4da9-8858-ba83fa8ff057}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.GameObject\08. Aim\12. BillBoard_Object">
-      <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\08. Aim\12. BillBoard_Object\Rock">
-      <UniqueIdentifier>{60093a4a-f599-45fd-82db-b87ff7b1ba91}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\08. Aim\12. BillBoard_Object\Rock\Rock1">
-      <UniqueIdentifier>{229027e3-cc56-41eb-aeef-b092f1306770}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\08. Aim\12. BillBoard_Object\Rock\Rock2">
-      <UniqueIdentifier>{179fcfb8-4845-41fb-ac30-9e9f46e53e46}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\08. Aim\12. BillBoard_Object\Rock\Rock3">
-      <UniqueIdentifier>{f12fa7dc-ff54-46c4-9c0f-565d17555ddf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\08. Aim\12. BillBoard_Object\Rock\Rock4">
-      <UniqueIdentifier>{0a29be65-cb90-48fa-ad41-217a388c065d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\08. Aim\12. BillBoard_Object\Satellite">
-      <UniqueIdentifier>{5cd239f1-d403-436a-929d-9829b5a22383}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\08. Aim\12. BillBoard_Object\Satellite\Satellite1">
-      <UniqueIdentifier>{2d8ef0d3-d00b-4b43-913f-ee2761ea085f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\08. Aim\12. BillBoard_Object\Satellite\Satellite2">
-      <UniqueIdentifier>{628c8b38-ac7c-4ef7-b02d-750c54f71621}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.GameObject\08. Aim\12. BillBoard_Object\Satellite\Satellite3">
-      <UniqueIdentifier>{70001689-47c6-4145-a1ee-1de0a25c9d30}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.GameObject\02. Monster\Roller">
       <UniqueIdentifier>{795fc578-e3b8-4c19-a6ff-29b63b0c0447}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.GameObject\01. Turret\Bayonet">
       <UniqueIdentifier>{c0be6a96-18e3-4bce-81a6-b8e5913698b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\02. Monster\Boss">
+      <UniqueIdentifier>{90105a03-067d-465b-9881-5b071c7acf1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoard_Object">
+      <UniqueIdentifier>{afad32fc-5a47-4466-9ed3-22149cca8887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoard_Object\Rock">
+      <UniqueIdentifier>{60093a4a-f599-45fd-82db-b87ff7b1ba91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoard_Object\Rock\Rock1">
+      <UniqueIdentifier>{229027e3-cc56-41eb-aeef-b092f1306770}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoard_Object\Rock\Rock2">
+      <UniqueIdentifier>{179fcfb8-4845-41fb-ac30-9e9f46e53e46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoard_Object\Rock\Rock3">
+      <UniqueIdentifier>{f12fa7dc-ff54-46c4-9c0f-565d17555ddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoard_Object\Rock\Rock4">
+      <UniqueIdentifier>{0a29be65-cb90-48fa-ad41-217a388c065d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoard_Object\Satellite">
+      <UniqueIdentifier>{5cd239f1-d403-436a-929d-9829b5a22383}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoard_Object\Satellite\Satellite1">
+      <UniqueIdentifier>{2d8ef0d3-d00b-4b43-913f-ee2761ea085f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoard_Object\Satellite\Satellite2">
+      <UniqueIdentifier>{628c8b38-ac7c-4ef7-b02d-750c54f71621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\12. BillBoard_Object\Satellite\Satellite3">
+      <UniqueIdentifier>{70001689-47c6-4145-a1ee-1de0a25c9d30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\13. Effect\BlackHole">
+      <UniqueIdentifier>{49dabd87-97a4-4254-8185-78d4dc44e263}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\13. Effect\EnemySpawn_Effect">
+      <UniqueIdentifier>{bc32d28d-6e93-4a24-93dd-580f7e17e5ef}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.GameObject\07. UI\TextureDrawUI">
       <UniqueIdentifier>{f03af253-2c47-40e5-8d26-4e05419be448}</UniqueIdentifier>
@@ -601,31 +610,31 @@
       <Filter>01.Levels\07.Level_Sun</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Rock_1.h">
-      <Filter>02.GameObject\08. Aim\12. BillBoard_Object\Rock\Rock1</Filter>
+      <Filter>02.GameObject\12. BillBoard_Object\Rock\Rock1</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Rock_2.h">
-      <Filter>02.GameObject\08. Aim\12. BillBoard_Object\Rock\Rock2</Filter>
+      <Filter>02.GameObject\12. BillBoard_Object\Rock\Rock2</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Rock_3.h">
-      <Filter>02.GameObject\08. Aim\12. BillBoard_Object\Rock\Rock3</Filter>
+      <Filter>02.GameObject\12. BillBoard_Object\Rock\Rock3</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Rock_4.h">
-      <Filter>02.GameObject\08. Aim\12. BillBoard_Object\Rock\Rock4</Filter>
+      <Filter>02.GameObject\12. BillBoard_Object\Rock\Rock4</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\BillBoard_Object.h">
-      <Filter>02.GameObject\08. Aim\12. BillBoard_Object</Filter>
+      <Filter>02.GameObject\12. BillBoard_Object</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Enemy_StagBeetle.h">
       <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Satellite_1.h">
-      <Filter>02.GameObject\08. Aim\12. BillBoard_Object\Satellite\Satellite1</Filter>
+      <Filter>02.GameObject\12. BillBoard_Object\Satellite\Satellite1</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Satellite_2.h">
-      <Filter>02.GameObject\08. Aim\12. BillBoard_Object\Satellite\Satellite2</Filter>
+      <Filter>02.GameObject\12. BillBoard_Object\Satellite\Satellite2</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Satellite_3.h">
-      <Filter>02.GameObject\08. Aim\12. BillBoard_Object\Satellite\Satellite3</Filter>
+      <Filter>02.GameObject\12. BillBoard_Object\Satellite\Satellite3</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\CharacterLogo.h">
       <Filter>97. UITest\Logo\CharacterLogo</Filter>
@@ -680,6 +689,15 @@
     </ClInclude>
     <ClInclude Include="..\Public\Rader_PSystem.h">
       <Filter>02.GameObject\10. ParticleSystem\08. Rader_PSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\SunSpaceBoss_Body.h">
+      <Filter>02.GameObject\02. Monster\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\BlackHole_Effect.h">
+      <Filter>02.GameObject\13. Effect\BlackHole</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\EnemySpawn_Effect.h">
+      <Filter>02.GameObject\13. Effect\EnemySpawn_Effect</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\TextureDrawUI.h">
       <Filter>02.GameObject\07. UI\TextureDrawUI</Filter>
@@ -930,31 +948,31 @@
       <Filter>01.Levels\07.Level_Sun</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Rock_1.cpp">
-      <Filter>02.GameObject\08. Aim\12. BillBoard_Object\Rock\Rock1</Filter>
+      <Filter>02.GameObject\12. BillBoard_Object\Rock\Rock1</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Rock_2.cpp">
-      <Filter>02.GameObject\08. Aim\12. BillBoard_Object\Rock\Rock2</Filter>
+      <Filter>02.GameObject\12. BillBoard_Object\Rock\Rock2</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Rock_3.cpp">
-      <Filter>02.GameObject\08. Aim\12. BillBoard_Object\Rock\Rock3</Filter>
+      <Filter>02.GameObject\12. BillBoard_Object\Rock\Rock3</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Rock_4.cpp">
-      <Filter>02.GameObject\08. Aim\12. BillBoard_Object\Rock\Rock4</Filter>
+      <Filter>02.GameObject\12. BillBoard_Object\Rock\Rock4</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\BillBoard_Object.cpp">
-      <Filter>02.GameObject\08. Aim\12. BillBoard_Object</Filter>
+      <Filter>02.GameObject\12. BillBoard_Object</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Enemy_StagBeetle.cpp">
       <Filter>02.GameObject\02. Monster\StagBeetle</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Satellite_1.cpp">
-      <Filter>02.GameObject\08. Aim\12. BillBoard_Object\Satellite\Satellite1</Filter>
+      <Filter>02.GameObject\12. BillBoard_Object\Satellite\Satellite1</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Satellite_2.cpp">
-      <Filter>02.GameObject\08. Aim\12. BillBoard_Object\Satellite\Satellite2</Filter>
+      <Filter>02.GameObject\12. BillBoard_Object\Satellite\Satellite2</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Satellite_3.cpp">
-      <Filter>02.GameObject\08. Aim\12. BillBoard_Object\Satellite\Satellite3</Filter>
+      <Filter>02.GameObject\12. BillBoard_Object\Satellite\Satellite3</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\CharacterLogo.cpp">
       <Filter>97. UITest\Logo\CharacterLogo</Filter>
@@ -1009,6 +1027,15 @@
     </ClCompile>
     <ClCompile Include="..\Private\Rader_PSystem.cpp">
       <Filter>02.GameObject\10. ParticleSystem\08. Rader_PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\SunSpaceBoss_Body.cpp">
+      <Filter>02.GameObject\02. Monster\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\BlackHole_Effect.cpp">
+      <Filter>02.GameObject\13. Effect\BlackHole</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\EnemySpawn_Effect.cpp">
+      <Filter>02.GameObject\13. Effect\EnemySpawn_Effect</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\TextureDrawUI.cpp">
       <Filter>02.GameObject\07. UI\TextureDrawUI</Filter>

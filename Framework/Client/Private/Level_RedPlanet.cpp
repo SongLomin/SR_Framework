@@ -190,6 +190,43 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 		     m_fSpawnTime = 3.f;
 	}
 
+	if (m_bCinematic)
+	{
+		m_fTime -= fTimeDelta;
+		//타임 이벤트 어케씀
+		if (2.f > m_fTime)
+		{
+			m_pTagetObject->Get_Component<CRigid_Body>()->Set_Booster(true);
+
+			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f * m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
+			// 이게 맞냐
+			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
+		}
+
+		if (0.f > m_fTime)
+		{
+			m_bCinematic = false;
+			GAMEINSTANCE->Swap_Camera();
+
+			CSong_Ship_Body* pMainCharacter = nullptr;
+
+			list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+
+			if (!pAiObect)
+				return;
+
+			for (auto& elem : *pAiObect)
+			{
+				pMainCharacter = dynamic_cast<CSong_Ship_Body*>(elem);
+
+				if (pMainCharacter)
+				{
+					pMainCharacter->Set_Controller(CONTROLLER::PLAYER);
+					break;
+				}
+			}
+		}
+	}
 
 	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
 	{
@@ -221,7 +258,7 @@ void CLevel_RedPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 		return;
 
 
-	m_fTime = 5.f;
+	m_fTime = 3.f;
 	m_bCinematic = true;
 	m_iNextLevel = _iNextLevel;
 
@@ -247,8 +284,9 @@ void CLevel_RedPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 			RETURN_WEAKPTR(Temp);
 		}
 	}
+	GAMEINSTANCE->Add_Shaking(0.1f, 0.f);
 
-	CGameObject* Camera_Origin = GAMEINSTANCE->Get_Camera()->Get_Owner();
+	/*CGameObject* Camera_Origin = GAMEINSTANCE->Get_Camera()->Get_Owner();
 	CTransform* pCameraTransform = Camera_Origin->Get_Component<CTransform>();
 	GAMEINSTANCE->Update_MovingCam();
 	CGameObject* Camera_Moving = GAMEINSTANCE->Get_Camera()->Get_Owner();
@@ -271,7 +309,7 @@ void CLevel_RedPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(3.f, 0.f,
 		_float3(0.f, 0.f, 0.f), *D3DXVec3Normalize(&vSpeed, &(-vLook)) * 4.f,
 		nullptr, nullptr, 1.f, 0.05f
-	);
+	);*/
 
 }
 

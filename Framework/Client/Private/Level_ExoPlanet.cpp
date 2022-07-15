@@ -83,6 +83,44 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 
 
 
+	if (m_bCinematic)
+	{
+		m_fTime -= fTimeDelta;
+		//타임 이벤트 어케씀
+		if (2.f > m_fTime)
+		{
+			m_pTagetObject->Get_Component<CRigid_Body>()->Set_Booster(true);
+
+			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f * m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
+			// 이게 맞냐
+			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
+		}
+
+		if (0.f > m_fTime)
+		{
+			m_bCinematic = false;
+			GAMEINSTANCE->Swap_Camera();
+
+			CSong_Ship_Body* pMainCharacter = nullptr;
+
+			list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+
+			if (!pAiObect)
+				return;
+
+			for (auto& elem : *pAiObect)
+			{
+				pMainCharacter = dynamic_cast<CSong_Ship_Body*>(elem);
+
+				if (pMainCharacter)
+				{
+					pMainCharacter->Set_Controller(CONTROLLER::PLAYER);
+					break;
+				}
+			}
+		}
+	}
+
 	
 }
 
@@ -97,6 +135,47 @@ HRESULT CLevel_ExoPlanet::Render()
 
 
 	return S_OK;
+}
+
+void CLevel_ExoPlanet::Change_Level(void* pArg, _uint _iNextLevel)
+{
+
+	if (m_bCinematic)
+		return;
+
+
+	m_fTime = 3.f;
+	m_bCinematic = true;
+	m_iNextLevel = _iNextLevel;
+
+	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+	for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)
+	{
+		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
+		{
+
+			if (m_pTagetObject)
+				RETURN_WEAKPTR(m_pTagetObject);
+			m_pTagetObject = *iter;
+			WEAK_PTR(m_pTagetObject);
+
+
+			(*iter)->Set_Controller(CONTROLLER::LOCK);
+			(*iter)->Get_Component<CRigid_Body>()->Reset_Force();
+
+			CComponent* Temp = (*iter)->Get_Component<CRigid_Body>();
+
+			WEAK_PTR(Temp);
+			if (pArg)
+			{
+				Temp = (*iter)->Get_Component<CTransform>();
+				static_cast<CTransform*>(Temp)->LookAt((CTransform*)pArg, true);
+
+			}
+			RETURN_WEAKPTR(Temp);
+		}
+	}
+	GAMEINSTANCE->Add_Shaking(0.1f, 0.f);
 }
 
 CLevel_ExoPlanet* CLevel_ExoPlanet::Create()

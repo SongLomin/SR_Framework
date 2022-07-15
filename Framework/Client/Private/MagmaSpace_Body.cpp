@@ -53,13 +53,13 @@ void CMagmaSpace_Body::LateTick(_float fTimeDelta)
 
 
 
-	_float3 Speed = m_pRigidBodyCom->Get_Vector(RIGID_BODY::SPEED);
-
-	if (fabs(D3DXVec3Length(&Speed)) > 5.f)
-	{
-		D3DCOLOR color = D3DCOLOR_ARGB(255, 0, 255, 0);
-		((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom, color);
-	}
+	//_float3 Speed = m_pRigidBodyCom->Get_Vector(RIGID_BODY::SPEED);
+	//
+	//if (fabs(D3DXVec3Length(&Speed)) > 5.f)
+	//{
+	//	D3DCOLOR color = D3DCOLOR_ARGB(255, 0, 255, 0);
+	//	((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom, color);
+	//}
 
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
@@ -72,7 +72,7 @@ void CMagmaSpace_Body::LateTick(_float fTimeDelta)
 
 HRESULT CMagmaSpace_Body::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.05f, 0.05f, 0.05f), true);
+	m_pTransformCom->Scaling(_float3(0.01f, 0.01f, 0.01f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -111,7 +111,7 @@ void CMagmaSpace_Body::SetUp_Components_For_Child()
 	m_pStatusCom = Add_Component<CStatus>(&Status);
 	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
 
-	m_pMeshCom = Add_Component<CMesh_Ship3>();
+	m_pMeshCom = Add_Component<CMesh_Ship6>();
 	m_pMeshCom->Set_WeakPtr((void**)&m_pMeshCom);
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
@@ -148,7 +148,7 @@ void CMagmaSpace_Body::SetUp_Components_For_Child()
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
 	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
-	m_pColliderCom->Set_Collider_Size(_float3(4.f, 4.f, 4.f));
+	m_pColliderCom->Set_Collider_Size(_float3(7.f, 7.f, 7.f));
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 	Set_Controller(CONTROLLER::AI);
 }

@@ -45,6 +45,7 @@
 #include "Enemy_Roller.h"
 #include <Enemy_GPS.h>
 #include <EnemySpace_Body.h>
+#include <SunSpaceBoss_Body.h>
 #include <TextureDrawUI.h>
 #include "Normal_Turret.h"
 
@@ -167,11 +168,12 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	//		return E_FAIL;
 	//}
     
-	for (int i = 0; i < 5; ++i)
-	{
-		if (!GAMEINSTANCE->Add_GameObject<CEnemy_Roller>(LEVEL_SELECTPLANET, TEXT("Enemy_Roller")))
-			return E_FAIL;
-	}
+	//for (int i = 0; i < 5; ++i)
+	//{
+	//	if (!GAMEINSTANCE->Add_GameObject<CEnemy_Roller>(LEVEL_SELECTPLANET, TEXT("Enemy_Roller")))
+	//		return E_FAIL;
+	//}
+
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SELECTPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);
@@ -252,7 +254,7 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 			m_pTagetObject->Get_Component<CRigid_Body>()->Set_Booster(true);
 			
 			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f*m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
-			//이게 맞냐
+			// 이게 맞냐
 			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
 		}
 

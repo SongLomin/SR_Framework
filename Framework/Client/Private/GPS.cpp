@@ -129,6 +129,10 @@ void CGPS::Culling()
 
 	CTransform* CameraTransform = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform();
 	
+	if (!CameraTransform)
+	{
+		return;
+	}
 
 	if (!GAMEINSTANCE->IsIn(&MyPos))
 	{
@@ -175,5 +179,4 @@ void CGPS::Free()
 
 void CGPS::OnDisable()
 {
-	printf("»£√‚");
 }

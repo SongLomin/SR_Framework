@@ -63,6 +63,7 @@ HRESULT CRock_3::Render()
 void CRock_3::On_Collision_Enter(CCollider* _Other_Collider)
 {
     __super::On_Collision_Enter(_Other_Collider);
+
 }
 
 void CRock_3::On_Collision_Stay(CCollider* _Other_Collider)

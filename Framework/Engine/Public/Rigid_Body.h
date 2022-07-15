@@ -99,6 +99,25 @@ public:
 			m_fDirDrag = 0.05f;
 		}
 
+		void Set_Preset_Boss_Body()
+		{
+			m_fOwnerSpeed = 0.f;
+			m_fOwnerAccel = 0.f;
+			m_fOwnerRadSpeed = D3DXToRadian(90.0f);
+			m_fOwnerRadAccel = 0.f;
+			m_fOwnerJump = 0.f;
+			m_fOwnerJumpScale = 0.f;
+
+			m_fFrictional = 0.0f;
+			m_fRadFrictional = 0.0f;
+			m_fRadZ = 0.0f;
+
+
+			m_fOwnerLiftSpeed = 0.f;
+			m_fOwnerLiftAccel = 0.f;
+			m_fRadDrag = 0.f;
+			m_fDirDrag = 0.0f;
+		}
 
 		void Set_Preset_Scourge()
 		{

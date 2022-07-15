@@ -20,7 +20,7 @@ HRESULT CMove_PSystem::Initialize(void* pArg)
 	m_vbBatchSize = 512;
 
 	__super::Initialize(pArg);
-	m_pRenderer->Set_Textures_From_Key(TEXT("Smoke_Particle"), MEMORY_TYPE::MEMORY_STATIC);
+	//m_pRenderer->Set_Textures_From_Key(TEXT("Smoke_Particle"), MEMORY_TYPE::MEMORY_STATIC);
 
 	return S_OK;
 }

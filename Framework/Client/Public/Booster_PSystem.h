@@ -34,7 +34,7 @@ private:
     _float3     m_BeginColor;
     _float3     m_EndColor;
 
-
+    _uint m_iTextureCount = 0;
 
 public:
 

@@ -18,7 +18,7 @@ public:
 
 private:
 	_float  m_fMaxTime = 180;
-	virtual void Change_Level(void* pArg, _uint _iNextLevel) {}
+	virtual void Change_Level(void* pArg, _uint _iNextLevel);
 	virtual HRESULT Complete_Condition() { return S_OK; }
 
 public:

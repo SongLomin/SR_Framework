@@ -21,7 +21,7 @@ HRESULT CPlanet_Sun::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 	_float3 StartPos = { 200.f, 300.f, 400.f };
-	_tchar* PontText = TEXT("Sun \n 보스 구역 \n [Warring]   \n 보상 : XXX");
+	_tchar* PontText = TEXT("Satrun \n 보스 구역 \n [Warring]   \n 보상 : XXX");
 	_point PontPos = { (LONG)m_vScreenPos.x + 40, (LONG)m_vScreenPos.y - 10 };
 	_float3 MyScale = _float3(150.f, 150.f, 50.f);
 	_uint TextureIndex = 3;
@@ -29,7 +29,7 @@ HRESULT CPlanet_Sun::Initialize(void* pArg)
 	// 레벨 추가 안되있음
 	SetUp_Varialbes_For_Child(StartPos, PontText, PontPos, TextureIndex, LEVEL::LEVEL_SUNPLANET, MyScale);
 
-
+	Set_Alphavalue(100);
 	m_pDiveUi = GAMEINSTANCE->Add_GameObject<CDive>(LEVEL_SELECTPLANET, TEXT("Dive"));
 	m_pDiveUi->Set_Enable(false);
 

@@ -98,9 +98,17 @@ HRESULT CParticleSystem::Render()
 	//
 	// Until all particles have been rendered.
 	//
+
+	// Alpha sorting
+	//m_particles.sort([](ParticleDesc Temp, ParticleDesc Sour)
+	//	{
+	//		return Temp.age > Sour.age;
+	//	});
+
 	std::list<ParticleDesc>::iterator i;
 	for (i = m_particles.begin(); i != m_particles.end(); i++)
 	{
+
 		if (i->isAlive)
 		{
 			//
