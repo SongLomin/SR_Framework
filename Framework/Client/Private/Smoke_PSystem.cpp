@@ -119,7 +119,7 @@ void CSmoke_PSystem::ResetParticle(ParticleDesc* Desc)
 {
 	Desc->isAlive = true;
 
-	m_size = 3.f;
+	m_size = 5.f;
 
 	Desc->position.x = 0.f;
 	Desc->position.y = 1.f;

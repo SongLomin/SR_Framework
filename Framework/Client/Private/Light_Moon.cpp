@@ -53,7 +53,7 @@ void CLight_Moon::LateTick(_float fTimeDelta)
 	__super::LateTick(fTimeDelta);
 
 
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+	//m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 
 	LookAtCamera();
 
@@ -61,7 +61,7 @@ void CLight_Moon::LateTick(_float fTimeDelta)
 
 HRESULT CLight_Moon::Render()
 {
-	m_pTransformCom->Scaling(_float3(80.f, 80.f, 50.f), true);
+	/*m_pTransformCom->Scaling(_float3(80.f, 80.f, 50.f), true);
 
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -75,7 +75,7 @@ HRESULT CLight_Moon::Render()
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 
-	m_pRendererCom->UnBind_Texture();
+	m_pRendererCom->UnBind_Texture();*/
 
 
 

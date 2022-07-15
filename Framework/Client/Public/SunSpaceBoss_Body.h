@@ -37,13 +37,13 @@ private:
     CMesh_SongShip* m_pMeshCom = nullptr;
 
 private:
-    CTransform* pEnemyTransform = nullptr;
-    CGameObject* pRockObject = nullptr;
+    CTransform* m_pEnemyTransform = nullptr;
+    CGameObject* m_pRockObject = nullptr;
 
 private:
     _float  m_fMonsterSpawn = 20.f;
     _float  m_fRockSpawn = 5.f;
-   list<pair<_float, CGameObject*>> m_RockTransformList;
+   list<pair<_float, CGameObject*>> m_RockObjectList;
 
 protected:
     virtual void SetUp_Components_For_Child();

@@ -94,6 +94,8 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TargetBoard")), m_pMyObject->Get_Component<CTransform>(), 20.f, false);
 			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace")), m_pMyObject->Get_Component<CTransform>(), 20.f, false);
 			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Roller")), m_pMyObject->Get_Component<CTransform>(), 20.f, false);
+			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Boss")), m_pMyObject->Get_Component<CTransform>(), 20.f, false);
+			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Scourge")), m_pMyObject->Get_Component<CTransform>(), 20.f, false);
 
 			m_fTime = 1.f;
 		}

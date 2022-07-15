@@ -102,9 +102,9 @@ HRESULT CLoader::Loading_ForLogoLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	/*if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Booster"), TEXT("../Bin/Resources/Textures/UI/Booster.png"),
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Booster_UI"), TEXT("../Bin/Resources/Textures/UI/Booster.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;*/
+		return E_FAIL;
 
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Shield"), TEXT("../Bin/Resources/Textures/UI/Shield.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))

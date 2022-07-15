@@ -8,6 +8,7 @@ class CRenderer;
 class CMesh_Cube;
 class CMesh_Test;
 class CCollider_Sphere;
+class CSpotLight;
 END
 
 BEGIN(Client)
@@ -31,14 +32,15 @@ protected:
     CMesh_Cube* m_pMeshCom = nullptr;
     CTransform* m_pPlayerTransformCom = nullptr;
     CMesh_Test* m_pMeshTestCom = nullptr;
-    _tchar* m_pEventMessage;
     CCollider_Sphere* m_pColliderCom = nullptr;
+    CSpotLight* m_pLightCom = nullptr;
 
 private:
     CGameObject* m_pBoxObject = nullptr;
 protected:
     CGameObject* m_pTarget = nullptr;//Rocket bullet을 만들 때 넘겨주기
-    
+    _tchar* m_pEventMessage;
+
 private:
     _float	 m_fCurTime = 0.f;
     _float	 m_fMaxTime;

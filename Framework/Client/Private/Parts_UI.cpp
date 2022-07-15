@@ -59,12 +59,12 @@ void CParts_UI::Tick(_float fTimeDelta)
 
 	if (!m_bSwitchTaget)
 	{
-		GAMEINSTANCE->Add_Text(_point{ (LONG)150, (LONG)250 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 일반 터렛 4개, 미사일 터렛 2개  "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)150, (LONG)250 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 일반 터렛 2개, 미사일 터렛 2개  "), 0);
 	}
 
 	if (m_bSwitchTaget)
 	{
-		GAMEINSTANCE->Add_Text(_point{ (LONG)150, (LONG)250 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 일반 터렛 1개, 미사일 터렛 2개  "), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)150, (LONG)250 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 레이저 터렛 4개  "), 0);
 	}
 
 

@@ -246,6 +246,23 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 		vDirection *= D3DXVec3Length(&vSpeed);
 
 		m_pRigid_BodyCom->Add_Force(vDirection * 1.5f);
+
+		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
+		{
+			m_pStatusCom->Set_FULL_HP();
+			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
+
+			m_pStatusCom->Set_FULL_HP();
+
+			if (!m_pMyTurretList.empty())
+				m_pMyTurretList.back()->Set_Dead();
+			else
+			{
+				Set_Dead();
+			}
+
+		}
 	}
 	
 	else if (COLLISION_TYPE::OBJECT  == _Other_Collider->Get_Collision_Type())
@@ -258,6 +275,23 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 		vDirection *= D3DXVec3Length(&vSpeed);
 		
 		m_pRigid_BodyCom->Add_Force(vDirection * 1.5f);
+
+		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
+		{
+			m_pStatusCom->Set_FULL_HP();
+			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
+
+			m_pStatusCom->Set_FULL_HP();
+
+			if (!m_pMyTurretList.empty())
+				m_pMyTurretList.back()->Set_Dead();
+			else
+			{
+				Set_Dead();
+			}
+
+		}
 	}
 	else if (COLLISION_TYPE::PLAYER == _Other_Collider->Get_Collision_Type())
 	{

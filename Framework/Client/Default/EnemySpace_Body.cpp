@@ -77,7 +77,7 @@ void CEnemySpace_Body::LateTick(_float fTimeDelta)
 
 HRESULT CEnemySpace_Body::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.05f, 0.05f, 0.05f), true);
+	m_pTransformCom->Scaling(_float3(0.15f, 0.15f, 0.15f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -118,7 +118,6 @@ void CEnemySpace_Body::SetUp_Components_For_Child()
 
 	m_pMeshCom = Add_Component<CMesh_EnemySpace>();
 	m_pMeshCom->Set_WeakPtr((void**)&m_pMeshCom);
-	m_pMeshCom->Set_Texture(TEXT("Red_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.Set_Preset_EnemySpace_Body();
@@ -155,7 +154,7 @@ void CEnemySpace_Body::SetUp_Components_For_Child()
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;
 	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
-	m_pColliderCom->Set_Collider_Size(_float3(4.f, 4.f, 4.f));
+	m_pColliderCom->Set_Collider_Size(_float3(10.f, 10.f, 10.f));
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 
 	Set_Controller(CONTROLLER::AI);
