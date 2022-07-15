@@ -24,14 +24,14 @@ public:
     virtual void LateTick(_float fTimeDelta) override;
     virtual HRESULT Render() override;
 
-//    void    Set_RouteCamera(CCamera* _pCurCamera, const _tchar* _NextCameraTag, _float _fTime);
-//    void    Switch_Player(_float4x4 _pCurCamera, CTransform* _pNextCamera, const _tchar* _NextCameraTag, _float fTime);
-//    //바꾼 후에는 무조건 3인칭으로
-//private:
-//    void    Make_Route();//시점 전환용
-//
-//    void    Switch_PlayerCamera(_float fTimeDelta);
-//    void    Swap_Camera(_float fTimeDelta);
+    void    Set_RouteCamera(CCamera* _pCurCamera, const _tchar* _NextCameraTag, _float _fTime);
+    void    Switch_Player(_float4x4 _pCurCamera, CTransform* _pNextCamera, const _tchar* _NextCameraTag, _float fTime);
+    //바꾼 후에는 무조건 3인칭으로
+private:
+    void    Make_Route();//시점 전환용
+
+    void    Switch_PlayerCamera(_float fTimeDelta);
+    void    Swap_Camera(_float fTimeDelta);
 
     
 

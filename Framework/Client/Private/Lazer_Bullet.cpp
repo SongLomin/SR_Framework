@@ -17,6 +17,8 @@ CLazer_Bullet::CLazer_Bullet(const CLazer_Bullet& Prototype)
 
 HRESULT CLazer_Bullet::Initialize_Prototype()
 {
+	m_fDamage = 0.3f;
+
 	return S_OK;
 }
 

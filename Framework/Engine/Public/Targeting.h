@@ -27,7 +27,7 @@ public:
 public:
 	void Make_TargetList_Cursor(list<CGameObject*>* pLayer, CTransform* pTransform, _float fDist = 20.f, _bool bIsClear = true);
 	void Make_TargetList_Look(list<CGameObject*>* pTarget, CTransform* pTransform, _float fDist = 40.f, _bool bIsClear = true);
-	void Make_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _vPosition, _float _fRange);
+	void Make_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _vPosition, _float _fRange, _bool _bIsClear = false);
 	void Add_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _vPosition, _float _fRange, _bool _bIsClear = false);
 	
 	static map<_float, CGameObject*> Get_Nearest_Target_Distance(list<CGameObject*>* pTarget, _float3 _vPosition, _float _fRange);

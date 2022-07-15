@@ -18,7 +18,7 @@ CRocket_Bullet::CRocket_Bullet(const CRocket_Bullet& Prototype)
 
 HRESULT CRocket_Bullet::Initialize_Prototype()
 {
-	m_fDamage = 10.f;
+	m_fDamage = 7.f;
 
 	return S_OK;
 }
@@ -107,7 +107,12 @@ void CRocket_Bullet::Find_Way(_float fTimeDelta)
 		if (nullptr == m_pTarget || !m_pTarget->Get_Enable())
 		{
 
-			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f, true);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_StagBeetle")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TargetBoard")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Roller")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+
 			map<_float, CGameObject*>* pMap = m_pTargetingCom->Get_Targetting();
 			if (!pMap->empty())
 			{
@@ -226,7 +231,11 @@ void CRocket_Bullet::OnTimerEvent(const _uint _iEventIndex)
 		if (nullptr == m_pTarget || !m_pTarget->Get_Enable())
 		{
 
-			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f, true);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_StagBeetle")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TargetBoard")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Roller")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
 			map<_float, CGameObject*>* pMap = m_pTargetingCom->Get_Targetting();
 			if (!pMap->empty())
 			{
