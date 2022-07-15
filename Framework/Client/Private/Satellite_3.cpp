@@ -82,6 +82,7 @@ void CSatellite_3::On_Collision_Enter(CCollider* _Other_Collider)
 
 	if (COLLISION_TYPE::PLAYER == _Other_Collider->Get_Collision_Type())
 	{
+		GAMEINSTANCE->StopAll();
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 1.f, TEXT("우주 정거장을 해킹했습니다!!!!"), 0);
 
 

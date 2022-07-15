@@ -79,7 +79,7 @@ void CPlanet::Tick(_float fTimeDelta)
          // 충돌하고 키 입력시
         if (KEY_INPUT(KEY::F, KEY_STATE::TAP) && !m_bLevelChange)
         {
-
+            GAMEINSTANCE->StopAll();
             GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this, m_eMyLevel);
             m_bLevelChange = true;
             return;

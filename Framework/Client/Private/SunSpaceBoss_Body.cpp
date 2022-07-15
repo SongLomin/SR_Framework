@@ -42,7 +42,7 @@ void CSunSpaceBoss_Body::Tick(_float fTimeDelta)
 	__super::Tick(fTimeDelta);
 
 
-	GAMEINSTANCE->Add_Text(_point{ (LONG)610, (LONG)42 }, D3DCOLOR_ARGB(255, 0, 255, 255), 0.f, TEXT("¿¡´ý °Å´Ï½º"), 0);
+	GAMEINSTANCE->Add_Text(_point{ (LONG)610, (LONG)42 }, D3DCOLOR_ARGB(255, 255, 0, 0), 0.f, TEXT("¿¡´ý °Å´Ï½º"), 0);
 
 	m_fMonsterSpawn -= fTimeDelta;
 	if (m_fMonsterSpawn < 0.f)

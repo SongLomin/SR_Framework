@@ -84,6 +84,9 @@ HRESULT CLevel_SunPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CSunSpaceBoss_Body>(LEVEL_SUNPLANET, TEXT("Enemy_Boss")))
 		return E_FAIL;
 
+
+	GAMEINSTANCE->PlaySoundW(TEXT("SunPlanet.wav"), BGM, 1.f);
+
 	return S_OK;
 }
 

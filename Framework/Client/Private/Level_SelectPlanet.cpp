@@ -270,6 +270,11 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	}
 	
 	GAMEINSTANCE->Set_TimeScale(1.0f);
+
+
+	
+	GAMEINSTANCE->PlaySoundW(TEXT("SelectPlanet.wav"), BGM, 1.f);
+
 	
 	return S_OK;
 }

@@ -126,6 +126,10 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	//GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVEL_VENUSPLANET, TEXT("Earth"));
 
 
+	
+	GAMEINSTANCE->PlaySoundW(TEXT("MagmaPlanet.wav"), BGM, 1.f);
+
+
 	return S_OK;
 }
 
@@ -201,6 +205,7 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
 	{
+		GAMEINSTANCE->StopAll();
 		GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
 	}
 

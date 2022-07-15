@@ -220,6 +220,8 @@ HRESULT CLoader::Loading_ForLogoLevel()
 	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
 		return E_FAIL;
 
+
+
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
 	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
@@ -280,6 +282,18 @@ HRESULT CLoader::Loading_ForCharacterSelect()
 		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
+
+
+
+	lstrcpy(m_szLoadingText, TEXT("사운드를 로딩중 입니다. "));
+
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/SelectPlanet.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/RedPlanet.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/ExoPlanet.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/MagmaPlanet.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/VenusPlanet.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/SelectPlayer.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/SunPlanet.wav"));
 
 
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));

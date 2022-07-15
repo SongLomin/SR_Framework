@@ -50,7 +50,7 @@ void CAI_TransportShip::Tick(_float fTimeDelta)
 
 	if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
 	{
-		
+		GAMEINSTANCE->StopAll();
 		GAMEINSTANCE->Add_Text(_point{ (LONG)640, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 2.f, TEXT("화물선이(가) 파괴되었습니다\n     임무 실패!"), 0);
 		m_fTransLevelTime -= fTimeDelta;
 
