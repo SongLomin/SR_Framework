@@ -88,19 +88,6 @@ HRESULT CRocket_Bullet::Render()
 	return S_OK;
 }
 
-void CRocket_Bullet::Find_Way(_float fTimeDelta)
-{
-	if (m_fLifeTime < 0.f)
-		return;
-
-	
-
-
-	if (9.3f < m_fLifeTime)//발사 후, 초반 0.5초 동안은 방향 조정연출(?)
-	{
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::DOWN);
-		return;
-	}
 
 	else if(9.f > m_fLifeTime)
 	{
@@ -248,8 +235,9 @@ void CRocket_Bullet::OnTimerEvent(const _uint _iEventIndex)
 			m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>());
 		
 		}
-		m_pTransformCom->Go_BackAndForth(1.f, 1.f);
+		m_pTransformCom->Go_BackAndForth(0.5f, 0.5f);
 		m_pTransformCom->Update_WorldMatrix();
+
 	}
 }
 

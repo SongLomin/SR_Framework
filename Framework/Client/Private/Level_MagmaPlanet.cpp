@@ -172,6 +172,7 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f * m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
 			// 이게 맞냐
 			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
+			GAMEINSTANCE->Add_BlurWidth();
 		}
 
 		if (0.f > m_fTime)
@@ -201,6 +202,7 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
 	{
+		GAMEINSTANCE->Reset_BlurWidth();
 		GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
 	}
 

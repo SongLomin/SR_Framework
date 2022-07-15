@@ -510,9 +510,9 @@ void CRender_Manager::Apply_BoosterBlur(RENDERGROUP _eRenderGroup, IDirect3DText
 	if (!ppShader)
 		return;
 
-	if (DBL_EPSILON < fBlurWidth)
-		fBlurWidth -= 0.0005f;
-	else if (0.f > fBlurWidth)
+	
+	fBlurWidth -= 0.0007f;
+	if (0.f > fBlurWidth)
 		fBlurWidth = 0.f;
 
 	CCamera* pCamera = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA);
