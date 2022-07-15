@@ -457,7 +457,7 @@ int CGameInstance::Pause(CHANNELID eID)
 	return m_pSound_Manager->Pause(eID);
 }
 
-void CGameInstance::PlaySound(TCHAR* pSoundKey, CHANNELID eID, _float _vol)
+void CGameInstance::PlaySoundW(TCHAR* pSoundKey, CHANNELID eID, _float _vol)
 {
 	m_pSound_Manager->PlaySoundW(pSoundKey, eID, _vol);
 }

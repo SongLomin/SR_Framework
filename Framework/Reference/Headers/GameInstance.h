@@ -145,7 +145,7 @@ public: /* For.Sound_Manager */
 	int  BGMVolumeUp(_float _vol);
 	int  BGMVolumeDown(_float _vol);
 	int  Pause(CHANNELID eID);
-	void PlaySound(TCHAR* pSoundKey, CHANNELID eID, _float _vol);
+	void PlaySoundW(TCHAR* pSoundKey, CHANNELID eID, _float _vol);
 	void PlayBGM(TCHAR* pSoundKey);
 	void StopSound(CHANNELID eID);
 	void StopAll();
