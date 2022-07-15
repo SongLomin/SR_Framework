@@ -30,6 +30,7 @@ private:
 	void Priority_Pipeline();
 	void Deferred_Pipeline();
 	void Foward_Pipeline();
+	void Apply_BoosterBlur();
 
 	bool SetupTexture(IDirect3DTexture9** texture, IDirect3DSurface9** surface);
 	void SetMRT();
@@ -38,8 +39,12 @@ private:
 	void Draw_Divide_ViewPort(RENDERGROUP _eRenderGroup, IDirect3DTexture9* _Tex);
 	void Set_OnlyRenderTarget(IDirect3DSurface9** _ppSurface);
 
+	void SetUpScreenRect();
+
+
 private: /* For Defferred Rendering */
 	IDirect3DSurface9* originRenderTarget = nullptr;
+	IDirect3DTexture9* originTex = nullptr;
 
 	IDirect3DTexture9* normalTex = nullptr;
 	IDirect3DSurface9* normalSurface = nullptr;
@@ -57,6 +62,7 @@ private: /* For Defferred Rendering */
 	IDirect3DSurface9* stashSurface = nullptr;
 
 	IDirect3DVertexBuffer9* vb = nullptr;
+	IDirect3DSurface9* TemporarySurface = nullptr;
 
 private:
 
