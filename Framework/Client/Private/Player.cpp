@@ -73,12 +73,12 @@ void CPlayer::Tick(_float fTimeDelta)
 				//}
 
 				elem->Set_Controller(CONTROLLER::PLAYER);
-			}
+			} 
 		}
 		++i;
 	}
 
-	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
+	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
 	{
 		GAMEINSTANCE->PlaySoundW(TEXT("NormalBullet.wav"), EFFECT, 0.1f);
 	}
