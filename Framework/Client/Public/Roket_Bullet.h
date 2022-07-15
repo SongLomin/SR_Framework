@@ -31,8 +31,7 @@ public:
     virtual void Init_BulletPosition(_float4x4* _pWorldMat);
 
     void    Set_Target(CGameObject* _pTarget);
-private:
-    void    Find_Way(_float fTimeDelta);
+
 
 private:
     CSpotLight* m_pLight = nullptr;
