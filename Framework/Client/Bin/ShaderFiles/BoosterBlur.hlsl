@@ -73,6 +73,16 @@ vector PS_MAIN(PS_IN In) : COLOR0
 	{
 		float scale = fBlurStart + (float(i) * fPrecompute);
 		float2 uv = In.vTexUV.xy * scale + center;
+		if (0.f > uv.x)
+			uv.x = 0.f;
+		else if (1.f < uv.x)
+			uv.x = 1.f;
+
+		if (0.f > uv.y)
+			uv.y = 0.f;
+		else if (1.f < uv.y)
+			uv.y = 1.f;
+
 		vColor += tex2D(DefaultSampler, uv);
 	}
 
