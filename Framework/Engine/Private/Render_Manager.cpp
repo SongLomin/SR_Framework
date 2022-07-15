@@ -25,13 +25,9 @@ HRESULT CRender_Manager::Initialize()
 	if (!SetupTexture(&stashTex, &stashSurface)) {
 		return E_FAIL;
 	}
-	if (!SetupTexture(&originTex, &TemporarySurface)) {
-		return E_FAIL;
-	}
 
-	SetUpScreenRect();
-	DEVICE->GetRenderTarget(0, &originRenderTarget);
 
+	
 
 	return S_OK;
 }
@@ -71,8 +67,6 @@ HRESULT CRender_Manager::Draw_RenderGroup()
 	GAMEINSTANCE->Render_Begin();
 	//GAMEINSTANCE->Render_Begin();
 	Foward_Pipeline();
-	Apply_BoosterBlur();
-
 	GAMEINSTANCE->Render_Engine();
 	GAMEINSTANCE->Render_End(GAMEINSTANCE->Get_Window_Handle());
 
@@ -336,104 +330,6 @@ void CRender_Manager::Foward_Pipeline()
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_SPECULAR, specularTex);
 }
 
-void CRender_Manager::Apply_BoosterBlur()
-{
-	/*
-		최종적으로 모두 렌더링 된 서페이스를 텍스처로 씀
-		텍스처가 출력될 폴리곤은 기본 (-1,1)~(1,-1)인 사각형
-		기본 월드 위치가 저 위치 
-		쉐이더에서 뷰/프로젝션 행렬이 모두 적용된 상태로 나온다면 저 사각형은 나올 수 없음
-		그럼 어떻게 해야 되냐? 모름
-		 + 쉐이더 문법 오류나는 것 같음
-	*/
-	ID3DXEffect** BoosterEffect = GAMEINSTANCE->Get_Shader_From_Key(TEXT("BoosterBlur"));
-
-	if (!BoosterEffect)
-	{
-		//BoosterEffect 쉐이더를 찾을 수 없음.
-		return;
-	}
-	
-	if (!originRenderTarget)
-	{
-		return;
-	}
-	DEVICE->StretchRect(originRenderTarget, NULL, TemporarySurface, NULL, D3DTEXF_LINEAR);
-	DEVICE->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_STENCIL, 0x11111111, 1.0f, 0);
-
-	GRAPHICDESC Desc = GAMEINSTANCE->Get_Graphic_Desc();
-	_float ScreenSize[2]{ (float)Desc.iWinCX, (float)Desc.iWinCY };
-
-	_float4x4 view, proj, world;
-	D3DXMatrixIdentity(&world);
-	D3DXMatrixIdentity(&view);
-	D3DXMatrixOrthoLH(&proj, Desc.iWinCX, Desc.iWinCY, 0.2f, 900.f);
-
-	_float4x4 originView, originProj;
-	DEVICE->SetTransform(D3DTS_WORLD, &world);
-	DEVICE->GetTransform(D3DTS_VIEW, &originView);
-	DEVICE->GetTransform(D3DTS_PROJECTION, &originProj);
-
-	DEVICE->SetTransform(D3DTS_VIEW, &view);
-	DEVICE->SetTransform(D3DTS_PROJECTION, &proj);
-
-	/*GRAPHICDESC Desc = GAMEINSTANCE->Get_Graphic_Desc();
-	_float ScreenSize[2]{ (float)Desc.iWinCX, (float)Desc.iWinCY };
-
-
-	D3DXHANDLE WorldHandle = (*BoosterEffect)->GetParameterByName(0, "world");
-	D3DXHANDLE ViewHandle=(*BoosterEffect)->GetParameterByName(0, "view");
-	D3DXHANDLE ProjHandle=(*BoosterEffect)->GetParameterByName(0, "proj");
-
-	D3DXHANDLE blurWidthHandle = (*BoosterEffect)->GetParameterByName(0, "blurWidth");
-	D3DXHANDLE screenSizeHandle = (*BoosterEffect)->GetParameterByName(0, "screenSize");
-
-
-	D3DXHANDLE TextureHandle = (*BoosterEffect)->GetParameterByName(0, "g_Texture");
-
-
-	_float4x4 view, proj, world;
-	D3DXMatrixIdentity(&world);
-	D3DXMatrixIdentity(&view);
-	D3DXMatrixOrthoLH(&proj, Desc.iWinCX, Desc.iWinCY, 0.2f, 900.f);
-
-	(*BoosterEffect)->SetMatrix(WorldHandle, &world);
-	(*BoosterEffect)->SetMatrix(ViewHandle, &view);
-	(*BoosterEffect)->SetMatrix(ProjHandle, &proj);
-	(*BoosterEffect)->SetFloat(blurWidthHandle, 0.1f);
-	(*BoosterEffect)->SetFloatArray(screenSizeHandle, ScreenSize, 2);
-
-
-	(*BoosterEffect)->SetTexture(TextureHandle, originTex);
-
-	D3DXHANDLE hTech = 0;
-	UINT numPasses = 0;
-
-	hTech = (*BoosterEffect)->GetTechniqueByName("DefaultTechnique");
-	(*BoosterEffect)->SetTechnique(hTech);
-
-
-	numPasses = 0;
-	(*BoosterEffect)->Begin(&numPasses, 0);
-
-	for (_uint i = 0; i < numPasses; i++)
-	{
-		(*BoosterEffect)->BeginPass(i);
-
-		DrawScreenQuad();
-
-		(*BoosterEffect)->EndPass();
-	}
-
-	(*BoosterEffect)->End();
-	*/
-	DrawScreenQuad();
-
-	DEVICE->SetTransform(D3DTS_VIEW, &originView);
-	DEVICE->SetTransform(D3DTS_PROJECTION, &originProj);
-
-}
-
 bool CRender_Manager::SetupTexture(IDirect3DTexture9** texture, IDirect3DSurface9** surface)
 {
 	const GRAPHICDESC& Desc = GAMEINSTANCE->Get_Graphic_Desc();
@@ -461,7 +357,8 @@ bool CRender_Manager::SetupTexture(IDirect3DTexture9** texture, IDirect3DSurface
 
 void CRender_Manager::SetMRT()
 {
-	
+	DEVICE->GetRenderTarget(0, &originRenderTarget);
+
 	DEVICE->SetRenderTarget(0, normalSurface);
 	DEVICE->SetRenderTarget(1, depthSurface);
 	DEVICE->SetRenderTarget(2, diffuseSurface);
@@ -480,62 +377,9 @@ void CRender_Manager::ResumeOriginRender()
 
 void CRender_Manager::DrawScreenQuad()
 {
-	DEVICE->SetTexture(0, originTex);
-	DEVICE->SetStreamSource(0, vb, 0, sizeof(VTXTEX));
-	DEVICE->SetFVF(VTXTEX::FVF);
+	DEVICE->SetStreamSource(0, vb, 0, sizeof(VTX));
+	DEVICE->SetFVF(D3DFVF_XYZ);
 	DEVICE->DrawPrimitive(D3DPT_TRIANGLELIST, 0, 2);
-	DEVICE->SetTexture(0, 0);
-}
-
-void CRender_Manager::SetUpScreenRect()
-{
-
-	DEVICE->CreateVertexBuffer(
-		6 * sizeof(VTXTEX),
-		0,
-		VTXTEX::FVF,
-		D3DPOOL_MANAGED,
-		&vb,
-		0
-	);
-
-	/* screen quad coordinates
-
-	-1,1	        1,1
-	 v0             v1
-	  +-------------+
-	  |             |
-	  |    screen   |
-	  |             |
-	  +-------------+
-	 v2             v3
-	-1,-1          1,-1
-
-	*/
-	VTXTEX v0 = {
-		_float3( - 1, 1, 0),_float2(0,0)
-	};
-	VTXTEX v1 = {
-		_float3(1, 1, 0),_float2(1,0)
-	};
-	VTXTEX v2 = {
-		_float3(-1, -1, 0),_float2(0,1)
-	};
-	VTXTEX v3 = {
-		_float3(1, -1, 0),_float2(1,1)
-	};
-
-	VTXTEX* vertices;
-	vb->Lock(0, 0, (void**)&vertices, 0);
-
-	vertices[0] = v0;
-	vertices[1] = v1;
-	vertices[2] = v2;
-	vertices[3] = v1;
-	vertices[4] = v3;
-	vertices[5] = v2;
-
-	vb->Unlock();
 }
 
 void CRender_Manager::Draw_Divide_ViewPort(RENDERGROUP _eRenderGroup, IDirect3DTexture9* _Tex)
