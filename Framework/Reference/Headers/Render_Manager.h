@@ -22,9 +22,9 @@ public:
 
 	void	Add_BlurWidth()
 	{
-		if (0.1f > fBlurWidth)
-			fBlurWidth += 0.001f;
-		else
+		
+		fBlurWidth += 0.01f;
+		if(fBlurWidth > 0.1f)
 			fBlurWidth = 0.1f;
 	}
 
