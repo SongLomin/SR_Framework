@@ -98,16 +98,16 @@ HRESULT CLevel_ExoPlanet::Initialize()
 	
 	for (int i = 0; i < 300; ++i)
 	{
-		if (!GAMEINSTANCE->Add_GameObject<CRock_1>(LEVEL_EXOPLANET, TEXT("Satellite_1")))
+		if (!GAMEINSTANCE->Add_GameObject<CRock_1>(LEVEL_EXOPLANET, TEXT("Rock_1")))
 			return E_FAIL;
 
-		if (!GAMEINSTANCE->Add_GameObject<CRock_2>(LEVEL_EXOPLANET, TEXT("Satellite_2")))
+		if (!GAMEINSTANCE->Add_GameObject<CRock_2>(LEVEL_EXOPLANET, TEXT("Rock_2")))
 			return E_FAIL;
 
-		if (!GAMEINSTANCE->Add_GameObject<CRock_3>(LEVEL_EXOPLANET, TEXT("Satellite_1")))
+		if (!GAMEINSTANCE->Add_GameObject<CRock_3>(LEVEL_EXOPLANET, TEXT("Rock_3")))
 			return E_FAIL;
 
-		if (!GAMEINSTANCE->Add_GameObject<CRock_4>(LEVEL_EXOPLANET, TEXT("Satellite_2")))
+		if (!GAMEINSTANCE->Add_GameObject<CRock_4>(LEVEL_EXOPLANET, TEXT("Rock_4")))
 			return E_FAIL;
 	}
 
