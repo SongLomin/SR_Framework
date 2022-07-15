@@ -174,22 +174,16 @@ void CSunSpaceBoss_Body::Rock_throw(_float fTimeDelta)
 		m_RockTransformList.sort();
 		for (auto& iter = m_RockTransformList.begin(); iter != m_RockTransformList.end();)
 		{
-			if (!iter->second->Get_Enable())
-			{
-				++iter;
-				continue;
-			}
-			
-			iter->second->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::FRONT);
-
 			iter->first -= fTimeDelta;
-			if (iter->first < 0.f)
+			if (iter->first < 0.f || !iter->second->Get_Enable())
 			{
+				RETURN_WEAKPTR(iter->second);
 				iter->second->Set_Enable(false);
 				iter = m_RockTransformList.erase(iter);
 			}
 			else
 			{
+				iter->second->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::FRONT);
 				++iter;
 			}
 		}

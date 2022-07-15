@@ -56,9 +56,9 @@ void CBoosterBar::Tick(_float fTimeDelta)
 		if (KEY_INPUT(KEY::LSHIFT, KEY_STATE::HOLD))
 		{
 			m_fX -= 0.5f;
-			m_fSizeX -= 0.5f; 
-		    fBooster -= fBooster / (fBooster * 20);
-			
+			m_fSizeX -= 0.5f;
+			fBooster -= fBooster / (fBooster * 20);
+
 
 			if (m_fX <= 0 || m_fSizeX <= 0)
 			{
@@ -70,8 +70,8 @@ void CBoosterBar::Tick(_float fTimeDelta)
 
 		if (KEY_INPUT(KEY::LSHIFT, KEY_STATE::NONE))
 		{
-			
-			if (m_fX >= 220.f)	 
+
+			if (m_fX >= 220.f)
 			{
 				m_fX = 220.f;
 				fBooster = fMaxBooster;
@@ -83,33 +83,30 @@ void CBoosterBar::Tick(_float fTimeDelta)
 				fBooster = fMaxBooster;
 			}
 
-			else 
+			else
 			{
 				m_fX += 0.5f;
 				m_fSizeX += 0.5f;
 				pPlayerStatusCom->Add_Status(CStatus::STATUSID::STATUS_BOOSTER, 0.05);
-			    fBooster += fBooster / (fBooster * 20);
+				fBooster += fBooster / (fBooster * 20);
 			}
-			
+
 		}
 	}
-
-
-	GetCursorPos(&m_ptMouse);
-	ScreenToClient(g_hWnd, &m_ptMouse);
-	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
-		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
 
 
 
 	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f) * 2);
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(m_fX - (g_iWinCX >> 1), -m_fY + (g_iWinCY >> 1), 0.f));
+
+	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
+		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
+
 }
 
 void CBoosterBar::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
-
 
 	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_UI, this);
 }
@@ -153,7 +150,7 @@ HRESULT CBoosterBar::SetUp_Components()
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Booster"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Booster_UI"), MEMORY_TYPE::MEMORY_STATIC);
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);

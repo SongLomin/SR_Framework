@@ -106,11 +106,11 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	
 	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
 		return E_FAIL;
-
 	/*if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_SELECTPLANET, TEXT("Aim")))
 		return E_FAIL;*/
 
 	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_SELECTPLANET, TEXT("Status_UI")))
+
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_SELECTPLANET, TEXT("HP_UI")))

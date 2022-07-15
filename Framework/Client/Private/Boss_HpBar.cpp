@@ -42,50 +42,50 @@ void CBossHpBar::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	/*CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
+	list<CGameObject*>* BossLayer = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Boss"));
 
-	ISVALID(pCurrentCam, );
-
-	CTransform* TransformCom = pCurrentCam->Get_Target();
-
-
-	if (TransformCom)
+	if (!BossLayer)
 	{
-		CStatus* pPlayerStatusCom = TransformCom->Get_Owner()->Get_Component<CStatus>();
+		return;
+	}
 
+	CGameObject* BossObject = (*BossLayer).back();
 
+	if (BossObject)
+	{
+		CStatus* pShipStatusCom = BossObject->Get_Component<CStatus>();
 
-		if (pPlayerStatusCom->Get_Status().fHp != pPlayerStatusCom->Get_Status().fMaxHp)
+		if (pShipStatusCom->Get_Status().fHp != pShipStatusCom->Get_Status().fMaxHp)
 		{
-			_float Damage = pPlayerStatusCom->Get_Status().fMaxHp - pPlayerStatusCom->Get_Status().fHp;
+			_float Damage = pShipStatusCom->Get_Status().fMaxHp - pShipStatusCom->Get_Status().fHp;
 
-			_float AfterHp = pPlayerStatusCom->Get_Status().fMaxHp - Damage;
+			_float AfterHp = pShipStatusCom->Get_Status().fMaxHp - Damage;
 
-			if (pPlayerStatusCom->Get_Status().fHp <= AfterHp)
+			if (pShipStatusCom->Get_Status().fHp <= AfterHp)
 			{
 				for (int i = 1; i < Damage + 1; ++i)
 				{
-					if (m_fX <= 220 * AfterHp / (pPlayerStatusCom->Get_Status().fMaxHp) ||
-						m_fSizeX <= 150 * AfterHp / (pPlayerStatusCom->Get_Status().fMaxHp))
+					if (m_fX <= 640.f * AfterHp / (pShipStatusCom->Get_Status().fMaxHp) ||
+						m_fSizeX <= 380.f * AfterHp / (pShipStatusCom->Get_Status().fMaxHp))
 					{
-						m_fX = 2.3 * i + 220 * AfterHp / (pPlayerStatusCom->Get_Status().fMaxHp);
-						m_fSizeX = 150 * AfterHp / (pPlayerStatusCom->Get_Status().fMaxHp);
+						m_fX = 0.52 * i + 640.f * AfterHp / (pShipStatusCom->Get_Status().fMaxHp);
+						m_fSizeX = 380.f * AfterHp / (pShipStatusCom->Get_Status().fMaxHp);
 					}
 				}
 
-				if (pPlayerStatusCom->Get_Status().fHp <= 0)
+				if (pShipStatusCom->Get_Status().fHp <= 0)
 				{
-					m_fX = 70;
+					m_fX = 260;
 					m_fSizeX = 0;
 				}
 
 				else
 					m_fX -= 0.3f;
 				m_fSizeX -= 0.3f;
-
 			}
 		}
-	}*/
+	}
+
 
 	m_pTransformCom->Scaling(_float3(m_fSizeX, m_fSizeY, 1.f) * 2);
 	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(m_fX - (g_iWinCX >> 1), -m_fY + (g_iWinCY >> 1), 0.f));
