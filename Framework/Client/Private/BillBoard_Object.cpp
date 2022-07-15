@@ -2,6 +2,8 @@
 #include "BillBoard_Object.h"
 #include "GameInstance.h"
 #include "Math_Utillity.h"
+#include "Rock_PSystem.h"
+#include "Bomb_Effect.h"
 #include <Rock_PSystem.h>
 #include <Bomb_Effect.h>
 
@@ -29,6 +31,7 @@ void CBillboard_Object::Tick(_float fTimeDelta)
 	__super::Tick(fTimeDelta);
 
 
+	
 }
 
 void CBillboard_Object::LateTick(_float fTimeDelta)
@@ -120,7 +123,6 @@ void CBillboard_Object::LookAtCamera()
 
 void CBillboard_Object::On_Collision_Enter(CCollider* _Other_Collider)
 {
-	__super::On_Collision_Enter(_Other_Collider);
 
 	if (COLLISION_TYPE::PLAYER == _Other_Collider->Get_Collision_Type())
 	{
@@ -143,6 +145,7 @@ void CBillboard_Object::On_Collision_Enter(CCollider* _Other_Collider)
 		Set_Enable(false);
 		//폭발 이펙트 스케일링 따로 지정해줘야함
 	}
+	
 	
 }
 

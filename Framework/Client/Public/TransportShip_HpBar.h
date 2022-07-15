@@ -2,24 +2,22 @@
 #include "Client_Defines.h"
 #include "GameObject.h"
 
-
 BEGIN(Engine)
 class CRenderer;
 class CTransform;
 class CVIBuffer_Rect;
-class CRigid_Body;
-class CCollider_Sphere;
+class CStatus;
 END
 
 
 BEGIN(Client)
 
-class CSatellite_3 final : public CGameObject
+class CTransportShip_HpBar final : public CGameObject
 {
-private:
-	CSatellite_3();
-	CSatellite_3(const CSatellite_3& Prototype);
-	virtual ~CSatellite_3() = default;
+public:
+	CTransportShip_HpBar() = default;
+	CTransportShip_HpBar(const CTransportShip_HpBar& Prototype);
+	virtual ~CTransportShip_HpBar() = default;
 
 public:
 	virtual HRESULT Initialize_Prototype() override;
@@ -28,29 +26,32 @@ public:
 	virtual void LateTick(_float fTimeDelta) override;
 	virtual HRESULT Render() override;
 
-
-public: /* For Event Function */
-	virtual void On_Collision_Enter(CCollider* _Other_Collider) override;
-	virtual void On_Collision_Stay(CCollider* _Other_Collider) override;
-	virtual void On_Collision_Exit(CCollider* _Other_Collider) override;
-
 private:
 	CRenderer* m_pRendererCom = nullptr;
 	CTransform* m_pTransformCom = nullptr;
 	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
-	CRigid_Body* m_pRigidBodyCom = nullptr;
-	CCollider_Sphere* m_pColliderCom = nullptr;
+	CStatus* m_pStatusCom = nullptr;
 
 private:
-	HRESULT SetUp_Components();
-	void LookAt_Camera();
+	CGameObject* m_pTransportShip = nullptr;
 
+protected:
+	_float					m_fX, m_fY, m_fSizeX, m_fSizeY;
+	_float4x4				m_ProjMatrix;
+	RECT					m_rcRect;
 
 
 public:
-	static CSatellite_3* Create();
+	void Update_Hp_Bar(CStatus* pStatus);
+
+private:
+	HRESULT SetUp_Components();
+
+public:
+	static CTransportShip_HpBar* Create();
 	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
 };
 
 END
+

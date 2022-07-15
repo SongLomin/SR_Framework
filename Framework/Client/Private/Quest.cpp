@@ -19,8 +19,8 @@ HRESULT CQuest::Initialize(void* pArg)
 	Set_Texture_Key(TEXT("Quest"));
 
 	_float fX = 1380.f;
-	_float fY = 80.f;
-
+	//_float fY = 80.f;
+	_float fY = 300.f;
 	_float fSizeX = 160.0f;
 	_float fSizeY = 50.0f;
 

@@ -32,6 +32,18 @@
 #include "Quest.h"
 #include <SelectPlanet_SkyBox.h>
 #include "ExoPlanet_SkyBox.h"
+#include "Rock_1.h"
+#include "Rock_2.h"
+#include "Rock_3.h"
+#include "Rock_4.h"
+#include "Enemy_Scourge.h"
+#include "TextBox.h"
+#include "Quest.h"
+#include "Planet_Select.h"
+#include "Satellite_1.h"
+#include "Satellite_2.h"
+#include "Satellite_3.h"
+#include <time.h>
 
 CLevel_ExoPlanet::CLevel_ExoPlanet()
 {
@@ -43,36 +55,76 @@ HRESULT CLevel_ExoPlanet::Initialize()
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
 
-
+	
 
 	
-	if (!GAMEINSTANCE->Add_GameObject<CExoPlanet_SkyBox>(LEVLE_EXOPLANET, TEXT("SkyBox")))
+	if (!GAMEINSTANCE->Add_GameObject<CExoPlanet_SkyBox>(LEVEL_EXOPLANET, TEXT("SkyBox")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVLE_EXOPLANET, TEXT("Aim_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_EXOPLANET, TEXT("Aim_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVLE_EXOPLANET , TEXT("Light_Moon")))
+	if (!GAMEINSTANCE->Add_GameObject<CLight_Moon>(LEVEL_EXOPLANET, TEXT("Light_Moon")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVLE_EXOPLANET, TEXT("Status_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_EXOPLANET, TEXT("Status_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVLE_EXOPLANET, TEXT("HP_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_EXOPLANET, TEXT("HP_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVLE_EXOPLANET, TEXT("Booster_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBoosterBar>(LEVEL_EXOPLANET, TEXT("Booster_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVLE_EXOPLANET, TEXT("Shield_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CShieldBar>(LEVEL_EXOPLANET, TEXT("Shield_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVLE_EXOPLANET, TEXT("NormalBullet_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletUI>(LEVEL_EXOPLANET, TEXT("NormalBullet_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVLE_EXOPLANET, TEXT("BulletCount_UI")))
+	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_EXOPLANET, TEXT("BulletCount_UI")))
 		return E_FAIL;
 
+	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_EXOPLANET, TEXT("TextBox_Yang"));
+	m_pTextBoxObject->Set_Enable(false);
+
+	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_EXOPLANET, TEXT("Quest_UI"));
+	m_pQuestBoxObject->Set_Enable(false);
+
+
+	m_pPlanetObject = GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVEL_EXOPLANET, TEXT("Earth"));
+	m_pPlanetObject->Set_Enable(false);
+
+	
+	for (int i = 0; i < 300; ++i)
+	{
+		if (!GAMEINSTANCE->Add_GameObject<CRock_1>(LEVEL_EXOPLANET, TEXT("Satellite_1")))
+			return E_FAIL;
+
+		if (!GAMEINSTANCE->Add_GameObject<CRock_2>(LEVEL_EXOPLANET, TEXT("Satellite_2")))
+			return E_FAIL;
+
+		if (!GAMEINSTANCE->Add_GameObject<CRock_3>(LEVEL_EXOPLANET, TEXT("Satellite_1")))
+			return E_FAIL;
+
+		if (!GAMEINSTANCE->Add_GameObject<CRock_4>(LEVEL_EXOPLANET, TEXT("Satellite_2")))
+			return E_FAIL;
+	}
+
+
+	for (int i = 0; i < 2; ++i)
+	{
+
+		if (!GAMEINSTANCE->Add_GameObject<CSatellite_1>(LEVEL_EXOPLANET, TEXT("Satellite_1")))
+			return E_FAIL;
+
+		if (!GAMEINSTANCE->Add_GameObject<CSatellite_2>(LEVEL_EXOPLANET, TEXT("Satellite_2")))
+			return E_FAIL;
+	}
+
+
+	if (!GAMEINSTANCE->Add_GameObject<CSatellite_3>(LEVEL_EXOPLANET, TEXT("Satellite_3")))
+		return E_FAIL;
 
 	return S_OK;
 }
@@ -95,6 +147,12 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 			// 이게 맞냐
 			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
 		}
+	srand(unsigned(time(NULL)));
+	
+	Scouge_Create(fTimeDelta);
+	ExoPlanet_Event(fTimeDelta);
+	//Rock_Create(fTimeDelta);
+}
 
 		if (0.f > m_fTime)
 		{
@@ -176,6 +234,216 @@ void CLevel_ExoPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 		}
 	}
 	GAMEINSTANCE->Add_Shaking(0.1f, 0.f);
+}
+
+void CLevel_ExoPlanet::Scouge_Create(_float fTimeDelta)
+{
+
+	m_fSpawnTime -= fTimeDelta;
+
+	CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
+
+	CTransform* TransformCom = pCurrentCam->Get_Target();
+
+	CTransform* pPlayerTransformCom = TransformCom->Get_Owner()->Get_Component<CTransform>();
+
+	if (m_fSpawnTime < 0.f)
+	{
+
+		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemy_Scourge>(CURRENT_LEVEL, TEXT("Enemy_Scourge"), nullptr, nullptr, true)->Get_Component<CTransform>();
+		_float3 pPlayerPos = pPlayerTransformCom->Get_World_State(CTransform::STATE_POSITION);
+
+		_float RotateX = (_float)(rand() % 361);
+		_float RotateY = (_float)(rand() % 361);
+		_float RotateZ = (_float)(rand() % 361);
+		RotateX = D3DXToRadian(RotateX);
+		RotateY = D3DXToRadian(RotateY);
+		RotateZ = D3DXToRadian(RotateZ);
+
+		pPlayerPos = CMath_Utillity::Rotate_Vec3(_float3(RotateX, RotateY, RotateZ), pPlayerPos);
+		pEnemyTransform->Set_State(CTransform::STATE_POSITION, pPlayerPos, true);
+
+		m_fSpawnTime = 2.f;
+	}
+
+}
+
+void CLevel_ExoPlanet::ExoPlanet_Event(_float fTimeDelta)
+{
+	m_fTextBoxTime -= fTimeDelta;
+
+
+	if (m_fTextBoxTime <= 298.f && !m_bEventCheck[0])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이번 임무는 적군 행성 우주 정거장을 해킹해야하네."), 0);
+	}
+
+	if (m_fTextBoxTime <= 296.f && !m_bEventCheck[0])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[0] = true;
+	}
+
+	if (m_fTextBoxTime <= 294.f && !m_bEventCheck[1])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이 행성은 우주 쓰레기와 운석 파편이 아주 많다고 들었네\n조심히 들키지 않게 빠르게 우주 정거장을 해킹해주게."), 0);
+	}
+
+	if (m_fTextBoxTime <= 292.f && !m_bEventCheck[1])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[1] = true;
+	}
+
+	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[2])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이런! 벌써 들킨것같군\n내가 최대한 적들을 유인할태니 서둘러주게! "), 0);
+	}
+
+	if (m_fTextBoxTime <= 288.f && !m_bEventCheck[2])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[2] = true;
+	}
+
+	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[3])
+	{
+		m_pQuestBoxObject->Set_Enable(true);
+
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)270 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n      우주 정거장 해킹  \n     남은시간 (초) :"), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)308 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("\n  %d"), 1, (_uint)m_fMaxTime);
+
+		if (m_iFontiX <= 1040)
+		{
+			m_iFontiX = 1040;
+		}
+
+		if (m_iFontiXCount <= 1150)
+		{
+			m_iFontiXCount = 1150;
+		}
+
+		m_iFontiX -= 0.8;
+		m_iFontiXCount -= 0.8;
+		m_fMaxTime -= fTimeDelta;
+	}
+
+	if (m_fTextBoxTime <= 280.f && !m_bEventCheck[4])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이런 미친자식들! 자살특공대인가 카미카제를 하다니.."), 0);
+	}
+
+	if (m_fTextBoxTime <= 277.f && !m_bEventCheck[4])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[4] = true;
+	}
+
+	if (m_fTextBoxTime <= 274.f && !m_bEventCheck[5])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("좋지않아! 안그래도 운석 파편떄문에\n움직이는대 제약이있는데\n저 자살특공대 까지 신경을 써야하다니!"), 0);
+	}
+
+	if (m_fTextBoxTime <= 271.f && !m_bEventCheck[5])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[5] = true;
+	}
+
+	if (m_fTextBoxTime <= 268 && !m_bEventCheck[6])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("하지만 나 대위 양갑렬 절대 굴하지않는다!"), 0);
+	}
+
+	if (m_fTextBoxTime <= 265 && !m_bEventCheck[6])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[6] = true;
+	}
+
+	if (m_fTextBoxTime <= 200 && !m_bEventCheck[7])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("기체가 많이 파손됬네!!! 빨리 서둘러!!"), 0);
+	}
+
+	if (m_fTextBoxTime <= 197 && !m_bEventCheck[7])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[7] = true;
+	}
+
+	if (m_fTextBoxTime <= 93 && !m_bEventCheck[8])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이런.. 퇴각하겠네 다음을 노리세나.."), 0);
+	}
+
+	if (m_fTextBoxTime <= 90 && !m_bEventCheck[8])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[8] = true;
+	}
+
+	if (m_fMaxTime <= 0 && !m_bEventCheck[3])
+	{
+		m_pQuestBoxObject->Set_Enable(false);
+		m_bEventCheck[3] = true;
+
+		GAMEINSTANCE->Add_Text(_point{ (LONG)640, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 3.f, TEXT("임무 실패!!!"), 0);
+		GAMEINSTANCE->Get_Instance()->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
+	}
+}
+
+void CLevel_ExoPlanet::Rock_Create(_float fTimeDelta)
+{
+	/*m_fRockSqawnTime -= fTimeDelta;
+
+	CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
+
+	CTransform* TransformCom = pCurrentCam->Get_Target();
+
+	CTransform* pPlayerTransformCom = TransformCom->Get_Owner()->Get_Component<CTransform>();
+
+	srand(unsigned(time(NULL)));
+
+	if (TransformCom && m_fRockSqawnTime <= 0)
+	{
+		CTransform* pRock_1Transform = GAMEINSTANCE->Add_GameObject<CRock_1>(CURRENT_LEVEL, TEXT("Rock_1"), nullptr, nullptr, true)->Get_Component<CTransform>();
+		CTransform* pRock_2Transform = GAMEINSTANCE->Add_GameObject<CRock_2>(CURRENT_LEVEL, TEXT("Rock_2"), nullptr, nullptr, true)->Get_Component<CTransform>();
+		CTransform* pRock_3Transform = GAMEINSTANCE->Add_GameObject<CRock_3>(CURRENT_LEVEL, TEXT("Rock_3"), nullptr, nullptr, true)->Get_Component<CTransform>();
+		CTransform* pRock_4Transform = GAMEINSTANCE->Add_GameObject<CRock_4>(CURRENT_LEVEL, TEXT("Rock_4"), nullptr, nullptr, true)->Get_Component<CTransform>();
+
+		_float3 pPlayerPos = pPlayerTransformCom->Get_World_State(CTransform::STATE_POSITION);
+
+		_float RotateX = (_float)(rand() % 361);
+		_float RotateY = (_float)(rand() % 361);
+		_float RotateZ = (_float)(rand() % 361);
+
+		RotateX = D3DXToRadian(RotateX);
+		RotateY = D3DXToRadian(RotateY);
+		RotateZ = D3DXToRadian(RotateZ);
+
+		pPlayerPos = CMath_Utillity::Rotate_Vec3(_float3(RotateX, RotateY, RotateZ), pPlayerPos);
+
+		
+		pRock_1Transform->Set_State(CTransform::STATE_POSITION, pPlayerPos, true); 
+		pRock_2Transform->Set_State(CTransform::STATE_POSITION, pPlayerPos, true); 
+		pRock_3Transform->Set_State(CTransform::STATE_POSITION, pPlayerPos, true); 
+		pRock_4Transform->Set_State(CTransform::STATE_POSITION, pPlayerPos, true); 
+
+
+	
+		m_fRockSqawnTime = 1.f;
+	}*/
+
+	
 }
 
 CLevel_ExoPlanet* CLevel_ExoPlanet::Create()

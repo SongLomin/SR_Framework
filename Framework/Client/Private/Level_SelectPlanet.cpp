@@ -45,6 +45,11 @@
 #include "Enemy_Roller.h"
 #include <Enemy_GPS.h>
 #include <EnemySpace_Body.h>
+#include "Satellite_3.h"
+#include "Boss_HpTable.h"
+#include "Boss_HpBar.h"
+#include "Boss_Name.h"
+#include "TransportShip_HpBar.h"
 #include <SunSpaceBoss_Body.h>
 #include <TextureDrawUI.h>
 #include "Normal_Turret.h"
@@ -132,14 +137,30 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
-		return E_FAIL;
+	//if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
+	//	return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Magma>(LEVEL_SELECTPLANET, TEXT("Magma")))
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
 		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Exo>(LEVEL_SELECTPLANET, TEXT("Exo")))
+		return E_FAIL;
+
+	//if (!GAMEINSTANCE->Add_GameObject<CBossHpTable>(LEVEL_SELECTPLANET, TEXT("Boss_HP_Table")))
+	//	return E_FAIL;
+
+	////if (!GAMEINSTANCE->Add_GameObject<CBossHpBar>(LEVEL_SELECTPLANET, TEXT("Boss_HP_Bar")))
+	////	return E_FAIL;
+
+	//if (!GAMEINSTANCE->Add_GameObject<CBossName>(LEVEL_SELECTPLANET, TEXT("Boss_Name")))
+	//	return E_FAIL;
+
+	/*if (!GAMEINSTANCE->Add_GameObject<CTransportShip_HpBar>(LEVEL_SELECTPLANET, TEXT("TransportShip_HP_Bar")))
+		return E_FAIL;*/
+
 
 	//if (!GAMEINSTANCE->Add_GameObject<CEnemy_StagBeetle>(LEVEL_SELECTPLANET, TEXT("Enemy_StagBeetle")))
 	//	return E_FAIL;
@@ -214,15 +235,15 @@ HRESULT CLevel_SelectPlanet::Initialize()
 				return E_FAIL;
 			break;
 
-		case  LEVEL::LEVLE_EXOPLANET:
+		case  LEVEL::LEVEL_EXOPLANET:
 			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Exo>(LEVEL_SELECTPLANET, TEXT("Exo")))
 				return E_FAIL;
 			break;
 
-		case  LEVEL::LEVEL_VENUSPLANET:
+		/*case  LEVEL::LEVEL_VENUSPLANET:
 			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
 				return E_FAIL;
-			break;
+			break;*/
 
 		case  LEVEL::LEVEL_MAGMAPLANET:
 			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Magma>(LEVEL_SELECTPLANET, TEXT("Magma")))
@@ -234,9 +255,17 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	}
 
 
+  // 스테이지 클리어시 원점 이동
+	CCamera* pCurrentCam = GAMEINSTANCE->Get_Camera();
+	CTransform* TransformCom = pCurrentCam->Get_Target();
+
+	if (TransformCom)
+	{
+		CTransform* pPlayerTransformCom = TransformCom->Get_Owner()->Get_Component<CTransform>();
+		pPlayerTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 0.f, 0.f));
+	}
 	
-
-
+	GAMEINSTANCE->Set_TimeScale(1.0f);
 	
 	return S_OK;
 }
@@ -254,7 +283,7 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 			m_pTagetObject->Get_Component<CRigid_Body>()->Set_Booster(true);
 			
 			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f*m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
-			// 이게 맞냐
+
 			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
 		}
 
@@ -299,6 +328,8 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 
 	 
 	SelectPlanet_Event(fTimeDelta);
+	
+
 	
 
 }
@@ -458,7 +489,7 @@ void CLevel_SelectPlanet::SelectPlanet_Event(float fTimeDelta)
 	{
 		m_pQuestBoxObject->Set_Enable(true);
 
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)60 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n행성들을 정복해 비행선 강화하기"), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)280 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n행성들을 정복해 비행선 강화하기"), 0);
 	  
 		m_iFontiX -= 0.8;
 

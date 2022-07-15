@@ -22,14 +22,16 @@ public:
 protected:
 	_float		m_fTime = 0.f;
 	_float      m_fTextBoxTime = 300.f;
-
+	_float      m_fSpawnTime = 2.f;
+	_float      m_fMaxTime = 100;
+	
 	_bool		m_bCinematic = false;
 	_bool       m_bEventCheck[20] = { false };
+	_bool       m_bSpawnCheck = true;
 
 	_uint       m_iFontiX = 1360;
 	_uint       m_iFontiXCount = 1470;
 	_uint       m_iEnemyCount = 0;
-
 	_uint		m_iNextLevel = 8;
 
 protected:

@@ -24,7 +24,7 @@ HRESULT CRock_1::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(rand() % 1000, rand() % 150, rand() % 1000));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(rand() % 2000, rand() % 2000, rand() % 2000));
 
 
 	return S_OK;
@@ -43,7 +43,7 @@ void CRock_1::LateTick(_float fTimeDelta)
 HRESULT CRock_1::Render()
 {
 	
-	m_pTransformCom->Scaling(_float3(30.f, 30.f, 30.f), true);
+	m_pTransformCom->Scaling(_float3(70.f, 70.f, 70.f), true);
 
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -73,6 +73,27 @@ void CRock_1::On_Collision_Enter(CCollider* _Other_Collider)
 	__super::On_Collision_Enter(_Other_Collider);
 	
 	
+	
+		CGameObject* pOtherCollider = _Other_Collider->Get_Owner();
+		_float3		pRockPos = m_pTransformCom->Get_State(CTransform::STATE_POSITION, true);
+		_float3 vOtherColliderSpeed = pOtherCollider->Get_Component<CRigid_Body>()->Get_Vector(RIGID_BODY::SPEED);
+		_float3 vCollisionDirection = pRockPos - pOtherCollider->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION, true);
+
+		D3DXVec3Normalize(&vCollisionDirection, &vCollisionDirection);
+		vCollisionDirection *= D3DXVec3Length(&vOtherColliderSpeed);
+		vOtherColliderSpeed += vCollisionDirection;
+
+		m_pRigidBodyCom->Add_Force(vOtherColliderSpeed * 3.f);
+		
+
+		((CRock_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CRock_PSystem>(CURRENT_LEVEL, TEXT("Particle_Rock")))->AddParticle(50, m_pTransformCom);
+		CGameObject* pParticle = GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false);
+		((CBomb_Effect*)pParticle)->Set_Pos(pRockPos);
+		((CBomb_Effect*)pParticle)->Get_Component<CTransform>()->Scaling(_float3(25.f, 25.f, 25.f));
+		Set_Dead();
+		//폭발 이펙트 스케일링 따로 지정해줘야함
+	}
+	
 }
 
 void CRock_1::On_Collision_Stay(CCollider* _Other_Collider)
@@ -89,7 +110,7 @@ void CRock_1::SetUp_Components_For_Chiled()
 {
 	m_pRendererCom->Set_Textures_From_Key(TEXT("Rock"), MEMORY_TYPE::MEMORY_STATIC);
 
-	m_pColliderCom->Set_Collider_Size(_float3(20.f, 20.f, 20.f));
+	m_pColliderCom->Set_Collider_Size(_float3(70.f, 70.f, 70.f));
 
 }
 

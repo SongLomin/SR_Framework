@@ -53,7 +53,7 @@ void CLevel_Loading::Tick(_float fTimeDelta)
 			case LEVEL_REDPLANET:
 				pLevel = CLevel_RedPlanet::Create();
 				break;
-			case LEVLE_EXOPLANET:
+			case LEVEL_EXOPLANET:
 				pLevel = CLevel_ExoPlanet::Create();
 				break;
 			case LEVEL_VENUSPLANET:

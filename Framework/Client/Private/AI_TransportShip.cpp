@@ -3,7 +3,8 @@
 #include "GameInstance.h"
 #include "Normal_Turret.h"
 #include "AI_Friendly.h"
-
+#include "Level_Loading.h"
+#include "TransportShip_HpBar.h"
 
 CAI_TransportShip::CAI_TransportShip()
 {
@@ -45,7 +46,22 @@ void CAI_TransportShip::Tick(_float fTimeDelta)
 		m_fSpawnTime = 10.f;
 	}
 
+	GAMEINSTANCE->Add_Text(_point{ (LONG)621, (LONG)42 }, D3DCOLOR_ARGB(255, 0, 255, 255), 0.f, TEXT("화물선"), 0);
 
+	if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
+	{
+		
+		GAMEINSTANCE->Add_Text(_point{ (LONG)640, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 2.f, TEXT("화물선이(가) 파괴되었습니다\n     임무 실패!"), 0);
+		m_fTransLevelTime -= fTimeDelta;
+
+		if (m_fTransLevelTime <= 0)
+		{
+			Set_Dead();
+			GAMEINSTANCE->Get_Instance()->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
+		}
+	}
+
+	
 }
 
 void CAI_TransportShip::LateTick(_float fTimeDelta)
@@ -98,14 +114,23 @@ void CAI_TransportShip::On_Change_Controller(const CONTROLLER& _IsAI)
 
 void CAI_TransportShip::On_Collision_Enter(CCollider* _Other_Collider)
 {
+	__super::On_Collision_Enter(_Other_Collider);
+
+	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER_ATTACK)
+	{
+		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+	}
+
 }
 
 void CAI_TransportShip::On_Collision_Stay(CCollider* _Other_Collider)
 {
+	__super::On_Collision_Stay(_Other_Collider);
 }
 
 void CAI_TransportShip::On_Collision_Exit(CCollider* _Other_Collider)
 {
+	__super::On_Collision_Exit(_Other_Collider);
 }
 
 HRESULT CAI_TransportShip::SetUp_Components()
@@ -129,7 +154,8 @@ HRESULT CAI_TransportShip::SetUp_Components()
 
 #pragma region Status Setting
 	CStatus::STATUS		Status;
-	Status.fHp = 10.f;
+	Status.fMaxHp = 5000.f;
+	Status.fHp = Status.fMaxHp;
 	Status.fAttack = 7.f;
 	Status.fArmor = 5.f;
 
@@ -165,7 +191,7 @@ HRESULT CAI_TransportShip::SetUp_Components()
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER;
 	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
-	m_pColliderCom->Set_Collider_Size(_float3(1.f, 1.f, 1.f));
+	m_pColliderCom->Set_Collider_Size(_float3(30.f, 4.f, 50.f));
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 
 	/*COLLISION_TYPE eCollisionType = COLLISION_TYPE::PLAYER;

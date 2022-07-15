@@ -20,7 +20,7 @@ HRESULT CPlanet_Magma::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	_float3 StartPos = { 300.f, 150.f, 200.f };
+	_float3 StartPos = { -200.f, 100.f, 400.f };
 	_tchar* PontText = TEXT("Magma Planet \n 고 위험 구역 \n 임무 : 제한 시간 내 모든 기체 파괴  \n 난이도 :『★★★★★★』 \n 보상 : XXX");
 	_point PontPos = { (LONG)m_vScreenPos.x + 40, (LONG)m_vScreenPos.y - 10 };
 	_float3 MyScale = _float3(100.f, 100.f, 50.f);

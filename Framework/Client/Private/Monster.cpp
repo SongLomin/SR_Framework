@@ -13,6 +13,7 @@
 #include <MagmaSpace_Body.h>
 #include "Rocket_Turret.h"
 #include <Bullet.h>
+#include "Rock_PSystem.h"
 
 HRESULT CMonster::Initialize_Prototype()
 {
@@ -192,7 +193,8 @@ void CMonster::Drop_Item()
 
 void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 {
-	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::PLAYER_ATTACK)
+
+	 if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::PLAYER_ATTACK)
 	{
 		m_pHPBar->Set_Enable(true);
 
@@ -224,6 +226,7 @@ void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 
 		}
 	}
+
 }
 
 void CMonster::On_Collision_Stay(CCollider* _Other_Collider)

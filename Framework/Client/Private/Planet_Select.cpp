@@ -19,7 +19,7 @@ HRESULT CPlanet_Select::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	_float3 StartPos = { 0.f, 200.f, 300.f };
+	_float3 StartPos = { 0.f, 100.f, 400.f };
 	_tchar* PontText = TEXT("Earth Planet \n 'F' 키를 눌러 크루즈 드라이브를 사용하세요 ");
 	_point PontPos = { (LONG)m_vScreenPos.x + 40, (LONG)m_vScreenPos.y - 10 };
 	_float3 MyScale = _float3(100.f, 100.f, 50.f);
