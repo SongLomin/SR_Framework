@@ -157,7 +157,7 @@ void CRocket_Bullet::OnTimerEvent(const _uint _iEventIndex)
 			m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>());
 		
 		}
-		m_pTransformCom->Go_BackAndForth(1.f, 1.f);
+		m_pTransformCom->Go_BackAndForth(0.5f, 0.5f);
 		m_pTransformCom->Update_WorldMatrix();
 	}
 }

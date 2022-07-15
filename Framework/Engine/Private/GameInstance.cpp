@@ -305,6 +305,11 @@ void CGameInstance::Add_BlurWidth()
 	m_pRender_Manager->Add_BlurWidth();
 }
 
+void CGameInstance::Reset_BlurWidth()
+{
+	m_pRender_Manager->Reset_BlurWidth();
+}
+
 HRESULT CGameInstance::Load_Textures(const _tchar* _strKey, const _tchar* pTextureFilePath, TEXTURE_TYPE eType, MEMORY_TYPE eMemType)
 {
 	return m_pResource_Manager->Load_Textures(_strKey, pTextureFilePath, eType, eMemType);

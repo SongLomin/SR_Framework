@@ -511,7 +511,7 @@ void CRender_Manager::Apply_BoosterBlur(RENDERGROUP _eRenderGroup, IDirect3DText
 		return;
 
 	
-	fBlurWidth -= 0.007f;
+	fBlurWidth -= 0.0007f;
 	if (0.f > fBlurWidth)
 		fBlurWidth = 0.f;
 

@@ -146,6 +146,7 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f * m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
 			
 			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
+			GAMEINSTANCE->Add_BlurWidth();
 		}
 	srand(unsigned(time(NULL)));
 	
@@ -160,7 +161,7 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 		GAMEINSTANCE->Swap_Camera();
 
 		CSong_Ship_Body* pMainCharacter = nullptr;
-
+		GAMEINSTANCE->Reset_BlurWidth();
 		list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 
 		if (!pAiObect)

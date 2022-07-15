@@ -23,9 +23,14 @@ public:
 	void	Add_BlurWidth()
 	{
 		
-		fBlurWidth += 0.01f;
+		fBlurWidth += 0.001f;
 		if(fBlurWidth > 0.1f)
 			fBlurWidth = 0.1f;
+	}
+
+	void	Reset_BlurWidth()
+	{
+		fBlurWidth = 0.f;
 	}
 
 private:
