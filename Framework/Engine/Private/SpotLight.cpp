@@ -170,7 +170,7 @@ void CSpotLight::Free()
 	if (m_pMesh)
 	{
 		m_pMesh->Release();
-		m_pMesh = nullptr;
+		//m_pMesh = nullptr;
 	}
 
 	delete this;

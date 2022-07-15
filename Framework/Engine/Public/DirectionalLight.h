@@ -32,6 +32,8 @@ public:
 
 private:
     IDirect3DVertexBuffer9* vb = nullptr;
+
+    _uint           m_iIndex = 0;
 };
 
 END
