@@ -137,7 +137,7 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP) /* || 버튼 눌렀을 때*/)
 	{
-		GAMEINSTANCE->StopAll();
+		GAMEINSTANCE->StopSound(BGM);
 
 		if (-1 != m_iIndex)
 		{

@@ -165,7 +165,7 @@ void CLevel_VenusPlanet::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
 	{
-		GAMEINSTANCE->StopAll();
+		GAMEINSTANCE->StopSound(BGM);
 		GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
 	}
 

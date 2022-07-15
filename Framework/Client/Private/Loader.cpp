@@ -294,6 +294,7 @@ HRESULT CLoader::Loading_ForCharacterSelect()
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/VenusPlanet.wav"));
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/SelectPlayer.wav"));
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/SunPlanet.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/Dive.wav"));
 
 
 	lstrcpy(m_szLoadingText, TEXT("·Îµù ³¡ "));

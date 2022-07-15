@@ -84,7 +84,7 @@ void CSatellite_3::On_Collision_Enter(CCollider* _Other_Collider)
 	{
 		
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 1.f, TEXT("우주 정거장을 해킹했습니다!!!!"), 0);
-		GAMEINSTANCE->StopAll();
+		GAMEINSTANCE->StopSound(BGM);
 
 		GAMEINSTANCE->Get_Instance()->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
 	}
