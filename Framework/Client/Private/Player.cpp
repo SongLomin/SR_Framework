@@ -485,9 +485,9 @@ void CPlayer::Update_TurretList()
 
 	};
 
+	InsertTurretList(TEXT("Lazer_Turret"));
 	InsertTurretList(TEXT("Rocket_Turret"));
 	InsertTurretList(TEXT("Normal_Turret"));
-	InsertTurretList(TEXT("Lazer_Turret"));
 	InsertTurretList(TEXT("Bayonet_Turret"));
 
 	
@@ -514,16 +514,6 @@ void CPlayer::Update_TurretList()
 
 		index++;
 	}
-
-	
-	
-
-	/*MyTurrets.merge(Get_Children_From_Key(TEXT("Rocket_Turret")));
-	MyTurrets.merge(Get_Children_From_Key(TEXT("Normal_Turret")));
-	MyTurrets.merge(Get_Children_From_Key(TEXT("Lazer_Turret")));
-	MyTurrets.merge(Get_Children_From_Key(TEXT("Bayonet_Turret")));*/
-
-	int i = 0;
 
 }
 

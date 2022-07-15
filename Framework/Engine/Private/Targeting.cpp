@@ -9,11 +9,11 @@ CTargeting::CTargeting()
 
 void CTargeting::Make_TargetList_Cursor(list<CGameObject*>* pLayer, CTransform* pTransform, _float fDist, _bool bIsClear)
 {
-	if (nullptr == pLayer)
-		return;
-
-	if(bIsClear)
+	if (bIsClear)
 		Clear_Targeting();
+
+	if (nullptr == pLayer)
+		return;	
 
 	if (m_eTargetMode == TARGETMODE::TARGET_MULTIRAY)
 	{

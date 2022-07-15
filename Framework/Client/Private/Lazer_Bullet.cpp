@@ -27,7 +27,7 @@ HRESULT CLazer_Bullet::Initialize(void* pArg)
 	if (FAILED(SetUp_Components(eCollisionType)))
 		return E_FAIL;
 
-	m_fMaxTime = m_fLifeTime = 0.f;
+	m_fMaxTime = m_fLifeTime = -0.1f;
 
 	return S_OK;
 }
@@ -198,12 +198,10 @@ void CLazer_Bullet::OnEnable(void* _Arg)
 {
 	__super::OnEnable(_Arg);
 	m_pColliderCom->OnEnable(_Arg);
-	printf("Enable Bullet\n");
 }
 
 void CLazer_Bullet::OnDisable()
 {
 	__super::OnDisable();
-	printf("Disable Bullet\n");
 	m_pColliderCom->OnDisable();
 }

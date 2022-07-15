@@ -126,13 +126,13 @@ void CLevel_VenusPlanet::Tick(_float fTimeDelta)
 	if (m_bCinematic)
 	{
 		m_fTime -= fTimeDelta;
-		//타임 이벤트 어케씀
+		
 		if (2.f > m_fTime)
 		{
 			m_pTagetObject->Get_Component<CRigid_Body>()->Set_Booster(true);
 
 			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f * m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
-			// 이게 맞냐
+			
 			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
 		}
 
@@ -158,6 +158,9 @@ void CLevel_VenusPlanet::Tick(_float fTimeDelta)
 					break;
 				}
 			}
+
+			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
+				return;
 		}
 	}
 

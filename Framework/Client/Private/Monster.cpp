@@ -14,6 +14,7 @@
 #include "Rocket_Turret.h"
 #include <Bullet.h>
 #include "Rock_PSystem.h"
+#include <Lazer_Turret.h>
 
 HRESULT CMonster::Initialize_Prototype()
 {
@@ -162,19 +163,21 @@ void CMonster::Drop_Item()
 
 	CGameObject* Turret = nullptr;
 
-	if (random < 15)
+	if (random < 7)
 	{
 		Turret = GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_SELECTPLANET, TEXT("Normal_Turret"), nullptr, nullptr, true);
 	}
 
-	else if (random < 25)
+	else if (random < 12)
 	{
 		Turret = GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_SELECTPLANET, TEXT("Rocket_Turret"), nullptr, nullptr, true);
 	}
 
-	else if (random < 30)
+	else if (random < 16)
 	{
 		//·¹ÀÌÀú ÅÍ·¿
+
+		Turret = GAMEINSTANCE->Add_GameObject<CLazer_Turret>(LEVEL_SELECTPLANET, TEXT("Lazer_Turret"), nullptr, nullptr, true);
 	}
 
 	else

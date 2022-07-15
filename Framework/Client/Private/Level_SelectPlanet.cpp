@@ -265,6 +265,8 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	{
 		CTransform* pPlayerTransformCom = TransformCom->Get_Owner()->Get_Component<CTransform>();
 		pPlayerTransformCom->Set_State(CTransform::STATE_POSITION, _float3(0.f, 0.f, 0.f));
+
+		pPlayerTransformCom->Get_Owner()->Get_Component<CRigid_Body>()->Reset_Force();
 	}
 	
 	GAMEINSTANCE->Set_TimeScale(1.0f);
@@ -279,7 +281,7 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 	if (m_bCinematic)
 	{
 		m_fTime -= fTimeDelta;
-		//타임 이벤트 어케씀
+
 		if (2.f > m_fTime)
 		{
 			m_pTagetObject->Get_Component<CRigid_Body>()->Set_Booster(true);
