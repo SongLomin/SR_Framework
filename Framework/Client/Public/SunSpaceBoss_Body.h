@@ -37,8 +37,8 @@ private:
     CMesh_SongShip* m_pMeshCom = nullptr;
 
 private:
-    CTransform* pEnemyTransform = nullptr;
-    CGameObject* pRockObject = nullptr;
+    CTransform* m_pEnemyTransform = nullptr;
+    CGameObject* m_pRockObject = nullptr;
 
 private:
     _float  m_fMonsterSpawn = 20.f;
