@@ -92,8 +92,6 @@ void CRock_1::On_Collision_Enter(CCollider* _Other_Collider)
 		((CBomb_Effect*)pParticle)->Get_Component<CTransform>()->Scaling(_float3(25.f, 25.f, 25.f));
 		Set_Dead();
 		//폭발 이펙트 스케일링 따로 지정해줘야함
-	}
-	
 }
 
 void CRock_1::On_Collision_Stay(CCollider* _Other_Collider)

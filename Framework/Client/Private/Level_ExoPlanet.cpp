@@ -144,7 +144,7 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 			m_pTagetObject->Get_Component<CRigid_Body>()->Set_Booster(true);
 
 			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f * m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
-			// 이게 맞냐
+			
 			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
 		}
 	srand(unsigned(time(NULL)));
@@ -152,34 +152,32 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 	Scouge_Create(fTimeDelta);
 	ExoPlanet_Event(fTimeDelta);
 	//Rock_Create(fTimeDelta);
-}
 
-		if (0.f > m_fTime)
+
+	if (0.f > m_fTime)
+	{
+		m_bCinematic = false;
+		GAMEINSTANCE->Swap_Camera();
+
+		CSong_Ship_Body* pMainCharacter = nullptr;
+
+		list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+
+		if (!pAiObect)
+			return;
+
+		for (auto& elem : *pAiObect)
 		{
-			m_bCinematic = false;
-			GAMEINSTANCE->Swap_Camera();
+			pMainCharacter = dynamic_cast<CSong_Ship_Body*>(elem);
 
-			CSong_Ship_Body* pMainCharacter = nullptr;
-
-			list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
-
-			if (!pAiObect)
-				return;
-
-			for (auto& elem : *pAiObect)
+			if (pMainCharacter)
 			{
-				pMainCharacter = dynamic_cast<CSong_Ship_Body*>(elem);
-
-				if (pMainCharacter)
-				{
-					pMainCharacter->Set_Controller(CONTROLLER::PLAYER);
-					break;
-				}
+				pMainCharacter->Set_Controller(CONTROLLER::PLAYER);
+				break;
 			}
 		}
 	}
-
-	
+	}
 }
 
 HRESULT CLevel_ExoPlanet::Render()

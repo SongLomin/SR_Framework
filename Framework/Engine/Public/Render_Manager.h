@@ -64,9 +64,6 @@ private: /* For Defferred Rendering */
 	IDirect3DVertexBuffer9* vb = nullptr;
 	IDirect3DSurface9* TemporarySurface = nullptr;
 
-private:
-
-
 public:
 	virtual void Free() override;
 };

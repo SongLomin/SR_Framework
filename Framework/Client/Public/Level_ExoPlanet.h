@@ -24,7 +24,7 @@ private:
 private:
 	_float  m_fMaxTime = 200.f;
 	_float  m_fRockSqawnTime = 1.f;
-	virtual void Change_Level(void* pArg, _uint _iNextLevel) {}
+	virtual void Change_Level(void* pArg, _uint _iNextLevel);
 	virtual HRESULT Complete_Condition() { return S_OK; }
 
 public:
