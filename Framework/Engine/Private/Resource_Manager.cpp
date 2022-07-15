@@ -1,5 +1,6 @@
 #include "Resource_Manager.h"
 #include "GameInstance.h"
+#include <iostream>
 
 IMPLEMENT_SINGLETON(CResource_Manager)
 
@@ -123,6 +124,8 @@ HRESULT CResource_Manager::Load_Shader(const _tchar* _strKey, const _tchar* pSha
 
 	if (errorBuffer) {
 		//쉐이더를 불러오지 못했음.
+		cout << "Shader Compile Error: \n" << (char*)errorBuffer->GetBufferPointer() << endl;
+
 		errorBuffer->Release();
 		assert(false);
 		return E_FAIL;

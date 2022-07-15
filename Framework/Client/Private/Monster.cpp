@@ -109,14 +109,22 @@ void CMonster::Update_Target(CGameObject* _Target)
 	if (!_Target)
 		return;
 
-	for (auto& elem : m_pPosinList)
+	if (!m_pPosinList.empty())
 	{
-		elem->Set_AI_Target(_Target);
+		for (auto& elem : m_pPosinList)
+		{
+			if(elem)
+				elem->Set_AI_Target(_Target);
+		}
 	}
 
-	for (auto& elem : m_pBayonetList)
+	if (!m_pBayonetList.empty())
 	{
-		elem->Set_AI_Target(_Target);
+		for (auto& elem : m_pBayonetList)
+		{
+			if(elem)
+				elem->Set_AI_Target(_Target);
+		}
 	}
 
 }
@@ -166,19 +174,19 @@ void CMonster::Drop_Item()
 
 	if (random < 7)
 	{
-		Turret = GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_SELECTPLANET, TEXT("Normal_Turret"), nullptr, nullptr, true);
+		Turret = GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), nullptr, nullptr, true);
 	}
 
 	else if (random < 12)
 	{
-		Turret = GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_SELECTPLANET, TEXT("Rocket_Turret"), nullptr, nullptr, true);
+		Turret = GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_STATIC, TEXT("Rocket_Turret"), nullptr, nullptr, true);
 	}
 
 	else if (random < 16)
 	{
 		//·¹ÀÌÀú ÅÍ·¿
 
-		Turret = GAMEINSTANCE->Add_GameObject<CLazer_Turret>(LEVEL_SELECTPLANET, TEXT("Lazer_Turret"), nullptr, nullptr, true);
+		Turret = GAMEINSTANCE->Add_GameObject<CLazer_Turret>(LEVEL_STATIC, TEXT("Lazer_Turret"), nullptr, nullptr, true);
 	}
 
 	else

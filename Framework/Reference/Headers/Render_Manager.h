@@ -44,11 +44,15 @@ private:
 	void Deferred_Pipeline();
 	void Foward_Pipeline();
 
+	void Bloom_Pipeline();
+
 	bool SetupTexture(IDirect3DTexture9** texture, IDirect3DSurface9** surface);
 	void SetMRT();
 	void ResumeOriginRender();
 	void DrawScreenQuad();
 	void Draw_Divide_ViewPort(RENDERGROUP _eRenderGroup, IDirect3DTexture9* _Tex);
+	void Apply_Blur(RENDERGROUP _eRenderGroup, IDirect3DTexture9* _Tex);
+	void Apply_Bloom(RENDERGROUP _eRenderGroup);
 	void Apply_BoosterBlur(RENDERGROUP _eRenderGroup, IDirect3DTexture9* _Tex);
 	void Set_OnlyRenderTarget(IDirect3DSurface9** _ppSurface);
 
@@ -73,10 +77,17 @@ private: /* For Defferred Rendering */
 	IDirect3DTexture9* stashTex = nullptr;
 	IDirect3DSurface9* stashSurface = nullptr;
 
+	IDirect3DTexture9* ExtractBloomTex = nullptr;
+	IDirect3DSurface9* ExtractBloomSurface = nullptr;
+
+	IDirect3DTexture9* BloomTex = nullptr;
+	IDirect3DSurface9* BloomSurface = nullptr;
+
 	IDirect3DVertexBuffer9* vb = nullptr;
 
 private:
 	_float	fBlurWidth = 0.f;
+	GRAPHICDESC m_GraphicDesc;
 
 public:
 	virtual void Free() override;

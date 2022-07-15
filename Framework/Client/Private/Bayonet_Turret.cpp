@@ -45,6 +45,7 @@ void CBayonet_Turret::LateTick(_float fTimeDelta)
 	__super::LateTick(fTimeDelta);
 
 	m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_LOOK, true), m_fPreheatTime - 1.1f, 1.f, true);
+	m_pTransformCom->Bind_WorldMatrix();
 }
 
 HRESULT CBayonet_Turret::Render()
