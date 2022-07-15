@@ -142,8 +142,8 @@ HRESULT CLevel_RedPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CBulletCountUI>(LEVEL_REDPLANET, TEXT("BulletCount_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CEnemy_Roller>(LEVEL_REDPLANET, TEXT("Enemy_Roller")))
-		return E_FAIL;
+	//if (!GAMEINSTANCE->Add_GameObject<CEnemy_Roller>(LEVEL_REDPLANET, TEXT("Enemy_Roller")))
+	//	return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CBossHpTable>(LEVEL_REDPLANET, TEXT("Boss_HP_Table")))
 		return E_FAIL;

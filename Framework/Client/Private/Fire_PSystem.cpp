@@ -121,7 +121,7 @@ void CFire_PSystem::ResetParticle(ParticleDesc* Desc)
 	Desc->isAlive = true;
 
 
-	m_size = (_float)((rand() % 5 + 10) * 0.01f);
+	m_size = (_float)((rand() % 5 + 10) * 0.05f/** 0.01f*/);
 	
 	Desc->position.x = 0.f;
 	Desc->position.y = 0.f + 1.f;

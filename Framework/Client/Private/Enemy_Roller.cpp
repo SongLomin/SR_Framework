@@ -85,7 +85,7 @@ void CEnemy_Roller::SetUp_Components_For_Child()
 	CStatus::STATUS Status;
 	Status.fAttack = 1.f;
 	Status.fArmor = 5.f;
-	Status.fMaxHp = 20.f;
+	Status.fMaxHp = 250.f;
 	Status.fHp = Status.fMaxHp;
 
 

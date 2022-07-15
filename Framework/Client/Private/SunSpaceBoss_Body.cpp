@@ -41,6 +41,7 @@ void CSunSpaceBoss_Body::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+
 	m_fMonsterSpawn -= fTimeDelta;
 	if (m_fMonsterSpawn < 0.f)
 	{
@@ -53,13 +54,31 @@ void CSunSpaceBoss_Body::Tick(_float fTimeDelta)
 		}
 	}
 	Rock_throw(fTimeDelta);
+
+
 }
 
 void CSunSpaceBoss_Body::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
-
-	LookAtPlayer();
+	if (m_bSkill)
+	{
+		m_fRadian -= 140.f;
+		m_fSkillTime -= fTimeDelta;
+		_float3 vLook = m_pTransformCom->Get_World_State(CTransform::STATE_LOOK);
+		_float3 vRight = m_pTransformCom->Get_World_State(CTransform::STATE_RIGHT);
+		m_pTransformCom->Turn(vLook, D3DXToRadian(m_fRadian), fTimeDelta * 20.f, true);
+		m_pTransformCom->Turn(vRight, D3DXToRadian(m_fRadian), fTimeDelta * 20.f, true);
+		if (m_fSkillTime < 0.f)
+		{
+			m_fSkillTime = 3.f;
+			m_bSkill = false;
+		}
+	}
+	else if (!m_bSkill)
+	{
+		LookAtPlayer();
+	}
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
 	_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
@@ -118,7 +137,9 @@ void CSunSpaceBoss_Body::Spawn_Monster()
 
 		
 		pEnemyTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
+
 	}
+		m_bSkill = true;
 }
 
 void CSunSpaceBoss_Body::Rock_throw(_float fTimeDelta)
@@ -168,6 +189,7 @@ void CSunSpaceBoss_Body::Rock_throw(_float fTimeDelta)
 
 			m_RockObjectList.push_back({ LifeTime,m_pRockObject });
 			WEAK_PTR(m_RockObjectList.back().second);
+			m_bSkill = true;
 		}
 	}
 
@@ -196,6 +218,7 @@ void CSunSpaceBoss_Body::Rock_throw(_float fTimeDelta)
 			}
 		}
 	}
+	
 }
 
 void CSunSpaceBoss_Body::EMP()
@@ -264,7 +287,9 @@ void CSunSpaceBoss_Body::On_Collision_Enter(CCollider* _Other_Collider)
 
 	if (Get_Enable() == false)
 	{
-		((CEnemy_Roller*)GAMEINSTANCE->Add_GameObject<CEnemy_Roller>(CURRENT_LEVEL, TEXT("Enemy_Roller")));
+		
+		//((CEnemy_Roller*)GAMEINSTANCE->Add_GameObject<CEnemy_Roller>(CURRENT_LEVEL, TEXT("Enemy_Roller")))
+		//	->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION,m_pTransformCom->Get_State(CTransform::STATE_POSITION));
 	}
 }
 

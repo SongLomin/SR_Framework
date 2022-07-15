@@ -416,7 +416,11 @@ HRESULT CLoader::Loading_ForSelectPlanet()
 HRESULT CLoader::Loading_ForSunPlanet()
 {
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
+	
 
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("RollerSpawn_Effect"), TEXT("../Bin/Resources/Textures/Effect/RollerSpawn.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
 

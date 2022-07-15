@@ -314,7 +314,7 @@
       <UniqueIdentifier>{c0be6a96-18e3-4bce-81a6-b8e5913698b7}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.GameObject\12. BillBoard_Object">
-	</Filter>
+    </Filter>
     <Filter Include="02.GameObject\02. Monster\Roller">
       <UniqueIdentifier>{795fc578-e3b8-4c19-a6ff-29b63b0c0447}</UniqueIdentifier>
     </Filter>
@@ -356,13 +356,13 @@
     </Filter>
     <Filter Include="02.GameObject\07. UI\00. StatusUI\TransportShip_HpBar">
       <UniqueIdentifier>{87699643-a2b7-4fd4-bd05-dbcd4406284e}</UniqueIdentifier>
-	</Filter>
+    </Filter>
     <Filter Include="02.GameObject\13. Effect\BlackHole">
       <UniqueIdentifier>{49dabd87-97a4-4254-8185-78d4dc44e263}</UniqueIdentifier>
     </Filter>
     <Filter Include="02.GameObject\07. UI\00. StatusUI\Boss_HpBar">
       <UniqueIdentifier>{e1d73bb1-b0af-4969-98b1-12c1e95c710b}</UniqueIdentifier>
-	</Filter>
+    </Filter>
     <Filter Include="02.GameObject\13. Effect\EnemySpawn_Effect">
       <UniqueIdentifier>{bc32d28d-6e93-4a24-93dd-580f7e17e5ef}</UniqueIdentifier>
     </Filter>
@@ -371,6 +371,9 @@
     </Filter>
     <Filter Include="02.GameObject\03. Bullet\Rocket">
       <UniqueIdentifier>{4e1ddc4f-c212-49e2-b683-3ad8501e612c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObject\13. Effect\RollerSpawn_Effect">
+      <UniqueIdentifier>{9a85158f-7d96-45dc-b172-9932eb8d701c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -728,6 +731,9 @@
     <ClInclude Include="..\Public\TextureDrawUI.h">
       <Filter>02.GameObject\07. UI\TextureDrawUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\RollerSpawn_Effect.h">
+      <Filter>02.GameObject\13. Effect\RollerSpawn_Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -1077,6 +1083,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\TextureDrawUI.cpp">
       <Filter>02.GameObject\07. UI\TextureDrawUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\RollerSpawn_Effect.cpp">
+      <Filter>02.GameObject\13. Effect\RollerSpawn_Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
