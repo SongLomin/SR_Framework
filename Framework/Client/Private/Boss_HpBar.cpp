@@ -80,8 +80,8 @@ void CBossHpBar::Tick(_float fTimeDelta)
 				}
 
 				else
-					m_fX -= 0.3f;
-				m_fSizeX -= 0.3f;
+					m_fX -= 3.f;
+				m_fSizeX -= 3.f;
 			}
 		}
 	}
