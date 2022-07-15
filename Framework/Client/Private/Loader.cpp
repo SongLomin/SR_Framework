@@ -287,14 +287,15 @@ HRESULT CLoader::Loading_ForCharacterSelect()
 
 	lstrcpy(m_szLoadingText, TEXT("사운드를 로딩중 입니다. "));
 
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/SelectPlayer.wav"));
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/SelectPlanet.wav"));
-	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/RedPlanet.wav"));
-	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/ExoPlanet.wav"));
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/MagmaPlanet.wav"));
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/VenusPlanet.wav"));
-	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/SelectPlayer.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/RedPlanet.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/ExoPlanet.wav"));
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/SunPlanet.wav"));
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/Dive.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/NormalBullet.wav"));
 
 
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));

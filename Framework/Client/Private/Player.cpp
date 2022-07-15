@@ -77,6 +77,18 @@ void CPlayer::Tick(_float fTimeDelta)
 		}
 		++i;
 	}
+
+	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::TAP))
+	{
+		GAMEINSTANCE->PlaySoundW(TEXT("NormalBullet.wav"), EFFECT, 0.1f);
+	}
+
+	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::NONE))
+	{
+		GAMEINSTANCE->StopSound(EFFECT);
+	}
+
+
 }
 
 void CPlayer::LateTick(_float fTimeDelta)
