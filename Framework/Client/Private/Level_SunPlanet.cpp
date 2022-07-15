@@ -59,14 +59,16 @@ HRESULT CLevel_SunPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_SUNPLANET, TEXT("Aim")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBossHpTable>(LEVEL_REDPLANET, TEXT("Boss_HP_Table")))
+	if (!GAMEINSTANCE->Add_GameObject<CBossHpTable>(LEVEL_SUNPLANET, TEXT("Boss_HP_Table")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBossName>(LEVEL_REDPLANET, TEXT("Boss_Name")))
+	if (!GAMEINSTANCE->Add_GameObject<CBossName>(LEVEL_SUNPLANET, TEXT("Boss_Name")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBossHpBar>(LEVEL_REDPLANET, TEXT("Boss_HP_Bar")))
+	if (!GAMEINSTANCE->Add_GameObject<CBossHpBar>(LEVEL_SUNPLANET, TEXT("Boss_HP_Bar")))
 		return E_FAIL;
+
+
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SUNPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);
