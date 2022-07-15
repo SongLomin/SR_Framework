@@ -102,12 +102,12 @@ void CSunSpaceBoss_Body::Spawn_Monster()
 		switch (MonsterType)
 		{
 		case 1:
-			pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true)
+			m_pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true)
 				->Get_Component<CTransform>();
 			break;
 
 		case 2:
-			pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemy_Scourge>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true)
+			m_pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemy_Scourge>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true)
 				->Get_Component<CTransform>();
 			break;
 		}
@@ -117,7 +117,7 @@ void CSunSpaceBoss_Body::Spawn_Monster()
 		((CEnemySpawn_Effect*)GAMEINSTANCE->Add_GameObject<CEnemySpawn_Effect>(CURRENT_LEVEL, TEXT("EnemySpawn"), nullptr, nullptr, false))->Set_Pos(SpawnPos);
 
 		
-		pEnemyTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
+		m_pEnemyTransform->Set_State(CTransform::STATE_POSITION, SpawnPos);
 	}
 }
 
@@ -132,25 +132,26 @@ void CSunSpaceBoss_Body::Rock_throw(_float fTimeDelta)
 		{
 			m_fRockSpawn = 7.5f;
 		}
+
 		for (_uint i = 0; i < 5; ++i)
 		{
 			_uint RockType = rand() % 4 + 1;
 			switch (RockType)
 			{
 			case 1:
-				pRockObject = GAMEINSTANCE->Add_GameObject<CRock_1>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true);
+				m_pRockObject = GAMEINSTANCE->Add_GameObject<CRock_1>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true);
 				break;
 
 			case 2:
-				pRockObject = GAMEINSTANCE->Add_GameObject<CRock_2>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true);
+				m_pRockObject = GAMEINSTANCE->Add_GameObject<CRock_2>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true);
 				break;
 
 			case 3:
-				pRockObject = GAMEINSTANCE->Add_GameObject<CRock_3>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true);
+				m_pRockObject = GAMEINSTANCE->Add_GameObject<CRock_3>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true);
 				break;
 
 			case 4:
-				pRockObject = GAMEINSTANCE->Add_GameObject<CRock_4>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true);
+				m_pRockObject = GAMEINSTANCE->Add_GameObject<CRock_4>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true);
 				break;
 			}
 
@@ -158,38 +159,39 @@ void CSunSpaceBoss_Body::Rock_throw(_float fTimeDelta)
 
 			((CBlackHole_Effect*)GAMEINSTANCE->Add_GameObject<CBlackHole_Effect>(CURRENT_LEVEL, TEXT("BlackHole"), nullptr, nullptr, false))->Set_Pos(SpawnPos);
 
-			pRockObject->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, SpawnPos);
+			m_pRockObject->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, SpawnPos);
 
 			CTransform* pPlayerObject = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform()->Get_Owner()->Get_Component<CTransform>();
 
-			pRockObject->Get_Component<CTransform>()->LookAt(pPlayerObject);
+			m_pRockObject->Get_Component<CTransform>()->LookAt(pPlayerObject);
 			_float LifeTime = 10.f;
 
-			m_RockTransformList.push_back({ LifeTime, pRockObject });
+			m_RockObjectList.push_back({ LifeTime,m_pRockObject });
+			WEAK_PTR(m_RockObjectList.back().second);
 		}
 	}
 
-	if (!m_RockTransformList.empty())
+	if (!m_RockObjectList.empty())
 	{
-		m_RockTransformList.sort();
-		for (auto& iter = m_RockTransformList.begin(); iter != m_RockTransformList.end();)
+		m_RockObjectList.sort();
+		for (auto& iter = m_RockObjectList.begin(); iter != m_RockObjectList.end();)
 		{
-			if (!iter->second->Get_Enable())
+			/*if (!iter->second->Get_Enable())
 			{
-				++iter;
+				RETURN_WEAKPTR(iter->second);
+				iter = m_RockObjectList.erase(iter);
 				continue;
-			}
-			
-			iter->second->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::FRONT);
-
+			}*/					
 			iter->first -= fTimeDelta;
-			if (iter->first < 0.f)
+			if (iter->first < 0.f || !iter->second->Get_Enable())
 			{
+				RETURN_WEAKPTR(iter->second);
 				iter->second->Set_Enable(false);
-				iter = m_RockTransformList.erase(iter);
+				iter = m_RockObjectList.erase(iter);
 			}
 			else
 			{
+				iter->second->Get_Component<CRigid_Body>()->Add_Dir(CRigid_Body::FRONT);
 				++iter;
 			}
 		}
