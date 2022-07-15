@@ -32,6 +32,7 @@ public:
 private:
     CMesh_Cube* m_pMeshCom = nullptr;
     CPointLight* m_pLight = nullptr;
+    CCollider_Sphere* m_pColliderCom = nullptr;
 
 private:
     _bool       m_bFirst = true;
@@ -53,7 +54,7 @@ public:
 
 protected:
     // CBullet을(를) 통해 상속됨
-    virtual HRESULT SetUp_Components_For_Child() override;
+    virtual HRESULT SetUp_Components_For_Child(COLLISION_TYPE _eCollisionType) override;
 
 public:
     static CNormal_Bullet* Create();

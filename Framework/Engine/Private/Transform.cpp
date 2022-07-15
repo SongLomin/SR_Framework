@@ -117,7 +117,7 @@ HRESULT CTransform::Bind_WorldMatrix(BYTE MyFlags, BYTE ParentFlags)
 
 _float4x4 CTransform::Get_WorldMatrix(BYTE MyFlags, BYTE ParentFlags)
 {
-	return m_WorldMatrix;
+ 	return m_WorldMatrix;
 }
 
 void CTransform::Set_LocalMatrix(_float4x4 _Mat)

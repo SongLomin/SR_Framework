@@ -270,10 +270,10 @@ void CSong_Ship_Body::SetUp_Components_For_Child()
 	m_pMyTurretList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyTurretList.back());
 
-	/*CLazer_Turret* LazerPosin = static_cast<CLazer_Turret*>(GAMEINSTANCE->Add_GameObject<CLazer_Turret>(CURRENT_LEVEL, TEXT("Lazer_Turret"), m_pTransformCom));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, -0.5f, 0.f));
-	m_pMyPosinList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pMyPosinList.back());*/
+	CLazer_Turret* LazerPosin = static_cast<CLazer_Turret*>(GAMEINSTANCE->Add_GameObject<CLazer_Turret>(LEVEL_STATIC, TEXT("Lazer_Turret"), m_pTransformCom));
+	LazerPosin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 2.f, 0.f));
+	m_pMyPosinList.push_back(LazerPosin);
+	LazerPosin->Set_WeakPtr(&m_pMyPosinList.back());
 
 #pragma endregion Posin Setting
 

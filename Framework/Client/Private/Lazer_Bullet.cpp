@@ -27,7 +27,7 @@ HRESULT CLazer_Bullet::Initialize(void* pArg)
 	if (FAILED(SetUp_Components(eCollisionType)))
 		return E_FAIL;
 
-	m_fLifeTime = 0.f;
+	m_fMaxTime = m_fLifeTime = 0.f;
 
 	return S_OK;
 }
@@ -53,7 +53,7 @@ void CLazer_Bullet::LateTick(_float fTimeDelta)
 
 HRESULT CLazer_Bullet::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.8f, 0.8f, 100.f), true);
+	m_pTransformCom->Scaling(_float3(0.3f, 0.3f, 100.f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	/*D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -95,9 +95,11 @@ void CLazer_Bullet::Init_BulletPosition(_float4x4* _pWorldMat)
 
 	m_pTransformCom->Go_BackAndForth(100.f, 1.f);
 
+	m_pColliderCom->Set_OffSet(-m_pTransformCom->Get_State(CTransform::STATE_LOOK, true) * 50.f);
+
 	m_pTransformCom->Update_WorldMatrix();
 	m_pRigidBodyCom->Set_DirVector();
-	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
+
 
 }
 
@@ -105,14 +107,16 @@ void CLazer_Bullet::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER)
 	{
-		Set_Dead();
+		//Set_Enable(false);
 	}
-
 }
 
 void CLazer_Bullet::On_Collision_Stay(CCollider* _Other_Collider)
 {
-
+	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER)
+	{
+		_Other_Collider->Get_Owner()->On_Collision_Enter(m_pColliderCom);
+	}
 }
 
 void CLazer_Bullet::On_Collision_Exit(CCollider* _Other_Collider)
@@ -144,7 +148,7 @@ void CLazer_Bullet::Free()
 	delete this;
 }
 
-HRESULT CLazer_Bullet::SetUp_Components_For_Child()
+HRESULT CLazer_Bullet::SetUp_Components_For_Child(COLLISION_TYPE _eCollisionType)
 {
 	//m_pTransformCom->Scaling(_float3(0.2f, 10.0f, 0.2f));
 
@@ -176,17 +180,30 @@ HRESULT CLazer_Bullet::SetUp_Components_For_Child()
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
-	_float3 ColliderSize = m_pTransformCom->Get_Scaled();
-	_float3 RenderScale = _float3(0.2f, 0.1f, 0.2f);
-	ColliderSize.x *= RenderScale.x;
-	ColliderSize.y *= RenderScale.y;
-	ColliderSize.z *= RenderScale.z;
+	COLLISION_TYPE eCollisionType = _eCollisionType;
+	m_pColliderCom = Add_Component<CCollider_Ray>(&eCollisionType);
+	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
+	m_pColliderCom->Link_Transform(m_pTransformCom);
 
-	m_pColliderCom->Set_Collider_Size(ColliderSize);
+
 
 	m_pLight = Add_Component<CSpotLight>();
 	WEAK_PTR(m_pLight);
 	m_pLight->Set_LightRange(12.f);
 
 	return S_OK;
+}
+
+void CLazer_Bullet::OnEnable(void* _Arg)
+{
+	__super::OnEnable(_Arg);
+	m_pColliderCom->OnEnable(_Arg);
+	printf("Enable Bullet\n");
+}
+
+void CLazer_Bullet::OnDisable()
+{
+	__super::OnDisable();
+	printf("Disable Bullet\n");
+	m_pColliderCom->OnDisable();
 }

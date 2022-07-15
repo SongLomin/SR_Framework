@@ -175,6 +175,7 @@
     <ClCompile Include="..\Private\Collider_Mesh.cpp" />
     <ClCompile Include="..\Private\Collider_OBB.cpp" />
     <ClCompile Include="..\Private\Collider_Pre.cpp" />
+    <ClCompile Include="..\Private\Collider_Ray.cpp" />
     <ClCompile Include="..\Private\Collier_Sphere.cpp" />
     <ClCompile Include="..\Private\Collision_Manager.cpp" />
     <ClCompile Include="..\private\Component.cpp" />
@@ -277,6 +278,7 @@
     <ClInclude Include="..\Public\Collider_Mesh.h" />
     <ClInclude Include="..\Public\Collider_OBB.h" />
     <ClInclude Include="..\Public\Collider_Pre.h" />
+    <ClInclude Include="..\Public\Collider_Ray.h" />
     <ClInclude Include="..\Public\Collier_Sphere.h" />
     <ClInclude Include="..\Public\Collision_Manager.h" />
     <ClInclude Include="..\public\Component.h" />

@@ -239,12 +239,12 @@ void CRocket_Bullet::OnTimerEvent(const _uint _iEventIndex)
 			m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>());
 		
 		}
-		m_pTransformCom->Go_BackAndForth(2.f, 1.f);
+		m_pTransformCom->Go_BackAndForth(1.f, 1.f);
 		m_pTransformCom->Update_WorldMatrix();
 	}
 }
 
-HRESULT CRocket_Bullet::SetUp_Components_For_Child()
+HRESULT CRocket_Bullet::SetUp_Components_For_Child(COLLISION_TYPE _eCollisionType)
 {
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 50.f;
@@ -272,6 +272,11 @@ HRESULT CRocket_Bullet::SetUp_Components_For_Child()
 	m_pMeshCom->Set_WeakPtr(&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Mesh_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
+	COLLISION_TYPE eCollisionType = _eCollisionType;
+	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
+	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
+	m_pColliderCom->Link_Transform(m_pTransformCom);
+
 	_float3 ColliderSize = m_pTransformCom->Get_Scaled();
 	_float3 RenderScale = _float3(0.2f, 0.1f, 0.2f);
 	ColliderSize.x *= RenderScale.x;
@@ -298,8 +303,16 @@ void CRocket_Bullet::OnEnable(void* _Arg)
 {
 	__super::OnEnable(_Arg);
 
+	m_pColliderCom->OnEnable(_Arg);
 	GAMEINSTANCE->Add_TimerEvent(0, this, 1.f, false, false, true);
 	GAMEINSTANCE->Add_TimerEvent(1, this, 9.f, false, true, true);
+}
+
+void CRocket_Bullet::OnDisable()
+{
+	__super::OnDisable();
+
+	m_pColliderCom->OnDisable();
 }
 
 

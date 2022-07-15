@@ -31,6 +31,7 @@ protected:
     CMesh_Cube* m_pMeshCom = nullptr;
     CTransform* m_pPlayerTransformCom = nullptr;
     CMesh_Test* m_pMeshTestCom = nullptr;
+    _tchar* m_pEventMessage;
     CCollider_Sphere* m_pColliderCom = nullptr;
 
 private:

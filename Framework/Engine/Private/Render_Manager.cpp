@@ -25,7 +25,9 @@ HRESULT CRender_Manager::Initialize()
 	if (!SetupTexture(&stashTex, &stashSurface)) {
 		return E_FAIL;
 	}
-
+	if (!SetupTexture(&originTex, &TemporaryRenderTarget)) {
+		return E_FAIL;
+	}
 
 	
 
@@ -324,10 +326,15 @@ void CRender_Manager::Foward_Pipeline()
 	//D3DXSaveTextureToFile(TEXT("Specular.bmp"), D3DXIFF_BMP, specularTex, nullptr);
 
 
+	DEVICE->StretchRect(originRenderTarget, nullptr, TemporaryRenderTarget, nullptr, D3DTEXF_LINEAR);
+
+	Apply_BoosterBlur(RENDERGROUP::RENDER_POSTPROCCESSING, originTex);
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_NORMAL, normalTex);
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_DEPTH, depthTex);
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_DIFFUSE, diffuseTex);
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_SPECULAR, specularTex);
+
+	
 }
 
 bool CRender_Manager::SetupTexture(IDirect3DTexture9** texture, IDirect3DSurface9** surface)
@@ -494,6 +501,61 @@ void CRender_Manager::Draw_Divide_ViewPort(RENDERGROUP _eRenderGroup, IDirect3DT
 	DEVICE->SetViewport(&OriginalViewPort);*/
 
 	//DEVICE->StretchRect(originRenderTarget, NULL, stashSurface, NULL, D3DTEXF_NONE);
+}
+
+void CRender_Manager::Apply_BoosterBlur(RENDERGROUP _eRenderGroup, IDirect3DTexture9* _Tex)
+{
+	ID3DXEffect** ppShader = GAMEINSTANCE->Get_Shader_From_Key(TEXT("BoosterBlur"));
+
+	if (!ppShader)
+		return;
+
+	if (DBL_EPSILON < fBlurWidth)
+		fBlurWidth -= 0.0005f;
+	else if (0.f > fBlurWidth)
+		fBlurWidth = 0.f;
+
+	CCamera* pCamera = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA);
+
+	if (pCamera)
+		pCamera->Bind_PipeLine();
+
+	D3DXHANDLE hTech = 0;
+	UINT numPasses = 0;
+
+	hTech = (*ppShader)->GetTechniqueByName("DefaultTechnique");
+	(*ppShader)->SetTechnique(hTech);
+
+	for (auto iter = m_RenderObjects[(_uint)_eRenderGroup].begin(); iter != m_RenderObjects[(_uint)_eRenderGroup].end();)
+	{
+		if ((*iter))
+		{
+			D3DXHANDLE TextureHandle = (*ppShader)->GetParameterByName(0, "g_Texture");
+			(*ppShader)->SetTexture(TextureHandle, _Tex);
+
+			D3DXHANDLE BlurWidthHandle = (*ppShader)->GetParameterByName(0, "blurWidth");
+			(*ppShader)->SetFloat(BlurWidthHandle, fBlurWidth);
+
+			(*iter)->Render_Begin(ppShader);
+
+			(*ppShader)->Begin(&numPasses, 0);
+			for (_uint i = 0; i < numPasses; i++)
+			{
+				(*ppShader)->BeginPass(i);
+
+				(*iter)->Render();
+
+				(*ppShader)->EndPass();
+			}
+			(*ppShader)->End();
+
+
+			//(*iter)->Render();
+			(*iter)->Return_WeakPtr(&(*iter));
+		}
+
+		iter = m_RenderObjects[(_uint)_eRenderGroup].erase(iter);
+	}
 }
 
 void CRender_Manager::Set_OnlyRenderTarget(IDirect3DSurface9** _ppSurface)

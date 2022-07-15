@@ -288,6 +288,7 @@ namespace Engine
 		RENDER_DEPTH,
 		RENDER_DIFFUSE,
 		RENDER_SPECULAR,
+		RENDER_POSTPROCCESSING,
 		RENDER_END 
 	};
 
@@ -357,6 +358,7 @@ namespace Engine
 		SPHERE = 0,
 		OBB,
 		MESH,
+		RAY,
 		SHAPE_END
 	};
 

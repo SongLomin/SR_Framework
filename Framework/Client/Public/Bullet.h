@@ -27,7 +27,7 @@ protected:
     CTransform* m_pTransformCom = nullptr;
     CRenderer* m_pRendererCom = nullptr;
     CRigid_Body* m_pRigidBodyCom = nullptr;
-    CCollider_Sphere* m_pColliderCom = nullptr;
+   
 
 protected:
     _float  m_fLifeTime = 1.f;
@@ -36,7 +36,7 @@ protected:
 
 protected:
     HRESULT SetUp_Components(COLLISION_TYPE _eCollisionType);
-    virtual HRESULT SetUp_Components_For_Child() PURE;
+    virtual HRESULT SetUp_Components_For_Child(COLLISION_TYPE _eCollisionType) PURE;
 
 public:
     virtual void Init_BulletPosition(_float4x4* _pWorldMat);

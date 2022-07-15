@@ -136,6 +136,7 @@ void CNormal_Bullet::OnEnable(void* _Arg)
 {
 	__super::OnEnable(_Arg);
 
+	m_pColliderCom->OnEnable(_Arg);
 	m_pLight->Set_Preset_PowLight();
 	m_pLight->Set_Enable(true);
 	//m_pLight->Set_FixedLight(true);
@@ -144,7 +145,9 @@ void CNormal_Bullet::OnEnable(void* _Arg)
 
 void CNormal_Bullet::OnDisable()
 {
+	__super::OnDisable();
 
+	m_pColliderCom->OnDisable();
 }
 
 CNormal_Bullet* CNormal_Bullet::Create()
@@ -177,7 +180,7 @@ void CNormal_Bullet::Free()
 	delete this;
 }
 
-HRESULT CNormal_Bullet::SetUp_Components_For_Child()
+HRESULT CNormal_Bullet::SetUp_Components_For_Child(COLLISION_TYPE _eCollisionType)
 {
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
 	RigidBodyDesc.m_fOwnerSpeed = 200.f;
@@ -200,6 +203,11 @@ HRESULT CNormal_Bullet::SetUp_Components_For_Child()
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
 	m_pRigidBodyCom->Link_TransformCom(m_pTransformCom);
+
+	COLLISION_TYPE eCollisionType = _eCollisionType;
+	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
+	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
+	m_pColliderCom->Link_Transform(m_pTransformCom);
 
 	_float3 ColliderSize = m_pTransformCom->Get_Scaled();
 	_float3 RenderScale = _float3(0.2f, 0.2f, 0.2f);

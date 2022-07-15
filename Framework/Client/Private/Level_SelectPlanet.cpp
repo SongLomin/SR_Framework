@@ -149,6 +149,8 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Exo>(LEVEL_SELECTPLANET, TEXT("Exo")))
 		return E_FAIL;
 
+	
+
 	//if (!GAMEINSTANCE->Add_GameObject<CBossHpTable>(LEVEL_SELECTPLANET, TEXT("Boss_HP_Table")))
 	//	return E_FAIL;
 

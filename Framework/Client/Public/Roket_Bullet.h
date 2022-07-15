@@ -38,6 +38,7 @@ private:
     CSpotLight* m_pLight = nullptr;
     CMesh_Test* m_pMeshCom = nullptr;
     CTargeting* m_pTargetingCom = nullptr;
+    CCollider_Sphere* m_pColliderCom = nullptr;
 
 private:
     CGameObject* m_pTarget = nullptr;
@@ -51,10 +52,10 @@ public: /* For Event Function */
 
 protected:
     // CBullet을(를) 통해 상속됨
-    virtual HRESULT SetUp_Components_For_Child() override;
+    virtual HRESULT SetUp_Components_For_Child(COLLISION_TYPE _eCollisionType) override;
     virtual void OnEnable(void* _Arg = nullptr) override;
 
-
+    virtual void OnDisable() override;
 
 
 public:

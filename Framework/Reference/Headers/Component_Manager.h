@@ -14,6 +14,7 @@
 #include "Collider.h"
 #include "Collider_OBB.h"
 #include "Collier_Sphere.h"
+#include "Collider_Ray.h"
 #include "State_Move.h"
 #include "Targeting.h"
 #include "Mesh_Test.h"
