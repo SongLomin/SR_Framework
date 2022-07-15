@@ -54,6 +54,7 @@ void CMonster::LateTick(_float fTimeDelta)
 	{
 		m_pTargetingCom->Add_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("AI_Friendly")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f, true);
 		m_pTargetingCom->Add_TargetList_Distance(GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f, false);
+		m_pTargetingCom->Add_TargetList_Distance(GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("TransportShip")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f, false);
 
 		auto TargetList = m_pTargetingCom->Get_Targetting();
 
@@ -67,7 +68,7 @@ void CMonster::LateTick(_float fTimeDelta)
 
 	if (m_pStatusCom->Get_Status().fHp < m_pStatusCom->Get_Status().fMaxHp / 2.f)
 	{
-		((CSmoke_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CSmoke_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
+		//((CSmoke_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CSmoke_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
 	}
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);

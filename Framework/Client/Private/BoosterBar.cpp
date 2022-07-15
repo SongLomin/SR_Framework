@@ -153,7 +153,7 @@ HRESULT CBoosterBar::SetUp_Components()
 
 	m_pRendererCom = Add_Component<CRenderer>();
 	m_pRendererCom->Set_WeakPtr(&m_pRendererCom);
-	m_pRendererCom->Set_Textures_From_Key(TEXT("Booster"), MEMORY_TYPE::MEMORY_STATIC);
+	m_pRendererCom->Set_Textures_From_Key(TEXT("Booster_UI"), MEMORY_TYPE::MEMORY_STATIC);
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);

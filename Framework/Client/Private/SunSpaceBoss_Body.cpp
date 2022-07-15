@@ -107,7 +107,7 @@ void CSunSpaceBoss_Body::Spawn_Monster()
 			break;
 
 		case 2:
-			m_pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemy_Scourge>(CURRENT_LEVEL, TEXT("Boss_Spawn"), nullptr, nullptr, true)
+			m_pEnemyTransform = GAMEINSTANCE->Add_GameObject<CEnemy_Scourge>(CURRENT_LEVEL, TEXT("Enemy_Scourge"), nullptr, nullptr, true)
 				->Get_Component<CTransform>();
 			break;
 		}

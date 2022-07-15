@@ -75,7 +75,7 @@ HRESULT CBomb_Effect::Render()
 void CBomb_Effect::SetUp_Components_For_Child()
 {
 	m_pRendererCom->Set_Textures_From_Key(TEXT("Bomb_Effect"), MEMORY_TYPE::MEMORY_STATIC);
-	m_pTransformCom->Scaling(_float3(15.f, 15.f, 15.f), true);
+	m_pTransformCom->Scaling(_float3(10.f, 10.f, 10.f));
 
 	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
 	WEAK_PTR(m_pVIBufferCom);

@@ -205,7 +205,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest_UI"));
 	m_pQuestBoxObject->Set_Enable(false);
 
-	GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_SELECTPLANET, TEXT("EnemySpace_Body"));
+	//GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_SELECTPLANET, TEXT("EnemySpace_Body"));
 
 	//GAMEINSTANCE->Add_GameObject<CTextureDrawUI>(LEVEL_SELECTPLANET, TEXT("TextureDraw_UI"));
 
