@@ -73,14 +73,14 @@ void CPlanet::Tick(_float fTimeDelta)
     // 마우스 움직임 충돌시
     if (true == CMath_Utillity::Picking_VIBuffer(m_pVI_BufferCom, m_pTransformCom, m_MouseWorldRay, &PickedPosition))
     {
+        
         m_pDiveUi->Set_Enable(true);
         GAMEINSTANCE->Add_Text(m_lPontPos, m_szPontText, 0);
 
          // 충돌하고 키 입력시
         if (KEY_INPUT(KEY::F, KEY_STATE::TAP) && !m_bLevelChange)
         {
-            GAMEINSTANCE->StopSound(BGM);
-            GAMEINSTANCE->PlaySoundW(TEXT("Dive.wav"), EFFECT, 1.f);
+            GAMEINSTANCE->PlaySoundW(TEXT("Dive.wav"), EFFECT, 2.f);
             GAMEINSTANCE->Get_CurrentLevel()->Change_Level(this, m_eMyLevel);
             m_bLevelChange = true;
             return;
