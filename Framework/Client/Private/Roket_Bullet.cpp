@@ -47,7 +47,7 @@ void CRocket_Bullet::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_BLOOMABLE, this);
 }
 
 HRESULT CRocket_Bullet::Render_Begin(ID3DXEffect** Shader)
@@ -59,9 +59,9 @@ HRESULT CRocket_Bullet::Render_Begin(ID3DXEffect** Shader)
 
 
 	float floatArray[3];
-	floatArray[0] = 0.2f;
+	floatArray[0] = 0.7f;
 	floatArray[1] = 0.0f;
-	floatArray[2] = 0.2f;
+	floatArray[2] = 0.7f;
 
 	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 

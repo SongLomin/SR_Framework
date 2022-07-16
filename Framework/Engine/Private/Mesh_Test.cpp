@@ -27,7 +27,7 @@ HRESULT CMesh_Test::Initialize(void* pArg)
 
 HRESULT CMesh_Test::Render_Mesh()
 {
-	DEVICE->SetFVF(D3DFVF_XYZ | D3DFVF_DIFFUSE);
+	DEVICE->SetFVF(D3DFVF_XYZ);
 	m_pMesh->DrawSubset(0);
 
 	return S_OK;

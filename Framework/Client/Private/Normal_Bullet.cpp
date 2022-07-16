@@ -57,7 +57,7 @@ void CNormal_Bullet::LateTick(_float fTimeDelta)
 
 	if (GAMEINSTANCE->IsIn(&(m_pTransformCom->Get_World_State(CTransform::STATE_POSITION))))
 	{
-		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+		m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_BLOOMABLE, this);
 	}
 }
 
@@ -66,7 +66,7 @@ HRESULT CNormal_Bullet::Render_Begin(ID3DXEffect** Shader)
 	m_pTransformCom->Scaling(_float3(0.2f, 0.2f, 0.2f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
-	/*D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
+	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
 
 
 	float floatArray[3];
@@ -74,7 +74,7 @@ HRESULT CNormal_Bullet::Render_Begin(ID3DXEffect** Shader)
 	floatArray[1] = 1.f;
 	floatArray[2] = 1.f;
 
-	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);*/
+	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 
 
 	return S_OK;
