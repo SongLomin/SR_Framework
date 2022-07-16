@@ -21,6 +21,7 @@ BEGIN(Client)
 class CTurret;
 class CCameraPosin;
 class CPlayer_Posin;
+class CTrajectory;
 
 class CPlayer abstract : public CGameObject
 {
@@ -60,6 +61,7 @@ protected:
 protected:
 	_float			m_fTimeScale;
 	_float3			m_AnchorPosition = _float3(2.2f, 0.f, 0.f);
+	list<CTrajectory*>				m_pTrajectorys;
 
 protected: /* For Event Function */
 	virtual void On_Change_Controller(const CONTROLLER& _IsAI) override;

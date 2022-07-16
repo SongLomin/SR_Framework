@@ -35,8 +35,12 @@ public:
 	static _float4x4 Get_Scale_Matrix(const _float4x4& _Mat);
 	static _float4x4 Get_Position_Matrix(const _float4x4& _Mat);
 
+	static _float4x4 Rotate_Matrix(const _float4x4& _Mat, const _float3& vAxis, const _float& fRadian);
+	static _float4x4 Set_Scale_Matrix(const _float4x4& _Mat, const _float3& _vScale);
+
 public:
 	static _float3 Rotate_Vec3(const _float3& _Rotation, const _float3& _Vec3);
+	static _float Get_Distance(const _float3& _LeftVector, const _float3& _RightVector);
 
 public:
 	template<typename T>

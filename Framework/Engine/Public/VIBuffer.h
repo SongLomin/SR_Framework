@@ -50,6 +50,7 @@ protected:
 
 protected:
 	HRESULT Create_VertexBuffer();
+	HRESULT Create_DynamicVertexBuffer();
 	HRESULT Create_IndexBuffer();
 
 

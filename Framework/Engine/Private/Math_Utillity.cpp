@@ -297,6 +297,48 @@ _float4x4 CMath_Utillity::Get_Position_Matrix(const _float4x4& _Mat)
 	return ResultMat;
 }
 
+_float4x4 CMath_Utillity::Rotate_Matrix(const _float4x4& _Mat, const _float3& vAxis, const _float& fRadian)
+{
+	_float3		vRight = *(_float3*)&_Mat.m[0][0];
+	_float3		vUp = *(_float3*)&_Mat.m[1][0];
+	_float3		vLook = *(_float3*)&_Mat.m[2][0];
+	
+	_float4x4	RotationMatrix, ResultMatrix;
+	D3DXMatrixRotationAxis(&RotationMatrix, &vAxis, fRadian);
+
+	D3DXVec3TransformNormal(&vRight, &vRight, &RotationMatrix);
+	D3DXVec3TransformNormal(&vUp, &vUp, &RotationMatrix);
+	D3DXVec3TransformNormal(&vLook, &vLook, &RotationMatrix);
+
+	*(_float4*)&ResultMatrix.m[0][0] = _float4(vRight, 0.f);
+	*(_float4*)&ResultMatrix.m[1][0] = _float4(vUp, 0.f);
+	*(_float4*)&ResultMatrix.m[2][0] = _float4(vLook, 0.f);
+	*(_float4*)&ResultMatrix.m[3][0] = *(_float4*)&_Mat.m[3][0];
+
+
+	return ResultMatrix;
+}
+
+_float4x4 CMath_Utillity::Set_Scale_Matrix(const _float4x4& _Mat, const _float3& _vScale)
+{
+	_float4x4	ResultMatrix;
+
+	_float3		vRight = *(_float3*)&_Mat.m[0][0];
+	_float3		vUp = *(_float3*)&_Mat.m[1][0];
+	_float3		vLook = *(_float3*)&_Mat.m[2][0];
+
+	D3DXVec3Normalize(&vRight, &vRight);
+	D3DXVec3Normalize(&vUp, &vUp);
+	D3DXVec3Normalize(&vLook, &vLook);
+
+	*(_float4*)&ResultMatrix.m[0][0] = _float4(vRight * _vScale.x, 0.f);
+	*(_float4*)&ResultMatrix.m[1][0] = _float4(vUp * _vScale.y, 0.f);
+	*(_float4*)&ResultMatrix.m[2][0] = _float4(vLook * _vScale.z, 0.f);
+	*(_float4*)&ResultMatrix.m[3][0] = *(_float4*)&_Mat.m[3][0];
+
+	return ResultMatrix;
+}
+
 _float3 CMath_Utillity::Rotate_Vec3(const _float3& _Rotation, const _float3& _Vec3)
 {
 	D3DXMATRIX RotateMat;
@@ -307,6 +349,13 @@ _float3 CMath_Utillity::Rotate_Vec3(const _float3& _Rotation, const _float3& _Ve
 	D3DXVec3TransformCoord(&_ResultVec, &_Vec3, &RotateMat);
 
 	return _ResultVec;
+}
+
+_float CMath_Utillity::Get_Distance(const _float3& _LeftVector, const _float3& _RightVector)
+{
+	_float3 DirVec = _LeftVector - _RightVector;
+
+	return D3DXVec3Length(&DirVec);
 }
 
 _float CMath_Utillity::fLerp(_float LeftSide, _float RightSide, _float fRatio)

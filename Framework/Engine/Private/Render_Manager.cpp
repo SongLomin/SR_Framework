@@ -392,6 +392,7 @@ void CRender_Manager::Foward_Pipeline()
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_DIFFUSE, diffuseTex);
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_SPECULAR, specularTex);
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_VIEWBLOOM, BloomTex);
+	Draw_Divide_ViewPort(RENDERGROUP::RENDER_VIEWLIGHT, stashTex);
 
 	
 }

@@ -45,8 +45,25 @@ HRESULT CSong_Ship_Body::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	GAMEINSTANCE->Add_GameObject<CTrajectory>(LEVEL_STATIC, TEXT("Trajectory"), m_pTransformCom);
+	
 
+	m_pTrajectorys.push_back(static_cast<CTrajectory*>(GAMEINSTANCE->Add_GameObject<CTrajectory>(LEVEL_STATIC, TEXT("Trajectory")))); 
+	m_pTrajectorys.back()->Make_TrajectoryNode(200, m_pTransformCom, _float3(15.f, 2.f, -15.f));
+	WEAK_PTR(m_pTrajectorys.back());
+
+	m_pTrajectorys.push_back(static_cast<CTrajectory*>(GAMEINSTANCE->Add_GameObject<CTrajectory>(LEVEL_STATIC, TEXT("Trajectory"))));
+	m_pTrajectorys.back()->Make_TrajectoryNode(200, m_pTransformCom, _float3(-15.f, 2.f, -15.f));
+	WEAK_PTR(m_pTrajectorys.back());
+
+	m_pTrajectorys.push_back(static_cast<CTrajectory*>(GAMEINSTANCE->Add_GameObject<CTrajectory>(LEVEL_STATIC, TEXT("Trajectory"))));
+	m_pTrajectorys.back()->Make_TrajectoryNode(200, m_pTransformCom, _float3(25.f, 0.5f, -28.f));
+	WEAK_PTR(m_pTrajectorys.back());
+
+	m_pTrajectorys.push_back(static_cast<CTrajectory*>(GAMEINSTANCE->Add_GameObject<CTrajectory>(LEVEL_STATIC, TEXT("Trajectory"))));
+	m_pTrajectorys.back()->Make_TrajectoryNode(200, m_pTransformCom, _float3(-25.f, 0.5f, -28.f));
+	WEAK_PTR(m_pTrajectorys.back());
+
+	//->Get_Component<CTransform>()->Add_Position(_float3(0.f, 0.f, -7.5f))
 	//GAMEINSTANCE->Set_Current_Camera(TEXT("TPS"));
 
 	return S_OK;
@@ -260,6 +277,12 @@ CGameObject * CSong_Ship_Body::Clone(void* pArg)
 void CSong_Ship_Body::Free()
 {
 	__super::Free();
+
+	for (auto& elem : m_pTrajectorys)
+	{
+		elem->Set_Dead_AllTrajectory();
+		RETURN_WEAKPTR(elem);
+	}
 	
 	delete this;
 }

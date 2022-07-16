@@ -6,6 +6,7 @@
 #include <Move_PSystem.h>
 #include <Bomb_Effect.h>
 #include "Enemy_StagBeetle.h"
+#include "Trajectory.h"
 
 CPlayer::CPlayer()
 {
@@ -29,6 +30,13 @@ void CPlayer::Tick(_float fTimeDelta)
 	{
 		//GAMEINSTANCE->Get_ParticleSystem<CBooster_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"));
 		((CBooster_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CBooster_PSystem>(CURRENT_LEVEL, TEXT("Particle_Booster"), nullptr, nullptr))->AddParticle(900 * fTimeDelta, m_pTransformCom);
+
+		for (auto& elem : m_pTrajectorys)
+		{
+			elem->Set_Draw(true);
+			elem->Set_Alpha(0.8f);
+		}
+
 	}
 	else if (m_pRigid_BodyCom->Get_Booster() == false)
 	{
@@ -37,9 +45,26 @@ void CPlayer::Tick(_float fTimeDelta)
 		_float vNow = fabs(D3DXVec3Length(&Speed)) / 30.f;
 		if (vNow > 0.9f)
 		{
+			for (auto& elem : m_pTrajectorys)
+			{
+				elem->Set_Alpha(vNow / 5.f);
+			}
+
+			
 			D3DCOLOR color = D3DCOLOR_ARGB(255, 255, 0, 0);
 			//((CMove_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CMove_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom, color);
 		}
+
+		else
+		{
+			for (auto& elem : m_pTrajectorys)
+			{
+				elem->Set_Draw(false);
+				
+			}
+		}
+
+		
 	}
 
 	Update_TurretList();

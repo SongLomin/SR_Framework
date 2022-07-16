@@ -11,6 +11,8 @@ END
 
 BEGIN(Client)
 
+class CTrajectory;
+
 class CSong_Ship_Body final : 
 	public CPlayer
 {
@@ -32,6 +34,7 @@ private:
 	//CMesh_SongShip*				m_pMeshCom = nullptr;
 	CMesh_Ship5*                    m_pMeshCom = nullptr;
 	//CMesh_SongShip* m_pMeshCom = nullptr;
+
 
 
 

@@ -50,9 +50,10 @@ technique			DefaultTechnique
 		PixelShader = compile ps_3_0 PS_MAIN();
 
 		AlphaBlendEnable = true;
-		BlendOp = Add;
+		//BlendOp = ;
 		SrcBlend = SrcAlpha;
 		DestBlend = InvSrcAlpha;
+		CullMode = None;
 
 	}
 }

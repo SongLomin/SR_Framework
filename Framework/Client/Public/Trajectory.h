@@ -38,6 +38,30 @@ private:
 private:
 	ID3DXEffect** m_ppShader = nullptr;
 
+	CTransform* m_pTargetTransform = nullptr;
+	CTrajectory* m_pBackNodeTrajectoryObject = nullptr;
+
+	_float	m_fUpdateTime = 1.f;
+
+	_float3 m_vScale = _float3(0.15f, 1.4f, 0.15f);
+	_float3 m_vOffset;
+	_float m_fMovement;
+
+	_bool m_bDraw = false;
+	_float m_fAlpha = 0.6f;
+
+public:
+	void Set_BackNode(CTrajectory* _pTrajectoryObject);
+	void Set_LocalMatrix_WithOutScale(const _float4x4& _LocalMat, _bool _bDraw, _float _fAlpha);
+	void Make_TrajectoryNode(const _uint& _iNodeCnt, CTransform* _pTargetTransform, const _float3& _vOffset = { 0.f, 0.f, 0.f });
+	void Set_Dead_AllTrajectory();
+	void Set_Draw(_bool _bDraw) { m_bDraw = _bDraw; }
+	void Set_Alpha(_float _fAlpha) { m_fAlpha = _fAlpha; }
+
+
+protected:
+	virtual void OnEnable(void* _Arg) override;
+
 public:
 	static CTrajectory* Create();
 	virtual CGameObject* Clone(void* pArg) override;

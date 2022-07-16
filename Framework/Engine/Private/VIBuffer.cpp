@@ -42,7 +42,7 @@ HRESULT CVIBuffer::Render()
 	DEVICE->SetIndices(m_pIB);
 	DEVICE->DrawIndexedPrimitive(m_ePrimitiveType, 0, 0, m_iNumVertices, 0, m_iNumPrimitive);
 	
-	DEVICE->SetTexture(0, 0);
+	//DEVICE->SetTexture(0, 0);
 
 	return S_OK;
 }
@@ -58,6 +58,13 @@ HRESULT CVIBuffer::Create_VertexBuffer()
 	return S_OK;
 }
 
+HRESULT CVIBuffer::Create_DynamicVertexBuffer()
+{
+	if (FAILED(DEVICE->CreateIndexBuffer(m_iIndicesSizePerPrimitive * m_iNumPrimitive, D3DUSAGE_DYNAMIC, m_eFormat, D3DPOOL_MANAGED, &m_pIB, nullptr)))
+		return E_FAIL;
+
+	return S_OK;
+}
 HRESULT CVIBuffer::Create_IndexBuffer()
 {
 
