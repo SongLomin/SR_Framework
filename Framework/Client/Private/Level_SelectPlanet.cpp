@@ -106,11 +106,11 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	
 	if (!GAMEINSTANCE->Add_GameObject<CSelectPlanet_SkyBox>(LEVEL_SELECTPLANET, TEXT("SkyBox")))
 		return E_FAIL;
-
 	/*if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_SELECTPLANET, TEXT("Aim")))
 		return E_FAIL;*/
 
 	if (!GAMEINSTANCE->Add_GameObject<CStatusBar>(LEVEL_SELECTPLANET, TEXT("Status_UI")))
+
 		return E_FAIL;
 
 	if (!GAMEINSTANCE->Add_GameObject<CHpBar>(LEVEL_SELECTPLANET, TEXT("HP_UI")))
@@ -205,7 +205,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	m_pQuestBoxObject = GAMEINSTANCE->Add_GameObject<CQuest>(LEVEL_SELECTPLANET, TEXT("Quest_UI"));
 	m_pQuestBoxObject->Set_Enable(false);
 
-	GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_SELECTPLANET, TEXT("EnemySpace_Body"));
+	//GAMEINSTANCE->Add_GameObject<CEnemySpace_Body>(LEVEL_SELECTPLANET, TEXT("EnemySpace_Body"));
 
 	//GAMEINSTANCE->Add_GameObject<CTextureDrawUI>(LEVEL_SELECTPLANET, TEXT("TextureDraw_UI"));
 
@@ -270,6 +270,11 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	}
 	
 	GAMEINSTANCE->Set_TimeScale(1.0f);
+
+
+	
+	GAMEINSTANCE->PlaySoundW(TEXT("SelectPlanet.wav"), BGM, 1.f);
+
 	
 	return S_OK;
 }
@@ -289,6 +294,8 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f*m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
 
 			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
+			GAMEINSTANCE->Add_BlurWidth();
+
 		}
 
 		if (0.f > m_fTime)
@@ -313,6 +320,8 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 					break;
 				}
 			}
+
+			GAMEINSTANCE->Reset_BlurWidth();
 
 			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
 				return;

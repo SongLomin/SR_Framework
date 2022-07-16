@@ -31,8 +31,6 @@ void CTargetingBox::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	
-
 }
 
 void CTargetingBox::LateTick(_float fTimeDelta)
@@ -41,6 +39,9 @@ void CTargetingBox::LateTick(_float fTimeDelta)
 
 
 	LookAtCamera();
+
+	_float3 ParentScale = m_pTransformCom->Get_Parent()->Get_Scaled();
+	m_pTransformCom->Scaling((ParentScale * 15.f), true);
 
 	m_pTransformCom->Turn(_float3(0.f, 0.f, 1.f), fTimeDelta, true);
 

@@ -238,6 +238,7 @@
     <ClInclude Include="..\Public\Rock_2.h" />
     <ClInclude Include="..\Public\Rock_3.h" />
     <ClInclude Include="..\Public\Rock_4.h" />
+    <ClInclude Include="..\Public\RollerSpawn_Effect.h" />
     <ClInclude Include="..\Public\Satellite_1.h" />
     <ClInclude Include="..\Public\Satellite_2.h" />
     <ClInclude Include="..\Public\Satellite_3.h" />
@@ -276,6 +277,7 @@
     <ClInclude Include="..\Public\Kang_Ship_Body.h" />
     <ClInclude Include="..\Public\TextBox.h" />
     <ClInclude Include="..\Public\TextureDrawUI.h" />
+    <ClInclude Include="..\Public\Trajectory.h" />
     <ClInclude Include="..\Public\Trajectory_PSystem.h" />
     <ClInclude Include="..\Public\TransportShip_HpBar.h" />
     <ClInclude Include="..\Public\Turret.h" />
@@ -362,6 +364,7 @@
     <ClCompile Include="..\Private\Rock_2.cpp" />
     <ClCompile Include="..\Private\Rock_3.cpp" />
     <ClCompile Include="..\Private\Rock_4.cpp" />
+    <ClCompile Include="..\Private\RollerSpawn_Effect.cpp" />
     <ClCompile Include="..\Private\Satellite_1.cpp" />
     <ClCompile Include="..\Private\Satellite_2.cpp" />
     <ClCompile Include="..\Private\Satellite_3.cpp" />
@@ -399,6 +402,7 @@
     <ClCompile Include="..\Private\Kang_Ship_Body.cpp" />
     <ClCompile Include="..\Private\TextBox.cpp" />
     <ClCompile Include="..\Private\TextureDrawUI.cpp" />
+    <ClCompile Include="..\Private\Trajectory.cpp" />
     <ClCompile Include="..\Private\Trajectory_PSystem.cpp" />
     <ClCompile Include="..\Private\TransportShip_HpBar.cpp" />
     <ClCompile Include="..\Private\Turret.cpp" />

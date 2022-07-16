@@ -98,16 +98,16 @@ HRESULT CLevel_ExoPlanet::Initialize()
 	
 	for (int i = 0; i < 300; ++i)
 	{
-		if (!GAMEINSTANCE->Add_GameObject<CRock_1>(LEVEL_EXOPLANET, TEXT("Satellite_1")))
+		if (!GAMEINSTANCE->Add_GameObject<CRock_1>(LEVEL_EXOPLANET, TEXT("Rock_1")))
 			return E_FAIL;
 
-		if (!GAMEINSTANCE->Add_GameObject<CRock_2>(LEVEL_EXOPLANET, TEXT("Satellite_2")))
+		if (!GAMEINSTANCE->Add_GameObject<CRock_2>(LEVEL_EXOPLANET, TEXT("Rock_2")))
 			return E_FAIL;
 
-		if (!GAMEINSTANCE->Add_GameObject<CRock_3>(LEVEL_EXOPLANET, TEXT("Satellite_1")))
+		if (!GAMEINSTANCE->Add_GameObject<CRock_3>(LEVEL_EXOPLANET, TEXT("Rock_3")))
 			return E_FAIL;
 
-		if (!GAMEINSTANCE->Add_GameObject<CRock_4>(LEVEL_EXOPLANET, TEXT("Satellite_2")))
+		if (!GAMEINSTANCE->Add_GameObject<CRock_4>(LEVEL_EXOPLANET, TEXT("Rock_4")))
 			return E_FAIL;
 	}
 
@@ -121,10 +121,14 @@ HRESULT CLevel_ExoPlanet::Initialize()
 		if (!GAMEINSTANCE->Add_GameObject<CSatellite_2>(LEVEL_EXOPLANET, TEXT("Satellite_2")))
 			return E_FAIL;
 	}
-
+	
 
 	if (!GAMEINSTANCE->Add_GameObject<CSatellite_3>(LEVEL_EXOPLANET, TEXT("Satellite_3")))
 		return E_FAIL;
+
+
+	
+	GAMEINSTANCE->PlaySoundW(TEXT("ExoPlanet.wav"), BGM, 1.f);
 
 	return S_OK;
 }
@@ -146,6 +150,7 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f * m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
 			
 			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
+			GAMEINSTANCE->Add_BlurWidth();
 		}
 	srand(unsigned(time(NULL)));
 	
@@ -160,7 +165,7 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 		GAMEINSTANCE->Swap_Camera();
 
 		CSong_Ship_Body* pMainCharacter = nullptr;
-
+		GAMEINSTANCE->Reset_BlurWidth();
 		list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 
 		if (!pAiObect)

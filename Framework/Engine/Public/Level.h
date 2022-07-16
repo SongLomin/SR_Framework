@@ -20,7 +20,7 @@ public:
 	virtual HRESULT Complete_Condition() = 0;//레벨이 바뀔 조건 등을 설정/비교->성공하면 넘어가게끔
 
 protected:
-	_float		m_fTime = 0.f;
+	_float		m_fTime = 5.f;
 	_float      m_fTextBoxTime = 300.f;
 	_float      m_fSpawnTime = 2.f;
 	_float      m_fMaxTime = 100;

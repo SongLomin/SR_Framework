@@ -332,9 +332,9 @@ void DeferredPipeline()
 	/* G-buffer stage */
 	SetMRT();
 	Device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
-
+	
 	Device->BeginScene();
-
+	Device->SetRenderState(D3DRS_LIGHTING, false);
 	//Device->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
 
 	D3DXHANDLE worldHandle = g_buffer_effect->GetParameterByName(0, "world");
@@ -378,160 +378,160 @@ void DeferredPipeline()
 	Device->EndScene();
 
 
-	/* deferred shading stage */
-	ResumeOriginRender();
-	Device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
-	Device->ColorFill(stashSurface, NULL, D3DXCOLOR(0.f, 0.f, 0.f, 0.f));
-
-	Device->BeginScene();
-
-	for (int i = 0; i < LIGHT_NUM; i++) 
-	{
-		D3DLIGHT9 light = lights[i];
-
-		ID3DXEffect* effect = NULL;
-
-		switch (light.Type) {
-		case D3DLIGHT_DIRECTIONAL:
-			effect = directional_light_effect;
-			break;
-		case D3DLIGHT_POINT:
-			effect = point_light_effect;
-			break;
-		case D3DLIGHT_SPOT:
-			effect = spot_light_effect;
-			break;
-		}
-
-		viewHandle = effect->GetParameterByName(0, "view");
-		effect->SetMatrix(viewHandle, &view);
-
-#ifdef STENCIL_CULLING
-		worldHandle = effect->GetParameterByName(0, "world");
-		projHandle = effect->GetParameterByName(0, "proj");
-
-		D3DXMATRIX scale;
-		int s = light.Range / sphereMeshRadius;
-		D3DXMatrixScaling(&scale, s, s, s);
-
-		D3DXMatrixTranslation(&world, light.Position.x, light.Position.y, light.Position.z);
-
-		world = scale * world;
-
-		effect->SetMatrix(worldHandle, &world);
-		effect->SetMatrix(projHandle, &proj);
-#endif
-
-		D3DXHANDLE screenSizeHandle = effect->GetParameterByName(0, "screenSize");
-		D3DXHANDLE viewAspectHandle = effect->GetParameterByName(0, "viewAspect");
-		D3DXHANDLE tanHalfFovHandle = effect->GetParameterByName(0, "tanHalfFov");
-
-		effect->SetFloatArray(screenSizeHandle, ScreenSize, 2);
-		effect->SetFloat(viewAspectHandle, ViewAspect);
-		effect->SetFloat(tanHalfFovHandle, TanHalfFov);
-
-
-		D3DXHANDLE lightAmbientHandle = effect->GetParameterByName(0, "light_ambient");
-		D3DXHANDLE lightDiffuseHandle = effect->GetParameterByName(0, "light_diffuse");
-		D3DXHANDLE lightSpecularHandle = effect->GetParameterByName(0, "light_specular");
-
-		//D3DXHANDLE lightPositionHandle = effect->GetParameterByName(0, "light_position");
-		D3DXHANDLE lightDirectionHandle = effect->GetParameterByName(0, "light_direction");
-
-		/*D3DXHANDLE lightRangeHandle = effect->GetParameterByName(0, "light_range");
-		D3DXHANDLE lightFalloffHandle = effect->GetParameterByName(0, "light_falloff");
-
-		D3DXHANDLE lightAttenuation0Handle = effect->GetParameterByName(0, "light_attenuation0");
-		D3DXHANDLE lightAttenuation1Handle = effect->GetParameterByName(0, "light_attenuation1");
-		D3DXHANDLE lightAttenuation2Handle = effect->GetParameterByName(0, "light_attenuation2");
-
-		D3DXHANDLE lightThetaHandle = effect->GetParameterByName(0, "light_theta");
-		D3DXHANDLE lightPhiHandle = effect->GetParameterByName(0, "light_phi");*/
-
-		float floatArray[3];
-
-		floatArray[0] = light.Ambient.r;
-		floatArray[1] = light.Ambient.g;
-		floatArray[2] = light.Ambient.b;
-		effect->SetFloatArray(lightAmbientHandle, floatArray, 3);
-
-		floatArray[0] = light.Diffuse.r;
-		floatArray[1] = light.Diffuse.g;
-		floatArray[2] = light.Diffuse.b;
-		effect->SetFloatArray(lightDiffuseHandle, floatArray, 3);
-
-		floatArray[0] = light.Specular.r;
-		floatArray[1] = light.Specular.g;
-		floatArray[2] = light.Specular.b;
-		effect->SetFloatArray(lightSpecularHandle, floatArray, 3);
-
-		/*floatArray[0] = light.Position.x;
-		floatArray[1] = light.Position.y;
-		floatArray[2] = light.Position.z;
-		effect->SetFloatArray(lightPositionHandle, floatArray, 3);*/
-
-		floatArray[0] = light.Direction.x;
-		floatArray[1] = light.Direction.y;
-		floatArray[2] = light.Direction.z;
-		effect->SetFloatArray(lightDirectionHandle, floatArray, 3);
-
-		/*effect->SetFloat(lightRangeHandle, light.Range);
-		effect->SetFloat(lightFalloffHandle, light.Falloff);
-
-		effect->SetFloat(lightAttenuation0Handle, light.Attenuation0);
-		effect->SetFloat(lightAttenuation1Handle, light.Attenuation1);
-		effect->SetFloat(lightAttenuation2Handle, light.Attenuation2);
-
-		effect->SetFloat(lightThetaHandle, light.Theta);
-		effect->SetFloat(lightPhiHandle, light.Phi);*/
-
-
-		D3DXHANDLE normalHandle = effect->GetParameterByName(0, "normalTex");
-		D3DXHANDLE depthHandle = effect->GetParameterByName(0, "depthTex");
-		D3DXHANDLE diffuseHandle = effect->GetParameterByName(0, "diffuseTex");
-		D3DXHANDLE specularHandle = effect->GetParameterByName(0, "specularTex");
-		D3DXHANDLE stashHandle = effect->GetParameterByName(0, "stashTex");
-
-		effect->SetTexture(normalHandle, normalTex);
-		effect->SetTexture(depthHandle, depthTex);
-		effect->SetTexture(diffuseHandle, diffuseTex);
-		effect->SetTexture(specularHandle, specularTex);
-		effect->SetTexture(stashHandle, stashTex);
-
-#ifdef STENCIL_CULLING
-		hTech = effect->GetTechniqueByName("StencilCulling");
-		//hTech = effect->GetTechniqueByName("Plain");
-#else
-		hTech = effect->GetTechniqueByName("Plain");
-#endif
-
-		effect->SetTechnique(hTech);
-
-#ifdef STENCIL_CULLING
-		Device->Clear(0, 0, D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
-#endif
-
-		numPasses = 0;
-		effect->Begin(&numPasses, 0);
-
-		for (int i = 0; i < numPasses; i++)
-		{
-			effect->BeginPass(i);
-#ifdef STENCIL_CULLING
-			DrawSphere();
-			//DrawScreenQuad();
-#else
-			DrawScreenQuad();
-#endif
-			effect->EndPass();
-		}
-		effect->End();
-
-		
-		Device->StretchRect(originRenderTarget, NULL, stashSurface, NULL, D3DTEXF_NONE);
-	}
-
-	Device->EndScene();
+//	/* deferred shading stage */
+//	ResumeOriginRender();
+//	Device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
+//	Device->ColorFill(stashSurface, NULL, D3DXCOLOR(0.f, 0.f, 0.f, 0.f));
+//
+//	Device->BeginScene();
+//
+//	for (int i = 0; i < LIGHT_NUM; i++) 
+//	{
+//		D3DLIGHT9 light = lights[i];
+//
+//		ID3DXEffect* effect = NULL;
+//
+//		switch (light.Type) {
+//		case D3DLIGHT_DIRECTIONAL:
+//			effect = directional_light_effect;
+//			break;
+//		case D3DLIGHT_POINT:
+//			effect = point_light_effect;
+//			break;
+//		case D3DLIGHT_SPOT:
+//			effect = spot_light_effect;
+//			break;
+//		}
+//
+//		viewHandle = effect->GetParameterByName(0, "view");
+//		effect->SetMatrix(viewHandle, &view);
+//
+//#ifdef STENCIL_CULLING
+//		worldHandle = effect->GetParameterByName(0, "world");
+//		projHandle = effect->GetParameterByName(0, "proj");
+//
+//		D3DXMATRIX scale;
+//		int s = light.Range / sphereMeshRadius;
+//		D3DXMatrixScaling(&scale, s, s, s);
+//
+//		D3DXMatrixTranslation(&world, light.Position.x, light.Position.y, light.Position.z);
+//
+//		world = scale * world;
+//
+//		effect->SetMatrix(worldHandle, &world);
+//		effect->SetMatrix(projHandle, &proj);
+//#endif
+//
+//		D3DXHANDLE screenSizeHandle = effect->GetParameterByName(0, "screenSize");
+//		D3DXHANDLE viewAspectHandle = effect->GetParameterByName(0, "viewAspect");
+//		D3DXHANDLE tanHalfFovHandle = effect->GetParameterByName(0, "tanHalfFov");
+//
+//		effect->SetFloatArray(screenSizeHandle, ScreenSize, 2);
+//		effect->SetFloat(viewAspectHandle, ViewAspect);
+//		effect->SetFloat(tanHalfFovHandle, TanHalfFov);
+//
+//
+//		D3DXHANDLE lightAmbientHandle = effect->GetParameterByName(0, "light_ambient");
+//		D3DXHANDLE lightDiffuseHandle = effect->GetParameterByName(0, "light_diffuse");
+//		D3DXHANDLE lightSpecularHandle = effect->GetParameterByName(0, "light_specular");
+//
+//		//D3DXHANDLE lightPositionHandle = effect->GetParameterByName(0, "light_position");
+//		D3DXHANDLE lightDirectionHandle = effect->GetParameterByName(0, "light_direction");
+//
+//		/*D3DXHANDLE lightRangeHandle = effect->GetParameterByName(0, "light_range");
+//		D3DXHANDLE lightFalloffHandle = effect->GetParameterByName(0, "light_falloff");
+//
+//		D3DXHANDLE lightAttenuation0Handle = effect->GetParameterByName(0, "light_attenuation0");
+//		D3DXHANDLE lightAttenuation1Handle = effect->GetParameterByName(0, "light_attenuation1");
+//		D3DXHANDLE lightAttenuation2Handle = effect->GetParameterByName(0, "light_attenuation2");
+//
+//		D3DXHANDLE lightThetaHandle = effect->GetParameterByName(0, "light_theta");
+//		D3DXHANDLE lightPhiHandle = effect->GetParameterByName(0, "light_phi");*/
+//
+//		float floatArray[3];
+//
+//		floatArray[0] = light.Ambient.r;
+//		floatArray[1] = light.Ambient.g;
+//		floatArray[2] = light.Ambient.b;
+//		effect->SetFloatArray(lightAmbientHandle, floatArray, 3);
+//
+//		floatArray[0] = light.Diffuse.r;
+//		floatArray[1] = light.Diffuse.g;
+//		floatArray[2] = light.Diffuse.b;
+//		effect->SetFloatArray(lightDiffuseHandle, floatArray, 3);
+//
+//		floatArray[0] = light.Specular.r;
+//		floatArray[1] = light.Specular.g;
+//		floatArray[2] = light.Specular.b;
+//		effect->SetFloatArray(lightSpecularHandle, floatArray, 3);
+//
+//		/*floatArray[0] = light.Position.x;
+//		floatArray[1] = light.Position.y;
+//		floatArray[2] = light.Position.z;
+//		effect->SetFloatArray(lightPositionHandle, floatArray, 3);*/
+//
+//		floatArray[0] = light.Direction.x;
+//		floatArray[1] = light.Direction.y;
+//		floatArray[2] = light.Direction.z;
+//		effect->SetFloatArray(lightDirectionHandle, floatArray, 3);
+//
+//		/*effect->SetFloat(lightRangeHandle, light.Range);
+//		effect->SetFloat(lightFalloffHandle, light.Falloff);
+//
+//		effect->SetFloat(lightAttenuation0Handle, light.Attenuation0);
+//		effect->SetFloat(lightAttenuation1Handle, light.Attenuation1);
+//		effect->SetFloat(lightAttenuation2Handle, light.Attenuation2);
+//
+//		effect->SetFloat(lightThetaHandle, light.Theta);
+//		effect->SetFloat(lightPhiHandle, light.Phi);*/
+//
+//
+//		D3DXHANDLE normalHandle = effect->GetParameterByName(0, "normalTex");
+//		D3DXHANDLE depthHandle = effect->GetParameterByName(0, "depthTex");
+//		D3DXHANDLE diffuseHandle = effect->GetParameterByName(0, "diffuseTex");
+//		D3DXHANDLE specularHandle = effect->GetParameterByName(0, "specularTex");
+//		D3DXHANDLE stashHandle = effect->GetParameterByName(0, "stashTex");
+//
+//		effect->SetTexture(normalHandle, normalTex);
+//		effect->SetTexture(depthHandle, depthTex);
+//		effect->SetTexture(diffuseHandle, diffuseTex);
+//		effect->SetTexture(specularHandle, specularTex);
+//		effect->SetTexture(stashHandle, stashTex);
+//
+//#ifdef STENCIL_CULLING
+//		hTech = effect->GetTechniqueByName("StencilCulling");
+//		//hTech = effect->GetTechniqueByName("Plain");
+//#else
+//		hTech = effect->GetTechniqueByName("Plain");
+//#endif
+//
+//		effect->SetTechnique(hTech);
+//
+//#ifdef STENCIL_CULLING
+//		Device->Clear(0, 0, D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
+//#endif
+//
+//		numPasses = 0;
+//		effect->Begin(&numPasses, 0);
+//
+//		for (int i = 0; i < numPasses; i++)
+//		{
+//			effect->BeginPass(i);
+//#ifdef STENCIL_CULLING
+//			DrawSphere();
+//			//DrawScreenQuad();
+//#else
+//			DrawScreenQuad();
+//#endif
+//			effect->EndPass();
+//		}
+//		effect->End();
+//
+//		
+//		Device->StretchRect(originRenderTarget, NULL, stashSurface, NULL, D3DTEXF_NONE);
+//	}
+//
+//	Device->EndScene();
 
 
 	
@@ -612,7 +612,7 @@ bool Display(float timeDelta)
 		Device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, 0x00000000, 1.0f, 0);
 		//PriorityPipeline();
 		DeferredPipeline();
-		FowardPipeline();
+		//FowardPipeline();
 		Device->Present(0, 0, g_hwnd, 0);
 	}
 	return true;

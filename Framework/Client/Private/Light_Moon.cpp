@@ -53,7 +53,7 @@ void CLight_Moon::LateTick(_float fTimeDelta)
 	__super::LateTick(fTimeDelta);
 
 
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+	//m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
 
 	LookAtCamera();
 
@@ -61,7 +61,7 @@ void CLight_Moon::LateTick(_float fTimeDelta)
 
 HRESULT CLight_Moon::Render()
 {
-	m_pTransformCom->Scaling(_float3(80.f, 80.f, 50.f), true);
+	/*m_pTransformCom->Scaling(_float3(80.f, 80.f, 50.f), true);
 
 	m_pTransformCom->Bind_WorldMatrix();
 
@@ -75,7 +75,7 @@ HRESULT CLight_Moon::Render()
 
 	DEVICE->SetRenderState(D3DRS_ALPHATESTENABLE, FALSE);
 
-	m_pRendererCom->UnBind_Texture();
+	m_pRendererCom->UnBind_Texture();*/
 
 
 
@@ -96,8 +96,8 @@ HRESULT CLight_Moon::SetUp_Components()
 	m_pRendererCom->Set_Textures_From_Key(TEXT("Light_Moon"), MEMORY_TYPE::MEMORY_STATIC);
 
 
-	m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
-	m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
+	//m_pVIBufferCom = Add_Component<CVIBuffer_Rect>();
+	//m_pVIBufferCom->Set_WeakPtr(&m_pVIBufferCom);
 
 	m_pDirectionalLightCom1 = Add_Component<CDirectionalLight>();
 	m_pDirectionalLightCom1->Set_WeakPtr(&m_pDirectionalLightCom1);
@@ -139,7 +139,7 @@ void CLight_Moon::Free()
 
 	RETURN_WEAKPTR(m_pTransformCom);
 	RETURN_WEAKPTR(m_pRendererCom);
-	RETURN_WEAKPTR(m_pVIBufferCom);
+	//RETURN_WEAKPTR(m_pVIBufferCom);
 
 	delete this;
 }

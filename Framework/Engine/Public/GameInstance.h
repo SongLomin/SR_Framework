@@ -14,6 +14,7 @@
 #include "ImguiMgr.h"
 #include "ZFrustum.h"
 #include "Math_Utillity.h"
+#include "Sound_Manager.h"
 
 /* 1. 게임내에 필요한 객체(매니져등)들을 모아서 보관한다. */
 /* 2. 클라이언트 개발자가 접근하기좋은 루트를 제공해준다. 나. */
@@ -104,6 +105,7 @@ public: /* For.Render_Mananger */
 	HRESULT Draw_RenderGroup();
 	HRESULT Add_Light(CLight* _pLight);
 	void	Add_BlurWidth();
+	void	Reset_BlurWidth();
 
 public: /* For.Resource_Mananger */
 	HRESULT Remove_Textures_By_MemoryType(MEMORY_TYPE _eMemType);
@@ -138,6 +140,16 @@ public: /* For.Camera_Manager */
 	void Switch_Camera(const _tchar* _CameraTag, _float _fTime);
 	void Switch_Player(CTransform* _pCurCamera, CTransform* _pNextCamera, const _tchar* _NextCameraTag, _float fTime);
 
+public: /* For.Sound_Manager */
+	int  VolumeUp(CHANNELID eID, _float _vol);
+	int  VolumeDown(CHANNELID eID, _float _vol);
+	int  BGMVolumeUp(_float _vol);
+	int  BGMVolumeDown(_float _vol);
+	int  Pause(CHANNELID eID);
+	void PlaySoundW(TCHAR* pSoundKey, CHANNELID eID, _float _vol);
+	void PlayBGM(TCHAR* pSoundKey);
+	void StopSound(CHANNELID eID);
+	void StopAll();
 
 
 public: /* For.IMGUI_Manager */
@@ -165,7 +177,9 @@ private:
 	CCamera_Manager*				m_pCamera_Manager = nullptr;
 	//CImguiMgr*						m_pIMGUI_Manager = nullptr;
 	CCollision_Manager*				m_pCollision_Manager = nullptr;
+	CSound_Manager*                 m_pSound_Manager = nullptr;
 	CZFrustum*						m_pZFrustum = nullptr;
+	
 private:
 	GRAPHICDESC						m_Graphic_Desc;
 	_float							m_fTimeScale = 1.f;

@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Math_Utillity.h"
 #include "Fire_PSystem.h"
+#include "SpotLight.h"
 
 CTurret::CTurret()
 {
@@ -95,10 +96,14 @@ HRESULT CTurret::SetUp_Components()
 
     COLLISION_TYPE eCollisionType = COLLISION_TYPE::ITEM;
     m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisionType);
-    m_pColliderCom->Set_Collider_Size(_float3(40.f, 40.f, 40.f));
     WEAK_PTR(m_pColliderCom);
+    m_pColliderCom->Set_Collider_Size(_float3(40.f, 40.f, 40.f));
     m_pColliderCom->Link_Transform(m_pTransformCom);
     m_pColliderCom->Set_Enable(false);
+
+    m_pLightCom = Add_Component<CSpotLight>();
+    m_pLightCom->Set_Preset_ItemLight();
+    WEAK_PTR(m_pLightCom);
 
     SetUp_Components_For_Child();
 
@@ -165,8 +170,10 @@ void CTurret::On_Collision_Stay(CCollider* _Other_Collider)
             m_pTransformCom->Set_Parent(PlayerTransformCom);
             PlayerTransformCom->Add_Child(m_pTransformCom);
             m_pColliderCom->Set_Enable(false);
+            m_pLightCom->Set_Enable(false);
 
             Set_Controller(PlayerTransformCom->Get_Owner()->Get_Controller());
+            
         }
 
         else
@@ -193,7 +200,10 @@ void CTurret::OnEnable(void* _Arg)
         m_fLifeTime = 30.f;
         m_pTransformCom->Set_LocalMatrix(IdentityMat);
         m_pColliderCom->Set_Enable(false);
+        m_pLightCom->Set_Enable(true);
         m_fMagnetic = 3.f;
+
+        
         
     }
 }

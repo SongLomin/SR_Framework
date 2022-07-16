@@ -57,7 +57,11 @@ HRESULT CMainApp::Initialize()
 		m_pDeferredLayers[i]->Set_Enable(false);
 	}
 
+	static_cast<CTextureDrawUI*>(GAMEINSTANCE->Add_GameObject<CTextureDrawUI>(LEVEL_STATIC, TEXT("RenderTarget")))->Set_Option(_float2(g_iWinCX * 0.5, g_iWinCY * 0.5f), _float2(g_iWinCX, g_iWinCY), RENDERGROUP::RENDER_HDR);
+	static_cast<CTextureDrawUI*>(GAMEINSTANCE->Add_GameObject<CTextureDrawUI>(LEVEL_STATIC, TEXT("RenderTarget")))->Set_Option(_float2(g_iWinCX * 0.5, g_iWinCY * 0.5f), _float2(g_iWinCX, g_iWinCY), RENDERGROUP::RENDER_BLOOM);
+	static_cast<CTextureDrawUI*>(GAMEINSTANCE->Add_GameObject<CTextureDrawUI>(LEVEL_STATIC, TEXT("RenderTarget")))->Set_Option(_float2(g_iWinCX * 0.5, g_iWinCY * 0.5f), _float2(g_iWinCX, g_iWinCY), RENDERGROUP::RENDER_BRIGHTNESS);
 	static_cast<CTextureDrawUI*>(GAMEINSTANCE->Add_GameObject<CTextureDrawUI>(LEVEL_STATIC, TEXT("RenderTarget")))->Set_Option(_float2(g_iWinCX * 0.5, g_iWinCY * 0.5f), _float2(g_iWinCX, g_iWinCY), RENDERGROUP::RENDER_POSTPROCCESSING);
+	
 
 	return S_OK;
 }

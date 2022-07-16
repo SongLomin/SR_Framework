@@ -165,8 +165,11 @@ void CTargeting::Make_TargetList_Look(list<CGameObject*>* pTarget, CTransform* p
 
 }
 
-void CTargeting::Make_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _vPosition, _float _fRange)
+void CTargeting::Make_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _vPosition, _float _fRange, _bool _bIsClear)
 {//À¯µµÅº ¿ë
+	if (_bIsClear)
+		Clear_Targeting();
+
 	if (nullptr == pTarget)
 		return;
 
@@ -183,10 +186,10 @@ void CTargeting::Make_TargetList_Distance(list<CGameObject*>* pTarget, _float3 _
 		}
 	}
 
-	if (!m_pTargeting.empty())
-		return;
+	/*if (!m_pTargeting.empty())
+		return;*/
 
-	Clear_Targeting();
+	//Clear_Targeting();
 
 
 	for (auto iter = pTarget->begin();

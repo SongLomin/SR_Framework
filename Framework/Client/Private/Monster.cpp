@@ -54,6 +54,7 @@ void CMonster::LateTick(_float fTimeDelta)
 	{
 		m_pTargetingCom->Add_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("AI_Friendly")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f, true);
 		m_pTargetingCom->Add_TargetList_Distance(GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f, false);
+		m_pTargetingCom->Add_TargetList_Distance(GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("TransportShip")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f, false);
 
 		auto TargetList = m_pTargetingCom->Get_Targetting();
 
@@ -67,7 +68,7 @@ void CMonster::LateTick(_float fTimeDelta)
 
 	if (m_pStatusCom->Get_Status().fHp < m_pStatusCom->Get_Status().fMaxHp / 2.f)
 	{
-		((CSmoke_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CSmoke_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
+		//((CSmoke_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CSmoke_PSystem>(CURRENT_LEVEL, TEXT("Particle_Smoke")))->AddParticle(500 * fTimeDelta, m_pTransformCom->Get_World_State(CTransform::STATE_POSITION));
 	}
 
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
@@ -108,14 +109,22 @@ void CMonster::Update_Target(CGameObject* _Target)
 	if (!_Target)
 		return;
 
-	for (auto& elem : m_pPosinList)
+	if (!m_pPosinList.empty())
 	{
-		elem->Set_AI_Target(_Target);
+		for (auto& elem : m_pPosinList)
+		{
+			if(elem)
+				elem->Set_AI_Target(_Target);
+		}
 	}
 
-	for (auto& elem : m_pBayonetList)
+	if (!m_pBayonetList.empty())
 	{
-		elem->Set_AI_Target(_Target);
+		for (auto& elem : m_pBayonetList)
+		{
+			if(elem)
+				elem->Set_AI_Target(_Target);
+		}
 	}
 
 }
@@ -165,19 +174,19 @@ void CMonster::Drop_Item()
 
 	if (random < 7)
 	{
-		Turret = GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_SELECTPLANET, TEXT("Normal_Turret"), nullptr, nullptr, true);
+		Turret = GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), nullptr, nullptr, true);
 	}
 
 	else if (random < 12)
 	{
-		Turret = GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_SELECTPLANET, TEXT("Rocket_Turret"), nullptr, nullptr, true);
+		Turret = GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_STATIC, TEXT("Rocket_Turret"), nullptr, nullptr, true);
 	}
 
 	else if (random < 16)
 	{
 		//·¹ÀÌÀú ÅÍ·¿
 
-		Turret = GAMEINSTANCE->Add_GameObject<CLazer_Turret>(LEVEL_SELECTPLANET, TEXT("Lazer_Turret"), nullptr, nullptr, true);
+		Turret = GAMEINSTANCE->Add_GameObject<CLazer_Turret>(LEVEL_STATIC, TEXT("Lazer_Turret"), nullptr, nullptr, true);
 	}
 
 	else
@@ -186,9 +195,11 @@ void CMonster::Drop_Item()
 	}
 
 
-	if(Turret)
+	if (Turret)
+	{
+		GAMEINSTANCE->PlaySoundW(TEXT("Drop_Turret.wav"), EFFECT, 0.3f);
 		Turret->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION, true));
-
+	}
 }
 
 
@@ -208,8 +219,8 @@ void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 		((CFire_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle_Fire")))->AddParticle(50, m_pTransformCom);
 		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
 		{
+			GAMEINSTANCE->PlaySoundW(TEXT("Enemy_Boom.wav"), EFFECT, 0.3f);
 			//Set_Dead();
-
 			_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 
 			if (GAMEINSTANCE->IsIn(&vPos))

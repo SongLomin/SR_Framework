@@ -33,6 +33,7 @@ public:
 public:
     void            Set_Preset_PowLight();
     void            Set_Preset_SunLight();
+    void            Set_Preset_ItemLight();
 
 
 protected:

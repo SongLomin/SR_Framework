@@ -84,14 +84,14 @@ HRESULT CLevel_CharacterSelect::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CSelectShip>(LEVEL_CHARACTERSELECT, TEXT("SelectShip_UI")))
 		return E_FAIL;
 
-
-
-
-	
-
 	m_vMovePos = _float3(0.f, 5.f, -20.f);
 	GAMEINSTANCE->Get_Camera()->Get_Transform()->Set_State(CTransform::STATE_POSITION, m_vMovePos);
 	GAMEINSTANCE->Get_Camera()->Get_Transform()->LookAt(_float3(0.f, 0.f, 0.f));
+
+
+
+	GAMEINSTANCE->PlaySoundW(TEXT("SelectPlayer.wav"), BGM, 1.f);
+
 	return S_OK;
 }
 
@@ -137,6 +137,8 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP) /* || 버튼 눌렀을 때*/)
 	{
+		GAMEINSTANCE->StopSound(BGM);
+
 		if (-1 != m_iIndex)
 		{
 			CGameObject* pPlayer = nullptr;

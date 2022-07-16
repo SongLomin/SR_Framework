@@ -78,7 +78,14 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 		{
 			wstring Message = TEXT("Fire");
 			Get_Owner()->Broadcast_EventMessage(&Message);
+			GAMEINSTANCE->PlaySoundW(TEXT("NormalBullet.wav"), PLAYERBULLET, 0.2f);
 		}
+
+		else
+		{
+			GAMEINSTANCE->StopSound(PLAYERBULLET);
+		}
+
 
 		if (KEY_INPUT(KEY::RBUTTON, KEY_STATE::HOLD))
 		{
@@ -94,6 +101,8 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TargetBoard")), m_pMyObject->Get_Component<CTransform>(), 20.f, false);
 			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace")), m_pMyObject->Get_Component<CTransform>(), 20.f, false);
 			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Roller")), m_pMyObject->Get_Component<CTransform>(), 20.f, false);
+			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Boss")), m_pMyObject->Get_Component<CTransform>(), 20.f, false);
+			m_pMyObject->Get_Component<CTargeting>()->Make_TargetList_Cursor(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Scourge")), m_pMyObject->Get_Component<CTransform>(), 20.f, false);
 
 			m_fTime = 1.f;
 		}
@@ -130,6 +139,7 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 		if (fBooster >= 2.f && KEY_INPUT(KEY::LSHIFT, KEY_STATE::HOLD))
 		{
 			m_pMyObject->Get_Component<CRigid_Body>()->Set_Booster(true);
+		    GAMEINSTANCE->PlaySoundW(TEXT("Booster.wav"), PLAYER, 0.5f);
 			GAMEINSTANCE->Add_Shaking(0.2f, 0.01f);	
 			pPlayerStatusCom->Add_Status(CStatus::STATUSID::STATUS_BOOSTER, -0.05);
 			GAMEINSTANCE->Add_BlurWidth();
@@ -137,7 +147,7 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 
 		else
 		{
-			
+			GAMEINSTANCE->StopSound(PLAYER);
 			m_pMyObject->Get_Component<CRigid_Body>()->Set_Booster(false);
 		}
 

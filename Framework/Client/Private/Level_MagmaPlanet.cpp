@@ -126,6 +126,10 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	//GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVEL_VENUSPLANET, TEXT("Earth"));
 
 
+	
+	GAMEINSTANCE->PlaySoundW(TEXT("MagmaPlanet.wav"), BGM, 1.f);
+
+
 	return S_OK;
 }
 
@@ -172,6 +176,7 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f * m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
 			// 이게 맞냐
 			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
+			GAMEINSTANCE->Add_BlurWidth();
 		}
 
 		if (0.f > m_fTime)
@@ -201,6 +206,8 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
 	{
+		GAMEINSTANCE->StopAll();
+		GAMEINSTANCE->Reset_BlurWidth();
 		GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
 	}
 
@@ -323,7 +330,7 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 	{
 		m_pQuestBoxObject->Set_Enable(true);
 
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)270 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n      엘리트 비행선 섬멸  \n           %d / 100    \n     남은시간 (초) :"), 0 , m_iMonsterCount);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)270 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n      엘리트 비행선 섬멸  \n           %d / 30    \n     남은시간 (초) :"), 0 , m_iMonsterCount);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)308 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("\n  %d"), 1, (_uint)m_fMaxTime);
 
 		if (m_iFontiX <= 1040)

@@ -14,6 +14,7 @@ CGameInstance::CGameInstance()
 	, m_pInput_Manager(CInput_Manager::Get_Instance())
 	, m_pCamera_Manager(CCamera_Manager::Get_Instance())
 	, m_pCollision_Manager(CCollision_Manager::Get_Instance())
+	, m_pSound_Manager(CSound_Manager::Get_Instance())
 	//, m_pIMGUI_Manager(CImguiMgr::Get_Instance())
 	, m_pZFrustum(CZFrustum::Get_Instance())
 {
@@ -45,6 +46,7 @@ HRESULT CGameInstance::Initialize_Engine(HINSTANCE hInst, _uint iNumLevels, cons
 
 	m_pCollision_Manager->Initialize();
 	m_pRender_Manager->Initialize();
+	m_pSound_Manager->Initialize();
 
 	/* 컴포넌트 매니져의 예약. */
 	//if (FAILED(m_pComponent_Manager->Reserve_Container(iNumLevels)))
@@ -305,6 +307,11 @@ void CGameInstance::Add_BlurWidth()
 	m_pRender_Manager->Add_BlurWidth();
 }
 
+void CGameInstance::Reset_BlurWidth()
+{
+	m_pRender_Manager->Reset_BlurWidth();
+}
+
 HRESULT CGameInstance::Load_Textures(const _tchar* _strKey, const _tchar* pTextureFilePath, TEXTURE_TYPE eType, MEMORY_TYPE eMemType)
 {
 	return m_pResource_Manager->Load_Textures(_strKey, pTextureFilePath, eType, eMemType);
@@ -430,6 +437,51 @@ void CGameInstance::Switch_Player(CTransform* _pCurCamera, CTransform* _pNextCam
 	m_pCamera_Manager->Switch_Player(_pCurCamera, _pNextCamera, _NextCameraTag, fTime);
 }
 
+int CGameInstance::VolumeUp(CHANNELID eID, _float _vol)
+{
+	return m_pSound_Manager->VolumeUp(eID, _vol);
+}
+
+int CGameInstance::VolumeDown(CHANNELID eID, _float _vol)
+{
+	return m_pSound_Manager->VolumeDown(eID, _vol);
+}
+
+int CGameInstance::BGMVolumeUp(_float _vol)
+{
+	return m_pSound_Manager->BGMVolumeUp(_vol);
+}
+
+int CGameInstance::BGMVolumeDown(_float _vol)
+{
+	return m_pSound_Manager->BGMVolumeDown(_vol);
+}
+
+int CGameInstance::Pause(CHANNELID eID)
+{
+	return m_pSound_Manager->Pause(eID);
+}
+
+void CGameInstance::PlaySoundW(TCHAR* pSoundKey, CHANNELID eID, _float _vol)
+{
+	m_pSound_Manager->PlaySoundW(pSoundKey, eID, _vol);
+}
+
+void CGameInstance::PlayBGM(TCHAR* pSoundKey)
+{
+	m_pSound_Manager->PlayBGM(pSoundKey);
+}
+
+void CGameInstance::StopSound(CHANNELID eID)
+{
+	m_pSound_Manager->StopSound(eID);
+}
+
+void CGameInstance::StopAll()
+{
+	m_pSound_Manager->StopAll();
+}
+
 void CGameInstance::Add_Collider(CCollider* pCollider)
 {
 	m_pCollision_Manager->Add_Collider(pCollider);
@@ -492,6 +544,8 @@ void CGameInstance::Release_Engine()
 	CZFrustum::Get_Instance()->Destroy_Instance();
 
 	CCollision_Manager::Get_Instance()->Destroy_Instance();
+
+	CSound_Manager::Get_Instance()->Destroy_Instance();
 }
 
 void CGameInstance::Free()

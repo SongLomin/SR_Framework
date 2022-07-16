@@ -17,6 +17,8 @@ CLazer_Bullet::CLazer_Bullet(const CLazer_Bullet& Prototype)
 
 HRESULT CLazer_Bullet::Initialize_Prototype()
 {
+	m_fDamage = 0.3f;
+
 	return S_OK;
 }
 
@@ -48,15 +50,15 @@ void CLazer_Bullet::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_NONALPHABLEND, this);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_BLOOMABLE, this);
 }
 
 HRESULT CLazer_Bullet::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.3f, 0.3f, 100.f), true);
+	m_pTransformCom->Scaling(_float3(0.8f, 0.3f, 100.f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
-	/*D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
+	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
 
 
 	float floatArray[3];
@@ -64,7 +66,7 @@ HRESULT CLazer_Bullet::Render_Begin(ID3DXEffect** Shader)
 	floatArray[1] = 1.0f;
 	floatArray[2] = 0.0f;
 
-	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);*/
+	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 
 
 	return S_OK;

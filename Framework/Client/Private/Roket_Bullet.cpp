@@ -18,7 +18,7 @@ CRocket_Bullet::CRocket_Bullet(const CRocket_Bullet& Prototype)
 
 HRESULT CRocket_Bullet::Initialize_Prototype()
 {
-	m_fDamage = 10.f;
+	m_fDamage = 7.f;
 
 	return S_OK;
 }
@@ -47,7 +47,7 @@ void CRocket_Bullet::LateTick(_float fTimeDelta)
 {
 	__super::LateTick(fTimeDelta);
 	m_pRigidBodyCom->Update_Transform(fTimeDelta);
-	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_DEFERRED, this);
+	m_pRendererCom->Add_RenderGroup(RENDERGROUP::RENDER_BLOOMABLE, this);
 }
 
 HRESULT CRocket_Bullet::Render_Begin(ID3DXEffect** Shader)
@@ -59,9 +59,9 @@ HRESULT CRocket_Bullet::Render_Begin(ID3DXEffect** Shader)
 
 
 	float floatArray[3];
-	floatArray[0] = 0.2f;
+	floatArray[0] = 0.7f;
 	floatArray[1] = 0.0f;
-	floatArray[2] = 0.2f;
+	floatArray[2] = 0.7f;
 
 	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 
@@ -88,88 +88,80 @@ HRESULT CRocket_Bullet::Render()
 	return S_OK;
 }
 
-void CRocket_Bullet::Find_Way(_float fTimeDelta)
-{
-	if (m_fLifeTime < 0.f)
-		return;
 
-	
-
-
-	if (9.3f < m_fLifeTime)//발사 후, 초반 0.5초 동안은 방향 조정연출(?)
-	{
-		m_pRigidBodyCom->Add_Dir(CRigid_Body::DOWN);
-		return;
-	}
-
-	else if(9.f > m_fLifeTime)
-	{
-		if (nullptr == m_pTarget || !m_pTarget->Get_Enable())
-		{
-
-			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
-			map<_float, CGameObject*>* pMap = m_pTargetingCom->Get_Targetting();
-			if (!pMap->empty())
-			{
-				m_pTarget = pMap->begin()->second;
-			}
-		}
-		if (m_pTarget)
-		{
-			_float3 fDistance = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
-			
-			_float3 TargetPos =  m_pTarget->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
-
-			fDistance -= TargetPos;
-
-			_float test = D3DXVec3Length(&fDistance);
-			
-			if (40.f > test)
-			{
-				m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>());
-				m_pTransformCom->Go_BackAndForth(1.f, fTimeDelta);
-				m_pTransformCom->Update_WorldMatrix();
-			}
-			else
-			{
-				_float3 vDir = m_pTarget->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION) - m_pTransformCom->Get_State(CTransform::STATE_POSITION);
-				_float3 vLook = m_pRigidBodyCom->Get_Direction(CRigid_Body::STATE_LOOK);
-				D3DXVec3Normalize(&vDir, &vDir);
-				D3DXVec3Normalize(&vLook, &vLook);
-
-				_float fDotProduct = D3DXVec3Dot(&vDir, &vLook);
-				if (0.f > fDotProduct)
-				{
-					_float3 fCrossProduct;
-					D3DXVec3Cross(&fCrossProduct, &vLook, &vDir);
-					_float3 vUp = m_pRigidBodyCom->Get_Direction(CRigid_Body::STATE_UP);
-					_float  fDotProduct = D3DXVec3Dot(&fCrossProduct, &vUp);
-					if (0.f > fDotProduct)
-					{
-						m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
-					}
-					else if (0.f < fDotProduct)
-					{
-						m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
-					}
-				}
-				else
-				{
-					_float3 vVec = fDotProduct * vDir;
-					D3DXVec3Normalize(&vVec, &vVec);
-
-					_float3 vProj = vVec + vLook;
-					D3DXVec3Normalize(&vProj, &vProj);
-
-					m_pRigidBodyCom->Set_Direction(CRigid_Body::STATE_LOOK, vProj);
-				}
-			}
-		}
-	}
-
-	((CRocket_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CRocket_PSystem>(CURRENT_LEVEL, TEXT("Rocket_Particle")))->AddParticle(200 * fTimeDelta, m_pTransformCom);
-	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
-}
+//	else if(9.f > m_fLifeTime)
+//	{
+//		if (nullptr == m_pTarget || !m_pTarget->Get_Enable())
+//		{
+//
+//			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f, true);
+//			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_StagBeetle")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+//			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TargetBoard")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+//			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+//			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Roller")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+//
+//			map<_float, CGameObject*>* pMap = m_pTargetingCom->Get_Targetting();
+//			if (!pMap->empty())
+//			{
+//				m_pTarget = pMap->begin()->second;
+//			}
+//		}
+//		if (m_pTarget)
+//		{
+//			_float3 fDistance = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
+//			
+//			_float3 TargetPos =  m_pTarget->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION);
+//
+//			fDistance -= TargetPos;
+//
+//			_float test = D3DXVec3Length(&fDistance);
+//			
+//			if (40.f > test)
+//			{
+//				m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>());
+//				m_pTransformCom->Go_BackAndForth(1.f, fTimeDelta);
+//				m_pTransformCom->Update_WorldMatrix();
+//			}
+//			else
+//			{
+//				_float3 vDir = m_pTarget->Get_Component<CTransform>()->Get_World_State(CTransform::STATE_POSITION) - m_pTransformCom->Get_State(CTransform::STATE_POSITION);
+//				_float3 vLook = m_pRigidBodyCom->Get_Direction(CRigid_Body::STATE_LOOK);
+//				D3DXVec3Normalize(&vDir, &vDir);
+//				D3DXVec3Normalize(&vLook, &vLook);
+//
+//				_float fDotProduct = D3DXVec3Dot(&vDir, &vLook);
+//				if (0.f > fDotProduct)
+//				{
+//					_float3 fCrossProduct;
+//					D3DXVec3Cross(&fCrossProduct, &vLook, &vDir);
+//					_float3 vUp = m_pRigidBodyCom->Get_Direction(CRigid_Body::STATE_UP);
+//					_float  fDotProduct = D3DXVec3Dot(&fCrossProduct, &vUp);
+//					if (0.f > fDotProduct)
+//					{
+//						m_pRigidBodyCom->Add_Dir(CRigid_Body::LEFT);
+//					}
+//					else if (0.f < fDotProduct)
+//					{
+//						m_pRigidBodyCom->Add_Dir(CRigid_Body::RIGHT);
+//					}
+//				}
+//				else
+//				{
+//					_float3 vVec = fDotProduct * vDir;
+//					D3DXVec3Normalize(&vVec, &vVec);
+//
+//					_float3 vProj = vVec + vLook;
+//					D3DXVec3Normalize(&vProj, &vProj);
+//
+//					m_pRigidBodyCom->Set_Direction(CRigid_Body::STATE_LOOK, vProj);
+//				}
+//			}
+//		}
+//	}
+//
+//	((CRocket_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CRocket_PSystem>(CURRENT_LEVEL, TEXT("Rocket_Particle")))->AddParticle(200 * fTimeDelta, m_pTransformCom);
+//	m_pRigidBodyCom->Add_Dir(CRigid_Body::FRONT);
+//}
 
 void CRocket_Bullet::Set_Target(CGameObject* _pTarget)
 {
@@ -223,32 +215,57 @@ void CRocket_Bullet::OnTimerEvent(const _uint _iEventIndex)
 	}
 	else if (1 == _iEventIndex)
 	{
+		
+
 		if (nullptr == m_pTarget || !m_pTarget->Get_Enable())
 		{
-
-			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
-			map<_float, CGameObject*>* pMap = m_pTargetingCom->Get_Targetting();
-			if (!pMap->empty())
+			if (m_pTarget)
 			{
-				m_pTarget = pMap->begin()->second;
+				if (!m_pTarget->Get_Enable())
+				{
+					RETURN_WEAKPTR(m_pTarget);
+					m_pTarget = nullptr;
+				}
+				else
+				{
+					m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f, true);
+					m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_StagBeetle")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+					m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TargetBoard")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+					m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+					m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Roller")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+					m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Boss")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+					m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Scourge")), m_pTransformCom->Get_World_State(CTransform::STATE_POSITION), 200.f);
+					map<_float, CGameObject*>* pMap = m_pTargetingCom->Get_Targetting();
+					if (!pMap->empty())
+					{
+						m_pTarget = pMap->begin()->second;
+						WEAK_PTR(m_pTarget);
+					}
+				}
 			}
+
+		
+			
 		}
 		if (m_pTarget)
 		{
-			
-			m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>());
+			if(m_pTarget->Get_Enable()) 
+				m_pTransformCom->LookAt(m_pTarget->Get_Component<CTransform>());
 		
 		}
 		m_pTransformCom->Go_BackAndForth(1.f, 1.f);
 		m_pTransformCom->Update_WorldMatrix();
+
 	}
+
+	((CRocket_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CRocket_PSystem>(CURRENT_LEVEL, TEXT("Rocket_Particle")))->AddParticle(200 * TIMEDELTA, m_pTransformCom);
 }
 
 HRESULT CRocket_Bullet::SetUp_Components_For_Child(COLLISION_TYPE _eCollisionType)
 {
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.m_fOwnerSpeed = 50.f;
-	RigidBodyDesc.m_fOwnerAccel = 1.f;
+	RigidBodyDesc.m_fOwnerSpeed = 80.f;
+	RigidBodyDesc.m_fOwnerAccel = 1.5f;
 	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(120.0f);
 	RigidBodyDesc.m_fOwnerRadAccel = 0.3f;
 	RigidBodyDesc.m_fOwnerJump = 0.f;
@@ -313,6 +330,7 @@ void CRocket_Bullet::OnDisable()
 	__super::OnDisable();
 
 	m_pColliderCom->OnDisable();
+	RETURN_WEAKPTR(m_pTarget);
 }
 
 
@@ -336,6 +354,7 @@ void CRocket_Bullet::Free()
 		m_pRendererCom->Return_WeakPtr(&m_pRendererCom);
 
 	RETURN_WEAKPTR(m_pLight);
+	RETURN_WEAKPTR(m_pTarget);
 
 	__super::Free();
 

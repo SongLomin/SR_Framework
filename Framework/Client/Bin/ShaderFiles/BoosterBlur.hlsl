@@ -64,15 +64,27 @@ vector PS_MAIN(PS_IN In) : COLOR0
 	vector			vColor = vector(0.f, 0.f, 0.f, 0.f);
 
 	float fBlurStart = 1.f;
-	float2 center = float2(0.5f, 0.5f);
+	float2 center = float2(0.5f, 0.5f);//중심점<-마우스의 위치를 받아오면 마우스를 중심으로 블러됨
 
 	In.vTexUV.xy -= center;
+
 	float fPrecompute = blurWidth * (1.0f / 19.f);
 
 	for (int i = 0; i < 20; ++i)
 	{
 		float scale = fBlurStart + (float(i) * fPrecompute);
 		float2 uv = In.vTexUV.xy * scale + center;
+
+		if (0.f > uv.x)
+			uv.x = 0.f;
+		else if (1.f < uv.x)
+			uv.x = 1.f;
+
+		if (0.f > uv.y)
+			uv.y = 0.f;
+		else if (1.f < uv.y)
+			uv.y = 1.f;
+
 		vColor += tex2D(DefaultSampler, uv);
 	}
 

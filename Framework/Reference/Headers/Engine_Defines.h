@@ -57,8 +57,16 @@
 #define D3D_TRANS			    0x004
 #define D3D_ALL					0x007
 
+#define SOUND_MAX 1.0f
+#define SOUND_MIN 0.0f
+#define SOUND_DEFAULT 0.5f
+#define SOUND_WEIGHT 0.1f
+
 using namespace Engine;
 using namespace std;
+
+#include <io.h>
+#pragma comment(lib, "fmodex64_vc.lib")
 
 
 

@@ -87,3 +87,18 @@ void CLight::Set_Preset_SunLight()
 	m_D3DLight.Attenuation1 = 0.007f;
 	m_D3DLight.Attenuation2 = 0.001f;
 }
+
+void CLight::Set_Preset_ItemLight()
+{
+	m_Margin_Position = _float3(0.f, 10.f, 0.f);
+	m_D3DLight.Range = 15.f;
+	m_D3DLight.Falloff = 1.f;
+	m_D3DLight.Phi = 20;
+	m_D3DLight.Theta = 10;
+
+	m_D3DLight.Attenuation0 = 1.0f;
+	m_D3DLight.Attenuation1 = 0.007f;
+	m_D3DLight.Attenuation2 = 0.001f;
+
+
+}

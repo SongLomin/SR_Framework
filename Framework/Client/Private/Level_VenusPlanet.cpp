@@ -91,9 +91,8 @@ HRESULT CLevel_VenusPlanet::Initialize()
 	m_pPlanetObject->Set_Enable(false);
 	
 
-	
 
-
+	GAMEINSTANCE->PlaySoundW(TEXT("VenusPlanet.wav"), BGM, 1.f);
 	return S_OK;
 }
 
@@ -134,6 +133,7 @@ void CLevel_VenusPlanet::Tick(_float fTimeDelta)
 			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f * m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
 			
 			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
+			GAMEINSTANCE->Add_BlurWidth();
 		}
 
 		if (0.f > m_fTime)
@@ -158,7 +158,7 @@ void CLevel_VenusPlanet::Tick(_float fTimeDelta)
 					break;
 				}
 			}
-
+			GAMEINSTANCE->Reset_BlurWidth();
 			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
 				return;
 		}
@@ -166,6 +166,7 @@ void CLevel_VenusPlanet::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
 	{
+		GAMEINSTANCE->StopSound(BGM);
 		GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
 	}
 

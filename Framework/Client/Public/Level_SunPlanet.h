@@ -19,7 +19,17 @@ public:
 	virtual HRESULT Complete_Condition() { return S_OK; }
 
 private:
+	_uint m_iSpawnCount = 0;
+	_float m_fTextCount = 5.f;
+
+private:
 	void SunPlanet_Event(_float fTimeDelta);
+
+private:
+	CGameObject* m_pBossObject = nullptr;
+	CGameObject* m_pBossHpObject = nullptr;
+	CGameObject* m_pBossTableObject = nullptr;
+	CGameObject* m_pBossNameObject = nullptr;
 
 public:
 	static CLevel_SunPlanet* Create();

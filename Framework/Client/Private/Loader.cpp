@@ -102,9 +102,9 @@ HRESULT CLoader::Loading_ForLogoLevel()
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
 		return E_FAIL;
 
-	/*if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Booster"), TEXT("../Bin/Resources/Textures/UI/Booster.png"),
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Booster_UI"), TEXT("../Bin/Resources/Textures/UI/Booster.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
-		return E_FAIL;*/
+		return E_FAIL;
 
 	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("Shield"), TEXT("../Bin/Resources/Textures/UI/Shield.png"),
 		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
@@ -217,8 +217,18 @@ HRESULT CLoader::Loading_ForLogoLevel()
 	GAMEINSTANCE->Load_Shader(TEXT("DrawSurface"), TEXT("../Bin/ShaderFiles/DrawSurface.hlsl"));
 	GAMEINSTANCE->Load_Shader(TEXT("BoosterBlur"), TEXT("../Bin/ShaderFiles/BoosterBlur.hlsl"));
 
+	GAMEINSTANCE->Load_Shader(TEXT("ExtractBloom"), TEXT("../Bin/ShaderFiles/ExtractBloom.hlsl"));
+	GAMEINSTANCE->Load_Shader(TEXT("XBlur"), TEXT("../Bin/ShaderFiles/XBlur.hlsl"));
+	GAMEINSTANCE->Load_Shader(TEXT("Bloom"), TEXT("../Bin/ShaderFiles/Bloom.hlsl"));
+	GAMEINSTANCE->Load_Shader(TEXT("ExtractBrightness"), TEXT("../Bin/ShaderFiles/ExtractBrightness.hlsl"));
+
+
+	GAMEINSTANCE->Load_Shader(TEXT("DrawColor"), TEXT("../Bin/ShaderFiles/DrawColor.hlsl"));
+
 	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
 		return E_FAIL;
+
+
 
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
@@ -281,6 +291,25 @@ HRESULT CLoader::Loading_ForCharacterSelect()
 
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
 
+
+
+	lstrcpy(m_szLoadingText, TEXT("사운드를 로딩중 입니다. "));
+
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/SelectPlayer.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/SelectPlanet.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/MagmaPlanet.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/VenusPlanet.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/RedPlanet.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/ExoPlanet.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/SunPlanet.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/Dive.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/NormalBullet.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/Booster.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/Drop_Turret.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/Enemy_Boom.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/RockObject_Boom.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/RockObject_Boom2.wav"));
+ 
 
 	lstrcpy(m_szLoadingText, TEXT("로딩 끝 "));
 
@@ -416,7 +445,11 @@ HRESULT CLoader::Loading_ForSelectPlanet()
 HRESULT CLoader::Loading_ForSunPlanet()
 {
 	lstrcpy(m_szLoadingText, TEXT("텍스쳐를 로딩중 입니다. "));
+	
 
+	if (FAILED(GAMEINSTANCE->Load_Textures(TEXT("RollerSpawn_Effect"), TEXT("../Bin/Resources/Textures/Effect/RollerSpawn.png"),
+		TEXTURE_TYPE::TYPE_DEFAULT, MEMORY_TYPE::MEMORY_STATIC)))
+		return E_FAIL;
 
 	lstrcpy(m_szLoadingText, TEXT("모델을 로딩중 입니다. "));
 

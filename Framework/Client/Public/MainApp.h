@@ -14,7 +14,7 @@ END
 BEGIN(Client)
 class CTextureDrawUI;
 
-#define LAYERCNT 4
+#define LAYERCNT 5
 class CMainApp final : public CBase
 {
 

@@ -136,8 +136,19 @@ void CBillboard_Object::On_Collision_Enter(CCollider* _Other_Collider)
 		vOtherColliderSpeed += vCollisionDirection;
 
 		m_pRigidBodyCom->Add_Force(vOtherColliderSpeed * 3.f);
+		
+		_uint iSound = rand() % 2 + 1;
 
-
+		switch (iSound)
+		{
+		case 1:
+			GAMEINSTANCE->PlaySoundW(TEXT("RockObject_Boom.wav"), EFFECT, 0.5f);
+			break;
+		case 2:
+			GAMEINSTANCE->PlaySoundW(TEXT("RockObject_Boom2.wav"), EFFECT2, 0.5f);
+			break;
+		}
+	
 		((CRock_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CRock_PSystem>(CURRENT_LEVEL, TEXT("Particle_Rock")))->AddParticle(50, m_pTransformCom);
 		CGameObject* pParticle = GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false);
 		((CBomb_Effect*)pParticle)->Set_Pos(pRockPos);

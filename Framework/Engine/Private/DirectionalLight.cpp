@@ -88,6 +88,7 @@ void CDirectionalLight::Tick(_float fTimeDelta)
 void CDirectionalLight::LateTick(_float fTimeDelta)
 {
 	GAMEINSTANCE->Add_Light(this);
+	GAMEINSTANCE->Add_Light(this);
 }
 
 CDirectionalLight* CDirectionalLight::Create()
@@ -136,10 +137,24 @@ void CDirectionalLight::Bind_ConstBuffer()
 	floatArray[2] = m_D3DLight.Specular.b;
 	(*m_ppLightEffect)->SetFloatArray(lightSpecularHandle, floatArray, 3);
 
+	m_iIndex++;
+	m_iIndex = m_iIndex % 2;
 
-	floatArray[0] = m_D3DLight.Direction.x;
+	_float3 Dir = m_D3DLight.Direction;
+	//Dir.x *= m_iIndex == 0 ? 1.f : -1.f;
+	//Dir.z *= m_iIndex == 0 ? 1.f : -1.f;
+
+	Dir *= m_iIndex == 0 ? 1.f : -1.f;
+
+	/*floatArray[0] = m_D3DLight.Direction.x;
 	floatArray[1] = m_D3DLight.Direction.y;
-	floatArray[2] = m_D3DLight.Direction.z;
+	floatArray[2] = m_D3DLight.Direction.z;*/
+
+	floatArray[0] = Dir.x;
+	floatArray[1] = Dir.y;
+	floatArray[2] = Dir.z;
+
+
 	(*m_ppLightEffect)->SetFloatArray(lightDirectionHandle, floatArray, 3);
 
 
