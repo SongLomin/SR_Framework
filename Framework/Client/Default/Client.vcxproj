@@ -238,6 +238,7 @@
     <ClInclude Include="..\Public\Rock_2.h" />
     <ClInclude Include="..\Public\Rock_3.h" />
     <ClInclude Include="..\Public\Rock_4.h" />
+    <ClInclude Include="..\Public\RollerSpawn_Effect.h" />
     <ClInclude Include="..\Public\Satellite_1.h" />
     <ClInclude Include="..\Public\Satellite_2.h" />
     <ClInclude Include="..\Public\Satellite_3.h" />
@@ -363,6 +364,7 @@
     <ClCompile Include="..\Private\Rock_2.cpp" />
     <ClCompile Include="..\Private\Rock_3.cpp" />
     <ClCompile Include="..\Private\Rock_4.cpp" />
+    <ClCompile Include="..\Private\RollerSpawn_Effect.cpp" />
     <ClCompile Include="..\Private\Satellite_1.cpp" />
     <ClCompile Include="..\Private\Satellite_2.cpp" />
     <ClCompile Include="..\Private\Satellite_3.cpp" />

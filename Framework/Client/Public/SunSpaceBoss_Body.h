@@ -37,8 +37,9 @@ private:
     CMesh_SongShip* m_pMeshCom = nullptr;
 
 private:
-    CTransform* m_pEnemyTransform = nullptr;
-    CGameObject* m_pRockObject = nullptr;
+    _bool m_bSkill = false;
+    _float m_fSkillTime = 3.f;
+    _float m_fRadian = 0.f;
 
 private:
     _float  m_fMonsterSpawn = 20.f;

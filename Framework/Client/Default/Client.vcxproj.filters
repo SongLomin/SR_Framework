@@ -372,6 +372,9 @@
     <Filter Include="02.GameObject\03. Bullet\Rocket">
       <UniqueIdentifier>{4e1ddc4f-c212-49e2-b683-3ad8501e612c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObject\13. Effect\RollerSpawn_Effect">
+      <UniqueIdentifier>{9a85158f-7d96-45dc-b172-9932eb8d701c}</UniqueIdentifier>
+    </Filter>
     <Filter Include="02.GameObject\15. Trajectory">
       <UniqueIdentifier>{d287f0d2-0309-4aec-833f-b158aa920ca0}</UniqueIdentifier>
     </Filter>
@@ -731,6 +734,9 @@
     <ClInclude Include="..\Public\TextureDrawUI.h">
       <Filter>02.GameObject\07. UI\TextureDrawUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\RollerSpawn_Effect.h">
+      <Filter>02.GameObject\13. Effect\RollerSpawn_Effect</Filter>
+    </ClInclude>
     <ClInclude Include="..\Public\Trajectory.h">
       <Filter>02.GameObject\15. Trajectory</Filter>
     </ClInclude>
@@ -1083,6 +1089,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\TextureDrawUI.cpp">
       <Filter>02.GameObject\07. UI\TextureDrawUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\RollerSpawn_Effect.cpp">
+      <Filter>02.GameObject\13. Effect\RollerSpawn_Effect</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Trajectory.cpp">
       <Filter>02.GameObject\15. Trajectory</Filter>

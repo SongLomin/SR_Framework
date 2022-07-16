@@ -16,6 +16,8 @@
 #include "Level_Loading.h"
 #include "MovingCamera.h"
 #include <SunSpaceBoss_Body.h>
+#include <Enemy_Roller.h>
+#include <RollerSpawn_Effect.h>
 #include "Boss_HpTable.h"
 #include "Boss_HpBar.h"
 #include "Boss_Name.h"
@@ -192,6 +194,73 @@ void CLevel_SunPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 
 void CLevel_SunPlanet::SunPlanet_Event(_float fTimeDelta)
 {
+	m_fTextBoxTime -= fTimeDelta;
+
+
+	if (m_fTextBoxTime <= 288.f && !m_bEventCheck[0])
+	{
+		m_pTextBoxObject->Set_Enable(true);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT(" 저 앞에 적군의 본체가 있네 ! \n 어서 본함을 부수고 이 전쟁을 끝내세 !! "), 0);
+	}
+
+	if (m_fTextBoxTime <= 283.f && !m_bEventCheck[0])
+	{
+		m_pTextBoxObject->Set_Enable(false);
+		m_bEventCheck[0] = true;
+	}
+
+
+	list<CGameObject*>* EnemyBoss = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Boss"));
+	if (EnemyBoss)
+	{
+		for (auto& elem : *EnemyBoss)
+		{
+			if (elem->Get_Enable() == false)
+			{
+				m_fTextCount -= fTimeDelta;
+				// 중간보스 클리어
+				if (m_iSpawnCount == 0)
+				{
+					((CEnemy_Roller*)GAMEINSTANCE->Add_GameObject<CEnemy_Roller>(CURRENT_LEVEL, TEXT("Enemy_Roller")))
+						->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION,
+							elem->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION, true));
+					((CRollerSpawn_Effect*)GAMEINSTANCE->Add_GameObject<CRollerSpawn_Effect>(CURRENT_LEVEL, TEXT("RollerSpawn")))
+						->Set_Pos(elem->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION, true));
+				}
+				++m_iSpawnCount;
+				if (!m_bEventCheck[1])
+				{
+					m_pTextBoxObject->Set_Enable(true);
+					GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT(" 본함에서 함장이 나왔네 ! \n 함장을 죽이면 전쟁은 끝날걸세 !! "), 0);
+					//m_fTextCount = 5.f;
+				}
+			}
+			if (!m_bEventCheck[1] && m_fTextCount < 0.f)
+			{
+				m_pTextBoxObject->Set_Enable(false);
+				m_bEventCheck[1] = true;
+			}
+		}
+	}
+
+
+	EnemyBoss = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Roller"));
+	if (EnemyBoss)
+	{
+		for (auto& elem : *EnemyBoss)
+		{
+			if (elem->Get_Enable() == false)
+			{
+				// 최종보스 클리어
+				if (!m_bEventCheck[2])
+				{
+					m_pTextBoxObject->Set_Enable(true);
+					GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("자네 덕에 전쟁에서 승리했네 ! \n이제 돌아가서 편안히 쉬시게 !! "), 0);
+				}
+
+			}
+		}
+	}
 }
 
 CLevel_SunPlanet* CLevel_SunPlanet::Create()
