@@ -45,6 +45,7 @@ private:
 	void Foward_Pipeline();
 
 	void Bloom_Pipeline();
+	void Extract_Brightness();
 
 	bool SetupTexture(IDirect3DTexture9** texture, IDirect3DSurface9** surface);
 	void SetMRT();
@@ -59,7 +60,6 @@ private:
 private: /* For Defferred Rendering */
 	IDirect3DSurface9* originRenderTarget = nullptr;
 	IDirect3DTexture9* originTex = nullptr;
-
 	IDirect3DSurface9* TemporaryRenderTarget = nullptr;
 
 	IDirect3DTexture9* normalTex = nullptr;

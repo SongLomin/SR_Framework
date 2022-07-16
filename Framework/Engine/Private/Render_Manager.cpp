@@ -361,10 +361,24 @@ void CRender_Manager::Foward_Pipeline()
 
 	DEVICE->StretchRect(originRenderTarget, nullptr, TemporaryRenderTarget, nullptr, D3DTEXF_LINEAR);
 
+	Extract_Brightness();
 	//뽑아낸 영역에 블러처리
 	Apply_Blur(RENDERGROUP::RENDER_HDR, ExtractBloomTex);
 	Apply_Bloom(RENDERGROUP::RENDER_BLOOM);
 	//D3DXSaveTextureToFile(TEXT("HDRSurface.bmp"), D3DXIFF_BMP, BloomTex, nullptr);
+	
+	//DEVICE->StretchRect(originRenderTarget, nullptr, TemporaryRenderTarget, nullptr, D3DTEXF_LINEAR);
+
+	//D3DXSaveTextureToFile(TEXT("OriginTex.bmp"), D3DXIFF_BMP, originTex, nullptr);
+
+	
+	//Apply_Blur(RENDERGROUP::RENDER_HDR, ExtractBloomTex);
+	//Apply_Bloom(RENDERGROUP::RENDER_BLOOM);
+	//D3DXSaveTextureToFile(TEXT("OriginTex_After_Brightness.bmp"), D3DXIFF_BMP, originTex, nullptr);
+	//D3DXSaveTextureToFile(TEXT("ExtractBrightness.bmp"), D3DXIFF_BMP, ExtractBrightnessTex, nullptr);
+
+	//Apply_Blur(RENDERGROUP::RENDER_HDR, ExtractBloomTex);
+	//Apply_Bloom(RENDERGROUP::RENDER_BLOOMABLE);*/
 
 	DEVICE->StretchRect(originRenderTarget, nullptr, TemporaryRenderTarget, nullptr, D3DTEXF_LINEAR);
 	
@@ -373,12 +387,11 @@ void CRender_Manager::Foward_Pipeline()
 	
 	
 	
-	
-	
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_NORMAL, normalTex);
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_DEPTH, depthTex);
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_DIFFUSE, diffuseTex);
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_SPECULAR, specularTex);
+	Draw_Divide_ViewPort(RENDERGROUP::RENDER_VIEWBLOOM, BloomTex);
 
 	
 }
@@ -450,6 +463,82 @@ void CRender_Manager::Bloom_Pipeline()
 	}
 
 	DEVICE->SetRenderTarget(1, NULL);
+
+}
+
+void CRender_Manager::Extract_Brightness()
+{
+	ID3DXEffect** ppShader = GAMEINSTANCE->Get_Shader_From_Key(TEXT("ExtractBrightness"));
+
+	if (!ppShader)
+	{
+		return;
+	}
+
+	DEVICE->GetRenderTarget(0, &originRenderTarget);
+	DEVICE->SetRenderTarget(0, ExtractBloomSurface);
+	
+	//DEVICE->ColorFill(ExtractBrightnessSurface, NULL, D3DXCOLOR(0.f, 0.f, 0.f, 0.f));
+
+	CCamera* pCamera = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA);
+
+	/*if (pCamera)
+		pCamera->Bind_PipeLine();*/
+
+	D3DXHANDLE hTech = 0;
+	UINT numPasses = 0;
+
+	hTech = (*ppShader)->GetTechniqueByName("DefaultTechnique");
+	(*ppShader)->SetTechnique(hTech);
+
+
+	/*D3DXHANDLE worldHandle = (*ppShader)->GetParameterByName(0, "world");
+	D3DXHANDLE viewHandle = (*ppShader)->GetParameterByName(0, "view");
+	D3DXHANDLE projHandle = (*ppShader)->GetParameterByName(0, "proj");
+
+	_float4x4 view, proj, world;
+	DEVICE->GetTransform(D3DTS_VIEW, &view);
+	DEVICE->GetTransform(D3DTS_PROJECTION, &proj);
+
+	(*ppShader)->SetMatrix(viewHandle, &view);
+	(*ppShader)->SetMatrix(projHandle, &proj);*/
+
+
+	D3DXHANDLE ExtractBrightnessHandle = (*ppShader)->GetParameterByName(0, "ExtractBrightnessTex");
+
+	(*ppShader)->SetTexture(ExtractBrightnessHandle, originTex);		
+
+	for (auto iter = m_RenderObjects[(_uint)RENDERGROUP::RENDER_BRIGHTNESS].begin(); iter != m_RenderObjects[(_uint)RENDERGROUP::RENDER_BRIGHTNESS].end();)
+	{
+		if ((*iter))
+		{
+
+			(*iter)->Render_Begin(ppShader);
+
+			//DEVICE->GetTransform(D3DTS_WORLD, &world);
+
+			//(*ppShader)->SetMatrix(worldHandle, &world);
+
+			(*ppShader)->Begin(&numPasses, 0);
+			for (_uint i = 0; i < numPasses; i++)
+			{
+				(*ppShader)->BeginPass(i);
+
+				(*iter)->Render();
+
+				(*ppShader)->EndPass();
+			}
+			(*ppShader)->End();
+
+
+			//(*iter)->Render();
+			(*iter)->Return_WeakPtr(&(*iter));
+		}
+
+		iter = m_RenderObjects[(_uint)RENDERGROUP::RENDER_BRIGHTNESS].erase(iter);
+	}
+
+	DEVICE->SetRenderTarget(0, originRenderTarget);
 
 }
 
