@@ -309,7 +309,14 @@ HRESULT CLoader::Loading_ForCharacterSelect()
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/Enemy_Boom.wav"));
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/RockObject_Boom.wav"));
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/RockObject_Boom2.wav"));
- 
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/Laser.wav"));
+
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/RollerSpawn.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/Rock_Spawn.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/EnemySpawn.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/Boss_Die.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/Player_Hit.wav"));
+
 
 	lstrcpy(m_szLoadingText, TEXT("·Îµù ³¡ "));
 

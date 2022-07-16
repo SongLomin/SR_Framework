@@ -226,13 +226,15 @@ void CLevel_SunPlanet::SunPlanet_Event(_float fTimeDelta)
 							elem->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION, true));
 					((CRollerSpawn_Effect*)GAMEINSTANCE->Add_GameObject<CRollerSpawn_Effect>(CURRENT_LEVEL, TEXT("RollerSpawn")))
 						->Set_Pos(elem->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION, true));
+
+					GAMEINSTANCE->PlaySoundW(TEXT("RollerSpawn.wav"), SYSTEM_EFFECT, 1.f);
 				}
 				++m_iSpawnCount;
 				if (!m_bEventCheck[1])
 				{
 					m_pTextBoxObject->Set_Enable(true);
 					GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT(" 본함에서 함장이 나왔네 ! \n 함장을 죽이면 전쟁은 끝날걸세 !! "), 0);
-					//m_fTextCount = 5.f;
+		
 				}
 			}
 			if (!m_bEventCheck[1] && m_fTextCount < 0.f)
@@ -245,17 +247,21 @@ void CLevel_SunPlanet::SunPlanet_Event(_float fTimeDelta)
 
 
 	EnemyBoss = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Roller"));
-	if (EnemyBoss)
+
+	if (EnemyBoss && !m_bRollerDie)
 	{
 		for (auto& elem : *EnemyBoss)
 		{
 			if (elem->Get_Enable() == false)
 			{
+				
 				// 최종보스 클리어
 				if (!m_bEventCheck[2])
 				{
 					m_pTextBoxObject->Set_Enable(true);
 					GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("자네 덕에 전쟁에서 승리했네 ! \n이제 돌아가서 편안히 쉬시게 !! "), 0);
+					GAMEINSTANCE->PlaySoundW(TEXT("Boss_Die.wav"), SYSTEM_EFFECT, 1.f);
+					m_bRollerDie = true;
 				}
 
 			}
