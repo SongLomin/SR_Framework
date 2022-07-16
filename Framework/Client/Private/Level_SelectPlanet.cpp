@@ -319,7 +319,7 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 				}
 			}
 
-			GAMEINSTANCE->StopSound(BGM);
+
 			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
 				return;
 
