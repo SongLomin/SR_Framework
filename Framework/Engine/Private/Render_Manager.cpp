@@ -314,10 +314,28 @@ void CRender_Manager::Foward_Pipeline()
 
 		if (i == (_uint)RENDERGROUP::RENDER_ALPHABLEND)
 		{
-			m_RenderObjects[i].sort([](CGameObject* pSour, CGameObject* pDest)
+			//리스트에 nullptr이 있다면 소트 전에 삭제해준다.
+			for (auto iter = m_RenderObjects[i].begin(); iter != m_RenderObjects[i].end();)
+			{
+				if (!(*iter))
 				{
-					return pSour->Get_CamDistance() > pDest->Get_CamDistance();
-				});
+					iter = m_RenderObjects[i].erase(iter);
+				}
+
+				else
+				{
+					iter++;
+				}
+			}
+
+
+			if (m_RenderObjects[i].size() > 1)
+			{
+				m_RenderObjects[i].sort([](CGameObject* pSour, CGameObject* pDest)
+					{
+						return pSour->Get_CamDistance() > pDest->Get_CamDistance();
+					});
+			}
 		}
 
 
