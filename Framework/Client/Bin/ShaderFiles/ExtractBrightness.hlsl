@@ -1,19 +1,49 @@
-texture g_FinalTex;
-sampler g_FinalSam = sampler_state
+matrix world;
+matrix view;
+matrix proj;
+
+
+texture ExtractBrightnessTex;
+sampler ExtractBrightnessSam = sampler_state
 {
-    texture = g_FinalTex;
+    texture = ExtractBrightnessTex;
+
+    MINFILTER = LINEAR;
+    MAGFILTER = LINEAR;
+    MIPFILTER = LINEAR;
 };
 
-texture g_BlurTex;
-sampler g_BlurSam = sampler_state
+struct VS_IN
 {
-    texture = g_BlurTex;
+    float3 vPosition : POSITION;
+    float2 vTexUV : TEXCOORD0;
 };
 
-float4 PS_MAIN(float2 vUV : TEXCOORD0) : COLOR
+struct VS_OUT
 {
-    float BrightColor = 0.f;
-    float4 FragColor = tex2D(g_FinalSam, vUV);
+    float4 vPosition : POSITION;
+    float2 vTexUV : TEXCOORD0;
+};
+
+VS_OUT VS_MAIN(/* Á¤Á¡*/VS_IN In)
+{
+    VS_OUT		Out;
+
+    vector		vPosition = mul(float4(In.vPosition, 1.f), world);
+    vPosition = mul(vPosition, view);
+    vPosition = mul(vPosition, proj);
+
+    Out.vPosition = vPosition;
+    Out.vTexUV = In.vTexUV;
+
+
+    return Out;
+}
+
+float4 PS_MAIN(float2 vUV : TEXCOORD0) : COLOR0
+{
+    float4 BrightColor = (float4)0.f;
+    float4 FragColor = tex2D(ExtractBrightnessSam, vUV);
 
     float brightness = dot(FragColor.rgb, float3(0.2126f, 0.7152f, 0.0722f));
     if (brightness > 0.99)
@@ -28,7 +58,7 @@ technique DefaultTech
     {
         ZWriteEnable = false;
         lighting = false;
-        VertexShader = NULL;
+        VertexShader = compile vs_3_0 VS_MAIN();
         PixelShader = compile ps_3_0 PS_MAIN();
     }
 }

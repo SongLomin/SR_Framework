@@ -220,6 +220,8 @@ HRESULT CLoader::Loading_ForLogoLevel()
 	GAMEINSTANCE->Load_Shader(TEXT("ExtractBloom"), TEXT("../Bin/ShaderFiles/ExtractBloom.hlsl"));
 	GAMEINSTANCE->Load_Shader(TEXT("XBlur"), TEXT("../Bin/ShaderFiles/XBlur.hlsl"));
 	GAMEINSTANCE->Load_Shader(TEXT("Bloom"), TEXT("../Bin/ShaderFiles/Bloom.hlsl"));
+	GAMEINSTANCE->Load_Shader(TEXT("ExtractBrightness"), TEXT("../Bin/ShaderFiles/ExtractBrightness.hlsl"));
+
 
 	if (!GAMEINSTANCE->Add_GameObject<CLoading>(LEVEL_LOADING, TEXT("Loading")))
 		return E_FAIL;
