@@ -296,7 +296,12 @@ HRESULT CLoader::Loading_ForCharacterSelect()
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/SunPlanet.wav"));
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/Dive.wav"));
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/NormalBullet.wav"));
-
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/Booster.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/Drop_Turret.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/Enemy_Boom.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/RockObject_Boom.wav"));
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/RockObject_Boom2.wav"));
+ 
 
 	lstrcpy(m_szLoadingText, TEXT("·Îµù ³¡ "));
 

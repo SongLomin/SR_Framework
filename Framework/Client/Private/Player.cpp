@@ -80,12 +80,12 @@ void CPlayer::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("NormalBullet.wav"), PLAYER, 0.3f);
+		
 	}
 
 	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::NONE))
 	{
-		GAMEINSTANCE->StopSound(PLAYER);
+		
 	}
 
 
