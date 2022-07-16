@@ -46,17 +46,17 @@ float4 PS_MAIN(float2 vUV : TEXCOORD0) : COLOR0
     float4 FragColor = tex2D(ExtractBrightnessSam, vUV);
 
     float brightness = dot(FragColor.rgb, float3(0.2126f, 0.7152f, 0.0722f));
-    if (brightness > 0.99)
+    if (brightness > 0.75)
         BrightColor = float4(FragColor.rgb, 1.0);
 
     return BrightColor;
 }
 
-technique DefaultTech
+technique DefaultTechnique
 {
     pass Pass0
     {
-        ZWriteEnable = false;
+        //ZWriteEnable = false;
         lighting = false;
         VertexShader = compile vs_3_0 VS_MAIN();
         PixelShader = compile ps_3_0 PS_MAIN();
