@@ -230,7 +230,10 @@ void CSunSpaceBoss_Body::EMP()
 
 void CSunSpaceBoss_Body::LookAtPlayer()
 {
-	CTransform* pPlayerObject = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform()->Get_Owner()->Get_Component<CTransform>();
+	CCamera* pCamera= GAMEINSTANCE->Get_Camera(CURRENT_CAMERA);
+	if (!pCamera)
+		return;
+	CTransform* pPlayerObject = pCamera->Get_Owner()->Get_Component<CTransform>();
 	WEAK_PTR(pPlayerObject);
 
 	m_pTransformCom->LookAt(pPlayerObject, true);

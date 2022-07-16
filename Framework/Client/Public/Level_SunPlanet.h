@@ -18,6 +18,9 @@ public:
 	virtual void Change_Level(void* pArg, _uint _iNextLevel);
 	virtual HRESULT Complete_Condition() { return S_OK; }
 
+public:
+	virtual void OnTimerEvent(const _uint _iEventIndex);
+
 private:
 	_uint m_iSpawnCount = 0;
 	_float m_fTextCount = 5.f;
