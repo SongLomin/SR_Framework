@@ -39,6 +39,11 @@ protected:
 	CGameObject* m_pQuestBoxObject = nullptr;
 	CGameObject* m_pTagetObject = nullptr;
 	CGameObject* m_pPlanetObject = nullptr;
+
+	CGameObject* m_pBoss = nullptr;
+	CGameObject* m_pBoss_HP_Bar = nullptr;
+	CGameObject* m_pBoss_HP_Table = nullptr;
+	CGameObject* m_pBoss_Name_Table = nullptr;
 	
 
 public:

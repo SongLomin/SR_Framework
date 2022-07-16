@@ -76,6 +76,7 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 
 		if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
 		{
+
 			wstring Message = TEXT("Fire");
 			Get_Owner()->Broadcast_EventMessage(&Message);
 			GAMEINSTANCE->PlaySoundW(TEXT("NormalBullet.wav"), PLAYERBULLET, 0.2f);
