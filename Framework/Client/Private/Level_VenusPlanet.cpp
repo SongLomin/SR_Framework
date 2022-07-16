@@ -91,9 +91,8 @@ HRESULT CLevel_VenusPlanet::Initialize()
 	m_pPlanetObject->Set_Enable(false);
 	
 
-	
 
-
+	GAMEINSTANCE->PlaySoundW(TEXT("VenusPlanet.wav"), BGM, 1.f);
 	return S_OK;
 }
 
@@ -167,6 +166,7 @@ void CLevel_VenusPlanet::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
 	{
+		GAMEINSTANCE->StopSound(BGM);
 		GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
 	}
 

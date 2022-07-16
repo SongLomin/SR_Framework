@@ -244,6 +244,8 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 		}
 	}
 
+	
+	GAMEINSTANCE->PlaySoundW(TEXT("RedPlanet.wav"), BGM, 1.f);
 	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
 	{
 		GAMEINSTANCE->Reset_BlurWidth();
@@ -521,6 +523,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 		m_bEventCheck[6] = true;
 		GAMEINSTANCE->Add_Text(_point{ (LONG)640, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 2.f, TEXT("Red Planet 임무완료!"), 0);
 		GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
+		GAMEINSTANCE->StopAll();
 	}
 
 

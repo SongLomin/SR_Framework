@@ -121,10 +121,14 @@ HRESULT CLevel_ExoPlanet::Initialize()
 		if (!GAMEINSTANCE->Add_GameObject<CSatellite_2>(LEVEL_EXOPLANET, TEXT("Satellite_2")))
 			return E_FAIL;
 	}
-
+	
 
 	if (!GAMEINSTANCE->Add_GameObject<CSatellite_3>(LEVEL_EXOPLANET, TEXT("Satellite_3")))
 		return E_FAIL;
+
+
+	
+	GAMEINSTANCE->PlaySoundW(TEXT("ExoPlanet.wav"), BGM, 1.f);
 
 	return S_OK;
 }

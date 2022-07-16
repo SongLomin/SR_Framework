@@ -195,9 +195,11 @@ void CMonster::Drop_Item()
 	}
 
 
-	if(Turret)
+	if (Turret)
+	{
+		GAMEINSTANCE->PlaySoundW(TEXT("Drop_Turret.wav"), EFFECT, 0.3f);
 		Turret->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION, true));
-
+	}
 }
 
 
@@ -217,8 +219,8 @@ void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 		((CFire_PSystem*)GAMEINSTANCE->Get_ParticleSystem<CFire_PSystem>(CURRENT_LEVEL, TEXT("Particle_Fire")))->AddParticle(50, m_pTransformCom);
 		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
 		{
+			GAMEINSTANCE->PlaySoundW(TEXT("Enemy_Boom.wav"), EFFECT, 0.3f);
 			//Set_Dead();
-
 			_float3 vPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 
 			if (GAMEINSTANCE->IsIn(&vPos))

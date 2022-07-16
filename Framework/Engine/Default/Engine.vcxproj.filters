@@ -262,6 +262,9 @@
     <Filter Include="01.Utility\03.Components\07. Collider\04. Collider_Ray">
       <UniqueIdentifier>{aeb37a33-b8b3-48b4-b6e4-139fd5c1ad19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\04.Manager\11. Sound_Manager">
+      <UniqueIdentifier>{212b288e-3c74-4eff-a6a9-385f647fd972}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h">
@@ -527,6 +530,9 @@
     <ClInclude Include="..\Public\Collider_Ray.h">
       <Filter>01.Utility\03.Components\07. Collider\04. Collider_Ray</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Sound_Manager.h">
+      <Filter>01.Utility\04.Manager\11. Sound_Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -773,6 +779,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Collider_Ray.cpp">
       <Filter>01.Utility\03.Components\07. Collider\04. Collider_Ray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Sound_Manager.cpp">
+      <Filter>01.Utility\04.Manager\11. Sound_Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

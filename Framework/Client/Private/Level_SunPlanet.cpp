@@ -16,6 +16,9 @@
 #include "Level_Loading.h"
 #include "MovingCamera.h"
 #include <SunSpaceBoss_Body.h>
+#include "Boss_HpTable.h"
+#include "Boss_HpBar.h"
+#include "Boss_Name.h"
 
 CLevel_SunPlanet::CLevel_SunPlanet()
 {
@@ -56,6 +59,17 @@ HRESULT CLevel_SunPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_SUNPLANET, TEXT("Aim")))
 		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CBossHpTable>(LEVEL_SUNPLANET, TEXT("Boss_HP_Table")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CBossName>(LEVEL_SUNPLANET, TEXT("Boss_Name")))
+		return E_FAIL;
+
+	if (!GAMEINSTANCE->Add_GameObject<CBossHpBar>(LEVEL_SUNPLANET, TEXT("Boss_HP_Bar")))
+		return E_FAIL;
+
+
+
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SUNPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);
 
@@ -69,6 +83,9 @@ HRESULT CLevel_SunPlanet::Initialize()
 
 	if (!GAMEINSTANCE->Add_GameObject<CSunSpaceBoss_Body>(LEVEL_SUNPLANET, TEXT("Enemy_Boss")))
 		return E_FAIL;
+
+
+	GAMEINSTANCE->PlaySoundW(TEXT("SunPlanet.wav"), BGM, 1.f);
 
 	return S_OK;
 }

@@ -73,10 +73,22 @@ void CPlayer::Tick(_float fTimeDelta)
 				//}
 
 				elem->Set_Controller(CONTROLLER::PLAYER);
-			}
+			} 
 		}
 		++i;
 	}
+
+	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
+	{
+		
+	}
+
+	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::NONE))
+	{
+		
+	}
+
+
 }
 
 void CPlayer::LateTick(_float fTimeDelta)
