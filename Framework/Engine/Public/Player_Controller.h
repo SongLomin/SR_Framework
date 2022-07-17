@@ -23,6 +23,9 @@ private:
 	_float  m_fTime = 1.f;
 	_uint   m_iCurrent_TargetMode = 0;
 
+	_uint	m_iBoosterSoundChannelIndex = -1;
+	_uint	m_iShotSoundChannelIndex = -1;
+
 public:
 	static CPlayer_Controller* Create();
 	virtual CController* Clone(void* pArg) override;

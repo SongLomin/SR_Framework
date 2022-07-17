@@ -39,7 +39,7 @@ void CLazer_Turret::Command_Fire()
 {
 	CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CLazer_Bullet>(CURRENT_LEVEL, TEXT("Lazer_Bullet"), nullptr, &m_eBulletCollisionType, true);
 	static_cast<CBullet*>(Bullet)->Init_BulletPosition(&Get_Component<CTransform>()->Get_WorldMatrix());
-	GAMEINSTANCE->PlaySoundW(TEXT("Laser.wav"), PLAYERBULLET, 1.f);
+	GAMEINSTANCE->PlaySoundW(TEXT("Laser.wav"), 1.f);
 }
 
 void CLazer_Turret::SetUp_Components_For_Child()

@@ -25,8 +25,6 @@ HRESULT CLevel_Logo::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CLogo>(LEVEL_LOGO, TEXT("Logo")))
 		return E_FAIL;
 
-	GAMEINSTANCE->PlaySoundW(L"../Bin/Sound/main.wav", EFFECT, 1.f);
-
 	return S_OK;
 }
 
@@ -39,11 +37,6 @@ void CLevel_Logo::Tick(_float fTimeDelta)
 	{
 		if (FAILED(GAMEINSTANCE->Get_Instance()->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_CHARACTERSELECT))))
 			return;
-	}
-
-	if (GetKeyState(VK_F3) & 0x8000)
-	{
-		GAMEINSTANCE->PlaySoundW(L"main.wav", EFFECT, 1.f);
 	}
 	
 }

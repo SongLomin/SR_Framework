@@ -142,10 +142,10 @@ void CBillboard_Object::On_Collision_Enter(CCollider* _Other_Collider)
 		switch (iSound)
 		{
 		case 1:
-			GAMEINSTANCE->PlaySoundW(TEXT("RockObject_Boom.wav"), EFFECT, 0.5f);
+			GAMEINSTANCE->PlaySoundW(TEXT("RockObject_Boom.wav"), 0.5f);
 			break;
 		case 2:
-			GAMEINSTANCE->PlaySoundW(TEXT("RockObject_Boom2.wav"), EFFECT2, 0.5f);
+			GAMEINSTANCE->PlaySoundW(TEXT("RockObject_Boom2.wav"), 0.5f);
 			break;
 		}
 	

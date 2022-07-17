@@ -128,7 +128,7 @@ HRESULT CLevel_ExoPlanet::Initialize()
 
 
 	
-	GAMEINSTANCE->PlaySoundW(TEXT("ExoPlanet.wav"), BGM, 1.f);
+	GAMEINSTANCE->PlaySoundW(TEXT("ExoPlanet.wav"), 1.f);
 
 	return S_OK;
 }

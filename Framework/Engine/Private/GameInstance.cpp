@@ -462,19 +462,24 @@ int CGameInstance::Pause(CHANNELID eID)
 	return m_pSound_Manager->Pause(eID);
 }
 
-void CGameInstance::PlaySoundW(TCHAR* pSoundKey, CHANNELID eID, _float _vol)
+_uint CGameInstance::PlaySoundW(TCHAR* pSoundKey, _float _vol)
 {
-	m_pSound_Manager->PlaySoundW(pSoundKey, eID, _vol);
+	return m_pSound_Manager->PlaySoundW(pSoundKey, _vol);
 }
 
-void CGameInstance::PlayBGM(TCHAR* pSoundKey)
+_uint CGameInstance::PlaySoundW(TCHAR* pSoundKey, _uint _iIndex, _float _vol)
 {
-	m_pSound_Manager->PlayBGM(pSoundKey);
+	return m_pSound_Manager->PlaySoundW(pSoundKey, _iIndex, _vol);
 }
 
-void CGameInstance::StopSound(CHANNELID eID)
+void CGameInstance::PlayBGM(TCHAR* pSoundKey, _float _vol)
 {
-	m_pSound_Manager->StopSound(eID);
+	m_pSound_Manager->PlayBGM(pSoundKey, _vol);
+}
+
+void CGameInstance::StopSound(_uint _iChannelIndex)
+{
+	m_pSound_Manager->StopSound(_iChannelIndex);
 }
 
 void CGameInstance::StopAll()

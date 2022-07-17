@@ -245,7 +245,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	}
 
 	
-	GAMEINSTANCE->PlaySoundW(TEXT("RedPlanet.wav"), BGM, 1.f);
+	GAMEINSTANCE->PlaySoundW(TEXT("RedPlanet.wav"), 1.f);
 	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
 	{
 		GAMEINSTANCE->Reset_BlurWidth();

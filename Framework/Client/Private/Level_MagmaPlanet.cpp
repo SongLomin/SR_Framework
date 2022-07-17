@@ -127,7 +127,7 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 
 
 	
-	GAMEINSTANCE->PlaySoundW(TEXT("MagmaPlanet.wav"), BGM, 1.f);
+	GAMEINSTANCE->PlaySoundW(TEXT("MagmaPlanet.wav"), 1.f);
 
 
 	return S_OK;

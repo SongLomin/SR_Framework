@@ -87,7 +87,9 @@ HRESULT CLevel_SunPlanet::Initialize()
 		return E_FAIL;
 
 
-	GAMEINSTANCE->PlaySoundW(TEXT("SunPlanet.wav"), BGM, 1.f);
+
+	GAMEINSTANCE->PlayBGM(TEXT("SunPlanet.wav"), 1.f);
+	//GAMEINSTANCE->PlaySoundW(TEXT("SunPlanet.wav"), BGM, 1.f);
 
 	GAMEINSTANCE->Add_TimerEvent(0, this, 0.f, false, false, false);
 
@@ -237,7 +239,8 @@ void CLevel_SunPlanet::SunPlanet_Event(_float fTimeDelta)
 						->Set_Pos(elem->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION, true));
 					GAMEINSTANCE->Add_TimerEvent(1, this, 0.f, false, false, false);
 
-					GAMEINSTANCE->PlaySoundW(TEXT("RollerSpawn.wav"), SYSTEM_EFFECT, 1.f);
+
+					GAMEINSTANCE->PlaySoundW(TEXT("RollerSpawn.wav"), 1.f);
 				}
 
 				++m_iSpawnCount;
@@ -272,7 +275,7 @@ void CLevel_SunPlanet::SunPlanet_Event(_float fTimeDelta)
 				{
 					m_pTextBoxObject->Set_Enable(true);
 					GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("자네 덕에 전쟁에서 승리했네 ! \n이제 돌아가서 편안히 쉬시게 !! "), 0);
-					GAMEINSTANCE->PlaySoundW(TEXT("Boss_Die.wav"), SYSTEM_EFFECT, 1.f);
+					GAMEINSTANCE->PlaySoundW(TEXT("Boss_Die.wav"), 1.f);
 					m_bRollerDie = true;
 				}
 

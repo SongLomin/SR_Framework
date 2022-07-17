@@ -91,8 +91,8 @@ HRESULT CLevel_VenusPlanet::Initialize()
 	m_pPlanetObject->Set_Enable(false);
 	
 
-
-	GAMEINSTANCE->PlaySoundW(TEXT("VenusPlanet.wav"), BGM, 1.f);
+	GAMEINSTANCE->PlayBGM(TEXT("VenusPlanet.wav"), 1.f);
+	//GAMEINSTANCE->PlaySoundW(TEXT("VenusPlanet.wav"), BGM, 1.f);
 	return S_OK;
 }
 

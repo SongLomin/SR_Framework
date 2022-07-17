@@ -219,7 +219,7 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 	{
 		GAMEINSTANCE->Add_Shaking(0.3f, 0.1f);
 		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
-		GAMEINSTANCE->PlaySoundW(TEXT("Player_Hit.wav"), SYSTEM_EFFECT, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("Player_Hit.wav"), 1.f);
 
 
 		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)

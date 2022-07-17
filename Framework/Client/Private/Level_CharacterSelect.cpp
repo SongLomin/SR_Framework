@@ -89,8 +89,7 @@ HRESULT CLevel_CharacterSelect::Initialize()
 	GAMEINSTANCE->Get_Camera()->Get_Transform()->LookAt(_float3(0.f, 0.f, 0.f));
 
 
-
-	GAMEINSTANCE->PlaySoundW(TEXT("SelectPlayer.wav"), BGM, 1.f);
+	GAMEINSTANCE->PlayBGM(TEXT("SelectPlayer.wav"), 1.f);
 
 	return S_OK;
 }

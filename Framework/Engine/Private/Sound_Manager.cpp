@@ -21,7 +21,7 @@ void CSound_Manager::Initialize()
 	FMOD_System_Create(&m_pSystem);
 
 	// 1. 시스템 포인터, 2. 사용할 가상채널 수 , 초기화 방식) 
-	FMOD_System_Init(m_pSystem, 32, FMOD_INIT_NORMAL, NULL);
+	FMOD_System_Init(m_pSystem, MAX_CHANNEL, FMOD_INIT_NORMAL, NULL);
 
 	LoadSoundFile();
 }
@@ -92,7 +92,7 @@ int CSound_Manager::Pause(CHANNELID eID)
 
 
 
-void CSound_Manager::PlaySound(TCHAR * pSoundKey, CHANNELID eID, _float _vol)
+_uint CSound_Manager::PlaySound(TCHAR * pSoundKey, _uint _iIndex, _float _vol)
 {
 	map<TCHAR*, FMOD_SOUND*>::iterator iter;
 
@@ -102,22 +102,65 @@ void CSound_Manager::PlaySound(TCHAR * pSoundKey, CHANNELID eID, _float _vol)
 	});
 
 	if (iter == m_mapSound.end())
-		return;
+		return -1;
 
 	FMOD_BOOL bPlay = FALSE;
-	if (FMOD_Channel_IsPlaying(m_pChannelArr[eID], &bPlay))
+	if (FMOD_Channel_IsPlaying(m_pChannelArr[_iIndex], &bPlay))
 	{
-		FMOD_System_PlaySound(m_pSystem, FMOD_CHANNEL_FREE, iter->second, FALSE, &m_pChannelArr[eID]);
+		FMOD_System_PlaySound(m_pSystem, FMOD_CHANNEL_FREE, iter->second, FALSE, &m_pChannelArr[_iIndex]);
 		if (_vol >= SOUND_MAX)
 			_vol = 1.f;
 		else if (_vol <= SOUND_MIN)
 			_vol = 0.f;
-		FMOD_Channel_SetVolume(m_pChannelArr[eID], _vol);
+		FMOD_Channel_SetVolume(m_pChannelArr[_iIndex], _vol);
+
+		return _iIndex;
 	}
 	FMOD_System_Update(m_pSystem);
+
+	return -1;
 }
 
-void CSound_Manager::PlayBGM(TCHAR * pSoundKey)
+_uint CSound_Manager::PlaySound(TCHAR* pSoundKey, _float _vol)
+{
+	map<TCHAR*, FMOD_SOUND*>::iterator iter;
+
+	iter = find_if(m_mapSound.begin(), m_mapSound.end(), [&](auto& iter)
+		{
+			return !lstrcmp(pSoundKey, iter.first);
+		});
+
+	if (iter == m_mapSound.end())
+		return -1;
+
+	FMOD_BOOL bPlay = FALSE;
+
+	_uint iResult = -1;
+
+	for (int i = 1; i < MAX_CHANNEL; i++)
+	{
+		FMOD_Channel_IsPlaying(m_pChannelArr[i], &bPlay);
+
+		if (!bPlay)
+		{
+			FMOD_System_PlaySound(m_pSystem, FMOD_CHANNEL_FREE, iter->second, FALSE, &m_pChannelArr[i]);
+			if (_vol >= SOUND_MAX)
+				_vol = 1.f;
+			else if (_vol <= SOUND_MIN)
+				_vol = 0.f;
+			FMOD_Channel_SetVolume(m_pChannelArr[i], _vol);
+			iResult = i;
+			break;
+		}
+
+	}
+
+	FMOD_System_Update(m_pSystem);
+
+	return iResult;
+}
+
+void CSound_Manager::PlayBGM(TCHAR * pSoundKey, _float _vol)
 {
 	map<TCHAR*, FMOD_SOUND*>::iterator iter;
 
@@ -131,12 +174,24 @@ void CSound_Manager::PlayBGM(TCHAR * pSoundKey)
 	
 	FMOD_System_PlaySound(m_pSystem, FMOD_CHANNEL_FREE, iter->second, FALSE, &m_pChannelArr[BGM]);
 	FMOD_Channel_SetMode(m_pChannelArr[BGM], FMOD_LOOP_NORMAL);
+
+	if (_vol >= SOUND_MAX)
+		_vol = 1.f;
+	else if (_vol <= SOUND_MIN)
+		_vol = 0.f;
+	FMOD_Channel_SetVolume(m_pChannelArr[BGM], _vol);
+
 	FMOD_System_Update(m_pSystem);
 }
 
-void CSound_Manager::StopSound(CHANNELID eID)
+void CSound_Manager::StopSound(_uint _iChannelIndex)
 {
-	FMOD_Channel_Stop(m_pChannelArr[eID]);
+	if (_iChannelIndex == -1)
+	{
+		return;
+	}
+
+	FMOD_Channel_Stop(m_pChannelArr[_iChannelIndex]);
 }
 
 void CSound_Manager::StopAll()
