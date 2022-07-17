@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Normal_Turret.h"
 #include "Mesh_KangShip.h"
+#include "Trajectory.h"
 
 CShin_Ship_Body::CShin_Ship_Body()
 {
@@ -23,6 +24,20 @@ HRESULT CShin_Ship_Body::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
+
+
+	m_pTrajectorys.push_back(static_cast<CTrajectory*>(GAMEINSTANCE->Add_GameObject<CTrajectory>(LEVEL_STATIC, TEXT("Trajectory"))));
+	m_pTrajectorys.back()->Make_TrajectoryNode(200, m_pTransformCom, _float3(20.f, 0.f, -15.f));
+	WEAK_PTR(m_pTrajectorys.back());
+
+	m_pTrajectorys.push_back(static_cast<CTrajectory*>(GAMEINSTANCE->Add_GameObject<CTrajectory>(LEVEL_STATIC, TEXT("Trajectory"))));
+	m_pTrajectorys.back()->Make_TrajectoryNode(200, m_pTransformCom, _float3(-20.f, 0.f, -15.f));
+	WEAK_PTR(m_pTrajectorys.back());
+
+	m_pTrajectorys.push_back(static_cast<CTrajectory*>(GAMEINSTANCE->Add_GameObject<CTrajectory>(LEVEL_STATIC, TEXT("Trajectory"))));
+	m_pTrajectorys.back()->Make_TrajectoryNode(200, m_pTransformCom, _float3(0.f, 2.7f, -15.f));
+	WEAK_PTR(m_pTrajectorys.back());
+
 
 
 	return S_OK;
@@ -69,6 +84,9 @@ HRESULT CShin_Ship_Body::Render()
 void CShin_Ship_Body::SetUp_Components_For_Child()
 {
 	m_pTransformCom->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
+
+
+
 
 #pragma region Mesh Setting
 

@@ -5,6 +5,7 @@
 #include "Rocket_Turret.h"
 #include "Mesh_KangShip.h"
 #include <Lazer_Turret.h>
+#include "Trajectory.h"
 
 CKang_Ship_Body::CKang_Ship_Body()
 {
@@ -25,6 +26,25 @@ HRESULT CKang_Ship_Body::Initialize(void* pArg)
 {
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
+
+
+	m_pTrajectorys.push_back(static_cast<CTrajectory*>(GAMEINSTANCE->Add_GameObject<CTrajectory>(LEVEL_STATIC, TEXT("Trajectory"))));
+	m_pTrajectorys.back()->Make_TrajectoryNode(200, m_pTransformCom, _float3(5.3f, 1.3f, -15.f));
+	WEAK_PTR(m_pTrajectorys.back());
+	
+	m_pTrajectorys.push_back(static_cast<CTrajectory*>(GAMEINSTANCE->Add_GameObject<CTrajectory>(LEVEL_STATIC, TEXT("Trajectory"))));
+	m_pTrajectorys.back()->Make_TrajectoryNode(200, m_pTransformCom, _float3(-5.3f, 1.3f, -15.f));
+	WEAK_PTR(m_pTrajectorys.back());
+
+	m_pTrajectorys.push_back(static_cast<CTrajectory*>(GAMEINSTANCE->Add_GameObject<CTrajectory>(LEVEL_STATIC, TEXT("Trajectory"))));
+	m_pTrajectorys.back()->Make_TrajectoryNode(200, m_pTransformCom, _float3(20.f, 0.f, -28.f));
+	WEAK_PTR(m_pTrajectorys.back());
+
+	m_pTrajectorys.push_back(static_cast<CTrajectory*>(GAMEINSTANCE->Add_GameObject<CTrajectory>(LEVEL_STATIC, TEXT("Trajectory"))));
+	m_pTrajectorys.back()->Make_TrajectoryNode(200, m_pTransformCom, _float3(-20.f, 0.f, -28.f));
+	WEAK_PTR(m_pTrajectorys.back());
+
+
 
 	GAMEINSTANCE->Set_Current_Camera(TEXT("TPS"));
 
