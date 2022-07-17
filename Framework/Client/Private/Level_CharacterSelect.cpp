@@ -149,8 +149,6 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 	{
 		GAMEINSTANCE->Add_FadeOffSet();
 
-		
-
 
 		if (KEY_INPUT(KEY::LEFT, KEY_STATE::TAP) /* || 버튼 눌렀을 때*/)
 		{

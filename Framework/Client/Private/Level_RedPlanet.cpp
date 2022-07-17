@@ -209,16 +209,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 	{
 		m_fTime -= fTimeDelta;
 		//타임 이벤트 어케씀
-		if (2.f > m_fTime)
-		{
-			m_pTagetObject->Get_Component<CRigid_Body>()->Set_Booster(true);
-
-			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f * m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
-			// 이게 맞냐
-			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
-			GAMEINSTANCE->Add_BlurWidth();
-
-		}
+		
 		if (1.f > m_fTime)
 			GAMEINSTANCE->Sub_FadeOffSet();
 
@@ -245,6 +236,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 					break;
 				}
 			}
+			GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
 		}
 	}
 	else
@@ -288,29 +280,7 @@ void CLevel_RedPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 	m_bCinematic = true;
 	m_iNextLevel = _iNextLevel;
 
-	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Player"));
-	for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)
-	{
-		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
-		{
-
-
-			(*iter)->Set_Controller(CONTROLLER::AI);
-			CComponent* Temp = (*iter)->Get_Component<CAI_Controller>();
-			WEAK_PTR(Temp);
-			Temp->Set_Enable(false);
-			Temp = (*iter)->Get_Component<CRigid_Body>();
-			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::SPIN, 0.f);
-			static_cast<CRigid_Body*>(Temp)->Add_Dir(CRigid_Body::DOWN, 0.f);
-			if (pArg)
-			{
-				Temp = (*iter)->Get_Component<CTransform>();
-				static_cast<CTransform*>(Temp)->LookAt((CTransform*)pArg, true);
-			}
-			RETURN_WEAKPTR(Temp);
-		}
-	}
-	GAMEINSTANCE->Add_Shaking(0.1f, 0.f);
+	
 
 	/*CGameObject* Camera_Origin = GAMEINSTANCE->Get_Camera()->Get_Owner();
 	CTransform* pCameraTransform = Camera_Origin->Get_Component<CTransform>();
@@ -530,7 +500,8 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[6] = true;
 		GAMEINSTANCE->Add_Text(_point{ (LONG)640, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 2.f, TEXT("Red Planet 임무완료!"), 0);
-		GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
+		//
+		Change_Level(nullptr, LEVEL_SELECTPLANET);
 		GAMEINSTANCE->StopAll();
 	}
 
