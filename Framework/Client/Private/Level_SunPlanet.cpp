@@ -92,6 +92,7 @@ HRESULT CLevel_SunPlanet::Initialize()
 	//GAMEINSTANCE->PlaySoundW(TEXT("SunPlanet.wav"), BGM, 1.f);
 
 	GAMEINSTANCE->Add_TimerEvent(0, this, 0.f, false, false, false);
+	GAMEINSTANCE->Add_TimerEvent(1, this, 5.f, true, false, false);
 
 	return S_OK;
 }
@@ -121,10 +122,11 @@ void CLevel_SunPlanet::Tick(_float fTimeDelta)
 			}
 		}
 	}
-	else
+	else if (m_bFadeIn)
 	{
 		GAMEINSTANCE->Add_FadeOffSet();
 	}
+
 
 
 	SunPlanet_Event(fTimeDelta);
@@ -190,16 +192,13 @@ void CLevel_SunPlanet::OnTimerEvent(const _uint _iEventIndex)
 		pMovingCam->Boss_Cinematic(pEnemyBoss->Get_Component<CTransform>());
 
 	}
-	else if (0 == _iEventIndex)
+	else if (1 == _iEventIndex)
 	{
-		GAMEINSTANCE->Update_MovingCam();
-		CMovingCamera* pMovingCam = (CMovingCamera*)GAMEINSTANCE->Get_Camera()->Get_Owner();
-
-		CGameObject* pEnemyBoss = GAMEINSTANCE->Find_Layer(LEVEL_SUNPLANET, TEXT("Enemy_Roller"))->front();
-
-		pMovingCam->Boss_Cinematic(pEnemyBoss->Get_Component<CTransform>());
-
+	
+		m_bFadeIn = true;
+	
 	}
+
 }
 
 void CLevel_SunPlanet::SunPlanet_Event(_float fTimeDelta)
