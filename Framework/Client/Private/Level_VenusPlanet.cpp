@@ -167,6 +167,10 @@ void CLevel_VenusPlanet::Tick(_float fTimeDelta)
 				return;
 		}
 	}
+	else
+	{
+		GAMEINSTANCE->Add_FadeOffSet();
+	}
 
 	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
 	{
