@@ -2,6 +2,7 @@
 #include "Hong_Ship_Body.h"
 #include "GameInstance.h"
 #include "Normal_Turret.h"
+#include "Trajectory.h"
 
 CHong_Ship_Body::CHong_Ship_Body()
 {
