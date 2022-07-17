@@ -89,6 +89,8 @@ HRESULT CLevel_SunPlanet::Initialize()
 
 	GAMEINSTANCE->PlaySoundW(TEXT("SunPlanet.wav"), BGM, 1.f);
 
+	GAMEINSTANCE->Add_TimerEvent(0, this, 0.f, false, false, false);
+
 	return S_OK;
 }
 
@@ -102,7 +104,7 @@ void CLevel_SunPlanet::Tick(_float fTimeDelta)
 		if (0.f > m_fTime)
 		{
 			m_bCinematic = false;
-			GAMEINSTANCE->Swap_Camera();
+		
 			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
 				return;
 
@@ -166,30 +168,32 @@ void CLevel_SunPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 		}
 	}
 
-	CGameObject* Camera_Origin = GAMEINSTANCE->Get_Camera()->Get_Owner();
-	CTransform* pCameraTransform = Camera_Origin->Get_Component<CTransform>();
-	GAMEINSTANCE->Update_MovingCam();
-	CGameObject* Camera_Moving = GAMEINSTANCE->Get_Camera()->Get_Owner();
-	CTransform* pCameraMovingTransform = Camera_Moving->Get_Component<CTransform>();
+	
+}
 
-	_float3	vUp, vLook, vRight, vSpeed;
+void CLevel_SunPlanet::OnTimerEvent(const _uint _iEventIndex)
+{
+	if(0 == _iEventIndex)
+	{
+		
+		GAMEINSTANCE->Update_MovingCam();
+		CMovingCamera* pMovingCam = (CMovingCamera*)GAMEINSTANCE->Get_Camera()->Get_Owner();
 
-	pCameraMovingTransform->Set_State(CTransform::STATE_RIGHT, vRight = pCameraTransform->Get_State(CTransform::STATE_RIGHT));
-	pCameraMovingTransform->Set_State(CTransform::STATE_UP, vUp = pCameraTransform->Get_State(CTransform::STATE_UP));
-	pCameraMovingTransform->Set_State(CTransform::STATE_LOOK, vLook = pCameraTransform->Get_State(CTransform::STATE_LOOK));
-	pCameraMovingTransform->Set_State(CTransform::STATE_POSITION, pCameraTransform->Get_State(CTransform::STATE_POSITION));
+		CGameObject* pEnemyBoss = GAMEINSTANCE->Find_Layer(LEVEL_SUNPLANET, TEXT("Enemy_Boss"))->front();
 
+		pMovingCam->Boss_Cinematic(pEnemyBoss->Get_Component<CTransform>());
 
+	}
+	else if (0 == _iEventIndex)
+	{
+		GAMEINSTANCE->Update_MovingCam();
+		CMovingCamera* pMovingCam = (CMovingCamera*)GAMEINSTANCE->Get_Camera()->Get_Owner();
 
-	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(2.f, 0.f,
-		*D3DXVec3Normalize(&vSpeed, &(-vLook)) * 1.5f, _float3(0.f, 0.f, 0.f),
-		nullptr, nullptr, 0.1f, 0.f
-	);
+		CGameObject* pEnemyBoss = GAMEINSTANCE->Find_Layer(LEVEL_SUNPLANET, TEXT("Enemy_Roller"))->front();
 
-	static_cast<CMovingCamera*>(Camera_Moving)->Add_Movement(3.f, 0.f,
-		_float3(0.f, 0.f, 0.f), *D3DXVec3Normalize(&vSpeed, &(-vLook)) * 4.f,
-		nullptr, nullptr, 1.f, 0.05f
-	);
+		pMovingCam->Boss_Cinematic(pEnemyBoss->Get_Component<CTransform>());
+
+	}
 }
 
 void CLevel_SunPlanet::SunPlanet_Event(_float fTimeDelta)
@@ -226,6 +230,7 @@ void CLevel_SunPlanet::SunPlanet_Event(_float fTimeDelta)
 							elem->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION, true));
 					((CRollerSpawn_Effect*)GAMEINSTANCE->Add_GameObject<CRollerSpawn_Effect>(CURRENT_LEVEL, TEXT("RollerSpawn")))
 						->Set_Pos(elem->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION, true));
+					GAMEINSTANCE->Add_TimerEvent(1, this, 0.f, false, false, false);
 				}
 				++m_iSpawnCount;
 				if (!m_bEventCheck[1])

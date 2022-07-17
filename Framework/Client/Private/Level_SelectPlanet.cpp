@@ -301,7 +301,7 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 		if (0.f > m_fTime)
 		{
 			m_bCinematic = false;
-			GAMEINSTANCE->Swap_Camera();
+			
 
 			CSong_Ship_Body* pMainCharacter = nullptr;
 

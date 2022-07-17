@@ -130,9 +130,12 @@ void CGPS::Culling()
 	_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 	
 
-	CTransform* CameraTransform = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA)->Get_Transform();
+	CCamera* pCamera = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA);
+	if (!pCamera)
+		return;
+	CTransform* pCameraTransform = pCamera->Get_Transform();
 	
-	if (!CameraTransform)
+	if (!pCameraTransform)
 	{
 		return;
 	}
@@ -142,8 +145,8 @@ void CGPS::Culling()
 		_uint WinCX = GAMEINSTANCE->Get_Graphic_Desc().iWinCX;
 		_uint WinCY = GAMEINSTANCE->Get_Graphic_Desc().iWinCY;
 
-		_float3 CameraPos = CameraTransform->Get_World_State(CTransform::STATE_POSITION);
-		_float3 CameraLook = CameraTransform->Get_World_State(CTransform::STATE_LOOK);
+		_float3 CameraPos = pCameraTransform->Get_World_State(CTransform::STATE_POSITION);
+		_float3 CameraLook = pCameraTransform->Get_World_State(CTransform::STATE_LOOK);
 		D3DXVec3Normalize(&CameraLook, &CameraLook);
 
 		_float3 CameraToMyPos = MyPos - CameraPos;
