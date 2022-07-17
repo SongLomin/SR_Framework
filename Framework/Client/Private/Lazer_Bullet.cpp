@@ -38,9 +38,6 @@ void CLazer_Bullet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	m_fOffset+=10.f;
-	if (100.f < m_fOffset)
-		m_fOffset = 100.f;
 
 	//불빛이 미사일 뒤로 나감
 	_float3 Light_Look_Dir = -m_pTransformCom->Get_State(CTransform::STATE_LOOK, true);
@@ -59,16 +56,16 @@ void CLazer_Bullet::LateTick(_float fTimeDelta)
 
 HRESULT CLazer_Bullet::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.2f, 0.2f, 1.f* m_fOffset), true);
+	m_pTransformCom->Scaling(_float3(0.2f, 0.2f, 100.f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
 
 
 	float floatArray[3];
-	floatArray[0] = 1.0f;
-	floatArray[1] = 1.0f;
-	floatArray[2] = 1.0f;
+	floatArray[0] = m_vColor.x;
+	floatArray[1] = m_vColor.y;
+	floatArray[2] = m_vColor.z;
 
 	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 

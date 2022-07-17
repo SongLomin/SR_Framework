@@ -31,8 +31,19 @@ HRESULT CLazer_Turret::Initialize(void* pArg)
 	floatArray[2] = 0.9f;
 
 	SetUp_Variables_For_Child(0.0f, _float3(0.4f, 0.4f, 2.f), floatArray);
+
 	
 	return S_OK;
+}
+
+void CLazer_Turret::Tick(_float fTimeDelta)
+{
+	__super::Tick(fTimeDelta);
+
+	m_vColor.y += 0.01f;
+	if (m_vColor.y > 1.f)
+		m_vColor.y = 1.f;
+
 }
 
 void CLazer_Turret::Command_Fire()
@@ -40,6 +51,8 @@ void CLazer_Turret::Command_Fire()
 	CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CLazer_Bullet>(CURRENT_LEVEL, TEXT("Lazer_Bullet"), nullptr, &m_eBulletCollisionType, true);
 	static_cast<CBullet*>(Bullet)->Init_BulletPosition(&Get_Component<CTransform>()->Get_WorldMatrix());
 	GAMEINSTANCE->PlaySoundW(TEXT("Laser.wav"), 1.f);
+	m_vColor.y -= 0.0105f;
+	static_cast<CLazer_Bullet*>(Bullet)->Get_Color(m_vColor);
 }
 
 void CLazer_Turret::SetUp_Components_For_Child()
