@@ -374,13 +374,13 @@ namespace Engine
 	// 각 행동 종류 분류는 100단위다. 즉, 행동 종류마다 최대 100개까지 정의할 수 있다.
 	// 최대 행동 종류는 900번대까지 쓸 수 있다. (컨트롤러에서 늘릴 수 있음)
 	enum class STATE
-	{ 
+	{
 		STATE_NONE = 0,
-		MOVE_UPPER_LEFT, 
-		MOVE_DOWN_FRONT, 
-		MOVE_LIFT_FRONT, 
-		MOVE_LIFT_BACK, 
-		MOVE_JUMP_FRONT, 
+		MOVE_UPPER_LEFT,
+		MOVE_DOWN_FRONT,
+		MOVE_LIFT_FRONT,
+		MOVE_LIFT_BACK,
+		MOVE_JUMP_FRONT,
 		MOVE_UPPER_RIGHT,
 		MOVE_FORWARD,
 		MOVETARGET_CHASE = 100,

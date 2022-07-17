@@ -79,9 +79,9 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 
 			wstring Message = TEXT("Fire");
 			Get_Owner()->Broadcast_EventMessage(&Message);
-			GAMEINSTANCE->PlaySoundW(TEXT("NormalBullet.wav"), 400, 0.2f);
+			GAMEINSTANCE->PlaySoundW(TEXT("NormalBullet.wav"), 400, 0.3f);
 
-			int i = 0;
+	
 		}
 
 		else
@@ -94,7 +94,13 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 		if (KEY_INPUT(KEY::RBUTTON, KEY_STATE::HOLD))
 		{
 			wstring Message = TEXT("Fire_Lazer");
+			GAMEINSTANCE->PlaySoundW(TEXT("Lazer.wav"), 398, 0.2f);
 			Get_Owner()->Broadcast_EventMessage(&Message);
+		}
+
+		else
+		{
+			GAMEINSTANCE->StopSound(398);
 		}
 
 		m_fTime -= fTimeDelta;
@@ -143,7 +149,7 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 		if (fBooster >= 2.f && KEY_INPUT(KEY::LSHIFT, KEY_STATE::HOLD))
 		{
 			m_pMyObject->Get_Component<CRigid_Body>()->Set_Booster(true);
-			m_iBoosterSoundChannelIndex = GAMEINSTANCE->PlaySoundW(TEXT("Booster.wav"), 0.5f);
+			GAMEINSTANCE->PlaySoundW(TEXT("Booster.wav"), 399, 0.2f);
 			GAMEINSTANCE->Add_Shaking(0.2f, 0.01f);	
 			pPlayerStatusCom->Add_Status(CStatus::STATUSID::STATUS_BOOSTER, -0.05);
 			GAMEINSTANCE->Add_BlurWidth();
@@ -151,7 +157,7 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 
 		else
 		{
-			GAMEINSTANCE->StopSound(m_iBoosterSoundChannelIndex);
+			GAMEINSTANCE->StopSound(399);
 			m_pMyObject->Get_Component<CRigid_Body>()->Set_Booster(false);
 		}
 

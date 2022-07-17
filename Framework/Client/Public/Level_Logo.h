@@ -25,6 +25,8 @@ private:
 public:
 	static CLevel_Logo* Create();
 	virtual void Free() override;
+
+
 };
 
 END

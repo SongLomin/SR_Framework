@@ -165,6 +165,8 @@ void CState_Move::MoveTaget_Chase_Player(_float fTimeDelta)
 	m_pTransform->Turn_AxisZ(90.f, fTimeDelta);
 }
 
+
+
 void CState_Move::Move_Forward()
 {
 	m_pRigidBody->Add_Dir(CRigid_Body::FRONT);

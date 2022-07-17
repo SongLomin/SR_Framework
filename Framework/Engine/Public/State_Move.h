@@ -35,7 +35,7 @@ public:
 	void Move_Lift_Front();
 	void Move_Lift_Back();
 	void Move_Jump_Front();
-	void MoveTaget_Chase_Player(_float fTimeDelta);
+
 	void Move_Forward();
 
 public:
@@ -45,6 +45,8 @@ public:
 	void MoveTarget_Back(_float fTimeDelta);
 	void MoveRoller_LSpin(_float fTimeDelta, _float fLimit);
 	void MoveRoller_RSpin(_float fTimeDelta, _float fLimit);
+	void MoveTaget_Chase_Player(_float fTimeDelta);
+
 
 public:
 	//void State_Tick(CTransform* _Transform, _float fTimeDelta);

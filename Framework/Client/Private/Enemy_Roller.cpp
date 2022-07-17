@@ -22,6 +22,9 @@ HRESULT CEnemy_Roller::Initialize(void* pArg)
 
 	__super::Initialize(pArg);
 
+
+	GAMEINSTANCE->PlaySoundW(TEXT("ManKai.wav"), 1.f);
+
 	return S_OK;
 }
 

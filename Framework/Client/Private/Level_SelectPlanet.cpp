@@ -287,7 +287,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 
 
 	
-	GAMEINSTANCE->PlaySoundW(TEXT("SelectPlanet.wav"), 1.f);
+	GAMEINSTANCE->PlayBGM(TEXT("SelectPlanet.wav"), 0.1f);
 
 	
 	return S_OK;
@@ -502,8 +502,14 @@ void CLevel_SelectPlanet::SelectPlanet_Event(float fTimeDelta)
 
 	if (m_fTextBoxTime <= 297.f && !m_bEventCheck[0])
 	{
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("우리 행성에 온것을 환영하네. \n각 행성 임무를 통해 다양한 장비를 얻어서 \n비행선을 강화하도록 하게."), 0);
+	}
+
+	if (m_fTextBoxTime <= 296.7f && !m_bEventCheck[0])
+	{
+		GAMEINSTANCE->StopSound(10);
 	}
 
 	if (m_fTextBoxTime <= 293.f && !m_bEventCheck[0])
@@ -525,6 +531,9 @@ void CLevel_SelectPlanet::SelectPlanet_Event(float fTimeDelta)
 			m_iFontiX = 1040;
 		}
 	}
+
+	
+
 
 	if (m_bCinematic)
 	{
