@@ -28,6 +28,7 @@ public:
 
 public: //행동 프리셋
 	vector<STATE> Get_States_Preset_AI_Default();
+	vector<STATE> Get_States_Preset_ROLLER_Default();
 
 public:
 	virtual void Tick(_float fTimeDelta);

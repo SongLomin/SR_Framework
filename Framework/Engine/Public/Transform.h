@@ -103,7 +103,7 @@ public:
 	void LookAt(const _float3& vAt, _bool _bWorld = false);
 	void LookAt(CTransform* pTargetTransform, _bool _bWorld = false);
 
-	void Chase(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit, _bool _bWorld = false);
+	_bool Chase(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit, _bool _bWorld = false);
 
 
 private:

@@ -330,7 +330,7 @@ void CTransform::LookAt(CTransform* pTargetTransform, _bool _bWorld)
 
 }
 
-void CTransform::Chase(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit, _bool _bWorld)
+_bool CTransform::Chase(CTransform* pTargetTransform, _float fTimeDelta, _float fLimit, _bool _bWorld)
 {
 	_float3		vPosition = Get_State(CTransform::STATE_POSITION, _bWorld);
 	_float3		vGoal = pTargetTransform->Get_State(CTransform::STATE_POSITION, _bWorld);
@@ -339,10 +339,18 @@ void CTransform::Chase(CTransform* pTargetTransform, _float fTimeDelta, _float f
 
 	_float		fDistance = D3DXVec3Length(&vDir);
 
+	_bool bMove = false;
+
 	if (fDistance > fLimit)
+	{
 		vPosition += *D3DXVec3Normalize(&vDir, &vDir) * m_TransformDesc.fSpeedPerSec * fTimeDelta;
+		bMove = true;
+
+	}
 
 	Set_State(CTransform::STATE_POSITION, vPosition , _bWorld);
+
+	return bMove;
 }
 
 void CTransform::Set_Parent(CTransform* _pParent)

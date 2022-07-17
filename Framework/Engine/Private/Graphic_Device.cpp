@@ -144,9 +144,8 @@ void CGraphic_Device::Render_Begin(void)
 	
 }
 
-void CGraphic_Device::Render_End(HWND hWnd)
+void CGraphic_Device::Render_Sprite()
 {
-
 	m_pSprite->Begin(D3DXSPRITE_ALPHABLEND | D3DXSPRITE_SORT_TEXTURE);//2D
 
 	if (!m_Text.empty())
@@ -173,6 +172,10 @@ void CGraphic_Device::Render_End(HWND hWnd)
 
 	m_pSprite->End();
 
+}
+
+void CGraphic_Device::Render_End(HWND hWnd)
+{
 
 	m_pDevice->EndScene();
 

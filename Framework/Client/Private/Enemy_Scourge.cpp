@@ -107,7 +107,7 @@ void CEnemy_Scourge::SetUp_Components_For_Child()
 
 
 
-	COLLISION_TYPE	eCollisiontype = COLLISION_TYPE::OBJECT;
+	COLLISION_TYPE	eCollisiontype = COLLISION_TYPE::MONSTER;
 	m_pColliderCom = Add_Component<CCollider_Sphere>(&eCollisiontype);
 	m_pColliderCom->Set_WeakPtr(&m_pColliderCom);
 	m_pColliderCom->Link_Transform(m_pTransformCom);
@@ -153,7 +153,7 @@ void CEnemy_Scourge::On_Collision_Enter(CCollider* _Other_Collider)
 		CGameObject* pParticle = GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false);
 		((CBomb_Effect*)pParticle)->Set_Pos(pRockPos);
 		((CBomb_Effect*)pParticle)->Get_Component<CTransform>()->Scaling(_float3(25.f, 25.f, 25.f));
-		Set_Dead();
+		Set_Enable(false);
 		//폭발 이펙트 스케일링 따로 지정해줘야함
 	}
 

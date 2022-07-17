@@ -133,7 +133,7 @@ void CEnemy_Roller::SetUp_Components_For_Child()
 
 	m_pAIControllerCom->Link_Object(this);
 	m_pAIControllerCom->Set_Enable(false);
-	m_pAIControllerCom->Set_UsableStates(m_pAIControllerCom->Get_States_Preset_AI_Default());
+	m_pAIControllerCom->Set_UsableStates(m_pAIControllerCom->Get_States_Preset_ROLLER_Default());
 	m_pAIControllerCom->Set_UsableStates({ STATE::MOVETAGET_CHASE_PLAYER });
 
 	COLLISION_TYPE eCollisionType = COLLISION_TYPE::MONSTER;

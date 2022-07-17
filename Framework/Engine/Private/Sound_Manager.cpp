@@ -172,6 +172,7 @@ void CSound_Manager::PlayBGM(TCHAR * pSoundKey, _float _vol)
 	if (iter == m_mapSound.end())
 		return;
 	
+	FMOD_Channel_Stop(m_pChannelArr[BGM]);
 	FMOD_System_PlaySound(m_pSystem, FMOD_CHANNEL_FREE, iter->second, FALSE, &m_pChannelArr[BGM]);
 	FMOD_Channel_SetMode(m_pChannelArr[BGM], FMOD_LOOP_NORMAL);
 

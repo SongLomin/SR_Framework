@@ -85,9 +85,9 @@ HRESULT CAI_TransportShip::Render_Begin(ID3DXEffect** Shader)
 
 
 	float floatArray[3];
-	floatArray[0] = 0.8f;
-	floatArray[1] = 0.8f;
-	floatArray[2] = 0.8f;
+	floatArray[0] = 0.5f;
+	floatArray[1] = 0.5f;
+	floatArray[2] = 0.5f;
 
 
 	float Specular = 1.f;

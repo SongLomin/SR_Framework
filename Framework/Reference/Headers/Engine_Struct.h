@@ -388,6 +388,8 @@ namespace Engine
 		MOVETARGET_RSPIN,
 		MOVETARGET_LSPIN,
 		MOVETARGET_BACK,
+		MOVEROLLER_RSPIN,
+		MOVEROLLER_LSPIN,
 		ATTACK_TAP = 200, //Fire를 한 번만 호출하고, 정해진 시간동안 대기
 		ATTACK_HOLD, //정해진 시간동안 계속 Fire를 호출
 		STATE_END

@@ -19,6 +19,7 @@ public:
 public:
 	HRESULT		InitDevice(const GRAPHICDESC& GraphicDesc, LPDIRECT3DDEVICE9* ppOut);	
 	void		Render_Begin(void);
+	void		Render_Sprite();
 	void		Render_End(HWND hWnd = NULL);
 
 public:
@@ -26,6 +27,8 @@ public:
 	D3DLIGHT9	InitLight(D3DLIGHTTYPE type);
 	bool SetupEffect(const _tchar* shaderFilename, ID3DXEffect** effect);
 	bool SetupTexture(IDirect3DTexture9** texture, IDirect3DSurface9** surface);
+
+	
 
 public:
 

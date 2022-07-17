@@ -135,6 +135,11 @@ void CTurret::On_EventMessage(void* _Arg)
         {
              Command_Fire();
              m_fCurTime = m_fMaxTime;
+
+             if (Get_Controller() == CONTROLLER::AI)
+             {
+                 m_fCurTime *= 5.f;
+             }
         }
     }
 }

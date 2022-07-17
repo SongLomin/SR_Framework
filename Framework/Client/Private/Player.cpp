@@ -7,6 +7,9 @@
 #include <Bomb_Effect.h>
 #include "Enemy_StagBeetle.h"
 #include "Trajectory.h"
+#include <Bullet.h>
+#include <Rocket_Turret.h>
+#include <Lazer_Turret.h>
 
 CPlayer::CPlayer()
 {
@@ -100,20 +103,44 @@ void CPlayer::Tick(_float fTimeDelta)
 				if (elem->Get_Enable())
 				{
 					elem->Set_Controller(CONTROLLER::PLAYER);
+					elem->Get_Component<CRigid_Body>()->Reset_Force();
 				}
 			} 
 		}
 		++i;
 	}
 
-	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::HOLD))
+	if (Get_Controller() == CONTROLLER::AI)
+		return;
+
+	if (KEY_INPUT(KEY::NUM7, KEY_STATE::TAP))
 	{
-		
+
+		CGameObject* Turret = nullptr;
+		Turret = GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), nullptr, nullptr, true);
+		GAMEINSTANCE->PlaySoundW(TEXT("Drop_Turret.wav"), 0.3f);
+		Turret->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION, true));
+
 	}
 
-	if (KEY_INPUT(KEY::LBUTTON, KEY_STATE::NONE))
+	if (KEY_INPUT(KEY::NUM8, KEY_STATE::TAP))
 	{
-		
+
+		CGameObject* Turret = nullptr;
+		Turret = GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), nullptr, nullptr, true);
+		GAMEINSTANCE->PlaySoundW(TEXT("Drop_Turret.wav"), 0.3f);
+		Turret->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION, true));
+
+	}
+
+	if (KEY_INPUT(KEY::NUM9, KEY_STATE::TAP))
+	{
+
+		CGameObject* Turret = nullptr;
+		Turret = GAMEINSTANCE->Add_GameObject<CLazer_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), nullptr, nullptr, true);
+		GAMEINSTANCE->PlaySoundW(TEXT("Drop_Turret.wav"), 0.3f);
+		Turret->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, m_pTransformCom->Get_State(CTransform::STATE_POSITION, true));
+
 	}
 
 
@@ -193,7 +220,9 @@ void CPlayer::On_Change_Controller(const CONTROLLER& _IsAI)
 			{
 				continue;
 			}
-			elem->Set_Controller(CONTROLLER::AI);
+
+			if(elem->Get_Enable())
+				elem->Set_Controller(CONTROLLER::AI);
 		}
 
 		
@@ -221,9 +250,13 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER_ATTACK && Get_Controller() == CONTROLLER::PLAYER)
 	{
 		GAMEINSTANCE->Add_Shaking(0.3f, 0.1f);
-		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+		
 		GAMEINSTANCE->PlaySoundW(TEXT("Player_Hit.wav"), 1.f);
 
+
+		_float fDamage = static_cast<CBullet*>(_Other_Collider->Get_Owner())->Get_Damage();
+
+		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -fDamage);
 
 		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
 		{
@@ -236,16 +269,25 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 
 			////Change_NearstPlayer();
 
-			////Set_Controller(CONTROLLER::LOCK);
-			GAMEINSTANCE->Add_TimerEvent(1, this, 1.f, false, false);
-			GAMEINSTANCE->Set_TimeScale(0.1f);
-			GAMEINSTANCE->Add_Shaking(3.1f, 0.01f);
-			if(!m_pMyTurretList.empty())
+			if (!m_pMyTurretList.empty())
+			{
+				GAMEINSTANCE->Add_TimerEvent(1, this, 1.f, false, false);
+				GAMEINSTANCE->Set_TimeScale(0.1f);
+				GAMEINSTANCE->Add_Shaking(3.1f, 0.01f);
 				m_pMyTurretList.back()->Set_Dead();
+			}
+				
 			else
 			{
 				Change_NearstPlayer();
+				Set_Dead();
+				//m_pRendererCom->Set_Enable(false);
+				
 			}
+
+			////Set_Controller(CONTROLLER::LOCK);
+			
+			
 
 			
 			//_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
@@ -258,7 +300,9 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 
 	else if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::MONSTER_ATTACK)
 	{
-		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -1.f);
+		_float fDamage = static_cast<CBullet*>(_Other_Collider->Get_Owner())->Get_Damage();
+
+		m_pStatusCom->Add_Status(CStatus::STATUSID::STATUS_HP, -fDamage);
 
 		if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
 		{
@@ -266,7 +310,7 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
 
-			m_pStatusCom->Set_FULL_HP();
+			//m_pStatusCom->Set_FULL_HP();
 
 			if (!m_pMyTurretList.empty())
 				m_pMyTurretList.back()->Set_Dead();
@@ -349,6 +393,16 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 
 void CPlayer::On_Collision_Stay(CCollider* _Other_Collider)
 {
+	if (COLLISION_TYPE::MONSTER == _Other_Collider->Get_Collision_Type())
+	{
+		//_float3 vSpeed = m_pRigid_BodyCom->Get_Vector(RIGID_BODY::SPEED);
+		_float3 vDirection = m_pTransformCom->Get_State(CTransform::STATE_POSITION) - _Other_Collider->Get_Collider_Position();
+		D3DXVec3Normalize(&vDirection, &vDirection);
+		//vDirection *= D3DXVec3Length(&vSpeed);
+
+		m_pRigid_BodyCom->Add_Force(vDirection * 1.5f);
+	}
+
 }
 
 void CPlayer::On_Collision_Exit(CCollider* _Other_Collider)
@@ -358,12 +412,13 @@ void CPlayer::On_Collision_Exit(CCollider* _Other_Collider)
 
 void CPlayer::OnTimerEvent(const _uint _iEventIndex)
 {
-	/*if (0 == _iEventIndex)
+	if (0 == _iEventIndex)
 	{
-		m_fTimeScale = min(1.f, CMath_Utillity::fLerp(m_fTimeScale, 1.f, GAMEINSTANCE->Get_UnScaledTimeDelta() * 10.f));
+		/*m_fTimeScale = min(1.f, CMath_Utillity::fLerp(m_fTimeScale, 1.f, GAMEINSTANCE->Get_UnScaledTimeDelta() * 10.f));
 
-		GAMEINSTANCE->Set_TimeScale(m_fTimeScale);
-	}*/
+		GAMEINSTANCE->Set_TimeScale(m_fTimeScale);*/
+		GAMEINSTANCE->Set_TimeScale(1.f);
+	}
 
 	if (1 == _iEventIndex)
 	{
@@ -527,6 +582,26 @@ _bool CPlayer::Change_NearstPlayer()
 
 	(*Iter_NearPlayer).second->Set_Controller(CONTROLLER::PLAYER);
 
+	/*for (auto iter = NearPlayers.begin(); iter != NearPlayers.end();)
+	{
+		
+		if ((*iter).second)
+		{
+			if ((*iter).second->Get_Enable())
+			{
+				(*iter).second->Set_Controller(CONTROLLER::PLAYER);
+				return true;
+			}
+		}
+
+		iter++;
+	}*/
+
+	//GAMEINSTANCE->Set_TimeScale(0.f);
+	//GAMEINSTANCE->Add_TimerEvent(0, this, 4.f);
+
+	//(*Iter_NearPlayer).second->Set_Controller(CONTROLLER::PLAYER);
+
 	//CCamera* pCurCamera = GAMEINSTANCE->Get_Camera();
 	//CTransform* pCurCameraTransform = nullptr;//이게맞냐
 	//if (pCurCamera)
@@ -538,7 +613,7 @@ _bool CPlayer::Change_NearstPlayer()
 	//	//GAMEINSTANCE->Switch_Player(pCurCameraTransform, (*Iter_NearPlayer).second->Get_Component<CTransform>(), TEXT("TPS"), 1.f);
 	//}
 
-	return true;
+	return false;
 }
 
 void CPlayer::Update_TurretList()

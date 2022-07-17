@@ -63,6 +63,8 @@ HRESULT CMainApp::Initialize()
 	static_cast<CTextureDrawUI*>(GAMEINSTANCE->Add_GameObject<CTextureDrawUI>(LEVEL_STATIC, TEXT("RenderTarget")))->Set_Option(_float2(g_iWinCX * 0.5, g_iWinCY * 0.5f), _float2(g_iWinCX, g_iWinCY), RENDERGROUP::RENDER_POSTPROCCESSING);
 	
 
+
+
 	return S_OK;
 }
 
@@ -91,6 +93,8 @@ void CMainApp::Tick(float fTimeDelta)
 		}
 	}
 	
+	
+
 }
 
 HRESULT CMainApp::Render()

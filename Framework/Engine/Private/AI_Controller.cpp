@@ -68,6 +68,25 @@ vector<STATE> CAI_Controller::Get_States_Preset_AI_Default()
 	return states;
 }
 
+vector<STATE> CAI_Controller::Get_States_Preset_ROLLER_Default()
+{
+	vector<STATE> states{
+		STATE::MOVETARGET_BACK,
+		STATE::MOVETARGET_CHASE,
+		STATE::MOVEROLLER_LSPIN,
+		STATE::MOVEROLLER_RSPIN,
+		STATE::MOVE_DOWN_FRONT,
+		STATE::MOVE_JUMP_FRONT,
+		STATE::MOVE_LIFT_BACK,
+		STATE::MOVE_LIFT_FRONT,
+		STATE::MOVE_UPPER_LEFT,
+		STATE::MOVE_UPPER_RIGHT,
+		//STATE::MOVETAGET_CHASE_PLAYER
+	};
+
+	return states;
+}
+
 void CAI_Controller::Tick(_float fTimeDelta)
 {
 	if (!Get_Enable())

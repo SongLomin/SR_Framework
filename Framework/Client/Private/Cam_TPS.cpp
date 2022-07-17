@@ -44,6 +44,12 @@ void CCam_TPS::Tick(_float fTimeDelta)
 			return;
 		}
 
+
+		if (!pCamTargetTransformCom->Get_Owner()->Get_Enable())
+		{
+			return;
+		}
+
 		_float3 vLook = pCamTargetTransformCom->Get_State(CTransform::STATE_LOOK, true);
 		_float3 vPos = pCamTargetTransformCom->Get_State(CTransform::STATE_POSITION, true);
 		_float3 vUp = pCamTargetTransformCom->Get_State(CTransform::STATE_UP, true);

@@ -17,6 +17,9 @@ HRESULT CRenderer::Add_RenderGroup(RENDERGROUP eGroup, CGameObject* pGameObject)
 		nullptr == pGameObject)
 		return E_FAIL;
 
+	if (!Get_Enable())
+		return E_FAIL;
+
 	CGameInstance::Get_Instance()->Add_RenderGroup(eGroup, pGameObject);
 
 	//Safe_AddRef(pGameObject);

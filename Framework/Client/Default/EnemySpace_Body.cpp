@@ -83,9 +83,9 @@ HRESULT CEnemySpace_Body::Render_Begin(ID3DXEffect** Shader)
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
 
 	float floatArray[3];
-	floatArray[0] = 0.7f;
-	floatArray[1] = 0.0f;
-	floatArray[2] = 0.0f;
+	floatArray[0] = 0.3f;
+	floatArray[1] = 0.3f;
+	floatArray[2] = 0.3f;
 
 	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 
@@ -120,7 +120,21 @@ void CEnemySpace_Body::SetUp_Components_For_Child()
 	m_pMeshCom->Set_WeakPtr((void**)&m_pMeshCom);
 
 	CRigid_Body::RIGIDBODYDESC		RigidBodyDesc;
-	RigidBodyDesc.Set_Preset_EnemySpace_Body();
+	RigidBodyDesc.m_fOwnerSpeed = 20.f;
+	RigidBodyDesc.m_fOwnerAccel = 4.f;
+	RigidBodyDesc.m_fOwnerRadSpeed = D3DXToRadian(90.0f);
+	RigidBodyDesc.m_fOwnerRadAccel = 0.1f;
+	RigidBodyDesc.m_fOwnerJump = 5.f;
+	RigidBodyDesc.m_fOwnerJumpScale = 1.f;
+
+	RigidBodyDesc.m_fFrictional = 0.05f;
+	RigidBodyDesc.m_fRadFrictional = 0.02f;
+	RigidBodyDesc.m_fRadZ = 0.01f;
+
+	RigidBodyDesc.m_fOwnerLiftSpeed = 20.f;
+	RigidBodyDesc.m_fOwnerLiftAccel = 0.3f;
+	RigidBodyDesc.m_fRadDrag = 1.f;
+	RigidBodyDesc.m_fDirDrag = 0.05f;
 
 	m_pRigidBodyCom = Add_Component<CRigid_Body>(&RigidBodyDesc);
 	m_pRigidBodyCom->Set_WeakPtr(&m_pRigidBodyCom);
