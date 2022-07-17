@@ -35,6 +35,7 @@
 #include "Enemy_TagetBoard.h"
 #include <VenusPlanet_SkyBox.h>
 #include "Planet_Select.h"
+#include "Enemy_Roller.h"
 
 
 CLevel_VenusPlanet::CLevel_VenusPlanet()
@@ -80,6 +81,9 @@ HRESULT CLevel_VenusPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_VENUSPLANET, TEXT("Aim")))
 		return E_FAIL;
 
+	if (!GAMEINSTANCE->Add_GameObject<CEnemy_Roller>(LEVEL_VENUSPLANET, TEXT("Enemy_Roller")))
+		return E_FAIL;
+
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_VENUSPLANET, TEXT("TextBox_Yang"));
 	m_pTextBoxObject->Set_Enable(false);
 
@@ -89,6 +93,7 @@ HRESULT CLevel_VenusPlanet::Initialize()
 
 	m_pPlanetObject = GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVEL_VENUSPLANET, TEXT("Earth"));
 	m_pPlanetObject->Set_Enable(false);
+
 	
 
 	GAMEINSTANCE->PlayBGM(TEXT("VenusPlanet.wav"), 0.1f);
