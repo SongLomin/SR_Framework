@@ -38,6 +38,7 @@ private:
 	_float4x4				m_ProjMatrix;
 	RECT					m_rcRect;
 	_bool                   m_bSwitchTaget = false;
+	_int					m_iIndex = 0;
 
 public:
 	void Link_Status(CStatus* pStatus);

@@ -49,15 +49,34 @@ void CArmor_UI::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT((KEY::LEFT), KEY_STATE::TAP))
 	{
-		m_bSwitchTaget = false;
+		m_iIndex = max(0, m_iIndex - 1);
 	}
 
 	if (KEY_INPUT((KEY::RIGHT), KEY_STATE::TAP))
 	{
-		m_bSwitchTaget = true;
+		m_iIndex = min(3, m_iIndex + 1);
 	}
 
-	if (!m_bSwitchTaget)
+	switch (m_iIndex)
+	{
+	case 0:
+		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)100 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 5 (방어력) "), 0);
+		break;
+
+	case 1:
+		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)100 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 4 (방어력) "), 0);
+		break;
+
+	case 2:
+		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)100 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 3 (방어력) "), 0);
+		break;
+
+	case 3:
+		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)100 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 2 (방어력) "), 0);
+		break;
+	}
+
+	/*if (!m_bSwitchTaget)
 	{
 		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)100 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 5 (방어력) "), 0);
 	}
@@ -65,7 +84,7 @@ void CArmor_UI::Tick(_float fTimeDelta)
 	if (m_bSwitchTaget)
 	{
 		GAMEINSTANCE->Add_Text(_point{ (LONG)120, (LONG)100 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 3 (방어력) "), 0);
-	}
+	}*/
 }
 
 void CArmor_UI::LateTick(_float fTimeDelta)

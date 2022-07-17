@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Satellite_1.h"
 #include "GameInstance.h"
+#include <Friendly_GPS.h>
 
 CSatellite_1::CSatellite_1()
 {
@@ -22,9 +23,9 @@ HRESULT CSatellite_1::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(rand() % 2000, rand() % 2000, rand() % 2000));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(100.f, 100.f, 1000.f));
 
-
+	GAMEINSTANCE->Add_GameObject<CFriendly_GPS>(CURRENT_LEVEL, TEXT("GPS_Friendly"), m_pTransformCom);
 	return S_OK;
 }
 

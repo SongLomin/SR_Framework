@@ -30,6 +30,8 @@ private:
 	CTransform* m_pTransformCom = nullptr;
 	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
 
+	_int					m_iIndex = 0;
+
 private:
 	_float					m_fX, m_fY, m_fSizeX, m_fSizeY;
 	_point					m_ptMouse;

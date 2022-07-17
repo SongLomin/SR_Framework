@@ -27,8 +27,10 @@ void CCamera_Manager::Set_Current_Camera(const _tchar* _CameraTag)
 
 	ISVALID(pCam, );
 
+	RETURN_WEAKPTR(m_pCurrentCam);
+
 	m_pCurrentCam = pCam;
-	m_pCurrentCam->Set_WeakPtr(&m_pCurrentCam);
+	WEAK_PTR(m_pCurrentCam);
 }
 
 void CCamera_Manager::Add_Shaking(_float _fOffset, _float _fInclination)
@@ -126,6 +128,8 @@ void CCamera_Manager::Free()
 
 	__super::Free();
 	
+	RETURN_WEAKPTR(m_pCurrentCam);
+
 	delete this;
 	
 }

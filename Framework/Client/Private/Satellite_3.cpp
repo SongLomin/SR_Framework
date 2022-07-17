@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "Level_Loading.h"
 #include <Shin_Ship_Body.h>
+#include <Friendly_GPS.h>
 
 
 CSatellite_3::CSatellite_3()
@@ -27,7 +28,9 @@ HRESULT CSatellite_3::Initialize(void* pArg)
 
 	//m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1500.f,  1200.f, 1700.f));
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(100.f, 100.f, 400.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(100.f, 600.f, 100.f));
+
+	GAMEINSTANCE->Add_GameObject<CFriendly_GPS>(CURRENT_LEVEL, TEXT("GPS_Friendly"), m_pTransformCom);
 
 	return S_OK;
 }
@@ -84,12 +87,16 @@ void CSatellite_3::On_Collision_Enter(CCollider* _Other_Collider)
 
 	if (COLLISION_TYPE::PLAYER == _Other_Collider->Get_Collision_Type())
 	{
+		if(!bExoClear)
+			GAMEINSTANCE->Add_GameObject<CShin_Ship_Body>(LEVEL_STATIC, TEXT("Player"))->Set_Controller(CONTROLLER::AI);
 		bExoClear = true;
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 1.f, TEXT("우주 정거장을 해킹했습니다!!!!"), 0);
 		//GAMEINSTANCE->StopSound(BGM);
 
-		GAMEINSTANCE->Add_GameObject<CShin_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
-		GAMEINSTANCE->Get_Instance()->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
+
+		GAMEINSTANCE->Get_CurrentLevel()->Change_Level(nullptr, LEVEL_SELECTPLANET);
+
+		//GAMEINSTANCE->Get_Instance()->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
 	}
 }
 

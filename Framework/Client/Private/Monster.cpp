@@ -241,7 +241,8 @@ void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false))->Set_Pos(MyPos);
 
-			Drop_Item();
+			if(CURRENT_LEVEL == LEVEL::LEVEL_MAGMAPLANET)
+				Drop_Item();
 			Set_Enable(false);
 
 		}

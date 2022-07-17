@@ -147,12 +147,12 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 		//타임 이벤트 어케씀
 		if (2.f > m_fTime)
 		{
-			m_pTagetObject->Get_Component<CRigid_Body>()->Set_Booster(true);
+			/*m_pTagetObject->Get_Component<CRigid_Body>()->Set_Booster(true);
 
 			m_pTagetObject->Get_Component<CRigid_Body>()->Add_Force(1.f * m_pTagetObject->Get_Component<CTransform>()->Get_State(CTransform::STATE_LOOK));
 			
-			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
-			GAMEINSTANCE->Add_BlurWidth();
+			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);*/
+			//GAMEINSTANCE->Add_BlurWidth();
 
 		}
 		if (1.f > m_fTime)
@@ -167,10 +167,10 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 		{
 			m_bCinematic = false;
 			
-
+			GAMEINSTANCE->Add_GameObject<CShin_Ship_Body>(LEVEL_STATIC, TEXT("Player"))->Set_Controller(CONTROLLER::AI);
 			CSong_Ship_Body* pMainCharacter = nullptr;
 			GAMEINSTANCE->Reset_BlurWidth();
-			list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+			/*list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 
 			if (!pAiObect)
 				return;
@@ -184,7 +184,7 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 					pMainCharacter->Set_Controller(CONTROLLER::PLAYER);
 					break;
 				}
-			}
+			}*/
 
 			GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel));
 
@@ -226,7 +226,9 @@ void CLevel_ExoPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 	m_bCinematic = true;
 	m_iNextLevel = _iNextLevel;
 
-	list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+
+
+	/*list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 	for (auto& iter = pLayer->begin(); iter != pLayer->end(); ++iter)
 	{
 		if (CONTROLLER::PLAYER == (*iter)->Get_Controller())
@@ -253,7 +255,7 @@ void CLevel_ExoPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 			RETURN_WEAKPTR(Temp);
 		}
 	}
-	GAMEINSTANCE->Add_Shaking(0.1f, 0.f);
+	GAMEINSTANCE->Add_Shaking(0.1f, 0.f);*/
 }
 
 void CLevel_ExoPlanet::Scouge_Create(_float fTimeDelta)
@@ -395,7 +397,7 @@ void CLevel_ExoPlanet::ExoPlanet_Event(_float fTimeDelta)
 	{
 		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("좋지않아! 안그래도 운석 파편떄문에\n움직이는대 제약이있는데\n저 자살특공대 까지 신경을 써야하다니!"), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("좋지않아! 안그래도 운석 파편때문에\n움직이는대 제약이있는데\n저 자살특공대 까지 신경을 써야하다니!"), 0);
 	}
 
 	if (m_fTextBoxTime <= 273.7f && !m_bEventCheck[5])
@@ -469,10 +471,13 @@ void CLevel_ExoPlanet::ExoPlanet_Event(_float fTimeDelta)
 		m_bEventCheck[3] = true;
 		bExoClear = false;
 
-		GAMEINSTANCE->Add_GameObject<CShin_Ship_Body>(LEVEL_STATIC, TEXT("Player"))->Set_Controller(CONTROLLER::AI);;
+		
 
 		GAMEINSTANCE->Add_Text(_point{ (LONG)640, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 3.f, TEXT("임무 실패!!!"), 0);
-		GAMEINSTANCE->Get_Instance()->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
+
+		Change_Level(nullptr, LEVEL_CHARACTERSELECT);
+
+		//GAMEINSTANCE->Get_Instance()->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
 	}
 }
 

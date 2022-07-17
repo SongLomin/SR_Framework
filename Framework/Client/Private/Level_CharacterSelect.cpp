@@ -26,7 +26,27 @@ _bool	g_bFirst = false;
 
 HRESULT CLevel_CharacterSelect::Initialize()
 {
+	/*list<CGameObject*>* pCams = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Camera"));
+	list<CGameObject*>* pPlayers = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+
+	if (pCams)
+	{
+		for (auto& elem : *pCams)
+		{
+			elem->Set_Dead();
+		}
+	}
+
+	if (pPlayers)
+	{
+		for (auto& elem : *pPlayers)
+		{
+			elem->Set_Dead();
+		}
+	}*/
+
 	
+
 
 	CGameObject* m_pShip = GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_CHARACTERSELECT, TEXT("Player"));
 	m_vecShips.push_back(m_pShip);

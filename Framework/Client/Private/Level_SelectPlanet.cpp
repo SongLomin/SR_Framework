@@ -320,7 +320,7 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 			m_bCinematic = false;
 		
 			GAMEINSTANCE->StopSound(BGM);
-			CSong_Ship_Body* pMainCharacter = nullptr;
+			/*CSong_Ship_Body* pMainCharacter = nullptr;
 
 			list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 
@@ -336,7 +336,7 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 					pMainCharacter->Set_Controller(CONTROLLER::PLAYER);
 					break;
 				}
-			}
+			}*/
 
 			GAMEINSTANCE->Reset_BlurWidth();
 

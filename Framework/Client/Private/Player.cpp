@@ -377,7 +377,7 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Bomb"), nullptr, nullptr, false))->Set_Pos(MyPos);
 
-			m_pStatusCom->Set_FULL_HP();
+			//m_pStatusCom->Set_FULL_HP();
 
 			if (!m_pMyTurretList.empty())
 				m_pMyTurretList.back()->Set_Dead();

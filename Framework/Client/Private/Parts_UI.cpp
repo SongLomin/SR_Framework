@@ -46,8 +46,37 @@ void CParts_UI::Tick(_float fTimeDelta)
 	SetRect(&m_rcRect, m_fX - m_fSizeX * 0.5f, m_fY - m_fSizeY * 0.5f,
 		m_fX + m_fSizeX * 0.5f, m_fY + m_fSizeY * 0.5f);
 
-
 	if (KEY_INPUT((KEY::LEFT), KEY_STATE::TAP))
+	{
+		m_iIndex = max(0, m_iIndex - 1);
+	}
+
+	if (KEY_INPUT((KEY::RIGHT), KEY_STATE::TAP))
+	{
+		m_iIndex = min(3, m_iIndex + 1);
+	}
+
+	switch (m_iIndex)
+	{
+	case 0:
+		GAMEINSTANCE->Add_Text(_point{ (LONG)150, (LONG)250 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 발칸 터렛 2개"), 0);
+		break;
+
+	case 1:
+		GAMEINSTANCE->Add_Text(_point{ (LONG)150, (LONG)250 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 미사일 터렛 4개 "), 0);
+		break;
+
+	case 2:
+		GAMEINSTANCE->Add_Text(_point{ (LONG)150, (LONG)250 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 레이저 터렛 4개  "), 0);
+		break;
+
+	case 3:
+		GAMEINSTANCE->Add_Text(_point{ (LONG)150, (LONG)250 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 발칸 터렛 4개 "), 0);
+		break;
+	}
+
+
+	/*if (KEY_INPUT((KEY::LEFT), KEY_STATE::TAP))
 	{
 		m_bSwitchTaget = false;
 	}
@@ -65,7 +94,7 @@ void CParts_UI::Tick(_float fTimeDelta)
 	if (m_bSwitchTaget)
 	{
 		GAMEINSTANCE->Add_Text(_point{ (LONG)150, (LONG)250 }, D3DCOLOR_ARGB(255, 227, 245, 244), 0.f, TEXT(": 레이저 터렛 4개  "), 0);
-	}
+	}*/
 
 
 

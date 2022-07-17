@@ -189,7 +189,7 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 			m_bCinematic = false;
 
 
-			CSong_Ship_Body* pMainCharacter = nullptr;
+			/*CSong_Ship_Body* pMainCharacter = nullptr;
 
 			list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 
@@ -205,7 +205,7 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 					pMainCharacter->Set_Controller(CONTROLLER::PLAYER);
 					break;
 				}
-			}
+			}*/
 			GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel));
 
 		}
@@ -400,10 +400,14 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 		m_pQuestBoxObject->Set_Enable(false);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("하하하 역시 자네는 내가 눈여겨 보고있었다네! \n 어서 복귀해서 축배를 드세나!"), 0);
+		
+		if(!bMagmaClear)
+			GAMEINSTANCE->Add_GameObject<CHong_Ship_Body>(LEVEL_STATIC, TEXT("Player"))->Set_Controller(CONTROLLER::AI);
+		
 		bMagmaClear = true;
 		if (m_fMaxTime <= -5.f)
 		{
-			GAMEINSTANCE->Add_GameObject<CHong_Ship_Body>(LEVEL_STATIC, TEXT("Player"))->Set_Controller(CONTROLLER::AI);
+			
 
 			// 스타트 레벨로 돌아감
 			Change_Level(nullptr, LEVEL::LEVEL_SELECTPLANET);
