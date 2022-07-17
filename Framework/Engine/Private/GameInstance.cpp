@@ -135,6 +135,11 @@ void CGameInstance::Render_End(HWND hWnd)
 	return m_pGraphic_Device->Render_End(hWnd);
 }
 
+void CGameInstance::Render_Sprite()
+{
+	m_pGraphic_Device->Render_Sprite();
+}
+
 LPDIRECT3DDEVICE9* CGameInstance::Get_Device(void)
 {
 	if (nullptr == m_pGraphic_Device)

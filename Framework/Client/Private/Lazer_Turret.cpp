@@ -11,7 +11,6 @@ CLazer_Turret::CLazer_Turret(const CLazer_Turret& Prototype)
 {
 	*this = Prototype;
 	
-
 }
 
 HRESULT CLazer_Turret::Initialize(void* pArg)
@@ -20,16 +19,14 @@ HRESULT CLazer_Turret::Initialize(void* pArg)
 	if (FAILED(SetUp_Components()))
 		return E_FAIL;
 
+	m_pEventMessage = TEXT("Fire_Lazer");
 
 	if (pArg)
 		m_eBulletCollisionType = *(COLLISION_TYPE*)pArg;
-	if (Get_Controller() == CONTROLLER::PLAYER)
-	{
-		m_pEventMessage = TEXT("Fire_Lazer");
 
-	}
-	else
+	if (Get_Controller() == CONTROLLER::AI)
 	{
+		
 		m_fMaxTime = 0.f;
 		m_pEventMessage = TEXT("Fire");
 	}
@@ -50,9 +47,21 @@ void CLazer_Turret::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
-	m_vColor.y += 0.01f;
+	m_vColor.y += fTimeDelta * 0.9f;
 	if (m_vColor.y > 1.f)
 		m_vColor.y = 1.f;
+
+	if (Get_Controller() == CONTROLLER::AI)
+	{
+
+		m_fMaxTime = 0.f;
+		m_pEventMessage = TEXT("Fire");
+	}
+
+	else
+	{
+		m_pEventMessage = TEXT("Fire_Lazer");
+	}
 
 }
 
@@ -61,7 +70,7 @@ void CLazer_Turret::Command_Fire()
 	CGameObject* Bullet = GAMEINSTANCE->Add_GameObject<CLazer_Bullet>(CURRENT_LEVEL, TEXT("Lazer_Bullet"), nullptr, &m_eBulletCollisionType, true);
 	static_cast<CBullet*>(Bullet)->Init_BulletPosition(&Get_Component<CTransform>()->Get_WorldMatrix());
 	//GAMEINSTANCE->PlaySoundW(TEXT("Laser.wav"), 1.f);
-	m_vColor.y -= 0.0105f;
+	m_vColor.y -= TIMEDELTA;
 	static_cast<CLazer_Bullet*>(Bullet)->Get_Color(m_vColor);
 }
 

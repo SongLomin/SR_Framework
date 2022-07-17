@@ -375,7 +375,7 @@ void CRender_Manager::Foward_Pipeline()
 	//D3DXSaveTextureToFile(TEXT("Diffuse.bmp"), D3DXIFF_BMP, diffuseTex, nullptr);
 	//D3DXSaveTextureToFile(TEXT("ExtractBloom.bmp"), D3DXIFF_BMP, BloomTex, nullptr);
 	
-
+	
 
 	DEVICE->StretchRect(originRenderTarget, nullptr, TemporaryRenderTarget, nullptr, D3DTEXF_LINEAR);
 
@@ -397,6 +397,9 @@ void CRender_Manager::Foward_Pipeline()
 
 	//Apply_Blur(RENDERGROUP::RENDER_HDR, ExtractBloomTex);
 	//Apply_Bloom(RENDERGROUP::RENDER_BLOOMABLE);*/
+
+
+	GAMEINSTANCE->Render_Sprite();
 
 	DEVICE->StretchRect(originRenderTarget, nullptr, TemporaryRenderTarget, nullptr, D3DTEXF_LINEAR);
 	

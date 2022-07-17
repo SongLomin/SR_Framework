@@ -68,8 +68,8 @@ HRESULT CLevel_SelectPlanet::Initialize()
 
 	if (!m_bFirst)
 	{
-		CGameObject* pPlayer = GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
-		pPlayer->Set_Controller(CONTROLLER::AI);
+		//CGameObject* pPlayer = GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
+		//pPlayer->Set_Controller(CONTROLLER::AI);
 
 		//list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 

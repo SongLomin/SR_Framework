@@ -29,7 +29,17 @@ HRESULT CLazer_Bullet::Initialize(void* pArg)
 	if (FAILED(SetUp_Components(eCollisionType)))
 		return E_FAIL;
 
-	m_fMaxTime = m_fLifeTime = -0.1f;
+	if (eCollisionType == COLLISION_TYPE::MONSTER_ATTACK)
+	{
+		m_fMaxTime = m_fLifeTime = 0.f;
+	}
+
+	else
+	{
+		m_fMaxTime = m_fLifeTime = -0.1f;
+	}
+
+	
 
 	return S_OK;
 }
@@ -56,7 +66,7 @@ void CLazer_Bullet::LateTick(_float fTimeDelta)
 
 HRESULT CLazer_Bullet::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.2f, 0.2f, 100.f), true);
+	m_pTransformCom->Scaling(_float3(0.5f, 0.5f, 100.f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");

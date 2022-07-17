@@ -47,6 +47,7 @@ public:
 public: /* For.Graphic_Device */	
 	void		Render_Begin(void);
 	void		Render_End(HWND hWnd = NULL);
+	void		Render_Sprite();
 	//void		Deferred_Begin();
 	//void		
 	LPDIRECT3DDEVICE9* Get_Device(void);

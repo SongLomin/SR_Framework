@@ -43,10 +43,10 @@ public:
 	void MoveTarget_LSpin(_float fTimeDelta , _float fLimit);
 	void MoveTarget_RSpin(_float fTimeDelta, _float fLimit);
 	void MoveTarget_Back(_float fTimeDelta);
-	void MoveTaget_Chase_Player(_float fTimeDelta);
-
 	void MoveRoller_LSpin(_float fTimeDelta, _float fLimit);
 	void MoveRoller_RSpin(_float fTimeDelta, _float fLimit);
+	void MoveTaget_Chase_Player(_float fTimeDelta);
+
 
 public:
 	//void State_Tick(CTransform* _Transform, _float fTimeDelta);

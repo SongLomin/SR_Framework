@@ -203,7 +203,16 @@ void CState_Move::MoveTarget_LSpin(_float fTimeDelta, _float fLimit)
 		m_pTransform->Go_Target(m_pTargetTransform, fTimeDelta);
 	}
 
-	_float3 vDir = m_pTargetTransform->Get_World_State(CTransform::STATE_POSITION) - m_pTransform->Get_World_State(CTransform::STATE_POSITION);
+	else
+	{
+		wstring Message = TEXT("Fire");
+		Get_Owner()->Broadcast_EventMessage(&Message);
+	}
+
+	wstring Message = TEXT("Fire");
+	Get_Owner()->Broadcast_EventMessage(&Message);
+
+	/*_float3 vDir = m_pTargetTransform->Get_World_State(CTransform::STATE_POSITION) - m_pTransform->Get_World_State(CTransform::STATE_POSITION);
 	_float fDistance = D3DXVec3Length(&vDir);
 
 
@@ -211,7 +220,7 @@ void CState_Move::MoveTarget_LSpin(_float fTimeDelta, _float fLimit)
 	{
 		wstring Message = TEXT("Fire");
 		Get_Owner()->Broadcast_EventMessage(&Message);
-	}
+	}*/
 
 
 	
@@ -232,7 +241,16 @@ void CState_Move::MoveTarget_RSpin(_float fTimeDelta, _float fLimit)
 		m_pTransform->Go_Target(m_pTargetTransform, fTimeDelta);
 	}
 
-	_float3 vDir = m_pTargetTransform->Get_World_State(CTransform::STATE_POSITION) - m_pTransform->Get_World_State(CTransform::STATE_POSITION);
+	else
+	{
+		wstring Message = TEXT("Fire");
+		Get_Owner()->Broadcast_EventMessage(&Message);
+	}
+
+	wstring Message = TEXT("Fire");
+	Get_Owner()->Broadcast_EventMessage(&Message);
+
+	/*_float3 vDir = m_pTargetTransform->Get_World_State(CTransform::STATE_POSITION) - m_pTransform->Get_World_State(CTransform::STATE_POSITION);
 	_float fDistance = D3DXVec3Length(&vDir);
 
 
@@ -240,7 +258,7 @@ void CState_Move::MoveTarget_RSpin(_float fTimeDelta, _float fLimit)
 	{
 		wstring Message = TEXT("Fire");
 		Get_Owner()->Broadcast_EventMessage(&Message);
-	}
+	}*/
 
 }
 
