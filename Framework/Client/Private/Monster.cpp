@@ -15,6 +15,7 @@
 #include <Bullet.h>
 #include "Rock_PSystem.h"
 #include <Lazer_Turret.h>
+#include "Turret.h"
 
 HRESULT CMonster::Initialize_Prototype()
 {

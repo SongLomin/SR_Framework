@@ -10,7 +10,7 @@
 CLazer_Turret::CLazer_Turret(const CLazer_Turret& Prototype)
 {
 	*this = Prototype;
-
+	
 
 }
 
@@ -23,7 +23,17 @@ HRESULT CLazer_Turret::Initialize(void* pArg)
 
 	if (pArg)
 		m_eBulletCollisionType = *(COLLISION_TYPE*)pArg;
-	m_pEventMessage = TEXT("Fire_Lazer");
+	if (Get_Controller() == CONTROLLER::PLAYER)
+	{
+		m_pEventMessage = TEXT("Fire_Lazer");
+
+	}
+	else
+	{
+		m_fMaxTime = 0.f;
+		m_pEventMessage = TEXT("Fire");
+	}
+		
 
 	float floatArray[3];
 	floatArray[0] = 0.1f;

@@ -12,6 +12,7 @@
 #include <Smoke_PSystem.h>
 #include "Move_PSystem.h"
 #include <AI_HPBar.h>
+#include <Lazer_Turret.h>
 
 CEnemySpace_Body::CEnemySpace_Body(const CEnemySpace_Body& Prototype)
 {
@@ -134,17 +135,26 @@ void CEnemySpace_Body::SetUp_Components_For_Child()
 
 	COLLISION_TYPE eBulletCollisionType = COLLISION_TYPE::MONSTER_ATTACK;
 
-	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
-	m_pPosinList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pPosinList.back());
+	//CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
+	//Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
+	//m_pPosinList.push_back(Posin);
+	//Posin->Set_WeakPtr(&m_pPosinList.back());
 
-	Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
-	m_pPosinList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pPosinList.back());
+	//Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom, &eBulletCollisionType));
+	//Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
+	//m_pPosinList.push_back(Posin);
+	//Posin->Set_WeakPtr(&m_pPosinList.back());
 
-	
+	CLazer_Turret* LazerPosin = static_cast<CLazer_Turret*>(GAMEINSTANCE->Add_GameObject<CLazer_Turret>(LEVEL_STATIC, TEXT("Lazer_Turret"), m_pTransformCom, &eBulletCollisionType));
+	LazerPosin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(2.f, 1.5f, 0.f));
+	m_pPosinList.push_back(LazerPosin);
+	LazerPosin->Set_WeakPtr(&m_pPosinList.back());
+
+	LazerPosin = static_cast<CLazer_Turret*>(GAMEINSTANCE->Add_GameObject<CLazer_Turret>(LEVEL_STATIC, TEXT("Lazer_Turret"), m_pTransformCom, &eBulletCollisionType));
+	LazerPosin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.5f, 0.f));
+	m_pPosinList.push_back(LazerPosin);
+	LazerPosin->Set_WeakPtr(&m_pPosinList.back());
+
 	m_pAIControllerCom->Link_Object(this);
 	m_pAIControllerCom->Set_Enable(false);
 	m_pAIControllerCom->Set_UsableStates(m_pAIControllerCom->Get_States_Preset_AI_Default());
