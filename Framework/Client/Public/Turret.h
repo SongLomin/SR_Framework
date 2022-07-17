@@ -41,7 +41,7 @@ protected:
     CGameObject* m_pTarget = nullptr;//Rocket bullet을 만들 때 넘겨주기
     _tchar* m_pEventMessage;
 
-private:
+protected:
     _float	 m_fCurTime = 0.f;
     _float	 m_fMaxTime;
     _float3  m_vScale;

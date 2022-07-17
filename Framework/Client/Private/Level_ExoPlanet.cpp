@@ -45,6 +45,7 @@
 #include "Satellite_3.h"
 #include <time.h>
 
+
 CLevel_ExoPlanet::CLevel_ExoPlanet()
 {
 
@@ -398,7 +399,7 @@ void CLevel_ExoPlanet::ExoPlanet_Event(_float fTimeDelta)
 	{
 		m_pQuestBoxObject->Set_Enable(false);
 		m_bEventCheck[3] = true;
-
+		bExoClear = false;
 		GAMEINSTANCE->Add_Text(_point{ (LONG)640, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 3.f, TEXT("임무 실패!!!"), 0);
 		GAMEINSTANCE->Get_Instance()->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
 	}

@@ -13,11 +13,14 @@ class CTargeting;
 class CAI_Controller;
 class CCollider_Sphere;
 class CNormal_Turret;
+
 END
 
 BEGIN(Client)
 class CNormal_Turret;
 class CBayonet_Turret;
+class CTurret;
+class CLazer_Turret;
 class CEnemy_GPS;
 class CMonster abstract : public CGameObject
 {
@@ -44,8 +47,9 @@ protected: /* For My Component*/
     CAI_Controller* m_pAIControllerCom = nullptr;
 
 protected:
-    list<CNormal_Turret*> m_pPosinList;
+    list<CTurret*> m_pPosinList;
     list<CBayonet_Turret*> m_pBayonetList;
+    list<CLazer_Turret*> m_pLazerList;
     _float m_fTime = 3.f;
     //CEnemy_GPS* m_pGPS = nullptr;
 

@@ -28,7 +28,8 @@ private:
 	_uint m_iSpawnCount = 0;
 
 	_uint m_iMonsterCount = 0;
-
+public:
+	
 public:
 	static CLevel_MagmaPlanet* Create();
 	virtual void Free() override;

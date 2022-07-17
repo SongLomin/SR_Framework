@@ -22,6 +22,8 @@
 #include "Boss_HpBar.h"
 #include "Boss_Name.h"
 
+
+
 CLevel_SunPlanet::CLevel_SunPlanet()
 {
 }
@@ -277,6 +279,7 @@ void CLevel_SunPlanet::SunPlanet_Event(_float fTimeDelta)
 					GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("자네 덕에 전쟁에서 승리했네 ! \n이제 돌아가서 편안히 쉬시게 !! "), 0);
 					GAMEINSTANCE->PlaySoundW(TEXT("Boss_Die.wav"), 1.f);
 					m_bRollerDie = true;
+					bSunClear = true;
 				}
 
 			}

@@ -10,6 +10,10 @@
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
+bool bSunClear = false;
+bool bRedClear = false;
+bool bExoClear = false;
+bool bMagmaClear = false;
 bool   g_bCamera = false;
 HWND	g_hWnd;
 HINSTANCE g_hInst; // 현재 인스턴스입니다.

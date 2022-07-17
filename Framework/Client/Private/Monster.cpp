@@ -15,6 +15,7 @@
 #include <Bullet.h>
 #include "Rock_PSystem.h"
 #include <Lazer_Turret.h>
+#include "Turret.h"
 
 HRESULT CMonster::Initialize_Prototype()
 {
@@ -234,8 +235,10 @@ void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false))->Set_Pos(MyPos);
 
-			Drop_Item();
-
+			if (GAMEINSTANCE->Get_CurrentLevelIndex() == LEVEL::LEVEL_MAGMAPLANET)
+			{
+				Drop_Item();
+			}
 			Set_Enable(false);
 
 		}

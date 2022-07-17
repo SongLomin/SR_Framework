@@ -12,6 +12,11 @@ namespace Client
 extern HWND g_hWnd;
 extern HINSTANCE g_hInst;
 
+extern bool bRedClear;
+extern bool bExoClear;
+extern bool bMagmaClear;
+extern bool bSunClear;
+
 extern bool   g_bCamera;
 
 using namespace Client;
