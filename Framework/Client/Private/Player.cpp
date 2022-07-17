@@ -97,7 +97,10 @@ void CPlayer::Tick(_float fTimeDelta)
 				//	GAMEINSTANCE->Switch_Player(pCurCameraTransform, elem->Get_Component<CTransform>(), TEXT("TPS"), 1.f);
 				//}
 
-				elem->Set_Controller(CONTROLLER::PLAYER);
+				if (elem->Get_Enable())
+				{
+					elem->Set_Controller(CONTROLLER::PLAYER);
+				}
 			} 
 		}
 		++i;
