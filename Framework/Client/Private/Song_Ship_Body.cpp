@@ -278,11 +278,7 @@ void CSong_Ship_Body::Free()
 {
 	__super::Free();
 
-	for (auto& elem : m_pTrajectorys)
-	{
-		elem->Set_Dead_AllTrajectory();
-		RETURN_WEAKPTR(elem);
-	}
+	
 	
 	delete this;
 }

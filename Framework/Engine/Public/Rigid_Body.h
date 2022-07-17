@@ -61,8 +61,8 @@ public:
 
 		void Set_Preset_MagmaSpace_Body()
 		{
-			m_fOwnerSpeed = 40.f;
-			m_fOwnerAccel = 0.7f;
+			m_fOwnerSpeed = 10.f;
+			m_fOwnerAccel = 0.3f;
 			m_fOwnerRadSpeed = D3DXToRadian(90.0f);
 			m_fOwnerRadAccel = 0.3f;
 			m_fOwnerJump = 5.f;

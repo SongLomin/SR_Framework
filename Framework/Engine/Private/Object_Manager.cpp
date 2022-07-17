@@ -94,6 +94,12 @@ void CObject_Manager::Remove_Dead_Object()
 		{
 			for (auto iter = Pair.second.begin(); iter != Pair.second.end();)
 			{
+				if (!(*iter))
+				{
+					iter = Pair.second.erase(iter);
+					continue;
+				}
+
 				if ((*iter)->Get_Dead())
 				{
 					Safe_Release((*iter));

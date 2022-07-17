@@ -37,6 +37,7 @@
 #include <Rock_1.h>
 #include <Planet_Select.h>
 #include <Level_SelectPlanet.h>
+#include <Hong_Ship_Body.h>
 
 
 CLevel_MagmaPlanet::CLevel_MagmaPlanet()
@@ -144,7 +145,7 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 	{
 		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CMagmaSpace_Body>(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace"), nullptr, nullptr, true)
 			->Get_Component<CTransform>();
-		_float3 SpawnPos{ 0, 0.f, 300.f };
+		_float3 SpawnPos{ 0, 0.f, 150.f };
 
 		_float RotateX = (_float)(rand() % 361);
 		_float RotateY = (_float)(rand() % 361);
@@ -360,7 +361,7 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 		m_pQuestBoxObject->Set_Enable(true);
 
 		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)270 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n       비행선 섬멸  \n     남은시간 (초) :"), 0, m_iMonsterCount);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)308 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("\n  %d"), 1, (_uint)m_fMaxTime);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)290 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("\n  %d"), 1, (_uint)m_fMaxTime);
 
 		if (m_iFontiX <= 1040)
 		{
@@ -402,6 +403,8 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 		bMagmaClear = true;
 		if (m_fMaxTime <= -5.f)
 		{
+			GAMEINSTANCE->Add_GameObject<CHong_Ship_Body>(LEVEL_STATIC, TEXT("Player"))->Set_Controller(CONTROLLER::AI);
+
 			// 스타트 레벨로 돌아감
 			Change_Level(nullptr, LEVEL::LEVEL_SELECTPLANET);
 			//GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));

@@ -175,17 +175,17 @@ void CMonster::Drop_Item()
 
 	CGameObject* Turret = nullptr;
 
-	if (random < 7)
+	if (random < 15)
 	{
 		Turret = GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), nullptr, nullptr, true);
 	}
 
-	else if (random < 12)
+	else if (random < 25)
 	{
 		Turret = GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_STATIC, TEXT("Rocket_Turret"), nullptr, nullptr, true);
 	}
 
-	else if (random < 16)
+	else if (random < 31)
 	{
 		//·¹ÀÌÀú ÅÍ·¿
 
@@ -241,10 +241,7 @@ void CMonster::On_Collision_Enter(CCollider* _Other_Collider)
 			_float3 MyPos = m_pTransformCom->Get_World_State(CTransform::STATE_POSITION);
 			((CBomb_Effect*)GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false))->Set_Pos(MyPos);
 
-			if (GAMEINSTANCE->Get_CurrentLevelIndex() == LEVEL::LEVEL_MAGMAPLANET)
-			{
-				Drop_Item();
-			}
+			Drop_Item();
 			Set_Enable(false);
 
 		}

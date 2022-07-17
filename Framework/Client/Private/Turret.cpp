@@ -176,7 +176,7 @@ void CTurret::On_Collision_Stay(CCollider* _Other_Collider)
             PlayerTransformCom->Add_Child(m_pTransformCom);
             m_pColliderCom->Set_Enable(false);
             m_pLightCom->Set_Enable(false);
-
+            GAMEINSTANCE->PlaySoundW(TEXT("Drop_Turret.wav"), 0.3f);
             Set_Controller(PlayerTransformCom->Get_Owner()->Get_Controller());
             
         }

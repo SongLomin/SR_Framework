@@ -36,6 +36,7 @@
 #include <VenusPlanet_SkyBox.h>
 #include "Planet_Select.h"
 #include "Enemy_Roller.h"
+#include "Kang_Ship_Body.h"
 
 
 CLevel_VenusPlanet::CLevel_VenusPlanet()
@@ -199,6 +200,7 @@ void CLevel_VenusPlanet::Change_Level(void* pArg, _uint _iNextLevel)
 	if (m_bCinematic)
 		return;
 
+	GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player"))->Set_Controller(CONTROLLER::AI);
 
 	m_fTime = 3.f;
 	m_bCinematic = true;

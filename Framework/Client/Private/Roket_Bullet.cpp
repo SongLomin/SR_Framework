@@ -331,6 +331,7 @@ void CRocket_Bullet::OnDisable()
 
 	m_pColliderCom->OnDisable();
 	RETURN_WEAKPTR(m_pTarget);
+	m_pTarget = nullptr;
 }
 
 

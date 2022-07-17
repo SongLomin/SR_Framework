@@ -42,7 +42,7 @@
 #include "Boss_HpTable.h"
 #include "Boss_Name.h"
 #include "TransportShip_HpBar.h"
-
+#include "Song_Ship_Body.h"
 
 
 CLevel_RedPlanet::CLevel_RedPlanet()
@@ -530,8 +530,13 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 		m_pTextBoxObject->Set_Enable(false);
 		m_bEventCheck[6] = true;
 		GAMEINSTANCE->Add_Text(_point{ (LONG)640, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 2.f, TEXT("Red Planet 임무완료!"), 0);
+		
+		if (!bRedClear)
+			GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_STATIC, TEXT("Player"))->Set_Controller(CONTROLLER::AI);
+		
 		bRedClear = true;
 		//GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
+		
 		Change_Level(nullptr, LEVEL_SELECTPLANET);
 		GAMEINSTANCE->StopAll();
 	}

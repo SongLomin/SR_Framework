@@ -11,6 +11,11 @@
 #include <Rocket_Turret.h>
 #include <Lazer_Turret.h>
 #include "Level.h"
+#include <Song_Ship_Body.h>
+#include <Kang_Ship_Body.h>
+#include <Shin_Ship_Body.h>
+#include <Hong_Ship_Body.h>
+#include <Friendly_GPS.h>
 
 CPlayer::CPlayer()
 {
@@ -111,7 +116,7 @@ void CPlayer::Tick(_float fTimeDelta)
 		++i;
 	}
 
-	if (Get_Controller() == CONTROLLER::AI)
+	if (Get_Controller() != CONTROLLER::PLAYER)
 		return;
 
 	if (KEY_INPUT(KEY::NUM7, KEY_STATE::TAP))
@@ -144,6 +149,30 @@ void CPlayer::Tick(_float fTimeDelta)
 
 	}
 
+	if (KEY_INPUT(KEY::U, KEY_STATE::TAP))
+	{
+		GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_STATIC, TEXT("Player"))->Set_Controller(CONTROLLER::AI);
+
+	}
+
+	if (KEY_INPUT(KEY::I, KEY_STATE::TAP))
+	{
+		GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player"))->Set_Controller(CONTROLLER::AI);
+
+	}
+
+	if (KEY_INPUT(KEY::O, KEY_STATE::TAP))
+	{
+		GAMEINSTANCE->Add_GameObject<CShin_Ship_Body>(LEVEL_STATIC, TEXT("Player"))->Set_Controller(CONTROLLER::AI);
+
+	}
+	
+	if (KEY_INPUT(KEY::P, KEY_STATE::TAP))
+	{
+		GAMEINSTANCE->Add_GameObject<CHong_Ship_Body>(LEVEL_STATIC, TEXT("Player"))->Set_Controller(CONTROLLER::AI);
+
+	}
+
 
 }
 
@@ -162,8 +191,16 @@ void CPlayer::LateTick(_float fTimeDelta)
 		}
 		else
 		{
+
 			m_pTargetingCom->Set_TargetMode(TARGETMODE::TARGET_MULTIRAY);
-			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("EnemySpace_Body")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_StagBeetle")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_TargetBoard")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Roller")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Boss")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+			m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Enemy_Scourge")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
+			
 			//m_pTargetingCom->Make_TargetList_Distance(GAMEINSTANCE->Find_Layer(CURRENT_LEVEL, TEXT("Monster")), m_pTransformCom->Get_State(CTransform::STATE_POSITION, true), 10000.f);
 			Update_PosinTarget(m_pTargetingCom->Get_TargetMode());
 		}
@@ -252,7 +289,7 @@ void CPlayer::On_Collision_Enter(CCollider* _Other_Collider)
 	{
 		GAMEINSTANCE->Add_Shaking(0.3f, 0.1f);
 		
-		GAMEINSTANCE->PlaySoundW(TEXT("Player_Hit.wav"), 1.f);
+		//GAMEINSTANCE->PlaySoundW(TEXT("Player_Hit.wav"), 1.f);
 
 
 		_float fDamage = static_cast<CBullet*>(_Other_Collider->Get_Owner())->Get_Damage();
@@ -463,6 +500,8 @@ HRESULT CPlayer::SetUp_Components()
 	WEAK_PTR(m_pLock_ControllerCom);
 
 	SetUp_Components_For_Child();
+
+	GAMEINSTANCE->Add_GameObject<CFriendly_GPS>(CURRENT_LEVEL, TEXT("GPS_Friendly"), m_pTransformCom);
 
 	Set_Controller(CONTROLLER::LOCK);
 	return S_OK;
@@ -681,4 +720,11 @@ void CPlayer::Free()
 	{
 		RETURN_WEAKPTR(elem);
 	}
+
+	for (auto& elem : m_pTrajectorys)
+	{
+		elem->Set_Dead_AllTrajectory();
+		RETURN_WEAKPTR(elem);
+	}
+	m_pTrajectorys.clear();
 }

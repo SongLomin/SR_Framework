@@ -154,6 +154,8 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 
 		if (KEY_INPUT(KEY::LEFT, KEY_STATE::TAP) /* || 버튼 눌렀을 때*/)
 		{
+			GAMEINSTANCE->PlaySoundW(TEXT("Select.wav"), 1.f);
+
 			if (0 > m_iIndex)//처음
 			{
 				m_iIndex = 0;

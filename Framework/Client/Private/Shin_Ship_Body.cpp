@@ -4,6 +4,7 @@
 #include "Normal_Turret.h"
 #include "Mesh_KangShip.h"
 #include "Trajectory.h"
+#include <Rocket_Turret.h>
 
 CShin_Ship_Body::CShin_Ship_Body()
 {
@@ -138,11 +139,16 @@ void CShin_Ship_Body::SetUp_Components_For_Child()
 
 #pragma region Posin Setting
 
-	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
-	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
-	m_pMyTurretList.push_back(Posin);
-	Posin->Set_WeakPtr(&m_pMyTurretList.back());
+	//CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
+	//Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
+	//m_pMyTurretList.push_back(Posin);
+	//Posin->Set_WeakPtr(&m_pMyTurretList.back());
 
+
+	GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom);
+	GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom);
+	GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom);
+	GAMEINSTANCE->Add_GameObject<CRocket_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom);
 
 #pragma endregion Posin Setting
 
