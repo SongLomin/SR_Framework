@@ -148,7 +148,7 @@ void CEnemy_Scourge::On_Collision_Enter(CCollider* _Other_Collider)
 		vCollisionDirection *= D3DXVec3Length(&vOtherColliderSpeed);
 		vOtherColliderSpeed += vCollisionDirection;
 
-		m_pRigidBodyCom->Add_Force(vOtherColliderSpeed * 3.f);
+		m_pRigidBodyCom->Add_Force(vOtherColliderSpeed * 2.f);
 
 		CGameObject* pParticle = GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false);
 		GAMEINSTANCE->PlaySoundW(TEXT("Enemy_Boom.wav"), 0.3f);

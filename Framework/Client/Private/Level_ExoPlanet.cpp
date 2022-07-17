@@ -138,7 +138,7 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);		
 
-
+	srand(unsigned(time(NULL)));
 
 	if (m_bCinematic)
 	{
@@ -157,11 +157,9 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 		if (1.f > m_fTime)
 			GAMEINSTANCE->Sub_FadeOffSet();
 
-		srand(unsigned(time(NULL)));
 		
-		Scouge_Create(fTimeDelta);
-		ExoPlanet_Event(fTimeDelta);
-		//Rock_Create(fTimeDelta);
+		
+	
 
 
 		if (0.f > m_fTime)
@@ -193,6 +191,10 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 		GAMEINSTANCE->Add_FadeOffSet();
 	}
 
+
+	Scouge_Create(fTimeDelta);
+	ExoPlanet_Event(fTimeDelta);
+	//Rock_Create(fTimeDelta);
 
 }
 
@@ -350,7 +352,7 @@ void CLevel_ExoPlanet::ExoPlanet_Event(_float fTimeDelta)
 		m_pQuestBoxObject->Set_Enable(true);
 
 		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)270 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n      우주 정거장 해킹  \n     남은시간 (초) :"), 0);
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)308 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("\n  %d"), 1, (_uint)m_fMaxTime);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)290 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("\n  %d"), 1, (_uint)m_fMaxTime);
 
 		if (m_iFontiX <= 1040)
 		{

@@ -300,7 +300,7 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("훈련용 봇들을 무작위 위치에 출격시킬태니\n자동조준 을 이용해 처리해보게."), 0);
 	}
 
-	if (m_fTextBoxTime <= 285.7f && !m_bEventCheck[2])
+	if (m_fTextBoxTime <= 285.7f && !m_bEventCheck[3])
 	{
 		GAMEINSTANCE->StopSound(10);
 	}
