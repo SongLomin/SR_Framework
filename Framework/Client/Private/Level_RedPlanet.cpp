@@ -164,7 +164,7 @@ HRESULT CLevel_RedPlanet::Initialize()
 
 
 
-	GAMEINSTANCE->PlayBGM(TEXT("RedPlanet.wav"), 0.1f);
+	GAMEINSTANCE->PlayBGM(TEXT("RedPlanet.wav"), 0.5f);
 
 
 
@@ -335,7 +335,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 
 	if (m_fTextBoxTime <= 298.f && !m_bEventCheck[0])
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("Red Planet 에서 화물선을 안전하게 옮기기 위해\n 용병들을 고용한다고 하는구만.\n 옆에 보이는 화물선을 목적지까지 호위해주게. "), 0);
 	}
@@ -353,7 +353,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 
 	if (m_fTextBoxTime <= 294.f && !m_bEventCheck[1])
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("주변에 무언가 다가오는것 같은데?."), 0);
 	}
@@ -372,7 +372,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 
 	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[2])
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("젠장! 전방에 적 함체들이 몰려오고있어! \n 지금바로 지원병력을 보낼테니 조금만 버텨주게!"), 0);
 	}
@@ -392,7 +392,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 
 	if (m_fTextBoxTime <= 229.f && !m_bEventCheck[3])
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("지원병력이 거의 다 와가네! 조금만 더 버텨주게나!"), 0);
 	}
@@ -414,7 +414,7 @@ void CLevel_RedPlanet::RedPlanet_Event(float fTimeDelta)
 
 	if (m_fTextBoxTime <= 190.f && !m_bEventCheck[4])
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("지원군들이 도착했네! \n 고생 많았네 모조리 쓸어보자고!"), 0);
 

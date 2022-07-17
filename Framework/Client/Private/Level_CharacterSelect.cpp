@@ -102,7 +102,7 @@ HRESULT CLevel_CharacterSelect::Initialize()
 	GAMEINSTANCE->Get_Camera()->Get_Transform()->LookAt(_float3(0.f, 0.f, 0.f));
 
 
-	GAMEINSTANCE->PlayBGM(TEXT("SelectPlayer.wav"), 0.1f);
+	GAMEINSTANCE->PlayBGM(TEXT("SelectPlayer.wav"), 0.5f);
 
 	return S_OK;
 }
@@ -191,7 +191,7 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 	if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP) /* || 버튼 눌렀을 때*/)
 	{
 		
-		GAMEINSTANCE->PlaySoundW(TEXT("Start.wav"), 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("Start.wav"), 0.5f);
 
 			if (-1 != m_iIndex)
 			{

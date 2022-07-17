@@ -129,7 +129,7 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 
 
 	
-	GAMEINSTANCE->PlayBGM(TEXT("MagmaPlanet.wav"), 0.1f);
+	GAMEINSTANCE->PlayBGM(TEXT("MagmaPlanet.wav"), 0.5f);
 
 
 	return S_OK;
@@ -301,7 +301,7 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 	// 양갑렬 대위
 	if (m_fTextBoxTime <= 298.f && !m_bEventCheck[0])
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("Magma Planet은 적군들이 모여있는 곳일세. \n 적군들을 소탕해, 전리품을 얻어 가게. "), 0);
 	}
@@ -319,7 +319,7 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 
 	if (m_fTextBoxTime <= 294.f && !m_bEventCheck[1])
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("조심하게! 내 생각보다 수가 많네!"), 0);
 	}
@@ -338,7 +338,7 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 
 	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[2])
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("우리의 존재를 눈치챈듯 하네! \n 힘을 합쳐 적들을 말살하세!"), 0);
 	}

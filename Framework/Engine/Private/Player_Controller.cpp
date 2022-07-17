@@ -54,7 +54,7 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 	
 		if (KEY_INPUT(KEY::V, KEY_STATE::TAP))
 		{
-			GAMEINSTANCE->PlaySoundW(TEXT("Tagetting.wav"), 1.f);
+			GAMEINSTANCE->PlaySoundW(TEXT("Tagetting.wav"), 0.5f);
 
 			switch (m_iCurrentCam)
 			{
@@ -123,7 +123,7 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 
 		if (KEY_INPUT(KEY::TAB, KEY_STATE::TAP))
 		{
-			GAMEINSTANCE->PlaySoundW(TEXT("Tagetting.wav"), 1.f);
+			GAMEINSTANCE->PlaySoundW(TEXT("Tagetting.wav"), 0.5f);
 
 			switch (m_iCurrent_TargetMode)
 			{

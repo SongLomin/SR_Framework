@@ -130,7 +130,7 @@ HRESULT CLevel_ExoPlanet::Initialize()
 
 
 	
-	GAMEINSTANCE->PlayBGM(TEXT("ExoPlanet.wav"), 0.1f);
+	GAMEINSTANCE->PlayBGM(TEXT("ExoPlanet.wav"), 0.5f);
 
 	return S_OK;
 }
@@ -295,7 +295,7 @@ void CLevel_ExoPlanet::ExoPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 298.f && !m_bEventCheck[0])
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이번 임무는 적군 행성 우주 정거장을 해킹해야하네."), 0);
 	}
@@ -315,7 +315,7 @@ void CLevel_ExoPlanet::ExoPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 294.f && !m_bEventCheck[1])
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이 행성은 우주 쓰레기와 운석 파편이 아주 많다고 들었네\n조심히 들키지 않게 빠르게 우주 정거장을 해킹해주게."), 0);
 	}
@@ -333,7 +333,7 @@ void CLevel_ExoPlanet::ExoPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[2])
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이런! 벌써 들킨것같군\n내가 최대한 적들을 유인할태니 서둘러주게! "), 0);
 	}
@@ -375,7 +375,7 @@ void CLevel_ExoPlanet::ExoPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 280.f && !m_bEventCheck[4])
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이런 미친자식들! 자살특공대인가 카미카제를 하다니.."), 0);
 	}
@@ -393,7 +393,7 @@ void CLevel_ExoPlanet::ExoPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 274.f && !m_bEventCheck[5])
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("좋지않아! 안그래도 운석 파편떄문에\n움직이는대 제약이있는데\n저 자살특공대 까지 신경을 써야하다니!"), 0);
 	}
@@ -411,7 +411,7 @@ void CLevel_ExoPlanet::ExoPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 268 && !m_bEventCheck[6])
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("하지만 나 대위 양갑렬 절대 굴하지않는다!"), 0);
 	}
@@ -429,7 +429,7 @@ void CLevel_ExoPlanet::ExoPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 200 && !m_bEventCheck[7])
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("기체가 많이 파손됬네!!! 빨리 서둘러!!"), 0);
 	}
@@ -447,7 +447,7 @@ void CLevel_ExoPlanet::ExoPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 93 && !m_bEventCheck[8])
 	{
-		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 0.4f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이런.. 퇴각하겠네 다음을 노리세나.."), 0);
 	}
