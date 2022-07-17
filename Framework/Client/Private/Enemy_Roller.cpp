@@ -153,6 +153,7 @@ void CEnemy_Roller::On_Change_Controller(const CONTROLLER& _IsAI)
 void CEnemy_Roller::On_Collision_Enter(CCollider* _Other_Collider)
 {
 	__super::On_Collision_Enter(_Other_Collider);
+
 }
 
 void CEnemy_Roller::On_Collision_Stay(CCollider* _Other_Collider)

@@ -143,6 +143,8 @@ void CSunSpaceBoss_Body::Spawn_Monster()
 
 	}
 		m_bSkill = true;
+
+		GAMEINSTANCE->PlaySoundW(TEXT("EnemySpawn.wav"), SYSTEM_EFFECT, 1.f);
 }
 
 void CSunSpaceBoss_Body::Rock_throw(_float fTimeDelta)
@@ -182,6 +184,7 @@ void CSunSpaceBoss_Body::Rock_throw(_float fTimeDelta)
 			_float3 SpawnPos{ (_float)(rand() % 300), (_float)(rand() % 300), MyPos.z };
 
 			((CBlackHole_Effect*)GAMEINSTANCE->Add_GameObject<CBlackHole_Effect>(CURRENT_LEVEL, TEXT("BlackHole"), nullptr, nullptr, false))->Set_Pos(SpawnPos);
+			GAMEINSTANCE->PlaySoundW(TEXT("Rock_Spawn.wav"), SYSTEM_EFFECT, 1.f);
 
 			m_pRockObject->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, SpawnPos);
 
