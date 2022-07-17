@@ -54,18 +54,22 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 	
 		if (KEY_INPUT(KEY::V, KEY_STATE::TAP))
 		{
+			GAMEINSTANCE->PlaySoundW(TEXT("Tagetting.wav"), 1.f);
+
 			switch (m_iCurrentCam)
 			{
 			case 0:
-
+				GAMEINSTANCE->Add_Text(_point{ (LONG)900, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 0, 255), 1.f, TEXT("견착 모드입니다."), 0);
 				GAMEINSTANCE->Switch_Camera(TEXT("Shoulder"),0.2f);
 				break;
 
 			case 1:
+				GAMEINSTANCE->Add_Text(_point{ (LONG)900, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 0, 255), 1.f, TEXT("FPS 모드입니다."), 0);
 				GAMEINSTANCE->Switch_Camera(TEXT("FPS"),0.2f);
 				break;
 
 			case 2:
+				GAMEINSTANCE->Add_Text(_point{ (LONG)900, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 0, 255), 1.f, TEXT("TPS 모드입니다."), 0);
 				GAMEINSTANCE->Switch_Camera(TEXT("TPS"),0.2f);
 				break;
 
@@ -119,17 +123,22 @@ void CPlayer_Controller::Tick(_float fTimeDelta)
 
 		if (KEY_INPUT(KEY::TAB, KEY_STATE::TAP))
 		{
+			GAMEINSTANCE->PlaySoundW(TEXT("Tagetting.wav"), 1.f);
+
 			switch (m_iCurrent_TargetMode)
 			{
 			case 0:
+				GAMEINSTANCE->Add_Text(_point{ (LONG)900, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 255, 0), 1.f, TEXT("싱글 타겟 모드입니다."), 0);
 				m_pMyObject->Get_Component<CTargeting>()->Set_TargetMode(TARGETMODE::TARGET_SINGLE);
 				break;
 
 			case 1:
+				GAMEINSTANCE->Add_Text(_point{ (LONG)900, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 255, 0), 1.f, TEXT("멀티 타겟 모드입니다."), 0);
 				m_pMyObject->Get_Component<CTargeting>()->Set_TargetMode(TARGETMODE::TARGET_MULTIRAY);
 				break;
 
 			case 2:
+				GAMEINSTANCE->Add_Text(_point{ (LONG)900, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 255, 0), 1.f, TEXT("멀티 와이드 타겟 모드입니다."), 0);
 				m_pMyObject->Get_Component<CTargeting>()->Set_TargetMode(TARGETMODE::TARGET_MULTIWIDE);
 				break;
 			}

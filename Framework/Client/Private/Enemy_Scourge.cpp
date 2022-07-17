@@ -87,7 +87,7 @@ void CEnemy_Scourge::SetUp_Components_For_Child()
 	CStatus::STATUS Status;
 	Status.fAttack = 1.f;
 	Status.fArmor = 5.f;
-	Status.fMaxHp = 20.f;
+	Status.fMaxHp = 5.f;
 	Status.fHp = Status.fMaxHp;
 
 
@@ -134,7 +134,7 @@ void CEnemy_Scourge::On_Change_Controller(const CONTROLLER& _IsAI)
 
 void CEnemy_Scourge::On_Collision_Enter(CCollider* _Other_Collider)
 {
-	//__super::On_Collision_Enter(_Other_Collider);
+	__super::On_Collision_Enter(_Other_Collider);
 
 	if (_Other_Collider->Get_Collision_Type() == COLLISION_TYPE::PLAYER)
 	{
