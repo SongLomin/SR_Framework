@@ -88,7 +88,7 @@ HRESULT CLevel_SunPlanet::Initialize()
 
 
 
-	GAMEINSTANCE->PlayBGM(TEXT("SunPlanet.wav"), 1.f);
+	GAMEINSTANCE->PlayBGM(TEXT("SunPlanet.wav"), 0.1f);
 	//GAMEINSTANCE->PlaySoundW(TEXT("SunPlanet.wav"), BGM, 1.f);
 
 	GAMEINSTANCE->Add_TimerEvent(0, this, 0.f, false, false, false);

@@ -151,6 +151,7 @@ void CEnemy_Scourge::On_Collision_Enter(CCollider* _Other_Collider)
 		m_pRigidBodyCom->Add_Force(vOtherColliderSpeed * 3.f);
 
 		CGameObject* pParticle = GAMEINSTANCE->Add_GameObject<CBomb_Effect>(CURRENT_LEVEL, TEXT("Explosion"), nullptr, nullptr, false);
+		GAMEINSTANCE->PlaySoundW(TEXT("Enemy_Boom.wav"), 0.3f);
 		((CBomb_Effect*)pParticle)->Set_Pos(pRockPos);
 		((CBomb_Effect*)pParticle)->Get_Component<CTransform>()->Scaling(_float3(25.f, 25.f, 25.f));
 		Set_Dead();

@@ -67,7 +67,6 @@ void CNormal_Turret::Command_Fire()
 		//m_fPreheatTime += TIMEDELTA;
 		//m_fPreheatTime *= 1.01f;
 		//m_fPreheatTime = min(10.f, m_fPreheatTime);
-
 		GAMEINSTANCE->Add_Shaking(0.1f, 0.05f);
 	}
 }

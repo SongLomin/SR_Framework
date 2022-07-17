@@ -69,6 +69,7 @@ using namespace std;
 #pragma comment(lib, "fmodex64_vc.lib")
 
 #include <Vfw.h>
-#pragma comment(lib, "fmodex64_vc.lib")
+#pragma comment(lib, "vfw32.lib")
+
 
 

@@ -273,7 +273,7 @@ HRESULT CLevel_SelectPlanet::Initialize()
 
 
 	
-	GAMEINSTANCE->PlaySoundW(TEXT("SelectPlanet.wav"), 1.f);
+	GAMEINSTANCE->PlayBGM(TEXT("SelectPlanet.wav"), 0.1f);
 
 	
 	return S_OK;

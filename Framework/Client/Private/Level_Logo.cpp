@@ -25,6 +25,8 @@ HRESULT CLevel_Logo::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CLogo>(LEVEL_LOGO, TEXT("Logo")))
 		return E_FAIL;
 
+	GAMEINSTANCE->PlayBGM(TEXT("Logo.wav"), 3.f);
+
 	return S_OK;
 }
 
@@ -35,6 +37,7 @@ void CLevel_Logo::Tick(_float fTimeDelta)
 
 	if (GetKeyState(VK_SPACE) & 0x8000)
 	{
+		//GAMEINSTANCE->StopSound(BGM);
 		if (FAILED(GAMEINSTANCE->Get_Instance()->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_CHARACTERSELECT))))
 			return;
 	}
