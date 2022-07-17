@@ -20,6 +20,7 @@ private:
 protected:
     // CTurret을(를) 통해 상속됨
     virtual HRESULT Initialize(void* pArg) override;
+    virtual void    Tick(_float fTimeDelta) override;
     virtual void    Command_Fire() override;
 
 protected:
@@ -27,7 +28,8 @@ protected:
 
 private:
     COLLISION_TYPE m_eBulletCollisionType = COLLISION_TYPE::PLAYER_ATTACK;
-   
+       
+    _float3     m_vColor=_float3(1.f,1.f,1.f);
 
 public:
     // CGameObject을(를) 통해 상속됨

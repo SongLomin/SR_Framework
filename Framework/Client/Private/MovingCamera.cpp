@@ -62,6 +62,14 @@ void CMovingCamera::Tick(_float fTimeDelta)
 	
 
 	m_CameraRoute.fTime -= fTimeDelta;
+	if (4.f < m_CameraRoute.fTime && m_bFadeIn)
+	{
+		GAMEINSTANCE->Add_FadeOffSet();
+	}
+	else if (1.f > m_CameraRoute.fTime && m_bFadeOut)
+	{
+		GAMEINSTANCE->Sub_FadeOffSet();
+	}
 	m_pTransformCom->Update_WorldMatrix();
 	/*if (CAMERAMOVING::CAMERA_STAY == m_CameraRoute.eMoveType)
 	{
@@ -168,6 +176,8 @@ void CMovingCamera::Boss_Cinematic(CTransform* _pBossTarget)
 	m_CameraRoute.m_vSpeed = vRight*20.f;
 	
 	m_bFlag = true;
+	m_bFadeOut = true;
+	m_bFadeIn = true;
 }
 
 void CMovingCamera::Monster_Cinematic(CTransform* _pBossTarget)

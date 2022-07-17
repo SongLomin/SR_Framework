@@ -106,6 +106,8 @@ public: /* For.Render_Mananger */
 	HRESULT Add_Light(CLight* _pLight);
 	void	Add_BlurWidth();
 	void	Reset_BlurWidth();
+	void	Sub_FadeOffSet();
+	void	Add_FadeOffSet();
 
 public: /* For.Resource_Mananger */
 	HRESULT Remove_Textures_By_MemoryType(MEMORY_TYPE _eMemType);

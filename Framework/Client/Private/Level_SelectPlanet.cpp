@@ -309,13 +309,16 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 
 			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
 			GAMEINSTANCE->Add_BlurWidth();
-
+		
 		}
+
+		if(1.f>m_fTime)
+			GAMEINSTANCE->Sub_FadeOffSet();
 
 		if (0.f > m_fTime)
 		{
 			m_bCinematic = false;
-			//GAMEINSTANCE->Swap_Camera();
+		
 			GAMEINSTANCE->StopSound(BGM);
 			CSong_Ship_Body* pMainCharacter = nullptr;
 
@@ -350,6 +353,10 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 				elem->Set_Controller(CONTROLLER::PLAYER);
 			}*/
 		}
+	}
+	else
+	{
+		GAMEINSTANCE->Add_FadeOffSet();
 	}
 
 

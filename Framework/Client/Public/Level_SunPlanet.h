@@ -25,7 +25,7 @@ private:
 	_uint m_iSpawnCount = 0;
 	_float m_fTextCount = 5.f;
 	_bool m_bRollerDie = false;
-public:
+	_bool m_bFadeIn = false;
 
 private:
 	void SunPlanet_Event(_float fTimeDelta);

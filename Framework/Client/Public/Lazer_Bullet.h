@@ -36,6 +36,8 @@ private:
     CMesh_Test* m_pMeshCom = nullptr;
     CCollider_Ray* m_pColliderCom = nullptr;
 
+    _float3     m_vColor=_float3(1.f,1.f,1.f);
+
 
 public: /* For Event Function */
     virtual void On_Collision_Enter(CCollider* _Other_Collider) override;
@@ -47,6 +49,12 @@ protected:
     virtual HRESULT SetUp_Components_For_Child(COLLISION_TYPE _eCollisionType) override;
     virtual void OnEnable(void* _Arg = nullptr) override;
     virtual void OnDisable() override;
+
+public:
+    void    Get_Color(_float3 vColor)
+    {
+        m_vColor = vColor;
+    }
 
 public:
     static CLazer_Bullet* Create();

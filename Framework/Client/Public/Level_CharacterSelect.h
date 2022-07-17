@@ -13,15 +13,14 @@ public:
 	virtual HRESULT Initialize();
 	virtual void Tick(_float fTimeDelta);
 	virtual HRESULT Render();
-	virtual void Change_Level(void* pArg, _uint _iNextLevel) {}
+	virtual void Change_Level(void* pArg, _uint _iNextLevel);
 	virtual HRESULT Complete_Condition() { return S_OK; }
 
-private:
-	void	CharacterSelect_Event();//폰트나 UI그런것들
 
 private:
 	vector<CGameObject*> m_vecShips;
 	_int	m_iIndex = 0;
+	_bool	m_bFirst = false;
 private:
 	_float3		m_vMovePos = _float3(0.f,0.f,0.f);//카메라가 이동할 위치
 

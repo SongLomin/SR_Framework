@@ -178,7 +178,10 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 			// 이게 맞냐
 			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
 			GAMEINSTANCE->Add_BlurWidth();
+		
 		}
+		if (1.f > m_fTime)
+			GAMEINSTANCE->Sub_FadeOffSet();
 
 		if (0.f > m_fTime)
 		{
@@ -204,6 +207,11 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 			}
 		}
 	}
+	else
+	{
+		GAMEINSTANCE->Add_FadeOffSet();
+	}
+
 
 	if (KEY_INPUT(KEY::F1, KEY_STATE::TAP))
 	{

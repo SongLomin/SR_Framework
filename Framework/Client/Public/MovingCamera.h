@@ -60,7 +60,9 @@ private:
 
 	list<CAMERAROUTE>		m_listRoute;
 	CAMERAROUTE				m_CameraRoute;
-	_bool					m_bFlag = false;;
+	_bool					m_bFlag = false;
+	_bool					m_bFadeOut = false;
+	_bool					m_bFadeIn = false;
 
 public:
 	static CMovingCamera* Create();

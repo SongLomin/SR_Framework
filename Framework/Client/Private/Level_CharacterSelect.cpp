@@ -29,12 +29,23 @@ HRESULT CLevel_CharacterSelect::Initialize()
 	CGameObject* m_pShip = GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_CHARACTERSELECT, TEXT("Player"));
 	m_vecShips.push_back(m_pShip);
 	WEAK_PTR(m_vecShips.back());
-	m_pShip->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(-10.f, 0.f, 0.f));
+	m_pShip->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(-18.f, 0.f, 0.f));
 	
+	m_pShip = GAMEINSTANCE->Add_GameObject<CShin_Ship_Body>(LEVEL_CHARACTERSELECT, TEXT("Player"));
+	m_vecShips.push_back(m_pShip);
+	WEAK_PTR(m_vecShips.back());
+	m_pShip->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(-6.f, 0.f, 0.f));
+
 	m_pShip = GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_CHARACTERSELECT, TEXT("Player"));
 	m_vecShips.push_back(m_pShip);
 	WEAK_PTR(m_vecShips.back());
-	m_pShip->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(10.f, 0.f, 0.f));
+	m_pShip->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(6.f, 0.f, 0.f));
+	
+	m_pShip = GAMEINSTANCE->Add_GameObject<CHong_Ship_Body>(LEVEL_CHARACTERSELECT, TEXT("Player"));
+	m_vecShips.push_back(m_pShip);
+	WEAK_PTR(m_vecShips.back());
+	m_pShip->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(18.f, 0.f, 0.f));
+
 	
 	CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(LEVEL_STATIC, TEXT("Camera"));
 	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
@@ -84,7 +95,7 @@ HRESULT CLevel_CharacterSelect::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CSelectShip>(LEVEL_CHARACTERSELECT, TEXT("SelectShip_UI")))
 		return E_FAIL;
 
-	m_vMovePos = _float3(0.f, 5.f, -20.f);
+	m_vMovePos = _float3(0.f, 5.f, -25.f);
 	GAMEINSTANCE->Get_Camera()->Get_Transform()->Set_State(CTransform::STATE_POSITION, m_vMovePos);
 	GAMEINSTANCE->Get_Camera()->Get_Transform()->LookAt(_float3(0.f, 0.f, 0.f));
 
@@ -97,55 +108,18 @@ HRESULT CLevel_CharacterSelect::Initialize()
 void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 {
     __super::Tick(fTimeDelta);
+	CGameObject* pPlayer = nullptr;
 
 	m_vecShips[0]->Get_Component<CTransform>()->Turn(_float3(0.f, 1.f, 0.f), D3DXToRadian(60.f), fTimeDelta);
 	m_vecShips[1]->Get_Component<CTransform>()->Turn(_float3(0.f, 1.f, 0.f), D3DXToRadian(60.f), fTimeDelta);
-
-
-	if (KEY_INPUT(KEY::LEFT, KEY_STATE::TAP) /* || 버튼 눌렀을 때*/)
-	{
-		GAMEINSTANCE->PlaySoundW(TEXT("Select.wav"), 1.f);
-
-		if (0 > m_iIndex)//처음
+	m_vecShips[2]->Get_Component<CTransform>()->Turn(_float3(0.f, 1.f, 0.f), D3DXToRadian(60.f), fTimeDelta);
+	m_vecShips[3]->Get_Component<CTransform>()->Turn(_float3(0.f, 1.f, 0.f), D3DXToRadian(60.f), fTimeDelta);
+	if(m_bCinematic)
+	{ 
+		m_fTime -= fTimeDelta;
+		GAMEINSTANCE->Sub_FadeOffSet();
+		if (0.f > m_fTime)
 		{
-			m_iIndex = 0;
-			m_vMovePos = m_vecShips[m_iIndex]->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION);
-			m_vMovePos += _float3(0.f, 5.f, -15.f);
-		}
-		else if (0 < m_iIndex)
-		{
-			--m_iIndex;
-			m_vMovePos = m_vecShips[m_iIndex]->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION);
-			m_vMovePos += _float3(0.f, 5.f, -15.f);
-		}
-	}
-
-	if (KEY_INPUT(KEY::RIGHT, KEY_STATE::TAP)/* || 버튼 눌렀을 때*/)
-	{
-		GAMEINSTANCE->PlaySoundW(TEXT("Select.wav"), 1.f);
-
-		if (0 > m_iIndex)//처음
-		{
-			m_iIndex = m_vecShips.size() - 1;
-			m_vMovePos = m_vecShips[m_iIndex]->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION);
-			m_vMovePos += _float3(0.f, 5.f, -15.f);
-		}
-		else if (m_vecShips.size()-1 > m_iIndex)
-		{
-			++m_iIndex;
-			m_vMovePos = m_vecShips[m_iIndex]->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION);
-			m_vMovePos += _float3(0.f, 5.f, -15.f);
-		}
-	}
-
-	if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP) /* || 버튼 눌렀을 때*/)
-	{
-		
-		GAMEINSTANCE->PlaySoundW(TEXT("Start.wav"), 1.f);
-
-		if (-1 != m_iIndex)
-		{
-			CGameObject* pPlayer = nullptr;
 			switch (m_iIndex)
 			{
 			case 0:
@@ -153,24 +127,91 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 				break;
 
 			case 1:
+				pPlayer = GAMEINSTANCE->Add_GameObject<CShin_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
+				break;
+
+			case 2:
 				pPlayer = GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
+				break;
+
+			case 3:
+				pPlayer = GAMEINSTANCE->Add_GameObject<CHong_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
 				break;
 			}
 
 			pPlayer->Set_Controller(CONTROLLER::PLAYER);
-			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL::LEVEL_VENUSPLANET))))
+			
+			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
 				return;
 		}
 	}
+	else
+	{
+		GAMEINSTANCE->Add_FadeOffSet();
 
-	
-	_float3 vCameraCurPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_State(CTransform::STATE_POSITION);
-	vCameraCurPos = CMath_Utillity::vecLerp(vCameraCurPos, m_vMovePos, 0.03f);
-	GAMEINSTANCE->Get_Camera()->Get_Transform()->Set_State(CTransform::STATE_POSITION, vCameraCurPos);
 
-	GAMEINSTANCE->Get_Camera()->Get_Transform()->Update_WorldMatrix();
+		if (KEY_INPUT(KEY::LEFT, KEY_STATE::TAP) /* || 버튼 눌렀을 때*/)
+		{
+			if (0 > m_iIndex)//처음
+			{
+				m_iIndex = 0;
+				m_vMovePos = m_vecShips[m_iIndex]->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION);
+				m_vMovePos += _float3(0.f, 5.f, -15.f);
+			}
+			else if (0 < m_iIndex)
+			{
+				--m_iIndex;
+				m_vMovePos = m_vecShips[m_iIndex]->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION);
+				m_vMovePos += _float3(0.f, 5.f, -15.f);
+			}
+		}
 
-	CharacterSelect_Event();//UI정리해놓음
+		if (KEY_INPUT(KEY::RIGHT, KEY_STATE::TAP)/* || 버튼 눌렀을 때*/)
+		{
+			GAMEINSTANCE->PlaySoundW(TEXT("Select.wav"), 1.f);
+
+			if (0 > m_iIndex)//처음
+			{
+				m_iIndex = m_vecShips.size() - 1;
+				m_vMovePos = m_vecShips[m_iIndex]->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION);
+				m_vMovePos += _float3(0.f, 5.f, -15.f);
+			}
+			else if (m_vecShips.size() - 1 > m_iIndex)
+			{
+				++m_iIndex;
+				m_vMovePos = m_vecShips[m_iIndex]->Get_Component<CTransform>()->Get_State(CTransform::STATE_POSITION);
+				m_vMovePos += _float3(0.f, 5.f, -15.f);
+			}
+		}
+
+	if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP) /* || 버튼 눌렀을 때*/)
+	{
+		
+		GAMEINSTANCE->PlaySoundW(TEXT("Start.wav"), 1.f);
+
+			if (-1 != m_iIndex)
+			{
+				if (m_bFirst)
+				{
+					Change_Level(nullptr, LEVEL::LEVEL_SELECTPLANET);
+				}
+				else
+				{
+					m_bFirst = true;
+					Change_Level(nullptr, LEVEL::LEVEL_VENUSPLANET);
+				}
+				
+			}
+		}
+
+
+		_float3 vCameraCurPos = GAMEINSTANCE->Get_Camera()->Get_Transform()->Get_State(CTransform::STATE_POSITION);
+		vCameraCurPos = CMath_Utillity::vecLerp(vCameraCurPos, m_vMovePos, 0.03f);
+		GAMEINSTANCE->Get_Camera()->Get_Transform()->Set_State(CTransform::STATE_POSITION, vCameraCurPos);
+
+		GAMEINSTANCE->Get_Camera()->Get_Transform()->Update_WorldMatrix();
+
+	}
 
 }
 
@@ -183,11 +224,13 @@ HRESULT CLevel_CharacterSelect::Render()
     return S_OK;
 }
 
-void CLevel_CharacterSelect::CharacterSelect_Event()
+void CLevel_CharacterSelect::Change_Level(void* pArg, _uint _iNextLevel)
 {
-	/*UI띄워야함*/
-	
+	m_bCinematic = true;
+	m_fTime = 1.f;
+	m_iNextLevel = _iNextLevel;
 }
+
 
 CLevel_CharacterSelect* CLevel_CharacterSelect::Create()
 {

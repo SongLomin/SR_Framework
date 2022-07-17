@@ -504,6 +504,13 @@ HRESULT CMesh_HongShip::Initialize_Prototype()
 	vertices[461] = VTXSUB(_float3(-0.85, -1.63, -0.50), _float3(0.69, 0.14, 0.71));
 	vertices[462] = VTXSUB(_float3(-0.54, -1.73, -0.85), _float3(0.47, 0.17, 0.87));
 	vertices[463] = VTXSUB(_float3(-0.22, -3.75, -0.45), _float3(0.47, 0.18, 0.86));
+
+	for (int i = 0; i < m_iNumVertices; i++)
+	{
+		vertices[i].vPosition = CMath_Utillity::Rotate_Vec3(_float3(D3DXToRadian(90.f), D3DXToRadian(180.f), 0.f), vertices[i].vPosition);
+		vertices[i].vNorm = CMath_Utillity::Rotate_Vec3(_float3(D3DXToRadian(90.f), D3DXToRadian(180.f), 0.f), vertices[i].vNorm);
+	}
+
 	m_pMesh->UnlockVertexBuffer();
 
 	WORD* indices = 0;

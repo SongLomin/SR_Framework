@@ -1,7 +1,6 @@
 #pragma once
 #include "Base.h"
 
-
 BEGIN(Engine)
 
 class CRender_Manager final : public CBase
@@ -27,6 +26,9 @@ public:
 		if(fBlurWidth > 0.1f)
 			fBlurWidth = 0.1f;
 	}
+
+	void	Add_FadeOffSet();//fade_in
+	void	Sub_FadeOffSet();//fade_Out
 
 	void	Reset_BlurWidth()
 	{
@@ -55,6 +57,7 @@ private:
 	void Apply_Blur(RENDERGROUP _eRenderGroup, IDirect3DTexture9* _Tex);
 	void Apply_Bloom(RENDERGROUP _eRenderGroup);
 	void Apply_BoosterBlur(RENDERGROUP _eRenderGroup, IDirect3DTexture9* _Tex);
+	void Apply_FadeOut(RENDERGROUP _eRenderGroup, IDirect3DTexture9* _Tex);
 	void Set_OnlyRenderTarget(IDirect3DSurface9** _ppSurface);
 
 private: /* For Defferred Rendering */
@@ -87,6 +90,7 @@ private: /* For Defferred Rendering */
 
 private:
 	_float	fBlurWidth = 0.f;
+	_float  fFadeOutOffset = 1.f;
 	GRAPHICDESC m_GraphicDesc;
 
 public:
