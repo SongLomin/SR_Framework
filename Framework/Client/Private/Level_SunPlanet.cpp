@@ -94,7 +94,7 @@ HRESULT CLevel_SunPlanet::Initialize()
 	//GAMEINSTANCE->PlaySoundW(TEXT("SunPlanet.wav"), BGM, 1.f);
 
 	GAMEINSTANCE->Add_TimerEvent(0, this, 0.f, false, false, false);
-	GAMEINSTANCE->Add_TimerEvent(1, this, 5.f, true, false, false);
+	GAMEINSTANCE->Add_TimerEvent(1, this, 5.f, false, false, false);
 
 	return S_OK;
 }
@@ -106,6 +106,10 @@ void CLevel_SunPlanet::Tick(_float fTimeDelta)
 	if (m_bCinematic)
 	{
 		m_fTime -= fTimeDelta;
+
+		if (1.f > m_fTime)
+			GAMEINSTANCE->Sub_FadeOffSet();
+
 		if (0.f > m_fTime)
 		{
 			m_bCinematic = false;
@@ -113,15 +117,7 @@ void CLevel_SunPlanet::Tick(_float fTimeDelta)
 			if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
 				return;
 
-			list<CGameObject*>* pLayer = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
-
-			for (auto& elem : *pLayer)
-			{
-				if (!elem)
-					break;
-
-				elem->Set_Controller(CONTROLLER::PLAYER);
-			}
+			
 		}
 	}
 	else if (m_bFadeIn)
@@ -265,6 +261,7 @@ void CLevel_SunPlanet::SunPlanet_Event(_float fTimeDelta)
 			if (!m_bEventCheck[1] && m_fTextCount < 0.f)
 			{
 				// ¿£µù
+				Change_Level(nullptr, LEVEL::LEVEL_CHARACTERSELECT);
 				m_pTextBoxObject->Set_Enable(false);
 				m_bEventCheck[1] = true;
 			}

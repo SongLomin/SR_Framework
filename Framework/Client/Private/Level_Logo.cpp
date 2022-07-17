@@ -33,7 +33,7 @@ HRESULT CLevel_Logo::Initialize()
 void CLevel_Logo::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);		
-
+	GAMEINSTANCE->Add_FadeOffSet();
 
 	if (GetKeyState(VK_SPACE) & 0x8000)
 	{

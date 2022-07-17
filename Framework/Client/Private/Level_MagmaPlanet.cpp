@@ -205,6 +205,8 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 					break;
 				}
 			}
+			GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel));
+
 		}
 	}
 	else
@@ -401,8 +403,8 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 		if (m_fMaxTime <= -5.f)
 		{
 			// 스타트 레벨로 돌아감
-
-			GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
+			Change_Level(nullptr, LEVEL::LEVEL_SELECTPLANET);
+			//GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
 			GAMEINSTANCE->StopAll();
 		}
 	}

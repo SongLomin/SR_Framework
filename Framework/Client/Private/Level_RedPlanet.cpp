@@ -235,7 +235,7 @@ void CLevel_RedPlanet::Tick(_float fTimeDelta)
 					break;
 				}
 			}
-			GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
+			GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel));
 		}
 	}
 	else

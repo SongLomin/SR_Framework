@@ -10,6 +10,7 @@
 #include <Bullet.h>
 #include <Rocket_Turret.h>
 #include <Lazer_Turret.h>
+#include "Level.h"
 
 CPlayer::CPlayer()
 {
@@ -575,7 +576,11 @@ _bool CPlayer::Change_NearstPlayer()
 
 	//찾은 플레이어의 개수가 나 포함 1개보다 작으면 아무것도 하지 않음.
 	if (NearPlayers.size() <= 1)
+	{
+		g_bFirst = true;
+		GAMEINSTANCE->Get_CurrentLevel()->Change_Level(nullptr,LEVEL::LEVEL_CHARACTERSELECT);
 		return false;
+	}
 
 	//가장 가까운건 나 자신, 따라서 건너 뜀
 	auto Iter_NearPlayer = ++NearPlayers.begin();

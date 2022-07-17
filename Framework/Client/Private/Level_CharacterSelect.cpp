@@ -22,6 +22,8 @@
 #include "HpBar.h"
 #include "SelectShip.h"
 
+_bool	g_bFirst = false;
+
 HRESULT CLevel_CharacterSelect::Initialize()
 {
 	
@@ -191,13 +193,13 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 
 			if (-1 != m_iIndex)
 			{
-				if (m_bFirst)
+				if (g_bFirst)
 				{
 					Change_Level(nullptr, LEVEL::LEVEL_SELECTPLANET);
 				}
 				else
 				{
-					m_bFirst = true;
+					g_bFirst = true;
 					Change_Level(nullptr, LEVEL::LEVEL_VENUSPLANET);
 				}
 				

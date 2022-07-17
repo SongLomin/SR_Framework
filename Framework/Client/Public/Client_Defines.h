@@ -18,5 +18,6 @@ extern bool bMagmaClear;
 extern bool bSunClear;
 
 extern bool   g_bCamera;
+extern bool	  g_bFirst;
 
 using namespace Client;
