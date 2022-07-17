@@ -295,6 +295,7 @@ HRESULT CLoader::Loading_ForCharacterSelect()
 
 	lstrcpy(m_szLoadingText, TEXT("사운드를 로딩중 입니다. "));
 
+	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/Logo.wav"));
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/SelectPlayer.wav"));
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/SelectPlanet.wav"));
 	GAMEINSTANCE->PlayBGM(TEXT("../Bin/Sound/MagmaPlanet.wav"));

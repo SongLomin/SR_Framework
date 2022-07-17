@@ -29,11 +29,6 @@ private:
 private:
 	void SunPlanet_Event(_float fTimeDelta);
 
-private:
-	CGameObject* m_pBossObject = nullptr;
-	CGameObject* m_pBossHpObject = nullptr;
-	CGameObject* m_pBossTableObject = nullptr;
-	CGameObject* m_pBossNameObject = nullptr;
 
 public:
 	static CLevel_SunPlanet* Create();

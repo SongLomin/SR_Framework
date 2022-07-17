@@ -61,15 +61,15 @@ HRESULT CLevel_SunPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_SUNPLANET, TEXT("Aim")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBossHpTable>(LEVEL_SUNPLANET, TEXT("Boss_HP_Table")))
-		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CBossName>(LEVEL_SUNPLANET, TEXT("Boss_Name")))
-		return E_FAIL;
+	m_pBoss_HP_Bar = GAMEINSTANCE->Add_GameObject<CBossHpBar>(LEVEL_SUNPLANET, TEXT("Boss_HP_Bar"));
+	m_pBoss_HP_Bar->Set_Enable(true);
 
-	if (!GAMEINSTANCE->Add_GameObject<CBossHpBar>(LEVEL_SUNPLANET, TEXT("Boss_HP_Bar")))
-		return E_FAIL;
+	m_pBoss_HP_Table = GAMEINSTANCE->Add_GameObject<CBossHpTable>(LEVEL_SUNPLANET, TEXT("CBossHpTable"));
+	m_pBoss_HP_Table->Set_Enable(true);
 
+	m_pBoss_Name_Table = GAMEINSTANCE->Add_GameObject<CBossName>(LEVEL_SUNPLANET, TEXT("Boss_Name"));
+	m_pBoss_Name_Table->Set_Enable(true);
 
 
 	m_pTextBoxObject = GAMEINSTANCE->Add_GameObject<CTextBox>(LEVEL_SUNPLANET, TEXT("TextBox_Yang"));
@@ -221,7 +221,12 @@ void CLevel_SunPlanet::SunPlanet_Event(_float fTimeDelta)
 		{
 			if (elem->Get_Enable() == false)
 			{
+				m_pBoss_HP_Bar->Set_Enable(false);
+				m_pBoss_HP_Table->Set_Enable(false);
+				m_pBoss_Name_Table->Set_Enable(false);
+
 				m_fTextCount -= fTimeDelta;
+
 				// 중간보스 클리어
 				if (m_iSpawnCount == 0)
 				{
@@ -234,6 +239,7 @@ void CLevel_SunPlanet::SunPlanet_Event(_float fTimeDelta)
 
 					GAMEINSTANCE->PlaySoundW(TEXT("RollerSpawn.wav"), SYSTEM_EFFECT, 1.f);
 				}
+
 				++m_iSpawnCount;
 				if (!m_bEventCheck[1])
 				{
@@ -244,6 +250,7 @@ void CLevel_SunPlanet::SunPlanet_Event(_float fTimeDelta)
 			}
 			if (!m_bEventCheck[1] && m_fTextCount < 0.f)
 			{
+				// 엔딩
 				m_pTextBoxObject->Set_Enable(false);
 				m_bEventCheck[1] = true;
 			}

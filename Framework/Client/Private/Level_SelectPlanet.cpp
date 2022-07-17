@@ -301,8 +301,8 @@ void CLevel_SelectPlanet::Tick(_float fTimeDelta)
 		if (0.f > m_fTime)
 		{
 			m_bCinematic = false;
-			
-
+			GAMEINSTANCE->Swap_Camera();
+			GAMEINSTANCE->StopSound(BGM);
 			CSong_Ship_Body* pMainCharacter = nullptr;
 
 			list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
