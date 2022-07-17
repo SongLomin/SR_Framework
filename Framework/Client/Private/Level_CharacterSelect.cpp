@@ -104,6 +104,8 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::LEFT, KEY_STATE::TAP) /* || 버튼 눌렀을 때*/)
 	{
+		GAMEINSTANCE->PlaySoundW(TEXT("Select.wav"), 1.f);
+
 		if (0 > m_iIndex)//처음
 		{
 			m_iIndex = 0;
@@ -120,6 +122,8 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 
 	if (KEY_INPUT(KEY::RIGHT, KEY_STATE::TAP)/* || 버튼 눌렀을 때*/)
 	{
+		GAMEINSTANCE->PlaySoundW(TEXT("Select.wav"), 1.f);
+
 		if (0 > m_iIndex)//처음
 		{
 			m_iIndex = m_vecShips.size() - 1;
@@ -137,6 +141,7 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 	if (KEY_INPUT(KEY::SPACE, KEY_STATE::TAP) /* || 버튼 눌렀을 때*/)
 	{
 		
+		GAMEINSTANCE->PlaySoundW(TEXT("Start.wav"), 1.f);
 
 		if (-1 != m_iIndex)
 		{

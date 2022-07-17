@@ -170,7 +170,7 @@ void CMonster::Drop_Item()
 {
 	int random = rand() % 100;
 
-	GAMEINSTANCE->PlaySoundW(TEXT("Drop_Turret.wav"), 0.3f);
+	GAMEINSTANCE->PlaySoundW(TEXT("Drop_Turret.wav"), 1.f);
 
 	CGameObject* Turret = nullptr;
 
