@@ -289,8 +289,14 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 	// 양갑렬 대위
 	if (m_fTextBoxTime <= 298.f && !m_bEventCheck[0])
 	{
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("Magma Planet은 적군의 엘리트들이 모여있는 곳일세. \n 엘리트들을 소탕해, 작전을 완수 해주게. "), 0);
+	}
+
+	if (m_fTextBoxTime <= 297.7f && !m_bEventCheck[0])
+	{
+		GAMEINSTANCE->StopSound(10);
 	}
 
 	if (m_fTextBoxTime <= 296.f && !m_bEventCheck[0])
@@ -301,8 +307,14 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 
 	if (m_fTextBoxTime <= 294.f && !m_bEventCheck[1])
 	{
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("조심하게! 내 생각보다 수가 많네!"), 0);
+	}
+
+	if (m_fTextBoxTime <= 293.7f && !m_bEventCheck[1])
+	{
+		GAMEINSTANCE->StopSound(10);
 	}
 
 	if (m_fTextBoxTime <= 292.f && !m_bEventCheck[1])
@@ -314,8 +326,14 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 
 	if (m_fTextBoxTime <= 290.f && !m_bEventCheck[2])
 	{
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("우리의 존재를 눈치챈듯 하네! \n 힘을 합쳐 엘리트들을 말살하세!"), 0);
+	}
+
+	if (m_fTextBoxTime <= 289.7f && !m_bEventCheck[2])
+	{
+		GAMEINSTANCE->StopSound(10);
 	}
 
 

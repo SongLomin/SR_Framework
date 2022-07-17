@@ -234,8 +234,14 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 298.f && !m_bEventCheck[0])
 	{
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("자네가 요번에 들어온 신입 파일럿인가? \n 어리버리 하게 생긴게 마음에 안들군. "), 0);
+	}
+
+	if (m_fTextBoxTime <= 297.7f && !m_bEventCheck[0])
+	{
+		GAMEINSTANCE->StopSound(10);
 	}
 
 	if (m_fTextBoxTime <= 296.f && !m_bEventCheck[0])
@@ -246,8 +252,14 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 294.f && !m_bEventCheck[1])
 	{
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("우선 기체 사용법 부터 알려주겠다 \n 이동키와 마우스를 이용해 기체를 움직일수있지."), 0);
+	}
+
+	if (m_fTextBoxTime <= 293.7f && !m_bEventCheck[1])
+	{
+		GAMEINSTANCE->StopSound(10);
 	}
 
 	if (m_fTextBoxTime <= 292.f && !m_bEventCheck[1])
@@ -258,8 +270,14 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 290 && !m_bEventCheck[2])
 	{
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("또한 우리는 고도의 과학문명으로 자동 조준을 지원하네."), 0);
+	}
+
+	if (m_fTextBoxTime <= 289.7f && !m_bEventCheck[2])
+	{
+		GAMEINSTANCE->StopSound(10);
 	}
 
 	if (m_fTextBoxTime <= 288 && !m_bEventCheck[2])
@@ -270,8 +288,14 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 286 && !m_bEventCheck[3])
 	{
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("훈련용 봇들을 무작위 위치에 출격시킬태니\n자동조준 을 이용해 처리해보게."), 0);
+	}
+
+	if (m_fTextBoxTime <= 285.7f && !m_bEventCheck[2])
+	{
+		GAMEINSTANCE->StopSound(10);
 	}
 
 	if (m_fTextBoxTime <= 284.f && !m_bEventCheck[3])
@@ -346,8 +370,14 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 299 && m_bEventCheck[5] && !m_bEventCheck[6])
 	{
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("총좀 쏘는구만!! \n 어리바리 하다는건 사과하지."), 0);
+	}
+
+	if (m_fTextBoxTime <= 298.7 && m_bEventCheck[5] && !m_bEventCheck[6])
+	{
+		GAMEINSTANCE->StopSound(10);
 	}
 
 	if (m_fTextBoxTime <= 297 && m_bEventCheck[5] && !m_bEventCheck[6])
@@ -359,10 +389,16 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 	
 	if (m_fTextBoxTime <= 295 &&  m_bEventCheck[6] && !m_bEventCheck[7])
 	{
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이제 기동훈련을 들어가겠다 \n쉬프트 키를 눌러 부스터를 사용해봐라."), 0);
 	}
 	
+	if (m_fTextBoxTime <= 294.7 && m_bEventCheck[6] && !m_bEventCheck[7])
+	{
+		GAMEINSTANCE->StopSound(10);
+	}
+
 
 	if (m_fTextBoxTime <= 293  && m_bEventCheck[6] && !m_bEventCheck[7])
 	{
@@ -372,8 +408,14 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 291 && m_bEventCheck[7] && !m_bEventCheck[8])
 	{
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("생각보다 솜씨가 나쁘지않구만 \n자 필요한건 다 알려준것 같으니 \n이제 밥값을 해야겠지?"), 0);
+	}
+
+	if (m_fTextBoxTime <= 290.7 && m_bEventCheck[7] && !m_bEventCheck[8])
+	{
+		GAMEINSTANCE->StopSound(10);
 	}
 
 	if (m_fTextBoxTime <= 289 && m_bEventCheck[7] && !m_bEventCheck[8])
@@ -384,8 +426,14 @@ void CLevel_VenusPlanet::VenusPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 287 && m_bEventCheck[8] && !m_bEventCheck[9])
 	{
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("앞에 우리 행성 포탈을 열어줄테니 'F' 키를 눌러\n '크루즈 드라이브'를 사용하게. "), 0);
+	}
+
+	if (m_fTextBoxTime <= 286.7 && m_bEventCheck[8] && !m_bEventCheck[9])
+	{
+		GAMEINSTANCE->StopSound(10);
 	}
 
 	

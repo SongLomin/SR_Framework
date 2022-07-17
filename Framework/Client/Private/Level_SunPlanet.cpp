@@ -205,8 +205,14 @@ void CLevel_SunPlanet::SunPlanet_Event(_float fTimeDelta)
 
 	if (m_fTextBoxTime <= 288.f && !m_bEventCheck[0])
 	{
+		GAMEINSTANCE->PlaySoundW(TEXT("TextBox.wav"), 10, 1.f);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT(" 저 앞에 적군의 본체가 있네 ! \n 어서 본함을 부수고 이 전쟁을 끝내세 !! "), 0);
+	}
+
+	if (m_fTextBoxTime <= 287.7f && !m_bEventCheck[0])
+	{
+		GAMEINSTANCE->StopSound(10);
 	}
 
 	if (m_fTextBoxTime <= 283.f && !m_bEventCheck[0])
