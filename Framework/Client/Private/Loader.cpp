@@ -221,6 +221,7 @@ HRESULT CLoader::Loading_ForLogoLevel()
 	GAMEINSTANCE->Load_Shader(TEXT("XBlur"), TEXT("../Bin/ShaderFiles/XBlur.hlsl"));
 	GAMEINSTANCE->Load_Shader(TEXT("Bloom"), TEXT("../Bin/ShaderFiles/Bloom.hlsl"));
 	GAMEINSTANCE->Load_Shader(TEXT("ExtractBrightness"), TEXT("../Bin/ShaderFiles/ExtractBrightness.hlsl"));
+	GAMEINSTANCE->Load_Shader(TEXT("FadeInAndOut"), TEXT("../Bin/ShaderFiles/FadeInAndOut.hlsl"));
 
 
 	GAMEINSTANCE->Load_Shader(TEXT("DrawColor"), TEXT("../Bin/ShaderFiles/DrawColor.hlsl"));

@@ -29,12 +29,23 @@ HRESULT CLevel_CharacterSelect::Initialize()
 	CGameObject* m_pShip = GAMEINSTANCE->Add_GameObject<CSong_Ship_Body>(LEVEL_CHARACTERSELECT, TEXT("Player"));
 	m_vecShips.push_back(m_pShip);
 	WEAK_PTR(m_vecShips.back());
-	m_pShip->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(-10.f, 0.f, 0.f));
+	m_pShip->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(-18.f, 0.f, 0.f));
 	
+	m_pShip = GAMEINSTANCE->Add_GameObject<CShin_Ship_Body>(LEVEL_CHARACTERSELECT, TEXT("Player"));
+	m_vecShips.push_back(m_pShip);
+	WEAK_PTR(m_vecShips.back());
+	m_pShip->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(-6.f, 0.f, 0.f));
+
 	m_pShip = GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_CHARACTERSELECT, TEXT("Player"));
 	m_vecShips.push_back(m_pShip);
 	WEAK_PTR(m_vecShips.back());
-	m_pShip->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(10.f, 0.f, 0.f));
+	m_pShip->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(6.f, 0.f, 0.f));
+	
+	m_pShip = GAMEINSTANCE->Add_GameObject<CHong_Ship_Body>(LEVEL_CHARACTERSELECT, TEXT("Player"));
+	m_vecShips.push_back(m_pShip);
+	WEAK_PTR(m_vecShips.back());
+	m_pShip->Get_Component<CTransform>()->Set_State(CTransform::STATE_POSITION, _float3(18.f, 0.f, 0.f));
+
 	
 	CGameObject* FPS_Cam = GAMEINSTANCE->Add_GameObject<CCam_FPS>(LEVEL_STATIC, TEXT("Camera"));
 	FPS_Cam->Get_Component<CCamera>()->Set_Param(D3DXToRadian(65.0f), (_float)g_iWinCX / g_iWinCY, 0.2f, 900.f);
@@ -84,7 +95,7 @@ HRESULT CLevel_CharacterSelect::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CSelectShip>(LEVEL_CHARACTERSELECT, TEXT("SelectShip_UI")))
 		return E_FAIL;
 
-	m_vMovePos = _float3(0.f, 5.f, -20.f);
+	m_vMovePos = _float3(0.f, 5.f, -25.f);
 	GAMEINSTANCE->Get_Camera()->Get_Transform()->Set_State(CTransform::STATE_POSITION, m_vMovePos);
 	GAMEINSTANCE->Get_Camera()->Get_Transform()->LookAt(_float3(0.f, 0.f, 0.f));
 
@@ -100,6 +111,8 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 
 	m_vecShips[0]->Get_Component<CTransform>()->Turn(_float3(0.f, 1.f, 0.f), D3DXToRadian(60.f), fTimeDelta);
 	m_vecShips[1]->Get_Component<CTransform>()->Turn(_float3(0.f, 1.f, 0.f), D3DXToRadian(60.f), fTimeDelta);
+	m_vecShips[2]->Get_Component<CTransform>()->Turn(_float3(0.f, 1.f, 0.f), D3DXToRadian(60.f), fTimeDelta);
+	m_vecShips[3]->Get_Component<CTransform>()->Turn(_float3(0.f, 1.f, 0.f), D3DXToRadian(60.f), fTimeDelta);
 
 
 	if (KEY_INPUT(KEY::LEFT, KEY_STATE::TAP) /* || 버튼 눌렀을 때*/)
@@ -148,7 +161,15 @@ void CLevel_CharacterSelect::Tick(_float fTimeDelta)
 				break;
 
 			case 1:
+				pPlayer = GAMEINSTANCE->Add_GameObject<CShin_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
+				break;
+
+			case 2:
 				pPlayer = GAMEINSTANCE->Add_GameObject<CKang_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
+				break; 
+
+			case 3:
+				pPlayer = GAMEINSTANCE->Add_GameObject<CHong_Ship_Body>(LEVEL_STATIC, TEXT("Player"));
 				break;
 			}
 

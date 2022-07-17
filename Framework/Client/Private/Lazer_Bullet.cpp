@@ -38,6 +38,10 @@ void CLazer_Bullet::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+	m_fOffset+=10.f;
+	if (100.f < m_fOffset)
+		m_fOffset = 100.f;
+
 	//불빛이 미사일 뒤로 나감
 	_float3 Light_Look_Dir = -m_pTransformCom->Get_State(CTransform::STATE_LOOK, true);
 	D3DXVec3Normalize(&Light_Look_Dir, &Light_Look_Dir);
@@ -55,7 +59,7 @@ void CLazer_Bullet::LateTick(_float fTimeDelta)
 
 HRESULT CLazer_Bullet::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(0.8f, 0.3f, 100.f), true);
+	m_pTransformCom->Scaling(_float3(0.2f, 0.2f, 1.f* m_fOffset), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -64,7 +68,7 @@ HRESULT CLazer_Bullet::Render_Begin(ID3DXEffect** Shader)
 	float floatArray[3];
 	floatArray[0] = 1.0f;
 	floatArray[1] = 1.0f;
-	floatArray[2] = 0.0f;
+	floatArray[2] = 1.0f;
 
 	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 
@@ -101,8 +105,6 @@ void CLazer_Bullet::Init_BulletPosition(_float4x4* _pWorldMat)
 
 	m_pTransformCom->Update_WorldMatrix();
 	m_pRigidBodyCom->Set_DirVector();
-
-
 }
 
 void CLazer_Bullet::On_Collision_Enter(CCollider* _Other_Collider)
@@ -200,10 +202,12 @@ void CLazer_Bullet::OnEnable(void* _Arg)
 {
 	__super::OnEnable(_Arg);
 	m_pColliderCom->OnEnable(_Arg);
+
 }
 
 void CLazer_Bullet::OnDisable()
 {
 	__super::OnDisable();
 	m_pColliderCom->OnDisable();
+	
 }

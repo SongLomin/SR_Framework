@@ -39,7 +39,7 @@ void CHong_Ship_Body::LateTick(_float fTimeDelta)
 
 HRESULT CHong_Ship_Body::Render_Begin(ID3DXEffect** Shader)
 {
-	m_pTransformCom->Scaling(_float3(2.f, 2.f, 2.f), true);
+	m_pTransformCom->Scaling(_float3(1.f, 1.f, 1.f), true);
 	m_pTransformCom->Bind_WorldMatrix();
 
 	D3DXHANDLE ColorHandle = (*Shader)->GetParameterByName(0, "Color");
@@ -47,7 +47,7 @@ HRESULT CHong_Ship_Body::Render_Begin(ID3DXEffect** Shader)
 	float floatArray[3];
 	floatArray[0] = 0.2f;
 	floatArray[1] = 0.5f;
-	floatArray[2] = 0.7f;
+	floatArray[2] = 0.2f;
 
 	(*Shader)->SetFloatArray(ColorHandle, floatArray, 3);
 
@@ -113,7 +113,7 @@ void CHong_Ship_Body::SetUp_Components_For_Child()
 
 #pragma region Posin Setting
 
-	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(CURRENT_LEVEL, TEXT("Normal_Turret"), m_pTransformCom));
+	CNormal_Turret* Posin = static_cast<CNormal_Turret*>(GAMEINSTANCE->Add_GameObject<CNormal_Turret>(LEVEL_STATIC, TEXT("Normal_Turret"), m_pTransformCom));
 	Posin->Get_Component<CTransform>()->Set_State(CTransform::STATE::STATE_POSITION, _float3(0.f, 1.f, 0.f));
 	m_pMyTurretList.push_back(Posin);
 	Posin->Set_WeakPtr(&m_pMyTurretList.back());

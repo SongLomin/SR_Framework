@@ -142,6 +142,13 @@ HRESULT CMesh_ShinShip::Initialize_Prototype()
 	vertices[105] = VTXDEFAULT(_float3(-2.35, 1.12, -0.55), _float3(-1.00, 0.00, -0.01), _float2(0.12, 0.15));
 	vertices[106] = VTXDEFAULT(_float3(-2.36, 1.17, -0.43), _float3(-1.00, 0.00, -0.01), _float2(0.13, 0.14));
 	vertices[107] = VTXDEFAULT(_float3(-2.36, 1.20, -0.28), _float3(-1.00, 0.00, -0.01), _float2(0.13, 0.12));
+	
+	for (int i = 0; i < m_iNumVertices; i++)
+	{
+		vertices[i].vPosition = CMath_Utillity::Rotate_Vec3(_float3(0.f, -D3DXToRadian(90.f), 0.f), vertices[i].vPosition);
+		vertices[i].vNorm = CMath_Utillity::Rotate_Vec3(_float3(0.f, -D3DXToRadian(90.f), 0.f), vertices[i].vNorm);
+	}
+	
 	m_pMesh->UnlockVertexBuffer();
 
 	WORD* indices = 0;

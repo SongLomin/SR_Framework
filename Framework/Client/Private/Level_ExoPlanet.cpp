@@ -151,38 +151,48 @@ void CLevel_ExoPlanet::Tick(_float fTimeDelta)
 			
 			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
 			GAMEINSTANCE->Add_BlurWidth();
+
 		}
-	srand(unsigned(time(NULL)));
-	
-	Scouge_Create(fTimeDelta);
-	ExoPlanet_Event(fTimeDelta);
-	//Rock_Create(fTimeDelta);
+		if (1.f > m_fTime)
+			GAMEINSTANCE->Sub_FadeOffSet();
 
-
-	if (0.f > m_fTime)
-	{
-		m_bCinematic = false;
+		srand(unsigned(time(NULL)));
 		
+		Scouge_Create(fTimeDelta);
+		ExoPlanet_Event(fTimeDelta);
+		//Rock_Create(fTimeDelta);
 
-		CSong_Ship_Body* pMainCharacter = nullptr;
-		GAMEINSTANCE->Reset_BlurWidth();
-		list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
 
-		if (!pAiObect)
-			return;
-
-		for (auto& elem : *pAiObect)
+		if (0.f > m_fTime)
 		{
-			pMainCharacter = dynamic_cast<CSong_Ship_Body*>(elem);
+			m_bCinematic = false;
+			
 
-			if (pMainCharacter)
+			CSong_Ship_Body* pMainCharacter = nullptr;
+			GAMEINSTANCE->Reset_BlurWidth();
+			list<CGameObject*>* pAiObect = GAMEINSTANCE->Find_Layer(LEVEL_STATIC, TEXT("Player"));
+
+			if (!pAiObect)
+				return;
+
+			for (auto& elem : *pAiObect)
 			{
-				pMainCharacter->Set_Controller(CONTROLLER::PLAYER);
-				break;
+				pMainCharacter = dynamic_cast<CSong_Ship_Body*>(elem);
+
+				if (pMainCharacter)
+				{
+					pMainCharacter->Set_Controller(CONTROLLER::PLAYER);
+					break;
+				}
 			}
 		}
 	}
+	else
+	{
+		GAMEINSTANCE->Add_FadeOffSet();
 	}
+
+
 }
 
 HRESULT CLevel_ExoPlanet::Render()

@@ -351,6 +351,7 @@ _float3 CMath_Utillity::Rotate_Vec3(const _float3& _Rotation, const _float3& _Ve
 	return _ResultVec;
 }
 
+
 _float CMath_Utillity::Get_Distance(const _float3& _LeftVector, const _float3& _RightVector)
 {
 	_float3 DirVec = _LeftVector - _RightVector;

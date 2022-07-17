@@ -121,6 +121,10 @@ void CLevel_SunPlanet::Tick(_float fTimeDelta)
 			}
 		}
 	}
+	else
+	{
+		GAMEINSTANCE->Add_FadeOffSet();
+	}
 
 
 	SunPlanet_Event(fTimeDelta);

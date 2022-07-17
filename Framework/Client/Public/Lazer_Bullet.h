@@ -48,6 +48,9 @@ protected:
     virtual void OnEnable(void* _Arg = nullptr) override;
     virtual void OnDisable() override;
 
+private:
+    _float      m_fOffset = 1.f;
+
 public:
     static CLazer_Bullet* Create();
     virtual CGameObject* Clone(void* pArg) override;

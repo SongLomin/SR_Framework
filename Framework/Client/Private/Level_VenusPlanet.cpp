@@ -134,7 +134,10 @@ void CLevel_VenusPlanet::Tick(_float fTimeDelta)
 			
 			GAMEINSTANCE->Add_Shaking(1.f, 0.1f);
 			GAMEINSTANCE->Add_BlurWidth();
+		
 		}
+		if (1.f > m_fTime)
+			GAMEINSTANCE->Sub_FadeOffSet();
 
 		if (0.f > m_fTime)
 		{

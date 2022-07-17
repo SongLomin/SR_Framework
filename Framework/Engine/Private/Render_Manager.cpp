@@ -85,6 +85,24 @@ HRESULT CRender_Manager::Draw_RenderGroup()
 	return S_OK;
 }
 
+void	CRender_Manager::Add_FadeOffSet()//fade_In;
+{
+
+	fFadeOutOffset += 2.f * GAMEINSTANCE->Get_UnScaledTimeDelta();
+	if (fFadeOutOffset > 1.f)
+		fFadeOutOffset = 1.f;
+}
+
+void	CRender_Manager::Sub_FadeOffSet()//fade_Out
+{
+
+	fFadeOutOffset -= 1.5f * GAMEINSTANCE->Get_UnScaledTimeDelta();
+	if (0.f > fFadeOutOffset)
+		fFadeOutOffset = 0.f;
+}
+
+
+
 void CRender_Manager::Priority_Pipeline()
 {
 	DEVICE->BeginScene();
@@ -383,8 +401,10 @@ void CRender_Manager::Foward_Pipeline()
 	DEVICE->StretchRect(originRenderTarget, nullptr, TemporaryRenderTarget, nullptr, D3DTEXF_LINEAR);
 	
 	Apply_BoosterBlur(RENDERGROUP::RENDER_POSTPROCCESSING, originTex);
-	
-	
+
+	DEVICE->StretchRect(originRenderTarget, nullptr, TemporaryRenderTarget, nullptr, D3DTEXF_LINEAR);
+
+	Apply_FadeOut(RENDERGROUP::RENDER_FADEOUT, originTex);
 	
 	
 	Draw_Divide_ViewPort(RENDERGROUP::RENDER_NORMAL, normalTex);
@@ -677,7 +697,7 @@ void CRender_Manager::Apply_Blur(RENDERGROUP _eRenderGroup, IDirect3DTexture9* _
 			(*ppShader)->SetTexture(TextureHandle, _Tex);
 			 
 			D3DXHANDLE PixelWidthHandle = (*ppShader)->GetParameterByName(0, "pixelWidth");
-			(*ppShader)->SetFloat(PixelWidthHandle, 1.f / (_float)m_GraphicDesc.iWinCX * 7.f);
+			(*ppShader)->SetFloat(PixelWidthHandle, 1.f / (_float)m_GraphicDesc.iWinCX * 3.f);
 
 			(*iter)->Render_Begin(ppShader);
 
@@ -809,6 +829,59 @@ void CRender_Manager::Apply_BoosterBlur(RENDERGROUP _eRenderGroup, IDirect3DText
 
 		iter = m_RenderObjects[(_uint)_eRenderGroup].erase(iter);
 	}
+}
+
+void CRender_Manager::Apply_FadeOut(RENDERGROUP _eRenderGroup, IDirect3DTexture9* _Tex/*originTex*/)
+{
+	ID3DXEffect** ppShader = GAMEINSTANCE->Get_Shader_From_Key(TEXT("FadeInAndOut"));
+
+	if (!ppShader)
+		return;
+
+	CCamera* pCamera = GAMEINSTANCE->Get_Camera(CURRENT_CAMERA);
+
+	if (pCamera)
+		pCamera->Bind_PipeLine();
+
+	D3DXHANDLE hTech = 0;
+	UINT numPasses = 0;
+
+	hTech = (*ppShader)->GetTechniqueByName("DefaultTechnique");
+	(*ppShader)->SetTechnique(hTech);
+
+
+	for (auto iter = m_RenderObjects[(_uint)_eRenderGroup].begin(); iter != m_RenderObjects[(_uint)_eRenderGroup].end();)
+	{
+		if ((*iter))
+		{
+			D3DXHANDLE TextureHandle = (*ppShader)->GetParameterByName(0, "g_Texture");
+			(*ppShader)->SetTexture(TextureHandle, _Tex);
+
+			D3DXHANDLE FadeOuteOffSetHandle = (*ppShader)->GetParameterByName(0, "FadeOuteOffSet");
+			(*ppShader)->SetFloat(FadeOuteOffSetHandle, fFadeOutOffset);
+
+			(*iter)->Render_Begin(ppShader);
+
+			(*ppShader)->Begin(&numPasses, 0);
+			for (_uint i = 0; i < numPasses; i++)
+			{
+				(*ppShader)->BeginPass(i);
+
+				(*iter)->Render();
+
+				(*ppShader)->EndPass();
+			}
+			(*ppShader)->End();
+
+
+			//(*iter)->Render();
+			(*iter)->Return_WeakPtr(&(*iter));
+		}
+
+		iter = m_RenderObjects[(_uint)_eRenderGroup].erase(iter);
+	}
+
+
 }
 
 void CRender_Manager::Set_OnlyRenderTarget(IDirect3DSurface9** _ppSurface)
