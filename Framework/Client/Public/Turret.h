@@ -33,7 +33,6 @@ protected:
     CTransform* m_pPlayerTransformCom = nullptr;
     CMesh_Test* m_pMeshTestCom = nullptr;
     CCollider_Sphere* m_pColliderCom = nullptr;
-    CSpotLight* m_pLightCom = nullptr;
 
 private:
     CGameObject* m_pBoxObject = nullptr;

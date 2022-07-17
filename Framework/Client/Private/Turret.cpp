@@ -101,10 +101,6 @@ HRESULT CTurret::SetUp_Components()
     m_pColliderCom->Link_Transform(m_pTransformCom);
     m_pColliderCom->Set_Enable(false);
 
-    m_pLightCom = Add_Component<CSpotLight>();
-    m_pLightCom->Set_Preset_ItemLight();
-    WEAK_PTR(m_pLightCom);
-
     SetUp_Components_For_Child();
 
     return S_OK;
@@ -175,7 +171,6 @@ void CTurret::On_Collision_Stay(CCollider* _Other_Collider)
             m_pTransformCom->Set_Parent(PlayerTransformCom);
             PlayerTransformCom->Add_Child(m_pTransformCom);
             m_pColliderCom->Set_Enable(false);
-            m_pLightCom->Set_Enable(false);
             GAMEINSTANCE->PlaySoundW(TEXT("Drop_Turret.wav"), 0.3f);
             Set_Controller(PlayerTransformCom->Get_Owner()->Get_Controller());
             
@@ -205,7 +200,6 @@ void CTurret::OnEnable(void* _Arg)
         m_fLifeTime = 30.f;
         m_pTransformCom->Set_LocalMatrix(IdentityMat);
         m_pColliderCom->Set_Enable(false);
-        m_pLightCom->Set_Enable(true);
         m_fMagnetic = 3.f;
 
         

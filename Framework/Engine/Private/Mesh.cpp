@@ -94,13 +94,13 @@ void CMesh::Free()
 	{
 		_ulong refcnt = m_pMesh->Release();
 
-		if (refcnt > 0)
+		/*if (refcnt > 0)
 		{
 			while (refcnt != 0)
 			{
 				refcnt = m_pMesh->Release();
 			}
-		}
+		}*/
 
 		m_pMesh = nullptr;
 	}

@@ -27,7 +27,7 @@ HRESULT CSatellite_3::Initialize(void* pArg)
 
 	//m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(1500.f,  1200.f, 1700.f));
 
-	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(100.f, 100.f, 100.f));
+	m_pTransformCom->Set_State(CTransform::STATE_POSITION, _float3(100.f, 100.f, 400.f));
 
 	return S_OK;
 }
