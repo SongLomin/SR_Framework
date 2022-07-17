@@ -56,6 +56,7 @@
 
 _bool CLevel_SelectPlanet::m_bFirst = false;
 
+
 CLevel_SelectPlanet::CLevel_SelectPlanet()
 {
 }
@@ -134,21 +135,31 @@ HRESULT CLevel_SelectPlanet::Initialize()
 	if (!GAMEINSTANCE->Add_GameObject<CDefault_Aim>(LEVEL_REDPLANET, TEXT("Aim_UI")))
 		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
-		return E_FAIL;
 
 	//if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
 	//	return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Magma>(LEVEL_SELECTPLANET, TEXT("Magma")))
-		return E_FAIL;
 
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
-		return E_FAIL;
-
-	if (!GAMEINSTANCE->Add_GameObject<CPlanet_Exo>(LEVEL_SELECTPLANET, TEXT("Exo")))
-		return E_FAIL;
-
+	if (bSunClear == false)
+	{
+		if (!GAMEINSTANCE->Add_GameObject<CPlanet_Sun>(LEVEL_SELECTPLANET, TEXT("Sun")))
+			return E_FAIL;
+	}
+	if (bRedClear == false)
+	{
+		if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
+			return E_FAIL;
+	}
+	if (bMagmaClear == false)
+	{
+		if (!GAMEINSTANCE->Add_GameObject<CPlanet_Magma>(LEVEL_SELECTPLANET, TEXT("Magma")))
+			return E_FAIL;
+	}
+	if (bExoClear == false)
+	{
+		if (!GAMEINSTANCE->Add_GameObject<CPlanet_Exo>(LEVEL_SELECTPLANET, TEXT("Exo")))
+			return E_FAIL;
+	}
 	
 
 	//if (!GAMEINSTANCE->Add_GameObject<CBossHpTable>(LEVEL_SELECTPLANET, TEXT("Boss_HP_Table")))
@@ -215,46 +226,49 @@ HRESULT CLevel_SelectPlanet::Initialize()
 
 	
 	// 행성 2개 랜덤 생성
-	srand(unsigned(time(NULL)));
+	//srand(unsigned(time(NULL)));
+	//
+	//LEVEL m_eNextPlanet = LEVEL_STATIC;
+	//LEVEL m_ePreNextPlanet = m_eNextPlanet;
+	//
+	//for (_uint i = 0; i < 2; ++i)
+	//{
+	//	m_eNextPlanet = (LEVEL)(rand() % (_uint)LEVEL::LEVEL_SELECTPLANET);
+	//
+	//	if (m_eNextPlanet == m_ePreNextPlanet)
+	//	{
+	//		--i;
+	//		continue;
+	//	}
+	//	
+	//	switch (m_eNextPlanet)
+	//	{
+	//	case  LEVEL::LEVEL_REDPLANET:
+	//		if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
+	//			return E_FAIL;
+	//		break;
+	//
+	//	case  LEVEL::LEVEL_EXOPLANET:
+	//		if (!GAMEINSTANCE->Add_GameObject<CPlanet_Exo>(LEVEL_SELECTPLANET, TEXT("Exo")))
+	//			return E_FAIL;
+	//		break;
+	//
+	//	/*case  LEVEL::LEVEL_VENUSPLANET:
+	//		if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
+	//			return E_FAIL;
+	//		break;*/
+	//
+	//	case  LEVEL::LEVEL_MAGMAPLANET:
+	//		if (!GAMEINSTANCE->Add_GameObject<CPlanet_Magma>(LEVEL_SELECTPLANET, TEXT("Magma")))
+	//			return E_FAIL;
+	//		break;
+	//	}
+	//
+	//	m_ePreNextPlanet = m_eNextPlanet;
+	//}
 
-	LEVEL m_eNextPlanet = LEVEL_STATIC;
-	LEVEL m_ePreNextPlanet = m_eNextPlanet;
 
-	for (_uint i = 0; i < 2; ++i)
-	{
-		m_eNextPlanet = (LEVEL)(rand() % (_uint)LEVEL::LEVEL_SELECTPLANET);
-
-		if (m_eNextPlanet == m_ePreNextPlanet)
-		{
-			--i;
-			continue;
-		}
-		
-		switch (m_eNextPlanet)
-		{
-		case  LEVEL::LEVEL_REDPLANET:
-			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Red>(LEVEL_SELECTPLANET, TEXT("Red")))
-				return E_FAIL;
-			break;
-
-		case  LEVEL::LEVEL_EXOPLANET:
-			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Exo>(LEVEL_SELECTPLANET, TEXT("Exo")))
-				return E_FAIL;
-			break;
-
-		/*case  LEVEL::LEVEL_VENUSPLANET:
-			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Venus>(LEVEL_SELECTPLANET, TEXT("Venus")))
-				return E_FAIL;
-			break;*/
-
-		case  LEVEL::LEVEL_MAGMAPLANET:
-			if (!GAMEINSTANCE->Add_GameObject<CPlanet_Magma>(LEVEL_SELECTPLANET, TEXT("Magma")))
-				return E_FAIL;
-			break;
-		}
-
-		m_ePreNextPlanet = m_eNextPlanet;
-	}
+	
 
 
   // 스테이지 클리어시 원점 이동
@@ -502,7 +516,7 @@ void CLevel_SelectPlanet::SelectPlanet_Event(float fTimeDelta)
 	{
 		m_pQuestBoxObject->Set_Enable(true);
 
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)280 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n행성들을 정복해 비행선 강화하기"), 0);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)280 },  D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무  \n행성들을 정복해 보스 스테이지 클리어"), 0);
 	  
 		m_iFontiX -= 0.8;
 

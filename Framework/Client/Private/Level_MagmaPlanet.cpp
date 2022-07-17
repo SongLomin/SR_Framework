@@ -38,6 +38,7 @@
 #include <Planet_Select.h>
 #include <Level_SelectPlanet.h>
 
+
 CLevel_MagmaPlanet::CLevel_MagmaPlanet()
 {
 
@@ -126,7 +127,7 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 	//GAMEINSTANCE->Add_GameObject<CPlanet_Select>(LEVEL_VENUSPLANET, TEXT("Earth"));
 
 
-	
+
 	GAMEINSTANCE->PlaySoundW(TEXT("MagmaPlanet.wav"), 1.f);
 
 
@@ -135,14 +136,14 @@ HRESULT CLevel_MagmaPlanet::Initialize()
 
 void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 {
-	__super::Tick(fTimeDelta);		
+	__super::Tick(fTimeDelta);
 
 	m_fSpawnTime -= fTimeDelta;
 
 	if (m_fSpawnTime < 0.f && m_bSpawnCheck == true)
 	{
 		CTransform* pEnemyTransform = GAMEINSTANCE->Add_GameObject<CMagmaSpace_Body>(CURRENT_LEVEL, TEXT("Enemy_MagmaSpace"), nullptr, nullptr, true)
-										->Get_Component<CTransform>();
+			->Get_Component<CTransform>();
 		_float3 SpawnPos{ 0, 0.f, 300.f };
 
 		_float RotateX = (_float)(rand() % 361);
@@ -182,7 +183,7 @@ void CLevel_MagmaPlanet::Tick(_float fTimeDelta)
 		if (0.f > m_fTime)
 		{
 			m_bCinematic = false;
-			
+
 
 			CSong_Ship_Body* pMainCharacter = nullptr;
 
@@ -330,7 +331,7 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 	{
 		m_pQuestBoxObject->Set_Enable(true);
 
-		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)270 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n      엘리트 비행선 섬멸  \n           %d / 30    \n     남은시간 (초) :"), 0 , m_iMonsterCount);
+		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiX, (LONG)270 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("            현재 임무\n      엘리트 비행선 섬멸  \n           %d / 30    \n     남은시간 (초) :"), 0, m_iMonsterCount);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)m_iFontiXCount, (LONG)308 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("\n  %d"), 1, (_uint)m_fMaxTime);
 
 		if (m_iFontiX <= 1040)
@@ -354,14 +355,13 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 		m_pQuestBoxObject->Set_Enable(false);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("이런, 여기에 더있다간 기체를 더이상 수리를 못하게될거세. \n 아쉽지만 일단 퇴각하도록."), 0);
-	
+		bMagmaClear = false;
+
 		if (m_fMaxTime <= -5.f)
 		{
 			// 스타트 레벨로 돌아감
-
-			//GAMEINSTANCE->Swap_Camera();
-			//if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
-			//	return;
+			GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
+			GAMEINSTANCE->StopAll();
 		}
 	}
 
@@ -371,25 +371,24 @@ void CLevel_MagmaPlanet::MagmaPlanet_Event(float fTimeDelta)
 		m_pQuestBoxObject->Set_Enable(false);
 		m_pTextBoxObject->Set_Enable(true);
 		GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("하하하 역시 자네는 내가 눈여겨 보고있엇다네! \n 어서 복귀해서 축배를 드세나!"), 0);
-
+		bMagmaClear = true;
 		if (m_fMaxTime <= -5.f)
 		{
 			// 스타트 레벨로 돌아감
-			
-			//GAMEINSTANCE->Swap_Camera();
-			//if (FAILED(GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create((LEVEL)m_iNextLevel))))
-			//	return;
+
+			GAMEINSTANCE->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
+			GAMEINSTANCE->StopAll();
 		}
 	}
 
 
-	
+
 
 }
 
 CLevel_MagmaPlanet* CLevel_MagmaPlanet::Create()
 {
-	CLevel_MagmaPlanet*		pInstance = new CLevel_MagmaPlanet();
+	CLevel_MagmaPlanet* pInstance = new CLevel_MagmaPlanet();
 
 	if (FAILED(pInstance->Initialize()))
 	{

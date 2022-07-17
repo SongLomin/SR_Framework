@@ -26,7 +26,7 @@ private:
 	_float  m_fRockSqawnTime = 1.f;
 	virtual void Change_Level(void* pArg, _uint _iNextLevel);
 	virtual HRESULT Complete_Condition() { return S_OK; }
-
+public:
 public:
 	static CLevel_ExoPlanet* Create();
 	virtual void Free() override;

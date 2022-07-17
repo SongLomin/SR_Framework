@@ -6,6 +6,8 @@
 #include "Level_Loading.h"
 #include "TransportShip_HpBar.h"
 
+extern _bool bRedClear;
+
 CAI_TransportShip::CAI_TransportShip()
 {
 }
@@ -51,6 +53,7 @@ void CAI_TransportShip::Tick(_float fTimeDelta)
 	if (m_pStatusCom->Get_Status().fHp <= DBL_EPSILON)
 	{
 		
+		
 		GAMEINSTANCE->Add_Text(_point{ (LONG)640, (LONG)400 }, D3DCOLOR_ARGB(255, 0, 204, 255), 2.f, TEXT("화물선이(가) 파괴되었습니다\n     임무 실패!"), 0);
 		GAMEINSTANCE->StopSound(BGM);
 		m_fTransLevelTime -= fTimeDelta;
@@ -58,6 +61,7 @@ void CAI_TransportShip::Tick(_float fTimeDelta)
 		if (m_fTransLevelTime <= 0)
 		{
 			Set_Dead();
+			bRedClear = false;
 			GAMEINSTANCE->Get_Instance()->Register_OpenLevelEvent(LEVEL_LOADING, CLevel_Loading::Create(LEVEL_SELECTPLANET));
 		}
 	}

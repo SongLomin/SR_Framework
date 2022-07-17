@@ -5,7 +5,7 @@
 #include "Monster.h"
 
 BEGIN(Engine)
-class CMesh_Ship2;
+class CMesh_Ship6;
 END
 
 
@@ -27,7 +27,7 @@ public:
     virtual HRESULT Render() override;
 
 private: /* For My Component*/
-    CMesh_Ship2* m_pMeshCom = nullptr;
+    CMesh_Ship6* m_pMeshCom = nullptr;
 
 private:
     void Update_Target(CGameObject* _Target);

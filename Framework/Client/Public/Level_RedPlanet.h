@@ -27,6 +27,7 @@ public:
 
 private:
 	_uint iEnemyCount = 0;
+public:
 
 private:
 	void RedPlanet_Event(float fTimeDelta);

@@ -97,7 +97,7 @@ void CEnemy_StagBeetle::SetUp_Components_For_Child()
 	m_pStatusCom = Add_Component<CStatus>(&Status);
 	m_pStatusCom->Set_WeakPtr(&m_pStatusCom);
 
-	m_pMeshCom = Add_Component<CMesh_Ship2>();
+	m_pMeshCom = Add_Component<CMesh_Ship6>();
 	m_pMeshCom->Set_WeakPtr((void**)&m_pMeshCom);
 	m_pMeshCom->Set_Texture(TEXT("Red_Cube"), MEMORY_TYPE::MEMORY_STATIC);
 
