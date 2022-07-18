@@ -247,20 +247,23 @@ void CLevel_SunPlanet::SunPlanet_Event(_float fTimeDelta)
 					GAMEINSTANCE->Add_TimerEvent(1, this, 0.f, false, false, false);
 
 
-					GAMEINSTANCE->PlaySoundW(TEXT("RollerSpawn.wav"), 1.f);
+					GAMEINSTANCE->PlaySoundW(TEXT("RollerSpawn.wav"), 230, 1.f);
+					
+					
 				}
 
 				++m_iSpawnCount;
 				if (!m_bEventCheck[1])
 				{
 					m_pTextBoxObject->Set_Enable(true);
+					GAMEINSTANCE->PlaySoundW(TEXT("ManKai.wav"), 220, 1.f);
 					GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT(" 본함에서 함장이 나왔네 ! \n 함장을 죽이면 전쟁은 끝날걸세 !! "), 0);
 		
 				}
 			}
 			if (!m_bEventCheck[1] && m_fTextCount < 0.f)
 			{
-				// 엔딩
+				
 				m_pTextBoxObject->Set_Enable(false);
 				m_bEventCheck[1] = true;
 			}
@@ -281,7 +284,7 @@ void CLevel_SunPlanet::SunPlanet_Event(_float fTimeDelta)
 				if (!m_bEventCheck[2])
 				{
 					m_pTextBoxObject->Set_Enable(true);
-					GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 0.f, TEXT("자네 덕에 전쟁에서 승리했네 ! \n이제 돌아가서 편안히 쉬시게 !! "), 0);
+					GAMEINSTANCE->Add_Text(_point{ (LONG)525, (LONG)590 }, D3DCOLOR_ARGB(255, 0, 204, 255), 10.f, TEXT("자네 덕에 전쟁에서 승리했네 ! \n이제 돌아가서 편안히 쉬시게 !! "), 0);
 					GAMEINSTANCE->PlaySoundW(TEXT("Boss_Die.wav"), 1.f);
 					Change_Level(nullptr, LEVEL::LEVEL_CHARACTERSELECT);
 

@@ -23,7 +23,7 @@ private:
 
 private:
 	_float  m_fSpawnTime = 3.f;
-	_float m_fMaxTime = 300.f;
+	_float m_fMaxTime = 180.f;
 	_bool  m_bSpawnCheck = true;
 	_uint m_iSpawnCount = 0;
 
